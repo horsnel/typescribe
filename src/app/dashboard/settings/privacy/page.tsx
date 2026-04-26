@@ -17,21 +17,21 @@ export default function DashboardSettingsPrivacyPage() {
   const { user, isAuthenticated } = useAuth();
 
   if (!isAuthenticated) {
-    return <DashboardSidebar><div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-12 text-center"><p className="text-[#a0a0b0]">Please sign in to access settings.</p></div></DashboardSidebar>;
+    return <DashboardSidebar><div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center"><p className="text-[#9ca3af]">Please sign in to access settings.</p></div></DashboardSidebar>;
   }
 
   return (
     <DashboardSidebar>
       <h1 className="text-2xl font-bold text-white mb-6">Privacy Settings</h1>
 
-      <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-6">
-        <p className="text-sm text-[#a0a0b0] mb-6">Control who can see your information and activity on Typescribe.</p>
+      <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
+        <p className="text-sm text-[#9ca3af] mb-6">Control who can see your information and activity on Typescribe.</p>
         <div className="space-y-4">
           {PRIVACY_OPTIONS.map((option) => (
-            <div key={option.key} className="flex items-start justify-between py-3 border-b border-[#2a2a35]/50 last:border-0">
+            <div key={option.key} className="flex items-start justify-between py-3 border-b border-[#1e1e28]/50 last:border-0">
               <div>
                 <p className="text-sm text-white">{option.label}</p>
-                <p className="text-xs text-[#6b6b7b] mt-0.5">{option.description}</p>
+                <p className="text-xs text-[#6b7280] mt-0.5">{option.description}</p>
               </div>
               <button className={`w-12 h-6 rounded-full relative transition-colors flex-shrink-0 ${option.default ? 'bg-[#e50914]' : 'bg-[#2a2a35]'}`}>
                 <span className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-transform ${option.default ? 'right-1' : 'left-1'}`} />

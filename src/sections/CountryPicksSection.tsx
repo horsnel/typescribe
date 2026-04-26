@@ -42,7 +42,7 @@ function CountrySection({ code, name, label }: CountrySectionProps) {
   if (!loading && movies.length === 0) return null;
 
   return (
-    <section className="py-12 bg-[#0a0a0f]">
+    <section className="py-12 bg-[#050507]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
@@ -62,7 +62,7 @@ function CountrySection({ code, name, label }: CountrySectionProps) {
         {loading ? (
           <div className="flex items-center gap-3 py-8">
             <Loader2 className="w-6 h-6 text-[#e50914] animate-spin" />
-            <span className="text-sm text-[#6b6b7b]">Loading {name} content...</span>
+            <span className="text-sm text-[#6b7280]">Loading {name} content...</span>
           </div>
         ) : (
           <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">

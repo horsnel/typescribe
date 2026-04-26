@@ -14,7 +14,7 @@ function AnimeCard({ anime }: { anime: Movie }) {
       href={`/movie/${anime.slug}`}
       className="group relative flex-shrink-0 w-[180px] sm:w-[200px] cursor-pointer block"
     >
-      <div className="relative aspect-[2/3] rounded-xl overflow-hidden bg-[#12121a]">
+      <div className="relative aspect-[2/3] rounded-xl overflow-hidden bg-[#0c0c10]">
         <img
           src={anime.poster_path}
           alt={anime.title}
@@ -48,10 +48,10 @@ function AnimeCard({ anime }: { anime: Movie }) {
             </span>
           )}
           {year && !seasonTag && (
-            <span className="text-xs text-[#a0a0b0]">{year}</span>
+            <span className="text-xs text-[#9ca3af]">{year}</span>
           )}
           {genreNames.map((g) => (
-            <span key={g} className="text-[10px] font-medium text-[#a0a0b0] bg-[#12121a] border border-[#2a2a35] px-2 py-0.5 rounded-full">
+            <span key={g} className="text-[10px] font-medium text-[#9ca3af] bg-[#0c0c10] border border-white/[0.06] px-2 py-0.5 rounded-full">
               {g}
             </span>
           ))}
@@ -90,7 +90,7 @@ export default function TrendingAnimeSection() {
   if (!loading && animeList.length === 0) return null;
 
   return (
-    <section id="anime-trending" className="py-20 bg-[#0a0a0f]">
+    <section id="anime-trending" className="py-20 bg-[#050507]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="reveal-section flex items-center justify-between mb-10">
           <div className="flex items-center gap-3">
@@ -105,14 +105,14 @@ export default function TrendingAnimeSection() {
             <div className="hidden md:flex items-center gap-2">
               <button
                 onClick={() => scroll('left')}
-                className="w-10 h-10 flex items-center justify-center rounded-full bg-[#12121a] border border-[#2a2a35] text-white hover:border-purple-500 hover:text-purple-400 transition-colors"
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-[#0c0c10] border border-white/[0.06] text-white hover:border-purple-500 hover:text-purple-400 transition-colors"
                 aria-label="Scroll left"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
               <button
                 onClick={() => scroll('right')}
-                className="w-10 h-10 flex items-center justify-center rounded-full bg-[#12121a] border border-[#2a2a35] text-white hover:border-purple-500 hover:text-purple-400 transition-colors"
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-[#0c0c10] border border-white/[0.06] text-white hover:border-purple-500 hover:text-purple-400 transition-colors"
                 aria-label="Scroll right"
               >
                 <ChevronRight className="w-5 h-5" />
@@ -120,7 +120,7 @@ export default function TrendingAnimeSection() {
             </div>
             <Link
               href="/browse?format=anime"
-              className="flex items-center gap-1.5 text-sm text-[#a0a0b0] hover:text-purple-400 transition-colors"
+              className="flex items-center gap-1.5 text-sm text-[#9ca3af] hover:text-purple-400 transition-colors"
             >
               Browse All <ArrowRight className="w-4 h-4" />
             </Link>
@@ -129,7 +129,7 @@ export default function TrendingAnimeSection() {
         {loading ? (
           <div className="flex items-center justify-center py-12">
             <Loader2 className="w-6 h-6 text-purple-400 animate-spin" />
-            <span className="ml-3 text-[#6b6b7b] text-sm">Loading anime...</span>
+            <span className="ml-3 text-[#6b7280] text-sm">Loading anime...</span>
           </div>
         ) : (
           <div

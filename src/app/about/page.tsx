@@ -35,22 +35,22 @@ const timeline = [
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-[#0a0a0f] pt-8 pb-16">
+    <div className="min-h-screen bg-[#050507] pt-8 pb-16">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
 
         {/* Hero */}
         <div className="mb-16">
           <h1 className="text-3xl lg:text-5xl font-extrabold text-white mb-4 leading-tight">About <span className="text-[#e50914]">Typescribe</span></h1>
-          <p className="text-lg text-[#a0a0b0] leading-relaxed max-w-3xl">Typescribe is an AI-powered movie review platform that combines cutting-edge artificial intelligence with genuine community insights. Our mission is to help you discover your next favorite movie with reviews that are both intelligent and authentic — because the best film criticism combines the breadth of data with the depth of human experience.</p>
+          <p className="text-lg text-[#9ca3af] leading-relaxed max-w-3xl">Typescribe is an AI-powered movie review platform that combines cutting-edge artificial intelligence with genuine community insights. Our mission is to help you discover your next favorite movie with reviews that are both intelligent and authentic — because the best film criticism combines the breadth of data with the depth of human experience.</p>
         </div>
 
         {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-16">
           {stats.map(({ label, value, icon: Icon }) => (
-            <div key={label} className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-5 text-center">
+            <div key={label} className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5 text-center">
               <Icon className="w-6 h-6 text-[#e50914] mx-auto mb-2" />
               <div className="text-2xl font-extrabold text-white mb-1">{value}</div>
-              <div className="text-xs text-[#6b6b7b]">{label}</div>
+              <div className="text-xs text-[#6b7280]">{label}</div>
             </div>
           ))}
         </div>
@@ -60,10 +60,10 @@ export default function AboutPage() {
           <h2 className="text-2xl lg:text-3xl font-extrabold text-white mb-8">What Makes Us Different</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {values.map(({ icon: Icon, title, desc }) => (
-              <div key={title} className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-6 hover:border-[#3a3a45] transition-colors">
+              <div key={title} className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6 hover:border-[#3a3a45] transition-colors">
                 <Icon className="w-8 h-8 text-[#e50914] mb-3" />
                 <h3 className="text-lg font-semibold text-white mb-2">{title}</h3>
-                <p className="text-sm text-[#a0a0b0] leading-relaxed">{desc}</p>
+                <p className="text-sm text-[#9ca3af] leading-relaxed">{desc}</p>
               </div>
             ))}
           </div>
@@ -78,11 +78,11 @@ export default function AboutPage() {
               { step: '02', icon: Sparkles, title: 'Read AI + Community Reviews', desc: 'Get the full picture with AI-generated analysis alongside real user opinions. See aggregated ratings from IMDb, Rotten Tomatoes, and Metacritic in one place.' },
               { step: '03', icon: Star, title: 'Decide & Share', desc: 'Make informed viewing decisions, add movies to your watchlist, and share your own reviews with the community. Your voice matters.' },
             ].map(({ step, icon: Icon, title, desc }) => (
-              <div key={step} className="relative bg-[#12121a] border border-[#2a2a35] rounded-xl p-6">
+              <div key={step} className="relative bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
                 <span className="absolute top-4 right-4 text-4xl font-extrabold text-[#1a1a25]">{step}</span>
                 <Icon className="w-8 h-8 text-[#e50914] mb-4" />
                 <h3 className="text-lg font-semibold text-white mb-2">{title}</h3>
-                <p className="text-sm text-[#a0a0b0] leading-relaxed">{desc}</p>
+                <p className="text-sm text-[#9ca3af] leading-relaxed">{desc}</p>
               </div>
             ))}
           </div>
@@ -99,10 +99,10 @@ export default function AboutPage() {
                   <div className="absolute left-0 top-1 w-8 h-8 rounded-full bg-[#e50914] flex items-center justify-center">
                     <Award className="w-4 h-4 text-white" />
                   </div>
-                  <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-5">
+                  <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5">
                     <span className="text-xs font-semibold text-[#e50914] uppercase tracking-wider">{year}</span>
                     <h3 className="text-lg font-semibold text-white mt-1 mb-2">{title}</h3>
-                    <p className="text-sm text-[#a0a0b0] leading-relaxed">{desc}</p>
+                    <p className="text-sm text-[#9ca3af] leading-relaxed">{desc}</p>
                   </div>
                 </div>
               ))}
@@ -115,13 +115,13 @@ export default function AboutPage() {
           <h2 className="text-2xl lg:text-3xl font-extrabold text-white mb-8">Meet the Team</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {team.map(({ name, role, bio }) => (
-              <div key={name} className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-5 text-center hover:border-[#3a3a45] transition-colors">
+              <div key={name} className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5 text-center hover:border-[#3a3a45] transition-colors">
                 <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#e50914] to-[#b20710] flex items-center justify-center text-white text-xl font-bold mx-auto mb-3">
                   {name.split(' ').map(n => n[0]).join('')}
                 </div>
                 <h3 className="text-base font-semibold text-white">{name}</h3>
                 <p className="text-xs text-[#e50914] font-medium mb-2">{role}</p>
-                <p className="text-xs text-[#a0a0b0] leading-relaxed">{bio}</p>
+                <p className="text-xs text-[#9ca3af] leading-relaxed">{bio}</p>
               </div>
             ))}
           </div>
@@ -131,7 +131,7 @@ export default function AboutPage() {
         <div className="bg-gradient-to-br from-[#e50914]/20 to-[#b20710]/10 border border-[#e50914]/20 rounded-2xl p-8 text-center">
           <Zap className="w-10 h-10 text-[#e50914] mx-auto mb-4" />
           <h2 className="text-2xl font-bold text-white mb-3">Ready to Discover Great Movies?</h2>
-          <p className="text-[#a0a0b0] mb-6 max-w-md mx-auto">Join our community of film lovers and let AI-powered insights guide your next movie night.</p>
+          <p className="text-[#9ca3af] mb-6 max-w-md mx-auto">Join our community of film lovers and let AI-powered insights guide your next movie night.</p>
           <div className="flex items-center justify-center gap-4 flex-wrap">
             <Link href="/browse" className="inline-flex items-center justify-center bg-[#e50914] hover:bg-[#b20710] text-white font-semibold px-6 py-3 rounded-lg text-sm transition-colors">Browse Movies</Link>
             <Link href="/signup" className="inline-flex items-center justify-center border border-white/20 bg-transparent text-white hover:bg-white/10 font-semibold px-6 py-3 rounded-lg text-sm transition-colors">Create Account</Link>

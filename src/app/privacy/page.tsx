@@ -27,26 +27,26 @@ Depending on your jurisdiction, you may have additional rights such as the right
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-[#0a0a0f] pt-8 pb-16">
+    <div className="min-h-screen bg-[#050507] pt-8 pb-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
-        <nav className="flex items-center gap-2 text-sm text-[#6b6b7b] mb-6">
+        <nav className="flex items-center gap-2 text-sm text-[#6b7280] mb-6">
           <Link href="/" className="hover:text-white transition-colors">Home</Link>
           <ChevronRight className="w-3 h-3" />
-          <span className="text-[#a0a0b0]">Privacy Policy</span>
+          <span className="text-[#9ca3af]">Privacy Policy</span>
         </nav>
 
         <div className="flex items-center gap-3 mb-2">
           <Shield className="w-7 h-7 text-[#e50914]" />
           <h1 className="text-3xl lg:text-4xl font-extrabold text-white">Privacy Policy</h1>
         </div>
-        <p className="text-sm text-[#6b6b7b] mb-8">Last updated: April 22, 2026</p>
+        <p className="text-sm text-[#6b7280] mb-8">Last updated: April 22, 2026</p>
 
         <div className="space-y-6">
           {sections.map((section) => (
-            <div key={section.title} className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-6">
+            <div key={section.title} className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
               <h2 className="text-lg font-semibold text-white mb-3">{section.title}</h2>
               {section.content.split('\n\n').map((paragraph, idx) => (
-                <p key={idx} className="text-sm text-[#a0a0b0] leading-relaxed mb-3 last:mb-0">{paragraph}</p>
+                <p key={idx} className="text-sm text-[#9ca3af] leading-relaxed mb-3 last:mb-0">{paragraph}</p>
               ))}
             </div>
           ))}
@@ -54,9 +54,9 @@ export default function PrivacyPage() {
 
         {/* Quick Links */}
         <div className="mt-10 flex flex-wrap gap-3">
-          <Link href="/terms" className="px-4 py-2 bg-[#12121a] border border-[#2a2a35] rounded-lg text-sm text-[#a0a0b0] hover:text-white hover:border-[#3a3a45] transition-colors">Terms of Service</Link>
-          <Link href="/cookies" className="px-4 py-2 bg-[#12121a] border border-[#2a2a35] rounded-lg text-sm text-[#a0a0b0] hover:text-white hover:border-[#3a3a45] transition-colors">Cookie Policy</Link>
-          <Link href="/contact" className="px-4 py-2 bg-[#12121a] border border-[#2a2a35] rounded-lg text-sm text-[#a0a0b0] hover:text-white hover:border-[#3a3a45] transition-colors">Contact Us</Link>
+          <Link href="/terms" className="px-4 py-2 bg-[#0c0c10] border border-[#1e1e28] rounded-lg text-sm text-[#9ca3af] hover:text-white hover:border-[#3a3a45] transition-colors">Terms of Service</Link>
+          <Link href="/cookies" className="px-4 py-2 bg-[#0c0c10] border border-[#1e1e28] rounded-lg text-sm text-[#9ca3af] hover:text-white hover:border-[#3a3a45] transition-colors">Cookie Policy</Link>
+          <Link href="/contact" className="px-4 py-2 bg-[#0c0c10] border border-[#1e1e28] rounded-lg text-sm text-[#9ca3af] hover:text-white hover:border-[#3a3a45] transition-colors">Contact Us</Link>
         </div>
       </div>
     </div>

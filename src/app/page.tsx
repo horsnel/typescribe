@@ -47,20 +47,20 @@ export default function HomePage() {
 
       {/* Welcome back banner for returning users */}
       {isReturning && (
-        <section className="py-6 bg-gradient-to-r from-[#e50914]/5 via-[#0a0a0f] to-purple-500/5 border-b border-[#2a2a35]">
+        <section className="py-6 bg-gradient-to-r from-[#e50914]/5 via-[#0a0a0f] to-purple-500/5 border-b border-[#1e1e28]">
           <div className="max-w-7xl mx-auto px-6 lg:px-12">
             <div className="flex items-center gap-3">
               <Sparkles className="w-5 h-5 text-[#e50914]" />
               <h2 className="text-lg font-semibold text-white">Welcome back, {userName}!</h2>
             </div>
             <div className="flex flex-wrap gap-3 mt-3">
-              <Link href="/dashboard/watchlist" className="flex items-center gap-2 px-3 py-2 bg-[#12121a] border border-[#2a2a35] rounded-lg text-sm text-[#a0a0b0] hover:text-white hover:border-[#3a3a45] transition-colors">
+              <Link href="/dashboard/watchlist" className="flex items-center gap-2 px-3 py-2 bg-[#0c0c10] border border-[#1e1e28] rounded-lg text-sm text-[#9ca3af] hover:text-white hover:border-[#3a3a45] transition-colors">
                 <Clock className="w-4 h-4 text-[#e50914]" /> Continue Watching
               </Link>
-              <Link href="/dashboard/communities" className="flex items-center gap-2 px-3 py-2 bg-[#12121a] border border-[#2a2a35] rounded-lg text-sm text-[#a0a0b0] hover:text-white hover:border-[#3a3a45] transition-colors">
+              <Link href="/dashboard/communities" className="flex items-center gap-2 px-3 py-2 bg-[#0c0c10] border border-[#1e1e28] rounded-lg text-sm text-[#9ca3af] hover:text-white hover:border-[#3a3a45] transition-colors">
                 <Users className="w-4 h-4 text-purple-400" /> Your Communities
               </Link>
-              <Link href="/browse" className="flex items-center gap-2 px-3 py-2 bg-[#12121a] border border-[#2a2a35] rounded-lg text-sm text-[#a0a0b0] hover:text-white hover:border-[#3a3a45] transition-colors">
+              <Link href="/browse" className="flex items-center gap-2 px-3 py-2 bg-[#0c0c10] border border-[#1e1e28] rounded-lg text-sm text-[#9ca3af] hover:text-white hover:border-[#3a3a45] transition-colors">
                 <Film className="w-4 h-4 text-amber-400" /> Discover New
               </Link>
             </div>

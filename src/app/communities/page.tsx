@@ -140,13 +140,13 @@ export default function CommunitiesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] pt-20">
+    <div className="min-h-screen bg-[#050507] pt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
           <div>
             <h1 className="text-3xl font-bold text-white mb-1">Communities</h1>
-            <p className="text-[#a0a0b0]">Join communities, discuss movies, and share recommendations.</p>
+            <p className="text-[#9ca3af]">Join communities, discuss movies, and share recommendations.</p>
           </div>
           {isAuthenticated && (
             <Button
@@ -164,7 +164,7 @@ export default function CommunitiesPage() {
             <div className="flex items-center gap-2 mb-4">
               <CheckCircle2 className="w-5 h-5 text-emerald-400" />
               <h2 className="text-lg font-semibold text-white">My Communities</h2>
-              <span className="text-xs text-[#6b6b7b] bg-[#12121a] border border-[#2a2a35] px-2 py-0.5 rounded-full">
+              <span className="text-xs text-[#6b7280] bg-[#0c0c10] border border-[#1e1e28] px-2 py-0.5 rounded-full">
                 {myCommunities.length}
               </span>
             </div>
@@ -173,7 +173,7 @@ export default function CommunitiesPage() {
                 <Link
                   key={community.id}
                   href={`/community/${community.id}`}
-                  className="bg-[#12121a] border border-[#e50914]/20 rounded-xl p-5 hover:border-[#e50914]/40 transition-all hover:shadow-lg hover:shadow-[#e50914]/5 group"
+                  className="bg-[#0c0c10] border border-[#e50914]/20 rounded-xl p-5 hover:border-[#e50914]/40 transition-all hover:shadow-lg hover:shadow-[#e50914]/5 group"
                 >
                   <div className="flex items-start justify-between mb-3">
                     <div>
@@ -190,13 +190,13 @@ export default function CommunitiesPage() {
                         e.stopPropagation();
                         handleJoinToggle(community.id);
                       }}
-                      className="border-[#2a2a35] text-[#e50914] hover:text-white hover:bg-[#e50914] hover:border-[#e50914] text-xs gap-1"
+                      className="border-[#1e1e28] text-[#e50914] hover:text-white hover:bg-[#e50914] hover:border-[#e50914] text-xs gap-1"
                     >
                       <UserMinus className="w-3 h-3" /> Leave
                     </Button>
                   </div>
-                  <p className="text-sm text-[#a0a0b0] mb-4 line-clamp-2">{community.description}</p>
-                  <div className="flex items-center gap-4 text-xs text-[#6b6b7b]">
+                  <p className="text-sm text-[#9ca3af] mb-4 line-clamp-2">{community.description}</p>
+                  <div className="flex items-center gap-4 text-xs text-[#6b7280]">
                     <span className="flex items-center gap-1"><Users className="w-3.5 h-3.5" /> {community.members.toLocaleString()}</span>
                     <span className="flex items-center gap-1"><MessageSquare className="w-3.5 h-3.5" /> {community.posts}</span>
                   </div>
@@ -209,13 +209,13 @@ export default function CommunitiesPage() {
         {/* Search & Filter */}
         <div className="flex flex-col sm:flex-row gap-4 mb-8">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6b6b7b]" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6b7280]" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search communities..."
-              className="w-full bg-[#12121a] border border-[#2a2a35] rounded-lg pl-10 pr-4 py-2.5 text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#e50914]"
+              className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-lg pl-10 pr-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914]"
             />
           </div>
           <div className="flex items-center gap-2 overflow-x-auto pb-1">
@@ -224,7 +224,7 @@ export default function CommunitiesPage() {
                 key={type}
                 onClick={() => setTypeFilter(type)}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
-                  typeFilter === type ? 'bg-[#e50914] text-white' : 'bg-[#12121a] border border-[#2a2a35] text-[#a0a0b0] hover:text-white'
+                  typeFilter === type ? 'bg-[#e50914] text-white' : 'bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white'
                 }`}
               >
                 {type}
@@ -241,7 +241,7 @@ export default function CommunitiesPage() {
               <Link
                 key={community.id}
                 href={`/community/${community.id}`}
-                className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-5 hover:border-[#3a3a45] transition-all hover:shadow-lg hover:shadow-black/20 group"
+                className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5 hover:border-[#3a3a45] transition-all hover:shadow-lg hover:shadow-black/20 group"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div>
@@ -262,7 +262,7 @@ export default function CommunitiesPage() {
                       className={`text-xs gap-1 ${
                         isJoined
                           ? 'border-[#e50914]/30 text-[#e50914] hover:text-white hover:bg-[#e50914] hover:border-[#e50914]'
-                          : 'border-[#2a2a35] text-[#a0a0b0] hover:text-white hover:bg-[#e50914] hover:border-[#e50914]'
+                          : 'border-[#1e1e28] text-[#9ca3af] hover:text-white hover:bg-[#e50914] hover:border-[#e50914]'
                       }`}
                     >
                       {isJoined ? <UserMinus className="w-3 h-3" /> : <UserPlus className="w-3 h-3" />}
@@ -270,12 +270,12 @@ export default function CommunitiesPage() {
                     </Button>
                   ) : (
                     <Link href="/login" onClick={(e) => e.stopPropagation()}>
-                      <Button size="sm" variant="outline" className="border-[#2a2a35] text-[#a0a0b0] text-xs">Join</Button>
+                      <Button size="sm" variant="outline" className="border-[#1e1e28] text-[#9ca3af] text-xs">Join</Button>
                     </Link>
                   )}
                 </div>
-                <p className="text-sm text-[#a0a0b0] mb-4 line-clamp-2">{community.description}</p>
-                <div className="flex items-center gap-4 text-xs text-[#6b6b7b]">
+                <p className="text-sm text-[#9ca3af] mb-4 line-clamp-2">{community.description}</p>
+                <div className="flex items-center gap-4 text-xs text-[#6b7280]">
                   <span className="flex items-center gap-1"><Users className="w-3.5 h-3.5" /> {community.members.toLocaleString()}</span>
                   <span className="flex items-center gap-1"><MessageSquare className="w-3.5 h-3.5" /> {community.posts}</span>
                 </div>
@@ -287,42 +287,42 @@ export default function CommunitiesPage() {
         {filtered.length === 0 && (
           <div className="text-center py-16">
             <Users className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
-            <p className="text-[#a0a0b0]">No communities found matching your search.</p>
+            <p className="text-[#9ca3af]">No communities found matching your search.</p>
           </div>
         )}
 
         {/* Create Community Dialog */}
         <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
-          <DialogContent className="bg-[#12121a] border-[#2a2a35] text-white">
+          <DialogContent className="bg-[#0c0c10] border-[#1e1e28] text-white">
             <DialogHeader>
               <DialogTitle className="text-white">Create a Community</DialogTitle>
-              <DialogDescription className="text-[#a0a0b0]">
+              <DialogDescription className="text-[#9ca3af]">
                 Start a new community for movie fans to connect and discuss.
               </DialogDescription>
             </DialogHeader>
             <div className="space-y-4 py-4">
               <div>
-                <label className="text-sm font-medium text-[#a0a0b0] mb-1.5 block">Community Name</label>
+                <label className="text-sm font-medium text-[#9ca3af] mb-1.5 block">Community Name</label>
                 <input
                   type="text"
                   value={newName}
                   onChange={(e) => setNewName(e.target.value)}
                   placeholder="e.g. Horror Film Club"
-                  className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#e50914] text-sm"
+                  className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914] text-sm"
                 />
               </div>
               <div>
-                <label className="text-sm font-medium text-[#a0a0b0] mb-1.5 block">Description</label>
+                <label className="text-sm font-medium text-[#9ca3af] mb-1.5 block">Description</label>
                 <textarea
                   value={newDescription}
                   onChange={(e) => setNewDescription(e.target.value)}
                   placeholder="What's your community about?"
                   rows={3}
-                  className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#e50914] text-sm resize-none"
+                  className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914] text-sm resize-none"
                 />
               </div>
               <div>
-                <label className="text-sm font-medium text-[#a0a0b0] mb-1.5 block">Category</label>
+                <label className="text-sm font-medium text-[#9ca3af] mb-1.5 block">Category</label>
                 <div className="flex gap-2 flex-wrap">
                   {['Genre', 'Country', 'Theme', 'Creator'].map((type) => (
                     <button
@@ -331,7 +331,7 @@ export default function CommunitiesPage() {
                       className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
                         newType === type
                           ? 'bg-[#e50914] text-white'
-                          : 'bg-[#0a0a0f] border border-[#2a2a35] text-[#a0a0b0] hover:text-white'
+                          : 'bg-[#050507] border border-[#1e1e28] text-[#9ca3af] hover:text-white'
                       }`}
                     >
                       {type}
@@ -344,7 +344,7 @@ export default function CommunitiesPage() {
               <Button
                 variant="outline"
                 onClick={() => setShowCreateDialog(false)}
-                className="border-[#2a2a35] text-[#a0a0b0] hover:text-white hover:bg-[#1a1a25]"
+                className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:bg-[#111118]"
               >
                 Cancel
               </Button>

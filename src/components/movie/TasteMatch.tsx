@@ -79,12 +79,12 @@ export default function TasteMatch({ movie }: TasteMatchProps) {
 
   if (matchPercent === null) {
     return (
-      <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-5">
+      <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5">
         <div className="flex items-center gap-2 mb-3">
           <span className="text-sm font-semibold text-white">Taste Match</span>
           <span className="text-[10px] bg-purple-500/10 text-purple-400 px-2 py-0.5 rounded-full border border-purple-500/20">NEW</span>
         </div>
-        <p className="text-xs text-[#6b6b7b]">Set your favorite genres in settings to see your taste match.</p>
+        <p className="text-xs text-[#6b7280]">Set your favorite genres in settings to see your taste match.</p>
         <a href="/dashboard/settings" className="text-xs text-purple-400 hover:underline mt-1 inline-block">Update Preferences →</a>
       </div>
     );
@@ -101,7 +101,7 @@ export default function TasteMatch({ movie }: TasteMatchProps) {
   const offset = circumference - (matchPercent / 100) * circumference;
 
   return (
-    <div className={`bg-[#12121a] border ${borderColor} rounded-xl p-5 ${bgColor}`}>
+    <div className={`bg-[#0c0c10] border ${borderColor} rounded-xl p-5 ${bgColor}`}>
       <div className="flex items-center gap-2 mb-3">
         <span className="text-sm font-semibold text-white">Taste Match</span>
         <span className="text-[10px] bg-purple-500/10 text-purple-400 px-2 py-0.5 rounded-full border border-purple-500/20">NEW</span>
@@ -130,7 +130,7 @@ export default function TasteMatch({ movie }: TasteMatchProps) {
           <p className={`text-sm font-semibold ${color}`}>
             {matchPercent >= 90 ? 'Perfect Match!' : matchPercent >= 60 ? 'Good Match' : 'Different Taste'}
           </p>
-          <p className="text-xs text-[#6b6b7b] mt-1">Based on your watch history and genre preferences</p>
+          <p className="text-xs text-[#6b7280] mt-1">Based on your watch history and genre preferences</p>
           <div className="flex flex-wrap gap-1.5 mt-2">
             {movie.genres.map(g => {
               const isMatch = userGenreSet.has(g.name.toLowerCase());
@@ -140,7 +140,7 @@ export default function TasteMatch({ movie }: TasteMatchProps) {
                   className={`text-[10px] px-2 py-0.5 rounded-full border ${
                     isMatch
                       ? 'border-purple-500/30 text-purple-400 bg-purple-500/10'
-                      : 'border-[#2a2a35] text-[#6b6b7b] bg-[#0a0a0f]'
+                      : 'border-[#1e1e28] text-[#6b7280] bg-[#050507]'
                   }`}
                 >
                   {g.name}

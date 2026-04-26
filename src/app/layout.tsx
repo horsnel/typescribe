@@ -26,10 +26,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#0a0a0f] text-white`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#050507] text-white`}>
+        {/* Subtle ambient glow */}
+        <div className="fixed inset-0 pointer-events-none z-0">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#e50914]/[0.03] rounded-full blur-[120px]" />
+        </div>
         <AuthProvider>
           <SmoothScrollProvider>
-            <div className="min-h-screen bg-[#0a0a0f] flex flex-col">
+            <div className="min-h-screen bg-[#050507] flex flex-col">
               <Navbar />
               <main className="flex-1">{children}</main>
               <Footer />

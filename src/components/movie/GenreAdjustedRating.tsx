@@ -65,7 +65,7 @@ export default function GenreAdjustedRating({ movie }: GenreAdjustedRatingProps)
       {adjustedRatings.map(item => (
         <div
           key={item.genre}
-          className="inline-flex items-center gap-1.5 bg-[#12121a] border border-purple-500/20 rounded-lg px-3 py-1.5"
+          className="inline-flex items-center gap-1.5 bg-[#0c0c10] border border-purple-500/20 rounded-lg px-3 py-1.5"
         >
           <span className="text-[10px] text-purple-400 uppercase tracking-wider font-semibold">For {item.genre} Fans</span>
           <span className="text-sm font-bold text-white">{item.score}</span>

@@ -283,17 +283,17 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
   const movieTitle = movie?.title || slug.replace(/-/g, ' ');
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f]">
+    <div className="min-h-screen bg-[#050507]">
       {/* Header */}
-      <div className="bg-[#12121a] border-b border-[#2a2a35]">
+      <div className="bg-[#0c0c10] border-b border-[#1e1e28]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-6">
           {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 mb-4 text-sm text-[#6b6b7b]">
+          <nav className="flex items-center gap-2 mb-4 text-sm text-[#6b7280]">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <ChevronRight className="w-3 h-3" />
             <Link href={`/movie/${slug}`} className="hover:text-white transition-colors">{movieTitle}</Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-[#a0a0b0]">Debates</span>
+            <span className="text-[#9ca3af]">Debates</span>
           </nav>
 
           <div className="flex items-center justify-between flex-wrap gap-4">
@@ -305,7 +305,7 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
                 <h1 className="text-2xl sm:text-3xl font-extrabold text-white">
                   Change My View
                 </h1>
-                <p className="text-sm text-[#6b6b7b]">
+                <p className="text-sm text-[#6b7280]">
                   Structured debates about {movieTitle}
                 </p>
               </div>
@@ -313,7 +313,7 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
             <div className="flex items-center gap-3">
               <Link
                 href={`/movie/${slug}`}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-[#1a1a25] border border-[#2a2a35] text-[#a0a0b0] hover:text-white hover:bg-[#2a2a35] transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-[#111118] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:bg-[#2a2a35] transition-colors"
               >
                 <ArrowLeft className="w-4 h-4" /> Back to Movie
               </Link>
@@ -341,12 +341,12 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
         {/* New Debate Form */}
         {showNewDebateForm && (
-          <div className="bg-[#12121a] border border-purple-500/30 rounded-xl p-6 mb-8">
+          <div className="bg-[#0c0c10] border border-purple-500/30 rounded-xl p-6 mb-8">
             <div className="flex items-center gap-2 mb-4">
               <Swords className="w-5 h-5 text-purple-400" />
               <h3 className="text-lg font-bold text-white">Start a New Debate</h3>
             </div>
-            <p className="text-sm text-[#6b6b7b] mb-4">
+            <p className="text-sm text-[#6b7280] mb-4">
               Frame your debate as a proposition that people can either defend or challenge. Be specific and opinionated!
             </p>
             <textarea
@@ -354,7 +354,7 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
               onChange={(e) => setNewProposition(e.target.value)}
               placeholder="e.g., The ending was the perfect conclusion to the story"
               rows={3}
-              className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg py-3 px-4 text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-purple-500 resize-none text-sm mb-4"
+              className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-3 px-4 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-purple-500 resize-none text-sm mb-4"
             />
             <div className="flex items-center gap-3">
               <Button
@@ -368,7 +368,7 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
               <Button
                 onClick={() => { setShowNewDebateForm(false); setNewProposition(''); }}
                 variant="outline"
-                className="border-[#2a2a35] text-[#a0a0b0] hover:text-white"
+                className="border-[#1e1e28] text-[#9ca3af] hover:text-white"
               >
                 Cancel
               </Button>
@@ -378,10 +378,10 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
 
         {/* Debates List */}
         {debates.length === 0 ? (
-          <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-12 text-center">
+          <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center">
             <Swords className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
             <h3 className="text-lg font-bold text-white mb-2">No Debates Yet</h3>
-            <p className="text-sm text-[#6b6b7b] mb-4">Be the first to start a debate about {movieTitle}!</p>
+            <p className="text-sm text-[#6b7280] mb-4">Be the first to start a debate about {movieTitle}!</p>
             {isAuthenticated && (
               <Button
                 onClick={() => setShowNewDebateForm(true)}
@@ -399,9 +399,9 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
               const totalArgs = debate.arguments.length;
 
               return (
-                <div key={debate.id} className="bg-[#12121a] border border-[#2a2a35] rounded-xl overflow-hidden">
+                <div key={debate.id} className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl overflow-hidden">
                   {/* Debate Header */}
-                  <div className="p-5 border-b border-[#2a2a35]/50">
+                  <div className="p-5 border-b border-[#1e1e28]/50">
                     <div className="flex items-start gap-3">
                       <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
                         <Shield className="w-4 h-4 text-purple-400" />
@@ -410,7 +410,7 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
                         <h3 className="text-base font-bold text-white leading-snug mb-1">
                           &ldquo;{debate.proposition}&rdquo;
                         </h3>
-                        <div className="flex items-center gap-3 text-xs text-[#6b6b7b]">
+                        <div className="flex items-center gap-3 text-xs text-[#6b7280]">
                           <span>Started by {debate.author}</span>
                           <span>·</span>
                           <span>{timeAgo(debate.createdAt)}</span>
@@ -436,14 +436,14 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
                   {/* Two-Column Debate Area */}
                   <div className="grid grid-cols-1 md:grid-cols-2">
                     {/* Defending Column */}
-                    <div className="p-5 border-r border-[#2a2a35]/50 border-b md:border-b-0">
+                    <div className="p-5 border-r border-[#1e1e28]/50 border-b md:border-b-0">
                       <div className="flex items-center gap-2 mb-4">
                         <div className="w-2 h-2 rounded-full bg-green-500" />
                         <h4 className="text-sm font-semibold text-green-400 uppercase tracking-wider">Defending</h4>
                       </div>
 
                       {defendingArgs.length === 0 ? (
-                        <p className="text-xs text-[#6b6b7b] italic mb-3">No arguments yet. Be the first to defend!</p>
+                        <p className="text-xs text-[#6b7280] italic mb-3">No arguments yet. Be the first to defend!</p>
                       ) : (
                         <div className="space-y-3 mb-3">
                           {defendingArgs.map((arg) => (
@@ -453,16 +453,16 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
                                   {arg.author.charAt(0).toUpperCase()}
                                 </div>
                                 <span className="text-xs font-semibold text-white">{arg.author}</span>
-                                <span className="text-[10px] text-[#6b6b7b] ml-auto">{timeAgo(arg.createdAt)}</span>
+                                <span className="text-[10px] text-[#6b7280] ml-auto">{timeAgo(arg.createdAt)}</span>
                               </div>
-                              <p className="text-sm text-[#a0a0b0] leading-relaxed mb-2">{arg.text}</p>
+                              <p className="text-sm text-[#9ca3af] leading-relaxed mb-2">{arg.text}</p>
                               <div className="flex items-center gap-2">
                                 <button
                                   onClick={() => handleVote(debate.id, arg.id, 'up')}
                                   className={`flex items-center gap-1 text-xs px-2 py-1 rounded transition-colors ${
                                     arg.userVoted === 'up'
                                       ? 'bg-green-500/20 text-green-400'
-                                      : 'text-[#6b6b7b] hover:text-green-400 hover:bg-green-500/10'
+                                      : 'text-[#6b7280] hover:text-green-400 hover:bg-green-500/10'
                                   }`}
                                 >
                                   <ThumbsUp className="w-3 h-3" /> {arg.upvotes}
@@ -472,7 +472,7 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
                                   className={`flex items-center gap-1 text-xs px-2 py-1 rounded transition-colors ${
                                     arg.userVoted === 'down'
                                       ? 'bg-red-500/20 text-red-400'
-                                      : 'text-[#6b6b7b] hover:text-red-400 hover:bg-red-500/10'
+                                      : 'text-[#6b7280] hover:text-red-400 hover:bg-red-500/10'
                                   }`}
                                 >
                                   <ThumbsDown className="w-3 h-3" /> {arg.downvotes}
@@ -485,13 +485,13 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
 
                       {/* Add argument (defending) */}
                       {isAuthenticated && argFormDebateId === debate.id && argFormSide === 'defending' ? (
-                        <div className="bg-[#0a0a0f]/60 border border-green-500/20 rounded-lg p-3">
+                        <div className="bg-[#050507]/60 border border-green-500/20 rounded-lg p-3">
                           <textarea
                             value={argFormText}
                             onChange={(e) => setArgFormText(e.target.value)}
                             placeholder="Make your case for the defense..."
                             rows={3}
-                            className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg py-2 px-3 text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-green-500 resize-none text-sm mb-2"
+                            className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-green-500 resize-none text-sm mb-2"
                           />
                           <div className="flex items-center gap-2">
                             <Button
@@ -507,7 +507,7 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
                               onClick={() => { setArgFormDebateId(null); setArgFormText(''); }}
                               size="sm"
                               variant="ghost"
-                              className="text-[#6b6b7b] hover:text-white text-xs"
+                              className="text-[#6b7280] hover:text-white text-xs"
                             >
                               Cancel
                             </Button>
@@ -531,7 +531,7 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
                       </div>
 
                       {challengingArgs.length === 0 ? (
-                        <p className="text-xs text-[#6b6b7b] italic mb-3">No arguments yet. Be the first to challenge!</p>
+                        <p className="text-xs text-[#6b7280] italic mb-3">No arguments yet. Be the first to challenge!</p>
                       ) : (
                         <div className="space-y-3 mb-3">
                           {challengingArgs.map((arg) => (
@@ -541,16 +541,16 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
                                   {arg.author.charAt(0).toUpperCase()}
                                 </div>
                                 <span className="text-xs font-semibold text-white">{arg.author}</span>
-                                <span className="text-[10px] text-[#6b6b7b] ml-auto">{timeAgo(arg.createdAt)}</span>
+                                <span className="text-[10px] text-[#6b7280] ml-auto">{timeAgo(arg.createdAt)}</span>
                               </div>
-                              <p className="text-sm text-[#a0a0b0] leading-relaxed mb-2">{arg.text}</p>
+                              <p className="text-sm text-[#9ca3af] leading-relaxed mb-2">{arg.text}</p>
                               <div className="flex items-center gap-2">
                                 <button
                                   onClick={() => handleVote(debate.id, arg.id, 'up')}
                                   className={`flex items-center gap-1 text-xs px-2 py-1 rounded transition-colors ${
                                     arg.userVoted === 'up'
                                       ? 'bg-green-500/20 text-green-400'
-                                      : 'text-[#6b6b7b] hover:text-green-400 hover:bg-green-500/10'
+                                      : 'text-[#6b7280] hover:text-green-400 hover:bg-green-500/10'
                                   }`}
                                 >
                                   <ThumbsUp className="w-3 h-3" /> {arg.upvotes}
@@ -560,7 +560,7 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
                                   className={`flex items-center gap-1 text-xs px-2 py-1 rounded transition-colors ${
                                     arg.userVoted === 'down'
                                       ? 'bg-red-500/20 text-red-400'
-                                      : 'text-[#6b6b7b] hover:text-red-400 hover:bg-red-500/10'
+                                      : 'text-[#6b7280] hover:text-red-400 hover:bg-red-500/10'
                                   }`}
                                 >
                                   <ThumbsDown className="w-3 h-3" /> {arg.downvotes}
@@ -573,13 +573,13 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
 
                       {/* Add argument (challenging) */}
                       {isAuthenticated && argFormDebateId === debate.id && argFormSide === 'challenging' ? (
-                        <div className="bg-[#0a0a0f]/60 border border-red-500/20 rounded-lg p-3">
+                        <div className="bg-[#050507]/60 border border-red-500/20 rounded-lg p-3">
                           <textarea
                             value={argFormText}
                             onChange={(e) => setArgFormText(e.target.value)}
                             placeholder="Make your case for the challenge..."
                             rows={3}
-                            className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg py-2 px-3 text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-red-500 resize-none text-sm mb-2"
+                            className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-red-500 resize-none text-sm mb-2"
                           />
                           <div className="flex items-center gap-2">
                             <Button
@@ -595,7 +595,7 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
                               onClick={() => { setArgFormDebateId(null); setArgFormText(''); }}
                               size="sm"
                               variant="ghost"
-                              className="text-[#6b6b7b] hover:text-white text-xs"
+                              className="text-[#6b7280] hover:text-white text-xs"
                             >
                               Cancel
                             </Button>

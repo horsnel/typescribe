@@ -59,7 +59,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center px-4">
+    <div className="min-h-screen bg-[#050507] flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
@@ -68,12 +68,12 @@ export default function LoginPage() {
             <span className="text-2xl font-extrabold text-white">Typescribe</span>
           </Link>
           <h1 className="text-2xl font-bold text-white mb-2">Welcome back</h1>
-          <p className="text-[#6b6b7b]">Sign in to your account to continue</p>
+          <p className="text-[#6b7280]">Sign in to your account to continue</p>
         </div>
 
         {showForgotPassword ? (
           /* Forgot Password Form */
-          <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-6 space-y-4">
+          <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6 space-y-4">
             <div className="flex items-center gap-3 mb-2">
               <KeyRound className="w-5 h-5 text-[#e50914]" />
               <h2 className="text-lg font-semibold text-white">Reset Password</h2>
@@ -84,18 +84,18 @@ export default function LoginPage() {
                   <svg className="w-6 h-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
                 </div>
                 <p className="text-white font-medium mb-1">Check your email</p>
-                <p className="text-sm text-[#6b6b7b]">If an account exists with that email, we&apos;ve sent password reset instructions.</p>
+                <p className="text-sm text-[#6b7280]">If an account exists with that email, we&apos;ve sent password reset instructions.</p>
                 <button onClick={() => { setShowForgotPassword(false); setForgotSent(false); }} className="text-sm text-[#e50914] hover:underline mt-4">Back to Sign In</button>
               </div>
             ) : (
               <>
-                <p className="text-sm text-[#a0a0b0]">Enter your email address and we&apos;ll send you instructions to reset your password.</p>
+                <p className="text-sm text-[#9ca3af]">Enter your email address and we&apos;ll send you instructions to reset your password.</p>
                 <div>
                   <label className="text-sm font-medium text-white mb-1.5 block">Email</label>
-                  <input type="email" value={forgotEmail} onChange={(e) => setForgotEmail(e.target.value)} required className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#e50914]" placeholder="you@example.com" />
+                  <input type="email" value={forgotEmail} onChange={(e) => setForgotEmail(e.target.value)} required className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914]" placeholder="you@example.com" />
                 </div>
                 <Button onClick={handleForgotPassword} className="w-full bg-[#e50914] hover:bg-[#b20710] text-white font-medium">Send Reset Link</Button>
-                <button onClick={() => setShowForgotPassword(false)} className="text-sm text-[#6b6b7b] hover:text-white transition-colors w-full text-center">Back to Sign In</button>
+                <button onClick={() => setShowForgotPassword(false)} className="text-sm text-[#6b7280] hover:text-white transition-colors w-full text-center">Back to Sign In</button>
               </>
             )}
           </div>
@@ -115,11 +115,11 @@ export default function LoginPage() {
             {/* Divider */}
             <div className="flex items-center gap-4 mb-6">
               <div className="flex-1 h-px bg-[#2a2a35]" />
-              <span className="text-xs text-[#6b6b7b]">OR</span>
+              <span className="text-xs text-[#6b7280]">OR</span>
               <div className="flex-1 h-px bg-[#2a2a35]" />
             </div>
 
-            <form onSubmit={handleSubmit} className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-6 space-y-4">
+            <form onSubmit={handleSubmit} className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6 space-y-4">
               {error && (
                 <div className="flex items-center gap-2 bg-red-500/10 border border-red-500/20 rounded-lg p-3">
                   <AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0" />
@@ -134,7 +134,7 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#e50914]"
+                  className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914]"
                   placeholder="you@example.com"
                 />
               </div>
@@ -147,10 +147,10 @@ export default function LoginPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg py-2.5 px-3 pr-10 text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#e50914]"
+                    className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 pr-10 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914]"
                     placeholder="Your password"
                   />
-                  <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6b6b7b] hover:text-white">
+                  <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6b7280] hover:text-white">
                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>
@@ -158,8 +158,8 @@ export default function LoginPage() {
 
               <div className="flex items-center justify-between">
                 <label className="flex items-center gap-2">
-                  <input type="checkbox" className="rounded border-[#2a2a35] bg-[#0a0a0f] text-[#e50914] focus:ring-[#e50914]" />
-                  <span className="text-xs text-[#6b6b7b]">Remember me</span>
+                  <input type="checkbox" className="rounded border-[#1e1e28] bg-[#050507] text-[#e50914] focus:ring-[#e50914]" />
+                  <span className="text-xs text-[#6b7280]">Remember me</span>
                 </label>
                 <button type="button" onClick={() => setShowForgotPassword(true)} className="text-xs text-[#e50914] hover:underline">
                   Forgot password?
@@ -170,7 +170,7 @@ export default function LoginPage() {
                 {loading ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : 'Sign In'}
               </Button>
 
-              <p className="text-center text-sm text-[#6b6b7b]">
+              <p className="text-center text-sm text-[#6b7280]">
                 Don&apos;t have an account?{' '}
                 <Link href="/signup" className="text-[#e50914] hover:underline">Sign Up</Link>
               </p>

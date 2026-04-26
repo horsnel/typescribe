@@ -58,7 +58,7 @@ export default function OnboardingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center px-4">
+    <div className="min-h-screen bg-[#050507] flex items-center justify-center px-4">
       <div className="w-full max-w-lg">
         {/* Logo */}
         <div className="text-center mb-8">
@@ -82,11 +82,11 @@ export default function OnboardingPage() {
         </div>
 
         {/* Step Content */}
-        <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-6">
+        <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
           {step === 'genres' && (
             <>
               <h2 className="text-xl font-bold text-white mb-2">Pick your favorite genres</h2>
-              <p className="text-sm text-[#6b6b7b] mb-6">We&apos;ll use these to personalize your recommendations</p>
+              <p className="text-sm text-[#6b7280] mb-6">We&apos;ll use these to personalize your recommendations</p>
               <div className="grid grid-cols-2 gap-3 mb-6">
                 {genres.map((genre) => (
                   <button
@@ -95,7 +95,7 @@ export default function OnboardingPage() {
                     className={`flex items-center gap-3 p-3 rounded-lg border transition-all text-left ${
                       selectedGenres.includes(genre.name)
                         ? 'border-[#e50914] bg-[#e50914]/10 text-white'
-                        : 'border-[#2a2a35] bg-[#0a0a0f] text-[#a0a0b0] hover:border-[#3a3a45]'
+                        : 'border-[#1e1e28] bg-[#050507] text-[#9ca3af] hover:border-[#3a3a45]'
                     }`}
                   >
                     <div
@@ -117,10 +117,10 @@ export default function OnboardingPage() {
           {step === 'ratings' && (
             <>
               <h2 className="text-xl font-bold text-white mb-2">Set your rating threshold</h2>
-              <p className="text-sm text-[#6b6b7b] mb-6">We&apos;ll highlight movies rated above this score</p>
+              <p className="text-sm text-[#6b7280] mb-6">We&apos;ll highlight movies rated above this score</p>
               <div className="text-center mb-8">
                 <div className="text-5xl font-extrabold text-[#e50914] mb-2">{minRating.toFixed(1)}</div>
-                <p className="text-sm text-[#6b6b7b]">Minimum rating</p>
+                <p className="text-sm text-[#6b7280]">Minimum rating</p>
               </div>
               <input
                 type="range"
@@ -131,7 +131,7 @@ export default function OnboardingPage() {
                 onChange={(e) => setMinRating(parseFloat(e.target.value))}
                 className="w-full accent-[#e50914] mb-2"
               />
-              <div className="flex justify-between text-xs text-[#6b6b7b]">
+              <div className="flex justify-between text-xs text-[#6b7280]">
                 <span>1.0</span>
                 <span>5.0</span>
                 <span>10.0</span>
@@ -142,12 +142,12 @@ export default function OnboardingPage() {
           {step === 'notifications' && (
             <>
               <h2 className="text-xl font-bold text-white mb-2">Notification preferences</h2>
-              <p className="text-sm text-[#6b6b7b] mb-6">Choose how you want to hear from us</p>
+              <p className="text-sm text-[#6b7280] mb-6">Choose how you want to hear from us</p>
               <div className="space-y-4">
-                <div className="flex items-center justify-between p-4 bg-[#0a0a0f] border border-[#2a2a35] rounded-lg">
+                <div className="flex items-center justify-between p-4 bg-[#050507] border border-[#1e1e28] rounded-lg">
                   <div>
                     <p className="text-sm font-medium text-white">Email Notifications</p>
-                    <p className="text-xs text-[#6b6b7b] mt-0.5">Get updates about new movies and reviews</p>
+                    <p className="text-xs text-[#6b7280] mt-0.5">Get updates about new movies and reviews</p>
                   </div>
                   <button
                     onClick={() => setEmailNotifications(!emailNotifications)}
@@ -163,10 +163,10 @@ export default function OnboardingPage() {
                     />
                   </button>
                 </div>
-                <div className="flex items-center justify-between p-4 bg-[#0a0a0f] border border-[#2a2a35] rounded-lg">
+                <div className="flex items-center justify-between p-4 bg-[#050507] border border-[#1e1e28] rounded-lg">
                   <div>
                     <p className="text-sm font-medium text-white">Public Profile</p>
-                    <p className="text-xs text-[#6b6b7b] mt-0.5">Let others see your reviews and watchlist</p>
+                    <p className="text-xs text-[#6b7280] mt-0.5">Let others see your reviews and watchlist</p>
                   </div>
                   <button
                     onClick={() => setPublicProfile(!publicProfile)}
@@ -191,7 +191,7 @@ export default function OnboardingPage() {
                   <Check className="w-8 h-8 text-[#e50914]" />
                 </div>
                 <h2 className="text-xl font-bold text-white mb-2">You&apos;re all set!</h2>
-                <p className="text-sm text-[#6b6b7b]">
+                <p className="text-sm text-[#6b7280]">
                   Welcome to Typescribe, {user.display_name}. Start exploring movies tailored to your taste.
                 </p>
               </div>
@@ -199,10 +199,10 @@ export default function OnboardingPage() {
           )}
 
           {/* Actions */}
-          <div className="flex items-center justify-between mt-6 pt-4 border-t border-[#2a2a35]">
+          <div className="flex items-center justify-between mt-6 pt-4 border-t border-[#1e1e28]">
             {step !== 'done' ? (
               <>
-                <button onClick={handleSkip} className="text-sm text-[#6b6b7b] hover:text-white transition-colors">
+                <button onClick={handleSkip} className="text-sm text-[#6b7280] hover:text-white transition-colors">
                   Skip
                 </button>
                 <Button onClick={handleNext} className="bg-[#e50914] hover:bg-[#b20710] text-white gap-2">

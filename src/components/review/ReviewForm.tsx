@@ -55,7 +55,7 @@ export default function ReviewForm({ movieId, onSubmit, onCancel }: ReviewFormPr
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-6">
+    <form onSubmit={handleSubmit} className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
       <div className="flex items-center gap-2 mb-4">
         <h3 className="text-lg font-semibold text-white">Write a Review</h3>
         <div className="flex items-center gap-1 text-[10px] font-semibold bg-green-500/10 text-green-400 px-2 py-0.5 rounded-full border border-green-500/20">
@@ -84,10 +84,10 @@ export default function ReviewForm({ movieId, onSubmit, onCancel }: ReviewFormPr
 
       <div className="mb-4">
         <label className="text-sm font-medium text-white mb-2 block">Your Review</label>
-        <textarea rows={5} value={text} onChange={(e) => handleTextChange(e.target.value)} placeholder="Share your thoughts about this movie..." className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#e50914] resize-none text-sm" maxLength={MAX_CHARS} />
+        <textarea rows={5} value={text} onChange={(e) => handleTextChange(e.target.value)} placeholder="Share your thoughts about this movie..." className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914] resize-none text-sm" maxLength={MAX_CHARS} />
         <div className="flex items-center justify-between mt-1">
           {errors.text ? <p className="text-xs text-red-400">{errors.text}</p> : <span />}
-          <p className={`text-xs ${text.length > MAX_CHARS * 0.9 ? 'text-red-400' : 'text-[#6b6b7b]'}`}>{text.length}/{MAX_CHARS}</p>
+          <p className={`text-xs ${text.length > MAX_CHARS * 0.9 ? 'text-red-400' : 'text-[#6b7280]'}`}>{text.length}/{MAX_CHARS}</p>
         </div>
       </div>
 
@@ -119,7 +119,7 @@ export default function ReviewForm({ movieId, onSubmit, onCancel }: ReviewFormPr
 
       <div className="flex items-center gap-3">
         <Button type="submit" disabled={!isValid} className="bg-[#e50914] hover:bg-[#b20710] text-white gap-2 disabled:opacity-50 disabled:cursor-not-allowed"><Send className="w-4 h-4" />Submit Review</Button>
-        {onCancel && <Button type="button" variant="outline" onClick={onCancel} className="border-[#2a2a35] text-[#a0a0b0] hover:text-white hover:bg-[#1a1a25] gap-2"><X className="w-4 h-4" />Cancel</Button>}
+        {onCancel && <Button type="button" variant="outline" onClick={onCancel} className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:bg-[#111118] gap-2"><X className="w-4 h-4" />Cancel</Button>}
       </div>
     </form>
   );

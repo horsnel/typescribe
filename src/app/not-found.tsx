@@ -9,7 +9,7 @@ export default function NotFound() {
   const suggestions = movies.slice(0, 4);
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center px-4">
+    <div className="min-h-screen bg-[#050507] flex items-center justify-center px-4">
       <div className="max-w-2xl mx-auto text-center py-16">
         {/* 404 Animation */}
         <div className="mb-8">
@@ -18,10 +18,10 @@ export default function NotFound() {
         </div>
 
         <h1 className="text-2xl sm:text-3xl font-bold text-white mb-3">Page Not Found</h1>
-        <p className="text-[#a0a0b0] mb-2 max-w-md mx-auto">
+        <p className="text-[#9ca3af] mb-2 max-w-md mx-auto">
           Looks like this scene got cut from the final edit. The page you&apos;re looking for doesn&apos;t exist or has been moved.
         </p>
-        <p className="text-sm text-[#6b6b7b] mb-8">
+        <p className="text-sm text-[#6b7280] mb-8">
           Try searching for what you need, or head back to the main page.
         </p>
 
@@ -32,12 +32,12 @@ export default function NotFound() {
             </Button>
           </Link>
           <Link href="/search">
-            <Button variant="outline" className="border-[#2a2a35] text-white hover:bg-[#1a1a25] gap-2">
+            <Button variant="outline" className="border-[#1e1e28] text-white hover:bg-[#111118] gap-2">
               <Search className="w-4 h-4" /> Search Movies
             </Button>
           </Link>
           <Link href="/browse">
-            <Button variant="outline" className="border-[#2a2a35] text-white hover:bg-[#1a1a25] gap-2">
+            <Button variant="outline" className="border-[#1e1e28] text-white hover:bg-[#111118] gap-2">
               <Film className="w-4 h-4" /> Browse
             </Button>
           </Link>

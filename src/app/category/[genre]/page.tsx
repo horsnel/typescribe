@@ -63,15 +63,15 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
   const hasMore = sorted.length > visibleCount;
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] pt-8 pb-16">
+    <div className="min-h-screen bg-[#050507] pt-8 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-sm text-[#6b6b7b] mb-6">
+        <nav className="flex items-center gap-2 text-sm text-[#6b7280] mb-6">
           <Link href="/" className="hover:text-white transition-colors">Home</Link>
           <span>/</span>
           <Link href="/browse" className="hover:text-white transition-colors">Browse</Link>
           <span>/</span>
-          <span className="text-[#a0a0b0]">{displayName}</span>
+          <span className="text-[#9ca3af]">{displayName}</span>
         </nav>
 
         {/* Hero Banner */}
@@ -83,27 +83,27 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
           </div>
           <div className="relative z-10">
             <h1 className="text-3xl lg:text-4xl font-extrabold text-white mb-2">{displayName} Movies</h1>
-            <p className="text-[#a0a0b0] mb-6">{genreMovies.length} movies in this category</p>
+            <p className="text-[#9ca3af] mb-6">{genreMovies.length} movies in this category</p>
 
             {/* Stats Row */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              <div className="bg-[#0a0a0f]/50 backdrop-blur-sm rounded-lg p-3 border border-[#2a2a35]/50">
-                <p className="text-xs text-[#6b6b7b]">Total Movies</p>
+              <div className="bg-[#050507]/50 backdrop-blur-sm rounded-lg p-3 border border-[#1e1e28]/50">
+                <p className="text-xs text-[#6b7280]">Total Movies</p>
                 <p className="text-xl font-bold text-white">{genreMovies.length}</p>
               </div>
-              <div className="bg-[#0a0a0f]/50 backdrop-blur-sm rounded-lg p-3 border border-[#2a2a35]/50">
-                <p className="text-xs text-[#6b6b7b]">Avg Rating</p>
+              <div className="bg-[#050507]/50 backdrop-blur-sm rounded-lg p-3 border border-[#1e1e28]/50">
+                <p className="text-xs text-[#6b7280]">Avg Rating</p>
                 <div className="flex items-center gap-1">
                   <Star className="w-4 h-4 text-[#f5c518] fill-[#f5c518]" />
                   <p className="text-xl font-bold text-[#f5c518]">{avgRating}</p>
                 </div>
               </div>
-              <div className="bg-[#0a0a0f]/50 backdrop-blur-sm rounded-lg p-3 border border-[#2a2a35]/50">
-                <p className="text-xs text-[#6b6b7b]">Highest Rated</p>
+              <div className="bg-[#050507]/50 backdrop-blur-sm rounded-lg p-3 border border-[#1e1e28]/50">
+                <p className="text-xs text-[#6b7280]">Highest Rated</p>
                 <p className="text-sm font-bold text-white truncate">{highestRated?.title || 'N/A'}</p>
               </div>
-              <div className="bg-[#0a0a0f]/50 backdrop-blur-sm rounded-lg p-3 border border-[#2a2a35]/50">
-                <p className="text-xs text-[#6b6b7b]">Newest</p>
+              <div className="bg-[#050507]/50 backdrop-blur-sm rounded-lg p-3 border border-[#1e1e28]/50">
+                <p className="text-xs text-[#6b7280]">Newest</p>
                 <p className="text-sm font-bold text-white truncate">{newestMovie?.title || 'N/A'}</p>
               </div>
             </div>
@@ -126,18 +126,18 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
                     key={value}
                     onClick={() => setSort(value)}
                     className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
-                      sort === value ? 'bg-[#e50914] text-white' : 'bg-[#12121a] border border-[#2a2a35] text-[#a0a0b0] hover:text-white hover:border-[#3a3a45]'
+                      sort === value ? 'bg-[#e50914] text-white' : 'bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
                     }`}
                   >
                     {label}
                   </button>
                 ))}
               </div>
-              <div className="flex items-center border border-[#2a2a35] rounded-lg overflow-hidden">
-                <button onClick={() => setView('grid')} className={`p-2 ${view === 'grid' ? 'bg-[#e50914] text-white' : 'text-[#6b6b7b] hover:text-white'}`}>
+              <div className="flex items-center border border-[#1e1e28] rounded-lg overflow-hidden">
+                <button onClick={() => setView('grid')} className={`p-2 ${view === 'grid' ? 'bg-[#e50914] text-white' : 'text-[#6b7280] hover:text-white'}`}>
                   <Grid3X3 className="w-4 h-4" />
                 </button>
-                <button onClick={() => setView('list')} className={`p-2 ${view === 'list' ? 'bg-[#e50914] text-white' : 'text-[#6b6b7b] hover:text-white'}`}>
+                <button onClick={() => setView('list')} className={`p-2 ${view === 'list' ? 'bg-[#e50914] text-white' : 'text-[#6b7280] hover:text-white'}`}>
                   <List className="w-4 h-4" />
                 </button>
               </div>
@@ -153,16 +153,16 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
                 ) : (
                   <div className="space-y-3">
                     {visible.map((movie) => (
-                      <Link key={movie.id} href={`/movie/${movie.slug}`} className="flex items-center gap-4 bg-[#12121a] border border-[#2a2a35] rounded-xl p-4 hover:border-[#3a3a45] transition-colors group">
-                        <div className="w-12 h-18 rounded-lg overflow-hidden flex-shrink-0 bg-[#0a0a0f]">
+                      <Link key={movie.id} href={`/movie/${movie.slug}`} className="flex items-center gap-4 bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 hover:border-[#3a3a45] transition-colors group">
+                        <div className="w-12 h-18 rounded-lg overflow-hidden flex-shrink-0 bg-[#050507]">
                           <img src={movie.poster_path} alt={movie.title} className="w-full h-full object-cover" />
                         </div>
                         <div className="flex-1 min-w-0">
                           <h3 className="text-sm font-semibold text-white group-hover:text-[#e50914] transition-colors truncate">{movie.title}</h3>
                           <div className="flex items-center gap-2 mt-1">
                             <span className="text-xs text-[#f5c518] font-medium">★ {movie.vote_average.toFixed(1)}</span>
-                            <span className="text-xs text-[#6b6b7b]">{movie.release_date.split('-')[0]}</span>
-                            <span className="text-xs text-[#6b6b7b]">{movie.runtime}m</span>
+                            <span className="text-xs text-[#6b7280]">{movie.release_date.split('-')[0]}</span>
+                            <span className="text-xs text-[#6b7280]">{movie.runtime}m</span>
                           </div>
                         </div>
                       </Link>
@@ -171,7 +171,7 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
                 )}
                 {hasMore && (
                   <div className="text-center mt-10">
-                    <Button onClick={() => setVisibleCount((v) => v + 12)} variant="outline" className="border-[#2a2a35] text-[#a0a0b0] hover:text-white hover:bg-[#1a1a25] gap-2">
+                    <Button onClick={() => setVisibleCount((v) => v + 12)} variant="outline" className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:bg-[#111118] gap-2">
                       <ChevronDown className="w-4 h-4" /> Load More
                     </Button>
                   </div>
@@ -179,7 +179,7 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
               </>
             ) : (
               <div className="text-center py-24">
-                <p className="text-lg text-[#a0a0b0] mb-2">No movies found in this category</p>
+                <p className="text-lg text-[#9ca3af] mb-2">No movies found in this category</p>
                 <Link href="/browse" className="text-[#e50914] hover:underline">Browse all movies</Link>
               </div>
             )}
@@ -189,13 +189,13 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
           <div className="space-y-6">
             {/* Related Genres */}
             {relatedGenres.length > 0 && (
-              <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-5">
-                <h3 className="text-xs font-semibold text-[#6b6b7b] uppercase tracking-wider mb-4">Related Genres</h3>
+              <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5">
+                <h3 className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider mb-4">Related Genres</h3>
                 <div className="space-y-2">
                   {relatedGenres.map((g) => g && (
-                    <Link key={g.id} href={`/category/${g.id}`} className="flex items-center justify-between p-2.5 bg-[#0a0a0f] border border-[#2a2a35] rounded-lg hover:border-[#3a3a45] transition-colors group">
-                      <span className="text-sm text-[#a0a0b0] group-hover:text-white transition-colors">{g.name}</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-[#6b6b7b] group-hover:text-[#e50914] transition-colors" />
+                    <Link key={g.id} href={`/category/${g.id}`} className="flex items-center justify-between p-2.5 bg-[#050507] border border-[#1e1e28] rounded-lg hover:border-[#3a3a45] transition-colors group">
+                      <span className="text-sm text-[#9ca3af] group-hover:text-white transition-colors">{g.name}</span>
+                      <ArrowRight className="w-3.5 h-3.5 text-[#6b7280] group-hover:text-[#e50914] transition-colors" />
                     </Link>
                   ))}
                 </div>
@@ -203,15 +203,15 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
             )}
 
             {/* All Genres */}
-            <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-5">
-              <h3 className="text-xs font-semibold text-[#6b6b7b] uppercase tracking-wider mb-4">All Categories</h3>
+            <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5">
+              <h3 className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider mb-4">All Categories</h3>
               <div className="flex flex-wrap gap-2">
                 {genres.map((g) => (
                   <Link
                     key={g.id}
                     href={`/category/${g.id}`}
                     className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
-                      g.id === genre ? 'bg-[#e50914] text-white' : 'bg-[#0a0a0f] border border-[#2a2a35] text-[#a0a0b0] hover:text-white hover:border-[#3a3a45]'
+                      g.id === genre ? 'bg-[#e50914] text-white' : 'bg-[#050507] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
                     }`}
                   >
                     {g.name}

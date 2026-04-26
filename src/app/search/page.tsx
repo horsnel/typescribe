@@ -78,24 +78,24 @@ function SearchContent() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] pt-8 pb-16">
+    <div className="min-h-screen bg-[#050507] pt-8 pb-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
         <h1 className="text-3xl font-extrabold text-white mb-6">Search</h1>
 
         {/* Search Input */}
         <div className="relative mb-4">
-          <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#6b6b7b]" />
+          <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#6b7280]" />
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => { if (e.key === 'Enter' && query.trim()) saveRecentSearch(query.trim()); }}
             placeholder="Search movies, reviews, news, actors, directors..."
-            className="w-full bg-[#12121a] border border-[#2a2a35] rounded-xl py-3.5 pl-12 pr-10 text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#e50914] text-lg"
+            className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-xl py-3.5 pl-12 pr-10 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914] text-lg"
             autoFocus
           />
           {query && (
-            <button onClick={() => setQuery('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-[#6b6b7b] hover:text-white">
+            <button onClick={() => setQuery('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-[#6b7280] hover:text-white">
               <X className="w-5 h-5" />
             </button>
           )}
@@ -108,13 +108,13 @@ function SearchContent() {
             {recentSearches.length > 0 && (
               <div>
                 <div className="flex items-center gap-2 mb-3">
-                  <Clock className="w-4 h-4 text-[#6b6b7b]" />
-                  <h3 className="text-sm font-semibold text-[#a0a0b0] uppercase tracking-wider">Recent Searches</h3>
-                  <button onClick={() => { setRecentSearches([]); try { localStorage.removeItem('typescribe_recent_searches'); } catch {} }} className="text-xs text-[#6b6b7b] hover:text-white ml-auto">Clear</button>
+                  <Clock className="w-4 h-4 text-[#6b7280]" />
+                  <h3 className="text-sm font-semibold text-[#9ca3af] uppercase tracking-wider">Recent Searches</h3>
+                  <button onClick={() => { setRecentSearches([]); try { localStorage.removeItem('typescribe_recent_searches'); } catch {} }} className="text-xs text-[#6b7280] hover:text-white ml-auto">Clear</button>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {recentSearches.map((search) => (
-                    <button key={search} onClick={() => handleSearch(search)} className="px-3 py-1.5 bg-[#12121a] border border-[#2a2a35] rounded-full text-sm text-[#a0a0b0] hover:text-white hover:border-[#3a3a45] transition-colors">
+                    <button key={search} onClick={() => handleSearch(search)} className="px-3 py-1.5 bg-[#0c0c10] border border-[#1e1e28] rounded-full text-sm text-[#9ca3af] hover:text-white hover:border-[#3a3a45] transition-colors">
                       {search}
                     </button>
                   ))}
@@ -126,11 +126,11 @@ function SearchContent() {
             <div>
               <div className="flex items-center gap-2 mb-3">
                 <TrendingUp className="w-4 h-4 text-[#e50914]" />
-                <h3 className="text-sm font-semibold text-[#a0a0b0] uppercase tracking-wider">Trending Searches</h3>
+                <h3 className="text-sm font-semibold text-[#9ca3af] uppercase tracking-wider">Trending Searches</h3>
               </div>
               <div className="flex flex-wrap gap-2">
                 {trendingSearches.map((search) => (
-                  <button key={search} onClick={() => handleSearch(search)} className="px-3 py-1.5 bg-[#12121a] border border-[#2a2a35] rounded-full text-sm text-[#a0a0b0] hover:text-white hover:border-[#3a3a45] transition-colors">
+                  <button key={search} onClick={() => handleSearch(search)} className="px-3 py-1.5 bg-[#0c0c10] border border-[#1e1e28] rounded-full text-sm text-[#9ca3af] hover:text-white hover:border-[#3a3a45] transition-colors">
                     {search}
                   </button>
                 ))}
@@ -139,12 +139,12 @@ function SearchContent() {
 
             {/* Browse by Genre */}
             <div>
-              <h3 className="text-sm font-semibold text-[#a0a0b0] uppercase tracking-wider mb-3">Browse by Genre</h3>
+              <h3 className="text-sm font-semibold text-[#9ca3af] uppercase tracking-wider mb-3">Browse by Genre</h3>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {genres.slice(0, 9).map((genre) => (
-                  <Link key={genre.id} href={`/category/${genre.id}`} className="flex items-center justify-between bg-[#12121a] border border-[#2a2a35] rounded-lg p-3 hover:border-[#3a3a45] transition-colors group">
-                    <span className="text-sm text-[#a0a0b0] group-hover:text-white transition-colors">{genre.name}</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-[#6b6b7b] group-hover:text-[#e50914] transition-colors" />
+                  <Link key={genre.id} href={`/category/${genre.id}`} className="flex items-center justify-between bg-[#0c0c10] border border-[#1e1e28] rounded-lg p-3 hover:border-[#3a3a45] transition-colors group">
+                    <span className="text-sm text-[#9ca3af] group-hover:text-white transition-colors">{genre.name}</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-[#6b7280] group-hover:text-[#e50914] transition-colors" />
                   </Link>
                 ))}
               </div>
@@ -156,7 +156,7 @@ function SearchContent() {
         {q && (
           <>
             <div className="flex items-center justify-between mb-4">
-              <p className="text-sm text-[#6b6b7b]">
+              <p className="text-sm text-[#6b7280]">
                 {isSearching ? (
                   <span className="flex items-center gap-2">
                     <Loader2 className="w-3.5 h-3.5 animate-spin" /> Searching...
@@ -170,13 +170,13 @@ function SearchContent() {
               </p>
             </div>
 
-            <div className="flex gap-4 mb-6 border-b border-[#2a2a35]">
+            <div className="flex gap-4 mb-6 border-b border-[#1e1e28]">
               {(['movies', 'reviews', 'news'] as Tab[]).map((t) => (
                 <button
                   key={t}
                   onClick={() => setTab(t)}
                   className={`pb-3 text-sm font-medium transition-colors capitalize flex items-center gap-2 ${
-                    tab === t ? 'text-white border-b-2 border-[#e50914]' : 'text-[#6b6b7b] hover:text-[#a0a0b0]'
+                    tab === t ? 'text-white border-b-2 border-[#e50914]' : 'text-[#6b7280] hover:text-[#9ca3af]'
                   }`}
                 >
                   {t === 'movies' && <Film className="w-4 h-4" />}
@@ -195,8 +195,8 @@ function SearchContent() {
               ) : (
                 <div className="text-center py-16">
                   <Film className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" />
-                  <p className="text-[#a0a0b0] mb-1">No movies found</p>
-                  <p className="text-sm text-[#6b6b7b]">Try a different search term or browse by genre</p>
+                  <p className="text-[#9ca3af] mb-1">No movies found</p>
+                  <p className="text-sm text-[#6b7280]">Try a different search term or browse by genre</p>
                 </div>
               )
             )}
@@ -207,7 +207,7 @@ function SearchContent() {
                   {reviewResults.map((r) => {
                     const movie = movies.find((m) => m.id === r.movie_id);
                     return (
-                      <Link key={r.id} href={`/movie/${movie?.slug || ''}`} className="block bg-[#12121a] border border-[#2a2a35] rounded-xl p-5 hover:border-[#3a3a45] transition-colors">
+                      <Link key={r.id} href={`/movie/${movie?.slug || ''}`} className="block bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5 hover:border-[#3a3a45] transition-colors">
                         <div className="flex items-center justify-between mb-2">
                           <span className="text-sm font-semibold text-white">{r.user_name}</span>
                           <div className="flex items-center gap-1">
@@ -216,8 +216,8 @@ function SearchContent() {
                           </div>
                         </div>
                         {movie && <p className="text-xs text-[#e50914] mb-2">Review of {movie.title}</p>}
-                        <p className="text-sm text-[#a0a0b0] line-clamp-3">{r.text}</p>
-                        <p className="text-xs text-[#6b6b7b] mt-2">{new Date(r.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
+                        <p className="text-sm text-[#9ca3af] line-clamp-3">{r.text}</p>
+                        <p className="text-xs text-[#6b7280] mt-2">{new Date(r.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
                       </Link>
                     );
                   })}
@@ -225,7 +225,7 @@ function SearchContent() {
               ) : (
                 <div className="text-center py-16">
                   <MessageSquare className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" />
-                  <p className="text-[#a0a0b0]">No reviews found</p>
+                  <p className="text-[#9ca3af]">No reviews found</p>
                 </div>
               )
             )}
@@ -234,17 +234,17 @@ function SearchContent() {
               newsResults.length > 0 ? (
                 <div className="space-y-4">
                   {newsResults.map((n) => (
-                    <a key={n.id} href={n.url !== '#' ? n.url : undefined} className="block bg-[#12121a] border border-[#2a2a35] rounded-xl p-5 hover:border-[#3a3a45] transition-colors">
+                    <a key={n.id} href={n.url !== '#' ? n.url : undefined} className="block bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5 hover:border-[#3a3a45] transition-colors">
                       <h3 className="text-sm font-semibold text-white mb-2">{n.title}</h3>
-                      <p className="text-sm text-[#a0a0b0] line-clamp-2">{n.excerpt}</p>
-                      <p className="text-xs text-[#6b6b7b] mt-2">{n.source} · {n.date}</p>
+                      <p className="text-sm text-[#9ca3af] line-clamp-2">{n.excerpt}</p>
+                      <p className="text-xs text-[#6b7280] mt-2">{n.source} · {n.date}</p>
                     </a>
                   ))}
                 </div>
               ) : (
                 <div className="text-center py-16">
                   <Newspaper className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" />
-                  <p className="text-[#a0a0b0]">No news found</p>
+                  <p className="text-[#9ca3af]">No news found</p>
                 </div>
               )
             )}
@@ -258,7 +258,7 @@ function SearchContent() {
 export default function SearchPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center">
+      <div className="min-h-screen bg-[#050507] flex items-center justify-center">
         <Loader2 className="w-8 h-8 animate-spin text-[#e50914]" />
       </div>
     }>

@@ -175,21 +175,21 @@ export default function NewsPage() {
     const commentCount = comments.length;
 
     return (
-      <div className="min-h-screen bg-[#0a0a0f] pt-8 pb-16">
+      <div className="min-h-screen bg-[#050507] pt-8 pb-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
-          <nav className="flex items-center gap-2 text-sm text-[#6b6b7b] mb-6">
+          <nav className="flex items-center gap-2 text-sm text-[#6b7280] mb-6">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <span>/</span>
             <button onClick={handleBack} className="hover:text-white transition-colors">News</button>
             <span>/</span>
-            <span className="text-[#a0a0b0] truncate max-w-[200px]">{originalItem?.title}</span>
+            <span className="text-[#9ca3af] truncate max-w-[200px]">{originalItem?.title}</span>
           </nav>
 
           <Button
             onClick={handleBack}
             variant="outline"
             size="sm"
-            className="border-[#2a2a35] text-[#a0a0b0] hover:text-white hover:border-[#3a3a45] mb-6 gap-2"
+            className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45] mb-6 gap-2"
           >
             <ArrowLeft className="w-4 h-4" /> Back to News
           </Button>
@@ -197,29 +197,29 @@ export default function NewsPage() {
           {selectedArticle.loading ? (
             <div className="space-y-6">
               <div className="animate-pulse">
-                <div className="h-8 bg-[#1a1a25] rounded w-3/4 mb-4" />
+                <div className="h-8 bg-[#111118] rounded w-3/4 mb-4" />
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="h-4 bg-[#1a1a25] rounded w-24" />
-                  <div className="h-4 bg-[#1a1a25] rounded w-32" />
+                  <div className="h-4 bg-[#111118] rounded w-24" />
+                  <div className="h-4 bg-[#111118] rounded w-32" />
                 </div>
-                <div className="aspect-[16/9] bg-[#1a1a25] rounded-xl mb-8" />
+                <div className="aspect-[16/9] bg-[#111118] rounded-xl mb-8" />
                 <div className="space-y-3">
-                  <div className="h-4 bg-[#1a1a25] rounded w-full" />
-                  <div className="h-4 bg-[#1a1a25] rounded w-full" />
-                  <div className="h-4 bg-[#1a1a25] rounded w-5/6" />
-                  <div className="h-4 bg-[#1a1a25] rounded w-full" />
-                  <div className="h-4 bg-[#1a1a25] rounded w-4/5" />
-                  <div className="h-4 bg-[#1a1a25] rounded w-full" />
-                  <div className="h-4 bg-[#1a1a25] rounded w-3/4" />
+                  <div className="h-4 bg-[#111118] rounded w-full" />
+                  <div className="h-4 bg-[#111118] rounded w-full" />
+                  <div className="h-4 bg-[#111118] rounded w-5/6" />
+                  <div className="h-4 bg-[#111118] rounded w-full" />
+                  <div className="h-4 bg-[#111118] rounded w-4/5" />
+                  <div className="h-4 bg-[#111118] rounded w-full" />
+                  <div className="h-4 bg-[#111118] rounded w-3/4" />
                 </div>
               </div>
             </div>
           ) : selectedArticle.error ? (
             <div className="text-center py-16">
               <Newspaper className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" />
-              <p className="text-[#a0a0b0] mb-1">Could not load full article</p>
-              <p className="text-sm text-[#6b6b7b] mb-4">{selectedArticle.error}</p>
-              <Button onClick={handleBack} variant="outline" className="border-[#2a2a35] text-[#a0a0b0] hover:text-white">
+              <p className="text-[#9ca3af] mb-1">Could not load full article</p>
+              <p className="text-sm text-[#6b7280] mb-4">{selectedArticle.error}</p>
+              <Button onClick={handleBack} variant="outline" className="border-[#1e1e28] text-[#9ca3af] hover:text-white">
                 <ArrowLeft className="w-4 h-4 mr-2" /> Back to News
               </Button>
             </div>
@@ -227,9 +227,9 @@ export default function NewsPage() {
             <article>
               {/* Article header */}
               <div className="flex items-center gap-2 mb-4">
-                <span className="text-xs text-[#6b6b7b]">{selectedArticle.data.source}</span>
+                <span className="text-xs text-[#6b7280]">{selectedArticle.data.source}</span>
                 <span className="text-[#2a2a35]">·</span>
-                <span className="text-xs text-[#6b6b7b]">{selectedArticle.data.date}</span>
+                <span className="text-xs text-[#6b7280]">{selectedArticle.data.date}</span>
               </div>
               <h1 className="text-2xl lg:text-4xl font-extrabold text-white leading-tight mb-6">
                 {selectedArticle.data.title}
@@ -257,7 +257,7 @@ export default function NewsPage() {
 
               {/* Source link */}
               {selectedArticle.data.url !== '#' && (
-                <div className="mt-8 pt-6 border-t border-[#2a2a35]">
+                <div className="mt-8 pt-6 border-t border-[#1e1e28]">
                   <a
                     href={selectedArticle.data.url}
                     target="_blank"
@@ -270,7 +270,7 @@ export default function NewsPage() {
               )}
 
               {/* Comment Section */}
-              <div className="mt-10 pt-8 border-t border-[#2a2a35]">
+              <div className="mt-10 pt-8 border-t border-[#1e1e28]">
                 <div className="flex items-center gap-3 mb-6">
                   <MessageCircle className="w-5 h-5 text-[#e50914]" />
                   <h2 className="text-lg font-bold text-white">Comments</h2>
@@ -278,13 +278,13 @@ export default function NewsPage() {
                 </div>
 
                 {/* Comment Input */}
-                <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-4 mb-6">
+                <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 mb-6">
                   <textarea
                     value={commentText}
                     onChange={(e) => setCommentText(e.target.value)}
                     placeholder="Share your thoughts on this article..."
                     rows={3}
-                    className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#e50914] resize-none text-sm"
+                    className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914] resize-none text-sm"
                   />
                   <div className="flex justify-end mt-3">
                     <Button
@@ -302,22 +302,22 @@ export default function NewsPage() {
                 {comments.length > 0 ? (
                   <div className="space-y-4">
                     {comments.map((comment) => (
-                      <div key={comment.id} className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-4">
+                      <div key={comment.id} className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4">
                         <div className="flex items-center gap-3 mb-2">
                           <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#e50914] to-[#b20710] flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">
                             {comment.author.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)}
                           </div>
                           <span className="text-sm font-medium text-white">{comment.author}</span>
-                          <span className="text-xs text-[#6b6b7b]">{formatTimeAgo(comment.createdAt)}</span>
+                          <span className="text-xs text-[#6b7280]">{formatTimeAgo(comment.createdAt)}</span>
                         </div>
-                        <p className="text-sm text-[#a0a0b0] leading-relaxed pl-10">{comment.text}</p>
+                        <p className="text-sm text-[#9ca3af] leading-relaxed pl-10">{comment.text}</p>
                       </div>
                     ))}
                   </div>
                 ) : (
                   <div className="text-center py-8">
                     <MessageCircle className="w-8 h-8 text-[#2a2a35] mx-auto mb-2" />
-                    <p className="text-[#6b6b7b] text-sm">No comments yet. Be the first to share your thoughts!</p>
+                    <p className="text-[#6b7280] text-sm">No comments yet. Be the first to share your thoughts!</p>
                   </div>
                 )}
               </div>
@@ -330,20 +330,20 @@ export default function NewsPage() {
 
   // ─── News List View ───
   return (
-    <div className="min-h-screen bg-[#0a0a0f] pt-8 pb-16">
+    <div className="min-h-screen bg-[#050507] pt-8 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
-        <nav className="flex items-center gap-2 text-sm text-[#6b6b7b] mb-6">
+        <nav className="flex items-center gap-2 text-sm text-[#6b7280] mb-6">
           <Link href="/" className="hover:text-white transition-colors">Home</Link>
           <span>/</span>
-          <span className="text-[#a0a0b0]">News</span>
+          <span className="text-[#9ca3af]">News</span>
         </nav>
 
         <div className="flex items-center gap-3 mb-2">
           <Newspaper className="w-7 h-7 text-[#e50914]" />
           <h1 className="text-3xl lg:text-4xl font-extrabold text-white">Movie News</h1>
         </div>
-        <p className="text-[#6b6b7b] mb-2">The latest stories from the world of cinema — industry insights, festival coverage, and cultural analysis.</p>
-        <p className="text-xs text-[#6b6b7b] mb-8">
+        <p className="text-[#6b7280] mb-2">The latest stories from the world of cinema — industry insights, festival coverage, and cultural analysis.</p>
+        <p className="text-xs text-[#6b7280] mb-8">
           {dataSource === 'mock' ? 'Showing curated stories' : `Powered by ${dataSource === 'newsapi' ? 'NewsAPI' : 'Newsdata.io'}`}
         </p>
 
@@ -356,7 +356,7 @@ export default function NewsPage() {
               className={`px-4 py-2 rounded-full text-xs font-medium whitespace-nowrap transition-colors ${
                 categoryFilter === cat
                   ? 'bg-[#e50914] text-white'
-                  : 'bg-[#12121a] border border-[#2a2a35] text-[#a0a0b0] hover:text-white hover:border-[#3a3a45]'
+                  : 'bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
               }`}
             >
               {cat === 'all' ? 'All Sources' : cat}
@@ -368,26 +368,26 @@ export default function NewsPage() {
         {loading ? (
           <div className="space-y-10">
             {/* Featured Skeleton */}
-            <div className="animate-pulse bg-[#12121a] border border-[#2a2a35] rounded-xl overflow-hidden">
+            <div className="animate-pulse bg-[#0c0c10] border border-[#1e1e28] rounded-xl overflow-hidden">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
-                <div className="aspect-[16/10] lg:aspect-auto bg-[#1a1a25]" />
+                <div className="aspect-[16/10] lg:aspect-auto bg-[#111118]" />
                 <div className="p-6 lg:p-8 flex flex-col justify-center gap-3">
-                  <div className="h-6 bg-[#1a1a25] rounded w-16" />
-                  <div className="h-6 bg-[#1a1a25] rounded w-3/4" />
-                  <div className="h-4 bg-[#1a1a25] rounded w-full" />
-                  <div className="h-4 bg-[#1a1a25] rounded w-2/3" />
+                  <div className="h-6 bg-[#111118] rounded w-16" />
+                  <div className="h-6 bg-[#111118] rounded w-3/4" />
+                  <div className="h-4 bg-[#111118] rounded w-full" />
+                  <div className="h-4 bg-[#111118] rounded w-2/3" />
                 </div>
               </div>
             </div>
             {/* Grid Skeletons */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="animate-pulse bg-[#12121a] border border-[#2a2a35] rounded-xl overflow-hidden">
-                  <div className="aspect-[16/10] bg-[#1a1a25]" />
+                <div key={i} className="animate-pulse bg-[#0c0c10] border border-[#1e1e28] rounded-xl overflow-hidden">
+                  <div className="aspect-[16/10] bg-[#111118]" />
                   <div className="p-4 space-y-2">
-                    <div className="h-3 bg-[#1a1a25] rounded w-20" />
-                    <div className="h-4 bg-[#1a1a25] rounded w-full" />
-                    <div className="h-3 bg-[#1a1a25] rounded w-3/4" />
+                    <div className="h-3 bg-[#111118] rounded w-20" />
+                    <div className="h-4 bg-[#111118] rounded w-full" />
+                    <div className="h-3 bg-[#111118] rounded w-3/4" />
                   </div>
                 </div>
               ))}
@@ -399,7 +399,7 @@ export default function NewsPage() {
             {featured && (
               <button
                 onClick={() => handleArticleClick(featured.id)}
-                className="group block w-full text-left bg-[#12121a] border border-[#2a2a35] rounded-xl overflow-hidden hover:border-[#3a3a45] hover:shadow-xl transition-all mb-10"
+                className="group block w-full text-left bg-[#0c0c10] border border-[#1e1e28] rounded-xl overflow-hidden hover:border-[#3a3a45] hover:shadow-xl transition-all mb-10"
               >
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
                   <div className="aspect-[16/10] lg:aspect-auto overflow-hidden">
@@ -408,10 +408,10 @@ export default function NewsPage() {
                   <div className="p-6 lg:p-8 flex flex-col justify-center">
                     <div className="flex items-center gap-2 mb-3">
                       <span className="text-[10px] font-semibold uppercase tracking-wider bg-[#e50914] text-white px-2.5 py-1 rounded">Featured</span>
-                      <span className="text-xs text-[#6b6b7b]">{featured.source} · {featured.date}</span>
+                      <span className="text-xs text-[#6b7280]">{featured.source} · {featured.date}</span>
                     </div>
                     <h2 className="text-xl lg:text-2xl font-bold text-white mb-3 group-hover:text-[#e50914] transition-colors leading-snug">{featured.title}</h2>
-                    <p className="text-sm text-[#a0a0b0] leading-relaxed mb-4">{featured.excerpt}</p>
+                    <p className="text-sm text-[#9ca3af] leading-relaxed mb-4">{featured.excerpt}</p>
                     <span className="inline-flex items-center gap-1 text-sm text-[#e50914] font-medium group-hover:underline">Read Full Story <ArrowUpRight className="w-3.5 h-3.5" /></span>
                   </div>
                 </div>
@@ -428,19 +428,19 @@ export default function NewsPage() {
                       <button
                         key={item.id}
                         onClick={() => handleArticleClick(item.id)}
-                        className="group block w-full text-left bg-[#12121a] border border-[#2a2a35] rounded-xl overflow-hidden hover:border-[#3a3a45] hover:shadow-lg transition-all"
+                        className="group block w-full text-left bg-[#0c0c10] border border-[#1e1e28] rounded-xl overflow-hidden hover:border-[#3a3a45] hover:shadow-lg transition-all"
                       >
                         <div className="aspect-[16/10] overflow-hidden">
                           <img src={item.image} alt={item.title} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
                         </div>
                         <div className="p-4">
                           <div className="flex items-center gap-2 mb-2">
-                            <Clock className="w-3 h-3 text-[#6b6b7b]" />
-                            <span className="text-xs text-[#6b6b7b]">{item.source} · {item.date}</span>
+                            <Clock className="w-3 h-3 text-[#6b7280]" />
+                            <span className="text-xs text-[#6b7280]">{item.source} · {item.date}</span>
                             {articleComments.length > 0 && (
                               <>
                                 <span className="text-[#2a2a35]">·</span>
-                                <span className="flex items-center gap-1 text-xs text-[#6b6b7b]">
+                                <span className="flex items-center gap-1 text-xs text-[#6b7280]">
                                   <MessageCircle className="w-3 h-3" />
                                   {articleComments.length}
                                 </span>
@@ -448,10 +448,10 @@ export default function NewsPage() {
                             )}
                           </div>
                           <h3 className="text-sm font-semibold text-white mb-2 line-clamp-2 group-hover:text-[#e50914] transition-colors leading-snug">{item.title}</h3>
-                          <p className="text-xs text-[#a0a0b0] line-clamp-2 mb-3 leading-relaxed">{item.excerpt}</p>
+                          <p className="text-xs text-[#9ca3af] line-clamp-2 mb-3 leading-relaxed">{item.excerpt}</p>
                           <div className="flex items-center justify-between">
-                            <span className="text-xs text-[#6b6b7b]">Read more</span>
-                            <ArrowUpRight className="w-3.5 h-3.5 text-[#6b6b7b] group-hover:text-[#e50914]" />
+                            <span className="text-xs text-[#6b7280]">Read more</span>
+                            <ArrowUpRight className="w-3.5 h-3.5 text-[#6b7280] group-hover:text-[#e50914]" />
                           </div>
                         </div>
                       </button>
@@ -461,7 +461,7 @@ export default function NewsPage() {
 
                 {hasMore && (
                   <div className="text-center mt-10">
-                    <Button onClick={() => setVisibleCount((v) => v + 6)} variant="outline" className="border-[#2a2a35] text-[#a0a0b0] hover:text-white hover:bg-[#1a1a25] gap-2">
+                    <Button onClick={() => setVisibleCount((v) => v + 6)} variant="outline" className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:bg-[#111118] gap-2">
                       Load More Stories
                     </Button>
                   </div>
@@ -470,8 +470,8 @@ export default function NewsPage() {
             ) : (
               <div className="text-center py-16">
                 <Newspaper className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" />
-                <p className="text-[#a0a0b0] mb-1">No news articles found</p>
-                <p className="text-sm text-[#6b6b7b]">Try a different source filter</p>
+                <p className="text-[#9ca3af] mb-1">No news articles found</p>
+                <p className="text-sm text-[#6b7280]">Try a different source filter</p>
               </div>
             )}
           </>

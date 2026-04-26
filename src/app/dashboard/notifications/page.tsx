@@ -56,7 +56,7 @@ export default function DashboardNotificationsPage() {
   const unreadCount = notifications.filter(n => !readIds.has(n.id)).length;
 
   if (!isAuthenticated) {
-    return <DashboardSidebar><div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-12 text-center"><p className="text-[#a0a0b0]">Please sign in to view notifications.</p><Link href="/login" className="text-[#e50914] hover:underline text-sm">Sign In</Link></div></DashboardSidebar>;
+    return <DashboardSidebar><div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center"><p className="text-[#9ca3af]">Please sign in to view notifications.</p><Link href="/login" className="text-[#e50914] hover:underline text-sm">Sign In</Link></div></DashboardSidebar>;
   }
 
   return (
@@ -69,7 +69,7 @@ export default function DashboardNotificationsPage() {
           )}
         </div>
         {unreadCount > 0 && (
-          <Button onClick={markAllRead} variant="outline" className="border-[#2a2a35] text-[#a0a0b0] hover:text-white hover:bg-[#1a1a25] gap-2 text-sm">
+          <Button onClick={markAllRead} variant="outline" className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:bg-[#111118] gap-2 text-sm">
             <Check className="w-4 h-4" /> Mark All Read
           </Button>
         )}
@@ -88,9 +88,9 @@ export default function DashboardNotificationsPage() {
             <div
               key={notif.id}
               onClick={() => markAsRead(notif.id)}
-              className={`bg-[#12121a] border rounded-xl p-4 flex items-start gap-4 cursor-pointer transition-colors hover:border-[#3a3a45] ${isRead ? 'border-[#2a2a35] opacity-70' : 'border-[#e50914]/20'}`}
+              className={`bg-[#0c0c10] border rounded-xl p-4 flex items-start gap-4 cursor-pointer transition-colors hover:border-[#3a3a45] ${isRead ? 'border-[#1e1e28] opacity-70' : 'border-[#e50914]/20'}`}
             >
-              <div className="w-10 h-10 rounded-full bg-[#1a1a25] flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-10 rounded-full bg-[#111118] flex items-center justify-center flex-shrink-0">
                 <notif.icon className={`w-5 h-5 ${notif.color}`} />
               </div>
               <div className="flex-1 min-w-0">
@@ -98,9 +98,9 @@ export default function DashboardNotificationsPage() {
                   <p className="text-sm font-semibold text-white">{notif.title}</p>
                   {!isRead && <span className="w-2 h-2 rounded-full bg-[#e50914] flex-shrink-0" />}
                 </div>
-                <p className="text-sm text-[#a0a0b0]">{notif.message}</p>
+                <p className="text-sm text-[#9ca3af]">{notif.message}</p>
                 <div className="flex items-center gap-3 mt-1.5">
-                  <p className="text-xs text-[#6b6b7b]">{notif.time}</p>
+                  <p className="text-xs text-[#6b7280]">{notif.time}</p>
                   {notif.link && (
                     <Link href={notif.link} className="text-xs text-[#e50914] hover:underline" onClick={e => e.stopPropagation()}>
                       View →

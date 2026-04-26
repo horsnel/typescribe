@@ -41,9 +41,9 @@ export default function MyReviewsPage() {
 
   if (!isAuthenticated || !user) {
     return (
-      <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center">
+      <div className="min-h-screen bg-[#050507] flex items-center justify-center">
         <div className="text-center">
-          <p className="text-[#a0a0b0] mb-4">Please sign in to view your reviews</p>
+          <p className="text-[#9ca3af] mb-4">Please sign in to view your reviews</p>
           <Link href="/login" className="text-[#e50914] hover:underline">Sign In</Link>
         </div>
       </div>
@@ -113,14 +113,14 @@ export default function MyReviewsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] pt-8 pb-16">
+    <div className="min-h-screen bg-[#050507] pt-8 pb-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
-        <nav className="flex items-center gap-2 text-sm text-[#6b6b7b] mb-6">
+        <nav className="flex items-center gap-2 text-sm text-[#6b7280] mb-6">
           <Link href="/" className="hover:text-white transition-colors">Home</Link>
           <span>/</span>
           <Link href="/profile" className="hover:text-white transition-colors">Profile</Link>
           <span>/</span>
-          <span className="text-[#a0a0b0]">My Reviews</span>
+          <span className="text-[#9ca3af]">My Reviews</span>
         </nav>
 
         <div className="flex items-center gap-3 mb-4">
@@ -131,20 +131,20 @@ export default function MyReviewsPage() {
         {/* Stats Row */}
         {allReviews.length > 0 && (
           <div className="grid grid-cols-3 gap-4 mb-8">
-            <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-4 text-center">
+            <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 text-center">
               <MessageSquare className="w-5 h-5 text-[#e50914] mx-auto mb-1" />
               <div className="text-xl font-bold text-white">{allReviews.length}</div>
-              <div className="text-xs text-[#6b6b7b]">Reviews</div>
+              <div className="text-xs text-[#6b7280]">Reviews</div>
             </div>
-            <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-4 text-center">
+            <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 text-center">
               <Star className="w-5 h-5 text-[#f5c518] mx-auto mb-1" />
               <div className="text-xl font-bold text-[#f5c518]">{avgRating}</div>
-              <div className="text-xs text-[#6b6b7b]">Avg Rating</div>
+              <div className="text-xs text-[#6b7280]">Avg Rating</div>
             </div>
-            <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-4 text-center">
+            <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 text-center">
               <Star className="w-5 h-5 text-green-400 mx-auto mb-1" />
               <div className="text-xl font-bold text-white">{fiveStarCount}</div>
-              <div className="text-xs text-[#6b6b7b]">Highly Rated (8+)</div>
+              <div className="text-xs text-[#6b7280]">Highly Rated (8+)</div>
             </div>
           </div>
         )}
@@ -153,13 +153,13 @@ export default function MyReviewsPage() {
         {allReviews.length > 0 && (
           <div className="flex items-center gap-3 mb-6 flex-wrap">
             <div className="relative flex-1 min-w-[200px]">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6b6b7b]" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6b7280]" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search your reviews..."
-                className="w-full bg-[#12121a] border border-[#2a2a35] rounded-lg py-2 pl-10 pr-4 text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#e50914] text-sm"
+                className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-lg py-2 pl-10 pr-4 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914] text-sm"
               />
             </div>
             <div className="flex gap-2">
@@ -173,7 +173,7 @@ export default function MyReviewsPage() {
                   key={value}
                   onClick={() => setSort(value)}
                   className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
-                    sort === value ? 'bg-[#e50914] text-white' : 'bg-[#12121a] border border-[#2a2a35] text-[#a0a0b0] hover:text-white hover:border-[#3a3a45]'
+                    sort === value ? 'bg-[#e50914] text-white' : 'bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
                   }`}
                 >
                   {label}
@@ -191,11 +191,11 @@ export default function MyReviewsPage() {
               const isEditing = editingReviewId === review.id;
 
               return (
-                <div key={review.id} className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-5 hover:border-[#3a3a45] transition-colors">
+                <div key={review.id} className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5 hover:border-[#3a3a45] transition-colors">
                   <div className="flex items-start gap-4">
                     {/* Movie Poster */}
                     {movie && (
-                      <Link href={`/movie/${movie.slug}`} className="w-12 h-18 rounded-lg overflow-hidden flex-shrink-0 bg-[#0a0a0f] hidden sm:block">
+                      <Link href={`/movie/${movie.slug}`} className="w-12 h-18 rounded-lg overflow-hidden flex-shrink-0 bg-[#050507] hidden sm:block">
                         <img src={movie.poster_path} alt={movie.title} className="w-full h-full object-cover" />
                       </Link>
                     )}
@@ -207,7 +207,7 @@ export default function MyReviewsPage() {
                               {movie?.title || 'Unknown Movie'}
                             </h3>
                           </Link>
-                          <p className="text-xs text-[#6b6b7b] mt-0.5">
+                          <p className="text-xs text-[#6b7280] mt-0.5">
                             {new Date(review.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
                           </p>
                         </div>
@@ -220,7 +220,7 @@ export default function MyReviewsPage() {
                       {isEditing ? (
                         <div className="space-y-3">
                           <div>
-                            <label className="text-xs text-[#6b6b7b] mb-1 block">Rating</label>
+                            <label className="text-xs text-[#6b7280] mb-1 block">Rating</label>
                             <div className="flex items-center gap-1">
                               {Array.from({ length: 10 }, (_, i) => (
                                 <button key={i + 1} type="button" onClick={() => setEditRating(i + 1)} className="p-0.5">
@@ -234,33 +234,33 @@ export default function MyReviewsPage() {
                             value={editText}
                             onChange={(e) => setEditText(e.target.value)}
                             rows={4}
-                            className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#e50914] resize-none text-sm"
+                            className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914] resize-none text-sm"
                           />
                           <div className="flex items-center gap-3">
                             <Button onClick={() => handleEditSave(review.id)} className="bg-[#e50914] hover:bg-[#b20710] text-white text-sm gap-2">
                               Save Changes
                             </Button>
-                            <Button variant="outline" onClick={() => setEditingReviewId(null)} className="border-[#2a2a35] text-[#a0a0b0] hover:text-white text-sm">
+                            <Button variant="outline" onClick={() => setEditingReviewId(null)} className="border-[#1e1e28] text-[#9ca3af] hover:text-white text-sm">
                               Cancel
                             </Button>
                           </div>
                         </div>
                       ) : (
                         <>
-                          <p className="text-sm text-[#a0a0b0] leading-relaxed">{review.text}</p>
+                          <p className="text-sm text-[#9ca3af] leading-relaxed">{review.text}</p>
                           {'isLocal' in review && review.isLocal && (
-                            <div className="flex items-center gap-4 mt-3 pt-3 border-t border-[#2a2a35]">
-                              <button onClick={() => startEdit(review)} className="flex items-center gap-1.5 text-xs text-[#6b6b7b] hover:text-[#a0a0b0] transition-colors">
+                            <div className="flex items-center gap-4 mt-3 pt-3 border-t border-[#1e1e28]">
+                              <button onClick={() => startEdit(review)} className="flex items-center gap-1.5 text-xs text-[#6b7280] hover:text-[#9ca3af] transition-colors">
                                 <Edit className="w-3.5 h-3.5" /> Edit
                               </button>
                               {deleteConfirmId === review.id ? (
                                 <div className="flex items-center gap-2">
                                   <span className="text-xs text-red-400">Delete this review?</span>
                                   <button onClick={() => handleDelete(review.id)} className="text-xs text-red-400 hover:text-red-300 font-medium">Yes</button>
-                                  <button onClick={() => setDeleteConfirmId(null)} className="text-xs text-[#6b6b7b] hover:text-white">No</button>
+                                  <button onClick={() => setDeleteConfirmId(null)} className="text-xs text-[#6b7280] hover:text-white">No</button>
                                 </div>
                               ) : (
-                                <button onClick={() => setDeleteConfirmId(review.id)} className="flex items-center gap-1.5 text-xs text-[#6b6b7b] hover:text-red-400 transition-colors">
+                                <button onClick={() => setDeleteConfirmId(review.id)} className="flex items-center gap-1.5 text-xs text-[#6b7280] hover:text-red-400 transition-colors">
                                   <Trash2 className="w-3.5 h-3.5" /> Delete
                                 </button>
                               )}
@@ -277,8 +277,8 @@ export default function MyReviewsPage() {
         ) : (
           <div className="text-center py-24">
             <MessageSquare className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
-            <p className="text-lg text-[#a0a0b0] mb-2">{searchQuery ? 'No reviews match your search' : 'No reviews yet'}</p>
-            <p className="text-sm text-[#6b6b7b] mb-4">{searchQuery ? 'Try a different search term' : 'Share your thoughts about movies you\'ve watched'}</p>
+            <p className="text-lg text-[#9ca3af] mb-2">{searchQuery ? 'No reviews match your search' : 'No reviews yet'}</p>
+            <p className="text-sm text-[#6b7280] mb-4">{searchQuery ? 'Try a different search term' : 'Share your thoughts about movies you\'ve watched'}</p>
             {!searchQuery && <Link href="/browse" className="text-[#e50914] hover:underline">Browse Movies</Link>}
           </div>
         )}

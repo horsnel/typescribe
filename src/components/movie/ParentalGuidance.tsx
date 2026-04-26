@@ -246,11 +246,11 @@ export default function ParentalGuidance({ movieTitle, movieId, genres }: Parent
   ];
 
   return (
-    <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl overflow-hidden">
+    <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl overflow-hidden">
       {/* Header */}
       <button
         onClick={() => setExpanded(!expanded)}
-        className="w-full flex items-center justify-between p-5 hover:bg-[#1a1a25] transition-colors"
+        className="w-full flex items-center justify-between p-5 hover:bg-[#111118] transition-colors"
       >
         <div className="flex items-center gap-3">
           <Shield className="w-5 h-5 text-[#f59e0b]" />
@@ -266,21 +266,21 @@ export default function ParentalGuidance({ movieTitle, movieId, genres }: Parent
           )}
         </div>
         {expanded
-          ? <ChevronUp className="w-5 h-5 text-[#6b6b7b]" />
-          : <ChevronDown className="w-5 h-5 text-[#6b6b7b]" />
+          ? <ChevronUp className="w-5 h-5 text-[#6b7280]" />
+          : <ChevronDown className="w-5 h-5 text-[#6b7280]" />
         }
       </button>
 
       {expanded && (
         <div className="px-5 pb-5 space-y-5">
           {/* ─── Age Recommendation ─── */}
-          <div className="flex items-center gap-4 bg-[#0a0a0f] border border-[#2a2a35] rounded-lg p-4">
+          <div className="flex items-center gap-4 bg-[#050507] border border-[#1e1e28] rounded-lg p-4">
             <div className="flex-shrink-0 w-14 h-14 rounded-full bg-[#f59e0b]/10 border-2 border-[#f59e0b]/30 flex items-center justify-center">
               <span className="text-xl font-black text-[#f59e0b]">{ageRecommendation}+</span>
             </div>
             <div>
               <p className="text-sm font-bold text-white">Recommended for ages {ageRecommendation} and up</p>
-              <p className="text-xs text-[#6b6b7b] mt-0.5">
+              <p className="text-xs text-[#6b7280] mt-0.5">
                 Based on content severity analysis{genres.length > 0 ? ` for ${genres.slice(0, 3).map(g => g.name).join(', ')}${genres.length > 3 ? '...' : ''}` : ''}
               </p>
             </div>
@@ -296,11 +296,11 @@ export default function ParentalGuidance({ movieTitle, movieId, genres }: Parent
               {categories.map((category) => (
                 <div
                   key={category.id}
-                  className="flex items-center justify-between bg-[#0a0a0f] border border-[#2a2a35] rounded-lg p-3"
+                  className="flex items-center justify-between bg-[#050507] border border-[#1e1e28] rounded-lg p-3"
                 >
                   <div className="flex items-center gap-2.5">
                     <div className={`w-2 h-2 rounded-full flex-shrink-0 ${getSeverityDot(category.severity)}`} />
-                    <span className="text-sm text-[#a0a0b0] flex items-center gap-1.5">
+                    <span className="text-sm text-[#9ca3af] flex items-center gap-1.5">
                       {category.icon}
                       {category.label}
                     </span>
@@ -337,35 +337,35 @@ export default function ParentalGuidance({ movieTitle, movieId, genres }: Parent
 
             {/* Timestamp Form */}
             {showTimestampForm && (
-              <div className="bg-[#0a0a0f] border border-[#2a2a35] rounded-lg p-4 mb-3 space-y-3">
+              <div className="bg-[#050507] border border-[#1e1e28] rounded-lg p-4 mb-3 space-y-3">
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="text-[10px] text-[#6b6b7b] mb-1 block">Start Time (mm:ss)</label>
+                    <label className="text-[10px] text-[#6b7280] mb-1 block">Start Time (mm:ss)</label>
                     <input
                       type="text"
                       value={newTimestamp.startTime}
                       onChange={(e) => setNewTimestamp({ ...newTimestamp, startTime: e.target.value })}
                       placeholder="12:30"
-                      className="w-full bg-[#12121a] border border-[#2a2a35] rounded-md py-1.5 px-2.5 text-sm text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#a855f7]"
+                      className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-md py-1.5 px-2.5 text-sm text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#a855f7]"
                     />
                   </div>
                   <div>
-                    <label className="text-[10px] text-[#6b6b7b] mb-1 block">End Time (mm:ss)</label>
+                    <label className="text-[10px] text-[#6b7280] mb-1 block">End Time (mm:ss)</label>
                     <input
                       type="text"
                       value={newTimestamp.endTime}
                       onChange={(e) => setNewTimestamp({ ...newTimestamp, endTime: e.target.value })}
                       placeholder="13:45"
-                      className="w-full bg-[#12121a] border border-[#2a2a35] rounded-md py-1.5 px-2.5 text-sm text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#a855f7]"
+                      className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-md py-1.5 px-2.5 text-sm text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#a855f7]"
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="text-[10px] text-[#6b6b7b] mb-1 block">Category</label>
+                  <label className="text-[10px] text-[#6b7280] mb-1 block">Category</label>
                   <select
                     value={newTimestamp.category}
                     onChange={(e) => setNewTimestamp({ ...newTimestamp, category: e.target.value })}
-                    className="w-full bg-[#12121a] border border-[#2a2a35] rounded-md py-1.5 px-2.5 text-sm text-[#a0a0b0] focus:outline-none focus:border-[#a855f7]"
+                    className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-md py-1.5 px-2.5 text-sm text-[#9ca3af] focus:outline-none focus:border-[#a855f7]"
                   >
                     {categoryOptions.map(opt => (
                       <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -373,13 +373,13 @@ export default function ParentalGuidance({ movieTitle, movieId, genres }: Parent
                   </select>
                 </div>
                 <div>
-                  <label className="text-[10px] text-[#6b6b7b] mb-1 block">Description</label>
+                  <label className="text-[10px] text-[#6b7280] mb-1 block">Description</label>
                   <input
                     type="text"
                     value={newTimestamp.description}
                     onChange={(e) => setNewTimestamp({ ...newTimestamp, description: e.target.value })}
                     placeholder="Briefly describe the scene to skip"
-                    className="w-full bg-[#12121a] border border-[#2a2a35] rounded-md py-1.5 px-2.5 text-sm text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#a855f7]"
+                    className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-md py-1.5 px-2.5 text-sm text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#a855f7]"
                   />
                 </div>
                 <div className="flex items-center gap-2">
@@ -392,7 +392,7 @@ export default function ParentalGuidance({ movieTitle, movieId, genres }: Parent
                   </button>
                   <button
                     onClick={() => setShowTimestampForm(false)}
-                    className="text-xs text-[#6b6b7b] hover:text-white px-2 py-1.5 transition-colors"
+                    className="text-xs text-[#6b7280] hover:text-white px-2 py-1.5 transition-colors"
                   >
                     Cancel
                   </button>
@@ -406,9 +406,9 @@ export default function ParentalGuidance({ movieTitle, movieId, genres }: Parent
                 {timestamps.map((ts) => (
                   <div
                     key={ts.id}
-                    className="flex items-start gap-3 bg-[#0a0a0f] border border-[#2a2a35] rounded-lg p-3 group"
+                    className="flex items-start gap-3 bg-[#050507] border border-[#1e1e28] rounded-lg p-3 group"
                   >
-                    <div className="flex-shrink-0 flex items-center gap-1.5 bg-[#1a1a25] rounded px-2 py-1">
+                    <div className="flex-shrink-0 flex items-center gap-1.5 bg-[#111118] rounded px-2 py-1">
                       <Clock className="w-3 h-3 text-[#a855f7]" />
                       <span className="text-xs font-mono text-[#a855f7]">
                         {ts.startTime}
@@ -416,12 +416,12 @@ export default function ParentalGuidance({ movieTitle, movieId, genres }: Parent
                       </span>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm text-[#a0a0b0]">{ts.description}</p>
-                      <span className="text-[10px] text-[#6b6b7b] capitalize">{ts.category}</span>
+                      <p className="text-sm text-[#9ca3af]">{ts.description}</p>
+                      <span className="text-[10px] text-[#6b7280] capitalize">{ts.category}</span>
                     </div>
                     <button
                       onClick={() => handleRemoveTimestamp(ts.id)}
-                      className="opacity-0 group-hover:opacity-100 transition-opacity text-[#6b6b7b] hover:text-[#e50914]"
+                      className="opacity-0 group-hover:opacity-100 transition-opacity text-[#6b7280] hover:text-[#e50914]"
                     >
                       <X className="w-3.5 h-3.5" />
                     </button>
@@ -429,9 +429,9 @@ export default function ParentalGuidance({ movieTitle, movieId, genres }: Parent
                 ))}
               </div>
             ) : (
-              <div className="bg-[#0a0a0f] border border-[#2a2a35] rounded-lg p-4 text-center">
+              <div className="bg-[#050507] border border-[#1e1e28] rounded-lg p-4 text-center">
                 <Clock className="w-6 h-6 text-[#2a2a35] mx-auto mb-2" />
-                <p className="text-xs text-[#6b6b7b]">No skip timestamps added yet</p>
+                <p className="text-xs text-[#6b7280]">No skip timestamps added yet</p>
                 <p className="text-[10px] text-[#2a2a35]">Add timestamps for intense scenes</p>
               </div>
             )}
@@ -457,14 +457,14 @@ export default function ParentalGuidance({ movieTitle, movieId, genres }: Parent
 
             {/* Advisory Form */}
             {showAdvisoryForm && (
-              <div className="bg-[#0a0a0f] border border-[#2a2a35] rounded-lg p-4 mb-3 space-y-3">
+              <div className="bg-[#050507] border border-[#1e1e28] rounded-lg p-4 mb-3 space-y-3">
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="text-[10px] text-[#6b6b7b] mb-1 block">Category</label>
+                    <label className="text-[10px] text-[#6b7280] mb-1 block">Category</label>
                     <select
                       value={newAdvisory.category}
                       onChange={(e) => setNewAdvisory({ ...newAdvisory, category: e.target.value })}
-                      className="w-full bg-[#12121a] border border-[#2a2a35] rounded-md py-1.5 px-2.5 text-sm text-[#a0a0b0] focus:outline-none focus:border-[#22c55e]"
+                      className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-md py-1.5 px-2.5 text-sm text-[#9ca3af] focus:outline-none focus:border-[#22c55e]"
                     >
                       {categoryOptions.map(opt => (
                         <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -472,11 +472,11 @@ export default function ParentalGuidance({ movieTitle, movieId, genres }: Parent
                     </select>
                   </div>
                   <div>
-                    <label className="text-[10px] text-[#6b6b7b] mb-1 block">Severity</label>
+                    <label className="text-[10px] text-[#6b7280] mb-1 block">Severity</label>
                     <select
                       value={newAdvisory.severity}
                       onChange={(e) => setNewAdvisory({ ...newAdvisory, severity: e.target.value as SeverityLevel })}
-                      className="w-full bg-[#12121a] border border-[#2a2a35] rounded-md py-1.5 px-2.5 text-sm text-[#a0a0b0] focus:outline-none focus:border-[#22c55e]"
+                      className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-md py-1.5 px-2.5 text-sm text-[#9ca3af] focus:outline-none focus:border-[#22c55e]"
                     >
                       <option value="mild">Mild</option>
                       <option value="moderate">Moderate</option>
@@ -485,13 +485,13 @@ export default function ParentalGuidance({ movieTitle, movieId, genres }: Parent
                   </div>
                 </div>
                 <div>
-                  <label className="text-[10px] text-[#6b6b7b] mb-1 block">Note</label>
+                  <label className="text-[10px] text-[#6b7280] mb-1 block">Note</label>
                   <textarea
                     value={newAdvisory.note}
                     onChange={(e) => setNewAdvisory({ ...newAdvisory, note: e.target.value })}
                     placeholder="Describe the content concern..."
                     rows={2}
-                    className="w-full bg-[#12121a] border border-[#2a2a35] rounded-md py-2 px-2.5 text-sm text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#22c55e] resize-none"
+                    className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-md py-2 px-2.5 text-sm text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#22c55e] resize-none"
                   />
                 </div>
                 <div className="flex items-center gap-2">
@@ -504,7 +504,7 @@ export default function ParentalGuidance({ movieTitle, movieId, genres }: Parent
                   </button>
                   <button
                     onClick={() => setShowAdvisoryForm(false)}
-                    className="text-xs text-[#6b6b7b] hover:text-white px-2 py-1.5 transition-colors"
+                    className="text-xs text-[#6b7280] hover:text-white px-2 py-1.5 transition-colors"
                   >
                     Cancel
                   </button>
@@ -518,32 +518,32 @@ export default function ParentalGuidance({ movieTitle, movieId, genres }: Parent
                 {advisories.map((adv) => (
                   <div
                     key={adv.id}
-                    className="bg-[#0a0a0f] border border-[#2a2a35] rounded-lg p-3"
+                    className="bg-[#050507] border border-[#1e1e28] rounded-lg p-3"
                   >
                     <div className="flex items-center gap-2 mb-1">
                       <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${getSeverityColor(adv.severity)}`}>
                         {adv.severity.charAt(0).toUpperCase() + adv.severity.slice(1)}
                       </span>
-                      <span className="text-[10px] text-[#6b6b7b] capitalize">{adv.category}</span>
-                      <span className="text-[10px] text-[#6b6b7b] ml-auto">by {adv.addedBy}</span>
+                      <span className="text-[10px] text-[#6b7280] capitalize">{adv.category}</span>
+                      <span className="text-[10px] text-[#6b7280] ml-auto">by {adv.addedBy}</span>
                     </div>
-                    <p className="text-sm text-[#a0a0b0]">{adv.note}</p>
+                    <p className="text-sm text-[#9ca3af]">{adv.note}</p>
                   </div>
                 ))}
               </div>
             ) : (
-              <div className="bg-[#0a0a0f] border border-[#2a2a35] rounded-lg p-4 text-center">
+              <div className="bg-[#050507] border border-[#1e1e28] rounded-lg p-4 text-center">
                 <MessageSquare className="w-6 h-6 text-[#2a2a35] mx-auto mb-2" />
-                <p className="text-xs text-[#6b6b7b]">No community advisories yet</p>
+                <p className="text-xs text-[#6b7280]">No community advisories yet</p>
                 <p className="text-[10px] text-[#2a2a35]">Help other parents by submitting content advisories</p>
               </div>
             )}
           </div>
 
           {/* ─── Disclaimer ─── */}
-          <div className="flex items-start gap-2 pt-3 border-t border-[#2a2a35]/50">
-            <AlertTriangle className="w-3.5 h-3.5 text-[#6b6b7b] flex-shrink-0 mt-0.5" />
-            <p className="text-[10px] text-[#6b6b7b] italic">
+          <div className="flex items-start gap-2 pt-3 border-t border-[#1e1e28]/50">
+            <AlertTriangle className="w-3.5 h-3.5 text-[#6b7280] flex-shrink-0 mt-0.5" />
+            <p className="text-[10px] text-[#6b7280] italic">
               Content ratings are auto-detected based on genre and may not reflect actual content.
               Parents should verify independently. Community advisories are user-submitted.
             </p>

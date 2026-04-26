@@ -117,7 +117,7 @@ function statusColor(status: string): string {
     case 'degraded': return 'text-amber-400';
     case 'down': return 'text-red-400';
     case 'disabled': return 'text-[#4a4a5a]';
-    default: return 'text-[#6b6b7b]';
+    default: return 'text-[#6b7280]';
   }
 }
 
@@ -144,7 +144,7 @@ function tierAccent(tier: string): string {
     case 'a': return 'border-emerald-500/20 bg-emerald-500/5';
     case 'b': return 'border-amber-500/20 bg-amber-500/5';
     case 'c': return 'border-red-500/20 bg-red-500/5';
-    default: return 'border-[#2a2a35] bg-[#12121a]';
+    default: return 'border-[#1e1e28] bg-[#0c0c10]';
   }
 }
 
@@ -153,7 +153,7 @@ function tierBadge(tier: string): string {
     case 'a': return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20';
     case 'b': return 'bg-amber-500/10 text-amber-400 border-amber-500/20';
     case 'c': return 'bg-red-500/10 text-red-400 border-red-500/20';
-    default: return 'bg-[#1a1a25] text-[#6b6b7b] border-[#2a2a35]';
+    default: return 'bg-[#111118] text-[#6b7280] border-[#1e1e28]';
   }
 }
 
@@ -173,9 +173,9 @@ function ScrapingAntKeyStats({ sb }: { sb: any }) {
 
   if (loadingAnt) {
     return (
-      <div className="rounded-xl border border-[#2a2a35] bg-[#12121a] backdrop-blur-xl p-8 text-center">
+      <div className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-8 text-center">
         <Loader2 className="w-6 h-6 animate-spin text-[#e50914] mx-auto mb-2" />
-        <p className="text-[#6b6b7b] text-sm">Loading ScrapingAnt stats...</p>
+        <p className="text-[#6b7280] text-sm">Loading ScrapingAnt stats...</p>
       </div>
     );
   }
@@ -184,12 +184,12 @@ function ScrapingAntKeyStats({ sb }: { sb: any }) {
     // Fallback to old ScrapingBee display
     if (sb) {
       return (
-        <div className="rounded-xl border border-[#2a2a35] bg-[#12121a] backdrop-blur-xl p-5">
+        <div className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-5">
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm font-medium text-white">Daily API Credits (Legacy)</span>
-            <span className="text-xs text-[#6b6b7b]">{sb.dailyCreditsUsed} / {sb.dailyCreditsLimit} used</span>
+            <span className="text-xs text-[#6b7280]">{sb.dailyCreditsUsed} / {sb.dailyCreditsLimit} used</span>
           </div>
-          <div className="w-full h-2.5 bg-[#1a1a25] rounded-full overflow-hidden">
+          <div className="w-full h-2.5 bg-[#111118] rounded-full overflow-hidden">
             <div className={`h-full rounded-full transition-all ${
               sb.dailyCreditsRemaining / sb.dailyCreditsLimit < 0.1 ? 'bg-red-500' :
               sb.dailyCreditsRemaining / sb.dailyCreditsLimit < 0.3 ? 'bg-amber-500' : 'bg-emerald-500'
@@ -200,8 +200,8 @@ function ScrapingAntKeyStats({ sb }: { sb: any }) {
       );
     }
     return (
-      <div className="rounded-xl border border-[#2a2a35] bg-[#12121a] backdrop-blur-xl p-5">
-        <p className="text-[#6b6b7b] text-sm">ScrapingAnt not configured</p>
+      <div className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-5">
+        <p className="text-[#6b7280] text-sm">ScrapingAnt not configured</p>
         <p className="text-[#4a4a5a] text-xs mt-1">Set SCRAPINGANT_KEY_1 through SCRAPINGANT_KEY_5 in .env.local</p>
       </div>
     );
@@ -220,36 +220,36 @@ function ScrapingAntKeyStats({ sb }: { sb: any }) {
     <div className="space-y-4">
       {/* Summary Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="rounded-lg bg-[#0a0a0f] border border-[#2a2a35] p-3 text-center">
+        <div className="rounded-lg bg-[#050507] border border-[#1e1e28] p-3 text-center">
           <p className="text-lg font-bold text-emerald-400">{activeKeys}/5</p>
-          <p className="text-[#6b6b7b] text-[10px]">Active Keys</p>
+          <p className="text-[#6b7280] text-[10px]">Active Keys</p>
         </div>
-        <div className="rounded-lg bg-[#0a0a0f] border border-[#2a2a35] p-3 text-center">
+        <div className="rounded-lg bg-[#050507] border border-[#1e1e28] p-3 text-center">
           <p className="text-lg font-bold text-white">{totalUsed.toLocaleString()}</p>
-          <p className="text-[#6b6b7b] text-[10px]">Total Used</p>
+          <p className="text-[#6b7280] text-[10px]">Total Used</p>
         </div>
-        <div className="rounded-lg bg-[#0a0a0f] border border-[#2a2a35] p-3 text-center">
+        <div className="rounded-lg bg-[#050507] border border-[#1e1e28] p-3 text-center">
           <p className="text-lg font-bold text-white">{totalRemaining.toLocaleString()}</p>
-          <p className="text-[#6b6b7b] text-[10px]">Remaining</p>
+          <p className="text-[#6b7280] text-[10px]">Remaining</p>
         </div>
-        <div className="rounded-lg bg-[#0a0a0f] border border-[#2a2a35] p-3 text-center">
+        <div className="rounded-lg bg-[#050507] border border-[#1e1e28] p-3 text-center">
           <p className="text-lg font-bold text-emerald-400">{successRate}%</p>
-          <p className="text-[#6b6b7b] text-[10px]">Success Rate</p>
+          <p className="text-[#6b7280] text-[10px]">Success Rate</p>
         </div>
       </div>
 
       {/* Per-Key Breakdown */}
-      <div className="rounded-xl border border-[#2a2a35] bg-[#12121a] backdrop-blur-xl p-5">
+      <div className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-5">
         <h3 className="text-sm font-semibold text-white mb-4">Per-Key Usage (Monthly)</h3>
         <div className="space-y-3">
           {keys.map((key: any, idx: number) => {
             const usagePct = key.monthLimit > 0 ? (key.monthUsed / key.monthLimit) * 100 : 0;
             const barColor = usagePct > 90 ? 'bg-red-500' : usagePct > 60 ? 'bg-amber-500' : 'bg-emerald-500';
             return (
-              <div key={idx} className="bg-[#0a0a0f] border border-[#2a2a35] rounded-lg p-3">
+              <div key={idx} className="bg-[#050507] border border-[#1e1e28] rounded-lg p-3">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
-                    <Key className="w-3.5 h-3.5 text-[#6b6b7b]" />
+                    <Key className="w-3.5 h-3.5 text-[#6b7280]" />
                     <span className="text-sm text-white font-medium">Key {idx + 1}</span>
                     {key.configured ? (
                       <span className="text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">ACTIVE</span>
@@ -257,10 +257,10 @@ function ScrapingAntKeyStats({ sb }: { sb: any }) {
                       <span className="text-[9px] px-1.5 py-0.5 rounded bg-red-500/10 text-red-400 border border-red-500/20">MISSING</span>
                     )}
                   </div>
-                  <span className="text-xs text-[#6b6b7b]">{key.monthUsed?.toLocaleString() || 0} / {key.monthLimit?.toLocaleString() || 0}</span>
+                  <span className="text-xs text-[#6b7280]">{key.monthUsed?.toLocaleString() || 0} / {key.monthLimit?.toLocaleString() || 0}</span>
                 </div>
                 {key.configured && (
-                  <div className="w-full h-2 bg-[#1a1a25] rounded-full overflow-hidden">
+                  <div className="w-full h-2 bg-[#111118] rounded-full overflow-hidden">
                     <div className={`h-full rounded-full transition-all ${barColor}`} style={{ width: `${Math.min(usagePct, 100)}%` }} />
                   </div>
                 )}
@@ -402,17 +402,17 @@ export default function AdminDataPipelinePage() {
   // Loading
   if (loading && !status) {
     return (
-      <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center">
+      <div className="min-h-screen bg-[#050507] flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-8 h-8 animate-spin text-[#e50914] mx-auto mb-4" />
-          <p className="text-[#a0a0b0]">Loading pipeline status…</p>
+          <p className="text-[#9ca3af]">Loading pipeline status…</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] pt-8 pb-16">
+    <div className="min-h-screen bg-[#050507] pt-8 pb-16">
       {/* Toast */}
       {toast && (
         <div className="fixed top-6 right-6 z-50 animate-in fade-in slide-in-from-top-2">
@@ -434,11 +434,11 @@ export default function AdminDataPipelinePage() {
             </div>
             <div>
               <h1 className="text-3xl lg:text-4xl font-extrabold text-white tracking-tight">Data Pipeline</h1>
-              <p className="text-[#6b6b7b] text-sm mt-0.5">70% Scraping + 30% APIs — 15 sites across 3 tiers</p>
+              <p className="text-[#6b7280] text-sm mt-0.5">70% Scraping + 30% APIs — 15 sites across 3 tiers</p>
             </div>
           </div>
           <div className="flex items-center gap-3 mt-4">
-            <Button onClick={fetchData} variant="outline" size="sm" className="border-[#2a2a35] text-[#a0a0b0] hover:text-white hover:border-[#3a3a45]" disabled={loading}>
+            <Button onClick={fetchData} variant="outline" size="sm" className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]" disabled={loading}>
               <RefreshCw className={`w-3.5 h-3.5 mr-1.5 ${loading ? 'animate-spin' : ''}`} /> Refresh
             </Button>
             {status?.status?.configured ? (
@@ -467,7 +467,7 @@ export default function AdminDataPipelinePage() {
                   health.overallStatus === 'degraded' ? 'text-amber-400' : 'text-red-400'
                 }`} />
                 <span className="text-white font-semibold">Pipeline Health: {health.overallStatus.toUpperCase()}</span>
-                <span className="text-[#6b6b7b] text-xs">
+                <span className="text-[#6b7280] text-xs">
                   {health.scrapers.filter(s => s.status === 'healthy').length} healthy,
                   {' '}{health.scrapers.filter(s => s.status === 'degraded').length} degraded,
                   {' '}{health.scrapers.filter(s => s.status === 'down').length} down
@@ -478,7 +478,7 @@ export default function AdminDataPipelinePage() {
                   {health.recommendations.slice(0, 5).map((rec, i) => (
                     <div key={i} className="flex items-start gap-2 text-xs">
                       <AlertTriangle className="w-3.5 h-3.5 text-amber-400 flex-shrink-0 mt-0.5" />
-                      <span className="text-[#a0a0b0]">{rec}</span>
+                      <span className="text-[#9ca3af]">{rec}</span>
                     </div>
                   ))}
                 </div>
@@ -490,7 +490,7 @@ export default function AdminDataPipelinePage() {
         {/* ─── API Sources (30%) ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <Cpu className="w-5 h-5 text-[#e50914]" /> API Sources <span className="text-xs font-normal text-[#6b6b7b]">(30% of data)</span>
+            <Cpu className="w-5 h-5 text-[#e50914]" /> API Sources <span className="text-xs font-normal text-[#6b7280]">(30% of data)</span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
@@ -504,7 +504,7 @@ export default function AdminDataPipelinePage() {
             ].map(src => {
               const ok = sources?.[src.key] ?? false;
               return (
-                <div key={src.name} className={`rounded-xl border backdrop-blur-xl p-4 transition-colors ${ok ? 'bg-[#12121a] border-emerald-500/15' : 'bg-[#12121a] border-[#2a2a35]'}`}>
+                <div key={src.name} className={`rounded-xl border backdrop-blur-xl p-4 transition-colors ${ok ? 'bg-[#0c0c10] border-emerald-500/15' : 'bg-[#0c0c10] border-[#1e1e28]'}`}>
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
                       <src.icon className="w-4 h-4 text-[#e50914]" />
@@ -515,7 +515,7 @@ export default function AdminDataPipelinePage() {
                       {ok ? 'OK' : 'Missing'}
                     </span>
                   </div>
-                  <p className="text-[#6b6b7b] text-xs leading-relaxed mb-1">{src.desc}</p>
+                  <p className="text-[#6b7280] text-xs leading-relaxed mb-1">{src.desc}</p>
                   <p className="text-[#4a4a5a] text-[9px] font-mono">{src.envVar}</p>
                 </div>
               );
@@ -526,7 +526,7 @@ export default function AdminDataPipelinePage() {
         {/* ─── Scraping Sources (70%) ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <Shield className="w-5 h-5 text-[#e50914]" /> Scraping Sources <span className="text-xs font-normal text-[#6b6b7b]">(70% of data — 15 sites)</span>
+            <Shield className="w-5 h-5 text-[#e50914]" /> Scraping Sources <span className="text-xs font-normal text-[#6b7280]">(70% of data — 15 sites)</span>
           </h2>
 
           {(['a', 'b', 'c'] as const).map(tier => {
@@ -545,7 +545,7 @@ export default function AdminDataPipelinePage() {
                     {tierScrapers.map(scraper => {
                       const info = scraperInfos[scraper.name];
                       return (
-                        <div key={scraper.name} className="bg-[#0a0a0f]/50 border border-[#2a2a35]/50 rounded-lg p-3">
+                        <div key={scraper.name} className="bg-[#050507]/50 border border-[#1e1e28]/50 rounded-lg p-3">
                           <div className="flex items-center justify-between mb-1.5">
                             <span className="text-white text-sm font-medium">{scraper.name}</span>
                             <div className="flex items-center gap-1.5">
@@ -555,7 +555,7 @@ export default function AdminDataPipelinePage() {
                               )}
                             </div>
                           </div>
-                          <div className="flex items-center gap-2 text-[10px] text-[#6b6b7b]">
+                          <div className="flex items-center gap-2 text-[10px] text-[#6b7280]">
                             <span className={statusColor(scraper.status)}>{scraper.status}</span>
                             {scraper.successRate > 0 && (
                               <span>· {(scraper.successRate * 100).toFixed(0)}%</span>
@@ -598,9 +598,9 @@ export default function AdminDataPipelinePage() {
               { icon: Clock, label: 'Oldest Entry', value: formatDate(cache?.oldestEntry ?? null), sub: '' },
               { icon: Clock, label: 'Newest Entry', value: formatDate(cache?.newestEntry ?? null), sub: '' },
             ].map(stat => (
-              <div key={stat.label} className="rounded-xl border border-[#2a2a35] bg-[#12121a] backdrop-blur-xl p-5">
+              <div key={stat.label} className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-5">
                 <stat.icon className="w-4 h-4 text-[#e50914] mb-2" />
-                <p className="text-[#6b6b7b] text-xs mb-1">{stat.label}</p>
+                <p className="text-[#6b7280] text-xs mb-1">{stat.label}</p>
                 <p className="text-white text-lg font-bold">{stat.value}</p>
                 {stat.sub && <p className="text-[#4a4a5a] text-[10px] mt-0.5">{stat.sub}</p>}
               </div>
@@ -620,22 +620,22 @@ export default function AdminDataPipelinePage() {
                   <Trash2 className="w-4 h-4 mr-1.5" /> Clear All Cache
                 </Button>
               </AlertDialogTrigger>
-              <AlertDialogContent className="bg-[#12121a] border-[#2a2a35]">
+              <AlertDialogContent className="bg-[#0c0c10] border-[#1e1e28]">
                 <AlertDialogHeader>
                   <AlertDialogTitle className="text-white">Clear all cached data?</AlertDialogTitle>
-                  <AlertDialogDescription className="text-[#6b6b7b]">
+                  <AlertDialogDescription className="text-[#6b7280]">
                     This will permanently delete all {cache?.totalEntries ?? 0} cached movie entries.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                  <AlertDialogCancel className="border-[#2a2a35] text-[#a0a0b0] hover:text-white">Cancel</AlertDialogCancel>
+                  <AlertDialogCancel className="border-[#1e1e28] text-[#9ca3af] hover:text-white">Cancel</AlertDialogCancel>
                   <AlertDialogAction onClick={() => handleCacheAction('clear')} className="bg-red-500 hover:bg-red-600 text-white">
                     <Trash2 className="w-4 h-4 mr-1.5" /> Clear All
                   </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
-            <Button variant="outline" className="border-[#2a2a35] text-[#a0a0b0] hover:text-white hover:border-[#3a3a45]" onClick={() => handleCacheAction('prune')} disabled={actionLoading !== null}>
+            <Button variant="outline" className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]" onClick={() => handleCacheAction('prune')} disabled={actionLoading !== null}>
               <RefreshCw className="w-4 h-4 mr-1.5" /> Prune Expired
             </Button>
           </div>
@@ -645,41 +645,41 @@ export default function AdminDataPipelinePage() {
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
             <FileText className="w-5 h-5 text-[#e50914]" /> Cached Movies
-            {(cache?.totalEntries ?? 0) > 0 && <span className="text-xs font-normal text-[#6b6b7b] ml-1">({cache?.totalEntries} entries)</span>}
+            {(cache?.totalEntries ?? 0) > 0 && <span className="text-xs font-normal text-[#6b7280] ml-1">({cache?.totalEntries} entries)</span>}
           </h2>
           {sortedMovies.length === 0 ? (
-            <div className="rounded-xl border border-[#2a2a35] bg-[#12121a] backdrop-blur-xl p-12 text-center">
+            <div className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-12 text-center">
               <Database className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" />
-              <p className="text-[#6b6b7b] text-sm">No cached movies yet</p>
+              <p className="text-[#6b7280] text-sm">No cached movies yet</p>
               <p className="text-[#4a4a5a] text-xs mt-1">Process movies through batch below to populate cache</p>
             </div>
           ) : (
-            <div className="rounded-xl border border-[#2a2a35] bg-[#12121a] backdrop-blur-xl overflow-hidden">
+            <div className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl overflow-hidden">
               <div className="overflow-x-auto max-h-[400px] overflow-y-auto">
                 <table className="w-full text-sm">
-                  <thead className="sticky top-0 bg-[#0e0e16] z-10 border-b border-[#2a2a35]">
+                  <thead className="sticky top-0 bg-[#0e0e16] z-10 border-b border-[#1e1e28]">
                     <tr>
-                      <th className="text-left px-4 py-3 text-[#6b6b7b] font-medium text-xs uppercase tracking-wider">
+                      <th className="text-left px-4 py-3 text-[#6b7280] font-medium text-xs uppercase tracking-wider">
                         <button onClick={() => handleSort('title')} className="flex items-center hover:text-white transition-colors">Title <SortIcon field="title" /></button>
                       </th>
-                      <th className="text-left px-4 py-3 text-[#6b6b7b] font-medium text-xs uppercase tracking-wider">TMDb ID</th>
-                      <th className="text-left px-4 py-3 text-[#6b6b7b] font-medium text-xs uppercase tracking-wider">
+                      <th className="text-left px-4 py-3 text-[#6b7280] font-medium text-xs uppercase tracking-wider">TMDb ID</th>
+                      <th className="text-left px-4 py-3 text-[#6b7280] font-medium text-xs uppercase tracking-wider">
                         <button onClick={() => handleSort('completeness')} className="flex items-center hover:text-white transition-colors">Quality <SortIcon field="completeness" /></button>
                       </th>
-                      <th className="text-left px-4 py-3 text-[#6b6b7b] font-medium text-xs uppercase tracking-wider">Sources</th>
-                      <th className="text-left px-4 py-3 text-[#6b6b7b] font-medium text-xs uppercase tracking-wider">
+                      <th className="text-left px-4 py-3 text-[#6b7280] font-medium text-xs uppercase tracking-wider">Sources</th>
+                      <th className="text-left px-4 py-3 text-[#6b7280] font-medium text-xs uppercase tracking-wider">
                         <button onClick={() => handleSort('createdAt')} className="flex items-center hover:text-white transition-colors">Created <SortIcon field="createdAt" /></button>
                       </th>
-                      <th className="text-left px-4 py-3 text-[#6b6b7b] font-medium text-xs uppercase tracking-wider">
+                      <th className="text-left px-4 py-3 text-[#6b7280] font-medium text-xs uppercase tracking-wider">
                         <button onClick={() => handleSort('hitCount')} className="flex items-center hover:text-white transition-colors">Hits <SortIcon field="hitCount" /></button>
                       </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[#1a1a25]">
                     {sortedMovies.map(movie => (
-                      <tr key={movie.key} className="hover:bg-[#1a1a25]/50 transition-colors">
+                      <tr key={movie.key} className="hover:bg-[#111118]/50 transition-colors">
                         <td className="px-4 py-3"><span className="text-white font-medium text-sm truncate block max-w-[200px]">{movie.title}</span></td>
-                        <td className="px-4 py-3"><span className="text-[#6b6b7b] font-mono text-xs">{movie.tmdbId}</span></td>
+                        <td className="px-4 py-3"><span className="text-[#6b7280] font-mono text-xs">{movie.tmdbId}</span></td>
                         <td className="px-4 py-3">
                           <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-xs font-semibold border ${completenessBg(movie.completeness)} ${completenessColor(movie.completeness)}`}>
                             {movie.completeness}%
@@ -688,12 +688,12 @@ export default function AdminDataPipelinePage() {
                         <td className="px-4 py-3">
                           <div className="flex gap-1 flex-wrap">
                             {movie.sources.map(s => (
-                              <span key={s} className="text-[10px] px-1.5 py-0.5 rounded bg-[#1a1a25] text-[#a0a0b0] border border-[#2a2a35]">{s}</span>
+                              <span key={s} className="text-[10px] px-1.5 py-0.5 rounded bg-[#111118] text-[#9ca3af] border border-[#1e1e28]">{s}</span>
                             ))}
                           </div>
                         </td>
-                        <td className="px-4 py-3 text-[#6b6b7b] text-xs whitespace-nowrap">{formatDate(movie.createdAt)}</td>
-                        <td className="px-4 py-3 text-[#6b6b7b] text-xs text-center">{movie.hitCount}</td>
+                        <td className="px-4 py-3 text-[#6b7280] text-xs whitespace-nowrap">{formatDate(movie.createdAt)}</td>
+                        <td className="px-4 py-3 text-[#6b7280] text-xs text-center">{movie.hitCount}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -708,33 +708,33 @@ export default function AdminDataPipelinePage() {
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
             <Zap className="w-5 h-5 text-[#e50914]" /> Batch Processing
           </h2>
-          <div className="rounded-xl border border-[#2a2a35] bg-[#12121a] backdrop-blur-xl p-6">
+          <div className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-6">
             <div className="mb-4">
               <label className="text-sm font-medium text-white mb-2 block">Enter TMDb IDs</label>
               <Textarea
                 value={batchInput}
                 onChange={e => setBatchInput(e.target.value)}
                 placeholder="Enter TMDb IDs separated by commas or newlines&#10;e.g. 550, 155, 680"
-                className="bg-[#0a0a0f] border-[#2a2a35] text-white placeholder:text-[#4a4a5a] min-h-[100px] resize-y focus:border-[#e50914] focus-visible:ring-[#e50914]/20"
+                className="bg-[#050507] border-[#1e1e28] text-white placeholder:text-[#4a4a5a] min-h-[100px] resize-y focus:border-[#e50914] focus-visible:ring-[#e50914]/20"
               />
             </div>
             <Button onClick={handleBatchProcess} disabled={batchProcessing || !batchInput.trim()} className="bg-[#e50914] hover:bg-[#b20710] text-white">
               {batchProcessing ? <><Loader2 className="w-4 h-4 animate-spin" /> Processing…</> : <><Zap className="w-4 h-4" /> Process Batch</>}
             </Button>
             {batchResult && (
-              <div className="mt-6 border-t border-[#2a2a35] pt-6">
+              <div className="mt-6 border-t border-[#1e1e28] pt-6">
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
-                  <div className="rounded-lg bg-[#0a0a0f] border border-[#2a2a35] p-3 text-center">
-                    <p className="text-lg font-bold text-white">{batchResult.totalProcessed}</p><p className="text-[#6b6b7b] text-[10px]">Processed</p>
+                  <div className="rounded-lg bg-[#050507] border border-[#1e1e28] p-3 text-center">
+                    <p className="text-lg font-bold text-white">{batchResult.totalProcessed}</p><p className="text-[#6b7280] text-[10px]">Processed</p>
                   </div>
                   <div className="rounded-lg bg-emerald-500/5 border border-emerald-500/15 p-3 text-center">
-                    <p className="text-lg font-bold text-emerald-400">{batchResult.successCount}</p><p className="text-[#6b6b7b] text-[10px]">Succeeded</p>
+                    <p className="text-lg font-bold text-emerald-400">{batchResult.successCount}</p><p className="text-[#6b7280] text-[10px]">Succeeded</p>
                   </div>
                   <div className="rounded-lg bg-red-500/5 border border-red-500/15 p-3 text-center">
-                    <p className="text-lg font-bold text-red-400">{batchResult.failureCount}</p><p className="text-[#6b6b7b] text-[10px]">Failed</p>
+                    <p className="text-lg font-bold text-red-400">{batchResult.failureCount}</p><p className="text-[#6b7280] text-[10px]">Failed</p>
                   </div>
-                  <div className="rounded-lg bg-[#0a0a0f] border border-[#2a2a35] p-3 text-center">
-                    <p className="text-lg font-bold text-white">{(batchResult.totalDurationMs / 1000).toFixed(1)}s</p><p className="text-[#6b6b7b] text-[10px]">Duration</p>
+                  <div className="rounded-lg bg-[#050507] border border-[#1e1e28] p-3 text-center">
+                    <p className="text-lg font-bold text-white">{(batchResult.totalDurationMs / 1000).toFixed(1)}s</p><p className="text-[#6b7280] text-[10px]">Duration</p>
                   </div>
                 </div>
               </div>
@@ -747,8 +747,8 @@ export default function AdminDataPipelinePage() {
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
             <Key className="w-5 h-5 text-[#e50914]" /> API Key Configuration
           </h2>
-          <div className="rounded-xl border border-[#2a2a35] bg-[#12121a] backdrop-blur-xl p-6">
-            <p className="text-[#a0a0b0] text-sm mb-5">
+          <div className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-6">
+            <p className="text-[#9ca3af] text-sm mb-5">
               Add these to your <code className="text-[#e50914] bg-[#e50914]/10 px-1.5 py-0.5 rounded text-xs">.env.local</code> file.
             </p>
             <div className="space-y-2">
@@ -762,11 +762,11 @@ export default function AdminDataPipelinePage() {
                 { name: 'FANART_TV_API_KEY', desc: 'Optional — High-quality logos and clearart', ok: sources?.fanartTv },
                 { name: 'GEMINI_API_KEY', desc: 'Optional — AI review generation', ok: sources?.gemini },
               ].map(env => (
-                <div key={env.name} className="flex items-center gap-3 p-3 rounded-lg bg-[#0a0a0f] border border-[#2a2a35]">
+                <div key={env.name} className="flex items-center gap-3 p-3 rounded-lg bg-[#050507] border border-[#1e1e28]">
                   {env.ok ? <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" /> : <XCircle className="w-4 h-4 text-red-400 flex-shrink-0" />}
                   <div className="flex-1 min-w-0">
-                    <code className="text-white font-mono text-sm bg-[#1a1a25] px-2 py-0.5 rounded">{env.name}</code>
-                    <span className="text-[#6b6b7b] text-xs ml-2">{env.desc}</span>
+                    <code className="text-white font-mono text-sm bg-[#111118] px-2 py-0.5 rounded">{env.name}</code>
+                    <span className="text-[#6b7280] text-xs ml-2">{env.desc}</span>
                   </div>
                   {env.ok && <span className="text-[10px] text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 rounded">SET</span>}
                 </div>

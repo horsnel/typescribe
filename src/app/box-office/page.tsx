@@ -49,10 +49,10 @@ function formatCurrency(amount: number): string {
 }
 
 function ChangeIndicator({ value }: { value: number | null }) {
-  if (value === null) return <span className="text-[#6b6b7b]">NEW</span>;
+  if (value === null) return <span className="text-[#6b7280]">NEW</span>;
   if (value > 0) return <span className="text-emerald-400 flex items-center gap-0.5"><ArrowUpRight className="w-3 h-3" />+{value}%</span>;
   if (value < 0) return <span className="text-red-400 flex items-center gap-0.5"><ArrowDownRight className="w-3 h-3" />{value}%</span>;
-  return <span className="text-[#6b6b7b] flex items-center gap-0.5"><Minus className="w-3 h-3" />0%</span>;
+  return <span className="text-[#6b7280] flex items-center gap-0.5"><Minus className="w-3 h-3" />0%</span>;
 }
 
 export default function BoxOfficePage() {
@@ -96,13 +96,13 @@ export default function BoxOfficePage() {
   const selectedCountryFlag = COUNTRIES.find(c => c.code === selectedCountry)?.flag || '🇺🇸';
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] pt-20">
+    <div className="min-h-screen bg-[#050507] pt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-sm text-[#6b6b7b] mb-6">
+        <nav className="flex items-center gap-2 text-sm text-[#6b7280] mb-6">
           <Link href="/" className="hover:text-white transition-colors">Home</Link>
           <span>/</span>
-          <span className="text-[#a0a0b0]">Box Office</span>
+          <span className="text-[#9ca3af]">Box Office</span>
         </nav>
 
         {/* Header */}
@@ -114,12 +114,12 @@ export default function BoxOfficePage() {
               </div>
               <h1 className="text-3xl lg:text-4xl font-extrabold text-white">Box Office</h1>
             </div>
-            <p className="text-[#6b6b7b]">Real-time box office rankings</p>
+            <p className="text-[#6b7280]">Real-time box office rankings</p>
           </div>
         </div>
 
         {/* Tabs */}
-        <div className="flex items-center gap-2 mb-8 border-b border-[#2a2a35] pb-0">
+        <div className="flex items-center gap-2 mb-8 border-b border-[#1e1e28] pb-0">
           {tabs.map((tab) => (
             <button
               key={tab.key}
@@ -127,7 +127,7 @@ export default function BoxOfficePage() {
               className={`flex items-center gap-2 px-5 py-3 text-sm font-medium border-b-2 transition-colors ${
                 activeTab === tab.key
                   ? 'border-[#e50914] text-white'
-                  : 'border-transparent text-[#6b6b7b] hover:text-white'
+                  : 'border-transparent text-[#6b7280] hover:text-white'
               }`}
             >
               {tab.icon}
@@ -140,8 +140,8 @@ export default function BoxOfficePage() {
         {activeTab === 'by-country' && (
           <div className="mb-8">
             <div className="flex items-center gap-3 mb-3">
-              <Globe className="w-4 h-4 text-[#6b6b7b]" />
-              <span className="text-sm text-[#6b6b7b] font-medium">Select Country</span>
+              <Globe className="w-4 h-4 text-[#6b7280]" />
+              <span className="text-sm text-[#6b7280] font-medium">Select Country</span>
             </div>
             <div className="flex gap-2 flex-wrap">
               {COUNTRIES.map((country) => (
@@ -151,7 +151,7 @@ export default function BoxOfficePage() {
                   className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                     selectedCountry === country.code
                       ? 'bg-[#e50914] text-white'
-                      : 'bg-[#12121a] border border-[#2a2a35] text-[#a0a0b0] hover:text-white hover:border-[#3a3a45]'
+                      : 'bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
                   }`}
                 >
                   <span>{country.flag}</span>
@@ -163,7 +163,7 @@ export default function BoxOfficePage() {
         )}
 
         {/* Data source indicator */}
-        <div className="mb-6 flex items-center gap-2 bg-[#12121a] border border-[#2a2a35] rounded-lg px-4 py-2.5">
+        <div className="mb-6 flex items-center gap-2 bg-[#0c0c10] border border-[#1e1e28] rounded-lg px-4 py-2.5">
           {fromAPI ? (
             <>
               <Zap className="w-4 h-4 text-emerald-400" />
@@ -174,7 +174,7 @@ export default function BoxOfficePage() {
           ) : (
             <>
               <BarChart3 className="w-4 h-4 text-[#e50914]" />
-              <p className="text-xs text-[#6b6b7b]">
+              <p className="text-xs text-[#6b7280]">
                 Showing demo data. Connect TMDb API for live box office rankings.
                 <Link href="/admin/data" className="text-[#e50914] hover:underline ml-1">Set up pipeline →</Link>
               </p>
@@ -186,7 +186,7 @@ export default function BoxOfficePage() {
         {isLoading && (
           <div className="flex items-center justify-center py-20">
             <Loader2 className="w-8 h-8 text-[#e50914] animate-spin" />
-            <span className="ml-3 text-[#6b6b7b]">Loading box office data...</span>
+            <span className="ml-3 text-[#6b7280]">Loading box office data...</span>
           </div>
         )}
 
@@ -209,7 +209,7 @@ export default function BoxOfficePage() {
                       {entry.rank === 1 && <Crown className="w-5 h-5 text-[#f5c518]" />}
                     </div>
                     <div className="flex gap-3">
-                      <div className="w-14 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-[#0a0a0f]">
+                      <div className="w-14 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-[#050507]">
                         <img
                           src={entry.poster_path}
                           alt={entry.title}
@@ -221,10 +221,10 @@ export default function BoxOfficePage() {
                         <h3 className="text-base font-bold text-white group-hover:text-[#e50914] transition-colors leading-snug truncate">
                           {entry.title}
                         </h3>
-                        <p className="text-xs text-[#6b6b7b] mt-0.5">{entry.year}</p>
+                        <p className="text-xs text-[#6b7280] mt-0.5">{entry.year}</p>
                         <div className="flex items-center gap-3 mt-2">
                           <span className="text-sm font-semibold text-[#f5c518]">{formatCurrency(entry.weekendGross)}</span>
-                          <span className="text-xs text-[#6b6b7b]">weekend</span>
+                          <span className="text-xs text-[#6b7280]">weekend</span>
                         </div>
                       </div>
                     </div>
@@ -248,10 +248,10 @@ export default function BoxOfficePage() {
                   >
                     <div className="flex items-center gap-3 mb-3">
                       {entry.rank === 1 ? <Crown className="w-6 h-6 text-[#f5c518]" /> :
-                       <span className="text-xl font-extrabold text-[#a0a0b0]">#{entry.rank}</span>}
+                       <span className="text-xl font-extrabold text-[#9ca3af]">#{entry.rank}</span>}
                     </div>
                     <div className="flex gap-3">
-                      <div className="w-14 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-[#0a0a0f]">
+                      <div className="w-14 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-[#050507]">
                         <img
                           src={entry.poster_path}
                           alt={entry.title}
@@ -263,10 +263,10 @@ export default function BoxOfficePage() {
                         <h3 className="text-base font-bold text-white group-hover:text-[#e50914] transition-colors leading-snug truncate">
                           {entry.title}
                         </h3>
-                        <p className="text-xs text-[#6b6b7b] mt-0.5">{entry.year}</p>
+                        <p className="text-xs text-[#6b7280] mt-0.5">{entry.year}</p>
                         <div className="flex items-center gap-3 mt-2">
                           <span className="text-sm font-semibold text-[#f5c518]">{formatCurrency(entry.totalGross)}</span>
-                          <span className="text-xs text-[#6b6b7b]">worldwide</span>
+                          <span className="text-xs text-[#6b7280]">worldwide</span>
                         </div>
                       </div>
                     </div>
@@ -276,9 +276,9 @@ export default function BoxOfficePage() {
             )}
 
             {/* Full Table */}
-            <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl overflow-hidden">
+            <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl overflow-hidden">
               {/* Table Header */}
-              <div className="grid items-center gap-4 px-5 py-3 border-b border-[#2a2a35] text-xs font-semibold text-[#6b6b7b] uppercase tracking-wider bg-[#0a0a0f]/50">
+              <div className="grid items-center gap-4 px-5 py-3 border-b border-[#1e1e28] text-xs font-semibold text-[#6b7280] uppercase tracking-wider bg-[#050507]/50">
                 <div className="grid items-center gap-4" style={{ gridTemplateColumns: '48px 1fr 120px 120px 80px 80px' }}>
                   <span>Rank</span>
                   <span>Movie</span>
@@ -301,19 +301,19 @@ export default function BoxOfficePage() {
                   <Link
                     key={entry.id}
                     href={entry.slug ? `/movie/${entry.slug}` : '#'}
-                    className="grid items-center gap-4 px-5 py-3 hover:bg-[#1a1a25] transition-colors group"
+                    className="grid items-center gap-4 px-5 py-3 hover:bg-[#111118] transition-colors group"
                     style={{ gridTemplateColumns: activeTab === 'top-all-time' ? '48px 1fr 120px' : '48px 1fr 120px 120px 80px 80px' }}
                   >
                     {/* Rank */}
                     <div className="flex items-center justify-center">
-                      <span className={`text-lg font-bold ${entry.rank <= 3 ? 'text-[#f5c518]' : 'text-[#6b6b7b]'}`}>
+                      <span className={`text-lg font-bold ${entry.rank <= 3 ? 'text-[#f5c518]' : 'text-[#6b7280]'}`}>
                         #{entry.rank}
                       </span>
                     </div>
 
                     {/* Movie Info */}
                     <div className="flex items-center gap-3 min-w-0">
-                      <div className="w-10 h-14 rounded-lg overflow-hidden flex-shrink-0 bg-[#0a0a0f]">
+                      <div className="w-10 h-14 rounded-lg overflow-hidden flex-shrink-0 bg-[#050507]">
                         <img
                           src={entry.poster_path}
                           alt={entry.title}
@@ -325,7 +325,7 @@ export default function BoxOfficePage() {
                         <h3 className="text-sm font-semibold text-white group-hover:text-[#e50914] transition-colors truncate">
                           {entry.title}
                         </h3>
-                        <span className="text-xs text-[#6b6b7b]">{entry.year}</span>
+                        <span className="text-xs text-[#6b7280]">{entry.year}</span>
                       </div>
                     </div>
 
@@ -348,7 +348,7 @@ export default function BoxOfficePage() {
 
                         {/* Weeks */}
                         <div className="text-right">
-                          <span className="text-sm text-[#a0a0b0]">{entry.weeks}wk{entry.weeks !== 1 ? 's' : ''}</span>
+                          <span className="text-sm text-[#9ca3af]">{entry.weeks}wk{entry.weeks !== 1 ? 's' : ''}</span>
                         </div>
 
                         {/* Change */}
@@ -364,7 +364,7 @@ export default function BoxOfficePage() {
 
             {/* Footer note */}
             <div className="mt-6 text-center">
-              <p className="text-xs text-[#6b6b7b]">
+              <p className="text-xs text-[#6b7280]">
                 Powered by TMDb + Box Office Mojo · Data refreshed hourly ·{' '}
                 {activeTab === 'by-country' && `${selectedCountryFlag} ${selectedCountryName} · `}
                 {fromAPI ? 'Live data' : 'Demo data'}
@@ -376,8 +376,8 @@ export default function BoxOfficePage() {
         {!isLoading && entries.length === 0 && (
           <div className="text-center py-24">
             <DollarSign className="w-16 h-16 text-[#2a2a35] mx-auto mb-4" />
-            <p className="text-lg text-[#a0a0b0] mb-2">No box office data available</p>
-            <p className="text-sm text-[#6b6b7b]">Check back later for updated rankings.</p>
+            <p className="text-lg text-[#9ca3af] mb-2">No box office data available</p>
+            <p className="text-sm text-[#6b7280]">Check back later for updated rankings.</p>
           </div>
         )}
       </div>

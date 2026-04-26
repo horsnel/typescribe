@@ -31,7 +31,7 @@ export default function TopRatedSection() {
   const displayMovies = topMovies.length > 0 ? topMovies : topRated.map(t => t.movie);
 
   return (
-    <section id="top-rated" className="py-20 bg-[#0a0a0f]">
+    <section id="top-rated" className="py-20 bg-[#050507]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="flex items-center gap-3 mb-10">
           <h2 className="reveal-section text-2xl sm:text-3xl font-bold text-white tracking-tight">Top Rated This Week</h2>
@@ -48,20 +48,20 @@ export default function TopRatedSection() {
             {displayMovies.map((movie, i) => {
               const rank = i + 1;
               return (
-                <Link key={movie.id} href={`/movie/${movie.slug}`} className="card-reveal bg-[#12121a] border border-[#2a2a35] rounded-xl overflow-hidden hover:border-[#3a3a45] hover:shadow-xl transition-all group">
+                <Link key={movie.id} href={`/movie/${movie.slug}`} className="card-reveal bg-[#0c0c10] border border-white/[0.06] rounded-xl overflow-hidden hover:border-[#e50914]/30 hover:shadow-xl transition-all group">
                   <div className="relative aspect-[16/10] overflow-hidden">
                     <img src={movie.poster_path} alt={movie.title} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f]/60 via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#050507]/60 via-transparent to-transparent" />
                     <div className="absolute top-3 left-3"><span className={`inline-flex items-center justify-center w-12 h-12 rounded-full ${rankBgColors[rank]} backdrop-blur-sm ${rankColors[rank]} text-2xl font-extrabold border-2 ${rank === 1 ? 'border-[#f5c518]' : rank === 2 ? 'border-[#c0c0c0]' : 'border-[#cd7f32]'}`} style={{ textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}>#{rank}</span></div>
                   </div>
                   <div className="p-5">
                     <h3 className="text-lg font-bold text-white mb-1 group-hover:text-[#e50914] transition-colors">{movie.title}</h3>
                     <div className="flex items-center gap-3 mb-3">
                       <div className="flex items-center gap-1"><Star className="w-4 h-4 text-[#f5c518] fill-[#f5c518]" /><span className="text-sm font-semibold text-[#f5c518]">{movie.vote_average.toFixed(1)}</span></div>
-                      {movie.imdb_rating && <span className="text-xs text-[#6b6b7b]">IMDb {movie.imdb_rating}</span>}
-                      {movie.rotten_tomatoes && <span className="text-xs text-[#6b6b7b]">RT {movie.rotten_tomatoes}</span>}
+                      {movie.imdb_rating && <span className="text-xs text-[#6b7280]">IMDb {movie.imdb_rating}</span>}
+                      {movie.rotten_tomatoes && <span className="text-xs text-[#6b7280]">RT {movie.rotten_tomatoes}</span>}
                     </div>
-                    {movie.rt_consensus && <p className="text-sm text-[#a0a0b0] italic leading-relaxed">&ldquo;{movie.rt_consensus}&rdquo;</p>}
+                    {movie.rt_consensus && <p className="text-sm text-[#9ca3af] italic leading-relaxed">&ldquo;{movie.rt_consensus}&rdquo;</p>}
                   </div>
                 </Link>
               );

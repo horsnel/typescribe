@@ -54,10 +54,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0a0a0f]">
+      <div className="min-h-screen flex items-center justify-center bg-[#050507]">
         <div className="text-center space-y-4">
           <h2 className="text-2xl font-bold text-white">Please sign in</h2>
-          <p className="text-[#a0a0b0]">You need to be logged in to access the dashboard.</p>
+          <p className="text-[#9ca3af]">You need to be logged in to access the dashboard.</p>
           <Link href="/login">
             <Button className="bg-[#e50914] hover:bg-[#e50914]/90 text-white">Sign In</Button>
           </Link>
@@ -106,7 +106,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-sm font-medium ${
                   active
                     ? 'bg-[#e50914]/15 text-[#e50914]'
-                    : 'text-[#a0a0b0] hover:text-white hover:bg-[#1a1a25]'
+                    : 'text-[#9ca3af] hover:text-white hover:bg-[#111118]'
                 }`}
               >
                 <Icon className="w-5 h-5 flex-shrink-0" />
@@ -131,7 +131,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-sm font-medium ${
                 active
                   ? 'bg-[#e50914]/15 text-[#e50914]'
-                  : 'text-[#a0a0b0] hover:text-white hover:bg-[#1a1a25]'
+                  : 'text-[#9ca3af] hover:text-white hover:bg-[#111118]'
               }`}
             >
               <Icon className="w-5 h-5 flex-shrink-0" />
@@ -146,7 +146,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       {/* User */}
       <div className="p-3">
         <div className={`flex items-center gap-3 ${collapsed ? 'justify-center' : ''}`}>
-          <Avatar className="w-9 h-9 flex-shrink-0 border border-[#2a2a35]">
+          <Avatar className="w-9 h-9 flex-shrink-0 border border-[#1e1e28]">
             <AvatarImage src={user?.avatar} />
             <AvatarFallback className="bg-[#e50914]/20 text-[#e50914] text-xs font-bold">
               {user?.display_name ? getInitials(user.display_name) : 'U'}
@@ -155,18 +155,18 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           {!collapsed && (
             <div className="flex-1 min-w-0">
               <p className="text-white text-sm font-medium truncate">{user?.display_name || 'User'}</p>
-              <p className="text-[#6b6b7b] text-xs truncate">{user?.email}</p>
+              <p className="text-[#6b7280] text-xs truncate">{user?.email}</p>
             </div>
           )}
         </div>
         <div className={`flex gap-2 mt-2 ${collapsed ? 'justify-center' : ''}`}>
           <Link href="/">
-            <Button variant="ghost" size="sm" className="text-[#6b6b7b] hover:text-white h-8">
+            <Button variant="ghost" size="sm" className="text-[#6b7280] hover:text-white h-8">
               <Home className="w-4 h-4" />
               {!collapsed && <span className="ml-1.5 text-xs">Home</span>}
             </Button>
           </Link>
-          <Button variant="ghost" size="sm" className="text-[#6b6b7b] hover:text-[#e50914] h-8" onClick={logout}>
+          <Button variant="ghost" size="sm" className="text-[#6b7280] hover:text-[#e50914] h-8" onClick={logout}>
             <LogOut className="w-4 h-4" />
             {!collapsed && <span className="ml-1.5 text-xs">Logout</span>}
           </Button>
@@ -176,17 +176,17 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   );
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] flex">
+    <div className="min-h-screen bg-[#050507] flex">
       {/* Desktop Sidebar */}
       <aside
-        className={`hidden lg:flex flex-col border-r border-[#2a2a35] bg-[#0a0a0f] transition-all duration-300 relative ${
+        className={`hidden lg:flex flex-col border-r border-[#1e1e28] bg-[#050507] transition-all duration-300 relative ${
           collapsed ? 'w-[68px]' : 'w-64'
         }`}
       >
         {sidebarContent}
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="absolute top-6 -right-3 z-10 w-6 h-6 bg-[#1a1a25] border border-[#2a2a35] rounded-full flex items-center justify-center text-[#6b6b7b] hover:text-white transition-colors"
+          className="absolute top-6 -right-3 z-10 w-6 h-6 bg-[#111118] border border-[#1e1e28] rounded-full flex items-center justify-center text-[#6b7280] hover:text-white transition-colors"
         >
           {collapsed ? <ChevronRight className="w-3 h-3" /> : <ChevronLeft className="w-3 h-3" />}
         </button>
@@ -196,8 +196,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       {mobileOpen && (
         <div className="fixed inset-0 z-40 lg:hidden">
           <div className="fixed inset-0 bg-black/60" onClick={() => setMobileOpen(false)} />
-          <aside className="fixed left-0 top-0 bottom-0 w-64 bg-[#0a0a0f] border-r border-[#2a2a35] z-50">
-            <button onClick={() => setMobileOpen(false)} className="absolute top-4 right-4 text-[#6b6b7b] hover:text-white z-50">
+          <aside className="fixed left-0 top-0 bottom-0 w-64 bg-[#050507] border-r border-[#1e1e28] z-50">
+            <button onClick={() => setMobileOpen(false)} className="absolute top-4 right-4 text-[#6b7280] hover:text-white z-50">
               <X className="w-5 h-5" />
             </button>
             {sidebarContent}
@@ -208,8 +208,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       {/* Main */}
       <div className="flex-1 flex flex-col min-h-screen">
         {/* Mobile header */}
-        <header className="lg:hidden flex items-center gap-3 p-4 border-b border-[#2a2a35] bg-[#0a0a0f]">
-          <Button variant="ghost" size="icon" onClick={() => setMobileOpen(true)} className="text-white hover:bg-[#1a1a25]">
+        <header className="lg:hidden flex items-center gap-3 p-4 border-b border-[#1e1e28] bg-[#050507]">
+          <Button variant="ghost" size="icon" onClick={() => setMobileOpen(true)} className="text-white hover:bg-[#111118]">
             <Menu className="w-5 h-5" />
           </Button>
           <div className="flex items-center gap-2">

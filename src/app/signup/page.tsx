@@ -82,7 +82,7 @@ export default function SignupPage() {
   const strength = getPasswordStrength();
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center px-4 py-12">
+    <div className="min-h-screen bg-[#050507] flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
@@ -91,7 +91,7 @@ export default function SignupPage() {
             <span className="text-2xl font-extrabold text-white">Typescribe</span>
           </Link>
           <h1 className="text-2xl font-bold text-white mb-2">Create your account</h1>
-          <p className="text-[#6b6b7b]">Join the community of movie lovers</p>
+          <p className="text-[#6b7280]">Join the community of movie lovers</p>
         </div>
 
         {/* Social Login */}
@@ -107,12 +107,12 @@ export default function SignupPage() {
         {/* Divider */}
         <div className="flex items-center gap-4 mb-6">
           <div className="flex-1 h-px bg-[#2a2a35]" />
-          <span className="text-xs text-[#6b6b7b]">OR</span>
+          <span className="text-xs text-[#6b7280]">OR</span>
           <div className="flex-1 h-px bg-[#2a2a35]" />
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-6 space-y-4">
+        <form onSubmit={handleSubmit} className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6 space-y-4">
           {error && (
             <div className="flex items-center gap-2 bg-red-500/10 border border-red-500/20 rounded-lg p-3">
               <AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0" />
@@ -127,7 +127,7 @@ export default function SignupPage() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#e50914]"
+              className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914]"
               placeholder="Your name"
             />
           </div>
@@ -139,7 +139,7 @@ export default function SignupPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#e50914]"
+              className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914]"
               placeholder="you@example.com"
             />
           </div>
@@ -152,10 +152,10 @@ export default function SignupPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg py-2.5 px-3 pr-10 text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#e50914]"
+                className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 pr-10 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914]"
                 placeholder="At least 6 characters"
               />
-              <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6b6b7b] hover:text-white">
+              <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6b7280] hover:text-white">
                 {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
             </div>
@@ -167,7 +167,7 @@ export default function SignupPage() {
                     <div key={i} className={`h-1 flex-1 rounded-full ${i < strength.level ? strength.color : 'bg-[#2a2a35]'}`} />
                   ))}
                 </div>
-                <p className="text-xs text-[#6b6b7b]">{strength.label}</p>
+                <p className="text-xs text-[#6b7280]">{strength.label}</p>
               </div>
             )}
           </div>
@@ -179,7 +179,7 @@ export default function SignupPage() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
-              className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#e50914]"
+              className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914]"
               placeholder="Repeat your password"
             />
             {confirmPassword && password && (
@@ -194,12 +194,12 @@ export default function SignupPage() {
               type="checkbox"
               checked={agreedToTerms}
               onChange={(e) => setAgreedToTerms(e.target.checked)}
-              className="mt-0.5 rounded border-[#2a2a35] bg-[#0a0a0f] text-[#e50914] focus:ring-[#e50914]"
+              className="mt-0.5 rounded border-[#1e1e28] bg-[#050507] text-[#e50914] focus:ring-[#e50914]"
             />
-            <span className="text-xs text-[#6b6b7b]">
+            <span className="text-xs text-[#6b7280]">
               I agree to the{' '}
-              <Link href="/terms" className="text-[#a0a0b0] hover:text-white">Terms of Service</Link> and{' '}
-              <Link href="/privacy" className="text-[#a0a0b0] hover:text-white">Privacy Policy</Link>
+              <Link href="/terms" className="text-[#9ca3af] hover:text-white">Terms of Service</Link> and{' '}
+              <Link href="/privacy" className="text-[#9ca3af] hover:text-white">Privacy Policy</Link>
             </span>
           </label>
 
@@ -211,7 +211,7 @@ export default function SignupPage() {
             {loading ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : 'Sign Up'}
           </Button>
 
-          <p className="text-center text-sm text-[#6b6b7b]">
+          <p className="text-center text-sm text-[#6b7280]">
             Already have an account?{' '}
             <Link href="/login" className="text-[#e50914] hover:underline">Sign In</Link>
           </p>

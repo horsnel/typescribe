@@ -6,7 +6,7 @@ import { movies } from '@/lib/data';
 export default function LatestReviews() {
   const reviewMovies = movies.slice(0, 6);
   return (
-    <section className="py-20 bg-[#12121a]">
+    <section className="py-20 bg-[#050507]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="reveal-section flex items-center justify-between mb-10">
           <div className="flex items-center gap-3">
@@ -19,12 +19,12 @@ export default function LatestReviews() {
             const year = movie.release_date ? movie.release_date.split('-')[0] : '';
             const genreNames = movie.genres.slice(0, 2).map((g) => g.name).join(', ');
             return (
-              <Link key={movie.id} href={`/movie/${movie.slug}`} className="card-reveal bg-[#0a0a0f] border border-[#2a2a35] rounded-xl p-5 flex gap-4 hover:border-[#3a3a45] hover:shadow-lg transition-all group">
-                <div className="flex-shrink-0 w-16 h-24 rounded-lg overflow-hidden bg-[#12121a]"><img src={movie.poster_path} alt={movie.title} className="w-full h-full object-cover" loading="lazy" /></div>
+              <Link key={movie.id} href={`/movie/${movie.slug}`} className="card-reveal bg-[#0c0c10] border border-white/[0.06] rounded-xl p-5 flex gap-4 hover:border-[#e50914]/30 hover:shadow-lg transition-all group">
+                <div className="flex-shrink-0 w-16 h-24 rounded-lg overflow-hidden bg-[#0c0c10]"><img src={movie.poster_path} alt={movie.title} className="w-full h-full object-cover" loading="lazy" /></div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1"><h3 className="text-base font-semibold text-white truncate group-hover:text-[#e50914] transition-colors">{movie.title}</h3><span className="text-xs font-bold text-[#f5c518] flex-shrink-0">{movie.vote_average.toFixed(1)}</span></div>
-                  <div className="flex items-center gap-2 mb-2">{year && <span className="text-xs text-[#6b6b7b]">{year}</span>}{year && genreNames && <span className="text-[#2a2a35]">·</span>}{genreNames && <span className="text-xs text-[#6b6b7b]">{genreNames}</span>}</div>
-                  <p className="text-sm text-[#a0a0b0] line-clamp-2 leading-relaxed mb-2">{movie.ai_review}</p>
+                  <div className="flex items-center gap-2 mb-2">{year && <span className="text-xs text-[#6b7280]">{year}</span>}{year && genreNames && <span className="text-[#1e1e28]">·</span>}{genreNames && <span className="text-xs text-[#6b7280]">{genreNames}</span>}</div>
+                  <p className="text-sm text-[#9ca3af] line-clamp-2 leading-relaxed mb-2">{movie.ai_review}</p>
                   <span className="inline-flex items-center gap-1 text-sm text-[#e50914] hover:text-[#ff1a25] transition-colors font-medium">Read Full Review<ArrowRight className="w-3.5 h-3.5" /></span>
                 </div>
               </Link>

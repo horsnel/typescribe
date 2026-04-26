@@ -20,9 +20,9 @@ export default function SettingsPage() {
 
   if (!isAuthenticated || !user) {
     return (
-      <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center">
+      <div className="min-h-screen bg-[#050507] flex items-center justify-center">
         <div className="text-center">
-          <p className="text-[#a0a0b0] mb-4">Please sign in to view settings</p>
+          <p className="text-[#9ca3af] mb-4">Please sign in to view settings</p>
           <Link href="/login" className="text-[#e50914] hover:underline">Sign In</Link>
         </div>
       </div>
@@ -65,14 +65,14 @@ export default function SettingsPage() {
   );
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] pt-8 pb-16">
+    <div className="min-h-screen bg-[#050507] pt-8 pb-16">
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
-        <nav className="flex items-center gap-2 text-sm text-[#6b6b7b] mb-6">
+        <nav className="flex items-center gap-2 text-sm text-[#6b7280] mb-6">
           <Link href="/" className="hover:text-white transition-colors">Home</Link>
           <span>/</span>
           <Link href="/profile" className="hover:text-white transition-colors">Profile</Link>
           <span>/</span>
-          <span className="text-[#a0a0b0]">Settings</span>
+          <span className="text-[#9ca3af]">Settings</span>
         </nav>
 
         <div className="flex items-center gap-3 mb-8">
@@ -82,30 +82,30 @@ export default function SettingsPage() {
 
         <div className="space-y-6">
           {/* Notification Settings */}
-          <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-6">
+          <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
             <div className="flex items-center gap-2 mb-4">
               <Bell className="w-5 h-5 text-[#e50914]" />
               <h2 className="text-lg font-semibold text-white">Notifications</h2>
             </div>
             <div className="space-y-4">
-              <div className="flex items-center justify-between p-4 bg-[#0a0a0f] border border-[#2a2a35] rounded-lg">
+              <div className="flex items-center justify-between p-4 bg-[#050507] border border-[#1e1e28] rounded-lg">
                 <div>
                   <p className="text-sm font-medium text-white">Email Notifications</p>
-                  <p className="text-xs text-[#6b6b7b] mt-0.5">Receive email updates about new movies and reviews</p>
+                  <p className="text-xs text-[#6b7280] mt-0.5">Receive email updates about new movies and reviews</p>
                 </div>
                 <Toggle enabled={emailNotifications} onChange={() => setEmailNotifications(!emailNotifications)} />
               </div>
-              <div className="flex items-center justify-between p-4 bg-[#0a0a0f] border border-[#2a2a35] rounded-lg">
+              <div className="flex items-center justify-between p-4 bg-[#050507] border border-[#1e1e28] rounded-lg">
                 <div>
                   <p className="text-sm font-medium text-white">Reply Notifications</p>
-                  <p className="text-xs text-[#6b6b7b] mt-0.5">Get notified when someone replies to your comment</p>
+                  <p className="text-xs text-[#6b7280] mt-0.5">Get notified when someone replies to your comment</p>
                 </div>
                 <Toggle enabled={true} onChange={() => {}} />
               </div>
-              <div className="flex items-center justify-between p-4 bg-[#0a0a0f] border border-[#2a2a35] rounded-lg">
+              <div className="flex items-center justify-between p-4 bg-[#050507] border border-[#1e1e28] rounded-lg">
                 <div>
                   <p className="text-sm font-medium text-white">Weekly Digest</p>
-                  <p className="text-xs text-[#6b6b7b] mt-0.5">Get a weekly summary of top movies and reviews</p>
+                  <p className="text-xs text-[#6b7280] mt-0.5">Get a weekly summary of top movies and reviews</p>
                 </div>
                 <Toggle enabled={true} onChange={() => {}} />
               </div>
@@ -113,23 +113,23 @@ export default function SettingsPage() {
           </div>
 
           {/* Privacy Settings */}
-          <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-6">
+          <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
             <div className="flex items-center gap-2 mb-4">
               <Eye className="w-5 h-5 text-[#e50914]" />
               <h2 className="text-lg font-semibold text-white">Privacy</h2>
             </div>
             <div className="space-y-4">
-              <div className="flex items-center justify-between p-4 bg-[#0a0a0f] border border-[#2a2a35] rounded-lg">
+              <div className="flex items-center justify-between p-4 bg-[#050507] border border-[#1e1e28] rounded-lg">
                 <div>
                   <p className="text-sm font-medium text-white">Public Profile</p>
-                  <p className="text-xs text-[#6b6b7b] mt-0.5">Allow other users to see your reviews and watchlist</p>
+                  <p className="text-xs text-[#6b7280] mt-0.5">Allow other users to see your reviews and watchlist</p>
                 </div>
                 <Toggle enabled={publicProfile} onChange={() => setPublicProfile(!publicProfile)} />
               </div>
-              <div className="flex items-center justify-between p-4 bg-[#0a0a0f] border border-[#2a2a35] rounded-lg">
+              <div className="flex items-center justify-between p-4 bg-[#050507] border border-[#1e1e28] rounded-lg">
                 <div>
                   <p className="text-sm font-medium text-white">Show Spoilers</p>
-                  <p className="text-xs text-[#6b6b7b] mt-0.5">Display spoiler content in reviews without hiding</p>
+                  <p className="text-xs text-[#6b7280] mt-0.5">Display spoiler content in reviews without hiding</p>
                 </div>
                 <Toggle enabled={showSpoilers} onChange={() => setShowSpoilers(!showSpoilers)} />
               </div>
@@ -137,22 +137,22 @@ export default function SettingsPage() {
           </div>
 
           {/* Preferences */}
-          <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-6">
+          <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
             <div className="flex items-center gap-2 mb-4">
               <Palette className="w-5 h-5 text-[#e50914]" />
               <h2 className="text-lg font-semibold text-white">Preferences</h2>
             </div>
             <div className="space-y-4">
-              <div className="p-4 bg-[#0a0a0f] border border-[#2a2a35] rounded-lg">
+              <div className="p-4 bg-[#050507] border border-[#1e1e28] rounded-lg">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium text-white">Language</p>
-                    <p className="text-xs text-[#6b6b7b] mt-0.5">Choose your preferred language</p>
+                    <p className="text-xs text-[#6b7280] mt-0.5">Choose your preferred language</p>
                   </div>
                   <select
                     value={language}
                     onChange={(e) => setLanguage(e.target.value)}
-                    className="bg-[#12121a] border border-[#2a2a35] rounded-lg py-1.5 px-3 text-sm text-white focus:outline-none focus:border-[#e50914]"
+                    className="bg-[#0c0c10] border border-[#1e1e28] rounded-lg py-1.5 px-3 text-sm text-white focus:outline-none focus:border-[#e50914]"
                   >
                     <option value="en">English</option>
                     <option value="es">Español</option>
@@ -164,18 +164,18 @@ export default function SettingsPage() {
                   </select>
                 </div>
               </div>
-              <div className="flex items-center justify-between p-4 bg-[#0a0a0f] border border-[#2a2a35] rounded-lg">
+              <div className="flex items-center justify-between p-4 bg-[#050507] border border-[#1e1e28] rounded-lg">
                 <div>
                   <p className="text-sm font-medium text-white">Rating System</p>
-                  <p className="text-xs text-[#6b6b7b] mt-0.5">Use 10-point rating scale</p>
+                  <p className="text-xs text-[#6b7280] mt-0.5">Use 10-point rating scale</p>
                 </div>
-                <span className="text-xs text-[#6b6b7b] bg-[#12121a] px-2.5 py-1 rounded">10-point</span>
+                <span className="text-xs text-[#6b7280] bg-[#0c0c10] px-2.5 py-1 rounded">10-point</span>
               </div>
             </div>
           </div>
 
           {/* Change Password */}
-          <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-6">
+          <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
             <div className="flex items-center gap-2 mb-4">
               <Key className="w-5 h-5 text-[#e50914]" />
               <h2 className="text-lg font-semibold text-white">Change Password</h2>
@@ -183,15 +183,15 @@ export default function SettingsPage() {
             <form onSubmit={handlePasswordChange} className="space-y-4">
               <div>
                 <label className="text-sm font-medium text-white mb-1.5 block">Current Password</label>
-                <input type="password" value={passwordData.current} onChange={(e) => setPasswordData(p => ({ ...p, current: e.target.value }))} required className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#e50914]" placeholder="Enter current password" />
+                <input type="password" value={passwordData.current} onChange={(e) => setPasswordData(p => ({ ...p, current: e.target.value }))} required className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914]" placeholder="Enter current password" />
               </div>
               <div>
                 <label className="text-sm font-medium text-white mb-1.5 block">New Password</label>
-                <input type="password" value={passwordData.newPass} onChange={(e) => setPasswordData(p => ({ ...p, newPass: e.target.value }))} required className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#e50914]" placeholder="At least 6 characters" />
+                <input type="password" value={passwordData.newPass} onChange={(e) => setPasswordData(p => ({ ...p, newPass: e.target.value }))} required className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914]" placeholder="At least 6 characters" />
               </div>
               <div>
                 <label className="text-sm font-medium text-white mb-1.5 block">Confirm New Password</label>
-                <input type="password" value={passwordData.confirm} onChange={(e) => setPasswordData(p => ({ ...p, confirm: e.target.value }))} required className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#e50914]" placeholder="Repeat new password" />
+                <input type="password" value={passwordData.confirm} onChange={(e) => setPasswordData(p => ({ ...p, confirm: e.target.value }))} required className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914]" placeholder="Repeat new password" />
               </div>
               {passwordMsg && <p className={`text-sm ${passwordMsg.includes('success') ? 'text-green-400' : 'text-red-400'}`}>{passwordMsg}</p>}
               <Button type="submit" disabled={passwordSaving} className="bg-[#e50914] hover:bg-[#b20710] text-white gap-2">
@@ -209,39 +209,39 @@ export default function SettingsPage() {
           </div>
 
           {/* Account Section */}
-          <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-6">
+          <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
             <div className="flex items-center gap-2 mb-4">
               <Shield className="w-5 h-5 text-[#e50914]" />
               <h2 className="text-lg font-semibold text-white">Account</h2>
             </div>
             <div className="space-y-3 text-sm">
               <div className="flex justify-between items-center py-2">
-                <span className="text-[#a0a0b0]">Email</span>
+                <span className="text-[#9ca3af]">Email</span>
                 <span className="text-white">{user.email}</span>
               </div>
               <div className="flex justify-between items-center py-2">
-                <span className="text-[#a0a0b0]">Display Name</span>
+                <span className="text-[#9ca3af]">Display Name</span>
                 <span className="text-white">{user.display_name}</span>
               </div>
               <div className="flex justify-between items-center py-2">
-                <span className="text-[#a0a0b0]">Member since</span>
+                <span className="text-[#9ca3af]">Member since</span>
                 <span className="text-white">
                   {new Date(user.created_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
                 </span>
               </div>
               <div className="flex justify-between items-center py-2">
-                <span className="text-[#a0a0b0]">Account ID</span>
+                <span className="text-[#9ca3af]">Account ID</span>
                 <span className="text-white font-mono text-xs">#{user.id}</span>
               </div>
-              <div className="pt-3 border-t border-[#2a2a35] flex items-center gap-4">
+              <div className="pt-3 border-t border-[#1e1e28] flex items-center gap-4">
                 <Link href="/profile/edit" className="text-[#e50914] hover:underline text-sm">Edit Profile</Link>
-                <Link href="/settings" className="text-[#6b6b7b] hover:text-white text-sm">Export Data</Link>
+                <Link href="/settings" className="text-[#6b7280] hover:text-white text-sm">Export Data</Link>
               </div>
             </div>
           </div>
 
           {/* Danger Zone */}
-          <div className="bg-[#12121a] border border-red-500/20 rounded-xl p-6">
+          <div className="bg-[#0c0c10] border border-red-500/20 rounded-xl p-6">
             <div className="flex items-center gap-2 mb-4">
               <AlertTriangle className="w-5 h-5 text-red-400" />
               <h2 className="text-lg font-semibold text-red-400">Danger Zone</h2>
@@ -250,7 +250,7 @@ export default function SettingsPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-white">Delete Account</p>
-                  <p className="text-xs text-[#6b6b7b]">Permanently delete your account and all data</p>
+                  <p className="text-xs text-[#6b7280]">Permanently delete your account and all data</p>
                 </div>
                 <Button variant="outline" onClick={() => setShowDeleteConfirm(true)} className="border-red-500/30 text-red-400 hover:bg-red-500/10 hover:text-red-300 hover:border-red-500/50">
                   Delete Account
@@ -263,7 +263,7 @@ export default function SettingsPage() {
                   <Button onClick={() => { logout(); }} className="bg-red-500 hover:bg-red-600 text-white gap-2">
                     <Trash2 className="w-4 h-4" /> Yes, Delete My Account
                   </Button>
-                  <Button variant="outline" onClick={() => setShowDeleteConfirm(false)} className="border-[#2a2a35] text-[#a0a0b0]">Cancel</Button>
+                  <Button variant="outline" onClick={() => setShowDeleteConfirm(false)} className="border-[#1e1e28] text-[#9ca3af]">Cancel</Button>
                 </div>
               </div>
             )}

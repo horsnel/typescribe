@@ -42,11 +42,11 @@ export default function HeroSection() {
   const cfg = formatConfig[heroFormat];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0a0a0f]">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#050507]">
       {/* ─── Movie Poster Stack Background ─── */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Deep dark base */}
-        <div className="absolute inset-0 bg-[#0a0a0f]" />
+        <div className="absolute inset-0 bg-[#050507]" />
 
         {/* Poster Row — fanned out, overlapping, slightly rotated */}
         <div className="absolute inset-0 flex items-center justify-center" style={{ perspective: '1200px' }}>
@@ -88,15 +88,15 @@ export default function HeroSection() {
         </div>
 
         {/* Dim overlay — multiple layers for beautiful dimming effect */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0f]/60 via-[#0a0a0f]/75 to-[#0a0a0f]" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0f]/90 via-[#0a0a0f]/50 to-[#0a0a0f]/90" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-[#0a0a0f]/70" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050507]/60 via-[#050507]/75 to-[#050507]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#050507]/90 via-[#050507]/50 to-[#050507]/90" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050507] via-transparent to-[#050507]/70" />
 
         {/* Subtle vignette */}
         <div
           className="absolute inset-0"
           style={{
-            background: 'radial-gradient(ellipse at center, transparent 30%, rgba(10,10,15,0.7) 100%)',
+            background: 'radial-gradient(ellipse at center, transparent 30%, rgba(5,5,7,0.7) 100%)',
           }}
         />
 
@@ -127,14 +127,14 @@ export default function HeroSection() {
           </div>
 
           <div className="hero-subtitle opacity-0">
-            <p className="text-lg text-[#a0a0b0] max-w-xl mb-6 leading-relaxed">
+            <p className="text-lg text-[#9ca3af] max-w-xl mb-6 leading-relaxed">
               AI-powered reviews, real ratings, and community insights
             </p>
           </div>
 
           {/* Format Toggle */}
           <div className="hero-format-toggle opacity-0 mb-8">
-            <div className="inline-flex items-center border border-[#2a2a35] rounded-xl overflow-hidden bg-[#12121a]/60 backdrop-blur-sm">
+            <div className="inline-flex items-center border border-[#1e1e28] rounded-xl overflow-hidden bg-[#0c0c10]/60 backdrop-blur-sm">
               {([
                 { key: 'movie' as HeroFormat, icon: Film, label: 'Movies' },
                 { key: 'tv' as HeroFormat, icon: Tv, label: 'Series' },
@@ -146,7 +146,7 @@ export default function HeroSection() {
                   className={`flex items-center gap-2 px-5 py-2.5 text-sm font-medium transition-all duration-200 ${
                     heroFormat === key
                       ? 'bg-[#e50914] text-white'
-                      : 'text-[#a0a0b0] hover:text-white hover:bg-[#1a1a25]'
+                      : 'text-[#9ca3af] hover:text-white hover:bg-[#111118]'
                   }`}
                 >
                   <Icon className="w-4 h-4" /> {label}
@@ -172,7 +172,7 @@ export default function HeroSection() {
 
           {/* Featured Movie Info Card */}
           <div className="hero-movie-info mt-12">
-            <div className="flex items-center gap-4 bg-[#12121a]/80 backdrop-blur-sm border border-[#2a2a35] rounded-xl p-4 max-w-md">
+            <div className="flex items-center gap-4 bg-[#0c0c10]/80 backdrop-blur-sm border border-white/[0.06] rounded-xl p-4 max-w-md">
               <div className="w-12 h-18 flex-shrink-0 rounded-lg overflow-hidden">
                 <img src={posterMovies[0].poster_path} alt={posterMovies[0].title} className="w-full h-full object-cover" />
               </div>
@@ -183,8 +183,8 @@ export default function HeroSection() {
                   <span className="text-sm font-semibold text-[#f5c518]">{posterMovies[0].vote_average.toFixed(1)}</span>
                   {posterMovies[0].release_date && (
                     <>
-                      <span className="text-[#2a2a35]">·</span>
-                      <span className="text-xs text-[#6b6b7b]">{posterMovies[0].release_date.split('-')[0]}</span>
+                      <span className="text-[#1e1e28]">·</span>
+                      <span className="text-xs text-[#6b7280]">{posterMovies[0].release_date.split('-')[0]}</span>
                     </>
                   )}
                 </div>
@@ -196,7 +196,7 @@ export default function HeroSection() {
 
       <div className="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 opacity-0 z-20">
         <a href="#trending" className="block">
-          <ChevronDown className="w-8 h-8 text-[#a0a0b0] animate-bounce" />
+          <ChevronDown className="w-8 h-8 text-[#9ca3af] animate-bounce" />
         </a>
       </div>
     </section>

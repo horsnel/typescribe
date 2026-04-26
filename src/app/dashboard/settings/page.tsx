@@ -49,7 +49,7 @@ export default function DashboardSettingsPage() {
   };
 
   if (!isAuthenticated) {
-    return <DashboardSidebar><div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-12 text-center"><p className="text-[#a0a0b0]">Please sign in to access settings.</p></div></DashboardSidebar>;
+    return <DashboardSidebar><div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center"><p className="text-[#9ca3af]">Please sign in to access settings.</p></div></DashboardSidebar>;
   }
 
   return (
@@ -71,34 +71,34 @@ export default function DashboardSettingsPage() {
 
       <div className="space-y-6">
         {/* Profile Info */}
-        <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-6">
+        <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
           <div className="flex items-center gap-3 mb-4">
             <User className="w-5 h-5 text-[#e50914]" />
             <h2 className="text-base font-semibold text-white">Profile Information</h2>
           </div>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm text-[#a0a0b0] mb-1.5">Display Name</label>
+              <label className="block text-sm text-[#9ca3af] mb-1.5">Display Name</label>
               <input
                 type="text"
                 value={displayName}
                 onChange={e => setDisplayName(e.target.value)}
-                className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-[#e50914]"
+                className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-[#e50914]"
               />
             </div>
             <div>
-              <label className="block text-sm text-[#a0a0b0] mb-1.5">Bio <span className="text-[#6b6b7b]">(max 160 chars)</span></label>
+              <label className="block text-sm text-[#9ca3af] mb-1.5">Bio <span className="text-[#6b7280]">(max 160 chars)</span></label>
               <textarea
                 rows={3}
                 value={bio}
                 onChange={e => setBio(e.target.value.slice(0, 160))}
                 placeholder="Tell others about yourself..."
-                className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#e50914] resize-none"
+                className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914] resize-none"
               />
-              <p className="text-xs text-[#6b6b7b] mt-1">{bio.length}/160</p>
+              <p className="text-xs text-[#6b7280] mt-1">{bio.length}/160</p>
             </div>
             <div>
-              <label className="block text-sm text-[#a0a0b0] mb-2">Favorite Genres</label>
+              <label className="block text-sm text-[#9ca3af] mb-2">Favorite Genres</label>
               <div className="flex flex-wrap gap-2">
                 {ALL_GENRES.map(genre => (
                   <button
@@ -107,7 +107,7 @@ export default function DashboardSettingsPage() {
                     className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors border ${
                       favoriteGenres.includes(genre)
                         ? 'bg-[#e50914] text-white border-[#e50914]'
-                        : 'bg-[#0a0a0f] text-[#a0a0b0] border-[#2a2a35] hover:border-[#3a3a45] hover:text-white'
+                        : 'bg-[#050507] text-[#9ca3af] border-[#1e1e28] hover:border-[#3a3a45] hover:text-white'
                     }`}
                   >
                     {favoriteGenres.includes(genre) && <Check className="w-3 h-3 inline mr-1" />}
@@ -120,31 +120,31 @@ export default function DashboardSettingsPage() {
         </div>
 
         {/* Email */}
-        <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-6">
+        <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
           <div className="flex items-center gap-3 mb-4">
             <Mail className="w-5 h-5 text-[#e50914]" />
             <h2 className="text-base font-semibold text-white">Email</h2>
           </div>
-          <input type="email" defaultValue={user?.email || ''} className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-[#e50914] mb-1" disabled />
-          <p className="text-xs text-[#6b6b7b]">Email cannot be changed in this demo.</p>
+          <input type="email" defaultValue={user?.email || ''} className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-[#e50914] mb-1" disabled />
+          <p className="text-xs text-[#6b7280]">Email cannot be changed in this demo.</p>
         </div>
 
         {/* Password */}
-        <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-6">
+        <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
           <div className="flex items-center gap-3 mb-4">
             <Lock className="w-5 h-5 text-[#e50914]" />
             <h2 className="text-base font-semibold text-white">Password</h2>
           </div>
           <div className="space-y-3">
-            <input type="password" placeholder="Current password" className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#e50914]" />
-            <input type="password" placeholder="New password" className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#e50914]" />
-            <input type="password" placeholder="Confirm new password" className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#e50914]" />
+            <input type="password" placeholder="Current password" className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914]" />
+            <input type="password" placeholder="New password" className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914]" />
+            <input type="password" placeholder="Confirm new password" className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914]" />
           </div>
           <Button size="sm" className="mt-3 bg-[#e50914] hover:bg-[#b20710] text-white">Change Password</Button>
         </div>
 
         {/* Preferences */}
-        <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-6">
+        <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
           <div className="flex items-center gap-3 mb-4">
             <Settings className="w-5 h-5 text-[#e50914]" />
             <h2 className="text-base font-semibold text-white">Preferences</h2>
@@ -152,10 +152,10 @@ export default function DashboardSettingsPage() {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <Bell className="w-4 h-4 text-[#a0a0b0]" />
+                <Bell className="w-4 h-4 text-[#9ca3af]" />
                 <div>
                   <p className="text-sm text-white">Email Notifications</p>
-                  <p className="text-xs text-[#6b6b7b]">Receive email about reviews and activity</p>
+                  <p className="text-xs text-[#6b7280]">Receive email about reviews and activity</p>
                 </div>
               </div>
               <button
@@ -167,10 +167,10 @@ export default function DashboardSettingsPage() {
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <Globe className="w-4 h-4 text-[#a0a0b0]" />
+                <Globe className="w-4 h-4 text-[#9ca3af]" />
                 <div>
                   <p className="text-sm text-white">Public Profile</p>
-                  <p className="text-xs text-[#6b6b7b]">Others can see your profile and reviews</p>
+                  <p className="text-xs text-[#6b7280]">Others can see your profile and reviews</p>
                 </div>
               </div>
               <button
@@ -182,17 +182,17 @@ export default function DashboardSettingsPage() {
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <Moon className="w-4 h-4 text-[#a0a0b0]" />
-                <div><p className="text-sm text-white">Dark Mode</p><p className="text-xs text-[#6b6b7b]">Default theme</p></div>
+                <Moon className="w-4 h-4 text-[#9ca3af]" />
+                <div><p className="text-sm text-white">Dark Mode</p><p className="text-xs text-[#6b7280]">Default theme</p></div>
               </div>
               <button className="w-12 h-6 bg-[#e50914] rounded-full relative"><span className="absolute right-1 top-1 w-4 h-4 bg-white rounded-full" /></button>
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <Globe className="w-4 h-4 text-[#a0a0b0]" />
-                <div><p className="text-sm text-white">Language</p><p className="text-xs text-[#6b6b7b]">Site language preference</p></div>
+                <Globe className="w-4 h-4 text-[#9ca3af]" />
+                <div><p className="text-sm text-white">Language</p><p className="text-xs text-[#6b7280]">Site language preference</p></div>
               </div>
-              <select className="bg-[#0a0a0f] border border-[#2a2a35] rounded-lg py-1.5 px-3 text-sm text-[#a0a0b0]">
+              <select className="bg-[#050507] border border-[#1e1e28] rounded-lg py-1.5 px-3 text-sm text-[#9ca3af]">
                 <option>English</option>
                 <option>Français</option>
                 <option>Español</option>
@@ -204,9 +204,9 @@ export default function DashboardSettingsPage() {
         </div>
 
         {/* Danger Zone */}
-        <div className="bg-[#12121a] border border-red-500/20 rounded-xl p-6">
+        <div className="bg-[#0c0c10] border border-red-500/20 rounded-xl p-6">
           <h2 className="text-base font-semibold text-red-400 mb-2">Danger Zone</h2>
-          <p className="text-sm text-[#6b6b7b] mb-4">Once you delete your account, there is no going back.</p>
+          <p className="text-sm text-[#6b7280] mb-4">Once you delete your account, there is no going back.</p>
           <Button variant="outline" className="border-red-500/30 text-red-400 hover:bg-red-500/10 hover:text-red-300 gap-2">
             <Trash2 className="w-4 h-4" /> Delete Account
           </Button>

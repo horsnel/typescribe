@@ -37,9 +37,9 @@ export default function EditProfilePage() {
 
   if (!isAuthenticated || !user) {
     return (
-      <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center">
+      <div className="min-h-screen bg-[#050507] flex items-center justify-center">
         <div className="text-center">
-          <p className="text-[#a0a0b0] mb-4">Please sign in to edit your profile</p>
+          <p className="text-[#9ca3af] mb-4">Please sign in to edit your profile</p>
           <Link href="/login" className="text-[#e50914] hover:underline">Sign In</Link>
         </div>
       </div>
@@ -74,16 +74,16 @@ export default function EditProfilePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] pt-8 pb-16">
+    <div className="min-h-screen bg-[#050507] pt-8 pb-16">
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
-        <Link href="/profile" className="inline-flex items-center gap-2 text-sm text-[#6b6b7b] hover:text-white transition-colors mb-6">
+        <Link href="/profile" className="inline-flex items-center gap-2 text-sm text-[#6b7280] hover:text-white transition-colors mb-6">
           <ArrowLeft className="w-4 h-4" /> Back to Profile
         </Link>
         <h1 className="text-3xl font-extrabold text-white mb-8">Edit Profile</h1>
 
         <form onSubmit={handleSave} className="space-y-6">
           {/* Avatar Section */}
-          <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-6">
+          <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
             <label className="text-sm font-medium text-white mb-4 block">Profile Picture</label>
             <div className="flex items-center gap-6">
               <div className="relative">
@@ -98,13 +98,13 @@ export default function EditProfilePage() {
                   <DialogTrigger asChild>
                     <button
                       type="button"
-                      className="absolute -bottom-1 -right-1 w-8 h-8 bg-[#0a0a0f] border border-[#2a2a35] rounded-full flex items-center justify-center text-[#a0a0b0] hover:text-white hover:border-[#e50914] transition-all"
+                      className="absolute -bottom-1 -right-1 w-8 h-8 bg-[#050507] border border-[#1e1e28] rounded-full flex items-center justify-center text-[#9ca3af] hover:text-white hover:border-[#e50914] transition-all"
                       aria-label="Change avatar"
                     >
                       <Camera className="w-3.5 h-3.5" />
                     </button>
                   </DialogTrigger>
-                  <DialogContent className="bg-[#12121a] border-[#2a2a35] text-white max-w-md">
+                  <DialogContent className="bg-[#0c0c10] border-[#1e1e28] text-white max-w-md">
                     <DialogHeader>
                       <DialogTitle className="text-white">Choose Your Avatar</DialogTitle>
                     </DialogHeader>
@@ -115,18 +115,18 @@ export default function EditProfilePage() {
                           type="button"
                           onClick={() => handleAvatarSelect(av.url)}
                           className={`relative rounded-xl p-1 transition-all hover:scale-105 ${
-                            avatarUrl === av.url ? 'ring-2 ring-[#e50914] bg-[#e50914]/10' : 'bg-[#0a0a0f] border border-[#2a2a35] hover:border-[#3a3a45]'
+                            avatarUrl === av.url ? 'ring-2 ring-[#e50914] bg-[#e50914]/10' : 'bg-[#050507] border border-[#1e1e28] hover:border-[#3a3a45]'
                           }`}
                         >
                           <img src={av.url} alt={av.label} className="w-full aspect-square rounded-lg" />
-                          <span className="block text-[10px] text-[#6b6b7b] text-center mt-1 truncate">{av.label}</span>
+                          <span className="block text-[10px] text-[#6b7280] text-center mt-1 truncate">{av.label}</span>
                         </button>
                       ))}
                     </div>
                     <button
                       type="button"
                       onClick={() => { setAvatarUrl(''); setAvatarDialogOpen(false); }}
-                      className="mt-2 text-xs text-[#6b6b7b] hover:text-[#a0a0b0] transition-colors"
+                      className="mt-2 text-xs text-[#6b7280] hover:text-[#9ca3af] transition-colors"
                     >
                       Remove avatar (use initials)
                     </button>
@@ -134,14 +134,14 @@ export default function EditProfilePage() {
                 </Dialog>
               </div>
               <div>
-                <p className="text-sm text-[#a0a0b0]">Pick a fun avatar to represent yourself</p>
-                <p className="text-xs text-[#6b6b7b] mt-1">Click the camera icon to browse options</p>
+                <p className="text-sm text-[#9ca3af]">Pick a fun avatar to represent yourself</p>
+                <p className="text-xs text-[#6b7280] mt-1">Click the camera icon to browse options</p>
               </div>
             </div>
           </div>
 
           {/* Name & Bio */}
-          <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-6 space-y-4">
+          <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6 space-y-4">
             <div>
               <label className="text-sm font-medium text-white mb-1.5 block">Display Name</label>
               <input
@@ -149,7 +149,7 @@ export default function EditProfilePage() {
                 value={displayName}
                 onChange={(e) => setDisplayName(e.target.value)}
                 required
-                className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#e50914]"
+                className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914]"
                 placeholder="Your display name"
               />
             </div>
@@ -160,14 +160,14 @@ export default function EditProfilePage() {
                 rows={4}
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
-                className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#e50914] resize-none"
+                className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914] resize-none"
                 placeholder="Tell us about yourself..."
               />
             </div>
           </div>
 
           {/* Genres */}
-          <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-6">
+          <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
             <label className="text-sm font-medium text-white mb-3 block">Favorite Genres</label>
             <div className="flex flex-wrap gap-2">
               {genres.map((genre) => (
@@ -178,7 +178,7 @@ export default function EditProfilePage() {
                   className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                     selectedGenres.includes(genre.name)
                       ? 'bg-[#e50914] text-white'
-                      : 'bg-[#0a0a0f] border border-[#2a2a35] text-[#a0a0b0] hover:text-white hover:border-[#3a3a45]'
+                      : 'bg-[#050507] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
                   }`}
                 >
                   {genre.name}

@@ -92,14 +92,14 @@ export default function MoodBrowsingSection() {
   const [hoveredMood, setHoveredMood] = useState<string | null>(null);
 
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-12">
+    <section className="py-16 bg-[#050507] px-4 sm:px-6 lg:px-12">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-10">
           <h2 className="text-3xl font-bold text-white mb-3">
             What&apos;s Your <span className="text-purple-400">Mood</span>?
           </h2>
-          <p className="text-[#a0a0b0] max-w-xl mx-auto">
+          <p className="text-[#9ca3af] max-w-xl mx-auto">
             Skip the genres — browse by how you want to feel. Each mood curates the perfect selection for your vibe.
           </p>
         </div>
@@ -118,7 +118,7 @@ export default function MoodBrowsingSection() {
             >
               <span className="text-3xl mb-3 block">{mood.emoji}</span>
               <h3 className="text-sm font-bold text-white mb-1">{mood.label}</h3>
-              <p className="text-xs text-[#a0a0b0] leading-relaxed">{mood.description}</p>
+              <p className="text-xs text-[#9ca3af] leading-relaxed">{mood.description}</p>
               <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
                 <span className="text-xs text-purple-400">Explore →</span>
               </div>

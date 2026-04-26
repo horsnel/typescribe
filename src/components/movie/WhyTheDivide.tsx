@@ -170,7 +170,7 @@ export default function WhyTheDivide({ reviews, genres = [] }: WhyTheDivideProps
   const criticismPoints = generateCriticismPoints(genres, negativeReviews);
 
   return (
-    <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl overflow-hidden">
+    <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl overflow-hidden">
       {/* Split header */}
       <div className="relative h-2">
         <div
@@ -191,7 +191,7 @@ export default function WhyTheDivide({ reviews, genres = [] }: WhyTheDivideProps
           </div>
           <div>
             <h3 className="text-lg font-bold text-white">Why the Divide?</h3>
-            <p className="text-xs text-[#6b6b7b]">AI-generated analysis of opposing viewpoints</p>
+            <p className="text-xs text-[#6b7280]">AI-generated analysis of opposing viewpoints</p>
           </div>
           <span className="ml-auto text-[10px] bg-purple-500/10 text-purple-400 px-2.5 py-0.5 rounded-full border border-purple-500/20 font-semibold">
             AI INSIGHT
@@ -199,8 +199,8 @@ export default function WhyTheDivide({ reviews, genres = [] }: WhyTheDivideProps
         </div>
 
         {/* Summary paragraph */}
-        <div className="bg-[#0a0a0f]/60 border border-[#2a2a35]/50 rounded-lg p-4 mb-5">
-          <p className="text-sm text-[#a0a0b0] leading-relaxed">{summary}</p>
+        <div className="bg-[#050507]/60 border border-[#1e1e28]/50 rounded-lg p-4 mb-5">
+          <p className="text-sm text-[#9ca3af] leading-relaxed">{summary}</p>
         </div>
 
         {/* Two columns: Praise vs Criticism */}
@@ -216,7 +216,7 @@ export default function WhyTheDivide({ reviews, genres = [] }: WhyTheDivideProps
               {praisePoints.map((point, i) => (
                 <li key={i} className="flex items-start gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-green-500 mt-1.5 flex-shrink-0" />
-                  <span className="text-sm text-[#a0a0b0] leading-relaxed">{point}</span>
+                  <span className="text-sm text-[#9ca3af] leading-relaxed">{point}</span>
                 </li>
               ))}
             </ul>
@@ -233,7 +233,7 @@ export default function WhyTheDivide({ reviews, genres = [] }: WhyTheDivideProps
               {criticismPoints.map((point, i) => (
                 <li key={i} className="flex items-start gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-red-500 mt-1.5 flex-shrink-0" />
-                  <span className="text-sm text-[#a0a0b0] leading-relaxed">{point}</span>
+                  <span className="text-sm text-[#9ca3af] leading-relaxed">{point}</span>
                 </li>
               ))}
             </ul>
@@ -241,14 +241,14 @@ export default function WhyTheDivide({ reviews, genres = [] }: WhyTheDivideProps
         </div>
 
         {/* Sentiment Split Gauge */}
-        <div className="bg-[#0a0a0f]/60 border border-[#2a2a35]/50 rounded-lg p-4">
+        <div className="bg-[#050507]/60 border border-[#1e1e28]/50 rounded-lg p-4">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-semibold text-[#6b6b7b] uppercase tracking-wider">Sentiment Split</span>
-            <span className="text-xs text-[#6b6b7b]">{reviews.length} total reviews</span>
+            <span className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider">Sentiment Split</span>
+            <span className="text-xs text-[#6b7280]">{reviews.length} total reviews</span>
           </div>
           <div className="flex items-center gap-3">
             <span className="text-sm font-bold text-green-400 w-12 text-right">{positiveRatio}%</span>
-            <div className="flex-1 h-3 bg-[#1a1a25] rounded-full overflow-hidden relative">
+            <div className="flex-1 h-3 bg-[#111118] rounded-full overflow-hidden relative">
               <div
                 className="absolute left-0 top-0 h-full bg-gradient-to-r from-green-600 to-green-400 rounded-full transition-all duration-700"
                 style={{ width: `${positiveRatio}%` }}

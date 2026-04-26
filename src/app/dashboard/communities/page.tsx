@@ -41,7 +41,7 @@ export default function DashboardCommunitiesPage() {
   const joinedCommunities = ALL_COMMUNITIES.filter(c => joinedIds.includes(c.id));
 
   if (!isAuthenticated) {
-    return <DashboardSidebar><div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-12 text-center"><p className="text-[#a0a0b0]">Please sign in to view your communities.</p><Link href="/login" className="text-[#e50914] hover:underline text-sm">Sign In</Link></div></DashboardSidebar>;
+    return <DashboardSidebar><div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center"><p className="text-[#9ca3af]">Please sign in to view your communities.</p><Link href="/login" className="text-[#e50914] hover:underline text-sm">Sign In</Link></div></DashboardSidebar>;
   }
 
   return (
@@ -53,23 +53,23 @@ export default function DashboardCommunitiesPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 gap-4 mb-6">
-        <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-4 text-center">
+        <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 text-center">
           <p className="text-2xl font-bold text-white">{joinedIds.length}</p>
-          <p className="text-xs text-[#6b6b7b]">Communities Joined</p>
+          <p className="text-xs text-[#6b7280]">Communities Joined</p>
         </div>
-        <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-4 text-center">
+        <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 text-center">
           <p className="text-2xl font-bold text-white">{joinedCommunities.reduce((sum, c) => sum + c.members, 0).toLocaleString()}</p>
-          <p className="text-xs text-[#6b6b7b]">Total Members</p>
+          <p className="text-xs text-[#6b7280]">Total Members</p>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-1 mb-6 border-b border-[#2a2a35]">
+      <div className="flex items-center gap-1 mb-6 border-b border-[#1e1e28]">
         {(['joined', 'discover'] as const).map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-4 py-3 text-sm font-medium transition-colors border-b-2 ${activeTab === tab ? 'text-white border-[#e50914]' : 'text-[#6b6b7b] border-transparent hover:text-white'}`}
+            className={`px-4 py-3 text-sm font-medium transition-colors border-b-2 ${activeTab === tab ? 'text-white border-[#e50914]' : 'text-[#6b7280] border-transparent hover:text-white'}`}
           >
             {tab === 'joined' ? `Joined (${joinedIds.length})` : 'Discover'}
           </button>
@@ -79,16 +79,16 @@ export default function DashboardCommunitiesPage() {
       {/* Content */}
       {activeTab === 'joined' && (
         joinedCommunities.length === 0 ? (
-          <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-12 text-center">
+          <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center">
             <Users className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
             <h2 className="text-xl font-bold text-white mb-2">No communities joined yet</h2>
-            <p className="text-[#a0a0b0] mb-6">Join communities to discuss movies with like-minded fans.</p>
+            <p className="text-[#9ca3af] mb-6">Join communities to discuss movies with like-minded fans.</p>
             <button onClick={() => setActiveTab('discover')} className="text-[#e50914] hover:underline text-sm">Discover Communities</button>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {joinedCommunities.map((community) => (
-              <div key={community.id} className="bg-[#12121a] border border-[#e50914]/30 rounded-xl p-5 hover:border-[#e50914]/50 transition-colors">
+              <div key={community.id} className="bg-[#0c0c10] border border-[#e50914]/30 rounded-xl p-5 hover:border-[#e50914]/50 transition-colors">
                 <div className="flex items-start justify-between mb-3">
                   <div>
                     <Link href={`/community/${community.id}`} className="text-base font-semibold text-white hover:text-[#e50914] transition-colors">
@@ -100,8 +100,8 @@ export default function DashboardCommunitiesPage() {
                     <LogOut className="w-3 h-3" />Leave
                   </Button>
                 </div>
-                <p className="text-sm text-[#a0a0b0] mb-3">{community.description}</p>
-                <div className="flex items-center gap-2 text-xs text-[#6b6b7b]">
+                <p className="text-sm text-[#9ca3af] mb-3">{community.description}</p>
+                <div className="flex items-center gap-2 text-xs text-[#6b7280]">
                   <Users className="w-3.5 h-3.5" /> {community.members.toLocaleString()} members
                 </div>
               </div>
@@ -115,7 +115,7 @@ export default function DashboardCommunitiesPage() {
           {ALL_COMMUNITIES.map((community) => {
             const isJoined = joinedIds.includes(community.id);
             return (
-              <div key={community.id} className={`bg-[#12121a] border rounded-xl p-5 hover:border-[#3a3a45] transition-colors ${isJoined ? 'border-[#e50914]/30' : 'border-[#2a2a35]'}`}>
+              <div key={community.id} className={`bg-[#0c0c10] border rounded-xl p-5 hover:border-[#3a3a45] transition-colors ${isJoined ? 'border-[#e50914]/30' : 'border-[#1e1e28]'}`}>
                 <div className="flex items-start justify-between mb-3">
                   <div>
                     <Link href={`/community/${community.id}`} className="text-base font-semibold text-white hover:text-[#e50914] transition-colors">
@@ -127,8 +127,8 @@ export default function DashboardCommunitiesPage() {
                     {isJoined ? 'Joined' : 'Join'}
                   </Button>
                 </div>
-                <p className="text-sm text-[#a0a0b0] mb-3">{community.description}</p>
-                <div className="flex items-center gap-2 text-xs text-[#6b6b7b]">
+                <p className="text-sm text-[#9ca3af] mb-3">{community.description}</p>
+                <div className="flex items-center gap-2 text-xs text-[#6b7280]">
                   <Users className="w-3.5 h-3.5" /> {community.members.toLocaleString()} members
                 </div>
               </div>

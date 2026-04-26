@@ -122,53 +122,53 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[60] bg-[#0a0a0f]/90 backdrop-blur-md flex items-start justify-center pt-24 px-4">
+    <div className="fixed inset-0 z-[60] bg-[#050507]/90 backdrop-blur-md flex items-start justify-center pt-24 px-4">
       <div className="w-full max-w-2xl">
-        <div className="bg-[#12121a] border border-[#2a2a35] rounded-2xl shadow-2xl overflow-hidden">
-          <div className="flex items-center gap-3 px-5 py-4 border-b border-[#2a2a35]">
-            <Search className="w-5 h-5 text-[#6b6b7b] flex-shrink-0" />
-            <input ref={inputRef} type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search movies, anime, reviews, news..." className="flex-1 bg-transparent text-white placeholder:text-[#6b6b7b] focus:outline-none text-lg" />
-            {isSearching && <Loader2 className="w-4 h-4 animate-spin text-[#6b6b7b]" />}
-            <button onClick={onClose} className="p-1.5 text-[#6b6b7b] hover:text-white transition-colors" aria-label="Close search"><X className="w-5 h-5" /></button>
+        <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-2xl shadow-2xl overflow-hidden">
+          <div className="flex items-center gap-3 px-5 py-4 border-b border-[#1e1e28]">
+            <Search className="w-5 h-5 text-[#6b7280] flex-shrink-0" />
+            <input ref={inputRef} type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search movies, anime, reviews, news..." className="flex-1 bg-transparent text-white placeholder:text-[#6b7280] focus:outline-none text-lg" />
+            {isSearching && <Loader2 className="w-4 h-4 animate-spin text-[#6b7280]" />}
+            <button onClick={onClose} className="p-1.5 text-[#6b7280] hover:text-white transition-colors" aria-label="Close search"><X className="w-5 h-5" /></button>
           </div>
           {debouncedQuery && (
             <div className="max-h-96 overflow-y-auto">
               {results.length === 0 && !isSearching ? (
-                <div className="px-5 py-10 text-center"><p className="text-[#a0a0b0]">No results for &ldquo;{debouncedQuery}&rdquo;</p><p className="text-xs text-[#6b6b7b] mt-1">Try a different search term</p></div>
+                <div className="px-5 py-10 text-center"><p className="text-[#9ca3af]">No results for &ldquo;{debouncedQuery}&rdquo;</p><p className="text-xs text-[#6b7280] mt-1">Try a different search term</p></div>
               ) : (
                 <>
                   {movieResults.length > 0 && (
                     <div className="px-4 py-3">
-                      <div className="flex items-center gap-2 mb-2 px-1">{getIcon('movie')}<span className="text-xs font-semibold text-[#6b6b7b] uppercase tracking-wider">Movies & Anime</span></div>
+                      <div className="flex items-center gap-2 mb-2 px-1">{getIcon('movie')}<span className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider">Movies & Anime</span></div>
                       {movieResults.map((result) => { const globalIdx = results.indexOf(result); return (
-                        <button key={`movie-${result.id}`} onClick={() => handleSelect(result)} className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-colors ${selectedIndex === globalIdx ? 'bg-[#1a1a25]' : 'hover:bg-[#1a1a25]'}`}>
-                          {result.image && <div className="w-10 h-14 rounded-md overflow-hidden flex-shrink-0 bg-[#0a0a0f]"><img src={result.image} alt={result.title} className="w-full h-full object-cover" /></div>}
-                          <div className="flex-1 min-w-0"><p className="text-sm font-medium text-white truncate">{highlightMatch(result.title, debouncedQuery)}</p><p className="text-xs text-[#6b6b7b]">{result.subtitle}</p></div>
+                        <button key={`movie-${result.id}`} onClick={() => handleSelect(result)} className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-colors ${selectedIndex === globalIdx ? 'bg-[#111118]' : 'hover:bg-[#111118]'}`}>
+                          {result.image && <div className="w-10 h-14 rounded-md overflow-hidden flex-shrink-0 bg-[#050507]"><img src={result.image} alt={result.title} className="w-full h-full object-cover" /></div>}
+                          <div className="flex-1 min-w-0"><p className="text-sm font-medium text-white truncate">{highlightMatch(result.title, debouncedQuery)}</p><p className="text-xs text-[#6b7280]">{result.subtitle}</p></div>
                         </button>); })}
                     </div>
                   )}
                   {reviewResults.length > 0 && (
-                    <div className="px-4 py-3 border-t border-[#2a2a35]">
-                      <div className="flex items-center gap-2 mb-2 px-1">{getIcon('review')}<span className="text-xs font-semibold text-[#6b6b7b] uppercase tracking-wider">Reviews</span></div>
+                    <div className="px-4 py-3 border-t border-[#1e1e28]">
+                      <div className="flex items-center gap-2 mb-2 px-1">{getIcon('review')}<span className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider">Reviews</span></div>
                       {reviewResults.map((result) => { const globalIdx = results.indexOf(result); return (
-                        <button key={`review-${result.id}`} onClick={() => handleSelect(result)} className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-colors ${selectedIndex === globalIdx ? 'bg-[#1a1a25]' : 'hover:bg-[#1a1a25]'}`}>
-                          {result.image && <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0 bg-[#0a0a0f]"><img src={result.image} alt={result.title} className="w-full h-full object-cover" /></div>}
-                          <div className="flex-1 min-w-0"><p className="text-sm font-medium text-white truncate">{highlightMatch(result.title, debouncedQuery)}</p><p className="text-xs text-[#6b6b7b]">{result.subtitle}</p></div>
+                        <button key={`review-${result.id}`} onClick={() => handleSelect(result)} className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-colors ${selectedIndex === globalIdx ? 'bg-[#111118]' : 'hover:bg-[#111118]'}`}>
+                          {result.image && <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0 bg-[#050507]"><img src={result.image} alt={result.title} className="w-full h-full object-cover" /></div>}
+                          <div className="flex-1 min-w-0"><p className="text-sm font-medium text-white truncate">{highlightMatch(result.title, debouncedQuery)}</p><p className="text-xs text-[#6b7280]">{result.subtitle}</p></div>
                         </button>); })}
                     </div>
                   )}
                   {newsResults.length > 0 && (
-                    <div className="px-4 py-3 border-t border-[#2a2a35]">
-                      <div className="flex items-center gap-2 mb-2 px-1">{getIcon('news')}<span className="text-xs font-semibold text-[#6b6b7b] uppercase tracking-wider">News</span></div>
+                    <div className="px-4 py-3 border-t border-[#1e1e28]">
+                      <div className="flex items-center gap-2 mb-2 px-1">{getIcon('news')}<span className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider">News</span></div>
                       {newsResults.map((result) => { const globalIdx = results.indexOf(result); return (
-                        <button key={`news-${result.id}`} onClick={() => handleSelect(result)} className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-colors ${selectedIndex === globalIdx ? 'bg-[#1a1a25]' : 'hover:bg-[#1a1a25]'}`}>
-                          {result.image && <div className="w-10 h-10 rounded-md overflow-hidden flex-shrink-0 bg-[#0a0a0f]"><img src={result.image} alt={result.title} className="w-full h-full object-cover" /></div>}
-                          <div className="flex-1 min-w-0"><p className="text-sm font-medium text-white truncate">{highlightMatch(result.title, debouncedQuery)}</p><p className="text-xs text-[#6b6b7b]">{result.subtitle}</p></div>
+                        <button key={`news-${result.id}`} onClick={() => handleSelect(result)} className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-colors ${selectedIndex === globalIdx ? 'bg-[#111118]' : 'hover:bg-[#111118]'}`}>
+                          {result.image && <div className="w-10 h-10 rounded-md overflow-hidden flex-shrink-0 bg-[#050507]"><img src={result.image} alt={result.title} className="w-full h-full object-cover" /></div>}
+                          <div className="flex-1 min-w-0"><p className="text-sm font-medium text-white truncate">{highlightMatch(result.title, debouncedQuery)}</p><p className="text-xs text-[#6b7280]">{result.subtitle}</p></div>
                         </button>); })}
                     </div>
                   )}
                   {/* View All Results Link */}
-                  <div className="px-4 py-3 border-t border-[#2a2a35]">
+                  <div className="px-4 py-3 border-t border-[#1e1e28]">
                     <button
                       onClick={() => { router.push(`/search?q=${encodeURIComponent(debouncedQuery)}`); onClose(); }}
                       className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-[#e50914] hover:bg-[#e50914]/10 transition-colors text-sm font-medium"
@@ -178,11 +178,11 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                   </div>
                 </>
               )}
-              <div className="px-5 py-3 border-t border-[#2a2a35] flex items-center justify-between text-xs text-[#6b6b7b]">
+              <div className="px-5 py-3 border-t border-[#1e1e28] flex items-center justify-between text-xs text-[#6b7280]">
                 <div className="flex items-center gap-4">
-                  <span className="flex items-center gap-1"><kbd className="px-1.5 py-0.5 bg-[#0a0a0f] rounded border border-[#2a2a35]">↑↓</kbd> Navigate</span>
-                  <span className="flex items-center gap-1"><kbd className="px-1.5 py-0.5 bg-[#0a0a0f] rounded border border-[#2a2a35]">↵</kbd> Select</span>
-                  <span className="flex items-center gap-1"><kbd className="px-1.5 py-0.5 bg-[#0a0a0f] rounded border border-[#2a2a35]">esc</kbd> Close</span>
+                  <span className="flex items-center gap-1"><kbd className="px-1.5 py-0.5 bg-[#050507] rounded border border-[#1e1e28]">↑↓</kbd> Navigate</span>
+                  <span className="flex items-center gap-1"><kbd className="px-1.5 py-0.5 bg-[#050507] rounded border border-[#1e1e28]">↵</kbd> Select</span>
+                  <span className="flex items-center gap-1"><kbd className="px-1.5 py-0.5 bg-[#050507] rounded border border-[#1e1e28]">esc</kbd> Close</span>
                 </div>
               </div>
             </div>

@@ -112,7 +112,7 @@ export default function LocalPicksSection() {
   };
 
   return (
-    <section className="py-16 bg-[#0a0a0f]">
+    <section className="py-16 bg-[#050507]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         {/* Header */}
         <div className="flex items-start justify-between mb-8 flex-wrap gap-4">
@@ -132,7 +132,7 @@ export default function LocalPicksSection() {
                 ) : 'Popular Near You'}
               </h2>
             </div>
-            <p className="text-[#a0a0b0] text-sm ml-11">
+            <p className="text-[#9ca3af] text-sm ml-11">
               {detecting ? (
                 <span className="flex items-center gap-2"><Loader2 className="w-3.5 h-3.5 animate-spin" /> Finding content tailored to your region...</span>
               ) : location ? (
@@ -162,15 +162,15 @@ export default function LocalPicksSection() {
 
         {/* Country Picker */}
         {showCountryPicker && (
-          <div className="mb-6 bg-[#12121a] border border-[#2a2a35] rounded-xl p-4">
-            <p className="text-sm text-[#a0a0b0] mb-3">Select your region to see localized content:</p>
+          <div className="mb-6 bg-[#0c0c10] border border-white/[0.06] rounded-xl p-4">
+            <p className="text-sm text-[#9ca3af] mb-3">Select your region to see localized content:</p>
             <div className="flex flex-wrap gap-2">
               {AVAILABLE_COUNTRIES.map((code) => (
                 <button
                   key={code}
                   onClick={() => handleCountryChange(code)}
                   className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
-                    location?.countryCode === code ? 'bg-[#e50914] text-white' : 'bg-[#0a0a0f] border border-[#2a2a35] text-[#a0a0b0] hover:text-white hover:border-[#3a3a45]'
+                    location?.countryCode === code ? 'bg-[#e50914] text-white' : 'bg-[#050507] border border-white/[0.06] text-[#9ca3af] hover:text-white hover:border-[#e50914]/30'
                   }`}
                 >
                   {COUNTRY_NAMES[code]}
@@ -184,7 +184,7 @@ export default function LocalPicksSection() {
         {loadingMovies ? (
           <div className="flex items-center justify-center py-16">
             <Loader2 className="w-8 h-8 animate-spin text-[#e50914]" />
-            <span className="ml-3 text-[#a0a0b0]">Loading local picks...</span>
+            <span className="ml-3 text-[#9ca3af]">Loading local picks...</span>
           </div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">

@@ -103,7 +103,7 @@ export default function DashboardActivityPage() {
   };
 
   if (!isAuthenticated) {
-    return <DashboardSidebar><div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-12 text-center"><p className="text-[#a0a0b0]">Please sign in to view your activity.</p><Link href="/login" className="text-[#e50914] hover:underline text-sm">Sign In</Link></div></DashboardSidebar>;
+    return <DashboardSidebar><div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center"><p className="text-[#9ca3af]">Please sign in to view your activity.</p><Link href="/login" className="text-[#e50914] hover:underline text-sm">Sign In</Link></div></DashboardSidebar>;
   }
 
   return (
@@ -111,11 +111,11 @@ export default function DashboardActivityPage() {
       <h1 className="text-2xl font-bold text-white mb-6">Activity Feed</h1>
 
       {activities.length === 0 ? (
-        <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-12 text-center">
+        <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center">
           <Activity className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
           <h2 className="text-xl font-bold text-white mb-2">No activity yet</h2>
-          <p className="text-[#a0a0b0] mb-1">Your personal timeline will show up here.</p>
-          <p className="text-sm text-[#6b6b7b]">Rate movies, write reviews, and join communities to populate your feed.</p>
+          <p className="text-[#9ca3af] mb-1">Your personal timeline will show up here.</p>
+          <p className="text-sm text-[#6b7280]">Rate movies, write reviews, and join communities to populate your feed.</p>
           <div className="flex items-center justify-center gap-3 mt-6">
             <Link href="/browse" className="text-[#e50914] hover:underline text-sm">Browse Movies</Link>
             <Link href="/communities" className="text-[#e50914] hover:underline text-sm">Find Communities</Link>
@@ -127,14 +127,14 @@ export default function DashboardActivityPage() {
             const Icon = getIcon(item.type);
             const color = getColor(item.type);
             return (
-              <div key={item.id} className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-4 flex items-start gap-4 hover:border-[#3a3a45] transition-colors">
-                <div className="w-10 h-10 rounded-full bg-[#1a1a25] flex items-center justify-center flex-shrink-0">
+              <div key={item.id} className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 flex items-start gap-4 hover:border-[#3a3a45] transition-colors">
+                <div className="w-10 h-10 rounded-full bg-[#111118] flex items-center justify-center flex-shrink-0">
                   <Icon className={`w-5 h-5 ${color}`} />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm text-[#a0a0b0]">{item.description}</p>
+                  <p className="text-sm text-[#9ca3af]">{item.description}</p>
                   <div className="flex items-center gap-3 mt-1.5">
-                    <span className="text-xs text-[#6b6b7b]">{formatTimeAgo(item.timestamp)}</span>
+                    <span className="text-xs text-[#6b7280]">{formatTimeAgo(item.timestamp)}</span>
                     {item.link && (
                       <Link href={item.link} className="text-xs text-[#e50914] hover:underline">View →</Link>
                     )}

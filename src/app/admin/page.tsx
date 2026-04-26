@@ -121,7 +121,7 @@ export default function AdminDashboardPage() {
 
   if (checkingAuth) {
     return (
-      <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center">
+      <div className="min-h-screen bg-[#050507] flex items-center justify-center">
         <Loader2 className="w-8 h-8 animate-spin text-[#e50914]" />
       </div>
     );
@@ -131,15 +131,15 @@ export default function AdminDashboardPage() {
 
   if (!authenticated) {
     return (
-      <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center px-4">
-        <div className="bg-[#12121a] border border-[#2a2a35] rounded-2xl p-8 max-w-md w-full shadow-2xl">
+      <div className="min-h-screen bg-[#050507] flex items-center justify-center px-4">
+        <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-2xl p-8 max-w-md w-full shadow-2xl">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-10 h-10 rounded-full bg-[#e50914]/10 flex items-center justify-center">
               <Lock className="w-5 h-5 text-[#e50914]" />
             </div>
             <div>
               <h1 className="text-lg font-bold text-white">Admin Access</h1>
-              <p className="text-xs text-[#6b6b7b]">O.L.H.M.E.S Authentication Required</p>
+              <p className="text-xs text-[#6b7280]">O.L.H.M.E.S Authentication Required</p>
             </div>
           </div>
 
@@ -155,7 +155,7 @@ export default function AdminDashboardPage() {
             onChange={(e) => setPassword(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleAuthenticate()}
             placeholder="Enter admin password"
-            className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg px-4 py-3 text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#e50914] mb-4"
+            className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914] mb-4"
             autoFocus
           />
 
@@ -174,10 +174,10 @@ export default function AdminDashboardPage() {
             </Button>
           </div>
 
-          <div className="mt-6 pt-4 border-t border-[#2a2a35]">
+          <div className="mt-6 pt-4 border-t border-[#1e1e28]">
             <Link
               href="/"
-              className="text-xs text-[#6b6b7b] hover:text-white transition-colors"
+              className="text-xs text-[#6b7280] hover:text-white transition-colors"
             >
               &larr; Back to Typescribe
             </Link>
@@ -199,7 +199,7 @@ export default function AdminDashboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] pt-8 pb-16">
+    <div className="min-h-screen bg-[#050507] pt-8 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* ─── Header ─── */}
         <div className="mb-10">
@@ -212,7 +212,7 @@ export default function AdminDashboardPage() {
                 <h1 className="text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
                   Admin Dashboard
                 </h1>
-                <p className="text-[#6b6b7b] text-sm mt-0.5">
+                <p className="text-[#6b7280] text-sm mt-0.5">
                   Typescribe Operations &amp; Infrastructure
                 </p>
               </div>
@@ -225,7 +225,7 @@ export default function AdminDashboardPage() {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="border-[#2a2a35] text-[#a0a0b0] hover:text-white hover:border-[#3a3a45]"
+                  className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]"
                 >
                   &larr; Main Site
                 </Button>
@@ -242,7 +242,7 @@ export default function AdminDashboardPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {/* Data Pipeline Card */}
             <Link href="/admin/data" className="group">
-              <div className="rounded-xl border border-[#2a2a35] bg-[#12121a] backdrop-blur-xl p-6 hover:border-[#e50914]/30 transition-all duration-200 h-full">
+              <div className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-6 hover:border-[#e50914]/30 transition-all duration-200 h-full">
                 <div className="flex items-center justify-between mb-4">
                   <div className="p-2 bg-[#e50914]/10 rounded-lg border border-[#e50914]/20">
                     <Database className="w-5 h-5 text-[#e50914]" />
@@ -250,7 +250,7 @@ export default function AdminDashboardPage() {
                   <ArrowRight className="w-4 h-4 text-[#4a4a5a] group-hover:text-[#e50914] group-hover:translate-x-1 transition-all" />
                 </div>
                 <h3 className="text-white font-semibold text-lg mb-1">Data Pipeline</h3>
-                <p className="text-[#6b6b7b] text-sm leading-relaxed">
+                <p className="text-[#6b7280] text-sm leading-relaxed">
                   Manage scrapers, API sources, cache, and batch processing across 15 sites in 3 tiers.
                 </p>
                 <div className="mt-4 flex items-center gap-2 text-xs text-[#4a4a5a]">
@@ -261,12 +261,12 @@ export default function AdminDashboardPage() {
             </Link>
 
             {/* Placeholder: Content Moderation */}
-            <div className="rounded-xl border border-[#2a2a35] bg-[#12121a] backdrop-blur-xl p-6 opacity-50 cursor-not-allowed">
+            <div className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-6 opacity-50 cursor-not-allowed">
               <div className="flex items-center justify-between mb-4">
                 <div className="p-2 bg-[#2a2a35] rounded-lg border border-[#3a3a45]">
                   <Eye className="w-5 h-5 text-[#4a4a5a]" />
                 </div>
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#1a1a25] text-[#4a4a5a] border border-[#2a2a35]">
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#111118] text-[#4a4a5a] border border-[#1e1e28]">
                   Coming Soon
                 </span>
               </div>
@@ -277,12 +277,12 @@ export default function AdminDashboardPage() {
             </div>
 
             {/* Placeholder: User Management */}
-            <div className="rounded-xl border border-[#2a2a35] bg-[#12121a] backdrop-blur-xl p-6 opacity-50 cursor-not-allowed">
+            <div className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-6 opacity-50 cursor-not-allowed">
               <div className="flex items-center justify-between mb-4">
                 <div className="p-2 bg-[#2a2a35] rounded-lg border border-[#3a3a45]">
                   <Users className="w-5 h-5 text-[#4a4a5a]" />
                 </div>
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#1a1a25] text-[#4a4a5a] border border-[#2a2a35]">
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#111118] text-[#4a4a5a] border border-[#1e1e28]">
                   Coming Soon
                 </span>
               </div>
@@ -313,10 +313,10 @@ export default function AdminDashboardPage() {
             ].map((stat) => (
               <div
                 key={stat.label}
-                className="rounded-xl border border-[#2a2a35] bg-[#12121a] backdrop-blur-xl p-5"
+                className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-5"
               >
                 <stat.icon className={`w-4 h-4 ${stat.color} mb-2`} />
-                <p className="text-[#6b6b7b] text-xs mb-1">{stat.label}</p>
+                <p className="text-[#6b7280] text-xs mb-1">{stat.label}</p>
                 <p className="text-white text-lg font-bold">{stat.value}</p>
               </div>
             ))}
@@ -329,41 +329,41 @@ export default function AdminDashboardPage() {
             <Key className="w-5 h-5 text-[#e50914]" /> ScrapingAnt Key Status
             <span className="text-xs font-normal text-[#4a4a5a] ml-1">(5-key round-robin)</span>
           </h2>
-          <div className="rounded-xl border border-[#2a2a35] bg-[#12121a] backdrop-blur-xl p-6">
+          <div className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-6">
             {statsLoading ? (
               <div className="flex items-center justify-center py-8">
                 <Loader2 className="w-6 h-6 animate-spin text-[#e50914]" />
-                <span className="ml-3 text-[#6b6b7b] text-sm">Loading key stats…</span>
+                <span className="ml-3 text-[#6b7280] text-sm">Loading key stats…</span>
               </div>
             ) : scrapingAntStats ? (
               <>
                 {/* Summary Row */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-                  <div className="rounded-lg bg-[#0a0a0f] border border-[#2a2a35] p-3 text-center">
+                  <div className="rounded-lg bg-[#050507] border border-[#1e1e28] p-3 text-center">
                     <p className="text-lg font-bold text-white">
                       {scrapingAntStats.activeKeys}
                     </p>
-                    <p className="text-[#6b6b7b] text-[10px]">Active Keys</p>
+                    <p className="text-[#6b7280] text-[10px]">Active Keys</p>
                   </div>
-                  <div className="rounded-lg bg-[#0a0a0f] border border-[#2a2a35] p-3 text-center">
+                  <div className="rounded-lg bg-[#050507] border border-[#1e1e28] p-3 text-center">
                     <p className="text-lg font-bold text-white">
                       {scrapingAntStats.totalUsed.toLocaleString()}
                     </p>
-                    <p className="text-[#6b6b7b] text-[10px]">Total Used</p>
+                    <p className="text-[#6b7280] text-[10px]">Total Used</p>
                   </div>
                   <div className="rounded-lg bg-emerald-500/5 border border-emerald-500/15 p-3 text-center">
                     <p className="text-lg font-bold text-emerald-400">
                       {scrapingAntStats.totalRemaining.toLocaleString()}
                     </p>
-                    <p className="text-[#6b6b7b] text-[10px]">Remaining</p>
+                    <p className="text-[#6b7280] text-[10px]">Remaining</p>
                   </div>
-                  <div className="rounded-lg bg-[#0a0a0f] border border-[#2a2a35] p-3 text-center">
+                  <div className="rounded-lg bg-[#050507] border border-[#1e1e28] p-3 text-center">
                     <p className="text-lg font-bold text-white">
                       {scrapingAntStats.successRate > 0
                         ? `${(scrapingAntStats.successRate * 100).toFixed(1)}%`
                         : '—'}
                     </p>
-                    <p className="text-[#6b6b7b] text-[10px]">Success Rate</p>
+                    <p className="text-[#6b7280] text-[10px]">Success Rate</p>
                   </div>
                 </div>
 
@@ -374,7 +374,7 @@ export default function AdminDashboardPage() {
                     return (
                       <div
                         key={ks.keyIndex}
-                        className="flex items-center gap-4 p-3 rounded-lg bg-[#0a0a0f] border border-[#2a2a35]"
+                        className="flex items-center gap-4 p-3 rounded-lg bg-[#050507] border border-[#1e1e28]"
                       >
                         <div className="flex items-center gap-2 min-w-[120px]">
                           <Key className="w-3.5 h-3.5 text-[#e50914]" />
@@ -386,7 +386,7 @@ export default function AdminDashboardPage() {
                           </span>
                         </div>
                         <div className="flex-1">
-                          <div className="w-full h-2 bg-[#1a1a25] rounded-full overflow-hidden">
+                          <div className="w-full h-2 bg-[#111118] rounded-full overflow-hidden">
                             <div
                               className={`h-full rounded-full transition-all ${usageBarColor(pct)}`}
                               style={{ width: `${pct}%` }}
@@ -394,7 +394,7 @@ export default function AdminDashboardPage() {
                           </div>
                         </div>
                         <div className="flex items-center gap-3 min-w-[180px] justify-end text-xs">
-                          <span className="text-[#a0a0b0]">
+                          <span className="text-[#9ca3af]">
                             {ks.used.toLocaleString()} / {ks.limit.toLocaleString()}
                           </span>
                           <span
@@ -420,7 +420,7 @@ export default function AdminDashboardPage() {
                 </div>
 
                 {/* Configured Badge */}
-                <div className="mt-4 pt-4 border-t border-[#2a2a35] flex items-center gap-2">
+                <div className="mt-4 pt-4 border-t border-[#1e1e28] flex items-center gap-2">
                   {scrapingAntStats.configured ? (
                     <>
                       <CheckCircle className="w-4 h-4 text-emerald-400" />
@@ -442,12 +442,12 @@ export default function AdminDashboardPage() {
             ) : (
               <div className="text-center py-8">
                 <Key className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" />
-                <p className="text-[#6b6b7b] text-sm">Unable to load ScrapingAnt stats</p>
+                <p className="text-[#6b7280] text-sm">Unable to load ScrapingAnt stats</p>
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={fetchScrapingAntStats}
-                  className="mt-3 border-[#2a2a35] text-[#a0a0b0] hover:text-white hover:border-[#3a3a45]"
+                  className="mt-3 border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]"
                 >
                   Retry
                 </Button>
@@ -461,8 +461,8 @@ export default function AdminDashboardPage() {
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
             <Database className="w-5 h-5 text-[#e50914]" /> Data Sources & API Usage
           </h2>
-          <div className="rounded-xl border border-[#2a2a35] bg-[#12121a] backdrop-blur-xl p-6">
-            <p className="text-xs text-[#6b6b7b] mb-4">Architecture: 70% Scraping + 30% APIs — 15 scrapers across 3 tiers + 6 API sources</p>
+          <div className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-6">
+            <p className="text-xs text-[#6b7280] mb-4">Architecture: 70% Scraping + 30% APIs — 15 scrapers across 3 tiers + 6 API sources</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
               {/* API Sources */}
               {[
@@ -475,7 +475,7 @@ export default function AdminDashboardPage() {
                 { name: 'ScrapingAnt', type: 'Scraper', status: 'active', usage: '5-key rotation — RT, Metacritic, BoxOfficeMojo, etc.', icon: '🕷️' },
                 { name: 'YouTube', type: 'API', status: 'conditional', usage: 'Trailer embeds (requires API key)', icon: '▶️' },
               ].map((source) => (
-                <div key={source.name} className="flex items-start gap-3 p-3 bg-[#0a0a0f] border border-[#2a2a35] rounded-lg">
+                <div key={source.name} className="flex items-start gap-3 p-3 bg-[#050507] border border-[#1e1e28] rounded-lg">
                   <span className="text-lg mt-0.5">{source.icon}</span>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-0.5">
@@ -488,14 +488,14 @@ export default function AdminDashboardPage() {
                         {source.type}
                       </span>
                     </div>
-                    <p className="text-[11px] text-[#6b6b7b]">{source.usage}</p>
+                    <p className="text-[11px] text-[#6b7280]">{source.usage}</p>
                   </div>
                 </div>
               ))}
             </div>
 
             {/* Scraper Tiers */}
-            <div className="pt-4 border-t border-[#2a2a35]">
+            <div className="pt-4 border-t border-[#1e1e28]">
               <h3 className="text-sm font-semibold text-white mb-3">Scraper Tiers</h3>
               <div className="space-y-2">
                 {[
@@ -503,12 +503,12 @@ export default function AdminDashboardPage() {
                   { tier: 'B', label: 'Medium (Rotten Tomatoes, Metacritic, MyDramaList, CommonSense, TheNumbers, FilmAffinity, Allocine, MAL)', color: 'amber' },
                   { tier: 'C', label: 'Heavy (BoxOfficeMojo, Douban, Kinopoist)', color: 'red' },
                 ].map((t) => (
-                  <div key={t.tier} className="flex items-center gap-3 p-2 bg-[#0a0a0f] border border-[#2a2a35] rounded-lg">
+                  <div key={t.tier} className="flex items-center gap-3 p-2 bg-[#050507] border border-[#1e1e28] rounded-lg">
                     <span className={`w-7 h-7 rounded-md flex items-center justify-center text-xs font-bold ${
                       t.color === 'emerald' ? 'bg-emerald-500/10 text-emerald-400' :
                       t.color === 'amber' ? 'bg-amber-500/10 text-amber-400' : 'bg-red-500/10 text-red-400'
                     }`}>T{t.tier}</span>
-                    <span className="text-xs text-[#a0a0b0]">{t.label}</span>
+                    <span className="text-xs text-[#9ca3af]">{t.label}</span>
                   </div>
                 ))}
               </div>
@@ -541,7 +541,7 @@ export default function AdminDashboardPage() {
             ].map((svc) => (
               <div
                 key={svc.name}
-                className="rounded-xl border border-[#2a2a35] bg-[#12121a] backdrop-blur-xl p-4"
+                className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-4"
               >
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-white text-sm font-medium">{svc.name}</span>
@@ -575,10 +575,10 @@ export default function AdminDashboardPage() {
         </section>
 
         {/* ─── Footer Link ─── */}
-        <div className="mt-8 pt-6 border-t border-[#2a2a35] flex items-center justify-between">
+        <div className="mt-8 pt-6 border-t border-[#1e1e28] flex items-center justify-between">
           <Link
             href="/"
-            className="text-sm text-[#6b6b7b] hover:text-white transition-colors flex items-center gap-1.5"
+            className="text-sm text-[#6b7280] hover:text-white transition-colors flex items-center gap-1.5"
           >
             &larr; Back to Typescribe
           </Link>

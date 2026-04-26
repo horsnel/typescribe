@@ -32,7 +32,7 @@ export default function TrendingCarousel() {
   const displayMovies = trendingMovies.length > 0 ? trendingMovies : movies;
 
   return (
-    <section id="trending" className="py-20 bg-[#0a0a0f]">
+    <section id="trending" className="py-20 bg-[#050507]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="reveal-section flex items-center justify-between mb-10">
           <div className="flex items-center gap-3">
@@ -43,10 +43,10 @@ export default function TrendingCarousel() {
           </div>
           <div className="flex items-center gap-4">
             <div className="hidden md:flex items-center gap-2">
-              <button onClick={() => scroll('left')} className="w-10 h-10 flex items-center justify-center rounded-full bg-[#12121a] border border-[#2a2a35] text-white hover:border-[#e50914] hover:text-[#e50914] transition-colors" aria-label="Scroll left"><ChevronLeft className="w-5 h-5" /></button>
-              <button onClick={() => scroll('right')} className="w-10 h-10 flex items-center justify-center rounded-full bg-[#12121a] border border-[#2a2a35] text-white hover:border-[#e50914] hover:text-[#e50914] transition-colors" aria-label="Scroll right"><ChevronRight className="w-5 h-5" /></button>
+              <button onClick={() => scroll('left')} className="w-10 h-10 flex items-center justify-center rounded-full bg-[#0c0c10] border border-white/[0.06] text-white hover:border-[#e50914] hover:text-[#e50914] transition-colors" aria-label="Scroll left"><ChevronLeft className="w-5 h-5" /></button>
+              <button onClick={() => scroll('right')} className="w-10 h-10 flex items-center justify-center rounded-full bg-[#0c0c10] border border-white/[0.06] text-white hover:border-[#e50914] hover:text-[#e50914] transition-colors" aria-label="Scroll right"><ChevronRight className="w-5 h-5" /></button>
             </div>
-            <Link href="/browse" className="flex items-center gap-1.5 text-sm text-[#a0a0b0] hover:text-[#e50914] transition-colors">See All<ArrowRight className="w-4 h-4" /></Link>
+            <Link href="/browse" className="flex items-center gap-1.5 text-sm text-[#9ca3af] hover:text-[#e50914] transition-colors">See All<ArrowRight className="w-4 h-4" /></Link>
           </div>
         </div>
         {loading ? (

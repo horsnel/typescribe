@@ -122,10 +122,10 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
   // ─── Loading state ───
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center">
+      <div className="min-h-screen bg-[#050507] flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-8 h-8 animate-spin text-[#e50914] mx-auto mb-4" />
-          <p className="text-[#a0a0b0]">Loading anime data…</p>
+          <p className="text-[#9ca3af]">Loading anime data…</p>
         </div>
       </div>
     );
@@ -134,12 +134,12 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
   // ─── Error / 404 state ───
   if (error || !data) {
     return (
-      <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center">
+      <div className="min-h-screen bg-[#050507] flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-4xl font-bold text-white mb-4">
             {error === 'Anime not found' ? 'Anime Not Found' : 'Something Went Wrong'}
           </h1>
-          <p className="text-[#a0a0b0] mb-6">
+          <p className="text-[#9ca3af] mb-6">
             {error || 'The anime you are looking for does not exist.'}
           </p>
           <Link
@@ -182,7 +182,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
   const typeBadgeClass = typeColorMap[anime.type ?? ''] ?? 'bg-[#e50914]/20 text-[#e50914] border-[#e50914]/30';
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f]">
+    <div className="min-h-screen bg-[#050507]">
       {/* ═══ Hero Section ═══ */}
       <div ref={heroRef} className="relative h-[60vh] min-h-[480px]">
         {/* Backdrop */}
@@ -203,7 +203,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
           <div className="flex flex-col md:flex-row gap-6 lg:gap-10 items-end w-full">
             {/* Cover Image */}
             {anime.imageUrl && (
-              <div className="hero-animate flex-shrink-0 w-[200px] rounded-xl overflow-hidden shadow-2xl border border-[#2a2a35]/50 hidden md:block">
+              <div className="hero-animate flex-shrink-0 w-[200px] rounded-xl overflow-hidden shadow-2xl border border-[#1e1e28]/50 hidden md:block">
                 <img
                   src={anime.imageUrl}
                   alt={anime.title}
@@ -215,12 +215,12 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
             {/* Info */}
             <div className="flex-1 min-w-0">
               {/* Breadcrumb */}
-              <nav className="hero-animate flex items-center gap-2 mb-4 text-sm text-[#6b6b7b]">
+              <nav className="hero-animate flex items-center gap-2 mb-4 text-sm text-[#6b7280]">
                 <Link href="/" className="hover:text-white transition-colors">Home</Link>
                 <ChevronRight className="w-3 h-3" />
-                <span className="text-[#a0a0b0]">Anime</span>
+                <span className="text-[#9ca3af]">Anime</span>
                 <ChevronRight className="w-3 h-3" />
-                <span className="text-[#a0a0b0] truncate max-w-[200px]">{anime.title}</span>
+                <span className="text-[#9ca3af] truncate max-w-[200px]">{anime.title}</span>
               </nav>
 
               {/* Title */}
@@ -230,7 +230,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
 
               {/* Japanese title */}
               {(anime.titleJapanese || (anime.titleRomaji && anime.titleRomaji !== anime.title)) && (
-                <p className="hero-animate text-sm text-[#6b6b7b] mb-3">
+                <p className="hero-animate text-sm text-[#6b7280] mb-3">
                   {anime.titleJapanese || anime.titleRomaji}
                 </p>
               )}
@@ -254,7 +254,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
 
                 {/* Episodes */}
                 {anime.episodes !== null && (
-                  <span className="text-sm text-[#a0a0b0] flex items-center gap-1">
+                  <span className="text-sm text-[#9ca3af] flex items-center gap-1">
                     <Film className="w-3.5 h-3.5" />
                     {anime.episodes} Episode{anime.episodes !== 1 ? 's' : ''}
                   </span>
@@ -264,7 +264,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                 <span className="w-1 h-1 rounded-full bg-[#6b6b7b]" />
 
                 {/* Status */}
-                <span className="text-sm text-[#a0a0b0] flex items-center gap-1">
+                <span className="text-sm text-[#9ca3af] flex items-center gap-1">
                   {anime.airing ? (
                     <>
                       <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
@@ -279,7 +279,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                 <span className="w-1 h-1 rounded-full bg-[#6b6b7b]" />
 
                 {/* Season/Year */}
-                <span className="text-sm text-[#a0a0b0] flex items-center gap-1">
+                <span className="text-sm text-[#9ca3af] flex items-center gap-1">
                   <Calendar className="w-3.5 h-3.5" />
                   {seasonYear}
                 </span>
@@ -288,7 +288,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
               {/* Studio & Producers */}
               <div className="hero-animate flex items-center gap-2 mb-4 flex-wrap">
                 {anime.studios.length > 0 && (
-                  <span className="text-sm text-[#a0a0b0] flex items-center gap-1">
+                  <span className="text-sm text-[#9ca3af] flex items-center gap-1">
                     <Tv className="w-3.5 h-3.5" />
                     {anime.studios.join(', ')}
                   </span>
@@ -297,7 +297,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                   <span className="w-1 h-1 rounded-full bg-[#6b6b7b]" />
                 )}
                 {anime.producers.length > 0 && (
-                  <span className="text-xs text-[#6b6b7b]">
+                  <span className="text-xs text-[#6b7280]">
                     {anime.producers.slice(0, 3).join(', ')}
                     {anime.producers.length > 3 && ` +${anime.producers.length - 3}`}
                   </span>
@@ -309,7 +309,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                 {anime.genres.map((genre) => (
                   <span
                     key={genre}
-                    className="text-xs font-medium text-[#a0a0b0] bg-[#12121a] border border-[#2a2a35] px-2.5 py-1 rounded-full"
+                    className="text-xs font-medium text-[#9ca3af] bg-[#0c0c10] border border-[#1e1e28] px-2.5 py-1 rounded-full"
                   >
                     {genre}
                   </span>
@@ -339,7 +339,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
 
                 <button
                   onClick={handleShare}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium bg-[#1a1a25] border border-[#2a2a35] text-white hover:bg-[#2a2a35] transition-colors"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium bg-[#111118] border border-[#1e1e28] text-white hover:bg-[#2a2a35] transition-colors"
                 >
                   <Share2 className="w-4 h-4" /> Share
                 </button>
@@ -348,7 +348,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                   href={anime.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium bg-[#1a1a25] border border-[#2a2a35] text-white hover:bg-[#2a2a35] transition-colors"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium bg-[#111118] border border-[#1e1e28] text-white hover:bg-[#2a2a35] transition-colors"
                 >
                   <ExternalLink className="w-4 h-4" /> MAL Page
                 </a>
@@ -369,10 +369,10 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                 <Sparkles className="w-5 h-5 text-[#e50914]" />
                 <h2 className="text-xl font-bold text-white">Synopsis</h2>
               </div>
-              <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-6">
+              <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
                 {anime.synopsis ? (
                   <>
-                    <p className="text-[#a0a0b0] leading-relaxed text-[15px]">{displaySynopsis}</p>
+                    <p className="text-[#9ca3af] leading-relaxed text-[15px]">{displaySynopsis}</p>
                     {isSynopsisLong && (
                       <button
                         onClick={() => setSynopsisExpanded(!synopsisExpanded)}
@@ -386,7 +386,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                     )}
                   </>
                 ) : (
-                  <p className="text-[#6b6b7b] italic">No synopsis available.</p>
+                  <p className="text-[#6b7280] italic">No synopsis available.</p>
                 )}
               </div>
             </section>
@@ -395,7 +395,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
             {anime.background && (
               <section className="content-animate">
                 <h2 className="text-xl font-bold text-white mb-4">Background</h2>
-                <p className="text-[#a0a0b0] leading-relaxed text-[15px] bg-[#12121a] border border-[#2a2a35] rounded-xl p-6">
+                <p className="text-[#9ca3af] leading-relaxed text-[15px] bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
                   {anime.background}
                 </p>
               </section>
@@ -409,16 +409,16 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
               </div>
 
               {characters.length === 0 ? (
-                <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-8 text-center">
+                <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-8 text-center">
                   <Users className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" />
-                  <p className="text-[#a0a0b0]">No character data available</p>
+                  <p className="text-[#9ca3af]">No character data available</p>
                 </div>
               ) : (
                 <>
                   {/* Main Characters */}
                   {mainCharacters.length > 0 && (
                     <div className="mb-6">
-                      <h3 className="text-sm font-semibold text-[#6b6b7b] uppercase tracking-wider mb-3">
+                      <h3 className="text-sm font-semibold text-[#6b7280] uppercase tracking-wider mb-3">
                         Main Characters
                       </h3>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -432,7 +432,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                   {/* Supporting Characters */}
                   {supportingCharacters.length > 0 && (
                     <div>
-                      <h3 className="text-sm font-semibold text-[#6b6b7b] uppercase tracking-wider mb-3">
+                      <h3 className="text-sm font-semibold text-[#6b7280] uppercase tracking-wider mb-3">
                         Supporting Characters
                       </h3>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -469,7 +469,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                     <Link
                       key={rec.malId}
                       href={`/anime/${rec.malId}`}
-                      className="group flex flex-col rounded-xl overflow-hidden bg-[#12121a] border border-[#2a2a35] hover:border-[#e50914]/40 transition-all hover:shadow-lg hover:shadow-[#e50914]/5"
+                      className="group flex flex-col rounded-xl overflow-hidden bg-[#0c0c10] border border-[#1e1e28] hover:border-[#e50914]/40 transition-all hover:shadow-lg hover:shadow-[#e50914]/5"
                     >
                       <div className="relative aspect-[3/4] overflow-hidden">
                         {rec.imageUrl ? (
@@ -480,7 +480,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                             loading="lazy"
                           />
                         ) : (
-                          <div className="w-full h-full bg-[#1a1a25] flex items-center justify-center">
+                          <div className="w-full h-full bg-[#111118] flex items-center justify-center">
                             <Film className="w-8 h-8 text-[#2a2a35]" />
                           </div>
                         )}
@@ -491,7 +491,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                           {rec.title}
                         </h4>
                         {rec.recommendationCount > 0 && (
-                          <p className="text-[10px] text-[#6b6b7b] mt-1">
+                          <p className="text-[10px] text-[#6b7280] mt-1">
                             {rec.recommendationCount} recommendation{rec.recommendationCount !== 1 ? 's' : ''}
                           </p>
                         )}
@@ -506,7 +506,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
           {/* ─── Right Sidebar ─── */}
           <aside className="space-y-6">
             {/* Anime Details Card */}
-            <div className="content-animate bg-[#12121a] border border-[#2a2a35] rounded-xl p-6">
+            <div className="content-animate bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
               <h3 className="text-lg font-bold text-white mb-5 flex items-center gap-2">
                 <Sparkles className="w-5 h-5 text-[#e50914]" />
                 Anime Details
@@ -554,7 +554,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                   />
                 )}
 
-                <div className="border-t border-[#2a2a35] pt-4 mt-4" />
+                <div className="border-t border-[#1e1e28] pt-4 mt-4" />
 
                 {/* Rank */}
                 {anime.rank !== null && (
@@ -584,7 +584,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
             </div>
 
             {/* External Links Card */}
-            <div className="content-animate bg-[#12121a] border border-[#2a2a35] rounded-xl p-6">
+            <div className="content-animate bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
               <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                 <ExternalLink className="w-5 h-5 text-[#e50914]" />
                 External Links
@@ -594,22 +594,22 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                   href={anime.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 text-sm text-[#a0a0b0] hover:text-white transition-colors py-2 px-3 rounded-lg hover:bg-[#1a1a25]"
+                  className="flex items-center gap-3 text-sm text-[#9ca3af] hover:text-white transition-colors py-2 px-3 rounded-lg hover:bg-[#111118]"
                 >
                   <Globe className="w-4 h-4 text-[#e50914]" />
                   MyAnimeList Page
-                  <ExternalLink className="w-3 h-3 ml-auto text-[#6b6b7b]" />
+                  <ExternalLink className="w-3 h-3 ml-auto text-[#6b7280]" />
                 </a>
                 {anime.trailerYoutubeId && (
                   <a
                     href={`https://www.youtube.com/watch?v=${anime.trailerYoutubeId}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 text-sm text-[#a0a0b0] hover:text-white transition-colors py-2 px-3 rounded-lg hover:bg-[#1a1a25]"
+                    className="flex items-center gap-3 text-sm text-[#9ca3af] hover:text-white transition-colors py-2 px-3 rounded-lg hover:bg-[#111118]"
                   >
                     <Play className="w-4 h-4 text-[#e50914]" />
                     YouTube Trailer
-                    <ExternalLink className="w-3 h-3 ml-auto text-[#6b6b7b]" />
+                    <ExternalLink className="w-3 h-3 ml-auto text-[#6b7280]" />
                   </a>
                 )}
               </div>
@@ -617,7 +617,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
 
             {/* Studios & Producers Card */}
             {(anime.studios.length > 0 || anime.producers.length > 0) && (
-              <div className="content-animate bg-[#12121a] border border-[#2a2a35] rounded-xl p-6">
+              <div className="content-animate bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
                 <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                   <Tv className="w-5 h-5 text-[#e50914]" />
                   Studios & Producers
@@ -625,12 +625,12 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                 <div className="space-y-3">
                   {anime.studios.length > 0 && (
                     <div>
-                      <p className="text-xs text-[#6b6b7b] uppercase tracking-wider mb-2">Studios</p>
+                      <p className="text-xs text-[#6b7280] uppercase tracking-wider mb-2">Studios</p>
                       <div className="flex flex-wrap gap-2">
                         {anime.studios.map((studio) => (
                           <span
                             key={studio}
-                            className="text-xs font-medium text-[#a0a0b0] bg-[#1a1a25] border border-[#2a2a35] px-3 py-1.5 rounded-lg"
+                            className="text-xs font-medium text-[#9ca3af] bg-[#111118] border border-[#1e1e28] px-3 py-1.5 rounded-lg"
                           >
                             {studio}
                           </span>
@@ -640,12 +640,12 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                   )}
                   {anime.producers.length > 0 && (
                     <div>
-                      <p className="text-xs text-[#6b6b7b] uppercase tracking-wider mb-2">Producers</p>
+                      <p className="text-xs text-[#6b7280] uppercase tracking-wider mb-2">Producers</p>
                       <div className="flex flex-wrap gap-2">
                         {anime.producers.map((producer) => (
                           <span
                             key={producer}
-                            className="text-xs font-medium text-[#6b6b7b] bg-[#1a1a25] border border-[#2a2a35] px-2.5 py-1 rounded-lg"
+                            className="text-xs font-medium text-[#6b7280] bg-[#111118] border border-[#1e1e28] px-2.5 py-1 rounded-lg"
                           >
                             {producer}
                           </span>
@@ -668,7 +668,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
 function DetailRow({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
   return (
     <div className="flex items-center justify-between">
-      <span className="flex items-center gap-2 text-sm text-[#6b6b7b]">
+      <span className="flex items-center gap-2 text-sm text-[#6b7280]">
         {icon}
         {label}
       </span>
@@ -682,9 +682,9 @@ function CharacterCard({ character }: { character: JikanCharacterResult }) {
     ?? character.voiceActors[0];
 
   return (
-    <div className="flex items-center gap-3 bg-[#12121a] border border-[#2a2a35] rounded-xl p-3 hover:border-[#2a2a35]/80 transition-colors group">
+    <div className="flex items-center gap-3 bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-3 hover:border-[#1e1e28]/80 transition-colors group">
       {/* Character Image */}
-      <div className="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden bg-[#1a1a25] border border-[#2a2a35]/50">
+      <div className="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden bg-[#111118] border border-[#1e1e28]/50">
         {character.imageUrl ? (
           <img
             src={character.imageUrl}
@@ -708,12 +708,12 @@ function CharacterCard({ character }: { character: JikanCharacterResult }) {
           <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded ${
             character.role === 'Main'
               ? 'bg-[#e50914]/10 text-[#e50914]'
-              : 'bg-[#2a2a35]/50 text-[#6b6b7b]'
+              : 'bg-[#2a2a35]/50 text-[#6b7280]'
           }`}>
             {character.role}
           </span>
           {primaryVA && (
-            <span className="text-[10px] text-[#6b6b7b] truncate">
+            <span className="text-[10px] text-[#6b7280] truncate">
               {primaryVA.name}
             </span>
           )}
@@ -722,7 +722,7 @@ function CharacterCard({ character }: { character: JikanCharacterResult }) {
 
       {/* VA Image */}
       {primaryVA?.imageUrl && (
-        <div className="flex-shrink-0 w-10 h-10 rounded-full overflow-hidden bg-[#1a1a25] border border-[#2a2a35]/50">
+        <div className="flex-shrink-0 w-10 h-10 rounded-full overflow-hidden bg-[#111118] border border-[#1e1e28]/50">
           <img
             src={primaryVA.imageUrl}
             alt={primaryVA.name}
