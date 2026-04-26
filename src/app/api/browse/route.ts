@@ -219,6 +219,58 @@ export async function GET(request: NextRequest) {
           sources: fallbackSources,
           durationMs: result.durationMs,
         };
+      } else {
+        // Last resort: mock anime data
+        const mockAnime = [
+          { t: 'Attack on Titan: The Final Season', s: 9.0, y: 2024, g: ['Action','Drama','Fantasy'], img: 'https://cdn.myanimelist.net/images/anime/1000/110531.jpg', st: 'MAPPA' },
+          { t: 'Jujutsu Kaisen Season 2', s: 8.7, y: 2023, g: ['Action','Supernatural'], img: 'https://cdn.myanimelist.net/images/anime/1792/138022.jpg', st: 'MAPPA' },
+          { t: 'Demon Slayer: Hashira Training', s: 8.5, y: 2024, g: ['Action','Fantasy'], img: 'https://cdn.myanimelist.net/images/anime/1428/141939.jpg', st: 'Ufotable' },
+          { t: 'Spy x Family Season 2', s: 8.4, y: 2023, g: ['Action','Comedy'], img: 'https://cdn.myanimelist.net/images/anime/1441/139629.jpg', st: 'WIT Studio' },
+          { t: 'Frieren: Beyond Journey\'s End', s: 9.1, y: 2023, g: ['Adventure','Fantasy','Drama'], img: 'https://cdn.myanimelist.net/images/anime/1015/138006.jpg', st: 'Madhouse' },
+          { t: 'Solo Leveling', s: 8.3, y: 2024, g: ['Action','Fantasy'], img: 'https://cdn.myanimelist.net/images/anime/1422/135042.jpg', st: 'A-1 Pictures' },
+          { t: 'Chainsaw Man', s: 8.5, y: 2022, g: ['Action','Horror'], img: 'https://cdn.myanimelist.net/images/anime/1806/126216.jpg', st: 'MAPPA' },
+          { t: 'My Hero Academia Season 7', s: 7.9, y: 2024, g: ['Action','Superhero'], img: 'https://cdn.myanimelist.net/images/anime/1030/138298.jpg', st: 'Bones' },
+        ];
+        result = {
+          movies: mockAnime.map((a, i) => ({
+            id: 9000 + i,
+            tmdb_id: 0,
+            slug: a.t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
+            title: a.t,
+            original_title: '',
+            overview: `A ${a.g.join('/')} anime by ${a.st}.`,
+            release_date: `${a.y}-01-01`,
+            poster_path: a.img,
+            backdrop_path: '',
+            genres: a.g.map((g, j) => ({ id: -(j + 1), name: g })),
+            runtime: 24,
+            vote_average: a.s / 10,
+            vote_count: 100000,
+            imdb_rating: '',
+            rotten_tomatoes: '',
+            metascore: '',
+            trailer_youtube_id: '',
+            news_headlines: [],
+            ai_review: '',
+            director: '',
+            cast: [],
+            tagline: '',
+            budget: 0,
+            revenue: 0,
+            original_language: 'ja',
+            origin_country: 'JP',
+            media_type: 'anime' as const,
+            production_companies: [a.st],
+            status: 'Released',
+            created_at: new Date().toISOString(),
+            is_anime: true,
+          })),
+          page: 1,
+          totalPages: 1,
+          totalResults: mockAnime.length,
+          sources: ['Mock'],
+          durationMs: result.durationMs,
+        };
       }
     }
 
