@@ -1,3 +1,9 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,235 +14,19 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  email         String    @unique
-  name          String?
-  username      String?   @unique
-  passwordHash  String
-  avatar        String?
-  bio           String?
-  coverImage    String?
-  favoriteGenres String?
-  isPublic      Boolean   @default(true)
-  role          String    @default("user")
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-
-  reviews       Review[]
-  comments      Comment[]
-  communities   CommunityMember[]
-  posts         Post[]
-  watchlist     WatchlistItem[]
-  notifications Notification[]
-  savedItems    SavedItem[]
-  reviewVotes   ReviewVote[]
-}
-
-model Movie {
-  id            String   @id @default(cuid())
-  tmdbId        Int      @unique
-  title         String
-  overview      String?
-  posterPath    String?
-  backdropPath  String?
-  releaseDate   String?
-  runtime       Int?
-  budget        Int?
-  revenue       Int?
-  voteAverage   Float?
-  voteCount     Int?
-  genres        String?
-  mediaType     String   @default("movie")
-  apiSource     String   @default("tmdb")
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
-  reviews       Review[]
-  watchlistItems WatchlistItem[]
-}
-
-model Anime {
-  id            String   @id @default(cuid())
-  malId         Int?     @unique
-  anilistId     Int?
-  kitsuId       String?
-  title         String
-  titleEnglish  String?
-  titleRomaji   String?
-  overview      String?
-  posterPath    String?
-  bannerPath    String?
-  episodes      Int?
-  status        String?
-  score         Float?
-  genres        String?
-  studios       String?
-  season        String?
-  year          Int?
-  mediaType     String   @default("anime")
-  apiSource     String   @default("jikan")
-  trailerYoutubeId String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
-  watchlistItems WatchlistItem[]
-  reviews       Review[]
-}
-
-model Review {
-  id            String   @id @default(cuid())
-  userId        String
-  movieId       String?
-  animeId       String?
-  rating        Int
-  content       String
-  isSpoiler     Boolean  @default(false)
-  disagreesWithAi Boolean @default(false)
-  helpfulCount  Int      @default(0)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
-  user          User     @relation(fields: [userId], references: [id])
-  movie         Movie?   @relation(fields: [movieId], references: [id])
-  anime         Anime?   @relation(fields: [animeId], references: [id])
-  comments      Comment[]
-  votes         ReviewVote[]
-
-  @@index([movieId])
-  @@index([animeId])
-  @@index([userId])
-}
-
-model Comment {
   id        String   @id @default(cuid())
-  userId    String
-  reviewId  String?
-  postId    String?
-  parentId  String?
-  content   String
+  email     String   @unique
+  name      String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  user      User     @relation(fields: [userId], references: [id])
-  review    Review?  @relation(fields: [reviewId], references: [id])
-  post      Post?    @relation(fields: [postId], references: [id])
-  parent    Comment? @relation("CommentReplies", fields: [parentId], references: [id])
-  replies   Comment[] @relation("CommentReplies")
-}
-
-model Community {
-  id          String   @id @default(cuid())
-  name        String   @unique
-  slug        String   @unique
-  description String
-  rules       String?
-  coverImage  String?
-  tags        String?
-  type        String   @default("genre")
-  isPrivate   Boolean  @default(false)
-  creatorId   String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  members     CommunityMember[]
-  posts       Post[]
-}
-
-model CommunityMember {
-  id          String   @id @default(cuid())
-  userId      String
-  communityId String
-  role        String   @default("member")
-  flair       String?
-  joinedAt    DateTime @default(now())
-
-  user        User      @relation(fields: [userId], references: [id])
-  community   Community @relation(fields: [communityId], references: [id])
-
-  @@unique([userId, communityId])
 }
 
 model Post {
-  id          String   @id @default(cuid())
-  communityId String
-  userId      String
-  title       String
-  content     String?
-  postType    String   @default("discussion")
-  isPinned    Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  community   Community @relation(fields: [communityId], references: [id])
-  user        User      @relation(fields: [userId], references: [id])
-  comments    Comment[]
-}
-
-model WatchlistItem {
   id        String   @id @default(cuid())
-  userId    String
-  movieId   String?
-  animeId   String?
-  status    String   @default("want_to_watch")
-  createdAt DateTime @default(now())
-
-  user      User     @relation(fields: [userId], references: [id])
-  movie     Movie?   @relation(fields: [movieId], references: [id])
-  anime     Anime?   @relation(fields: [animeId], references: [id])
-
-  @@unique([userId, movieId, animeId])
-}
-
-model Notification {
-  id        String   @id @default(cuid())
-  userId    String
-  type      String
-  message   String
-  link      String?
-  isRead    Boolean  @default(false)
-  createdAt DateTime @default(now())
-
-  user      User     @relation(fields: [userId], references: [id])
-}
-
-model SavedItem {
-  id        String   @id @default(cuid())
-  userId    String
-  type      String
-  itemId    String
-  folder    String?
-  createdAt DateTime @default(now())
-
-  user      User     @relation(fields: [userId], references: [id])
-}
-
-model ReviewVote {
-  id        String   @id @default(cuid())
-  userId    String
-  reviewId  String
-  isHelpful Boolean  @default(true)
-  createdAt DateTime @default(now())
-
-  user      User     @relation(fields: [userId], references: [id])
-  review    Review   @relation(fields: [reviewId], references: [id])
-
-  @@unique([userId, reviewId])
-}
-
-model AiReview {
-  id        String   @id @default(cuid())
-  movieId   String?  @unique
-  animeId   String?  @unique
-  content   String
-  agreeCount Int     @default(0)
-  disagreeCount Int  @default(0)
+  title     String
+  content   String?
+  published Boolean  @default(false)
+  authorId  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-}
-
-model AdminSession {
-  id        String   @id @default(cuid())
-  token     String   @unique
-  expiresAt DateTime
-  createdAt DateTime @default(now())
 }

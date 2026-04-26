@@ -1,0 +1,243 @@
+'use client';
+
+import { useState } from 'react';
+import { Film, Twitter, Instagram, Github, Mail, Loader2, Check, Lock } from 'lucide-react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { Separator } from '@/components/ui/separator';
+import { Button } from '@/components/ui/button';
+
+export default function Footer() {
+  const [email, setEmail] = useState('');
+  const [subscribed, setSubscribed] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  // O.L.H.M.E.S Triple-click admin access
+  const [clickCount, setClickCount] = useState(0);
+  const [clickTimer, setClickTimer] = useState<NodeJS.Timeout | null>(null);
+  const [showAdminModal, setShowAdminModal] = useState(false);
+  const [adminPassword, setAdminPassword] = useState('');
+  const [adminError, setAdminError] = useState('');
+  const [adminLoading, setAdminLoading] = useState(false);
+  const router = useRouter();
+
+  const handleBrandClick = () => {
+    const newCount = clickCount + 1;
+    setClickCount(newCount);
+
+    // Reset timer on each click
+    if (clickTimer) clearTimeout(clickTimer);
+    const timer = setTimeout(() => setClickCount(0), 800);
+    setClickTimer(timer);
+
+    // Triple click detected
+    if (newCount >= 3) {
+      setClickCount(0);
+      if (clickTimer) clearTimeout(clickTimer);
+      setShowAdminModal(true);
+    }
+  };
+
+  const handleAdminLogin = async () => {
+    setAdminLoading(true);
+    setAdminError('');
+    try {
+      const res = await fetch('/api/admin/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: adminPassword }),
+      });
+      const data = await res.json();
+      if (res.ok && data.token) {
+        localStorage.setItem('typescribe_admin_token', data.token);
+        setShowAdminModal(false);
+        setAdminPassword('');
+        router.push('/admin');
+      } else {
+        setAdminError(data.error || 'Invalid password');
+      }
+    } catch {
+      setAdminError('Connection failed');
+    } finally {
+      setAdminLoading(false);
+    }
+  };
+
+  const aboutLinks = [
+    { label: 'About Us', href: '/about' },
+    { label: 'How It Works', href: '/about' },
+    { label: 'Contact', href: '/contact' },
+    { label: 'Communities', href: '/communities' },
+  ];
+
+  const categoryLinks = [
+    { label: 'Action', href: '/category/action' },
+    { label: 'Drama', href: '/category/drama' },
+    { label: 'Comedy', href: '/category/comedy' },
+    { label: 'Horror', href: '/category/horror' },
+    { label: 'Sci-Fi', href: '/category/sci-fi' },
+    { label: 'Romance', href: '/category/romance' },
+    { label: 'Thriller', href: '/category/thriller' },
+    { label: 'Documentary', href: '/category/documentary' },
+  ];
+
+  const legalLinks = [
+    { label: 'Privacy Policy', href: '/privacy' },
+    { label: 'Terms of Service', href: '/terms' },
+    { label: 'Cookie Policy', href: '/cookies' },
+    { label: 'DMCA', href: '/dmca' },
+    { label: 'Disclaimer', href: '/disclaimer' },
+    { label: 'Accessibility', href: '/accessibility' },
+  ];
+
+  const socialLinks = [
+    { icon: Twitter, href: 'https://twitter.com/typescribe', label: 'Twitter' },
+    { icon: Instagram, href: 'https://instagram.com/typescribe', label: 'Instagram' },
+    { icon: Github, href: 'https://github.com/horsnel/typescribe', label: 'GitHub' },
+  ];
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+    setLoading(true);
+    try {
+      const response = await fetch('https://formspree.io/f/xreawkow', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ email, _subject: 'New Typescribe Newsletter Subscription (Footer)' }),
+      });
+      if (response.ok) setSubscribed(true);
+    } catch { /* silent */ }
+    finally { setLoading(false); }
+  };
+
+  return (
+    <>
+      <footer className="bg-[#0a0a0f] border-t border-[#2a2a35]">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 py-16">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-10">
+            <div className="col-span-2 md:col-span-1">
+              <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">About</h4>
+              <ul className="space-y-3">
+                {aboutLinks.map((link) => (
+                  <li key={link.label}><Link href={link.href} className="text-sm text-[#a0a0b0] hover:text-white transition-colors">{link.label}</Link></li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">Categories</h4>
+              <ul className="space-y-3">
+                {categoryLinks.map((link) => (
+                  <li key={link.label}><Link href={link.href} className="text-sm text-[#a0a0b0] hover:text-white transition-colors">{link.label}</Link></li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">Legal</h4>
+              <ul className="space-y-3">
+                {legalLinks.map((link) => (
+                  <li key={link.label}><Link href={link.href} className="text-sm text-[#a0a0b0] hover:text-white transition-colors">{link.label}</Link></li>
+                ))}
+              </ul>
+            </div>
+            <div className="col-span-2">
+              <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">Newsletter</h4>
+              <p className="text-sm text-[#a0a0b0] mb-4 leading-relaxed">Get weekly movie picks and exclusive AI reviews delivered to your inbox every Friday.</p>
+              {subscribed ? (
+                <div className="flex items-center gap-2 text-green-400 text-sm mb-4">
+                  <Check className="w-4 h-4" />
+                  <span>You&apos;re subscribed!</span>
+                </div>
+              ) : (
+                <form onSubmit={handleNewsletterSubmit} className="flex gap-2 mb-4">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Your email"
+                    required
+                    className="flex-1 bg-[#12121a] border border-[#2a2a35] rounded-lg px-3 py-2 text-sm text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#e50914]"
+                  />
+                  <button type="submit" disabled={loading} className="px-4 py-2 bg-[#e50914] hover:bg-[#b20710] text-white text-sm font-medium rounded-lg transition-colors disabled:opacity-60">
+                    {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Mail className="w-4 h-4" />}
+                  </button>
+                </form>
+              )}
+              <div className="flex gap-3 mb-4">
+                {socialLinks.map((social) => (
+                  <a key={social.label} href={social.href} className="p-2.5 bg-[#12121a] border border-[#2a2a35] text-[#a0a0b0] hover:text-white hover:border-[#e50914] rounded-lg transition-all" aria-label={social.label}>
+                    <social.icon className="w-4 h-4" />
+                  </a>
+                ))}
+              </div>
+              <p className="text-xs text-[#6b6b7b] leading-relaxed">AI-powered movie reviews and community ratings. Made for film lovers.</p>
+            </div>
+          </div>
+          <Separator className="my-10 bg-[#2a2a35]" />
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-2">
+              <Film className="w-5 h-5 text-[#e50914]" />
+              <button
+                onClick={handleBrandClick}
+                className="text-sm text-[#6b6b7b] hover:text-[#a0a0b0] transition-colors cursor-default select-none font-bold tracking-[0.2em]"
+                aria-label="O.L.H.M.E.S Brand"
+              >
+                O.L.H.M.E.S
+              </button>
+              <span className="text-sm text-[#6b6b7b]">&copy; 2026 Typescribe. All rights reserved.</span>
+            </div>
+            <span className="text-xs text-[#6b6b7b] bg-[#12121a] px-3 py-1.5 rounded-full border border-[#2a2a35]">Made with AI + Community</span>
+          </div>
+        </div>
+      </footer>
+
+      {/* Admin Password Modal */}
+      {showAdminModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm">
+          <div className="bg-[#12121a] border border-[#2a2a35] rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 rounded-full bg-[#e50914]/10 flex items-center justify-center">
+                <Lock className="w-5 h-5 text-[#e50914]" />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-white">Admin Access</h3>
+                <p className="text-xs text-[#6b6b7b]">O.L.H.M.E.S Authentication</p>
+              </div>
+            </div>
+            {adminError && (
+              <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
+                <p className="text-sm text-red-400">{adminError}</p>
+              </div>
+            )}
+            <input
+              type="password"
+              value={adminPassword}
+              onChange={(e) => setAdminPassword(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleAdminLogin()}
+              placeholder="Enter admin password"
+              className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg px-4 py-3 text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#e50914] mb-4"
+              autoFocus
+            />
+            <div className="flex gap-3">
+              <Button
+                onClick={handleAdminLogin}
+                disabled={!adminPassword || adminLoading}
+                className="flex-1 bg-[#e50914] hover:bg-[#b20710] text-white disabled:opacity-50"
+              >
+                {adminLoading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Lock className="w-4 h-4 mr-2" />}
+                Authenticate
+              </Button>
+              <Button
+                onClick={() => { setShowAdminModal(false); setAdminPassword(''); setAdminError(''); }}
+                variant="outline"
+                className="border-[#2a2a35] text-[#a0a0b0] hover:text-white hover:bg-[#1a1a25]"
+              >
+                Cancel
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}

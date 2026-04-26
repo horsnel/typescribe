@@ -1,0 +1,40 @@
+/**
+ * GET /api/search
+ *
+ * Search for movies and TV shows by query string.
+ * Uses TMDb multi-search under the hood.
+ *
+ * Query params:
+ *   q – search query string (required, min 1 character)
+ */
+import { NextRequest, NextResponse } from 'next/server';
+import { searchMovies } from '@/lib/pipeline';
+
+export async function GET(request: NextRequest) {
+  try {
+    const { searchParams } = request.nextUrl;
+    const query = searchParams.get('q');
+
+    // ── Validate query ──
+    if (!query || query.trim().length === 0) {
+      return NextResponse.json(
+        { error: 'Query parameter "q" is required.' },
+        { status: 400 },
+      );
+    }
+
+    const trimmedQuery = query.trim();
+
+    console.log(`[API /search] Searching for: "${trimmedQuery}"`);
+
+    const result = await searchMovies(trimmedQuery);
+
+    return NextResponse.json(result);
+  } catch (error: any) {
+    console.error('[API /search] Error:', error);
+    return NextResponse.json(
+      { error: 'Search failed', details: error.message },
+      { status: 500 },
+    );
+  }
+}

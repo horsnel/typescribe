@@ -1,31 +1,35 @@
-'use client'
+'use client';
+import { useEffect } from 'react';
+import { initLenis, animateHero, initScrollReveal, cleanupAnimations } from '@/lib/animations';
+import HeroSection from '@/sections/HeroSection';
+import LocalPicksSection from '@/sections/LocalPicksSection';
+import TrendingCarousel from '@/sections/TrendingCarousel';
+import CategoriesGrid from '@/sections/CategoriesGrid';
+import LatestReviews from '@/sections/LatestReviews';
+import TopRatedSection from '@/sections/TopRatedSection';
+import CommunityReviews from '@/sections/CommunityReviews';
+import NewsSection from '@/sections/NewsSection';
+import NewsletterCTA from '@/sections/NewsletterCTA';
 
-export default function Home() {
+export default function HomePage() {
+  useEffect(() => {
+    const lenis = initLenis();
+    const heroTl = animateHero();
+    initScrollReveal();
+    return () => { heroTl.kill(); cleanupAnimations(); };
+  }, []);
+
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      minHeight: '100vh',
-      gap: '2rem',
-      padding: '1rem'
-    }}>
-      <div style={{
-        position: 'relative',
-        width: '6rem',
-        height: '6rem'
-      }}>
-        <img
-          src="/logo.svg"
-          alt="Z.ai Logo"
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'contain'
-          }}
-        />
-      </div>
+    <div>
+      <HeroSection />
+      <LocalPicksSection />
+      <TrendingCarousel />
+      <CategoriesGrid />
+      <LatestReviews />
+      <TopRatedSection />
+      <CommunityReviews />
+      <NewsSection />
+      <NewsletterCTA />
     </div>
-  )
+  );
 }
