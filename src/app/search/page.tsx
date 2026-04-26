@@ -1,4 +1,5 @@
 'use client';
+import { Suspense } from 'react';
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Search as SearchIcon, TrendingUp, Clock, X, Film, MessageSquare, Newspaper, Star, ArrowRight, Loader2, Zap } from 'lucide-react';
@@ -9,7 +10,7 @@ import MovieCard from '@/components/movie/MovieCard';
 
 type Tab = 'movies' | 'reviews' | 'news';
 
-export default function SearchPage() {
+function SearchContent() {
   const searchParams = useSearchParams();
   const urlQuery = searchParams.get('q') || '';
   const [query, setQuery] = useState(urlQuery);
@@ -251,5 +252,17 @@ export default function SearchPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-[#e50914]" />
+      </div>
+    }>
+      <SearchContent />
+    </Suspense>
   );
 }
