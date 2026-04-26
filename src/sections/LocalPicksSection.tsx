@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { Globe, MapPin, ChevronRight, Loader2 } from 'lucide-react';
 import Link from 'next/link';
-import { detectLocation, getCurrentLocation, setCountryOverride, COUNTRY_FLAGS, COUNTRY_NAMES, AVAILABLE_COUNTRIES, getSuggestionReason } from '@/lib/geolocation';
+import { detectLocation, getCurrentLocation, setCountryOverride, COUNTRY_NAMES, AVAILABLE_COUNTRIES, getSuggestionReason } from '@/lib/geolocation';
 import MovieCard from '@/components/movie/MovieCard';
 import { movies } from '@/lib/data';
 import type { Movie } from '@/lib/types';
@@ -11,7 +11,6 @@ import type { Movie } from '@/lib/types';
 interface LocationData {
   countryCode: string;
   countryName: string;
-  flag: string;
   reason: string;
 }
 
@@ -53,9 +52,8 @@ export default function LocalPicksSection() {
         // Try to get from cache/override first
         const cached = getCurrentLocation();
         if (cached) {
-          const flag = COUNTRY_FLAGS[cached.countryCode] || '🌍';
           const name = COUNTRY_NAMES[cached.countryCode] || cached.countryName;
-          setLocation({ countryCode: cached.countryCode, countryName: name, flag, reason: getSuggestionReason(cached.countryCode) });
+          setLocation({ countryCode: cached.countryCode, countryName: name, reason: getSuggestionReason(cached.countryCode) });
           // Fetch country-specific movies
           fetchLocalMovies(cached.countryCode);
           setDetecting(false);
@@ -68,9 +66,8 @@ export default function LocalPicksSection() {
           if (geoRes.ok) {
             const geoData = await geoRes.json();
             if (geoData.countryCode) {
-              const flag = COUNTRY_FLAGS[geoData.countryCode] || '🌍';
               const name = COUNTRY_NAMES[geoData.countryCode] || geoData.countryName;
-              const loc = { countryCode: geoData.countryCode, countryName: name, flag, reason: getSuggestionReason(geoData.countryCode) };
+              const loc = { countryCode: geoData.countryCode, countryName: name, reason: getSuggestionReason(geoData.countryCode) };
               setLocation(loc);
               // Cache the result in localStorage
               try {
@@ -96,9 +93,8 @@ export default function LocalPicksSection() {
         // Fallback to client-side detection
         const geo = await detectLocation();
         if (geo) {
-          const flag = COUNTRY_FLAGS[geo.countryCode] || '🌍';
           const name = COUNTRY_NAMES[geo.countryCode] || geo.countryName;
-          setLocation({ countryCode: geo.countryCode, countryName: name, flag, reason: getSuggestionReason(geo.countryCode) });
+          setLocation({ countryCode: geo.countryCode, countryName: name, reason: getSuggestionReason(geo.countryCode) });
           fetchLocalMovies(geo.countryCode);
         }
       } catch { /* silent */ }
@@ -109,9 +105,8 @@ export default function LocalPicksSection() {
 
   const handleCountryChange = (code: string) => {
     const name = COUNTRY_NAMES[code] || code;
-    const flag = COUNTRY_FLAGS[code] || '🌍';
     setCountryOverride(code, name);
-    setLocation({ countryCode: code, countryName: name, flag, reason: getSuggestionReason(code) });
+    setLocation({ countryCode: code, countryName: name, reason: getSuggestionReason(code) });
     setShowCountryPicker(false);
     fetchLocalMovies(code);
   };
@@ -127,7 +122,14 @@ export default function LocalPicksSection() {
                 <MapPin className="w-4 h-4 text-[#e50914]" />
               </div>
               <h2 className="text-2xl font-bold text-white">
-                {detecting ? 'Detecting your location...' : location ? `${location.flag} Local Picks` : 'Popular Near You'}
+                {detecting ? 'Detecting your location...' : location ? (
+                  <span className="flex items-center gap-2">
+                    Local Picks from
+                    <span className="inline-flex items-center justify-center bg-[#e50914]/15 text-[#e50914] text-sm font-semibold px-3 py-1 rounded-full border border-[#e50914]/25">
+                      {location.countryName}
+                    </span>
+                  </span>
+                ) : 'Popular Near You'}
               </h2>
             </div>
             <p className="text-[#a0a0b0] text-sm ml-11">
@@ -167,11 +169,11 @@ export default function LocalPicksSection() {
                 <button
                   key={code}
                   onClick={() => handleCountryChange(code)}
-                  className={`px-3 py-1.5 rounded-lg text-sm transition-colors ${
+                  className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
                     location?.countryCode === code ? 'bg-[#e50914] text-white' : 'bg-[#0a0a0f] border border-[#2a2a35] text-[#a0a0b0] hover:text-white hover:border-[#3a3a45]'
                   }`}
                 >
-                  {COUNTRY_FLAGS[code]} {COUNTRY_NAMES[code]}
+                  {COUNTRY_NAMES[code]}
                 </button>
               ))}
             </div>

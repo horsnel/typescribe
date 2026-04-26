@@ -6,20 +6,19 @@ import MovieCard from '@/components/movie/MovieCard';
 import type { Movie } from '@/lib/types';
 
 const COUNTRY_SECTIONS = [
-  { code: 'KR', name: 'Korea', flag: '🇰🇷', label: 'Trending in Korea' },
-  { code: 'NG', name: 'Nigeria', flag: '🇳🇬', label: 'New from Nollywood' },
-  { code: 'JP', name: 'Japan', flag: '🇯🇵', label: 'Hot in Japan' },
-  { code: 'IN', name: 'India', flag: '🇮🇳', label: 'Bollywood Picks' },
+  { code: 'KR', name: 'Korea', label: 'Trending in Korea' },
+  { code: 'NG', name: 'Nigeria', label: 'New from Nollywood' },
+  { code: 'JP', name: 'Japan', label: 'Hot in Japan' },
+  { code: 'IN', name: 'India', label: 'Bollywood Picks' },
 ];
 
 interface CountrySectionProps {
   code: string;
   name: string;
-  flag: string;
   label: string;
 }
 
-function CountrySection({ code, name, flag, label }: CountrySectionProps) {
+function CountrySection({ code, name, label }: CountrySectionProps) {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -47,7 +46,9 @@ function CountrySection({ code, name, flag, label }: CountrySectionProps) {
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <span className="text-2xl">{flag}</span>
+            <span className="inline-flex items-center justify-center bg-[#e50914]/15 text-[#e50914] text-sm font-semibold px-3 py-1 rounded-full border border-[#e50914]/25">
+              {name}
+            </span>
             <h2 className="text-xl sm:text-2xl font-bold text-white">{label}</h2>
           </div>
           <Link
@@ -112,7 +113,6 @@ export default function CountryPicksSection() {
           key={section.code}
           code={section.code}
           name={section.name}
-          flag={section.flag}
           label={section.label}
         />
       ))}

@@ -5,8 +5,6 @@ import { ChevronDown, Star, Film, Tv, Wand2 } from 'lucide-react';
 import gsap from 'gsap';
 import { movies } from '@/lib/data';
 
-const featuredMovies = [movies[0], movies[2], movies[11]];
-
 type HeroFormat = 'movie' | 'tv' | 'anime';
 
 const formatConfig: Record<HeroFormat, { label: string; cta: string; href: string; accent: string; heading: string }> = {
@@ -16,15 +14,11 @@ const formatConfig: Record<HeroFormat, { label: string; cta: string; href: strin
 };
 
 export default function HeroSection() {
-  const [current, setCurrent] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
   const [heroFormat, setHeroFormat] = useState<HeroFormat>('movie');
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const next = useCallback(() => { setCurrent((prev) => (prev + 1) % featuredMovies.length); }, []);
-
-  useEffect(() => { const timer = setInterval(next, 5000); return () => clearInterval(timer); }, [next]);
-  useEffect(() => { setIsTransitioning(true); const timer = setTimeout(() => setIsTransitioning(false), 700); return () => clearTimeout(timer); }, [current]);
+  // Pick 8 movies for the poster stack background
+  const posterMovies = movies.slice(0, 8);
 
   useEffect(() => {
     const tl = gsap.timeline({ delay: 0.3 });
@@ -34,30 +28,113 @@ export default function HeroSection() {
       .fromTo('.hero-cta', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.3')
       .fromTo('.hero-movie-info', { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.3')
       .fromTo('.scroll-indicator', { opacity: 0 }, { opacity: 1, duration: 0.5 }, '-=0.2');
+
+    // Stagger the poster cards entrance
+    gsap.fromTo(
+      '.poster-card',
+      { opacity: 0, y: 60, scale: 0.85, rotate: () => (Math.random() - 0.5) * 8 },
+      { opacity: 1, y: 0, scale: 1, rotate: (i: number) => (i - 3.5) * 1.8, duration: 0.8, stagger: 0.06, ease: 'power3.out', delay: 0.1 },
+    );
+
     return () => { tl.kill(); };
   }, []);
 
-  const movie = featuredMovies[current];
-  const year = movie.release_date ? movie.release_date.split('-')[0] : '';
   const cfg = formatConfig[heroFormat];
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0a0a0f]">
-      {featuredMovies.map((fm, idx) => (
-        <div key={fm.id} className="absolute inset-0 transition-opacity duration-1000 ease-in-out" style={{ opacity: idx === current ? 1 : 0 }}>
-          <img src={fm.backdrop_path} alt={fm.title} className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0f]/40 via-[#0a0a0f]/70 to-[#0a0a0f]" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0f]/90 via-[#0a0a0f]/40 to-transparent" />
+      {/* ─── Movie Poster Stack Background ─── */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Deep dark base */}
+        <div className="absolute inset-0 bg-[#0a0a0f]" />
+
+        {/* Poster Row — fanned out, overlapping, slightly rotated */}
+        <div className="absolute inset-0 flex items-center justify-center" style={{ perspective: '1200px' }}>
+          <div className="relative flex items-end justify-center" style={{ width: '140%', transform: 'translateY(8%)' }}>
+            {posterMovies.map((movie, idx) => {
+              // Calculate fan positions
+              const centerIdx = (posterMovies.length - 1) / 2;
+              const offset = idx - centerIdx;
+              const rotation = offset * 2.2;
+              const translateX = offset * 115;
+              const translateY = Math.abs(offset) * 12;
+              const zIndex = posterMovies.length - Math.abs(Math.round(offset));
+
+              return (
+                <div
+                  key={movie.id}
+                  className="poster-card absolute"
+                  style={{
+                    transform: `translateX(${translateX}px) translateY(${translateY}px) rotate(${rotation}deg)`,
+                    zIndex,
+                    opacity: 0.55,
+                  }}
+                >
+                  <div
+                    className="w-[140px] sm:w-[160px] md:w-[185px] rounded-xl overflow-hidden shadow-2xl border border-white/10"
+                    style={{ aspectRatio: '2/3' }}
+                  >
+                    <img
+                      src={movie.poster_path}
+                      alt={movie.title}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
-      ))}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 py-32">
+
+        {/* Dim overlay — multiple layers for beautiful dimming effect */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0f]/60 via-[#0a0a0f]/75 to-[#0a0a0f]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0f]/90 via-[#0a0a0f]/50 to-[#0a0a0f]/90" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-[#0a0a0f]/70" />
+
+        {/* Subtle vignette */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'radial-gradient(ellipse at center, transparent 30%, rgba(10,10,15,0.7) 100%)',
+          }}
+        />
+
+        {/* Subtle ambient glow behind text area */}
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full"
+          style={{
+            background: 'radial-gradient(ellipse, rgba(229,9,20,0.06) 0%, transparent 70%)',
+          }}
+        />
+      </div>
+
+      {/* ─── Content ─── */}
+      <div ref={containerRef} className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 py-32">
         <div className="max-w-3xl">
-          <div className="hero-title opacity-0"><h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight mb-6">Discover Your Next <span className="text-[#e50914]">{cfg.heading}</span></h1></div>
-          <div className="hero-subtitle opacity-0"><p className="text-lg text-[#a0a0b0] max-w-xl mb-6 leading-relaxed">AI-powered reviews, real ratings, and community insights</p></div>
+          <div className="hero-title opacity-0">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight mb-6">
+              Discover Your Next{' '}
+              <span
+                className="inline-block bg-gradient-to-r from-[#e50914] to-[#ff6b6b] bg-clip-text text-transparent"
+                style={{
+                  transition: 'all 0.4s ease',
+                }}
+              >
+                {cfg.heading}
+              </span>
+            </h1>
+          </div>
+
+          <div className="hero-subtitle opacity-0">
+            <p className="text-lg text-[#a0a0b0] max-w-xl mb-6 leading-relaxed">
+              AI-powered reviews, real ratings, and community insights
+            </p>
+          </div>
 
           {/* Format Toggle */}
           <div className="hero-format-toggle opacity-0 mb-8">
-            <div className="inline-flex items-center border border-[#2a2a35] rounded-lg overflow-hidden bg-[#12121a]/60 backdrop-blur-sm">
+            <div className="inline-flex items-center border border-[#2a2a35] rounded-xl overflow-hidden bg-[#12121a]/60 backdrop-blur-sm">
               {([
                 { key: 'movie' as HeroFormat, icon: Film, label: 'Movies' },
                 { key: 'tv' as HeroFormat, icon: Tv, label: 'Series' },
@@ -79,24 +156,49 @@ export default function HeroSection() {
           </div>
 
           <div className="hero-cta flex items-center gap-4 opacity-0">
-            <Link href={cfg.href} className="inline-flex items-center justify-center bg-[#e50914] hover:bg-[#b20710] text-white font-semibold px-8 py-4 rounded-lg text-base transition-colors duration-200">{cfg.cta}</Link>
-            <Link href="/top-rated" className="inline-flex items-center justify-center border border-white/30 bg-transparent text-white hover:bg-white/10 font-semibold px-8 py-4 rounded-lg text-base transition-colors duration-200">Top Rated</Link>
+            <Link
+              href={cfg.href}
+              className="inline-flex items-center justify-center bg-[#e50914] hover:bg-[#b20710] text-white font-semibold px-8 py-4 rounded-xl text-base transition-colors duration-200 shadow-lg shadow-[#e50914]/20"
+            >
+              {cfg.cta}
+            </Link>
+            <Link
+              href="/top-rated"
+              className="inline-flex items-center justify-center border border-white/30 bg-white/5 backdrop-blur-sm text-white hover:bg-white/10 font-semibold px-8 py-4 rounded-xl text-base transition-colors duration-200"
+            >
+              Top Rated
+            </Link>
           </div>
-          <div className={`hero-movie-info mt-12 transition-all duration-500 ${isTransitioning ? 'opacity-0 translate-y-3' : 'opacity-1 translate-y-0'}`}>
+
+          {/* Featured Movie Info Card */}
+          <div className="hero-movie-info mt-12">
             <div className="flex items-center gap-4 bg-[#12121a]/80 backdrop-blur-sm border border-[#2a2a35] rounded-xl p-4 max-w-md">
-              <div className="w-12 h-18 flex-shrink-0 rounded-lg overflow-hidden"><img src={movie.poster_path} alt={movie.title} className="w-full h-full object-cover" /></div>
+              <div className="w-12 h-18 flex-shrink-0 rounded-lg overflow-hidden">
+                <img src={posterMovies[0].poster_path} alt={posterMovies[0].title} className="w-full h-full object-cover" />
+              </div>
               <div className="min-w-0">
-                <h3 className="text-sm font-bold text-white truncate">{movie.title}</h3>
-                <div className="flex items-center gap-2 mt-1"><Star className="w-3.5 h-3.5 text-[#f5c518] fill-[#f5c518]" /><span className="text-sm font-semibold text-[#f5c518]">{movie.vote_average.toFixed(1)}</span>{year && <><span className="text-[#2a2a35]">·</span><span className="text-xs text-[#6b6b7b]">{year}</span></>}</div>
+                <h3 className="text-sm font-bold text-white truncate">{posterMovies[0].title}</h3>
+                <div className="flex items-center gap-2 mt-1">
+                  <Star className="w-3.5 h-3.5 text-[#f5c518] fill-[#f5c518]" />
+                  <span className="text-sm font-semibold text-[#f5c518]">{posterMovies[0].vote_average.toFixed(1)}</span>
+                  {posterMovies[0].release_date && (
+                    <>
+                      <span className="text-[#2a2a35]">·</span>
+                      <span className="text-xs text-[#6b6b7b]">{posterMovies[0].release_date.split('-')[0]}</span>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="absolute bottom-28 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20">
-        {featuredMovies.map((_, idx) => (<button key={idx} onClick={() => setCurrent(idx)} className={`transition-all duration-300 rounded-full ${idx === current ? 'w-8 h-2 bg-[#e50914]' : 'w-2 h-2 bg-white/30 hover:bg-white/50'}`} aria-label={`Go to slide ${idx + 1}`} />))}
+
+      <div className="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 opacity-0 z-20">
+        <a href="#trending" className="block">
+          <ChevronDown className="w-8 h-8 text-[#a0a0b0] animate-bounce" />
+        </a>
       </div>
-      <div className="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 opacity-0 z-20"><a href="#trending" className="block"><ChevronDown className="w-8 h-8 text-[#a0a0b0] animate-bounce" /></a></div>
     </section>
   );
 }
