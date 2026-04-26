@@ -5,6 +5,7 @@ import { AuthProvider } from "@/lib/auth";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import CookieBanner from "@/components/layout/CookieBanner";
+import SmoothScrollProvider from "@/components/layout/SmoothScrollProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,12 +28,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className="dark" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#0a0a0f] text-white`}>
         <AuthProvider>
-          <div className="min-h-screen bg-[#0a0a0f] flex flex-col">
-            <Navbar />
-            <main className="flex-1">{children}</main>
-            <Footer />
-            <CookieBanner />
-          </div>
+          <SmoothScrollProvider>
+            <div className="min-h-screen bg-[#0a0a0f] flex flex-col">
+              <Navbar />
+              <main className="flex-1">{children}</main>
+              <Footer />
+              <CookieBanner />
+            </div>
+          </SmoothScrollProvider>
         </AuthProvider>
       </body>
     </html>
