@@ -4,7 +4,7 @@ import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import {
   Search, Grid3X3, List, X, SlidersHorizontal, Film, Tv,
-  ChevronDown, Globe, Sparkles, Star, TrendingUp, Clock, Loader2, Zap,
+  ChevronDown, Globe, Sparkles, Star, TrendingUp, Clock, Loader2, Zap, Wand2,
 } from 'lucide-react';
 import { movies, genres } from '@/lib/data';
 import { COUNTRIES, GENRES, THEMES, SORT_OPTIONS, getCountryLabel } from '@/lib/browse-config';
@@ -222,7 +222,7 @@ export default function BrowsePage() {
     const tags: { label: string; onRemove: () => void }[] = [];
     if (filters.format !== 'all') {
       tags.push({
-        label: filters.format === 'movie' ? 'Movies' : 'TV Series',
+        label: filters.format === 'anime' ? 'Anime' : filters.format === 'movie' ? 'Movies' : 'TV Series',
         onRemove: () => updateFilter('format', 'all'),
       });
     }
@@ -345,6 +345,14 @@ export default function BrowsePage() {
                 }`}
               >
                 <Tv className="w-4 h-4" /> Series
+              </button>
+              <button
+                onClick={() => updateFilter('format', 'anime')}
+                className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors ${
+                  filters.format === 'anime' ? 'bg-[#e50914] text-white' : 'text-[#6b6b7b] hover:text-white hover:bg-[#1a1a25]'
+                }`}
+              >
+                <Wand2 className="w-4 h-4" /> Anime
               </button>
             </div>
           </div>

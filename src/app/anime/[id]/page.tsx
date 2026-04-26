@@ -9,6 +9,7 @@ import {
   Globe, Loader2,
 } from 'lucide-react';
 import type { JikanAnimeResult, JikanCharacterResult, JikanRecommendation } from '@/lib/pipeline/clients/jikan';
+import EpisodeRatings from '@/components/anime/EpisodeRatings';
 
 // ─── Types ───
 
@@ -444,6 +445,17 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                 </>
               )}
             </section>
+
+            {/* Episode Ratings */}
+            {anime.episodes !== null && anime.episodes > 0 && (
+              <section className="content-animate">
+                <EpisodeRatings
+                  animeId={anime.malId}
+                  episodeCount={anime.episodes}
+                  title={anime.titleEnglish || anime.title}
+                />
+              </section>
+            )}
 
             {/* Recommendations */}
             {recommendations.length > 0 && (

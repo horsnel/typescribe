@@ -1,0 +1,386 @@
+'use client';
+
+import { useState, useEffect, useCallback } from 'react';
+import Link from 'next/link';
+import {
+  TrendingUp, DollarSign, Globe, ChevronUp, ChevronDown, Minus,
+  Crown, Loader2, Zap, BarChart3, ArrowUpRight, ArrowDownRight,
+} from 'lucide-react';
+import { Button } from '@/components/ui/button';
+
+interface BoxOfficeEntry {
+  rank: number;
+  id: number;
+  slug: string;
+  title: string;
+  year: string;
+  poster_path: string;
+  weekendGross: number;
+  totalGross: number;
+  weeks: number;
+  changePct: number | null;
+}
+
+type Tab = 'this-week' | 'top-all-time' | 'by-country';
+
+const COUNTRIES = [
+  { code: 'US', flag: '🇺🇸', name: 'United States' },
+  { code: 'GB', flag: '🇬🇧', name: 'United Kingdom' },
+  { code: 'CN', flag: '🇨🇳', name: 'China' },
+  { code: 'JP', flag: '🇯🇵', name: 'Japan' },
+  { code: 'KR', flag: '🇰🇷', name: 'South Korea' },
+  { code: 'IN', flag: '🇮🇳', name: 'India' },
+  { code: 'FR', flag: '🇫🇷', name: 'France' },
+  { code: 'DE', flag: '🇩🇪', name: 'Germany' },
+  { code: 'IT', flag: '🇮🇹', name: 'Italy' },
+  { code: 'BR', flag: '🇧🇷', name: 'Brazil' },
+  { code: 'MX', flag: '🇲🇽', name: 'Mexico' },
+  { code: 'NG', flag: '🇳🇬', name: 'Nigeria' },
+  { code: 'SE', flag: '🇸🇪', name: 'Sweden' },
+  { code: 'TH', flag: '🇹🇭', name: 'Thailand' },
+  { code: 'AU', flag: '🇦🇺', name: 'Australia' },
+];
+
+function formatCurrency(amount: number): string {
+  if (amount >= 1_000_000_000) return `$${(amount / 1_000_000_000).toFixed(2)}B`;
+  if (amount >= 1_000_000) return `$${(amount / 1_000_000).toFixed(1)}M`;
+  if (amount >= 1_000) return `$${(amount / 1_000).toFixed(0)}K`;
+  return `$${amount}`;
+}
+
+function ChangeIndicator({ value }: { value: number | null }) {
+  if (value === null) return <span className="text-[#6b6b7b]">NEW</span>;
+  if (value > 0) return <span className="text-emerald-400 flex items-center gap-0.5"><ArrowUpRight className="w-3 h-3" />+{value}%</span>;
+  if (value < 0) return <span className="text-red-400 flex items-center gap-0.5"><ArrowDownRight className="w-3 h-3" />{value}%</span>;
+  return <span className="text-[#6b6b7b] flex items-center gap-0.5"><Minus className="w-3 h-3" />0%</span>;
+}
+
+export default function BoxOfficePage() {
+  const [activeTab, setActiveTab] = useState<Tab>('this-week');
+  const [entries, setEntries] = useState<BoxOfficeEntry[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [fromAPI, setFromAPI] = useState(false);
+  const [selectedCountry, setSelectedCountry] = useState('US');
+
+  const fetchBoxOffice = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const params = new URLSearchParams({ tab: activeTab });
+      if (activeTab === 'by-country') {
+        params.set('country', selectedCountry);
+      }
+      const res = await fetch(`/api/box-office?${params.toString()}`);
+      if (res.ok) {
+        const data = await res.json();
+        setEntries(data.entries || []);
+        setFromAPI(data.fromAPI || false);
+      }
+    } catch {
+      setFromAPI(false);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [activeTab, selectedCountry]);
+
+  useEffect(() => {
+    fetchBoxOffice();
+  }, [fetchBoxOffice]);
+
+  const tabs: { key: Tab; label: string; icon: React.ReactNode }[] = [
+    { key: 'this-week', label: 'This Week', icon: <TrendingUp className="w-4 h-4" /> },
+    { key: 'top-all-time', label: 'Top All Time', icon: <Crown className="w-4 h-4" /> },
+    { key: 'by-country', label: 'By Country', icon: <Globe className="w-4 h-4" /> },
+  ];
+
+  const selectedCountryName = COUNTRIES.find(c => c.code === selectedCountry)?.name || 'United States';
+  const selectedCountryFlag = COUNTRIES.find(c => c.code === selectedCountry)?.flag || '🇺🇸';
+
+  return (
+    <div className="min-h-screen bg-[#0a0a0f] pt-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
+        {/* Breadcrumb */}
+        <nav className="flex items-center gap-2 text-sm text-[#6b6b7b] mb-6">
+          <Link href="/" className="hover:text-white transition-colors">Home</Link>
+          <span>/</span>
+          <span className="text-[#a0a0b0]">Box Office</span>
+        </nav>
+
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
+          <div>
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-10 h-10 rounded-xl bg-[#e50914]/10 flex items-center justify-center">
+                <DollarSign className="w-6 h-6 text-[#e50914]" />
+              </div>
+              <h1 className="text-3xl lg:text-4xl font-extrabold text-white">Box Office</h1>
+            </div>
+            <p className="text-[#6b6b7b]">Real-time box office rankings</p>
+          </div>
+        </div>
+
+        {/* Tabs */}
+        <div className="flex items-center gap-2 mb-8 border-b border-[#2a2a35] pb-0">
+          {tabs.map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key)}
+              className={`flex items-center gap-2 px-5 py-3 text-sm font-medium border-b-2 transition-colors ${
+                activeTab === tab.key
+                  ? 'border-[#e50914] text-white'
+                  : 'border-transparent text-[#6b6b7b] hover:text-white'
+              }`}
+            >
+              {tab.icon}
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Country selector for By Country tab */}
+        {activeTab === 'by-country' && (
+          <div className="mb-8">
+            <div className="flex items-center gap-3 mb-3">
+              <Globe className="w-4 h-4 text-[#6b6b7b]" />
+              <span className="text-sm text-[#6b6b7b] font-medium">Select Country</span>
+            </div>
+            <div className="flex gap-2 flex-wrap">
+              {COUNTRIES.map((country) => (
+                <button
+                  key={country.code}
+                  onClick={() => setSelectedCountry(country.code)}
+                  className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    selectedCountry === country.code
+                      ? 'bg-[#e50914] text-white'
+                      : 'bg-[#12121a] border border-[#2a2a35] text-[#a0a0b0] hover:text-white hover:border-[#3a3a45]'
+                  }`}
+                >
+                  <span>{country.flag}</span>
+                  <span>{country.name}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Data source indicator */}
+        <div className="mb-6 flex items-center gap-2 bg-[#12121a] border border-[#2a2a35] rounded-lg px-4 py-2.5">
+          {fromAPI ? (
+            <>
+              <Zap className="w-4 h-4 text-emerald-400" />
+              <p className="text-xs text-emerald-400/80">
+                Live data — Powered by TMDb + Box Office Mojo
+              </p>
+            </>
+          ) : (
+            <>
+              <BarChart3 className="w-4 h-4 text-[#e50914]" />
+              <p className="text-xs text-[#6b6b7b]">
+                Showing demo data. Connect TMDb API for live box office rankings.
+                <Link href="/admin/data" className="text-[#e50914] hover:underline ml-1">Set up pipeline →</Link>
+              </p>
+            </>
+          )}
+        </div>
+
+        {/* Loading State */}
+        {isLoading && (
+          <div className="flex items-center justify-center py-20">
+            <Loader2 className="w-8 h-8 text-[#e50914] animate-spin" />
+            <span className="ml-3 text-[#6b6b7b]">Loading box office data...</span>
+          </div>
+        )}
+
+        {/* Box Office Table */}
+        {!isLoading && entries.length > 0 && (
+          <>
+            {/* Top 3 Highlight Cards */}
+            {activeTab !== 'top-all-time' && (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                {entries.slice(0, 3).map((entry) => (
+                  <Link
+                    key={entry.id}
+                    href={entry.slug ? `/movie/${entry.slug}` : '#'}
+                    className="group relative bg-gradient-to-br from-[#e50914]/10 to-[#e50914]/5 border border-[#e50914]/20 rounded-xl p-5 hover:border-[#e50914]/40 transition-all"
+                  >
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-8 h-8 rounded-full bg-[#e50914] flex items-center justify-center text-white font-bold text-sm">
+                        #{entry.rank}
+                      </div>
+                      {entry.rank === 1 && <Crown className="w-5 h-5 text-[#f5c518]" />}
+                    </div>
+                    <div className="flex gap-3">
+                      <div className="w-14 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-[#0a0a0f]">
+                        <img
+                          src={entry.poster_path}
+                          alt={entry.title}
+                          className="w-full h-full object-cover"
+                          onError={(e) => { (e.target as HTMLImageElement).src = '/images/poster-1.jpg'; }}
+                        />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-base font-bold text-white group-hover:text-[#e50914] transition-colors leading-snug truncate">
+                          {entry.title}
+                        </h3>
+                        <p className="text-xs text-[#6b6b7b] mt-0.5">{entry.year}</p>
+                        <div className="flex items-center gap-3 mt-2">
+                          <span className="text-sm font-semibold text-[#f5c518]">{formatCurrency(entry.weekendGross)}</span>
+                          <span className="text-xs text-[#6b6b7b]">weekend</span>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )}
+
+            {/* Top 3 Highlight Cards for All Time */}
+            {activeTab === 'top-all-time' && (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                {entries.slice(0, 3).map((entry) => (
+                  <Link
+                    key={entry.id}
+                    href={entry.slug ? `/movie/${entry.slug}` : '#'}
+                    className={`group relative bg-gradient-to-br ${
+                      entry.rank === 1 ? 'from-[#f5c518]/10 to-[#f5c518]/5 border-[#f5c518]/30' :
+                      entry.rank === 2 ? 'from-[#c0c0c0]/10 to-[#c0c0c0]/5 border-[#c0c0c0]/30' :
+                      'from-[#cd7f32]/10 to-[#cd7f32]/5 border-[#cd7f32]/30'
+                    } border rounded-xl p-5 hover:shadow-xl transition-all`}
+                  >
+                    <div className="flex items-center gap-3 mb-3">
+                      {entry.rank === 1 ? <Crown className="w-6 h-6 text-[#f5c518]" /> :
+                       <span className="text-xl font-extrabold text-[#a0a0b0]">#{entry.rank}</span>}
+                    </div>
+                    <div className="flex gap-3">
+                      <div className="w-14 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-[#0a0a0f]">
+                        <img
+                          src={entry.poster_path}
+                          alt={entry.title}
+                          className="w-full h-full object-cover"
+                          onError={(e) => { (e.target as HTMLImageElement).src = '/images/poster-1.jpg'; }}
+                        />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-base font-bold text-white group-hover:text-[#e50914] transition-colors leading-snug truncate">
+                          {entry.title}
+                        </h3>
+                        <p className="text-xs text-[#6b6b7b] mt-0.5">{entry.year}</p>
+                        <div className="flex items-center gap-3 mt-2">
+                          <span className="text-sm font-semibold text-[#f5c518]">{formatCurrency(entry.totalGross)}</span>
+                          <span className="text-xs text-[#6b6b7b]">worldwide</span>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )}
+
+            {/* Full Table */}
+            <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl overflow-hidden">
+              {/* Table Header */}
+              <div className="grid items-center gap-4 px-5 py-3 border-b border-[#2a2a35] text-xs font-semibold text-[#6b6b7b] uppercase tracking-wider bg-[#0a0a0f]/50">
+                <div className="grid items-center gap-4" style={{ gridTemplateColumns: '48px 1fr 120px 120px 80px 80px' }}>
+                  <span>Rank</span>
+                  <span>Movie</span>
+                  {activeTab === 'top-all-time' ? (
+                    <span className="text-right">Total Gross</span>
+                  ) : (
+                    <>
+                      <span className="text-right">Weekend</span>
+                      <span className="text-right">Total Gross</span>
+                      <span className="text-right">Weeks</span>
+                      <span className="text-right">Change</span>
+                    </>
+                  )}
+                </div>
+              </div>
+
+              {/* Table Body */}
+              <div className="divide-y divide-[#2a2a35]/50">
+                {entries.map((entry) => (
+                  <Link
+                    key={entry.id}
+                    href={entry.slug ? `/movie/${entry.slug}` : '#'}
+                    className="grid items-center gap-4 px-5 py-3 hover:bg-[#1a1a25] transition-colors group"
+                    style={{ gridTemplateColumns: activeTab === 'top-all-time' ? '48px 1fr 120px' : '48px 1fr 120px 120px 80px 80px' }}
+                  >
+                    {/* Rank */}
+                    <div className="flex items-center justify-center">
+                      <span className={`text-lg font-bold ${entry.rank <= 3 ? 'text-[#f5c518]' : 'text-[#6b6b7b]'}`}>
+                        #{entry.rank}
+                      </span>
+                    </div>
+
+                    {/* Movie Info */}
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-10 h-14 rounded-lg overflow-hidden flex-shrink-0 bg-[#0a0a0f]">
+                        <img
+                          src={entry.poster_path}
+                          alt={entry.title}
+                          className="w-full h-full object-cover"
+                          onError={(e) => { (e.target as HTMLImageElement).src = '/images/poster-1.jpg'; }}
+                        />
+                      </div>
+                      <div className="min-w-0">
+                        <h3 className="text-sm font-semibold text-white group-hover:text-[#e50914] transition-colors truncate">
+                          {entry.title}
+                        </h3>
+                        <span className="text-xs text-[#6b6b7b]">{entry.year}</span>
+                      </div>
+                    </div>
+
+                    {activeTab === 'top-all-time' ? (
+                      /* Total Gross (All Time) */
+                      <div className="text-right">
+                        <span className="text-sm font-semibold text-[#f5c518]">{formatCurrency(entry.totalGross)}</span>
+                      </div>
+                    ) : (
+                      <>
+                        {/* Weekend Gross */}
+                        <div className="text-right">
+                          <span className="text-sm font-medium text-white">{formatCurrency(entry.weekendGross)}</span>
+                        </div>
+
+                        {/* Total Gross */}
+                        <div className="text-right">
+                          <span className="text-sm font-semibold text-[#f5c518]">{formatCurrency(entry.totalGross)}</span>
+                        </div>
+
+                        {/* Weeks */}
+                        <div className="text-right">
+                          <span className="text-sm text-[#a0a0b0]">{entry.weeks}wk{entry.weeks !== 1 ? 's' : ''}</span>
+                        </div>
+
+                        {/* Change */}
+                        <div className="text-right text-sm font-medium">
+                          <ChangeIndicator value={entry.changePct} />
+                        </div>
+                      </>
+                    )}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Footer note */}
+            <div className="mt-6 text-center">
+              <p className="text-xs text-[#6b6b7b]">
+                Powered by TMDb + Box Office Mojo · Data refreshed hourly ·{' '}
+                {activeTab === 'by-country' && `${selectedCountryFlag} ${selectedCountryName} · `}
+                {fromAPI ? 'Live data' : 'Demo data'}
+              </p>
+            </div>
+          </>
+        )}
+
+        {!isLoading && entries.length === 0 && (
+          <div className="text-center py-24">
+            <DollarSign className="w-16 h-16 text-[#2a2a35] mx-auto mb-4" />
+            <p className="text-lg text-[#a0a0b0] mb-2">No box office data available</p>
+            <p className="text-sm text-[#6b6b7b]">Check back later for updated rankings.</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

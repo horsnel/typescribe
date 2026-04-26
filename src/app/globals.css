@@ -120,3 +120,59 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* ─── Accessibility Styles ─── */
+
+/* High Contrast Mode */
+.high-contrast {
+  --border: #4a4a5a;
+  --muted-foreground: #d0d0e0;
+  --foreground: #ffffff;
+}
+.high-contrast .border-\[\#2a2a35\] {
+  border-color: #4a4a5a !important;
+}
+.high-contrast .text-\[\#6b6b7b\] {
+  color: #b0b0c0 !important;
+}
+.high-contrast .text-\[\#a0a0b0\] {
+  color: #d0d0e0 !important;
+}
+
+/* Reduced Motion */
+.reduced-motion * {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Font Sizes */
+.font-sm { font-size: 14px; }
+.font-md { font-size: 16px; }
+.font-lg { font-size: 18px; }
+.font-xl { font-size: 20px; }
+
+/* Enhanced Focus Indicators */
+*:focus-visible {
+  outline: 2px solid #e50914 !important;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Screen Reader Only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Scrollbar hide utility */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }

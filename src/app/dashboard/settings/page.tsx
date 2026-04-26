@@ -1,13 +1,52 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import DashboardSidebar from '@/components/layout/DashboardLayout';
 import { useAuth } from '@/lib/auth';
-import { Settings, Mail, Lock, Bell, Shield, Trash2, Moon, Globe } from 'lucide-react';
+import { Settings, Mail, Lock, Bell, Shield, Trash2, Moon, Globe, Check, Save, User } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
+const ALL_GENRES = ['Action', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Thriller', 'Animation', 'Fantasy', 'Adventure', 'Musical', 'War', 'Western'];
+
 export default function DashboardSettingsPage() {
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, updateProfile } = useAuth();
+  const [displayName, setDisplayName] = useState('');
+  const [bio, setBio] = useState('');
+  const [emailNotifications, setEmailNotifications] = useState(true);
+  const [publicProfile, setPublicProfile] = useState(true);
+  const [favoriteGenres, setFavoriteGenres] = useState<string[]>([]);
+  const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      setDisplayName(user.display_name || '');
+      setBio(user.bio || '');
+      setEmailNotifications(user.email_notifications);
+      setPublicProfile(user.public_profile);
+      setFavoriteGenres(user.favorite_genres || []);
+    }
+  }, [user]);
+
+  const handleSave = () => {
+    updateProfile({
+      display_name: displayName,
+      bio,
+      email_notifications: emailNotifications,
+      public_profile: publicProfile,
+      favorite_genres: favoriteGenres,
+    });
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2000);
+  };
+
+  const toggleGenre = (genre: string) => {
+    setFavoriteGenres(prev =>
+      prev.includes(genre)
+        ? prev.filter(g => g !== genre)
+        : [...prev, genre]
+    );
+  };
 
   if (!isAuthenticated) {
     return <DashboardSidebar><div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-12 text-center"><p className="text-[#a0a0b0]">Please sign in to access settings.</p></div></DashboardSidebar>;
@@ -15,17 +54,79 @@ export default function DashboardSettingsPage() {
 
   return (
     <DashboardSidebar>
-      <h1 className="text-2xl font-bold text-white mb-6">Account Settings</h1>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold text-white">Account Settings</h1>
+        <Button onClick={handleSave} className="bg-[#e50914] hover:bg-[#b20710] text-white gap-2">
+          <Save className="w-4 h-4" />
+          {saved ? 'Saved!' : 'Save All'}
+        </Button>
+      </div>
+
+      {saved && (
+        <div className="mb-6 bg-green-500/10 border border-green-500/20 rounded-lg p-3 flex items-center gap-2">
+          <Check className="w-4 h-4 text-green-400" />
+          <span className="text-sm text-green-400">Settings saved successfully!</span>
+        </div>
+      )}
 
       <div className="space-y-6">
+        {/* Profile Info */}
+        <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-6">
+          <div className="flex items-center gap-3 mb-4">
+            <User className="w-5 h-5 text-[#e50914]" />
+            <h2 className="text-base font-semibold text-white">Profile Information</h2>
+          </div>
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm text-[#a0a0b0] mb-1.5">Display Name</label>
+              <input
+                type="text"
+                value={displayName}
+                onChange={e => setDisplayName(e.target.value)}
+                className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-[#e50914]"
+              />
+            </div>
+            <div>
+              <label className="block text-sm text-[#a0a0b0] mb-1.5">Bio <span className="text-[#6b6b7b]">(max 160 chars)</span></label>
+              <textarea
+                rows={3}
+                value={bio}
+                onChange={e => setBio(e.target.value.slice(0, 160))}
+                placeholder="Tell others about yourself..."
+                className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#e50914] resize-none"
+              />
+              <p className="text-xs text-[#6b6b7b] mt-1">{bio.length}/160</p>
+            </div>
+            <div>
+              <label className="block text-sm text-[#a0a0b0] mb-2">Favorite Genres</label>
+              <div className="flex flex-wrap gap-2">
+                {ALL_GENRES.map(genre => (
+                  <button
+                    key={genre}
+                    onClick={() => toggleGenre(genre)}
+                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors border ${
+                      favoriteGenres.includes(genre)
+                        ? 'bg-[#e50914] text-white border-[#e50914]'
+                        : 'bg-[#0a0a0f] text-[#a0a0b0] border-[#2a2a35] hover:border-[#3a3a45] hover:text-white'
+                    }`}
+                  >
+                    {favoriteGenres.includes(genre) && <Check className="w-3 h-3 inline mr-1" />}
+                    {genre}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Email */}
         <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-6">
           <div className="flex items-center gap-3 mb-4">
             <Mail className="w-5 h-5 text-[#e50914]" />
             <h2 className="text-base font-semibold text-white">Email</h2>
           </div>
-          <input type="email" defaultValue={user?.email || ''} className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-[#e50914] mb-3" />
-          <Button size="sm" className="bg-[#e50914] hover:bg-[#b20710] text-white">Update Email</Button>
+          <input type="email" defaultValue={user?.email || ''} className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-[#e50914] mb-1" disabled />
+          <p className="text-xs text-[#6b6b7b]">Email cannot be changed in this demo.</p>
         </div>
 
         {/* Password */}
@@ -51,6 +152,36 @@ export default function DashboardSettingsPage() {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
+                <Bell className="w-4 h-4 text-[#a0a0b0]" />
+                <div>
+                  <p className="text-sm text-white">Email Notifications</p>
+                  <p className="text-xs text-[#6b6b7b]">Receive email about reviews and activity</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setEmailNotifications(!emailNotifications)}
+                className={`w-12 h-6 rounded-full relative transition-colors ${emailNotifications ? 'bg-[#e50914]' : 'bg-[#2a2a35]'}`}
+              >
+                <span className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${emailNotifications ? 'right-1' : 'left-1'}`} />
+              </button>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <Globe className="w-4 h-4 text-[#a0a0b0]" />
+                <div>
+                  <p className="text-sm text-white">Public Profile</p>
+                  <p className="text-xs text-[#6b6b7b]">Others can see your profile and reviews</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setPublicProfile(!publicProfile)}
+                className={`w-12 h-6 rounded-full relative transition-colors ${publicProfile ? 'bg-[#e50914]' : 'bg-[#2a2a35]'}`}
+              >
+                <span className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${publicProfile ? 'right-1' : 'left-1'}`} />
+              </button>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
                 <Moon className="w-4 h-4 text-[#a0a0b0]" />
                 <div><p className="text-sm text-white">Dark Mode</p><p className="text-xs text-[#6b6b7b]">Default theme</p></div>
               </div>
@@ -69,19 +200,6 @@ export default function DashboardSettingsPage() {
                 <option>한국어</option>
               </select>
             </div>
-          </div>
-        </div>
-
-        {/* Notification & Privacy Links */}
-        <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-6">
-          <h2 className="text-base font-semibold text-white mb-4">More Settings</h2>
-          <div className="space-y-2">
-            <Link href="/dashboard/settings/notifications" className="flex items-center gap-3 px-3 py-2.5 text-sm text-[#a0a0b0] hover:text-white hover:bg-[#1a1a25] rounded-lg transition-colors">
-              <Bell className="w-4 h-4" /> Notification Preferences
-            </Link>
-            <Link href="/dashboard/settings/privacy" className="flex items-center gap-3 px-3 py-2.5 text-sm text-[#a0a0b0] hover:text-white hover:bg-[#1a1a25] rounded-lg transition-colors">
-              <Shield className="w-4 h-4" /> Privacy Settings
-            </Link>
           </div>
         </div>
 

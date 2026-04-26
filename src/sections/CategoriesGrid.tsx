@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { genres } from '@/lib/data';
-import { Sword, Laugh, Drama, Ghost, Eye, Rocket, Heart, Film } from 'lucide-react';
+import { Sword, Laugh, Drama, Ghost, Eye, Rocket, Heart, Film, Sparkles } from 'lucide-react';
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = { Sword, Laugh, Drama, Ghost, Eye, Rocket, Heart, Film };
 
@@ -20,6 +20,23 @@ function GenreCard({ genre }: { genre: { id: string; name: string; icon: string;
   );
 }
 
+function AnimeCard() {
+  return (
+    <Link href="/browse?format=anime" className="group relative bg-[#12121a] border border-[#2a2a35] rounded-xl p-6 hover:border-purple-500/40 hover:shadow-lg hover:shadow-purple-500/10 transition-all overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+      <div className="relative z-10">
+        <div className="flex items-center gap-3 mb-3">
+          <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center group-hover:bg-purple-500/20 transition-colors">
+            <Sparkles className="w-5 h-5 text-purple-400" />
+          </div>
+          <h3 className="text-base font-semibold text-white group-hover:text-purple-400 transition-colors">Anime</h3>
+        </div>
+        <p className="text-sm text-[#6b6b7b]">Browse anime from Jikan & AniList</p>
+      </div>
+    </Link>
+  );
+}
+
 export default function CategoriesGrid() {
   return (
     <section id="categories" className="py-20 bg-[#0a0a0f]">
@@ -27,6 +44,7 @@ export default function CategoriesGrid() {
         <h2 className="reveal-section text-2xl sm:text-3xl font-bold text-white tracking-tight mb-10">Browse by Genre</h2>
         <div className="card-grid grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
           {genres.map((genre) => (<div key={genre.id} className="card-reveal"><GenreCard genre={genre} /></div>))}
+          <div className="card-reveal"><AnimeCard /></div>
         </div>
       </div>
     </section>

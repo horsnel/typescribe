@@ -1,8 +1,74 @@
 'use client';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Accessibility, ChevronRight } from 'lucide-react';
+import { Accessibility, ChevronRight, Eye, EyeOff, Volume2, Type, Keyboard, Monitor, Sun, Moon, Check } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+
+const STORAGE_KEY = 'typescribe_accessibility';
+
+interface A11ySettings {
+  highContrast: boolean;
+  reducedMotion: boolean;
+  fontSize: 'small' | 'medium' | 'large' | 'xl';
+  screenReader: boolean;
+}
+
+const defaults: A11ySettings = {
+  highContrast: false,
+  reducedMotion: false,
+  fontSize: 'medium',
+  screenReader: false,
+};
+
+function loadSettings(): A11ySettings {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return saved ? { ...defaults, ...JSON.parse(saved) } : defaults;
+  } catch { return defaults; }
+}
+
+function saveSettings(s: A11ySettings) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch { /* */ }
+}
+
+function applySettings(s: A11ySettings) {
+  const root = document.documentElement;
+  root.classList.toggle('high-contrast', s.highContrast);
+  root.classList.toggle('reduced-motion', s.reducedMotion);
+  root.classList.remove('font-sm', 'font-md', 'font-lg', 'font-xl');
+  const map: Record<string, string> = { small: 'font-sm', medium: 'font-md', large: 'font-lg', xl: 'font-xl' };
+  root.classList.add(map[s.fontSize] || 'font-md');
+  if (s.screenReader) root.setAttribute('data-screen-reader', 'true');
+  else root.removeAttribute('data-screen-reader');
+}
+
+const KEYBOARD_SHORTCUTS = [
+  { keys: '⌘K / Ctrl+K', action: 'Open search' },
+  { keys: 'Tab', action: 'Move to next interactive element' },
+  { keys: 'Shift+Tab', action: 'Move to previous element' },
+  { keys: 'Enter / Space', action: 'Activate focused button or link' },
+  { keys: 'Escape', action: 'Close modals, overlays, and menus' },
+  { keys: '← →', action: 'Navigate carousel items' },
+  { keys: 'Home / End', action: 'Jump to start/end of page or list' },
+  { keys: '?', action: 'Show keyboard shortcuts' },
+];
 
 export default function AccessibilityPage() {
+  const [settings, setSettings] = useState<A11ySettings>(defaults);
+
+  useEffect(() => {
+    const loaded = loadSettings();
+    setSettings(loaded);
+    applySettings(loaded);
+  }, []);
+
+  const update = (partial: Partial<A11ySettings>) => {
+    const next = { ...settings, ...partial };
+    setSettings(next);
+    saveSettings(next);
+    applySettings(next);
+  };
+
   return (
     <div className="min-h-screen bg-[#0a0a0f] pt-8 pb-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
@@ -13,40 +79,162 @@ export default function AccessibilityPage() {
         </nav>
         <div className="flex items-center gap-3 mb-2">
           <Accessibility className="w-7 h-7 text-[#e50914]" />
-          <h1 className="text-3xl lg:text-4xl font-extrabold text-white">Accessibility Statement</h1>
+          <h1 className="text-3xl lg:text-4xl font-extrabold text-white">Accessibility Settings</h1>
         </div>
-        <p className="text-sm text-[#6b6b7b] mb-8">Last updated: April 22, 2026</p>
+        <p className="text-sm text-[#6b6b7b] mb-8">Customize your experience to make Typescribe work best for you. All preferences are saved automatically.</p>
 
         <div className="space-y-6">
+          {/* High Contrast */}
           <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-6">
-            <h2 className="text-lg font-semibold text-white mb-3">1. Our Commitment</h2>
-            <p className="text-sm text-[#a0a0b0] leading-relaxed">At Typescribe, we are committed to ensuring that our platform is accessible to all users, including those with disabilities. We believe that everyone should be able to discover, review, and discuss movies regardless of their abilities. We continuously work to improve the accessibility of our website and applications, and we welcome feedback from our users on how we can make Typescribe more inclusive and easier to use for everyone.</p>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-[#e50914]/10 flex items-center justify-center">
+                  <Sun className="w-5 h-5 text-[#e50914]" />
+                </div>
+                <div>
+                  <h2 className="text-lg font-semibold text-white">High Contrast Mode</h2>
+                  <p className="text-sm text-[#6b6b7b]">Increase visual contrast for better readability. Makes text brighter and borders more visible.</p>
+                </div>
+              </div>
+              <button
+                onClick={() => update({ highContrast: !settings.highContrast })}
+                className={`relative w-14 h-7 rounded-full transition-colors duration-200 ${settings.highContrast ? 'bg-[#e50914]' : 'bg-[#2a2a35]'}`}
+                aria-label="Toggle high contrast mode"
+              >
+                <div className={`absolute top-0.5 w-6 h-6 rounded-full bg-white shadow transition-transform duration-200 ${settings.highContrast ? 'translate-x-7' : 'translate-x-0.5'}`} />
+              </button>
+            </div>
+            {settings.highContrast && (
+              <div className="mt-3 p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-lg flex items-center gap-2">
+                <Check className="w-4 h-4 text-emerald-400" />
+                <span className="text-sm text-emerald-400">High contrast enabled — text and borders are now more vivid</span>
+              </div>
+            )}
           </div>
 
+          {/* Reduced Motion */}
           <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-6">
-            <h2 className="text-lg font-semibold text-white mb-3">2. Standards and Guidelines</h2>
-            <p className="text-sm text-[#a0a0b0] leading-relaxed">We aim to meet the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA standards, which are internationally recognized guidelines for making web content accessible to people with disabilities. These guidelines cover a wide range of recommendations for making content perceivable, operable, understandable, and robust. We regularly audit our platform against these standards and implement improvements to address any identified gaps in accessibility.</p>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center">
+                  <Moon className="w-5 h-5 text-purple-400" />
+                </div>
+                <div>
+                  <h2 className="text-lg font-semibold text-white">Reduced Motion</h2>
+                  <p className="text-sm text-[#6b6b7b]">Minimize animations and transitions throughout the site. Recommended for users sensitive to motion.</p>
+                </div>
+              </div>
+              <button
+                onClick={() => update({ reducedMotion: !settings.reducedMotion })}
+                className={`relative w-14 h-7 rounded-full transition-colors duration-200 ${settings.reducedMotion ? 'bg-purple-600' : 'bg-[#2a2a35]'}`}
+                aria-label="Toggle reduced motion"
+              >
+                <div className={`absolute top-0.5 w-6 h-6 rounded-full bg-white shadow transition-transform duration-200 ${settings.reducedMotion ? 'translate-x-7' : 'translate-x-0.5'}`} />
+              </button>
+            </div>
+            {settings.reducedMotion && (
+              <div className="mt-3 p-3 bg-purple-500/10 border border-purple-500/20 rounded-lg flex items-center gap-2">
+                <Check className="w-4 h-4 text-purple-400" />
+                <span className="text-sm text-purple-400">Reduced motion enabled — animations are now minimal</span>
+              </div>
+            )}
           </div>
 
+          {/* Font Size */}
           <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-6">
-            <h2 className="text-lg font-semibold text-white mb-3">3. Accessibility Features</h2>
-            <p className="text-sm text-[#a0a0b0] leading-relaxed mb-3">Typescribe includes several features designed to improve accessibility: Full keyboard navigation allows users to browse and interact with all features without a mouse. Screen reader compatibility ensures that our content is properly structured with semantic HTML and ARIA labels for assistive technology. High contrast design with our dark theme provides strong visual contrast between text and background elements. Focus indicators clearly show which element is currently selected when navigating by keyboard.</p>
-            <p className="text-sm text-[#a0a0b0] leading-relaxed">We also provide alternative text for images where applicable, responsive design that adapts to different screen sizes and zoom levels, and consistent navigation patterns throughout the platform to help users build familiarity with the interface.</p>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center">
+                <Type className="w-5 h-5 text-amber-400" />
+              </div>
+              <div>
+                <h2 className="text-lg font-semibold text-white">Font Size</h2>
+                <p className="text-sm text-[#6b6b7b]">Adjust the base text size across the site.</p>
+              </div>
+            </div>
+            <div className="grid grid-cols-4 gap-3">
+              {[
+                { value: 'small' as const, label: 'Small', preview: 'text-sm' },
+                { value: 'medium' as const, label: 'Medium', preview: 'text-base' },
+                { value: 'large' as const, label: 'Large', preview: 'text-lg' },
+                { value: 'xl' as const, label: 'Extra Large', preview: 'text-xl' },
+              ].map(size => (
+                <button
+                  key={size.value}
+                  onClick={() => update({ fontSize: size.value })}
+                  className={`p-3 rounded-lg border text-center transition-all ${
+                    settings.fontSize === size.value
+                      ? 'bg-amber-500/10 border-amber-500/30 text-amber-400'
+                      : 'bg-[#0a0a0f] border-[#2a2a35] text-[#a0a0b0] hover:border-[#3a3a45]'
+                  }`}
+                >
+                  <span className={`${size.preview} font-bold block mb-1`}>Aa</span>
+                  <span className="text-[10px]">{size.label}</span>
+                </button>
+              ))}
+            </div>
           </div>
 
+          {/* Screen Reader */}
           <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-6">
-            <h2 className="text-lg font-semibold text-white mb-3">4. Known Limitations</h2>
-            <p className="text-sm text-[#a0a0b0] leading-relaxed">Despite our best efforts, some areas of Typescribe may not yet be fully accessible. Third-party embedded content such as YouTube trailers may not meet our accessibility standards. Some interactive elements in the movie carousel and filtering system may have limited keyboard support. We are actively working to address these limitations and plan to make improvements in upcoming releases. We prioritize accessibility fixes based on user impact and feedback.</p>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-sky-500/10 flex items-center justify-center">
+                  <Volume2 className="w-5 h-5 text-sky-400" />
+                </div>
+                <div>
+                  <h2 className="text-lg font-semibold text-white">Screen Reader Optimization</h2>
+                  <p className="text-sm text-[#6b6b7b]">Add enhanced ARIA labels, descriptions, and semantic landmarks for assistive technology.</p>
+                </div>
+              </div>
+              <button
+                onClick={() => update({ screenReader: !settings.screenReader })}
+                className={`relative w-14 h-7 rounded-full transition-colors duration-200 ${settings.screenReader ? 'bg-sky-600' : 'bg-[#2a2a35]'}`}
+                aria-label="Toggle screen reader optimization"
+              >
+                <div className={`absolute top-0.5 w-6 h-6 rounded-full bg-white shadow transition-transform duration-200 ${settings.screenReader ? 'translate-x-7' : 'translate-x-0.5'}`} />
+              </button>
+            </div>
           </div>
 
+          {/* Keyboard Navigation */}
           <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-6">
-            <h2 className="text-lg font-semibold text-white mb-3">5. Feedback and Assistance</h2>
-            <p className="text-sm text-[#a0a0b0] leading-relaxed">We welcome your feedback on the accessibility of Typescribe. If you encounter any barriers to accessing our content or using our features, please let us know. You can reach us at accessibility@typescribe.com or through <Link href="/contact" className="text-[#e50914] hover:underline">our contact page</Link>. We take all accessibility feedback seriously and will make reasonable efforts to address your concerns promptly. If you need assistance with any aspect of our service, our support team is happy to help.</p>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+                <Keyboard className="w-5 h-5 text-emerald-400" />
+              </div>
+              <div>
+                <h2 className="text-lg font-semibold text-white">Keyboard Shortcuts</h2>
+                <p className="text-sm text-[#6b6b7b]">Navigate Typescribe without a mouse using these shortcuts.</p>
+              </div>
+            </div>
+            <div className="space-y-2">
+              {KEYBOARD_SHORTCUTS.map(shortcut => (
+                <div key={shortcut.keys} className="flex items-center justify-between p-2 bg-[#0a0a0f] border border-[#2a2a35] rounded-lg">
+                  <span className="text-sm text-[#a0a0b0]">{shortcut.action}</span>
+                  <kbd className="px-2 py-1 bg-[#1a1a25] border border-[#2a2a35] rounded text-xs font-mono text-white">{shortcut.keys}</kbd>
+                </div>
+              ))}
+            </div>
           </div>
 
+          {/* Focus Indicators */}
           <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-6">
-            <h2 className="text-lg font-semibold text-white mb-3">6. Continuous Improvement</h2>
-            <p className="text-sm text-[#a0a0b0] leading-relaxed">Accessibility is an ongoing commitment at Typescribe. We regularly conduct accessibility audits, train our development team on accessibility best practices, and incorporate accessibility requirements into our design and development processes. We are committed to making continuous improvements to ensure that Typescribe remains an inclusive platform where all movie lovers can participate. We appreciate your patience and support as we work toward this goal.</p>
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-[#e50914]/10 flex items-center justify-center">
+                <Monitor className="w-5 h-5 text-[#e50914]" />
+              </div>
+              <div>
+                <h2 className="text-lg font-semibold text-white">Focus Indicators</h2>
+                <p className="text-sm text-[#6b6b7b]">Enhanced focus rings are always active on Typescribe. When navigating with Tab, focused elements show a visible red ring outline for clear visibility.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Our Commitment */}
+          <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-6">
+            <h2 className="text-lg font-semibold text-white mb-3">Our Commitment</h2>
+            <p className="text-sm text-[#a0a0b0] leading-relaxed mb-3">At Typescribe, we are committed to ensuring that our platform is accessible to all users, including those with disabilities. We aim to meet WCAG 2.1 Level AA standards and continuously improve our accessibility features. The settings above give you direct control over your browsing experience.</p>
+            <p className="text-sm text-[#a0a0b0] leading-relaxed">If you encounter any barriers or have suggestions, please reach out at accessibility@typescribe.com or through <Link href="/contact" className="text-[#e50914] hover:underline">our contact page</Link>.</p>
           </div>
         </div>
 

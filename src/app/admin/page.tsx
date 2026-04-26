@@ -456,6 +456,66 @@ export default function AdminDashboardPage() {
           </div>
         </section>
 
+        {/* ─── Data Sources & API Usage ─── */}
+        <section className="mb-10">
+          <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+            <Database className="w-5 h-5 text-[#e50914]" /> Data Sources & API Usage
+          </h2>
+          <div className="rounded-xl border border-[#2a2a35] bg-[#12121a] backdrop-blur-xl p-6">
+            <p className="text-xs text-[#6b6b7b] mb-4">Architecture: 70% Scraping + 30% APIs — 15 scrapers across 3 tiers + 6 API sources</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+              {/* API Sources */}
+              {[
+                { name: 'TMDb', type: 'API', status: 'active', usage: 'Primary data source — movies, TV, anime browse', icon: '🎬' },
+                { name: 'OMDb', type: 'API', status: 'active', usage: 'Supplementary ratings + IMDb ID resolution', icon: '🏆' },
+                { name: 'AniList', type: 'API', status: 'active', usage: 'Anime search, trending, seasonal data', icon: '🎨' },
+                { name: 'Jikan (MAL)', type: 'API', status: 'active', usage: 'Anime details, seasonal, top anime', icon: '📺' },
+                { name: 'Kitsu', type: 'API', status: 'active', usage: 'Anime streaming links + search', icon: '🔗' },
+                { name: 'NewsAPI', type: 'API', status: 'conditional', usage: 'Movie news headlines (requires API key)', icon: '📰' },
+                { name: 'ScrapingAnt', type: 'Scraper', status: 'active', usage: '5-key rotation — RT, Metacritic, BoxOfficeMojo, etc.', icon: '🕷️' },
+                { name: 'YouTube', type: 'API', status: 'conditional', usage: 'Trailer embeds (requires API key)', icon: '▶️' },
+              ].map((source) => (
+                <div key={source.name} className="flex items-start gap-3 p-3 bg-[#0a0a0f] border border-[#2a2a35] rounded-lg">
+                  <span className="text-lg mt-0.5">{source.icon}</span>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <span className="text-sm font-medium text-white">{source.name}</span>
+                      <span className={`text-[9px] font-medium px-1.5 py-0.5 rounded-full ${
+                        source.status === 'active'
+                          ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                          : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+                      }`}>
+                        {source.type}
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-[#6b6b7b]">{source.usage}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Scraper Tiers */}
+            <div className="pt-4 border-t border-[#2a2a35]">
+              <h3 className="text-sm font-semibold text-white mb-3">Scraper Tiers</h3>
+              <div className="space-y-2">
+                {[
+                  { tier: 'A', label: 'Low-cost (Wikipedia, SensCritique, FilmWeb, CSFD, Dramabeans, ANN)', color: 'emerald' },
+                  { tier: 'B', label: 'Medium (Rotten Tomatoes, Metacritic, MyDramaList, CommonSense, TheNumbers, FilmAffinity, Allocine, MAL)', color: 'amber' },
+                  { tier: 'C', label: 'Heavy (BoxOfficeMojo, Douban, Kinopoist)', color: 'red' },
+                ].map((t) => (
+                  <div key={t.tier} className="flex items-center gap-3 p-2 bg-[#0a0a0f] border border-[#2a2a35] rounded-lg">
+                    <span className={`w-7 h-7 rounded-md flex items-center justify-center text-xs font-bold ${
+                      t.color === 'emerald' ? 'bg-emerald-500/10 text-emerald-400' :
+                      t.color === 'amber' ? 'bg-amber-500/10 text-amber-400' : 'bg-red-500/10 text-red-400'
+                    }`}>T{t.tier}</span>
+                    <span className="text-xs text-[#a0a0b0]">{t.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* ─── System Health Summary ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">

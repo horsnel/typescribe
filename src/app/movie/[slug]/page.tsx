@@ -8,12 +8,18 @@ import {
   Calendar, Globe, Building2, Film, AlertTriangle,
   ExternalLink, ChevronDown, MessageSquare, Star, Tv,
   PenSquare, ThumbsUp, Flag, Reply, MoreHorizontal, Send, Loader2, Shield,
-  DollarSign, Eye, MonitorPlay,
+  DollarSign, Eye, MonitorPlay, Swords,
 } from 'lucide-react';
 import { movies, userReviews, getMovieBySlug } from '@/lib/data';
 import type { Movie } from '@/lib/types';
 import { useAuth, isInWatchlist, toggleWatchlist } from '@/lib/auth';
 import RatingBadge from '@/components/movie/RatingBadge';
+import TasteMatch from '@/components/movie/TasteMatch';
+import GenreAdjustedRating from '@/components/movie/GenreAdjustedRating';
+import WhyTheDivide from '@/components/movie/WhyTheDivide';
+import ParentalGuidance from '@/components/movie/ParentalGuidance';
+import CriticTrustScore from '@/components/movie/CriticTrustScore';
+import LiveSentimentTracker from '@/components/movie/LiveSentimentTracker';
 import MovieCard from '@/components/movie/MovieCard';
 import ReviewCard from '@/components/review/ReviewCard';
 import ReviewForm from '@/components/review/ReviewForm';
@@ -561,6 +567,12 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                 <RatingBadge movie={movie} variant="all" />
               </div>
 
+              {/* Taste Match & Genre Adjusted Rating */}
+              <div className="hero-animate mb-6 flex flex-wrap gap-3">
+                <TasteMatch movie={movie} />
+                <GenreAdjustedRating movie={movie} />
+              </div>
+
               {/* Action Buttons */}
               <div className="hero-animate flex items-center gap-3 flex-wrap">
                 <button
@@ -853,6 +865,12 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
+                  <Link
+                    href={`/movie/${slug}/debates`}
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-purple-500/10 border border-purple-500/20 text-purple-400 hover:bg-purple-500/20 hover:border-purple-500/30 transition-colors"
+                  >
+                    <Swords className="w-4 h-4" /> Debate
+                  </Link>
                   {commentTab === 'reviews' && (
                     <>
                       {isAuthenticated && (
@@ -1109,6 +1127,16 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                 </>
               )}
             </section>
+
+            {/* Why the Divide? */}
+            {(() => {
+              const allReviews = [...movieReviews, ...disputes.map(d => ({ rating: d.rating, text: d.text }))];
+              return allReviews.length >= 3 ? (
+                <section className="content-animate">
+                  <WhyTheDivide reviews={allReviews} genres={movie.genres} />
+                </section>
+              ) : null;
+            })()}
 
             {/* Related Movies */}
             {relatedMovies.length > 0 && (
@@ -1462,6 +1490,31 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                 </div>
               )}
             </div>
+
+            {/* Parental Guidance */}
+            <div className="content-animate">
+              <ParentalGuidance
+                movieTitle={movie.title}
+                movieId={movie.id}
+                genres={movie.genres}
+              />
+            </div>
+
+            {/* Critic Trust Score */}
+            <div className="content-animate">
+              <CriticTrustScore
+                movieId={movie.id}
+                movieTitle={movie.title}
+                userReviewCounts={disputes.length + movieReviews.length}
+              />
+            </div>
+
+            {/* Live Sentiment Tracker */}
+            <LiveSentimentTracker
+              movieTitle={movie.title}
+              movieId={movie.id}
+              isNowPlaying={movie.status === 'Now Playing' || movie.status === 'Released'}
+            />
           </div>
         </div>
       </div>

@@ -3,9 +3,10 @@
  *
  * Browse/discover movies and TV shows using TMDb discover API.
  * Supports filtering by format, country, genre, theme, rating, year, and sort.
+ * For anime format, falls back to AniList/Jikan when TMDb returns 0 results.
  *
  * Query params:
- *   format    – "movie" | "tv" | "all" (default: "movie")
+ *   format    – "movie" | "tv" | "anime" | "all" (default: "movie")
  *   country   – ISO 3166-1 alpha-2 code or "all" (default: "all")
  *   genres    – comma-separated genre IDs (e.g. "28,12,16")
  *   theme     – TMDb keyword ID for thematic filtering
@@ -16,11 +17,20 @@
  *   page      – page number (default: 1)
  */
 import { NextRequest, NextResponse } from 'next/server';
-import { browseMovies } from '@/lib/pipeline';
-import type { MediaFormat } from '@/lib/types';
+import { browseMovies, searchAnime } from '@/lib/pipeline';
+import { getCurrentSeason, getTopAnime } from '@/lib/pipeline/clients/jikan';
+import type { Movie, MediaFormat } from '@/lib/types';
+import { apiLimiter } from '@/lib/rate-limit';
 
 export async function GET(request: NextRequest) {
   try {
+    // Rate limiting
+    const clientIp = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown';
+    const { allowed, remaining, resetIn } = apiLimiter.check(clientIp);
+    if (!allowed) {
+      return NextResponse.json({ error: 'Rate limit exceeded', retryAfter: resetIn }, { status: 429 });
+    }
+
     const { searchParams } = request.nextUrl;
 
     // ── Parse format ──
@@ -58,7 +68,7 @@ export async function GET(request: NextRequest) {
       format, country, genreIds, themeKeywordId, sort, minRating, yearFrom, yearTo, page,
     });
 
-    const result = await browseMovies({
+    let result = await browseMovies({
       format,
       country,
       genreIds,
@@ -69,6 +79,148 @@ export async function GET(request: NextRequest) {
       yearTo,
       page,
     });
+
+    // ── Anime fallback: If TMDb returned 0 results for anime, try AniList/Jikan ──
+    if (format === 'anime' && result.movies.length === 0) {
+      console.log('[API /browse] TMDb returned 0 anime results. Falling back to AniList/Jikan...');
+
+      const fallbackMovies: Movie[] = [];
+      const fallbackSources: string[] = [];
+
+      // Try Jikan seasonal / top anime
+      try {
+        const seasonal = await getCurrentSeason('tv');
+        if (seasonal && seasonal.length > 0) {
+          fallbackSources.push('Jikan');
+          for (const a of seasonal.slice(0, 20)) {
+            const title = a.titleEnglish || a.title || 'Unknown';
+            fallbackMovies.push({
+              id: a.malId || 0,
+              tmdb_id: 0,
+              slug: title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') + `-${a.malId || 0}`,
+              title,
+              original_title: a.titleJapanese || a.titleRomaji || a.title || '',
+              overview: a.synopsis || '',
+              release_date: a.year ? `${a.year}-01-01` : '',
+              poster_path: a.imageUrl || '',
+              backdrop_path: '',
+              genres: (a.genres || []).map((g: string, i: number) => ({ id: -(i + 1), name: g })),
+              runtime: 0,
+              vote_average: a.score ? a.score / 10 : 0,
+              vote_count: a.scoredBy || 0,
+              imdb_rating: '',
+              rotten_tomatoes: '',
+              metascore: '',
+              trailer_youtube_id: a.trailerYoutubeId || '',
+              news_headlines: [],
+              ai_review: '',
+              director: '',
+              cast: [],
+              tagline: '',
+              budget: 0,
+              revenue: 0,
+              original_language: 'ja',
+              origin_country: 'JP',
+              media_type: 'anime' as const,
+              production_companies: a.studios || [],
+              status: a.status || '',
+              created_at: new Date().toISOString(),
+              is_anime: true,
+              anime_mal_id: a.malId || undefined,
+              anime_mal_score: a.score || undefined,
+              anime_mal_rank: a.rank || undefined,
+              anime_mal_popularity: a.popularity || undefined,
+              anime_mal_members: a.members || undefined,
+              anime_studios: a.studios || undefined,
+              anime_source: a.source || undefined,
+              anime_season: a.season && a.year
+                ? `${a.season.charAt(0).toUpperCase() + a.season.slice(1).toLowerCase()} ${a.year}`
+                : undefined,
+            });
+          }
+        }
+      } catch (err) {
+        console.warn('[API /browse] Jikan fallback failed:', err);
+      }
+
+      // Try AniList search if still no results
+      if (fallbackMovies.length === 0) {
+        try {
+          const anilistResult = await searchAnime('popular anime');
+          if (anilistResult.movies.length > 0) {
+            fallbackSources.push('AniList');
+            fallbackMovies.push(...anilistResult.movies);
+          }
+        } catch (err) {
+          console.warn('[API /browse] AniList fallback failed:', err);
+        }
+      }
+
+      // Try Jikan top anime as last resort
+      if (fallbackMovies.length === 0) {
+        try {
+          const top = await getTopAnime('tv', 'bypopularity');
+          if (top && top.length > 0) {
+            fallbackSources.push('Jikan');
+            for (const a of top.slice(0, 20)) {
+              const title = a.titleEnglish || a.title || 'Unknown';
+              fallbackMovies.push({
+                id: a.malId || 0,
+                tmdb_id: 0,
+                slug: title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') + `-${a.malId || 0}`,
+                title,
+                original_title: a.titleJapanese || a.titleRomaji || a.title || '',
+                overview: a.synopsis || '',
+                release_date: a.year ? `${a.year}-01-01` : '',
+                poster_path: a.imageUrl || '',
+                backdrop_path: '',
+                genres: (a.genres || []).map((g: string, i: number) => ({ id: -(i + 1), name: g })),
+                runtime: 0,
+                vote_average: a.score ? a.score / 10 : 0,
+                vote_count: a.scoredBy || 0,
+                imdb_rating: '',
+                rotten_tomatoes: '',
+                metascore: '',
+                trailer_youtube_id: a.trailerYoutubeId || '',
+                news_headlines: [],
+                ai_review: '',
+                director: '',
+                cast: [],
+                tagline: '',
+                budget: 0,
+                revenue: 0,
+                original_language: 'ja',
+                origin_country: 'JP',
+                media_type: 'anime' as const,
+                production_companies: a.studios || [],
+                status: a.status || '',
+                created_at: new Date().toISOString(),
+                is_anime: true,
+                anime_mal_id: a.malId || undefined,
+                anime_mal_score: a.score || undefined,
+                anime_studios: a.studios || undefined,
+                anime_season: a.season && a.year
+                  ? `${a.season.charAt(0).toUpperCase() + a.season.slice(1).toLowerCase()} ${a.year}`
+                  : undefined,
+              });
+            }
+          }
+        } catch (err) {
+          console.warn('[API /browse] Jikan top anime fallback failed:', err);
+        }
+      }
+
+      if (fallbackMovies.length > 0) {
+        result = {
+          movies: fallbackMovies,
+          page: 1,
+          totalPages: 1,
+          totalResults: fallbackMovies.length,
+          sources: fallbackSources,
+          durationMs: result.durationMs,
+        };
+      }
+    }
 
     return NextResponse.json(result);
   } catch (error: any) {

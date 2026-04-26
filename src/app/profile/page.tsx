@@ -2,14 +2,31 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useAuth, getLocalWatchlist } from '@/lib/auth';
-import { Settings, Bookmark, MessageSquare, Film, Star, Calendar, TrendingUp, Clock, Eye, Heart, BarChart3, ChevronRight } from 'lucide-react';
+import { Settings, Bookmark, MessageSquare, Film, Star, Calendar, TrendingUp, Clock, Eye, Heart, BarChart3, ChevronRight, Camera } from 'lucide-react';
 import { userReviews, movies } from '@/lib/data';
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+
+const PRESET_AVATARS = [
+  { id: 'av1', url: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Felix', label: 'Felix' },
+  { id: 'av2', url: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Aneka', label: 'Aneka' },
+  { id: 'av3', url: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Buster', label: 'Buster' },
+  { id: 'av4', url: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Duke', label: 'Duke' },
+  { id: 'av5', url: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Jasper', label: 'Jasper' },
+  { id: 'av6', url: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Luna', label: 'Luna' },
+  { id: 'av7', url: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Midnight', label: 'Midnight' },
+  { id: 'av8', url: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Shadow', label: 'Shadow' },
+  { id: 'av9', url: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Simba', label: 'Simba' },
+  { id: 'av10', url: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Zoe', label: 'Zoe' },
+  { id: 'av11', url: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Willow', label: 'Willow' },
+  { id: 'av12', url: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Phoenix', label: 'Phoenix' },
+];
 
 export default function ProfilePage() {
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, updateProfile } = useAuth();
   const [activeTab, setActiveTab] = useState<'activity' | 'stats'>('activity');
   const [watchlistCount, setWatchlistCount] = useState(0);
+  const [avatarDialogOpen, setAvatarDialogOpen] = useState(false);
 
   useEffect(() => {
     setWatchlistCount(getLocalWatchlist().length);
@@ -26,17 +43,19 @@ export default function ProfilePage() {
     );
   }
 
+  const userInitials = user.display_name
+    ? user.display_name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
+    : '??';
+
   const userReviewList = userReviews.filter(r => r.user_id === 101);
   const avgRating = userReviewList.length > 0 ? (userReviewList.reduce((sum, r) => sum + r.rating, 0) / userReviewList.length).toFixed(1) : '0';
 
-  // Rating distribution
   const ratingBuckets = Array.from({ length: 10 }, (_, i) => {
     const bucket = userReviewList.filter(r => Math.floor(r.rating) === i + 1).length;
     return { rating: i + 1, count: bucket };
   });
   const maxBucket = Math.max(...ratingBuckets.map(b => b.count), 1);
 
-  // Genre distribution from reviews
   const genreDistribution: Record<string, number> = {};
   userReviewList.forEach((r) => {
     const movie = movies.find(m => m.id === r.movie_id);
@@ -48,7 +67,6 @@ export default function ProfilePage() {
   });
   const topGenres = Object.entries(genreDistribution).sort((a, b) => b[1] - a[1]).slice(0, 5);
 
-  // Activity feed (combine reviews + watchlist additions)
   const activityItems = userReviewList.slice(0, 5).map((r) => {
     const movie = movies.find(m => m.id === r.movie_id);
     return {
@@ -60,43 +78,80 @@ export default function ProfilePage() {
     };
   });
 
+  const handleAvatarSelect = (avatarUrl: string) => {
+    updateProfile({ avatar: avatarUrl });
+    setAvatarDialogOpen(false);
+  };
+
   return (
     <div className="min-h-screen bg-[#0a0a0f] pt-8 pb-16">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
 
-        {/* Profile Header */}
-        <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-6 mb-8">
-          <div className="flex items-start gap-6">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#e50914] to-[#b20710] flex items-center justify-center text-white text-2xl font-bold flex-shrink-0">
-              {user.display_name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)}
+        {/* Profile Avatar - Prominent Display */}
+        <div className="flex flex-col items-center mb-8">
+          <div className="relative group">
+            <div className="w-28 h-28 rounded-full bg-gradient-to-br from-[#e50914] to-[#b20710] flex items-center justify-center text-white text-3xl font-bold overflow-hidden ring-4 ring-[#e50914]/20">
+              {user.avatar ? (
+                <img src={user.avatar} alt={user.display_name} className="w-full h-full object-cover" />
+              ) : (
+                userInitials
+              )}
             </div>
-            <div className="flex-1 min-w-0">
-              <h1 className="text-2xl font-bold text-white">{user.display_name}</h1>
-              <p className="text-[#6b6b7b] text-sm">{user.email}</p>
-              <p className="text-sm text-[#a0a0b0] mt-2 leading-relaxed">{user.bio || 'No bio yet. Click edit to tell us about yourself and your movie tastes.'}</p>
-              <div className="flex items-center gap-4 mt-3 flex-wrap">
-                {user.favorite_genres && user.favorite_genres.length > 0 && (
-                  <div className="flex items-center gap-2">
-                    <Film className="w-4 h-4 text-[#e50914]" />
-                    <span className="text-xs text-[#a0a0b0]">{user.favorite_genres.join(', ')}</span>
-                  </div>
-                )}
-                <div className="flex items-center gap-1">
-                  <Calendar className="w-4 h-4 text-[#6b6b7b]" />
-                  <span className="text-xs text-[#6b6b7b]">Member since {new Date(user.created_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</span>
+            <Dialog open={avatarDialogOpen} onOpenChange={setAvatarDialogOpen}>
+              <DialogTrigger asChild>
+                <button
+                  className="absolute bottom-1 right-1 w-9 h-9 bg-[#12121a] border border-[#2a2a35] rounded-full flex items-center justify-center text-[#a0a0b0] hover:text-white hover:border-[#e50914] transition-all shadow-lg"
+                  aria-label="Change avatar"
+                >
+                  <Camera className="w-4 h-4" />
+                </button>
+              </DialogTrigger>
+              <DialogContent className="bg-[#12121a] border-[#2a2a35] text-white max-w-md">
+                <DialogHeader>
+                  <DialogTitle className="text-white">Choose Your Avatar</DialogTitle>
+                </DialogHeader>
+                <div className="grid grid-cols-4 gap-3 py-4">
+                  {PRESET_AVATARS.map((av) => (
+                    <button
+                      key={av.id}
+                      onClick={() => handleAvatarSelect(av.url)}
+                      className={`relative rounded-xl p-1 transition-all hover:scale-105 ${
+                        user.avatar === av.url ? 'ring-2 ring-[#e50914] bg-[#e50914]/10' : 'bg-[#0a0a0f] border border-[#2a2a35] hover:border-[#3a3a45]'
+                      }`}
+                    >
+                      <img src={av.url} alt={av.label} className="w-full aspect-square rounded-lg" />
+                      <span className="block text-[10px] text-[#6b6b7b] text-center mt-1 truncate">{av.label}</span>
+                    </button>
+                  ))}
                 </div>
-                {user.public_profile && (
-                  <div className="flex items-center gap-1">
-                    <Eye className="w-4 h-4 text-green-400" />
-                    <span className="text-xs text-green-400">Public Profile</span>
-                  </div>
-                )}
-              </div>
-            </div>
-            <Link href="/profile/edit" className="hidden sm:inline-flex items-center gap-2 px-4 py-2 bg-[#1a1a25] border border-[#2a2a35] rounded-lg text-sm text-white hover:border-[#3a3a45] transition-colors flex-shrink-0">
-              <Settings className="w-4 h-4" /> Edit
-            </Link>
+                <p className="text-xs text-[#6b6b7b] text-center">Click an avatar to apply it</p>
+              </DialogContent>
+            </Dialog>
           </div>
+          <h1 className="text-2xl font-bold text-white mt-4">{user.display_name}</h1>
+          <p className="text-[#6b6b7b] text-sm">{user.email}</p>
+          <p className="text-sm text-[#a0a0b0] mt-2 leading-relaxed text-center max-w-md">{user.bio || 'No bio yet. Click edit to tell us about yourself and your movie tastes.'}</p>
+          <div className="flex items-center gap-4 mt-3 flex-wrap justify-center">
+            {user.favorite_genres && user.favorite_genres.length > 0 && (
+              <div className="flex items-center gap-2">
+                <Film className="w-4 h-4 text-[#e50914]" />
+                <span className="text-xs text-[#a0a0b0]">{user.favorite_genres.join(', ')}</span>
+              </div>
+            )}
+            <div className="flex items-center gap-1">
+              <Calendar className="w-4 h-4 text-[#6b6b7b]" />
+              <span className="text-xs text-[#6b6b7b]">Member since {new Date(user.created_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</span>
+            </div>
+            {user.public_profile && (
+              <div className="flex items-center gap-1">
+                <Eye className="w-4 h-4 text-green-400" />
+                <span className="text-xs text-green-400">Public Profile</span>
+              </div>
+            )}
+          </div>
+          <Link href="/profile/edit" className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-[#1a1a25] border border-[#2a2a35] rounded-lg text-sm text-white hover:border-[#3a3a45] transition-colors">
+            <Settings className="w-4 h-4" /> Edit Profile
+          </Link>
         </div>
 
         {/* Stats Grid */}
@@ -202,7 +257,6 @@ export default function ProfilePage() {
 
         {activeTab === 'stats' && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Rating Distribution */}
             <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-5">
               <h3 className="text-sm font-semibold text-white mb-4">Rating Distribution</h3>
               <div className="space-y-2">
@@ -221,7 +275,6 @@ export default function ProfilePage() {
               </div>
             </div>
 
-            {/* Top Genres */}
             <div className="bg-[#12121a] border border-[#2a2a35] rounded-xl p-5">
               <h3 className="text-sm font-semibold text-white mb-4">Favorite Genres</h3>
               {topGenres.length > 0 ? (
