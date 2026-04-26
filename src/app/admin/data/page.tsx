@@ -157,6 +157,126 @@ function tierBadge(tier: string): string {
   }
 }
 
+// ─── ScrapingAnt Key Stats Component ───
+
+function ScrapingAntKeyStats({ sb }: { sb: any }) {
+  const [antStats, setAntStats] = useState<any>(null);
+  const [loadingAnt, setLoadingAnt] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/admin/scrapingant')
+      .then(res => res.ok ? res.json() : null)
+      .then(data => { setAntStats(data); })
+      .catch(() => {})
+      .finally(() => setLoadingAnt(false));
+  }, []);
+
+  if (loadingAnt) {
+    return (
+      <div className="rounded-xl border border-[#2a2a35] bg-[#12121a] backdrop-blur-xl p-8 text-center">
+        <Loader2 className="w-6 h-6 animate-spin text-[#e50914] mx-auto mb-2" />
+        <p className="text-[#6b6b7b] text-sm">Loading ScrapingAnt stats...</p>
+      </div>
+    );
+  }
+
+  if (!antStats) {
+    // Fallback to old ScrapingBee display
+    if (sb) {
+      return (
+        <div className="rounded-xl border border-[#2a2a35] bg-[#12121a] backdrop-blur-xl p-5">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-sm font-medium text-white">Daily API Credits (Legacy)</span>
+            <span className="text-xs text-[#6b6b7b]">{sb.dailyCreditsUsed} / {sb.dailyCreditsLimit} used</span>
+          </div>
+          <div className="w-full h-2.5 bg-[#1a1a25] rounded-full overflow-hidden">
+            <div className={`h-full rounded-full transition-all ${
+              sb.dailyCreditsRemaining / sb.dailyCreditsLimit < 0.1 ? 'bg-red-500' :
+              sb.dailyCreditsRemaining / sb.dailyCreditsLimit < 0.3 ? 'bg-amber-500' : 'bg-emerald-500'
+            }`} style={{ width: `${Math.min((sb.dailyCreditsUsed / sb.dailyCreditsLimit) * 100, 100)}%` }} />
+          </div>
+          <p className="text-[#4a4a5a] text-[10px] mt-1.5">{sb.dailyCreditsRemaining.toLocaleString()} credits remaining today</p>
+        </div>
+      );
+    }
+    return (
+      <div className="rounded-xl border border-[#2a2a35] bg-[#12121a] backdrop-blur-xl p-5">
+        <p className="text-[#6b6b7b] text-sm">ScrapingAnt not configured</p>
+        <p className="text-[#4a4a5a] text-xs mt-1">Set SCRAPINGANT_KEY_1 through SCRAPINGANT_KEY_5 in .env.local</p>
+      </div>
+    );
+  }
+
+  const keys = antStats.keys || [];
+  const activeKeys = keys.filter((k: any) => k.configured).length;
+  const totalUsed = keys.reduce((sum: number, k: any) => sum + (k.monthUsed || 0), 0);
+  const totalLimit = keys.reduce((sum: number, k: any) => sum + (k.monthLimit || 0), 0);
+  const totalRemaining = totalLimit - totalUsed;
+  const successRate = antStats.totalRequests > 0
+    ? ((antStats.successCount / antStats.totalRequests) * 100).toFixed(1)
+    : '0.0';
+
+  return (
+    <div className="space-y-4">
+      {/* Summary Cards */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="rounded-lg bg-[#0a0a0f] border border-[#2a2a35] p-3 text-center">
+          <p className="text-lg font-bold text-emerald-400">{activeKeys}/5</p>
+          <p className="text-[#6b6b7b] text-[10px]">Active Keys</p>
+        </div>
+        <div className="rounded-lg bg-[#0a0a0f] border border-[#2a2a35] p-3 text-center">
+          <p className="text-lg font-bold text-white">{totalUsed.toLocaleString()}</p>
+          <p className="text-[#6b6b7b] text-[10px]">Total Used</p>
+        </div>
+        <div className="rounded-lg bg-[#0a0a0f] border border-[#2a2a35] p-3 text-center">
+          <p className="text-lg font-bold text-white">{totalRemaining.toLocaleString()}</p>
+          <p className="text-[#6b6b7b] text-[10px]">Remaining</p>
+        </div>
+        <div className="rounded-lg bg-[#0a0a0f] border border-[#2a2a35] p-3 text-center">
+          <p className="text-lg font-bold text-emerald-400">{successRate}%</p>
+          <p className="text-[#6b6b7b] text-[10px]">Success Rate</p>
+        </div>
+      </div>
+
+      {/* Per-Key Breakdown */}
+      <div className="rounded-xl border border-[#2a2a35] bg-[#12121a] backdrop-blur-xl p-5">
+        <h3 className="text-sm font-semibold text-white mb-4">Per-Key Usage (Monthly)</h3>
+        <div className="space-y-3">
+          {keys.map((key: any, idx: number) => {
+            const usagePct = key.monthLimit > 0 ? (key.monthUsed / key.monthLimit) * 100 : 0;
+            const barColor = usagePct > 90 ? 'bg-red-500' : usagePct > 60 ? 'bg-amber-500' : 'bg-emerald-500';
+            return (
+              <div key={idx} className="bg-[#0a0a0f] border border-[#2a2a35] rounded-lg p-3">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-2">
+                    <Key className="w-3.5 h-3.5 text-[#6b6b7b]" />
+                    <span className="text-sm text-white font-medium">Key {idx + 1}</span>
+                    {key.configured ? (
+                      <span className="text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">ACTIVE</span>
+                    ) : (
+                      <span className="text-[9px] px-1.5 py-0.5 rounded bg-red-500/10 text-red-400 border border-red-500/20">MISSING</span>
+                    )}
+                  </div>
+                  <span className="text-xs text-[#6b6b7b]">{key.monthUsed?.toLocaleString() || 0} / {key.monthLimit?.toLocaleString() || 0}</span>
+                </div>
+                {key.configured && (
+                  <div className="w-full h-2 bg-[#1a1a25] rounded-full overflow-hidden">
+                    <div className={`h-full rounded-full transition-all ${barColor}`} style={{ width: `${Math.min(usagePct, 100)}%` }} />
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+        <p className="text-[#4a4a5a] text-[10px] mt-3">
+          Each key has 10,000 requests/month. 5 keys = 50,000 total monthly capacity.
+          {!antStats.configured && ' — Not configured (using direct fetch fallback)'}
+        </p>
+      </div>
+    </div>
+  );
+}
+
 // ─── Component ───
 
 export default function AdminDataPipelinePage() {
@@ -457,32 +577,13 @@ export default function AdminDataPipelinePage() {
           })}
         </section>
 
-        {/* ─── ScrapingBee Credits ─── */}
-        {sb && (
-          <section className="mb-10">
-            <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-              <Zap className="w-5 h-5 text-[#e50914]" /> ScrapingBee Credits
-            </h2>
-            <div className="rounded-xl border border-[#2a2a35] bg-[#12121a] backdrop-blur-xl p-5">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-white">Daily API Credits</span>
-                <span className="text-xs text-[#6b6b7b]">
-                  {sb.dailyCreditsUsed} / {sb.dailyCreditsLimit} used
-                </span>
-              </div>
-              <div className="w-full h-2.5 bg-[#1a1a25] rounded-full overflow-hidden">
-                <div className={`h-full rounded-full transition-all ${
-                  sb.dailyCreditsRemaining / sb.dailyCreditsLimit < 0.1 ? 'bg-red-500' :
-                  sb.dailyCreditsRemaining / sb.dailyCreditsLimit < 0.3 ? 'bg-amber-500' : 'bg-emerald-500'
-                }`} style={{ width: `${Math.min((sb.dailyCreditsUsed / sb.dailyCreditsLimit) * 100, 100)}%` }} />
-              </div>
-              <p className="text-[#4a4a5a] text-[10px] mt-1.5">
-                {sb.dailyCreditsRemaining.toLocaleString()} credits remaining today
-                {!sb.configured && ' — Not configured (using direct fetch)'}
-              </p>
-            </div>
-          </section>
-        )}
+        {/* ─── ScrapingAnt 5-Key Status ─── */}
+        <section className="mb-10">
+          <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+            <Zap className="w-5 h-5 text-[#e50914]" /> ScrapingAnt 5-Key Rotation
+          </h2>
+          <ScrapingAntKeyStats sb={sb} />
+        </section>
 
         {/* ─── Cache Stats ─── */}
         <section className="mb-10">
@@ -654,7 +755,7 @@ export default function AdminDataPipelinePage() {
               {[
                 { name: 'TMDB_API_KEY', desc: 'Required — Primary movie data', ok: sources?.tmdb },
                 { name: 'OMDB_API_KEY', desc: 'Recommended — IMDb ratings, RT %, Metascore', ok: sources?.omdb },
-                { name: 'SCRAPINGBEE_API_KEY', desc: 'Required for scraping — proxy rotation + JS rendering', ok: status?.status?.scrapingEnabled },
+                { name: 'SCRAPINGANT_KEY_1-5', desc: 'Required for scraping — 5-key rotation (10K each/month)', ok: status?.status?.scrapingEnabled },
                 { name: 'YOUTUBE_API_KEY', desc: 'Optional — Trailer search', ok: sources?.youtube },
                 { name: 'NEWS_API_KEY', desc: 'Optional — Movie news', ok: sources?.newsapi },
                 { name: 'NEWSDATA_IO_API_KEY', desc: 'Optional — Supplementary news', ok: sources?.newsdataIo },

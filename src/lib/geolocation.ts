@@ -210,7 +210,6 @@ export function getSuggestionReason(countryCode: string): string {
     TH: 'Thai Cinema & Dramas',
     PH: 'Filipino Cinema & Dramas',
     ID: 'Indonesian Cinema & Dramas',
-    KR: 'K-Drama & Korean Cinema',
     AR: 'Latin American Cinema',
     CO: 'Latin American Cinema',
     CL: 'Latin American Cinema',

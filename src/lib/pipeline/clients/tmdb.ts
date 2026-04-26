@@ -31,6 +31,7 @@ interface CacheEntry<T> {
 
 interface DiscoverMovieFilters {
   with_origin_country?: string;
+  with_original_language?: string;
   with_genres?: string;
   with_keywords?: string;
   sort_by?: string;
@@ -43,6 +44,7 @@ interface DiscoverMovieFilters {
 
 interface DiscoverTvFilters {
   with_origin_country?: string;
+  with_original_language?: string;
   with_genres?: string;
   with_keywords?: string;
   sort_by?: string;
@@ -564,6 +566,7 @@ export async function discoverMovies(
 ): Promise<PaginatedResult<Movie> | null> {
   const params: Record<string, string | number | undefined> = {
     with_origin_country: filters.with_origin_country,
+    with_original_language: filters.with_original_language,
     with_genres: filters.with_genres,
     with_keywords: filters.with_keywords,
     sort_by: filters.sort_by ?? 'popularity.desc',
@@ -604,6 +607,7 @@ export async function discoverTv(
 ): Promise<PaginatedResult<Movie> | null> {
   const params: Record<string, string | number | undefined> = {
     with_origin_country: filters.with_origin_country,
+    with_original_language: filters.with_original_language,
     with_genres: filters.with_genres,
     with_keywords: filters.with_keywords,
     sort_by: filters.sort_by ?? 'popularity.desc',

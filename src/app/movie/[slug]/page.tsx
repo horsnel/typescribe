@@ -8,6 +8,7 @@ import {
   Calendar, Globe, Building2, Film, AlertTriangle,
   ExternalLink, ChevronDown, MessageSquare, Star, Tv,
   PenSquare, ThumbsUp, Flag, Reply, MoreHorizontal, Send, Loader2, Shield,
+  DollarSign, Eye, MonitorPlay,
 } from 'lucide-react';
 import { movies, userReviews, getMovieBySlug } from '@/lib/data';
 import type { Movie } from '@/lib/types';
@@ -22,6 +23,35 @@ import type { ReportReason } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 
 type CommentTab = 'reviews' | 'discussion';
+
+interface Dispute {
+  id: number;
+  movie_id: number;
+  user_name: string;
+  user_id: number;
+  rating: number;
+  text: string;
+  contains_spoilers: boolean;
+  helpful_count: number;
+  created_at: string;
+};
+
+interface WatchProvider {
+  id: number;
+  name: string;
+  logoUrl: string;
+  flatrate: boolean;
+  rent: boolean;
+  buy: boolean;
+  free: boolean;
+};
+
+interface WatchProvidersData {
+  tmdbId: number;
+  link: string;
+  providers: WatchProvider[];
+  countries: Record<string, WatchProvider[]>;
+};
 
 interface LocalComment {
   id: number;
@@ -90,6 +120,21 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
   const heroRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
+  // ─── Dispute the AI State ───
+  const [disputes, setDisputes] = useState<Dispute[]>([]);
+  const [showDisputeForm, setShowDisputeForm] = useState(false);
+  const [disputeRating, setDisputeRating] = useState(0);
+  const [disputeText, setDisputeText] = useState('');
+  const [disputeSpoilers, setDisputeSpoilers] = useState(false);
+  const [disputeSubmitting, setDisputeSubmitting] = useState(false);
+  const [helpedDisputes, setHelpedDisputes] = useState<Set<number>>(new Set());
+  const [spoilersRevealed, setSpoilersRevealed] = useState<Set<number>>(new Set());
+
+  // ─── Where to Watch State ───
+  const [watchProviders, setWatchProviders] = useState<WatchProvidersData | null>(null);
+  const [watchLoading, setWatchLoading] = useState(true);
+  const [watchCountry, setWatchCountry] = useState('US');
+
   // Scroll to top on mount / slug change
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -114,11 +159,86 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
     } catch { /* ignore */ }
   }, [movie]);
 
+  // Load disputes from localStorage
+  useEffect(() => {
+    if (!movie) return;
+    try {
+      const data = localStorage.getItem(`typescribe_disputes_${movie.id}`);
+      if (data) setDisputes(JSON.parse(data));
+    } catch { /* ignore */ }
+  }, [movie]);
+
+  // Fetch watch providers
+  useEffect(() => {
+    if (!movie) return;
+    setWatchLoading(true);
+    const tmdbId = movie.tmdb_id || movie.id;
+    fetch(`/api/movies/${tmdbId}/watch-providers`)
+      .then(res => res.ok ? res.json() : null)
+      .then(data => {
+        if (data?.providers) {
+          setWatchProviders(data);
+          // Try to use geolocation country from localStorage
+          try {
+            const geoCountry = localStorage.getItem('typescribe_geo_country');
+            if (geoCountry && data.countries?.[geoCountry]) {
+              setWatchCountry(geoCountry);
+            }
+          } catch { /* ignore */ }
+        }
+      })
+      .catch(() => { /* ignore */ })
+      .finally(() => setWatchLoading(false));
+  }, [movie]);
+
   const saveComments = (updated: LocalComment[]) => {
     setComments(updated);
     try {
       localStorage.setItem(`typescribe_comments_${movie!.id}`, JSON.stringify(updated));
     } catch { /* ignore */ }
+  };
+
+  const saveDisputes = (updated: Dispute[]) => {
+    setDisputes(updated);
+    try {
+      localStorage.setItem(`typescribe_disputes_${movie!.id}`, JSON.stringify(updated));
+    } catch { /* ignore */ }
+  };
+
+  const handleSubmitDispute = () => {
+    if (!disputeText.trim() || !user || disputeRating === 0) return;
+    setDisputeSubmitting(true);
+    const dispute: Dispute = {
+      id: Date.now(),
+      movie_id: movie!.id,
+      user_name: user.display_name,
+      user_id: user.id,
+      rating: disputeRating,
+      text: disputeText.trim(),
+      contains_spoilers: disputeSpoilers,
+      helpful_count: 0,
+      created_at: new Date().toISOString(),
+    };
+    saveDisputes([dispute, ...disputes]);
+    setDisputeRating(0);
+    setDisputeText('');
+    setDisputeSpoilers(false);
+    setShowDisputeForm(false);
+    setDisputeSubmitting(false);
+  };
+
+  const handleToggleDisputeHelpful = (disputeId: number) => {
+    const updated = disputes.map((d) => {
+      if (d.id === disputeId) {
+        const isHelped = helpedDisputes.has(disputeId);
+        return { ...d, helpful_count: d.helpful_count + (isHelped ? -1 : 1) };
+      }
+      return d;
+    });
+    const newSet = new Set(helpedDisputes);
+    if (newSet.has(disputeId)) newSet.delete(disputeId); else newSet.add(disputeId);
+    setHelpedDisputes(newSet);
+    saveDisputes(updated);
   };
 
   const handleSubmitComment = () => {
@@ -345,6 +465,29 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
     de: 'German', es: 'Spanish', ko: 'Korean', zh: 'Chinese',
   };
 
+  const formatCurrency = (value: number | undefined | null): string | null => {
+    if (!value || value === 0) return null;
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(value);
+  };
+
+  const countryNames: Record<string, string> = {
+    US: 'United States', GB: 'United Kingdom', CA: 'Canada', AU: 'Australia',
+    DE: 'Germany', FR: 'France', JP: 'Japan', KR: 'South Korea',
+    IN: 'India', BR: 'Brazil', MX: 'Mexico', IT: 'Italy', ES: 'Spain',
+  };
+
+  const currentCountryProviders = watchProviders?.countries?.[watchCountry] || watchProviders?.providers || [];
+  const streamProviders = currentCountryProviders.filter(p => p.flatrate);
+  const rentProviders = currentCountryProviders.filter(p => p.rent);
+  const buyProviders = currentCountryProviders.filter(p => p.buy);
+  const freeProviders = currentCountryProviders.filter(p => p.free);
+
+  // Dispute calculations
+  const avgUserRating = disputes.length > 0
+    ? disputes.reduce((sum, d) => sum + d.rating, 0) / disputes.length
+    : null;
+  const aiRating = movie.vote_average;
+
   return (
     <div className="min-h-screen bg-[#0a0a0f]">
       {/* ─── Hero Section ─── */}
@@ -456,11 +599,11 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-10 lg:gap-14">
           {/* ─── Left Column ─── */}
           <div className="space-y-10 min-w-0">
-            {/* AI Review */}
+            {/* AI Review — Dispute It! */}
             <section className="content-animate">
               <div className="flex items-center gap-2 mb-4">
                 <Sparkles className="w-5 h-5 text-[#e50914]" />
-                <h2 className="text-xl font-bold text-white">AI-Generated Review</h2>
+                <h2 className="text-xl font-bold text-white">AI Review — Dispute It!</h2>
                 <span className="inline-flex items-center gap-1 text-[10px] font-semibold bg-[#e50914]/10 text-[#e50914] px-2.5 py-0.5 rounded-full border border-[#e50914]/20">
                   <Sparkles className="w-3 h-3" /> AI
                 </span>
@@ -469,12 +612,170 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                 <p className="text-[#a0a0b0] leading-relaxed text-[15px]">{movie.ai_review}</p>
                 <div className="flex items-start gap-2 mt-5 pt-4 border-t border-[#2a2a35]/50">
                   <AlertTriangle className="w-4 h-4 text-[#6b6b7b] flex-shrink-0 mt-0.5" />
-                  <p className="text-xs text-[#6b6b7b] italic">
+                  <p className="text-xs text-[#6b6b7b] italic flex-1">
                     This review was generated by AI based on available data and should not replace professional
                     criticism. AI-generated content may contain inaccuracies.
                   </p>
                 </div>
+
+                {/* Dispute This Review Button */}
+                <div className="mt-4">
+                  {isAuthenticated ? (
+                    <Button
+                      onClick={() => setShowDisputeForm(!showDisputeForm)}
+                      variant="outline"
+                      className="w-full border-[#e50914]/30 text-[#e50914] hover:bg-[#e50914]/10 hover:border-[#e50914] gap-2"
+                    >
+                      <MessageSquare className="w-4 h-4" />
+                      {showDisputeForm ? 'Cancel Dispute' : 'Dispute This Review'}
+                    </Button>
+                  ) : (
+                    <div className="text-center text-sm text-[#6b6b7b]">
+                      <Link href="/login" className="text-[#e50914] hover:underline font-medium">Sign in</Link> to dispute this review
+                    </div>
+                  )}
+                </div>
+
+                {/* Dispute Form */}
+                {showDisputeForm && (
+                  <div className="mt-4 pt-4 border-t border-[#2a2a35]/50 bg-[#0a0a0f]/50 rounded-lg p-4">
+                    <h4 className="text-sm font-semibold text-white mb-3">Your Take</h4>
+
+                    {/* Star Rating */}
+                    <div className="mb-3">
+                      <label className="text-xs text-[#6b6b7b] mb-1.5 block">Your Rating (1-10)</label>
+                      <div className="flex items-center gap-1">
+                        {Array.from({ length: 10 }, (_, i) => i + 1).map((star) => (
+                          <button
+                            key={star}
+                            onClick={() => setDisputeRating(star)}
+                            className="transition-transform hover:scale-110"
+                            type="button"
+                          >
+                            <Star
+                              className={`w-5 h-5 ${star <= disputeRating ? 'text-[#e50914] fill-[#e50914]' : 'text-[#2a2a35]'}`}
+                            />
+                          </button>
+                        ))}
+                        {disputeRating > 0 && (
+                          <span className="text-sm font-semibold text-white ml-2">{disputeRating}/10</span>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Text Area */}
+                    <textarea
+                      value={disputeText}
+                      onChange={(e) => setDisputeText(e.target.value)}
+                      placeholder="What do you think the AI got wrong? Share your counter-argument..."
+                      rows={4}
+                      className="w-full bg-[#0a0a0f] border border-[#2a2a35] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#e50914] resize-none text-sm mb-3"
+                    />
+
+                    {/* Spoilers Checkbox */}
+                    <label className="flex items-center gap-2 mb-4 cursor-pointer">
+                      <div className={`w-4 h-4 rounded border flex items-center justify-center ${disputeSpoilers ? 'bg-[#e50914] border-[#e50914]' : 'border-[#2a2a35]'}`}>
+                        {disputeSpoilers && <span className="text-white text-[10px]">✓</span>}
+                      </div>
+                      <Eye className="w-3.5 h-3.5 text-[#6b6b7b]" />
+                      <span className="text-xs text-[#a0a0b0]">Contains spoilers</span>
+                    </label>
+
+                    {/* Submit */}
+                    <Button
+                      onClick={handleSubmitDispute}
+                      disabled={!disputeText.trim() || disputeRating === 0 || disputeSubmitting}
+                      className="bg-[#e50914] hover:bg-[#b20710] text-white gap-2 text-sm disabled:opacity-50"
+                    >
+                      {disputeSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+                      Submit Dispute
+                    </Button>
+                  </div>
+                )}
               </div>
+
+              {/* Community Verdict Summary */}
+              {disputes.length > 0 && (
+                <div className="mt-4 bg-[#12121a] border border-[#2a2a35] rounded-xl p-5">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Shield className="w-4 h-4 text-[#e50914]" />
+                    <h3 className="text-sm font-semibold text-white">Community Verdict</h3>
+                    <span className="text-[10px] bg-[#e50914]/10 text-[#e50914] px-2 py-0.5 rounded-full">{disputes.length} dispute{disputes.length !== 1 ? 's' : ''}</span>
+                  </div>
+                  <div className="flex items-center gap-6 mb-4">
+                    <div className="text-center">
+                      <p className="text-2xl font-bold text-[#e50914]">{aiRating.toFixed(1)}</p>
+                      <p className="text-[10px] text-[#6b6b7b] uppercase tracking-wider">AI Rating</p>
+                    </div>
+                    <div className="text-[#2a2a35] text-xl font-light">vs</div>
+                    <div className="text-center">
+                      <p className="text-2xl font-bold text-green-400">{avgUserRating!.toFixed(1)}</p>
+                      <p className="text-[10px] text-[#6b6b7b] uppercase tracking-wider">Community Avg</p>
+                    </div>
+                    <div className="text-center ml-auto">
+                      <p className="text-2xl font-bold text-white">
+                        {avgUserRating !== null && Math.abs(avgUserRating - aiRating) < 1 ? '👍' : avgUserRating !== null && avgUserRating > aiRating ? '📈' : '📉'}
+                      </p>
+                      <p className="text-[10px] text-[#6b6b7b] uppercase tracking-wider">
+                        {avgUserRating !== null && Math.abs(avgUserRating - aiRating) < 1 ? 'Agrees' : avgUserRating !== null && avgUserRating > aiRating ? 'Higher' : 'Lower'}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Individual Disputes */}
+                  <div className="space-y-3 max-h-96 overflow-y-auto scrollbar-thin">
+                    {disputes.map((dispute) => {
+                      const avatarFallback = dispute.user_name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+                      return (
+                        <div key={dispute.id} className="bg-[#0a0a0f]/60 border border-[#2a2a35]/50 rounded-lg p-4">
+                          <div className="flex items-start gap-3">
+                            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">
+                              {avatarFallback}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-2 mb-1">
+                                <span className="text-sm font-semibold text-white">{dispute.user_name}</span>
+                                <div className="flex items-center gap-0.5">
+                                  <Star className="w-3 h-3 text-[#e50914] fill-[#e50914]" />
+                                  <span className="text-xs font-semibold text-[#e50914]">{dispute.rating}/10</span>
+                                </div>
+                                {dispute.contains_spoilers && (
+                                  <span className="inline-flex items-center gap-1 text-[10px] bg-yellow-500/10 text-yellow-400 px-1.5 py-0.5 rounded border border-yellow-500/20">
+                                    <Eye className="w-2.5 h-2.5" /> Spoiler
+                                  </span>
+                                )}
+                                <span className="text-[10px] text-[#6b6b7b] ml-auto">
+                                  {new Date(dispute.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                                </span>
+                              </div>
+                              {dispute.contains_spoilers && !spoilersRevealed.has(dispute.id) ? (
+                                <button
+                                  onClick={() => setSpoilersRevealed(prev => new Set([...prev, dispute.id]))}
+                                  className="text-sm text-[#6b6b7b] italic hover:text-[#a0a0b0] transition-colors"
+                                >
+                                  This contains spoilers — click to reveal
+                                </button>
+                              ) : (
+                                <p className="text-sm text-[#a0a0b0] leading-relaxed">{dispute.text}</p>
+                              )}
+                              <div className="flex items-center gap-3 mt-2">
+                                <button
+                                  onClick={() => handleToggleDisputeHelpful(dispute.id)}
+                                  className={`flex items-center gap-1 text-xs transition-colors ${
+                                    helpedDisputes.has(dispute.id) ? 'text-[#e50914]' : 'text-[#6b6b7b] hover:text-[#a0a0b0]'
+                                  }`}
+                                >
+                                  <ThumbsUp className="w-3 h-3" /> Helpful ({dispute.helpful_count})
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
             </section>
 
             {/* Synopsis */}
@@ -887,6 +1188,88 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
               </div>
             </div>
 
+            {/* Budget / Revenue / Box Office */}
+            {(() => {
+              const budgetFormatted = formatCurrency(movie.budget);
+              const revenueFormatted = formatCurrency(movie.revenue);
+              const domesticFormatted = formatCurrency(movie.box_office_domestic);
+              const internationalFormatted = formatCurrency(movie.box_office_international);
+              const worldwideFormatted = formatCurrency(movie.box_office_worldwide);
+              const reportedFormatted = formatCurrency(movie.budget_reported);
+              const hasAnyFinancialData = budgetFormatted || revenueFormatted || domesticFormatted || internationalFormatted || worldwideFormatted || reportedFormatted;
+
+              return hasAnyFinancialData ? (
+                <div className="content-animate bg-[#12121a] border border-[#2a2a35] rounded-xl p-5">
+                  <h3 className="text-xs font-semibold text-[#6b6b7b] uppercase tracking-wider mb-4 flex items-center gap-2">
+                    <DollarSign className="w-3.5 h-3.5" /> Financials
+                  </h3>
+                  <div className="space-y-3">
+                    {budgetFormatted && (
+                      <div className="flex items-center gap-3">
+                        <DollarSign className="w-4 h-4 text-[#6b6b7b] flex-shrink-0" />
+                        <div>
+                          <span className="text-xs text-[#6b6b7b]">Budget</span>
+                          <p className="text-sm text-white font-medium">{budgetFormatted}</p>
+                        </div>
+                      </div>
+                    )}
+                    {reportedFormatted && (
+                      <div className="flex items-center gap-3">
+                        <Building2 className="w-4 h-4 text-[#6b6b7b] flex-shrink-0" />
+                        <div>
+                          <span className="text-xs text-[#6b6b7b]">Budget (Reported)</span>
+                          <p className="text-sm text-white font-medium">{reportedFormatted}</p>
+                        </div>
+                      </div>
+                    )}
+                    {revenueFormatted && (
+                      <div className="flex items-center gap-3">
+                        <DollarSign className="w-4 h-4 text-[#6b6b7b] flex-shrink-0" />
+                        <div>
+                          <span className="text-xs text-[#6b6b7b]">Revenue</span>
+                          <p className="text-sm text-white font-medium">{revenueFormatted}</p>
+                        </div>
+                      </div>
+                    )}
+                    {domesticFormatted && (
+                      <div className="flex items-center gap-3">
+                        <DollarSign className="w-4 h-4 text-[#6b6b7b] flex-shrink-0" />
+                        <div>
+                          <span className="text-xs text-[#6b6b7b]">Box Office Domestic</span>
+                          <p className="text-sm text-white font-medium">{domesticFormatted}</p>
+                        </div>
+                      </div>
+                    )}
+                    {internationalFormatted && (
+                      <div className="flex items-center gap-3">
+                        <DollarSign className="w-4 h-4 text-[#6b6b7b] flex-shrink-0" />
+                        <div>
+                          <span className="text-xs text-[#6b6b7b]">Box Office International</span>
+                          <p className="text-sm text-white font-medium">{internationalFormatted}</p>
+                        </div>
+                      </div>
+                    )}
+                    {worldwideFormatted && (
+                      <div className="flex items-center gap-3">
+                        <DollarSign className="w-4 h-4 text-green-400 flex-shrink-0" />
+                        <div>
+                          <span className="text-xs text-[#6b6b7b]">Box Office Worldwide</span>
+                          <p className="text-sm text-green-400 font-semibold">{worldwideFormatted}</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <div className="content-animate bg-[#12121a] border border-[#2a2a35] rounded-xl p-5">
+                  <h3 className="text-xs font-semibold text-[#6b6b7b] uppercase tracking-wider mb-3 flex items-center gap-2">
+                    <DollarSign className="w-3.5 h-3.5" /> Financials
+                  </h3>
+                  <p className="text-sm text-[#2a2a35] italic">Financial data not available</p>
+                </div>
+              );
+            })()}
+
             {/* Trailer Embed */}
             <div className="content-animate bg-[#12121a] border border-[#2a2a35] rounded-xl p-5">
               <h3 className="text-xs font-semibold text-[#6b6b7b] uppercase tracking-wider mb-4">Trailer</h3>
@@ -945,12 +1328,139 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
 
             {/* Where to Watch */}
             <div className="content-animate bg-[#12121a] border border-[#2a2a35] rounded-xl p-5">
-              <h3 className="text-xs font-semibold text-[#6b6b7b] uppercase tracking-wider mb-4">Where to Watch</h3>
-              <div className="flex flex-col items-center py-4 text-center">
-                <Tv className="w-8 h-8 text-[#2a2a35] mb-2" />
-                <p className="text-sm text-[#6b6b7b]">Coming soon</p>
-                <p className="text-xs text-[#2a2a35]">Streaming availability data will be available here.</p>
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-xs font-semibold text-[#6b6b7b] uppercase tracking-wider flex items-center gap-2">
+                  <MonitorPlay className="w-3.5 h-3.5" /> Where to Watch
+                </h3>
+                {watchProviders && Object.keys(watchProviders.countries).length > 1 && (
+                  <select
+                    value={watchCountry}
+                    onChange={(e) => setWatchCountry(e.target.value)}
+                    className="bg-[#0a0a0f] border border-[#2a2a35] rounded-md py-1 px-2 text-xs text-[#a0a0b0] focus:outline-none focus:border-[#e50914]"
+                  >
+                    {Object.keys(watchProviders.countries).map(code => (
+                      <option key={code} value={code}>
+                        {countryNames[code] || code}
+                      </option>
+                    ))}
+                  </select>
+                )}
               </div>
+
+              {watchLoading ? (
+                <div className="flex flex-col items-center py-6">
+                  <Loader2 className="w-6 h-6 animate-spin text-[#e50914] mb-2" />
+                  <p className="text-xs text-[#6b6b7b]">Loading providers...</p>
+                </div>
+              ) : currentCountryProviders.length === 0 ? (
+                <div className="flex flex-col items-center py-4 text-center">
+                  <Tv className="w-8 h-8 text-[#2a2a35] mb-2" />
+                  <p className="text-sm text-[#6b6b7b]">Not available for streaming</p>
+                  <p className="text-xs text-[#2a2a35]">No providers found in {countryNames[watchCountry] || watchCountry}.</p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {/* Stream */}
+                  {streamProviders.length > 0 && (
+                    <div>
+                      <p className="text-[10px] font-semibold text-[#6b6b7b] uppercase tracking-wider mb-2">Stream</p>
+                      <div className="space-y-2">
+                        {streamProviders.map(provider => (
+                          <div key={`stream-${provider.id}`} className="flex items-center gap-2.5">
+                            {provider.logoUrl ? (
+                              <img src={provider.logoUrl} alt={provider.name} className="w-7 h-7 rounded-md object-cover bg-[#0a0a0f]" />
+                            ) : (
+                              <div className="w-7 h-7 rounded-md bg-[#0a0a0f] flex items-center justify-center">
+                                <Tv className="w-3.5 h-3.5 text-[#6b6b7b]" />
+                              </div>
+                            )}
+                            <span className="text-sm text-white flex-1 truncate">{provider.name}</span>
+                            <span className="text-[9px] font-semibold bg-green-500/10 text-green-400 px-1.5 py-0.5 rounded">STREAM</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Rent */}
+                  {rentProviders.length > 0 && (
+                    <div>
+                      <p className="text-[10px] font-semibold text-[#6b6b7b] uppercase tracking-wider mb-2">Rent</p>
+                      <div className="space-y-2">
+                        {rentProviders.map(provider => (
+                          <div key={`rent-${provider.id}`} className="flex items-center gap-2.5">
+                            {provider.logoUrl ? (
+                              <img src={provider.logoUrl} alt={provider.name} className="w-7 h-7 rounded-md object-cover bg-[#0a0a0f]" />
+                            ) : (
+                              <div className="w-7 h-7 rounded-md bg-[#0a0a0f] flex items-center justify-center">
+                                <Tv className="w-3.5 h-3.5 text-[#6b6b7b]" />
+                              </div>
+                            )}
+                            <span className="text-sm text-white flex-1 truncate">{provider.name}</span>
+                            <span className="text-[9px] font-semibold bg-amber-500/10 text-amber-400 px-1.5 py-0.5 rounded">RENT</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Buy */}
+                  {buyProviders.length > 0 && (
+                    <div>
+                      <p className="text-[10px] font-semibold text-[#6b6b7b] uppercase tracking-wider mb-2">Buy</p>
+                      <div className="space-y-2">
+                        {buyProviders.map(provider => (
+                          <div key={`buy-${provider.id}`} className="flex items-center gap-2.5">
+                            {provider.logoUrl ? (
+                              <img src={provider.logoUrl} alt={provider.name} className="w-7 h-7 rounded-md object-cover bg-[#0a0a0f]" />
+                            ) : (
+                              <div className="w-7 h-7 rounded-md bg-[#0a0a0f] flex items-center justify-center">
+                                <Tv className="w-3.5 h-3.5 text-[#6b6b7b]" />
+                              </div>
+                            )}
+                            <span className="text-sm text-white flex-1 truncate">{provider.name}</span>
+                            <span className="text-[9px] font-semibold bg-sky-500/10 text-sky-400 px-1.5 py-0.5 rounded">BUY</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Free */}
+                  {freeProviders.length > 0 && (
+                    <div>
+                      <p className="text-[10px] font-semibold text-[#6b6b7b] uppercase tracking-wider mb-2">Free</p>
+                      <div className="space-y-2">
+                        {freeProviders.map(provider => (
+                          <div key={`free-${provider.id}`} className="flex items-center gap-2.5">
+                            {provider.logoUrl ? (
+                              <img src={provider.logoUrl} alt={provider.name} className="w-7 h-7 rounded-md object-cover bg-[#0a0a0f]" />
+                            ) : (
+                              <div className="w-7 h-7 rounded-md bg-[#0a0a0f] flex items-center justify-center">
+                                <Tv className="w-3.5 h-3.5 text-[#6b6b7b]" />
+                              </div>
+                            )}
+                            <span className="text-sm text-white flex-1 truncate">{provider.name}</span>
+                            <span className="text-[9px] font-semibold bg-emerald-500/10 text-emerald-400 px-1.5 py-0.5 rounded">FREE</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* JustWatch link */}
+                  {watchProviders?.link && (
+                    <a
+                      href={watchProviders.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-1.5 text-[10px] text-[#6b6b7b] hover:text-[#a0a0b0] pt-2 border-t border-[#2a2a35]/50 transition-colors"
+                    >
+                      Powered by JustWatch <ExternalLink className="w-2.5 h-2.5" />
+                    </a>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>

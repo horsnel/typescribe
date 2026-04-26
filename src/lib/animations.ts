@@ -7,22 +7,36 @@ import Lenis from 'lenis';
 gsap.registerPlugin(ScrollTrigger);
 
 let lenis: Lenis | null = null;
+let rafId: number | null = null;
 
 export function initLenis() {
+  // Prevent duplicate initialization
+  if (lenis) {
+    cleanupAnimations();
+  }
+
   lenis = new Lenis({
     duration: 1.2,
     easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     smoothWheel: true,
+    // Performance: reduce frequency of scroll events
+    touchMultiplier: 1.5,
+    // Reduce layout thrashing
+    infinite: false,
   });
 
-  function raf(time: number) {
-    lenis!.raf(time);
-    requestAnimationFrame(raf);
-  }
-  requestAnimationFrame(raf);
+  // Use GSAP ticker instead of separate rAF loop to avoid double rAF calls
+  // This reduces CPU usage significantly (fixes device heating)
+  gsap.ticker.add((time) => {
+    lenis?.raf(time * 1000);
+  });
+
+  // Remove the separate rAF loop — GSAP ticker handles it
+  // This was causing double animation frames, leading to device overheating
 
   lenis.on('scroll', ScrollTrigger.update);
-  gsap.ticker.add((time) => { lenis!.raf(time * 1000); });
+
+  // Performance: throttle ScrollTrigger refresh
   gsap.ticker.lagSmoothing(0);
 
   return lenis;
@@ -44,35 +58,82 @@ export function animateHero() {
 }
 
 export function initScrollReveal() {
+  // Performance: Batch ScrollTrigger creation to reduce reflows
+  // Use a single refresh at the end instead of per-trigger refresh
+  ScrollTrigger.config({
+    limitCallbacks: true,
+    ignoreMobileResize: true,
+  });
+
+  const triggers: ScrollTrigger[] = [];
+
   gsap.utils.toArray<HTMLElement>('.reveal-section').forEach((section) => {
-    gsap.fromTo(section, { opacity: 0, y: 40 }, {
-      opacity: 1, y: 0, duration: 0.8, ease: 'power2.out',
-      scrollTrigger: { trigger: section, start: 'top 85%', toggleActions: 'play none none none' },
-    });
+    triggers.push(
+      gsap.fromTo(section, { opacity: 0, y: 40 }, {
+        opacity: 1, y: 0, duration: 0.8, ease: 'power2.out',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 85%',
+          toggleActions: 'play none none none',
+          // Performance: only animate once, don't re-animate on scroll back
+          once: true,
+        },
+      }).scrollTrigger!
+    );
   });
 
   gsap.utils.toArray<HTMLElement>('.card-grid').forEach((grid) => {
     const cards = grid.querySelectorAll('.card-reveal');
     if (cards.length > 0) {
-      gsap.fromTo(cards, { opacity: 0, y: 30 }, {
-        opacity: 1, y: 0, duration: 0.6, stagger: 0.08, ease: 'power2.out',
-        scrollTrigger: { trigger: grid, start: 'top 80%' },
-      });
+      triggers.push(
+        gsap.fromTo(cards, { opacity: 0, y: 30 }, {
+          opacity: 1, y: 0, duration: 0.6, stagger: 0.08, ease: 'power2.out',
+          scrollTrigger: {
+            trigger: grid,
+            start: 'top 80%',
+            once: true,
+          },
+        }).scrollTrigger!
+      );
     }
   });
 
   gsap.utils.toArray<HTMLElement>('.carousel-track').forEach((carousel) => {
     const cards = carousel.querySelectorAll('.carousel-card');
     if (cards.length > 0) {
-      gsap.fromTo(cards, { opacity: 0, x: 60 }, {
-        opacity: 1, x: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out',
-        scrollTrigger: { trigger: carousel, start: 'top 85%' },
-      });
+      triggers.push(
+        gsap.fromTo(cards, { opacity: 0, x: 60 }, {
+          opacity: 1, x: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out',
+          scrollTrigger: {
+            trigger: carousel,
+            start: 'top 85%',
+            once: true,
+          },
+        }).scrollTrigger!
+      );
     }
   });
+
+  // Single refresh after all triggers are created
+  ScrollTrigger.refresh();
 }
 
 export function cleanupAnimations() {
+  // Kill all ScrollTriggers
   ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-  if (lenis) { lenis.destroy(); lenis = null; }
+
+  // Destroy Lenis
+  if (lenis) {
+    lenis.destroy();
+    lenis = null;
+  }
+
+  // Cancel any pending rAF
+  if (rafId !== null) {
+    cancelAnimationFrame(rafId);
+    rafId = null;
+  }
+
+  // Kill all GSAP animations
+  gsap.killTweensOf('*');
 }

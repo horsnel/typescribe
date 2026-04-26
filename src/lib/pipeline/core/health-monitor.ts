@@ -127,7 +127,7 @@ function getStats(name: string): ScraperStats {
 export async function getPipelineHealthReport(): Promise<PipelineHealthReport> {
   const circuitStates = getAllCircuitStates();
   const scrapingBeeStats = getScrapingBeeStats();
-  const dailyCredits = getScrapingBeeDailyStats();
+  const dailyCredits = { used: scrapingBeeStats.totalUsed, limit: scrapingBeeStats.activeKeys * 10000, remaining: scrapingBeeStats.totalRemaining };
 
   // Build per-scraper health
   const scrapers: ScraperHealth[] = SCRAPER_REGISTRY.map(config => {

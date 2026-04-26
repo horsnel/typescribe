@@ -108,11 +108,14 @@ export function getPipelineStatus(): PipelineStatus {
       hitRate: cacheStats.hitRate,
       avgCompleteness: cacheStats.avgCompleteness,
     },
-    scrapingBee: {
+    scrapingAnt: {
       configured: sbStats.configured,
-      dailyCreditsUsed: sbStats.dailyCredits.used,
-      dailyCreditsLimit: sbStats.dailyCredits.limit,
-      dailyCreditsRemaining: sbStats.dailyCredits.remaining,
+      totalRequests: sbStats.totalRequests,
+      successRate: sbStats.successRate,
+      totalUsed: sbStats.totalUsed,
+      totalRemaining: sbStats.totalRemaining,
+      activeKeys: sbStats.activeKeys,
+      keyStats: sbStats.keyStats,
     },
     omdbDaily: {
       used: omdbStats.used,

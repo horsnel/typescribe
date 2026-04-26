@@ -1,5 +1,6 @@
 'use client';
 import { useState, useMemo, useEffect, useCallback } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Search as SearchIcon, TrendingUp, Clock, X, Film, MessageSquare, Newspaper, Star, ArrowRight, Loader2, Zap } from 'lucide-react';
 import Link from 'next/link';
 import { movies, userReviews, newsItems, genres } from '@/lib/data';
@@ -9,7 +10,9 @@ import MovieCard from '@/components/movie/MovieCard';
 type Tab = 'movies' | 'reviews' | 'news';
 
 export default function SearchPage() {
-  const [query, setQuery] = useState('');
+  const searchParams = useSearchParams();
+  const urlQuery = searchParams.get('q') || '';
+  const [query, setQuery] = useState(urlQuery);
   const [tab, setTab] = useState<Tab>('movies');
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
 
@@ -17,6 +20,13 @@ export default function SearchPage() {
   const [apiMovies, setApiMovies] = useState<Movie[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [fromAPI, setFromAPI] = useState(false);
+
+  // Sync query from URL when arriving via SearchOverlay "View all results" link
+  useEffect(() => {
+    if (urlQuery && urlQuery !== query) {
+      setQuery(urlQuery);
+    }
+  }, [urlQuery]);
 
   // Load recent searches
   useEffect(() => {

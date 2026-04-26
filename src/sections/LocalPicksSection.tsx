@@ -1,11 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Globe, MapPin, ChevronRight, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { detectLocation, getCurrentLocation, setCountryOverride, COUNTRY_FLAGS, COUNTRY_NAMES, AVAILABLE_COUNTRIES, getSuggestionReason } from '@/lib/geolocation';
 import MovieCard from '@/components/movie/MovieCard';
 import { movies } from '@/lib/data';
+import type { Movie } from '@/lib/types';
 
 interface LocationData {
   countryCode: string;
@@ -18,7 +19,32 @@ export default function LocalPicksSection() {
   const [location, setLocation] = useState<LocationData | null>(null);
   const [detecting, setDetecting] = useState(true);
   const [showCountryPicker, setShowCountryPicker] = useState(false);
-  const [suggestedMovies, setSuggestedMovies] = useState(movies.slice(0, 6));
+  const [suggestedMovies, setSuggestedMovies] = useState<Movie[]>(movies.slice(0, 6));
+  const [loadingMovies, setLoadingMovies] = useState(false);
+
+  // Fetch movies from the discover/local API based on the detected country
+  const fetchLocalMovies = useCallback(async (countryCode: string) => {
+    setLoadingMovies(true);
+    try {
+      const res = await fetch(`/api/discover/local?countryCode=${encodeURIComponent(countryCode)}`);
+      if (res.ok) {
+        const data = await res.json();
+        if (data.movies && data.movies.length > 0) {
+          setSuggestedMovies(data.movies.slice(0, 12));
+        } else {
+          // Fallback to mock data if API returns empty
+          setSuggestedMovies(movies.slice(0, 6));
+        }
+      } else {
+        setSuggestedMovies(movies.slice(0, 6));
+      }
+    } catch {
+      // On error, fall back to mock data
+      setSuggestedMovies(movies.slice(0, 6));
+    } finally {
+      setLoadingMovies(false);
+    }
+  }, []);
 
   useEffect(() => {
     async function detect() {
@@ -30,22 +56,56 @@ export default function LocalPicksSection() {
           const flag = COUNTRY_FLAGS[cached.countryCode] || '🌍';
           const name = COUNTRY_NAMES[cached.countryCode] || cached.countryName;
           setLocation({ countryCode: cached.countryCode, countryName: name, flag, reason: getSuggestionReason(cached.countryCode) });
+          // Fetch country-specific movies
+          fetchLocalMovies(cached.countryCode);
           setDetecting(false);
           return;
         }
 
-        // Detect from IP
+        // Detect from IP via our API route (which forwards client IP)
+        try {
+          const geoRes = await fetch('/api/geo');
+          if (geoRes.ok) {
+            const geoData = await geoRes.json();
+            if (geoData.countryCode) {
+              const flag = COUNTRY_FLAGS[geoData.countryCode] || '🌍';
+              const name = COUNTRY_NAMES[geoData.countryCode] || geoData.countryName;
+              const loc = { countryCode: geoData.countryCode, countryName: name, flag, reason: getSuggestionReason(geoData.countryCode) };
+              setLocation(loc);
+              // Cache the result in localStorage
+              try {
+                localStorage.setItem('typescribe_geo', JSON.stringify({
+                  countryCode: geoData.countryCode,
+                  countryName: geoData.countryName || name,
+                  city: geoData.city || '',
+                  region: geoData.region || '',
+                  latitude: 0,
+                  longitude: 0,
+                  timezone: geoData.timezone || 'UTC',
+                  detected: true,
+                  timestamp: Date.now(),
+                }));
+              } catch { /* ignore */ }
+              fetchLocalMovies(geoData.countryCode);
+              setDetecting(false);
+              return;
+            }
+          }
+        } catch { /* API route failed, continue with client-side detection */ }
+
+        // Fallback to client-side detection
         const geo = await detectLocation();
         if (geo) {
           const flag = COUNTRY_FLAGS[geo.countryCode] || '🌍';
           const name = COUNTRY_NAMES[geo.countryCode] || geo.countryName;
           setLocation({ countryCode: geo.countryCode, countryName: name, flag, reason: getSuggestionReason(geo.countryCode) });
+          fetchLocalMovies(geo.countryCode);
         }
       } catch { /* silent */ }
       setDetecting(false);
     }
     detect();
-  }, []);
+  }, [fetchLocalMovies]);
 
   const handleCountryChange = (code: string) => {
     const name = COUNTRY_NAMES[code] || code;
@@ -53,6 +113,7 @@ export default function LocalPicksSection() {
     setCountryOverride(code, name);
     setLocation({ countryCode: code, countryName: name, flag, reason: getSuggestionReason(code) });
     setShowCountryPicker(false);
+    fetchLocalMovies(code);
   };
 
   return (
@@ -118,11 +179,18 @@ export default function LocalPicksSection() {
         )}
 
         {/* Movie Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-          {suggestedMovies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
-          ))}
-        </div>
+        {loadingMovies ? (
+          <div className="flex items-center justify-center py-16">
+            <Loader2 className="w-8 h-8 animate-spin text-[#e50914]" />
+            <span className="ml-3 text-[#a0a0b0]">Loading local picks...</span>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            {suggestedMovies.map((movie) => (
+              <MovieCard key={movie.id} movie={movie} />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
