@@ -589,7 +589,7 @@ export default function AdminDataPipelinePage() {
         </div>
 
         {/* ─── Overall Health ─── */}
-        {health && (
+        {health && health.overallStatus && (
           <section className="mb-10">
             <div className={`rounded-xl border p-5 ${
               health.overallStatus === 'healthy' ? 'bg-emerald-500/5 border-emerald-500/15' :
@@ -603,14 +603,14 @@ export default function AdminDataPipelinePage() {
                 }`} />
                 <span className="text-white font-semibold">Pipeline Health: {health.overallStatus.toUpperCase()}</span>
                 <span className="text-[#6b7280] text-xs">
-                  {health.scrapers.filter(s => s.status === 'healthy').length} healthy,
-                  {' '}{health.scrapers.filter(s => s.status === 'degraded').length} degraded,
-                  {' '}{health.scrapers.filter(s => s.status === 'down').length} down
+                  {(health.scrapers || []).filter(s => s.status === 'healthy').length} healthy,
+                  {' '}{(health.scrapers || []).filter(s => s.status === 'degraded').length} degraded,
+                  {' '}{(health.scrapers || []).filter(s => s.status === 'down').length} down
                 </span>
               </div>
-              {health.recommendations.length > 0 && (
+              {(health.recommendations || []).length > 0 && (
                 <div className="space-y-1.5">
-                  {health.recommendations.slice(0, 5).map((rec, i) => (
+                  {(health.recommendations || []).slice(0, 5).map((rec, i) => (
                     <div key={i} className="flex items-start gap-2 text-xs">
                       <AlertTriangle className="w-3.5 h-3.5 text-amber-400 flex-shrink-0 mt-0.5" />
                       <span className="text-[#9ca3af]">{rec}</span>
