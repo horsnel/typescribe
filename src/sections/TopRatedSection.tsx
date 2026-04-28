@@ -28,31 +28,28 @@ export default function TopRatedSection() {
   const displayMovies = topMovies;
 
   return (
-    <section id="top-rated" className="py-20 bg-[#050507]">
+    <section id="top-rated" className="py-12 bg-[#050507]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="flex items-center gap-3 mb-10">
+        <div className="flex items-center gap-3 mb-6">
           <h2 className="reveal-section text-2xl sm:text-3xl font-bold text-white tracking-tight">Top Rated This Week</h2>
-          {fromAPI && (
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Live</span>
-          )}
         </div>
         {loading ? (
           <div className="flex items-center justify-center py-12">
-            <Loader2 className="w-6 h-6 text-[#e50914] animate-spin" />
+            <Loader2 className="w-6 h-6 text-[#d4a853] animate-spin" />
           </div>
         ) : (
           <div className="card-grid grid grid-cols-1 md:grid-cols-3 gap-6">
             {displayMovies.map((movie, i) => {
               const rank = i + 1;
               return (
-                <Link key={movie.id} href={`/movie/${movie.slug}`} className="card-reveal bg-[#0c0c10] border border-white/[0.06] rounded-xl overflow-hidden hover:border-[#e50914]/30 hover:shadow-xl transition-all group">
+                <Link key={movie.id} href={`/movie/${movie.slug}`} className="card-reveal bg-[#0c0c10] border border-white/[0.06] rounded-xl overflow-hidden hover:border-[#d4a853]/30 hover:shadow-xl transition-all group">
                   <div className="relative aspect-[16/10] overflow-hidden">
                     <img src={movie.backdrop_path?.startsWith('http') ? movie.backdrop_path : movie.backdrop_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w780${movie.backdrop_path}` : movie.poster_path?.startsWith('http') ? movie.poster_path : movie.poster_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w780${movie.poster_path}` : ''} alt={movie.title} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#050507]/60 via-transparent to-transparent" />
                     <div className="absolute top-3 left-3"><span className={`inline-flex items-center justify-center w-12 h-12 rounded-full ${rankBgColors[rank]} backdrop-blur-sm ${rankColors[rank]} text-2xl font-extrabold border-2 ${rank === 1 ? 'border-[#f5c518]' : rank === 2 ? 'border-[#c0c0c0]' : 'border-[#cd7f32]'}`} style={{ textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}>#{rank}</span></div>
                   </div>
                   <div className="p-5">
-                    <h3 className="text-lg font-bold text-white mb-1 group-hover:text-[#e50914] transition-colors">{movie.title}</h3>
+                    <h3 className="text-lg font-bold text-white mb-1 group-hover:text-[#d4a853] transition-colors">{movie.title}</h3>
                     <div className="flex items-center gap-3 mb-3">
                       <div className="flex items-center gap-1"><Star className="w-4 h-4 text-[#f5c518] fill-[#f5c518]" /><span className="text-sm font-semibold text-[#f5c518]">{movie.vote_average.toFixed(1)}</span></div>
                       {movie.imdb_rating && <span className="text-xs text-[#6b7280]">IMDb {movie.imdb_rating}</span>}

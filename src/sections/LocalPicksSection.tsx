@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
-import { Globe, MapPin, ChevronRight, Loader2 } from 'lucide-react';
+import { Globe, ChevronRight, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { detectLocation, getCurrentLocation, setCountryOverride, COUNTRY_NAMES, AVAILABLE_COUNTRIES, getSuggestionReason } from '@/lib/geolocation';
 import MovieCard from '@/components/movie/MovieCard';
@@ -31,14 +31,12 @@ export default function LocalPicksSection() {
         if (data.movies && data.movies.length > 0) {
           setSuggestedMovies(data.movies.slice(0, 12));
         } else {
-          // Fallback to mock data if API returns empty
           setSuggestedMovies(movies.slice(0, 6));
         }
       } else {
         setSuggestedMovies(movies.slice(0, 6));
       }
     } catch {
-      // On error, fall back to mock data
       setSuggestedMovies(movies.slice(0, 6));
     } finally {
       setLoadingMovies(false);
@@ -49,18 +47,15 @@ export default function LocalPicksSection() {
     async function detect() {
       setDetecting(true);
       try {
-        // Try to get from cache/override first
         const cached = getCurrentLocation();
         if (cached) {
           const name = COUNTRY_NAMES[cached.countryCode] || cached.countryName;
           setLocation({ countryCode: cached.countryCode, countryName: name, reason: getSuggestionReason(cached.countryCode) });
-          // Fetch country-specific movies
           fetchLocalMovies(cached.countryCode);
           setDetecting(false);
           return;
         }
 
-        // Detect from IP via our API route (which forwards client IP)
         try {
           const geoRes = await fetch('/api/geo');
           if (geoRes.ok) {
@@ -69,7 +64,6 @@ export default function LocalPicksSection() {
               const name = COUNTRY_NAMES[geoData.countryCode] || geoData.countryName;
               const loc = { countryCode: geoData.countryCode, countryName: name, reason: getSuggestionReason(geoData.countryCode) };
               setLocation(loc);
-              // Cache the result in localStorage
               try {
                 localStorage.setItem('typescribe_geo', JSON.stringify({
                   countryCode: geoData.countryCode,
@@ -90,7 +84,6 @@ export default function LocalPicksSection() {
           }
         } catch { /* API route failed, continue with client-side detection */ }
 
-        // Fallback to client-side detection
         const geo = await detectLocation();
         if (geo) {
           const name = COUNTRY_NAMES[geo.countryCode] || geo.countryName;
@@ -112,27 +105,24 @@ export default function LocalPicksSection() {
   };
 
   return (
-    <section className="py-16 bg-[#050507]">
+    <section className="py-12 bg-[#050507]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         {/* Header */}
-        <div className="flex items-start justify-between mb-8 flex-wrap gap-4">
+        <div className="flex items-start justify-between mb-6 flex-wrap gap-4">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <div className="w-8 h-8 rounded-full bg-[#e50914]/10 flex items-center justify-center">
-                <MapPin className="w-4 h-4 text-[#e50914]" />
-              </div>
               <h2 className="text-2xl font-bold text-white">
                 {detecting ? 'Detecting your location...' : location ? (
                   <span className="flex items-center gap-2">
                     Local Picks from
-                    <span className="inline-flex items-center justify-center bg-[#e50914]/15 text-[#e50914] text-sm font-semibold px-3 py-1 rounded-full border border-[#e50914]/25">
+                    <span className="inline-flex items-center justify-center bg-[#d4a853]/10 text-[#d4a853] text-sm font-semibold px-3 py-1 rounded-full border border-[#d4a853]/20">
                       {location.countryName}
                     </span>
                   </span>
                 ) : 'Popular Near You'}
               </h2>
             </div>
-            <p className="text-[#9ca3af] text-sm ml-11">
+            <p className="text-[#9ca3af] text-sm">
               {detecting ? (
                 <span className="flex items-center gap-2"><Loader2 className="w-3.5 h-3.5 animate-spin" /> Finding content tailored to your region...</span>
               ) : location ? (
@@ -140,7 +130,7 @@ export default function LocalPicksSection() {
                   {location.reason} — based on {location.countryName}
                   <button
                     onClick={() => setShowCountryPicker(!showCountryPicker)}
-                    className="ml-2 text-[#e50914] hover:underline inline-flex items-center gap-1"
+                    className="ml-2 text-[#d4a853] hover:underline inline-flex items-center gap-1"
                   >
                     <Globe className="w-3.5 h-3.5" /> Change
                   </button>
@@ -148,14 +138,14 @@ export default function LocalPicksSection() {
               ) : (
                 <>
                   Movies trending in your area
-                  <button onClick={() => setShowCountryPicker(!showCountryPicker)} className="ml-2 text-[#e50914] hover:underline inline-flex items-center gap-1">
+                  <button onClick={() => setShowCountryPicker(!showCountryPicker)} className="ml-2 text-[#d4a853] hover:underline inline-flex items-center gap-1">
                     <Globe className="w-3.5 h-3.5" /> Pick region
                   </button>
                 </>
               )}
             </p>
           </div>
-          <Link href="/browse" className="text-sm text-[#e50914] hover:underline flex items-center gap-1">
+          <Link href="/browse" className="text-sm text-[#d4a853] hover:underline flex items-center gap-1">
             Browse All <ChevronRight className="w-4 h-4" />
           </Link>
         </div>
@@ -170,7 +160,7 @@ export default function LocalPicksSection() {
                   key={code}
                   onClick={() => handleCountryChange(code)}
                   className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
-                    location?.countryCode === code ? 'bg-[#e50914] text-white' : 'bg-[#050507] border border-white/[0.06] text-[#9ca3af] hover:text-white hover:border-[#e50914]/30'
+                    location?.countryCode === code ? 'bg-[#d4a853] text-white' : 'bg-[#050507] border border-white/[0.06] text-[#9ca3af] hover:text-white hover:border-[#d4a853]/30'
                   }`}
                 >
                   {COUNTRY_NAMES[code]}
@@ -183,7 +173,7 @@ export default function LocalPicksSection() {
         {/* Movie Grid */}
         {loadingMovies ? (
           <div className="flex items-center justify-center py-16">
-            <Loader2 className="w-8 h-8 animate-spin text-[#e50914]" />
+            <Loader2 className="w-8 h-8 animate-spin text-[#d4a853]" />
             <span className="ml-3 text-[#9ca3af]">Loading local picks...</span>
           </div>
         ) : (

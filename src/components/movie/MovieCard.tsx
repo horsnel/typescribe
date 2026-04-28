@@ -20,17 +20,17 @@ export default function MovieCard({ movie, className }: MovieCardProps) {
         />
         {/* Sheen overlay */}
         <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 40%)' }} />
-        <div className="absolute top-2 right-2 flex items-center gap-1 bg-[#f5c518] text-black text-xs font-bold px-2 py-0.5 rounded-full shadow-lg z-10">
-          <Star className="w-3 h-3 fill-black" strokeWidth={2.5} />{movie.vote_average.toFixed(1)}
+        <div className="absolute top-2 right-2 flex items-center gap-1 bg-[#d4a853] text-black text-xs font-bold px-2 py-0.5 rounded-full shadow-lg z-10">
+          <Star className="w-3 h-3 fill-black" strokeWidth={1.5} />{movie.vote_average.toFixed(1)}
         </div>
         <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
-            <Play className="w-4 h-4 text-white fill-white" strokeWidth={2.5} /><span className="text-sm font-medium text-white">Watch Trailer</span>
+            <Play className="w-4 h-4 text-white fill-white" strokeWidth={1.5} /><span className="text-sm font-medium text-white">Watch Trailer</span>
           </div>
         </div>
       </div>
       <div className="mt-3">
-        <h3 className="text-sm font-semibold text-[#f1f1f4] truncate group-hover:text-[#e50914] transition-colors">{movie.title}</h3>
+        <h3 className="text-sm font-semibold text-[#f1f1f4] truncate group-hover:text-[#d4a853] transition-colors">{movie.title}</h3>
         <div className="flex items-center gap-2 mt-1">
           {year && <span className="text-xs text-[#9ca3af]">{year}</span>}
           {year && genreNames.length > 0 && <span className="text-[#1e1e28]">·</span>}

@@ -8,7 +8,7 @@ import type { Movie } from '@/lib/types';
 type HeroFormat = 'movie' | 'tv' | 'anime';
 
 const formatConfig: Record<HeroFormat, { label: string; cta: string; href: string; accent: string; heading: string }> = {
-  movie: { label: 'Movies', cta: 'Browse Movies', href: '/browse', accent: '#e50914', heading: 'Favorite Movie' },
+  movie: { label: 'Movies', cta: 'Browse Movies', href: '/browse', accent: '#d4a853', heading: 'Favorite Movie' },
   tv: { label: 'Series', cta: 'Browse Series', href: '/browse?format=tv', accent: '#3b82f6', heading: 'Favorite Series' },
   anime: { label: 'Anime', cta: 'Browse Anime', href: '/browse?format=anime', accent: '#a855f7', heading: 'Favorite Anime' },
 };
@@ -115,7 +115,7 @@ export default function HeroSection() {
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full"
           style={{
-            background: 'radial-gradient(ellipse, rgba(229,9,20,0.06) 0%, transparent 70%)',
+            background: 'radial-gradient(ellipse, rgba(212,168,83,0.06) 0%, transparent 70%)',
           }}
         />
       </div>
@@ -127,7 +127,7 @@ export default function HeroSection() {
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight mb-6">
               Discover Your Next{' '}
               <span
-                className="inline-block bg-gradient-to-r from-[#e50914] to-[#ff6b6b] bg-clip-text text-transparent"
+                className="inline-block bg-gradient-to-r from-[#d4a853] to-[#f0d78c] bg-clip-text text-transparent"
                 style={{
                   transition: 'all 0.4s ease',
                 }}
@@ -156,7 +156,7 @@ export default function HeroSection() {
                   onClick={() => setHeroFormat(key)}
                   className={`flex items-center gap-2 px-5 py-2.5 text-sm font-medium transition-all duration-200 ${
                     heroFormat === key
-                      ? 'bg-[#e50914] text-white'
+                      ? 'bg-[#d4a853] text-white'
                       : 'text-[#9ca3af] hover:text-white hover:bg-[#111118]'
                   }`}
                 >
@@ -169,7 +169,7 @@ export default function HeroSection() {
           <div className="hero-cta flex items-center gap-4 opacity-0">
             <Link
               href={cfg.href}
-              className="inline-flex items-center justify-center bg-[#e50914] hover:bg-[#b20710] text-white font-semibold px-8 py-4 rounded-xl text-base transition-colors duration-200 shadow-lg shadow-[#e50914]/20"
+              className="inline-flex items-center justify-center bg-[#d4a853] hover:bg-[#b8922e] text-white font-semibold px-8 py-4 rounded-xl text-base transition-colors duration-200 shadow-lg shadow-[#d4a853]/20"
             >
               {cfg.cta}
             </Link>
@@ -184,12 +184,12 @@ export default function HeroSection() {
           {/* Featured Movie Info Card */}
           {posterMovies.length > 0 && (
           <div className="hero-movie-info mt-12">
-            <Link href={`/movie/${posterMovies[0].slug}`} className="flex items-center gap-4 bg-[#0c0c10]/80 backdrop-blur-sm border border-white/[0.06] rounded-xl p-4 max-w-md hover:border-[#e50914]/30 transition-colors group">
+            <Link href={`/movie/${posterMovies[0].slug}`} className="flex items-center gap-4 bg-[#0c0c10]/80 backdrop-blur-sm border border-white/[0.06] rounded-xl p-4 max-w-md hover:border-[#d4a853]/30 transition-colors group">
               <div className="w-12 h-18 flex-shrink-0 rounded-lg overflow-hidden">
                 <img src={posterMovies[0].poster_path?.startsWith('http') ? posterMovies[0].poster_path : posterMovies[0].poster_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w92${posterMovies[0].poster_path}` : posterMovies[0].poster_path || ''} alt={posterMovies[0].title} className="w-full h-full object-cover" />
               </div>
               <div className="min-w-0">
-                <h3 className="text-sm font-bold text-white truncate group-hover:text-[#e50914] transition-colors">{posterMovies[0].title}</h3>
+                <h3 className="text-sm font-bold text-white truncate group-hover:text-[#d4a853] transition-colors">{posterMovies[0].title}</h3>
                 <div className="flex items-center gap-2 mt-1">
                   <Star className="w-3.5 h-3.5 text-[#f5c518] fill-[#f5c518]" />
                   <span className="text-sm font-semibold text-[#f5c518]">{posterMovies[0].vote_average.toFixed(1)}</span>

@@ -156,16 +156,16 @@ export default function Footer() {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Your email"
                     required
-                    className="flex-1 bg-[#0c0c10] border border-[#1e1e28] rounded-lg px-3 py-2 text-sm text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914]"
+                    className="flex-1 bg-[#0c0c10] border border-[#1e1e28] rounded-lg px-3 py-2 text-sm text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853]"
                   />
-                  <button type="submit" disabled={loading} className="px-4 py-2 bg-[#e50914] hover:bg-[#b20710] text-white text-sm font-medium rounded-lg transition-colors disabled:opacity-60">
+                  <button type="submit" disabled={loading} className="px-4 py-2 bg-[#d4a853] hover:bg-[#b8922e] text-white text-sm font-medium rounded-lg transition-colors disabled:opacity-60">
                     {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Mail className="w-4 h-4" />}
                   </button>
                 </form>
               )}
               <div className="flex gap-3 mb-4">
                 {socialLinks.map((social) => (
-                  <a key={social.label} href={social.href} className="p-2.5 bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#e50914] rounded-lg transition-all" aria-label={social.label}>
+                  <a key={social.label} href={social.href} className="p-2.5 bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#d4a853] rounded-lg transition-all" aria-label={social.label}>
                     <social.icon className="w-4 h-4" />
                   </a>
                 ))}
@@ -176,7 +176,7 @@ export default function Footer() {
           <Separator className="my-10 bg-[#1e1e28]" />
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
-              <Film className="w-5 h-5 text-[#e50914]" />
+              <Film className="w-5 h-5 text-[#d4a853]" />
               <button
                 onClick={handleBrandClick}
                 className="text-sm text-[#6b7280] hover:text-[#9ca3af] transition-colors cursor-default select-none font-bold tracking-[0.2em]"
@@ -196,8 +196,8 @@ export default function Footer() {
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm">
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-full bg-[#e50914]/10 flex items-center justify-center">
-                <Lock className="w-5 h-5 text-[#e50914]" />
+              <div className="w-10 h-10 rounded-full bg-[#d4a853]/10 flex items-center justify-center">
+                <Lock className="w-5 h-5 text-[#d4a853]" />
               </div>
               <div>
                 <h3 className="text-lg font-bold text-white">Admin Access</h3>
@@ -215,14 +215,14 @@ export default function Footer() {
               onChange={(e) => setAdminPassword(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleAdminLogin()}
               placeholder="Enter admin password"
-              className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914] mb-4"
+              className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] mb-4"
               autoFocus
             />
             <div className="flex gap-3">
               <Button
                 onClick={handleAdminLogin}
                 disabled={!adminPassword || adminLoading}
-                className="flex-1 bg-[#e50914] hover:bg-[#b20710] text-white disabled:opacity-50"
+                className="flex-1 bg-[#d4a853] hover:bg-[#b8922e] text-white disabled:opacity-50"
               >
                 {adminLoading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Lock className="w-4 h-4 mr-2" />}
                 Authenticate

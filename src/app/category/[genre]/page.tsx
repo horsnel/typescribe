@@ -115,17 +115,8 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
   return (
     <div className="min-h-screen bg-[#050507] pt-8 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
-        {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-sm text-[#6b7280] mb-6">
-          <Link href="/" className="hover:text-white transition-colors">Home</Link>
-          <span>/</span>
-          <Link href="/browse" className="hover:text-white transition-colors">Browse</Link>
-          <span>/</span>
-          <span className="text-[#9ca3af]">{displayName}</span>
-        </nav>
-
         {/* Hero Banner */}
-        <div className="relative bg-gradient-to-r from-[#e50914]/20 to-[#b20710]/5 border border-[#e50914]/20 rounded-2xl p-8 mb-8 overflow-hidden">
+        <div className="relative bg-gradient-to-r from-[#d4a853]/20 to-[#d4a853]/5 border border-[#d4a853]/20 rounded-2xl p-8 mb-8 overflow-hidden">
           <div className="absolute right-0 top-0 w-1/2 h-full opacity-10">
             {newestMovie && newestMovie.backdrop_path && (
               <img src={newestMovie.backdrop_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w780${newestMovie.backdrop_path}` : newestMovie.backdrop_path} alt="" className="w-full h-full object-cover" />
@@ -135,26 +126,27 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
             <h1 className="text-3xl lg:text-4xl font-extrabold text-white mb-2">{displayName} Movies</h1>
             <p className="text-[#9ca3af] mb-6">{totalResults.toLocaleString()} movies in this category</p>
 
-            {/* Stats Row */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              <div className="bg-[#050507]/50 backdrop-blur-sm rounded-lg p-3 border border-[#1e1e28]/50">
-                <p className="text-xs text-[#6b7280]">Total Movies</p>
-                <p className="text-xl font-bold text-white">{totalResults.toLocaleString()}</p>
+            {/* Stats Row - horizontal inline */}
+            <div className="flex items-center gap-6 flex-wrap">
+              <div>
+                <span className="text-xs text-[#6b7280]">Total Movies</span>
+                <span className="text-sm font-bold text-white ml-2">{totalResults.toLocaleString()}</span>
               </div>
-              <div className="bg-[#050507]/50 backdrop-blur-sm rounded-lg p-3 border border-[#1e1e28]/50">
-                <p className="text-xs text-[#6b7280]">Avg Rating</p>
-                <div className="flex items-center gap-1">
-                  <Star className="w-4 h-4 text-[#f5c518] fill-[#f5c518]" />
-                  <p className="text-xl font-bold text-[#f5c518]">{avgRating}</p>
-                </div>
+              <div className="h-4 w-px bg-white/10" />
+              <div className="flex items-center gap-1">
+                <span className="text-xs text-[#6b7280]">Avg Rating</span>
+                <Star className="w-3.5 h-3.5 text-[#f5c518] fill-[#f5c518] ml-2" />
+                <span className="text-sm font-bold text-[#f5c518]">{avgRating}</span>
               </div>
-              <div className="bg-[#050507]/50 backdrop-blur-sm rounded-lg p-3 border border-[#1e1e28]/50">
-                <p className="text-xs text-[#6b7280]">Highest rated</p>
-                <p className="text-sm font-bold text-white truncate">{highestRated?.title || 'N/A'}</p>
+              <div className="h-4 w-px bg-white/10" />
+              <div>
+                <span className="text-xs text-[#6b7280]">Highest rated</span>
+                <span className="text-sm font-bold text-white ml-2">{highestRated?.title || 'N/A'}</span>
               </div>
-              <div className="bg-[#050507]/50 backdrop-blur-sm rounded-lg p-3 border border-[#1e1e28]/50">
-                <p className="text-xs text-[#6b7280]">Newest</p>
-                <p className="text-sm font-bold text-white truncate">{newestMovie?.title || 'N/A'}</p>
+              <div className="h-4 w-px bg-white/10" />
+              <div>
+                <span className="text-xs text-[#6b7280]">Newest</span>
+                <span className="text-sm font-bold text-white ml-2">{newestMovie?.title || 'N/A'}</span>
               </div>
             </div>
           </div>
@@ -176,7 +168,7 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
                     key={value}
                     onClick={() => { setSort(value); setCurrentPage(1); }}
                     className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
-                      sort === value ? 'bg-[#e50914] text-white' : 'bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
+                      sort === value ? 'bg-[#d4a853] text-white' : 'bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
                     }`}
                   >
                     {label}
@@ -184,10 +176,10 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
                 ))}
               </div>
               <div className="flex items-center border border-[#1e1e28] rounded-lg overflow-hidden">
-                <button onClick={() => setView('grid')} className={`p-2 ${view === 'grid' ? 'bg-[#e50914] text-white' : 'text-[#6b7280] hover:text-white'}`}>
+                <button onClick={() => setView('grid')} className={`p-2 ${view === 'grid' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white'}`}>
                   <Grid3X3 className="w-4 h-4" />
                 </button>
-                <button onClick={() => setView('list')} className={`p-2 ${view === 'list' ? 'bg-[#e50914] text-white' : 'text-[#6b7280] hover:text-white'}`}>
+                <button onClick={() => setView('list')} className={`p-2 ${view === 'list' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white'}`}>
                   <List className="w-4 h-4" />
                 </button>
               </div>
@@ -196,7 +188,7 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
             {/* Loading */}
             {loading ? (
               <div className="flex items-center justify-center py-24">
-                <Loader2 className="w-8 h-8 animate-spin text-[#e50914]" />
+                <Loader2 className="w-8 h-8 animate-spin text-[#d4a853]" />
               </div>
             ) : genreMovies.length > 0 ? (
               <>
@@ -212,7 +204,7 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
                           <img src={movie.poster_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w92${movie.poster_path}` : movie.poster_path} alt={movie.title} className="w-full h-full object-cover" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h3 className="text-sm font-semibold text-white group-hover:text-[#e50914] transition-colors truncate">{movie.title}</h3>
+                          <h3 className="text-sm font-semibold text-white group-hover:text-[#d4a853] transition-colors truncate">{movie.title}</h3>
                           <div className="flex items-center gap-2 mt-1">
                             <span className="text-xs text-[#f5c518] font-medium">★ {movie.vote_average.toFixed(1)}</span>
                             <span className="text-xs text-[#6b7280]">{movie.release_date?.split('-')[0]}</span>
@@ -249,7 +241,7 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
             ) : (
               <div className="text-center py-24">
                 <p className="text-lg text-[#9ca3af] mb-2">No movies found in this category</p>
-                <Link href="/browse" className="text-[#e50914] hover:underline">Browse all movies</Link>
+                <Link href="/browse" className="text-[#d4a853] hover:underline">Browse all movies</Link>
               </div>
             )}
           </div>
@@ -264,7 +256,7 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
                   {relatedGenres.map((g) => g && (
                     <Link key={g.id} href={`/category/${g.id}`} className="flex items-center justify-between p-2.5 bg-[#050507] border border-[#1e1e28] rounded-lg hover:border-[#3a3a45] transition-colors group">
                       <span className="text-sm text-[#9ca3af] group-hover:text-white transition-colors">{g.name}</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-[#6b7280] group-hover:text-[#e50914] transition-colors" />
+                      <ArrowRight className="w-3.5 h-3.5 text-[#6b7280] group-hover:text-[#d4a853] transition-colors" />
                     </Link>
                   ))}
                 </div>
@@ -280,7 +272,7 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
                     key={g.id}
                     href={`/category/${g.id}`}
                     className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
-                      g.id === genre ? 'bg-[#e50914] text-white' : 'bg-[#050507] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
+                      g.id === genre ? 'bg-[#d4a853] text-white' : 'bg-[#050507] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
                     }`}
                   >
                     {g.name}

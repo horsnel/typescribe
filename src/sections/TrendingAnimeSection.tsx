@@ -90,9 +90,9 @@ export default function TrendingAnimeSection() {
   if (!loading && animeList.length === 0) return null;
 
   return (
-    <section id="anime-trending" className="py-20 bg-[#050507]">
+    <section id="anime-trending" className="py-12 bg-[#050507]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="reveal-section flex items-center justify-between mb-10">
+        <div className="reveal-section flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
             <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">Trending Anime</h2>
             {sources.length > 0 && (

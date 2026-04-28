@@ -286,7 +286,7 @@ export default function BrowsePage() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search titles, directors..."
-                className="w-full sm:w-64 bg-[#0c0c10] border border-[#1e1e28] rounded-lg py-2.5 pl-10 pr-4 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914] text-sm"
+                className="w-full sm:w-64 bg-[#0c0c10] border border-[#1e1e28] rounded-lg py-2.5 pl-10 pr-4 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] text-sm"
               />
               {query && (
                 <button onClick={() => setQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6b7280] hover:text-white">
@@ -297,16 +297,16 @@ export default function BrowsePage() {
             <Button
               variant="outline"
               onClick={() => setAdvancedOpen(!advancedOpen)}
-              className={`border-[#1e1e28] bg-transparent text-white hover:bg-[#111118] hover:text-white gap-2 ${advancedOpen ? 'border-[#e50914]' : ''}`}
+              className={`border-[#1e1e28] bg-transparent text-white hover:bg-[#111118] hover:text-white gap-2 ${advancedOpen ? 'border-[#d4a853]' : ''}`}
             >
               <SlidersHorizontal className="w-4 h-4" />
               <span className="hidden sm:inline">More</span>
             </Button>
             <div className="hidden sm:flex items-center border border-[#1e1e28] rounded-lg overflow-hidden">
-              <button onClick={() => setView('grid')} className={`p-2 ${view === 'grid' ? 'bg-[#e50914] text-white' : 'text-[#6b7280] hover:text-white'}`}>
+              <button onClick={() => setView('grid')} className={`p-2 ${view === 'grid' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white'}`}>
                 <Grid3X3 className="w-4 h-4" />
               </button>
-              <button onClick={() => setView('list')} className={`p-2 ${view === 'list' ? 'bg-[#e50914] text-white' : 'text-[#6b7280] hover:text-white'}`}>
+              <button onClick={() => setView('list')} className={`p-2 ${view === 'list' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white'}`}>
                 <List className="w-4 h-4" />
               </button>
             </div>
@@ -314,9 +314,9 @@ export default function BrowsePage() {
         </div>
 
         {/* ═══════════════════════════════════════════════════════
-            STICKY FILTER BAR — Format → Country → Genre → Theme
+            INLINE FILTER BAR — Format + compact Genre chips
             ═══════════════════════════════════════════════════════ */}
-        <div className="sticky top-0 z-30 bg-[#050507]/95 backdrop-blur-md border-b border-[#1e1e28] -mx-4 sm:-mx-6 lg:-mx-12 px-4 sm:px-6 lg:px-12 py-4 mb-8 space-y-4">
+        <div className="bg-[#050507]/95 backdrop-blur-md border-b border-[#1e1e28] -mx-4 sm:-mx-6 lg:-mx-12 px-4 sm:px-6 lg:px-12 py-4 mb-8 space-y-4">
 
           {/* ─── Format Toggle ─── */}
           <div className="flex items-center gap-3">
@@ -325,7 +325,7 @@ export default function BrowsePage() {
               <button
                 onClick={() => updateFilter('format', 'all')}
                 className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors ${
-                  filters.format === 'all' ? 'bg-[#e50914] text-white' : 'text-[#6b7280] hover:text-white hover:bg-[#111118]'
+                  filters.format === 'all' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white hover:bg-[#111118]'
                 }`}
               >
                 <Sparkles className="w-4 h-4" /> All
@@ -333,7 +333,7 @@ export default function BrowsePage() {
               <button
                 onClick={() => updateFilter('format', 'movie')}
                 className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors ${
-                  filters.format === 'movie' ? 'bg-[#e50914] text-white' : 'text-[#6b7280] hover:text-white hover:bg-[#111118]'
+                  filters.format === 'movie' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white hover:bg-[#111118]'
                 }`}
               >
                 <Film className="w-4 h-4" /> Movies
@@ -341,7 +341,7 @@ export default function BrowsePage() {
               <button
                 onClick={() => updateFilter('format', 'tv')}
                 className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors ${
-                  filters.format === 'tv' ? 'bg-[#e50914] text-white' : 'text-[#6b7280] hover:text-white hover:bg-[#111118]'
+                  filters.format === 'tv' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white hover:bg-[#111118]'
                 }`}
               >
                 <Tv className="w-4 h-4" /> Series
@@ -349,7 +349,7 @@ export default function BrowsePage() {
               <button
                 onClick={() => updateFilter('format', 'anime')}
                 className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors ${
-                  filters.format === 'anime' ? 'bg-[#e50914] text-white' : 'text-[#6b7280] hover:text-white hover:bg-[#111118]'
+                  filters.format === 'anime' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white hover:bg-[#111118]'
                 }`}
               >
                 <Wand2 className="w-4 h-4" /> Anime
@@ -357,171 +357,241 @@ export default function BrowsePage() {
             </div>
           </div>
 
-          {/* ─── Country Chips ─── */}
-          <div>
-            <div className="flex items-center gap-3 mb-2">
-              <span className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider w-16">Country</span>
-              <div className="flex items-center gap-2 flex-wrap">
-                <button
-                  onClick={() => updateFilter('country', 'all')}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors flex items-center gap-1.5 ${
-                    filters.country === 'all'
-                      ? 'bg-[#e50914] text-white'
-                      : 'bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
-                  }`}
-                >
-                  <Globe className="w-3.5 h-3.5" /> All Countries
-                </button>
-                {displayedCountries.map((country) => (
-                  <button
-                    key={country.code}
-                    onClick={() => updateFilter('country', filters.country === country.code ? 'all' : country.code)}
-                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors flex items-center gap-1.5 ${
-                      filters.country === country.code
-                        ? 'bg-[#e50914] text-white'
-                        : 'bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
-                    }`}
-                  >
-                    <span>{country.flag}</span>
-                    <span>{filters.format === 'tv' ? country.seriesLabel : country.movieLabel}</span>
-                  </button>
-                ))}
-                {COUNTRIES.length > 8 && (
-                  <button
-                    onClick={() => setCountryExpanded(!countryExpanded)}
-                    className="px-3 py-1.5 rounded-full text-xs font-medium text-[#6b7280] hover:text-white bg-[#0c0c10] border border-[#1e1e28] hover:border-[#3a3a45] flex items-center gap-1 transition-colors"
-                  >
-                    {countryExpanded ? 'Less' : 'More'} <ChevronDown className={`w-3 h-3 transition-transform ${countryExpanded ? 'rotate-180' : ''}`} />
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* ─── Genre Chips ─── */}
+          {/* ─── Compact Genre Chips ─── */}
           <div>
             <div className="flex items-center gap-3 mb-2">
               <span className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider w-16">Genre</span>
               <div className="flex items-center gap-2 flex-wrap">
-                {displayedGenres.map((genre) => (
+                {GENRES.slice(0, 8).map((genre) => (
                   <button
                     key={genre.id}
                     onClick={() => toggleGenre(genre.id)}
                     className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                       filters.genres.includes(genre.id)
-                        ? 'bg-[#e50914] text-white'
+                        ? 'bg-[#d4a853] text-white'
                         : 'bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
                     }`}
                   >
                     {genre.name}
                   </button>
                 ))}
-                {GENRES.length > 10 && (
-                  <button
-                    onClick={() => setGenreExpanded(!genreExpanded)}
-                    className="px-3 py-1.5 rounded-full text-xs font-medium text-[#6b7280] hover:text-white bg-[#0c0c10] border border-[#1e1e28] hover:border-[#3a3a45] flex items-center gap-1 transition-colors"
-                  >
-                    {genreExpanded ? 'Less' : 'More'} <ChevronDown className={`w-3 h-3 transition-transform ${genreExpanded ? 'rotate-180' : ''}`} />
-                  </button>
-                )}
+                <button
+                  onClick={() => setAdvancedOpen(true)}
+                  className="px-3 py-1.5 rounded-full text-xs font-medium text-[#6b7280] hover:text-white bg-[#0c0c10] border border-[#1e1e28] hover:border-[#3a3a45] flex items-center gap-1 transition-colors"
+                >
+                  More <ChevronDown className="w-3 h-3" />
+                </button>
               </div>
-            </div>
-          </div>
-
-          {/* ─── Theme Chips (Phase 2) ─── */}
-          <div>
-            <div className="flex items-center gap-3 mb-2">
-              <span className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider w-16">
-                Theme
-                <span className="ml-1 text-[8px] bg-purple-500/20 text-purple-400 px-1.5 py-0.5 rounded-full">BETA</span>
-              </span>
-              <div className="flex items-center gap-2 flex-wrap">
-                {filters.theme !== null && (
-                  <button
-                    onClick={() => updateFilter('theme', null)}
-                    className="px-3 py-1.5 rounded-full text-xs font-medium bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45] transition-colors"
-                  >
-                    All Themes
-                  </button>
-                )}
-                {displayedThemes.map((theme) => (
-                  <button
-                    key={theme.id}
-                    onClick={() => updateFilter('theme', filters.theme === theme.id ? null : theme.id)}
-                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
-                      filters.theme === theme.id
-                        ? 'bg-purple-600 text-white'
-                        : 'bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
-                    }`}
-                  >
-                    {theme.name}
-                  </button>
-                ))}
-                {THEMES.length > 5 && (
-                  <button
-                    onClick={() => setThemeExpanded(!themeExpanded)}
-                    className="px-3 py-1.5 rounded-full text-xs font-medium text-[#6b7280] hover:text-white bg-[#0c0c10] border border-[#1e1e28] hover:border-[#3a3a45] flex items-center gap-1 transition-colors"
-                  >
-                    {themeExpanded ? 'Less' : 'More'} <ChevronDown className={`w-3 h-3 transition-transform ${themeExpanded ? 'rotate-180' : ''}`} />
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* ─── Sort + Quick Filters ─── */}
-          <div className="flex items-center gap-3 flex-wrap">
-            <span className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider w-16">Sort</span>
-            <select
-              value={filters.sort}
-              onChange={(e) => updateFilter('sort', e.target.value)}
-              className="bg-[#0c0c10] border border-[#1e1e28] rounded-lg py-1.5 px-3 text-sm text-[#9ca3af] focus:outline-none focus:border-[#e50914]"
-            >
-              {SORT_OPTIONS.map((opt) => (
-                <option key={opt.value} value={opt.value}>{opt.label}</option>
-              ))}
-            </select>
-            <div className="h-4 w-px bg-[#2a2a35]" />
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-[#6b7280]">Rating:</span>
-              <select
-                value={filters.minRating}
-                onChange={(e) => updateFilter('minRating', parseFloat(e.target.value))}
-                className="bg-[#0c0c10] border border-[#1e1e28] rounded-lg py-1.5 px-2 text-sm text-[#9ca3af] focus:outline-none focus:border-[#e50914]"
-              >
-                <option value={0}>Any</option>
-                <option value={5}>5+</option>
-                <option value={6}>6+</option>
-                <option value={7}>7+</option>
-                <option value={8}>8+</option>
-                <option value={9}>9+</option>
-              </select>
-            </div>
-            <div className="h-4 w-px bg-[#2a2a35]" />
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-[#6b7280]">Year:</span>
-              <select
-                value={filters.yearFrom}
-                onChange={(e) => updateFilter('yearFrom', parseInt(e.target.value))}
-                className="bg-[#0c0c10] border border-[#1e1e28] rounded-lg py-1.5 px-2 text-sm text-[#9ca3af] focus:outline-none focus:border-[#e50914]"
-              >
-                {[1990, 2000, 2005, 2010, 2015, 2020, 2022, 2023, 2024, 2025, 2026].map((y) => (
-                  <option key={y} value={y}>{y}</option>
-                ))}
-              </select>
-              <span className="text-xs text-[#6b7280]">–</span>
-              <select
-                value={filters.yearTo}
-                onChange={(e) => updateFilter('yearTo', parseInt(e.target.value))}
-                className="bg-[#0c0c10] border border-[#1e1e28] rounded-lg py-1.5 px-2 text-sm text-[#9ca3af] focus:outline-none focus:border-[#e50914]"
-              >
-                {[2026, 2025, 2024, 2023, 2022, 2020, 2015, 2010, 2000, 1990].map((y) => (
-                  <option key={y} value={y}>{y}</option>
-                ))}
-              </select>
             </div>
           </div>
         </div>
+
+        {/* ═══════════════════════════════════════════════════════
+            SLIDE-OVER PANEL — Country, Theme, Sort, Rating, Year
+            ═══════════════════════════════════════════════════════ */}
+        {advancedOpen && (
+          <>
+            {/* Dimmed overlay */}
+            <div
+              className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm transition-opacity"
+              onClick={() => setAdvancedOpen(false)}
+            />
+            {/* Slide-over panel */}
+            <div className="fixed top-0 right-0 z-50 h-full w-full max-w-md bg-[#0c0c10] border-l border-[#1e1e28] shadow-2xl transform transition-transform duration-300 ease-out flex flex-col">
+              {/* Panel header */}
+              <div className="flex items-center justify-between px-6 py-5 border-b border-[#1e1e28]">
+                <h3 className="text-lg font-bold text-white">Advanced Filters</h3>
+                <button
+                  onClick={() => setAdvancedOpen(false)}
+                  className="p-2 text-[#6b7280] hover:text-white transition-colors rounded-lg hover:bg-[#111118]"
+                  aria-label="Close panel"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Scrollable content */}
+              <div className="flex-1 overflow-y-auto px-6 py-5 space-y-6" style={{ maxHeight: '80vh' }}>
+
+                {/* ─── Country Chips ─── */}
+                <div>
+                  <h4 className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider mb-3">Country</h4>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <button
+                      onClick={() => updateFilter('country', 'all')}
+                      className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors flex items-center gap-1.5 ${
+                        filters.country === 'all'
+                          ? 'bg-[#d4a853] text-white'
+                          : 'bg-[#050507] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
+                      }`}
+                    >
+                      <Globe className="w-3.5 h-3.5" /> All Countries
+                    </button>
+                    {displayedCountries.map((country) => (
+                      <button
+                        key={country.code}
+                        onClick={() => updateFilter('country', filters.country === country.code ? 'all' : country.code)}
+                        className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors flex items-center gap-1.5 ${
+                          filters.country === country.code
+                            ? 'bg-[#d4a853] text-white'
+                            : 'bg-[#050507] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
+                        }`}
+                      >
+                        <span>{country.flag}</span>
+                        <span>{filters.format === 'tv' ? country.seriesLabel : country.movieLabel}</span>
+                      </button>
+                    ))}
+                    {COUNTRIES.length > 8 && (
+                      <button
+                        onClick={() => setCountryExpanded(!countryExpanded)}
+                        className="px-3 py-1.5 rounded-full text-xs font-medium text-[#6b7280] hover:text-white bg-[#050507] border border-[#1e1e28] hover:border-[#3a3a45] flex items-center gap-1 transition-colors"
+                      >
+                        {countryExpanded ? 'Less' : 'More'} <ChevronDown className={`w-3 h-3 transition-transform ${countryExpanded ? 'rotate-180' : ''}`} />
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                {/* ─── Full Genre Chips ─── */}
+                <div>
+                  <h4 className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider mb-3">Genre</h4>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    {displayedGenres.map((genre) => (
+                      <button
+                        key={genre.id}
+                        onClick={() => toggleGenre(genre.id)}
+                        className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
+                          filters.genres.includes(genre.id)
+                            ? 'bg-[#d4a853] text-white'
+                            : 'bg-[#050507] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
+                        }`}
+                      >
+                        {genre.name}
+                      </button>
+                    ))}
+                    {GENRES.length > 10 && (
+                      <button
+                        onClick={() => setGenreExpanded(!genreExpanded)}
+                        className="px-3 py-1.5 rounded-full text-xs font-medium text-[#6b7280] hover:text-white bg-[#050507] border border-[#1e1e28] hover:border-[#3a3a45] flex items-center gap-1 transition-colors"
+                      >
+                        {genreExpanded ? 'Less' : 'More'} <ChevronDown className={`w-3 h-3 transition-transform ${genreExpanded ? 'rotate-180' : ''}`} />
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                {/* ─── Theme Chips ─── */}
+                <div>
+                  <h4 className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider mb-3">
+                    Theme
+                    <span className="ml-1 text-[8px] bg-purple-500/20 text-purple-400 px-1.5 py-0.5 rounded-full">BETA</span>
+                  </h4>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    {filters.theme !== null && (
+                      <button
+                        onClick={() => updateFilter('theme', null)}
+                        className="px-3 py-1.5 rounded-full text-xs font-medium bg-[#050507] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45] transition-colors"
+                      >
+                        All Themes
+                      </button>
+                    )}
+                    {displayedThemes.map((theme) => (
+                      <button
+                        key={theme.id}
+                        onClick={() => updateFilter('theme', filters.theme === theme.id ? null : theme.id)}
+                        className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
+                          filters.theme === theme.id
+                            ? 'bg-purple-600 text-white'
+                            : 'bg-[#050507] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
+                        }`}
+                      >
+                        {theme.name}
+                      </button>
+                    ))}
+                    {THEMES.length > 5 && (
+                      <button
+                        onClick={() => setThemeExpanded(!themeExpanded)}
+                        className="px-3 py-1.5 rounded-full text-xs font-medium text-[#6b7280] hover:text-white bg-[#050507] border border-[#1e1e28] hover:border-[#3a3a45] flex items-center gap-1 transition-colors"
+                      >
+                        {themeExpanded ? 'Less' : 'More'} <ChevronDown className={`w-3 h-3 transition-transform ${themeExpanded ? 'rotate-180' : ''}`} />
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                {/* ─── Sort ─── */}
+                <div>
+                  <h4 className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider mb-3">Sort By</h4>
+                  <select
+                    value={filters.sort}
+                    onChange={(e) => updateFilter('sort', e.target.value)}
+                    className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2 px-3 text-sm text-[#9ca3af] focus:outline-none focus:border-[#d4a853]"
+                  >
+                    {SORT_OPTIONS.map((opt) => (
+                      <option key={opt.value} value={opt.value}>{opt.label}</option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* ─── Rating ─── */}
+                <div>
+                  <h4 className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider mb-3">Minimum Rating</h4>
+                  <select
+                    value={filters.minRating}
+                    onChange={(e) => updateFilter('minRating', parseFloat(e.target.value))}
+                    className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2 px-3 text-sm text-[#9ca3af] focus:outline-none focus:border-[#d4a853]"
+                  >
+                    <option value={0}>Any</option>
+                    <option value={5}>5+</option>
+                    <option value={6}>6+</option>
+                    <option value={7}>7+</option>
+                    <option value={8}>8+</option>
+                    <option value={9}>9+</option>
+                  </select>
+                </div>
+
+                {/* ─── Year Range ─── */}
+                <div>
+                  <h4 className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider mb-3">Year Range</h4>
+                  <div className="flex items-center gap-3">
+                    <select
+                      value={filters.yearFrom}
+                      onChange={(e) => updateFilter('yearFrom', parseInt(e.target.value))}
+                      className="flex-1 bg-[#050507] border border-[#1e1e28] rounded-lg py-2 px-3 text-sm text-[#9ca3af] focus:outline-none focus:border-[#d4a853]"
+                    >
+                      {[1990, 2000, 2005, 2010, 2015, 2020, 2022, 2023, 2024, 2025, 2026].map((y) => (
+                        <option key={y} value={y}>{y}</option>
+                      ))}
+                    </select>
+                    <span className="text-sm text-[#6b7280]">–</span>
+                    <select
+                      value={filters.yearTo}
+                      onChange={(e) => updateFilter('yearTo', parseInt(e.target.value))}
+                      className="flex-1 bg-[#050507] border border-[#1e1e28] rounded-lg py-2 px-3 text-sm text-[#9ca3af] focus:outline-none focus:border-[#d4a853]"
+                    >
+                      {[2026, 2025, 2024, 2023, 2022, 2020, 2015, 2010, 2000, 1990].map((y) => (
+                        <option key={y} value={y}>{y}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              {/* Panel footer */}
+              <div className="px-6 py-4 border-t border-[#1e1e28] flex items-center justify-between">
+                <button onClick={clearAll} className="text-sm text-[#6b7280] hover:text-white underline">
+                  Clear all
+                </button>
+                <Button
+                  onClick={() => setAdvancedOpen(false)}
+                  className="bg-[#d4a853] hover:bg-[#b8922e] text-white"
+                >
+                  Apply Filters
+                </Button>
+              </div>
+            </div>
+          </>
+        )}
 
         {/* ─── Active Filter Tags ─── */}
         {activeFilterTags.length > 0 && (
@@ -531,7 +601,7 @@ export default function BrowsePage() {
               <button
                 key={i}
                 onClick={tag.onRemove}
-                className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-[#e50914]/10 text-[#e50914] border border-[#e50914]/20 hover:bg-[#e50914]/20 transition-colors"
+                className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-[#d4a853]/10 text-[#d4a853] border border-[#d4a853]/20 hover:bg-[#d4a853]/20 transition-colors"
               >
                 {tag.label}
                 <X className="w-3 h-3" />
@@ -547,17 +617,17 @@ export default function BrowsePage() {
         <div className="mb-6 flex items-center gap-2 bg-[#0c0c10] border border-[#1e1e28] rounded-lg px-4 py-2.5">
           {fromAPI ? (
             <>
-              <Zap className="w-4 h-4 text-emerald-400" />
-              <p className="text-xs text-emerald-400/80">
+              <Zap className="w-4 h-4 text-[#d4a853]" />
+              <p className="text-xs text-[#d4a853]/80">
                 Live data — Connected to TMDb + OMDb pipeline. Showing {filtered.length} of {totalResults.toLocaleString()} results.
               </p>
             </>
           ) : (
             <>
-              <Sparkles className="w-4 h-4 text-[#e50914]" />
+              <Sparkles className="w-4 h-4 text-[#d4a853]" />
               <p className="text-xs text-[#6b7280]">
                 Showing demo data. Connect your TMDb + OMDb API keys to unlock real-time data for 14+ countries, all genres, and themed collections.
-                <Link href="/admin/data" className="text-[#e50914] hover:underline ml-1">Set up pipeline →</Link>
+                <Link href="/admin/data" className="text-[#d4a853] hover:underline ml-1">Set up pipeline →</Link>
               </p>
             </>
           )}
@@ -566,7 +636,7 @@ export default function BrowsePage() {
         {/* ─── Loading State ─── */}
         {isLoading && (
           <div className="flex items-center justify-center py-12">
-            <Loader2 className="w-8 h-8 text-[#e50914] animate-spin" />
+            <Loader2 className="w-8 h-8 text-[#d4a853] animate-spin" />
             <span className="ml-3 text-[#6b7280]">Loading from pipeline...</span>
           </div>
         )}
@@ -593,7 +663,7 @@ export default function BrowsePage() {
                     <img src={movie.poster_path} alt={movie.title} className="w-full h-full object-cover" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-sm font-semibold text-white group-hover:text-[#e50914] transition-colors truncate">
+                    <h3 className="text-sm font-semibold text-white group-hover:text-[#d4a853] transition-colors truncate">
                       {movie.title}
                     </h3>
                     <div className="flex items-center gap-2 mt-1">
@@ -625,7 +695,7 @@ export default function BrowsePage() {
             <Film className="w-16 h-16 text-[#2a2a35] mx-auto mb-4" />
             <p className="text-lg text-[#9ca3af] mb-2">No titles match your filters</p>
             <p className="text-sm text-[#6b7280] mb-4">Try adjusting your country, genre, or format selection.</p>
-            <button onClick={clearAll} className="text-[#e50914] hover:underline font-medium">Clear all filters</button>
+            <button onClick={clearAll} className="text-[#d4a853] hover:underline font-medium">Clear all filters</button>
           </div>
         ) : null}
 

@@ -60,33 +60,33 @@ export default function Navbar() {
         scrolled || pathname !== '/' ? 'bg-black/70 backdrop-blur-md border-b border-[#1e1e28]/50' : 'bg-transparent'
       }`}>
         <Link href="/" className="flex items-center gap-2 group z-10">
-          <Film className="w-6 h-6 text-[#e50914] group-hover:scale-110 transition-transform" />
-          <span className="text-xl font-extrabold text-white tracking-tight">Typescribe</span>
+          <Film className="w-6 h-6 text-[#d4a853] group-hover:scale-110 transition-transform" />
+          {pathname === '/' && <span className="text-xl font-extrabold text-white tracking-tight">Typescribe</span>}
         </Link>
 
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <Link key={link.label} href={link.href} className={`text-sm font-medium transition-colors duration-200 ${
-              pathname === link.href ? 'text-white' : 'text-[#9ca3af] hover:text-white'}`}>
+              pathname === link.href ? 'text-amber-400' : 'text-[#9ca3af] hover:text-amber-400'}`}>
               {link.label}
             </Link>
           ))}
         </div>
 
         <div className="flex items-center gap-2 z-10">
-          <button onClick={() => setSearchOpen(true)} className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-[#0c0c10] border border-[#1e1e28] rounded-lg text-[#6b7280] hover:text-[#9ca3af] hover:border-[#3a3a45] transition-all text-sm" aria-label="Search">
+          <button onClick={() => setSearchOpen(true)} className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-[#0c0c10] border border-[#1e1e28] rounded-lg text-[#6b7280] hover:text-[#9ca3af] hover:border-[#3a3a45] focus:border-[#d4a853] transition-all text-sm" aria-label="Search">
             <Search className="w-4 h-4" />
             <span className="hidden lg:inline">Search...</span>
             <kbd className="hidden lg:inline px-1.5 py-0.5 bg-[#050507] rounded text-[10px] font-mono border border-[#1e1e28]">⌘K</kbd>
           </button>
-          <button onClick={() => setSearchOpen(true)} className="sm:hidden p-2 text-[#9ca3af] hover:text-white transition-colors" aria-label="Search">
+          <button onClick={() => setSearchOpen(true)} className="sm:hidden p-2 text-[#9ca3af] hover:text-amber-400 transition-colors" aria-label="Search">
             <Search className="w-5 h-5" />
           </button>
 
           {isAuthenticated ? (
             <div className="flex items-center gap-1.5">
               <Link href="/dashboard" className="hover:opacity-80 transition-opacity" aria-label="Go to Dashboard">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#e50914] to-[#b20710] flex items-center justify-center text-white text-xs font-bold overflow-hidden">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#d4a853] to-[#b8922e] flex items-center justify-center text-white text-xs font-bold overflow-hidden">
                   {user?.avatar ? <img src={user.avatar} alt={user.display_name} className="w-full h-full object-cover" /> : userInitials}
                 </div>
               </Link>
@@ -105,12 +105,12 @@ export default function Navbar() {
                 <Button variant="outline" className="border-[#1e1e28] bg-transparent text-white hover:bg-[#111118] hover:text-white text-sm font-medium">Sign In</Button>
               </Link>
               <Link href="/signup" className="hidden sm:block">
-                <Button className="bg-[#e50914] hover:bg-[#b20710] text-white text-sm font-medium">Sign Up</Button>
+                <Button className="bg-[#d4a853] hover:bg-[#b8922e] text-white text-sm font-medium">Sign Up</Button>
               </Link>
             </div>
           )}
 
-          <button className="md:hidden p-2 text-[#9ca3af] hover:text-white transition-colors" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Menu">
+          <button className="md:hidden p-2 text-[#9ca3af] hover:text-amber-400 transition-colors" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Menu">
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
@@ -121,13 +121,13 @@ export default function Navbar() {
           <div className="flex flex-col gap-4">
             {navLinks.map((link) => (
               <Link key={link.label} href={link.href} onClick={() => setMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${
-                pathname === link.href ? 'text-white' : 'text-[#9ca3af] hover:text-white'}`}>{link.label}</Link>
+                pathname === link.href ? 'text-amber-400' : 'text-[#9ca3af] hover:text-amber-400'}`}>{link.label}</Link>
             ))}
             <div className="border-t border-[#1e1e28] pt-4 mt-2">
               {isAuthenticated ? (
                 <>
                   {mobileUserLinks.map((item) => (
-                    <Link key={item.label} href={item.href} onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 py-2.5 text-[#9ca3af] hover:text-white transition-colors">
+                    <Link key={item.label} href={item.href} onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 py-2.5 text-[#9ca3af] hover:text-amber-400 transition-colors">
                       <item.icon className="w-4 h-4" />
                       {item.label}
                     </Link>
@@ -139,7 +139,7 @@ export default function Navbar() {
                 </>
               ) : (
                 <div className="flex flex-col gap-3">
-                  <Link href="/login" onClick={() => setMobileMenuOpen(false)}><Button className="w-full bg-[#e50914] hover:bg-[#b20710] text-white font-medium">Sign In</Button></Link>
+                  <Link href="/login" onClick={() => setMobileMenuOpen(false)}><Button className="w-full bg-[#d4a853] hover:bg-[#b8922e] text-white font-medium">Sign In</Button></Link>
                   <Link href="/signup" onClick={() => setMobileMenuOpen(false)}><Button variant="outline" className="w-full border-[#1e1e28] text-white hover:bg-[#111118]">Sign Up</Button></Link>
                 </div>
               )}

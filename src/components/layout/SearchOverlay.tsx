@@ -108,11 +108,11 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
     if (!q) return text;
     const regex = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
     const parts = text.split(regex);
-    return parts.map((part, i) => regex.test(part) ? <mark key={i} className="bg-[#e50914]/30 text-white rounded px-0.5">{part}</mark> : part);
+    return parts.map((part, i) => regex.test(part) ? <mark key={i} className="bg-[#d4a853]/30 text-white rounded px-0.5">{part}</mark> : part);
   };
 
   const getIcon = (type: SearchResult['type']) => {
-    switch (type) { case 'movie': return <Film className="w-4 h-4 text-[#e50914]" />; case 'review': return <MessageSquare className="w-4 h-4 text-[#f5c518]" />; case 'news': return <Newspaper className="w-4 h-4 text-[#22c55e]" />; }
+    switch (type) { case 'movie': return <Film className="w-4 h-4 text-[#d4a853]" />; case 'review': return <MessageSquare className="w-4 h-4 text-[#f5c518]" />; case 'news': return <Newspaper className="w-4 h-4 text-[#22c55e]" />; }
   };
 
   const movieResults = results.filter((r) => r.type === 'movie');
@@ -171,7 +171,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                   <div className="px-4 py-3 border-t border-[#1e1e28]">
                     <button
                       onClick={() => { router.push(`/search?q=${encodeURIComponent(debouncedQuery)}`); onClose(); }}
-                      className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-[#e50914] hover:bg-[#e50914]/10 transition-colors text-sm font-medium"
+                      className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-[#d4a853] hover:bg-[#d4a853]/10 transition-colors text-sm font-medium"
                     >
                       <Search className="w-4 h-4" /> View all results for &ldquo;{debouncedQuery}&rdquo;
                     </button>
