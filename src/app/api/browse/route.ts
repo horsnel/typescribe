@@ -17,7 +17,7 @@
  *   page      – page number (default: 1)
  */
 import { NextRequest, NextResponse } from 'next/server';
-import { browseMovies, searchAnime } from '@/lib/pipeline';
+import { browseMovies, searchAnime, getTrending, getTopRated, getNowPlaying } from '@/lib/pipeline';
 import { getCurrentSeason, getTopAnime } from '@/lib/pipeline/clients/jikan';
 import type { Movie, MediaFormat } from '@/lib/types';
 import { apiLimiter } from '@/lib/rate-limit';
@@ -32,6 +32,9 @@ export async function GET(request: NextRequest) {
     }
 
     const { searchParams } = request.nextUrl;
+
+    // ── Parse source param (trending / top_rated / now_playing) ──
+    const source = searchParams.get('source');
 
     // ── Parse format ──
     const formatRaw = searchParams.get('format') || 'movie';
@@ -63,22 +66,36 @@ export async function GET(request: NextRequest) {
     const sort = searchParams.get('sort') || 'popularity.desc';
     const country = searchParams.get('country') || 'all';
 
-    // ── Call browseMovies ──
-    console.log('[API /browse] Browsing movies', {
-      format, country, genreIds, themeKeywordId, sort, minRating, yearFrom, yearTo, page,
-    });
+    // ── Handle source-based shortcuts (trending, top_rated, now_playing) ──
+    let result;
 
-    let result = await browseMovies({
-      format,
-      country,
-      genreIds,
-      themeKeywordId,
-      sort,
-      minRating: minRating > 0 ? minRating : undefined,
-      yearFrom,
-      yearTo,
-      page,
-    });
+    if (source === 'trending') {
+      console.log('[API /browse] Fetching trending');
+      result = await getTrending('week');
+    } else if (source === 'top_rated') {
+      console.log('[API /browse] Fetching top rated', { page });
+      result = await getTopRated(page);
+    } else if (source === 'now_playing') {
+      console.log('[API /browse] Fetching now playing', { page });
+      result = await getNowPlaying(page);
+    } else {
+      // ── Call browseMovies ──
+      console.log('[API /browse] Browsing movies', {
+        format, country, genreIds, themeKeywordId, sort, minRating, yearFrom, yearTo, page,
+      });
+
+      result = await browseMovies({
+        format,
+        country,
+        genreIds,
+        themeKeywordId,
+        sort,
+        minRating: minRating > 0 ? minRating : undefined,
+        yearFrom,
+        yearTo,
+        page,
+      });
+    }
 
     // ── Anime fallback: If TMDb returned 0 results for anime, try AniList/Jikan ──
     if (format === 'anime' && result.movies.length === 0) {
@@ -274,7 +291,10 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    return NextResponse.json(result);
+    return NextResponse.json({
+      ...result,
+      fromAPI: result.sources.length > 0,
+    });
   } catch (error: any) {
     console.error('[API /browse] Error:', error);
     return NextResponse.json(

@@ -20,3 +20,30 @@ Stage Summary:
 - TVMaze API integration: VERIFIED in code (tvmaze.ts) and used in movie detail page
 - X/Twitter thick icon borders: VERIFIED (strokeWidth={2.5})
 - All critical tasks completed
+
+---
+Task ID: 2
+Agent: main
+Task: Replace mock data with real TMDb API data across all pages
+
+Work Log:
+- Fixed TMDb image URLs in all transform functions (poster, backdrop, cast profile paths now use full URLs)
+- Fixed browse API to handle source=trending/top_rated/now_playing params + added fromAPI field
+- Fixed slug-based movie lookup to extract TMDb ID from slug format "title-123"
+- Fixed movie detail API route to return {movie, sources, completeness} format
+- Fixed search API to return fromAPI boolean
+- Rewrote top-rated page to fetch from real API instead of mock data
+- Rewrote new-releases page to fetch from real API with sort/filter support
+- Fixed box-office API slug format to include TMDb ID for linking
+- Fixed box-office image URLs from w92 to w500
+- Rewrote pipeline cache to hybrid in-memory + file-based (Vercel has read-only filesystem)
+- Built and deployed to Vercel successfully
+
+Stage Summary:
+- ALL pages now use real TMDb data when API key is available
+- Movie detail pages work: Shawshank Redemption returns full data from 7 sources (TMDb, OMDb, YouTube, etc.)
+- Search works: "inception" returns 13 real results
+- Box office works: now_playing returns 20 real current movies
+- Top rated works: Shawshank, Godfather, etc. from TMDb top_rated
+- Browse works: trending, by country, by genre all use TMDb discover
+- Pipeline cache gracefully falls back to in-memory on Vercel's read-only FS

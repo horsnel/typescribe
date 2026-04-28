@@ -1,10 +1,11 @@
 'use client';
 import { useEffect, useState, useMemo } from 'react';
 import Link from 'next/link';
-import { Calendar, Filter, Grid3X3, List, Star, Clock, ChevronDown } from 'lucide-react';
-import { movies, genres } from '@/lib/data';
+import { Calendar, Filter, Grid3X3, List, Star, Clock, ChevronDown, Loader2, Zap } from 'lucide-react';
+import { movies } from '@/lib/data';
 import MovieCard from '@/components/movie/MovieCard';
 import { Button } from '@/components/ui/button';
+import type { Movie } from '@/lib/types';
 
 type TimeFilter = 'this-week' | 'this-month' | 'last-3-months' | 'this-year' | 'all';
 type SortOption = 'newest' | 'rating' | 'popularity';
@@ -18,38 +19,73 @@ export default function NewReleasesPage() {
   const [view, setView] = useState<'grid' | 'list'>('grid');
   const [visibleCount, setVisibleCount] = useState(12);
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [apiMovies, setApiMovies] = useState<Movie[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [fromAPI, setFromAPI] = useState(false);
 
-  const now = new Date();
-  const filtered = useMemo(() => {
-    let result = [...movies];
-
-    // Time filter
-    const cutoff = new Date();
+  // Fetch real data from API
+  useEffect(() => {
+    setLoading(true);
+    const now = new Date();
+    let yearFrom = now.getFullYear();
     switch (timeFilter) {
-      case 'this-week': cutoff.setDate(now.getDate() - 7); break;
-      case 'this-month': cutoff.setMonth(now.getMonth() - 1); break;
-      case 'last-3-months': cutoff.setMonth(now.getMonth() - 3); break;
-      case 'this-year': cutoff.setFullYear(now.getFullYear() - 1); break;
-      case 'all': cutoff.setFullYear(1990); break;
+      case 'this-week': yearFrom = now.getFullYear(); break;
+      case 'this-month': yearFrom = now.getFullYear(); break;
+      case 'last-3-months': yearFrom = now.getFullYear(); break;
+      case 'this-year': yearFrom = now.getFullYear(); break;
+      case 'all': yearFrom = 2020; break;
     }
-    result = result.filter((m) => new Date(m.release_date) >= cutoff);
+
+    const sortMap: Record<SortOption, string> = {
+      'newest': 'primary_release_date.desc',
+      'rating': 'vote_average.desc',
+      'popularity': 'popularity.desc',
+    };
+
+    fetch(`/api/browse?sort=${sortMap[sort]}&yearFrom=${yearFrom}&page=1`)
+      .then(res => res.ok ? res.json() : null)
+      .then(data => {
+        if (data?.movies?.length > 0 && data.fromAPI) {
+          setApiMovies(data.movies);
+          setFromAPI(true);
+        } else {
+          setApiMovies(movies);
+          setFromAPI(false);
+        }
+      })
+      .catch(() => { setApiMovies(movies); setFromAPI(false); })
+      .finally(() => setLoading(false));
+  }, [timeFilter, sort]);
+
+  const genreNames = useMemo(() => {
+    const allGenres = apiMovies.flatMap((m) => m.genres.map(g => g.name)).filter(Boolean);
+    return [...new Set(allGenres)];
+  }, [apiMovies]);
+
+  const filtered = useMemo(() => {
+    let result = [...apiMovies];
 
     // Genre filter
     if (selectedGenres.length > 0) {
       result = result.filter((m) => m.genres.some((g) => selectedGenres.includes(g.name)));
     }
 
-    // Sort
-    switch (sort) {
-      case 'newest': result.sort((a, b) => new Date(b.release_date).getTime() - new Date(a.release_date).getTime()); break;
-      case 'rating': result.sort((a, b) => b.vote_average - a.vote_average); break;
-      case 'popularity': result.sort((a, b) => b.vote_count - a.vote_count); break;
+    // Client-side time filter (API already filters, but this refines)
+    if (fromAPI && timeFilter !== 'all') {
+      const now = new Date();
+      const cutoff = new Date();
+      switch (timeFilter) {
+        case 'this-week': cutoff.setDate(now.getDate() - 7); break;
+        case 'this-month': cutoff.setMonth(now.getMonth() - 1); break;
+        case 'last-3-months': cutoff.setMonth(now.getMonth() - 3); break;
+        case 'this-year': cutoff.setFullYear(now.getFullYear() - 1); break;
+      }
+      result = result.filter((m) => new Date(m.release_date) >= cutoff);
     }
 
     return result;
-  }, [timeFilter, selectedGenres, sort]);
+  }, [apiMovies, selectedGenres, timeFilter, fromAPI]);
 
-  const genreNames = [...new Set(movies.flatMap((m) => m.genres.map((g) => g.name)))];
   const visible = filtered.slice(0, visibleCount);
   const hasMore = filtered.length > visibleCount;
 
@@ -80,7 +116,12 @@ export default function NewReleasesPage() {
 
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
           <div>
-            <h1 className="text-3xl lg:text-4xl font-extrabold text-white mb-2">New Releases</h1>
+            <div className="flex items-center gap-3 mb-2">
+              <h1 className="text-3xl lg:text-4xl font-extrabold text-white">New Releases</h1>
+              {fromAPI && (
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1"><Zap className="w-3 h-3" />Live</span>
+              )}
+            </div>
             <p className="text-[#6b7280]">{filtered.length} movies released {timeLabels[timeFilter].toLowerCase()}</p>
           </div>
           <div className="flex items-center gap-3">
@@ -175,8 +216,12 @@ export default function NewReleasesPage() {
           </div>
         )}
 
-        {/* Results */}
-        {filtered.length > 0 ? (
+        {loading ? (
+          <div className="flex items-center justify-center py-24">
+            <Loader2 className="w-8 h-8 text-[#e50914] animate-spin" />
+            <span className="ml-3 text-[#6b7280]">Loading new releases...</span>
+          </div>
+        ) : filtered.length > 0 ? (
           <>
             {view === 'grid' ? (
               <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-5">
@@ -198,9 +243,9 @@ export default function NewReleasesPage() {
                     <div className="flex-1 min-w-0">
                       <h3 className="text-sm font-semibold text-white group-hover:text-[#e50914] transition-colors truncate">{movie.title}</h3>
                       <div className="flex items-center gap-2 mt-1">
-                        <span className="text-xs text-[#f5c518] font-medium">★ {movie.vote_average.toFixed(1)}</span>
-                        <span className="text-xs text-[#6b7280] flex items-center gap-1"><Calendar className="w-3 h-3" /> {new Date(movie.release_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
-                        <span className="text-xs text-[#6b7280] flex items-center gap-1"><Clock className="w-3 h-3" /> {movie.runtime}m</span>
+                        <span className="text-xs text-[#f5c518] font-medium flex items-center gap-0.5"><Star className="w-3 h-3 fill-[#f5c518]" /> {movie.vote_average.toFixed(1)}</span>
+                        <span className="text-xs text-[#6b7280] flex items-center gap-1"><Calendar className="w-3 h-3" /> {movie.release_date ? new Date(movie.release_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'TBA'}</span>
+                        {movie.runtime > 0 && <span className="text-xs text-[#6b7280] flex items-center gap-1"><Clock className="w-3 h-3" /> {movie.runtime}m</span>}
                       </div>
                       <div className="flex gap-1.5 mt-1.5">
                         {movie.genres.slice(0, 3).map((g) => (

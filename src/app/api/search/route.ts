@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
 
     const result = await searchMovies(trimmedQuery);
 
-    return NextResponse.json(result);
+    return NextResponse.json({ ...result, fromAPI: result.sources.length > 0 });
   } catch (error: any) {
     console.error('[API /search] Error:', error);
     return NextResponse.json(

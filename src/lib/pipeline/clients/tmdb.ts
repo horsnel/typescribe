@@ -248,7 +248,7 @@ function transformMovieDetail(raw: TmdbMovieResponse): Movie {
     .map((c) => ({
       name: c.name,
       character: c.character,
-      profile_path: c.profile_path ?? '',
+      profile_path: tmdbImageUrl(c.profile_path, 'w185'),
     }));
 
   // YouTube trailer
@@ -271,8 +271,8 @@ function transformMovieDetail(raw: TmdbMovieResponse): Movie {
     original_title: raw.original_title,
     overview: raw.overview,
     release_date: raw.release_date,
-    poster_path: raw.poster_path ?? '',
-    backdrop_path: raw.backdrop_path ?? '',
+    poster_path: tmdbImageUrl(raw.poster_path, 'w500'),
+    backdrop_path: tmdbImageUrl(raw.backdrop_path, 'w780'),
     genres: raw.genres,
     runtime: raw.runtime ?? 0,
     vote_average: raw.vote_average,
@@ -351,7 +351,7 @@ function transformTvDetail(raw: TmdbTvResponse): Movie {
     .map((c) => ({
       name: c.name,
       character: c.character,
-      profile_path: c.profile_path ?? '',
+      profile_path: tmdbImageUrl(c.profile_path, 'w185'),
     }));
 
   // YouTube trailer
@@ -371,8 +371,8 @@ function transformTvDetail(raw: TmdbTvResponse): Movie {
     original_title: raw.original_name,
     overview: raw.overview,
     release_date: raw.first_air_date,
-    poster_path: raw.poster_path ?? '',
-    backdrop_path: raw.backdrop_path ?? '',
+    poster_path: tmdbImageUrl(raw.poster_path, 'w500'),
+    backdrop_path: tmdbImageUrl(raw.backdrop_path, 'w780'),
     genres: raw.genres,
     runtime,
     vote_average: raw.vote_average,
@@ -440,8 +440,8 @@ function transformMovieCard(raw: TmdbMovieCard): Movie {
     original_title: raw.original_title ?? '',
     overview: raw.overview ?? '',
     release_date: raw.release_date ?? '',
-    poster_path: raw.poster_path ?? '',
-    backdrop_path: raw.backdrop_path ?? '',
+    poster_path: tmdbImageUrl(raw.poster_path, 'w500'),
+    backdrop_path: tmdbImageUrl(raw.backdrop_path, 'w780'),
     genres: (raw.genre_ids ?? []).map((gid) => ({ id: gid, name: '' })),
     runtime: 0,
     vote_average: raw.vote_average,
@@ -475,8 +475,8 @@ function transformTvCard(raw: TmdbTvCard): Movie {
     original_title: raw.original_name ?? '',
     overview: raw.overview ?? '',
     release_date: raw.first_air_date ?? '',
-    poster_path: raw.poster_path ?? '',
-    backdrop_path: raw.backdrop_path ?? '',
+    poster_path: tmdbImageUrl(raw.poster_path, 'w500'),
+    backdrop_path: tmdbImageUrl(raw.backdrop_path, 'w780'),
     genres: (raw.genre_ids ?? []).map((gid) => ({ id: gid, name: '' })),
     runtime: 0,
     vote_average: raw.vote_average,

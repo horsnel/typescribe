@@ -129,11 +129,11 @@ async function fetchTMDbNowPlaying(): Promise<BoxOfficeEntry[] | null> {
     return results.map((m: any, i: number) => ({
       rank: i + 1,
       id: m.id,
-      slug: (m.title || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
+      slug: `${(m.title || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}-${m.id}`,
       title: m.title || 'Unknown',
       year: (m.release_date || '').split('-')[0] || '2025',
       poster_path: m.poster_path
-        ? `https://image.tmdb.org/t/p/w92${m.poster_path}`
+        ? `https://image.tmdb.org/t/p/w500${m.poster_path}`
         : '/images/poster-1.jpg',
       weekendGross: Math.floor(Math.random() * 80_000_000) + 5_000_000,
       totalGross: Math.floor(Math.random() * 400_000_000) + 20_000_000,
@@ -159,11 +159,11 @@ async function fetchTMDbTopAllTime(): Promise<BoxOfficeEntry[] | null> {
     return results.map((m: any, i: number) => ({
       rank: i + 1,
       id: m.id,
-      slug: (m.title || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
+      slug: `${(m.title || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}-${m.id}`,
       title: m.title || 'Unknown',
       year: (m.release_date || '').split('-')[0] || '2025',
       poster_path: m.poster_path
-        ? `https://image.tmdb.org/t/p/w92${m.poster_path}`
+        ? `https://image.tmdb.org/t/p/w500${m.poster_path}`
         : '/images/poster-1.jpg',
       weekendGross: 0,
       totalGross: Math.floor(Math.random() * 2_000_000_000) + 100_000_000,
@@ -189,11 +189,11 @@ async function fetchTMDbByCountry(countryCode: string): Promise<BoxOfficeEntry[]
     return results.map((m: any, i: number) => ({
       rank: i + 1,
       id: m.id,
-      slug: (m.title || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
+      slug: `${(m.title || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}-${m.id}`,
       title: m.title || 'Unknown',
       year: (m.release_date || '').split('-')[0] || '2025',
       poster_path: m.poster_path
-        ? `https://image.tmdb.org/t/p/w92${m.poster_path}`
+        ? `https://image.tmdb.org/t/p/w500${m.poster_path}`
         : '/images/poster-1.jpg',
       weekendGross: Math.floor(Math.random() * 50_000_000) + 2_000_000,
       totalGross: Math.floor(Math.random() * 300_000_000) + 10_000_000,

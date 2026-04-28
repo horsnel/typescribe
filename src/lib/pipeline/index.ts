@@ -162,7 +162,7 @@ export async function getMovie(tmdbId: number, config?: PipelineConfig): Promise
  * Get a movie by its slug.
  */
 export async function getMovieBySlug(slug: string, config?: PipelineConfig): Promise<MergedMovieResult | null> {
-  // Check cache by slug
+  // Check cache by slug first
   const cacheKey = `slug:${slug}`;
   const cached = Cache.getCachedMovie(cacheKey);
   if (cached) {
@@ -175,7 +175,37 @@ export async function getMovieBySlug(slug: string, config?: PipelineConfig): Pro
     };
   }
 
-  // If not in cache, we'd need to search TMDb for this slug
+  // Try to extract TMDb ID from slug (format: "title-123")
+  const slugIdMatch = slug.match(/-(\d+)$/);
+  if (slugIdMatch) {
+    const tmdbId = parseInt(slugIdMatch[1], 10);
+    if (tmdbId > 0) {
+      console.log(`[Pipeline] Resolving slug "${slug}" to TMDb ID ${tmdbId}`);
+      try {
+        const result = await getMovie(tmdbId, config);
+        if (result.movie) return result;
+      } catch (err) {
+        console.warn(`[Pipeline] Failed to fetch TMDb ID ${tmdbId} from slug`, err);
+      }
+    }
+  }
+
+  // If no ID in slug, try searching TMDb by title
+  const titlePart = slug.replace(/-/g, ' ').replace(/\s+\d+$/, '').trim();
+  if (titlePart.length >= 2) {
+    console.log(`[Pipeline] Searching TMDb for title: "${titlePart}"`);
+    try {
+      const searchResult = await TMDb.searchMulti(titlePart);
+      if (searchResult && searchResult.length > 0) {
+        const firstMatch = searchResult[0];
+        const result = await getMovie(firstMatch.tmdb_id, config);
+        if (result.movie) return result;
+      }
+    } catch (err) {
+      console.warn(`[Pipeline] Search for slug "${slug}" failed`, err);
+    }
+  }
+
   return null;
 }
 

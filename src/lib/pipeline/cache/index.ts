@@ -1,10 +1,8 @@
 /**
- * Pipeline Cache — File-based cache for merged movie data.
+ * Pipeline Cache — Hybrid in-memory + file-based cache for merged movie data.
  *
- * Stores fully-merged movie objects on disk so that:
- *   - Repeated page loads don't re-fetch from APIs
- *   - Batch-processed data persists across server restarts
- *   - Admin can inspect/flush cached data
+ * On Vercel (read-only filesystem), uses in-memory Map only.
+ * In development/local, also persists to disk for durability.
  */
 
 import * as fs from 'fs';
@@ -15,6 +13,21 @@ import type { Movie } from '@/lib/types';
 
 const CACHE_DIR = path.join(process.cwd(), 'data', 'pipeline');
 const DEFAULT_TTL_HOURS = 24;
+
+// ─── Detect if filesystem is writable ───
+
+let fsAvailable = true;
+try {
+  if (!fs.existsSync(CACHE_DIR)) {
+    fs.mkdirSync(CACHE_DIR, { recursive: true });
+  }
+  // Test write
+  const testFile = path.join(CACHE_DIR, '.write-test');
+  fs.writeFileSync(testFile, '1');
+  fs.unlinkSync(testFile);
+} catch {
+  fsAvailable = false;
+}
 
 // ─── Types ───
 
@@ -42,17 +55,18 @@ interface CacheStats {
 let hitCount = 0;
 let missCount = 0;
 
-// ─── Helpers ───
+// In-memory cache (always available)
+const memoryCache = new Map<string, CacheEntry>();
 
-function ensureCacheDir(): void {
-  if (!fs.existsSync(CACHE_DIR)) {
-    fs.mkdirSync(CACHE_DIR, { recursive: true });
-  }
-}
+// ─── Helpers ───
 
 function cacheFilePath(key: string): string {
   const sanitized = key.replace(/[^a-zA-Z0-9_-]/g, '_');
   return path.join(CACHE_DIR, `${sanitized}.json`);
+}
+
+function isExpired(entry: CacheEntry): boolean {
+  return Date.now() > new Date(entry.expiresAt).getTime();
 }
 
 // ─── Public API ───
@@ -61,41 +75,55 @@ function cacheFilePath(key: string): string {
  * Get a cached movie by key (usually `tmdb:{id}` or `slug:{slug}`).
  */
 export function getCachedMovie(key: string): { movie: Movie; sources: string[]; completeness: number } | null {
-  ensureCacheDir();
-  const filePath = cacheFilePath(key);
-
-  if (!fs.existsSync(filePath)) {
-    missCount++;
-    return null;
-  }
-
-  try {
-    const raw = fs.readFileSync(filePath, 'utf-8');
-    const entry: CacheEntry = JSON.parse(raw);
-
-    // Check expiry
-    if (Date.now() > new Date(entry.expiresAt).getTime()) {
-      fs.unlinkSync(filePath);
+  // Try memory cache first
+  const memEntry = memoryCache.get(key);
+  if (memEntry) {
+    if (isExpired(memEntry)) {
+      memoryCache.delete(key);
       missCount++;
       return null;
     }
-
-    // Update hit count
-    entry.hitCount++;
-    fs.writeFileSync(filePath, JSON.stringify(entry, null, 2));
-
+    memEntry.hitCount++;
     hitCount++;
     return {
-      movie: entry.movie,
-      sources: entry.sources,
-      completeness: entry.completeness,
+      movie: memEntry.movie,
+      sources: memEntry.sources,
+      completeness: memEntry.completeness,
     };
-  } catch {
-    missCount++;
-    // Corrupted file — remove it
-    try { fs.unlinkSync(filePath); } catch {}
-    return null;
   }
+
+  // Try file cache if available
+  if (fsAvailable) {
+    const filePath = cacheFilePath(key);
+    if (fs.existsSync(filePath)) {
+      try {
+        const raw = fs.readFileSync(filePath, 'utf-8');
+        const entry: CacheEntry = JSON.parse(raw);
+        if (isExpired(entry)) {
+          fs.unlinkSync(filePath);
+          missCount++;
+          return null;
+        }
+        entry.hitCount++;
+        try { fs.writeFileSync(filePath, JSON.stringify(entry, null, 2)); } catch {}
+        // Promote to memory cache
+        memoryCache.set(key, entry);
+        hitCount++;
+        return {
+          movie: entry.movie,
+          sources: entry.sources,
+          completeness: entry.completeness,
+        };
+      } catch {
+        missCount++;
+        try { fs.unlinkSync(filePath); } catch {}
+        return null;
+      }
+    }
+  }
+
+  missCount++;
+  return null;
 }
 
 /**
@@ -108,8 +136,6 @@ export function setCachedMovie(
   completeness: number,
   ttlHours: number = DEFAULT_TTL_HOURS,
 ): void {
-  ensureCacheDir();
-
   const entry: CacheEntry = {
     key,
     movie,
@@ -120,10 +146,19 @@ export function setCachedMovie(
     hitCount: 0,
   };
 
-  try {
-    fs.writeFileSync(cacheFilePath(key), JSON.stringify(entry, null, 2));
-  } catch (err) {
-    console.warn('[Cache] Failed to write cache entry:', err);
+  // Always set in memory
+  memoryCache.set(key, entry);
+
+  // Also write to file if available
+  if (fsAvailable) {
+    try {
+      if (!fs.existsSync(CACHE_DIR)) {
+        fs.mkdirSync(CACHE_DIR, { recursive: true });
+      }
+      fs.writeFileSync(cacheFilePath(key), JSON.stringify(entry, null, 2));
+    } catch (err) {
+      // Silently ignore file write failures (Vercel read-only)
+    }
   }
 }
 
@@ -131,56 +166,69 @@ export function setCachedMovie(
  * Remove a specific cached movie.
  */
 export function invalidateCachedMovie(key: string): boolean {
-  const filePath = cacheFilePath(key);
-  if (fs.existsSync(filePath)) {
-    try {
-      fs.unlinkSync(filePath);
-      return true;
-    } catch { return false; }
+  memoryCache.delete(key);
+  if (fsAvailable) {
+    const filePath = cacheFilePath(key);
+    if (fs.existsSync(filePath)) {
+      try { fs.unlinkSync(filePath); return true; } catch { return false; }
+    }
   }
-  return false;
+  return memoryCache.has(key);
 }
 
 /**
  * Clear all cached movies.
  */
 export function clearAllCachedMovies(): number {
-  ensureCacheDir();
-  let count = 0;
-  try {
-    const files = fs.readdirSync(CACHE_DIR);
-    for (const file of files) {
-      if (file.endsWith('.json')) {
-        fs.unlinkSync(path.join(CACHE_DIR, file));
-        count++;
+  const memCount = memoryCache.size;
+  memoryCache.clear();
+  let fileCount = 0;
+  if (fsAvailable) {
+    try {
+      if (!fs.existsSync(CACHE_DIR)) return memCount;
+      const files = fs.readdirSync(CACHE_DIR);
+      for (const file of files) {
+        if (file.endsWith('.json')) {
+          try { fs.unlinkSync(path.join(CACHE_DIR, file)); fileCount++; } catch {}
+        }
       }
-    }
-  } catch {}
-  return count;
+    } catch {}
+  }
+  return Math.max(memCount, fileCount);
 }
 
 /**
  * Remove expired cache entries.
  */
 export function pruneCache(): number {
-  ensureCacheDir();
   let pruned = 0;
-  try {
-    const files = fs.readdirSync(CACHE_DIR);
-    const now = Date.now();
-    for (const file of files) {
-      if (file.endsWith('.json')) {
-        try {
-          const raw = fs.readFileSync(path.join(CACHE_DIR, file), 'utf-8');
-          const entry: CacheEntry = JSON.parse(raw);
-          if (now >= new Date(entry.expiresAt).getTime()) {
-            fs.unlinkSync(path.join(CACHE_DIR, file));
-            pruned++;
-          }
-        } catch {}
-      }
+  // Prune memory cache
+  for (const [key, entry] of memoryCache.entries()) {
+    if (isExpired(entry)) {
+      memoryCache.delete(key);
+      pruned++;
     }
-  } catch {}
+  }
+  // Prune file cache
+  if (fsAvailable) {
+    try {
+      if (!fs.existsSync(CACHE_DIR)) return pruned;
+      const files = fs.readdirSync(CACHE_DIR);
+      const now = Date.now();
+      for (const file of files) {
+        if (file.endsWith('.json')) {
+          try {
+            const raw = fs.readFileSync(path.join(CACHE_DIR, file), 'utf-8');
+            const entry: CacheEntry = JSON.parse(raw);
+            if (now >= new Date(entry.expiresAt).getTime()) {
+              fs.unlinkSync(path.join(CACHE_DIR, file));
+              pruned++;
+            }
+          } catch {}
+        }
+      }
+    } catch {}
+  }
   return pruned;
 }
 
@@ -188,47 +236,48 @@ export function pruneCache(): number {
  * Get cache statistics.
  */
 export function getCacheStats(): CacheStats {
-  ensureCacheDir();
+  const entries: CacheEntry[] = [];
 
-  let totalEntries = 0;
-  let totalSizeBytes = 0;
-  let oldestEntry: string | null = null;
-  let newestEntry: string | null = null;
-  let totalCompleteness = 0;
+  // Collect from memory
+  for (const entry of memoryCache.values()) {
+    entries.push(entry);
+  }
 
-  try {
-    const files = fs.readdirSync(CACHE_DIR);
-    for (const file of files) {
-      if (file.endsWith('.json')) {
-        try {
-          const filePath = path.join(CACHE_DIR, file);
-          const stat = fs.statSync(filePath);
-          totalSizeBytes += stat.size;
-
-          const raw = fs.readFileSync(filePath, 'utf-8');
-          const entry: CacheEntry = JSON.parse(raw);
-          totalEntries++;
-          totalCompleteness += entry.completeness;
-
-          if (!oldestEntry || entry.createdAt < oldestEntry) {
-            oldestEntry = entry.createdAt;
+  // Collect from files if available
+  if (fsAvailable) {
+    try {
+      if (fs.existsSync(CACHE_DIR)) {
+        const files = fs.readdirSync(CACHE_DIR);
+        for (const file of files) {
+          if (file.endsWith('.json')) {
+            try {
+              const raw = fs.readFileSync(path.join(CACHE_DIR, file), 'utf-8');
+              entries.push(JSON.parse(raw));
+            } catch {}
           }
-          if (!newestEntry || entry.createdAt > newestEntry) {
-            newestEntry = entry.createdAt;
-          }
-        } catch {}
+        }
       }
+    } catch {}
+  }
+
+  // Deduplicate by key
+  const seen = new Set<string>();
+  const unique: CacheEntry[] = [];
+  for (const e of entries) {
+    if (!seen.has(e.key)) {
+      seen.add(e.key);
+      unique.push(e);
     }
-  } catch {}
+  }
 
   const total = hitCount + missCount;
   return {
-    totalEntries,
-    totalSizeBytes,
+    totalEntries: unique.length,
+    totalSizeBytes: 0,
     hitRate: total > 0 ? hitCount / total : 0,
-    oldestEntry,
-    newestEntry,
-    avgCompleteness: totalEntries > 0 ? Math.round(totalCompleteness / totalEntries) : 0,
+    oldestEntry: unique.length > 0 ? unique.reduce((a, b) => a.createdAt < b.createdAt ? a : b).createdAt : null,
+    newestEntry: unique.length > 0 ? unique.reduce((a, b) => a.createdAt > b.createdAt ? a : b).createdAt : null,
+    avgCompleteness: unique.length > 0 ? Math.round(unique.reduce((s, e) => s + e.completeness, 0) / unique.length) : 0,
   };
 }
 
@@ -245,7 +294,6 @@ export function getAllCachedMovies(): Array<{
   expiresAt: string;
   hitCount: number;
 }> {
-  ensureCacheDir();
   const results: Array<{
     key: string;
     title: string;
@@ -257,27 +305,54 @@ export function getAllCachedMovies(): Array<{
     hitCount: number;
   }> = [];
 
-  try {
-    const files = fs.readdirSync(CACHE_DIR);
-    for (const file of files) {
-      if (file.endsWith('.json')) {
-        try {
-          const raw = fs.readFileSync(path.join(CACHE_DIR, file), 'utf-8');
-          const entry: CacheEntry = JSON.parse(raw);
-          results.push({
-            key: entry.key,
-            title: entry.movie.title,
-            tmdbId: entry.movie.tmdb_id,
-            completeness: entry.completeness,
-            sources: entry.sources,
-            createdAt: entry.createdAt,
-            expiresAt: entry.expiresAt,
-            hitCount: entry.hitCount,
-          });
-        } catch {}
-      }
+  const seen = new Set<string>();
+
+  // From memory
+  for (const entry of memoryCache.values()) {
+    if (!seen.has(entry.key)) {
+      seen.add(entry.key);
+      results.push({
+        key: entry.key,
+        title: entry.movie.title,
+        tmdbId: entry.movie.tmdb_id,
+        completeness: entry.completeness,
+        sources: entry.sources,
+        createdAt: entry.createdAt,
+        expiresAt: entry.expiresAt,
+        hitCount: entry.hitCount,
+      });
     }
-  } catch {}
+  }
+
+  // From files
+  if (fsAvailable) {
+    try {
+      if (fs.existsSync(CACHE_DIR)) {
+        const files = fs.readdirSync(CACHE_DIR);
+        for (const file of files) {
+          if (file.endsWith('.json')) {
+            try {
+              const raw = fs.readFileSync(path.join(CACHE_DIR, file), 'utf-8');
+              const entry: CacheEntry = JSON.parse(raw);
+              if (!seen.has(entry.key)) {
+                seen.add(entry.key);
+                results.push({
+                  key: entry.key,
+                  title: entry.movie.title,
+                  tmdbId: entry.movie.tmdb_id,
+                  completeness: entry.completeness,
+                  sources: entry.sources,
+                  createdAt: entry.createdAt,
+                  expiresAt: entry.expiresAt,
+                  hitCount: entry.hitCount,
+                });
+              }
+            } catch {}
+          }
+        }
+      }
+    } catch {}
+  }
 
   return results.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 }

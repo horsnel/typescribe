@@ -40,8 +40,12 @@ export async function GET(
       );
     }
 
-    // Return only the movie object (not the full MergedMovieResult)
-    return NextResponse.json(result.movie);
+    // Return the full result so frontend can access movie, sources, completeness
+    return NextResponse.json({
+      movie: result.movie,
+      sources: result.sources,
+      completeness: result.completeness,
+    });
   } catch (error: any) {
     console.error('[API /movies/slug] Error:', error);
     return NextResponse.json(
