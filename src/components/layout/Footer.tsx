@@ -1,78 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { Film, Twitter, Instagram, Github, Mail, Loader2, Check, Lock } from 'lucide-react';
+import { Film, Twitter, Instagram, Github, Mail, Loader2, Check } from 'lucide-react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { Separator } from '@/components/ui/separator';
-import { Button } from '@/components/ui/button';
 
 export default function Footer() {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  // O.L.H.M.E.S Multi-click admin access: double-click → Data Pipeline, triple-click → Admin Dashboard
-  const [clickCount, setClickCount] = useState(0);
-  const [clickTimer, setClickTimer] = useState<NodeJS.Timeout | null>(null);
-  const [adminTarget, setAdminTarget] = useState<'admin' | 'admin/data'>('admin');
-  const [showAdminModal, setShowAdminModal] = useState(false);
-  const [adminPassword, setAdminPassword] = useState('');
-  const [adminError, setAdminError] = useState('');
-  const [adminLoading, setAdminLoading] = useState(false);
-  const router = useRouter();
-
-  const handleBrandClick = () => {
-    const newCount = clickCount + 1;
-    setClickCount(newCount);
-
-    // Reset timer on each click
-    if (clickTimer) clearTimeout(clickTimer);
-    const timer = setTimeout(() => setClickCount(0), 800);
-    setClickTimer(timer);
-
-    // Double click → Data Pipeline
-    if (newCount === 2) {
-      setClickCount(0);
-      if (clickTimer) clearTimeout(clickTimer);
-      setAdminTarget('admin/data');
-      setShowAdminModal(true);
-      return;
-    }
-
-    // Triple click → Admin Dashboard
-    if (newCount >= 3) {
-      setClickCount(0);
-      if (clickTimer) clearTimeout(clickTimer);
-      setAdminTarget('admin');
-      setShowAdminModal(true);
-    }
-  };
-
-  const handleAdminLogin = async () => {
-    setAdminLoading(true);
-    setAdminError('');
-    try {
-      const res = await fetch('/api/admin/auth', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password: adminPassword }),
-      });
-      const data = await res.json();
-      if (res.ok && data.token) {
-        localStorage.setItem('typescribe_admin_token', data.token);
-        setShowAdminModal(false);
-        setAdminPassword('');
-        router.push(adminTarget);
-      } else {
-        setAdminError(data.error || 'Invalid password');
-      }
-    } catch {
-      setAdminError('Connection failed');
-    } finally {
-      setAdminLoading(false);
-    }
-  };
 
   const aboutLinks = [
     { label: 'About Us', href: '/about' },
@@ -188,67 +124,17 @@ export default function Footer() {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
               <Film className="w-5 h-5 text-[#d4a853]" />
-              <button
-                onClick={handleBrandClick}
-                className="text-sm text-[#6b7280] hover:text-[#9ca3af] transition-colors cursor-default select-none font-bold tracking-[0.2em]"
-                aria-label="O.L.H.M.E.S Brand"
+              <span
+                className="text-sm text-[#6b7280] font-bold tracking-[0.2em]"
               >
                 O.L.H.M.E.S
-              </button>
+              </span>
               <span className="text-sm text-[#6b7280]">&copy; 2026 Typescribe. All rights reserved.</span>
             </div>
             <span className="text-xs text-[#6b7280] bg-[#0c0c10] px-3 py-1.5 rounded-full border border-[#1e1e28]">Made with AI + Community</span>
           </div>
         </div>
       </footer>
-
-      {/* Admin Password Modal */}
-      {showAdminModal && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm">
-          <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-full bg-[#d4a853]/10 flex items-center justify-center">
-                <Lock className="w-5 h-5 text-[#d4a853]" />
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-white">{adminTarget === 'admin' ? 'Admin Access' : 'Data Pipeline Access'}</h3>
-                <p className="text-xs text-[#6b7280]">O.L.H.M.E.S Authentication</p>
-              </div>
-            </div>
-            {adminError && (
-              <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
-                <p className="text-sm text-red-400">{adminError}</p>
-              </div>
-            )}
-            <input
-              type="password"
-              value={adminPassword}
-              onChange={(e) => setAdminPassword(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleAdminLogin()}
-              placeholder="Enter admin password"
-              className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] mb-4"
-              autoFocus
-            />
-            <div className="flex gap-3">
-              <Button
-                onClick={handleAdminLogin}
-                disabled={!adminPassword || adminLoading}
-                className="flex-1 bg-[#d4a853] hover:bg-[#b8922e] text-white disabled:opacity-50"
-              >
-                {adminLoading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Lock className="w-4 h-4 mr-2" />}
-                Authenticate
-              </Button>
-              <Button
-                onClick={() => { setShowAdminModal(false); setAdminPassword(''); setAdminError(''); }}
-                variant="outline"
-                className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:bg-[#111118]"
-              >
-                Cancel
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 }
