@@ -1,26 +1,23 @@
-# Typescribe Worklog
-
 ---
 Task ID: 1
 Agent: Main Agent
-Task: Diagnose and fix movie details page 404/crash at /movie/apex-1318447
+Task: UI Sovereign Refinement - Remove # from numbers, enforce 60-30-10 color rule, remove breadcrumbs, fix movie details page
 
 Work Log:
-- Investigated the live page at https://typescribe-mu.vercel.app/movie/apex-1318447 — showed "This page couldn't load" (client-side error boundary)
-- Confirmed the production API endpoint /api/movies/slug/apex-1318447 returns valid TMDb data correctly
-- Examined the server-rendered HTML — loading spinner renders fine during SSR
-- Identified the route uses [slug] not [id], and the page component is 1614 lines
-- Read through all imported components (RatingBadge, TasteMatch, GenreAdjustedRating, WhyTheDivide, ParentalGuidance, CriticTrustScore, LiveSentimentTracker, MovieCard, ReviewCard, ReviewForm, ReportModal)
-- **ROOT CAUSE FOUND**: Line 1577 of page.tsx passes `userReviewCounts` (with 's') but CriticTrustScore component expects `userReviewCount` (singular). This makes it undefined, which bypasses the `< 10` guard (`undefined < 10` is false in JS), causing the component to try to access `topSource.source` where `topSource` is undefined from `alignmentScores.reduce()` on an empty array — resulting in TypeError crash
-- Fixed the prop typo: `userReviewCounts` → `userReviewCount`
-- Added defensive coding to CriticTrustScore: default parameter `= 0`, guard `alignmentScores.length === 0`
-- Fixed RatingBadge to gracefully handle empty strings for IMDb/RT/Metacritic (return null instead of showing NaN)
-- Added error.tsx boundary at /movie/[slug]/error.tsx for better error UX
-- Pushed to GitHub, Vercel auto-deployed
-- Verified the fix: page now renders correctly with all sections visible
+- Explored full codebase structure, identified all files with # prefix numbers, breadcrumbs, and red accent colors
+- Removed # prefix from all rank/statistics numbers across 5 files (TopRatedSection, box-office, top-rated, settings, anime detail)
+- Surgically removed breadcrumb navigation from 7 pages (movie details, box-office, top-rated, community, anime, watchlist, DashboardLayout)
+- Cleaned up unused ChevronRight imports in movie/[slug]/page.tsx and DashboardLayout.tsx
+- Replaced all #e50914 (Netflix red) with #d4a853 (amber gold) across 7 files to enforce 60-30-10 color rule
+- Replaced #b20710 with #b8922e for hover states
+- Changed live data indicators from emerald/green to amber gold
+- Fixed movie details page: added mobile poster, skeleton loading state, image fallback handlers, mobile viewport hero fix
+- Verified Typescribe logo already only shown on homepage (pathname === '/' condition)
+- Build passed successfully, committed and pushed to GitHub, Vercel deployment completed
 
 Stage Summary:
-- Root cause: Prop typo `userReviewCounts` vs `userReviewCount` causing TypeError crash
-- Fix committed: b84e383
-- All movie page sections now render correctly: Hero, AI Review, Synopsis, Cast & Crew, Reviews, Sidebar info, Trailer, Where to Watch, etc.
-- Homepage still working perfectly
+- All # prefixes removed from number displays
+- 60-30-10 color rule enforced: 60% Deep Black (#050507), 30% Dark Grey (#0c0c10), 10% Amber Gold (#d4a853)
+- Breadcrumbs completely eliminated from all pages
+- Movie details page fixed for mobile with proper skeleton loading
+- Deployment live at https://typescribe-mu.vercel.app
