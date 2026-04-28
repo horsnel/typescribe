@@ -12,7 +12,12 @@ export default function MovieCard({ movie, className }: MovieCardProps) {
   return (
     <Link href={`/movie/${movie.slug}`} className={cn('group relative flex-shrink-0 w-[180px] sm:w-[200px] cursor-pointer block', className)}>
       <div className="relative aspect-[2/3] rounded-2xl overflow-hidden bg-[#0c0c10]" style={{ boxShadow: '0 4px 24px -4px rgba(0,0,0,0.6)' }}>
-        <img src={movie.poster_path} alt={movie.title} className="w-full h-full object-cover transition-all duration-300 group-hover:scale-[1.03]" loading="lazy" />
+        <img
+          src={movie.poster_path?.startsWith('http') ? movie.poster_path : movie.poster_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : movie.poster_path || ''}
+          alt={movie.title}
+          className="w-full h-full object-cover transition-all duration-300 group-hover:scale-[1.03]"
+          loading="lazy"
+        />
         {/* Sheen overlay */}
         <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 40%)' }} />
         <div className="absolute top-2 right-2 flex items-center gap-1 bg-[#f5c518] text-black text-xs font-bold px-2 py-0.5 rounded-full shadow-lg z-10">

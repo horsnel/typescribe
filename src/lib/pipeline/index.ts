@@ -46,11 +46,14 @@ interface PipelineStatus {
     hitRate: number;
     avgCompleteness: number;
   };
-  scrapingBee: {
+  scrapingAnt: {
     configured: boolean;
-    dailyCreditsUsed: number;
-    dailyCreditsLimit: number;
-    dailyCreditsRemaining: number;
+    totalRequests: number;
+    successRate: number;
+    totalUsed: number;
+    totalRemaining: number;
+    activeKeys: number;
+    keyStats: any;
   };
   omdbDaily: {
     used: number;

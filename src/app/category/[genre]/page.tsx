@@ -1,41 +1,88 @@
 'use client';
 import React, { useEffect, useState, useMemo } from 'react';
 import Link from 'next/link';
-import { ArrowRight, Star, Grid3X3, List, ChevronDown, SlidersHorizontal } from 'lucide-react';
-import { getMoviesByGenre, genres, movies } from '@/lib/data';
+import { ArrowRight, Star, Grid3X3, List, ChevronDown, Loader2 } from 'lucide-react';
 import MovieCard from '@/components/movie/MovieCard';
 import { Button } from '@/components/ui/button';
+import type { Movie } from '@/lib/types';
 
 type SortOption = 'rating' | 'release' | 'title' | 'popularity';
 
+// TMDb genre map for slug → ID resolution
+const TMDB_GENRE_MAP: Record<string, { id: number; name: string }> = {
+  'action': { id: 28, name: 'Action' },
+  'adventure': { id: 12, name: 'Adventure' },
+  'animation': { id: 16, name: 'Animation' },
+  'comedy': { id: 35, name: 'Comedy' },
+  'crime': { id: 80, name: 'Crime' },
+  'documentary': { id: 99, name: 'Documentary' },
+  'drama': { id: 18, name: 'Drama' },
+  'family': { id: 10751, name: 'Family' },
+  'fantasy': { id: 14, name: 'Fantasy' },
+  'history': { id: 36, name: 'History' },
+  'horror': { id: 27, name: 'Horror' },
+  'music': { id: 10402, name: 'Music' },
+  'mystery': { id: 9648, name: 'Mystery' },
+  'romance': { id: 10749, name: 'Romance' },
+  'science-fiction': { id: 878, name: 'Science Fiction' },
+  'sci-fi': { id: 878, name: 'Sci-Fi' },
+  'tv-movie': { id: 10770, name: 'TV Movie' },
+  'thriller': { id: 53, name: 'Thriller' },
+  'war': { id: 10752, name: 'War' },
+  'western': { id: 37, name: 'Western' },
+};
+
+// All genres for sidebar
+const ALL_GENRES = Object.entries(TMDB_GENRE_MAP).map(([slug, data]) => ({
+  id: slug,
+  name: data.name,
+  tmdbId: data.id,
+}));
+
 export default function CategoryPage({ params }: { params: Promise<{ genre: string }> }) {
   const { genre } = React.use(params);
-  const genreData = genres.find((g) => g.id === genre);
-  const genreMovies = getMoviesByGenre(genreData?.name || genre);
-  const displayName = genreData?.name || genre;
+  const genreInfo = TMDB_GENRE_MAP[genre];
+  const displayName = genreInfo?.name || genre.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
 
-  useEffect(() => { window.scrollTo(0, 0); }, []);
-
-  const [sort, setSort] = useState<SortOption>('rating');
+  const [genreMovies, setGenreMovies] = useState<Movie[]>([]);
+  const [totalResults, setTotalResults] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [sort, setSort] = useState<SortOption>('popularity');
   const [view, setView] = useState<'grid' | 'list'>('grid');
-  const [visibleCount, setVisibleCount] = useState(12);
 
-  // Get related genres
-  const relatedGenres = useMemo(() => {
-    const genreCounts: Record<string, number> = {};
-    genreMovies.forEach((m) => {
-      m.genres.forEach((g) => {
-        if (g.name !== displayName) {
-          genreCounts[g.name] = (genreCounts[g.name] || 0) + 1;
+  useEffect(() => { window.scrollTo(0, 0); }, [genre]);
+
+  // Fetch movies from TMDb discover API
+  useEffect(() => {
+    if (!genreInfo) {
+      setLoading(false);
+      return;
+    }
+
+    setLoading(true);
+    const sortMap: Record<SortOption, string> = {
+      popularity: 'popularity.desc',
+      rating: 'vote_average.desc',
+      release: 'primary_release_date.desc',
+      title: 'original_title.asc',
+    };
+
+    const url = `/api/browse?format=movie&genres=${genreInfo.id}&sort=${sortMap[sort]}&page=${currentPage}&minRating=5`;
+
+    fetch(url)
+      .then(res => res.ok ? res.json() : null)
+      .then(data => {
+        if (data?.movies) {
+          setGenreMovies(data.movies);
+          setTotalResults(data.totalResults || data.movies.length);
+          setTotalPages(data.totalPages || 1);
         }
-      });
-    });
-    return Object.entries(genreCounts)
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 6)
-      .map(([name]) => genres.find((g) => g.name === name))
-      .filter(Boolean);
-  }, [genreMovies, displayName]);
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, [genre, sort, currentPage, genreInfo]);
 
   // Stats
   const avgRating = genreMovies.length > 0
@@ -48,19 +95,22 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
     ? [...genreMovies].sort((a, b) => b.vote_average - a.vote_average)[0]
     : null;
 
-  const sorted = useMemo(() => {
-    const result = [...genreMovies];
-    switch (sort) {
-      case 'rating': result.sort((a, b) => b.vote_average - a.vote_average); break;
-      case 'release': result.sort((a, b) => new Date(b.release_date).getTime() - new Date(a.release_date).getTime()); break;
-      case 'title': result.sort((a, b) => a.title.localeCompare(b.title)); break;
-      case 'popularity': result.sort((a, b) => b.vote_count - a.vote_count); break;
-    }
-    return result;
-  }, [genreMovies, sort]);
-
-  const visible = sorted.slice(0, visibleCount);
-  const hasMore = sorted.length > visibleCount;
+  // Get related genres based on what appears alongside this genre
+  const relatedGenres = useMemo(() => {
+    const genreCounts: Record<string, number> = {};
+    genreMovies.forEach((m) => {
+      m.genres.forEach((g) => {
+        if (g.name !== displayName) {
+          genreCounts[g.name] = (genreCounts[g.name] || 0) + 1;
+        }
+      });
+    });
+    return Object.entries(genreCounts)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 6)
+      .map(([name]) => ALL_GENRES.find(g => g.name === name))
+      .filter(Boolean);
+  }, [genreMovies, displayName]);
 
   return (
     <div className="min-h-screen bg-[#050507] pt-8 pb-16">
@@ -77,19 +127,19 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
         {/* Hero Banner */}
         <div className="relative bg-gradient-to-r from-[#e50914]/20 to-[#b20710]/5 border border-[#e50914]/20 rounded-2xl p-8 mb-8 overflow-hidden">
           <div className="absolute right-0 top-0 w-1/2 h-full opacity-10">
-            {newestMovie && (
-              <img src={newestMovie.backdrop_path} alt="" className="w-full h-full object-cover" />
+            {newestMovie && newestMovie.backdrop_path && (
+              <img src={newestMovie.backdrop_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w780${newestMovie.backdrop_path}` : newestMovie.backdrop_path} alt="" className="w-full h-full object-cover" />
             )}
           </div>
           <div className="relative z-10">
             <h1 className="text-3xl lg:text-4xl font-extrabold text-white mb-2">{displayName} Movies</h1>
-            <p className="text-[#9ca3af] mb-6">{genreMovies.length} movies in this category</p>
+            <p className="text-[#9ca3af] mb-6">{totalResults.toLocaleString()} movies in this category</p>
 
             {/* Stats Row */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               <div className="bg-[#050507]/50 backdrop-blur-sm rounded-lg p-3 border border-[#1e1e28]/50">
                 <p className="text-xs text-[#6b7280]">Total Movies</p>
-                <p className="text-xl font-bold text-white">{genreMovies.length}</p>
+                <p className="text-xl font-bold text-white">{totalResults.toLocaleString()}</p>
               </div>
               <div className="bg-[#050507]/50 backdrop-blur-sm rounded-lg p-3 border border-[#1e1e28]/50">
                 <p className="text-xs text-[#6b7280]">Avg Rating</p>
@@ -99,7 +149,7 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
                 </div>
               </div>
               <div className="bg-[#050507]/50 backdrop-blur-sm rounded-lg p-3 border border-[#1e1e28]/50">
-                <p className="text-xs text-[#6b7280]">Highest Rated</p>
+                <p className="text-xs text-[#6b7280]">Highest rated</p>
                 <p className="text-sm font-bold text-white truncate">{highestRated?.title || 'N/A'}</p>
               </div>
               <div className="bg-[#050507]/50 backdrop-blur-sm rounded-lg p-3 border border-[#1e1e28]/50">
@@ -117,14 +167,14 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
             <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
               <div className="flex gap-2">
                 {([
+                  { value: 'popularity', label: 'Popular' },
                   { value: 'rating', label: 'Rating' },
                   { value: 'release', label: 'Newest' },
                   { value: 'title', label: 'Title' },
-                  { value: 'popularity', label: 'Popular' },
                 ] as { value: SortOption; label: string }[]).map(({ value, label }) => (
                   <button
                     key={value}
-                    onClick={() => setSort(value)}
+                    onClick={() => { setSort(value); setCurrentPage(1); }}
                     className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                       sort === value ? 'bg-[#e50914] text-white' : 'bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
                     }`}
@@ -143,36 +193,55 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
               </div>
             </div>
 
-            {/* Movie Grid / List */}
-            {genreMovies.length > 0 ? (
+            {/* Loading */}
+            {loading ? (
+              <div className="flex items-center justify-center py-24">
+                <Loader2 className="w-8 h-8 animate-spin text-[#e50914]" />
+              </div>
+            ) : genreMovies.length > 0 ? (
               <>
                 {view === 'grid' ? (
                   <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-5">
-                    {visible.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
+                    {genreMovies.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
                   </div>
                 ) : (
                   <div className="space-y-3">
-                    {visible.map((movie) => (
+                    {genreMovies.map((movie) => (
                       <Link key={movie.id} href={`/movie/${movie.slug}`} className="flex items-center gap-4 bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 hover:border-[#3a3a45] transition-colors group">
                         <div className="w-12 h-18 rounded-lg overflow-hidden flex-shrink-0 bg-[#050507]">
-                          <img src={movie.poster_path} alt={movie.title} className="w-full h-full object-cover" />
+                          <img src={movie.poster_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w92${movie.poster_path}` : movie.poster_path} alt={movie.title} className="w-full h-full object-cover" />
                         </div>
                         <div className="flex-1 min-w-0">
                           <h3 className="text-sm font-semibold text-white group-hover:text-[#e50914] transition-colors truncate">{movie.title}</h3>
                           <div className="flex items-center gap-2 mt-1">
                             <span className="text-xs text-[#f5c518] font-medium">★ {movie.vote_average.toFixed(1)}</span>
-                            <span className="text-xs text-[#6b7280]">{movie.release_date.split('-')[0]}</span>
-                            <span className="text-xs text-[#6b7280]">{movie.runtime}m</span>
+                            <span className="text-xs text-[#6b7280]">{movie.release_date?.split('-')[0]}</span>
+                            {movie.runtime > 0 && <span className="text-xs text-[#6b7280]">{movie.runtime}m</span>}
                           </div>
                         </div>
                       </Link>
                     ))}
                   </div>
                 )}
-                {hasMore && (
-                  <div className="text-center mt-10">
-                    <Button onClick={() => setVisibleCount((v) => v + 12)} variant="outline" className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:bg-[#111118] gap-2">
-                      <ChevronDown className="w-4 h-4" /> Load More
+                {/* Pagination */}
+                {totalPages > 1 && (
+                  <div className="flex items-center justify-center gap-3 mt-10">
+                    <Button
+                      onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                      disabled={currentPage === 1}
+                      variant="outline"
+                      className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:bg-[#111118]"
+                    >
+                      Previous
+                    </Button>
+                    <span className="text-sm text-[#6b7280]">Page {currentPage} of {Math.min(totalPages, 500)}</span>
+                    <Button
+                      onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                      disabled={currentPage >= totalPages}
+                      variant="outline"
+                      className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:bg-[#111118]"
+                    >
+                      Next
                     </Button>
                   </div>
                 )}
@@ -206,7 +275,7 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
             <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5">
               <h3 className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider mb-4">All Categories</h3>
               <div className="flex flex-wrap gap-2">
-                {genres.map((g) => (
+                {ALL_GENRES.map((g) => (
                   <Link
                     key={g.id}
                     href={`/category/${g.id}`}

@@ -2,7 +2,6 @@
 import { useRef, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight, ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
-import { movies } from '@/lib/data';
 import MovieCard from '@/components/movie/MovieCard';
 import type { Movie } from '@/lib/types';
 
@@ -18,18 +17,16 @@ export default function TrendingCarousel() {
     fetch('/api/browse?source=trending&count=20')
       .then(res => res.ok ? res.json() : null)
       .then(data => {
-        if (data?.movies?.length > 0 && data.fromAPI) {
+        if (data?.movies?.length > 0) {
           setTrendingMovies(data.movies);
-          setFromAPI(true);
-        } else {
-          setTrendingMovies(movies);
+          setFromAPI(data.fromAPI || false);
         }
       })
-      .catch(() => setTrendingMovies(movies))
+      .catch(() => {})
       .finally(() => setLoading(false));
   }, []);
 
-  const displayMovies = trendingMovies.length > 0 ? trendingMovies : movies;
+  const displayMovies = trendingMovies;
 
   return (
     <section id="trending" className="py-20 bg-[#050507]">

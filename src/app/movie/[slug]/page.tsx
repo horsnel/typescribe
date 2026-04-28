@@ -527,7 +527,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
         {/* Backdrop */}
         <div className="absolute inset-0">
           <img
-            src={movie.backdrop_path}
+            src={movie.backdrop_path?.startsWith('http') ? movie.backdrop_path : movie.backdrop_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w1280${movie.backdrop_path}` : movie.backdrop_path || ''}
             alt={movie.title}
             className="w-full h-full object-cover opacity-30"
           />
@@ -541,7 +541,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
             {/* Poster – hidden on mobile */}
             <div className="hidden md:block hero-animate flex-shrink-0 w-[220px] rounded-xl overflow-hidden shadow-2xl border border-[#1e1e28]/50">
               <img
-                src={movie.poster_path}
+                src={movie.poster_path?.startsWith('http') ? movie.poster_path : movie.poster_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : movie.poster_path || ''}
                 alt={movie.title}
                 className="w-full aspect-[2/3] object-cover"
               />
@@ -839,7 +839,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                   <div key={person.name} className="flex flex-col items-center flex-shrink-0 w-[90px]">
                     <div className="w-16 h-16 rounded-full overflow-hidden bg-[#0c0c10] border-2 border-[#1e1e28] mb-2">
                       <img
-                        src={person.profile_path}
+                        src={person.profile_path?.startsWith('http') ? person.profile_path : person.profile_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w185${person.profile_path}` : person.profile_path || ''}
                         alt={person.name}
                         className="w-full h-full object-cover"
                         loading="lazy"
@@ -1184,7 +1184,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
               <h3 className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider mb-4">Movie Info</h3>
 
               <div className="w-full aspect-video rounded-lg overflow-hidden mb-5 border border-[#1e1e28]/50">
-                <img src={movie.poster_path} alt={movie.title} className="w-full h-full object-cover" />
+                <img src={movie.poster_path?.startsWith('http') ? movie.poster_path : movie.poster_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : movie.poster_path || ''} alt={movie.title} className="w-full h-full object-cover" />
               </div>
 
               <div className="space-y-3.5">

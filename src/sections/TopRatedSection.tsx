@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Star, Loader2 } from 'lucide-react';
-import { topRated } from '@/lib/data';
 import type { Movie } from '@/lib/types';
 
 const rankColors: Record<number, string> = { 1: 'text-[#f5c518]', 2: 'text-[#c0c0c0]', 3: 'text-[#cd7f32]' };
@@ -14,21 +13,19 @@ export default function TopRatedSection() {
   const [fromAPI, setFromAPI] = useState(false);
 
   useEffect(() => {
-    fetch('/api/browse?source=top_rated&count=3')
+    fetch('/api/browse?source=top_rated')
       .then(res => res.ok ? res.json() : null)
       .then(data => {
-        if (data?.movies?.length > 0 && data.fromAPI) {
+        if (data?.movies?.length > 0) {
           setTopMovies(data.movies.slice(0, 3));
-          setFromAPI(true);
-        } else {
-          setTopMovies(topRated.map(t => t.movie));
+          setFromAPI(data.fromAPI || false);
         }
       })
-      .catch(() => setTopMovies(topRated.map(t => t.movie)))
+      .catch(() => {})
       .finally(() => setLoading(false));
   }, []);
 
-  const displayMovies = topMovies.length > 0 ? topMovies : topRated.map(t => t.movie);
+  const displayMovies = topMovies;
 
   return (
     <section id="top-rated" className="py-20 bg-[#050507]">
@@ -50,7 +47,7 @@ export default function TopRatedSection() {
               return (
                 <Link key={movie.id} href={`/movie/${movie.slug}`} className="card-reveal bg-[#0c0c10] border border-white/[0.06] rounded-xl overflow-hidden hover:border-[#e50914]/30 hover:shadow-xl transition-all group">
                   <div className="relative aspect-[16/10] overflow-hidden">
-                    <img src={movie.poster_path} alt={movie.title} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" />
+                    <img src={movie.backdrop_path?.startsWith('http') ? movie.backdrop_path : movie.backdrop_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w780${movie.backdrop_path}` : movie.poster_path?.startsWith('http') ? movie.poster_path : movie.poster_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w780${movie.poster_path}` : ''} alt={movie.title} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#050507]/60 via-transparent to-transparent" />
                     <div className="absolute top-3 left-3"><span className={`inline-flex items-center justify-center w-12 h-12 rounded-full ${rankBgColors[rank]} backdrop-blur-sm ${rankColors[rank]} text-2xl font-extrabold border-2 ${rank === 1 ? 'border-[#f5c518]' : rank === 2 ? 'border-[#c0c0c0]' : 'border-[#cd7f32]'}`} style={{ textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}>#{rank}</span></div>
                   </div>

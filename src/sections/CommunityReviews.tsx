@@ -1,14 +1,44 @@
 'use client';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { MessageSquare, ArrowRight } from 'lucide-react';
-import { userReviews, movies } from '@/lib/data';
 import ReviewCard from '@/components/review/ReviewCard';
 
+interface LocalReview {
+  id: number;
+  movie_id: number;
+  user_id: number;
+  user_name: string;
+  user_avatar: string;
+  rating: number;
+  text: string;
+  helpful_count: number;
+  created_at: string;
+  updated_at: string;
+  moderated: boolean;
+  moderation_note: string;
+  reports: any[];
+  movieSlug?: string;
+  movieTitle?: string;
+}
+
 export default function CommunityReviews() {
-  const displayReviews = userReviews.slice(0, 3).map((review) => {
-    const movie = movies.find((m) => m.id === review.movie_id);
-    return { review, movieSlug: movie?.slug || '', movieTitle: movie?.title || '' };
-  });
+  const [reviews, setReviews] = useState<LocalReview[]>([]);
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('typescribe_user_reviews');
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setReviews(parsed.slice(0, 3));
+        }
+      }
+    } catch { /* ignore */ }
+  }, []);
+
+  if (reviews.length === 0) return null;
+
   return (
     <section className="py-20 bg-[#050507]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
@@ -17,7 +47,7 @@ export default function CommunityReviews() {
           <Link href="/browse" className="flex items-center gap-1.5 text-sm text-[#9ca3af] hover:text-[#e50914] transition-colors">View All<ArrowRight className="w-4 h-4" /></Link>
         </div>
         <div className="card-grid flex flex-col gap-4">
-          {displayReviews.map(({ review, movieSlug }) => (<div key={review.id} className="card-reveal"><ReviewCard review={review} variant="full" showMovieTitle movieSlug={movieSlug} /></div>))}
+          {reviews.map((review) => (<div key={review.id} className="card-reveal"><ReviewCard review={review} variant="full" showMovieTitle movieSlug={review.movieSlug || ''} /></div>))}
         </div>
       </div>
     </section>

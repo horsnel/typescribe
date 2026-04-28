@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import { ChevronDown, Star, Film, Tv, Wand2 } from 'lucide-react';
 import gsap from 'gsap';
-import { movies } from '@/lib/data';
+import type { Movie } from '@/lib/types';
 
 type HeroFormat = 'movie' | 'tv' | 'anime';
 
@@ -17,8 +17,19 @@ export default function HeroSection() {
   const [heroFormat, setHeroFormat] = useState<HeroFormat>('movie');
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Pick 8 movies for the poster stack background
-  const posterMovies = movies.slice(0, 8);
+  // Fetch real trending movies for the poster stack background
+  const [posterMovies, setPosterMovies] = useState<Movie[]>([]);
+
+  useEffect(() => {
+    fetch('/api/browse?source=trending')
+      .then(res => res.ok ? res.json() : null)
+      .then(data => {
+        if (data?.movies && data.movies.length > 0) {
+          setPosterMovies(data.movies.slice(0, 8));
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     const tl = gsap.timeline({ delay: 0.3 });
@@ -75,7 +86,7 @@ export default function HeroSection() {
                     style={{ aspectRatio: '2/3' }}
                   >
                     <img
-                      src={movie.poster_path}
+                      src={movie.poster_path?.startsWith('http') ? movie.poster_path : movie.poster_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w342${movie.poster_path}` : movie.poster_path || ''}
                       alt={movie.title}
                       className="w-full h-full object-cover"
                       loading="lazy"
@@ -171,13 +182,14 @@ export default function HeroSection() {
           </div>
 
           {/* Featured Movie Info Card */}
+          {posterMovies.length > 0 && (
           <div className="hero-movie-info mt-12">
-            <div className="flex items-center gap-4 bg-[#0c0c10]/80 backdrop-blur-sm border border-white/[0.06] rounded-xl p-4 max-w-md">
+            <Link href={`/movie/${posterMovies[0].slug}`} className="flex items-center gap-4 bg-[#0c0c10]/80 backdrop-blur-sm border border-white/[0.06] rounded-xl p-4 max-w-md hover:border-[#e50914]/30 transition-colors group">
               <div className="w-12 h-18 flex-shrink-0 rounded-lg overflow-hidden">
-                <img src={posterMovies[0].poster_path} alt={posterMovies[0].title} className="w-full h-full object-cover" />
+                <img src={posterMovies[0].poster_path?.startsWith('http') ? posterMovies[0].poster_path : posterMovies[0].poster_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w92${posterMovies[0].poster_path}` : posterMovies[0].poster_path || ''} alt={posterMovies[0].title} className="w-full h-full object-cover" />
               </div>
               <div className="min-w-0">
-                <h3 className="text-sm font-bold text-white truncate">{posterMovies[0].title}</h3>
+                <h3 className="text-sm font-bold text-white truncate group-hover:text-[#e50914] transition-colors">{posterMovies[0].title}</h3>
                 <div className="flex items-center gap-2 mt-1">
                   <Star className="w-3.5 h-3.5 text-[#f5c518] fill-[#f5c518]" />
                   <span className="text-sm font-semibold text-[#f5c518]">{posterMovies[0].vote_average.toFixed(1)}</span>
@@ -189,8 +201,9 @@ export default function HeroSection() {
                   )}
                 </div>
               </div>
-            </div>
+            </Link>
           </div>
+          )}
         </div>
       </div>
 
