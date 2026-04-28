@@ -12,9 +12,10 @@ export default function Footer() {
   const [subscribed, setSubscribed] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // O.L.H.M.E.S Triple-click admin access
+  // O.L.H.M.E.S Multi-click admin access: double-click → Data Pipeline, triple-click → Admin Dashboard
   const [clickCount, setClickCount] = useState(0);
   const [clickTimer, setClickTimer] = useState<NodeJS.Timeout | null>(null);
+  const [adminTarget, setAdminTarget] = useState<'admin' | 'admin/data'>('admin');
   const [showAdminModal, setShowAdminModal] = useState(false);
   const [adminPassword, setAdminPassword] = useState('');
   const [adminError, setAdminError] = useState('');
@@ -30,10 +31,20 @@ export default function Footer() {
     const timer = setTimeout(() => setClickCount(0), 800);
     setClickTimer(timer);
 
-    // Triple click detected
+    // Double click → Data Pipeline
+    if (newCount === 2) {
+      setClickCount(0);
+      if (clickTimer) clearTimeout(clickTimer);
+      setAdminTarget('admin/data');
+      setShowAdminModal(true);
+      return;
+    }
+
+    // Triple click → Admin Dashboard
     if (newCount >= 3) {
       setClickCount(0);
       if (clickTimer) clearTimeout(clickTimer);
+      setAdminTarget('admin');
       setShowAdminModal(true);
     }
   };
@@ -52,7 +63,7 @@ export default function Footer() {
         localStorage.setItem('typescribe_admin_token', data.token);
         setShowAdminModal(false);
         setAdminPassword('');
-        router.push('/admin');
+        router.push(adminTarget);
       } else {
         setAdminError(data.error || 'Invalid password');
       }
@@ -200,7 +211,7 @@ export default function Footer() {
                 <Lock className="w-5 h-5 text-[#d4a853]" />
               </div>
               <div>
-                <h3 className="text-lg font-bold text-white">Admin Access</h3>
+                <h3 className="text-lg font-bold text-white">{adminTarget === 'admin' ? 'Admin Access' : 'Data Pipeline Access'}</h3>
                 <p className="text-xs text-[#6b7280]">O.L.H.M.E.S Authentication</p>
               </div>
             </div>

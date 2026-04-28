@@ -1,11 +1,13 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import Link from 'next/link';
 import {
   Database, RefreshCw, Trash2, CheckCircle, XCircle, Zap,
   Loader2, AlertTriangle, Activity, Key, FileText, Shield,
   Globe, ChevronUp, ChevronDown, ArrowUpDown, Clock, HardDrive,
   BarChart3, Cpu, Image as ImageIcon, Brain, Newspaper,
+  Lock,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -280,6 +282,125 @@ function ScrapingAntKeyStats({ sb }: { sb: any }) {
 // ─── Component ───
 
 export default function AdminDataPipelinePage() {
+  // ─── Auth Gate ───
+  const [authenticated, setAuthenticated] = useState(false);
+  const [checkingAuth, setCheckingAuth] = useState(true);
+  const [password, setPassword] = useState('');
+  const [authError, setAuthError] = useState('');
+  const [authLoading, setAuthLoading] = useState(false);
+
+  // Check localStorage for admin auth token
+  useEffect(() => {
+    const token =
+      localStorage.getItem('typescribe_admin_auth') ||
+      localStorage.getItem('typescribe_admin_token');
+    if (token) {
+      setAuthenticated(true);
+    }
+    setCheckingAuth(false);
+  }, []);
+
+  // Auth handler
+  const handleAuthenticate = async () => {
+    setAuthLoading(true);
+    setAuthError('');
+    try {
+      const res = await fetch('/api/admin/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      });
+      const data = await res.json();
+      if (res.ok && data.token) {
+        localStorage.setItem('typescribe_admin_auth', data.token);
+        localStorage.setItem('typescribe_admin_token', data.token);
+        setAuthenticated(true);
+        setPassword('');
+      } else {
+        setAuthError(data.error || 'Invalid password');
+      }
+    } catch {
+      setAuthError('Connection failed');
+    } finally {
+      setAuthLoading(false);
+    }
+  };
+
+  // Logout
+  const handleLogout = () => {
+    localStorage.removeItem('typescribe_admin_auth');
+    localStorage.removeItem('typescribe_admin_token');
+    setAuthenticated(false);
+  };
+
+  // Auth gate
+  if (checkingAuth) {
+    return (
+      <div className="min-h-screen bg-[#050507] flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-[#d4a853]" />
+      </div>
+    );
+  }
+
+  if (!authenticated) {
+    return (
+      <div className="min-h-screen bg-[#050507] flex items-center justify-center px-4">
+        <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-2xl p-8 max-w-md w-full shadow-2xl">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 rounded-full bg-[#d4a853]/10 flex items-center justify-center">
+              <Lock className="w-5 h-5 text-[#d4a853]" />
+            </div>
+            <div>
+              <h1 className="text-lg font-bold text-white">Data Pipeline Access</h1>
+              <p className="text-xs text-[#6b7280]">O.L.H.M.E.S Authentication Required</p>
+            </div>
+          </div>
+
+          {authError && (
+            <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
+              <p className="text-sm text-red-400">{authError}</p>
+            </div>
+          )}
+
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleAuthenticate()}
+            placeholder="Enter admin password"
+            className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] mb-4"
+            autoFocus
+          />
+
+          <div className="flex gap-3">
+            <Button
+              onClick={handleAuthenticate}
+              disabled={!password || authLoading}
+              className="flex-1 bg-[#d4a853] hover:bg-[#b8922e] text-white disabled:opacity-50"
+            >
+              {authLoading ? (
+                <Loader2 className="w-4 h-4 animate-spin mr-2" />
+              ) : (
+                <Lock className="w-4 h-4 mr-2" />
+              )}
+              Authenticate
+            </Button>
+          </div>
+
+          <div className="mt-6 pt-4 border-t border-[#1e1e28]">
+            <Link
+              href="/"
+              className="text-xs text-[#6b7280] hover:text-white transition-colors"
+            >
+              &larr; Back to Typescribe
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ─── Data Pipeline State ───
   const [status, setStatus] = useState<any>(null);
   const [health, setHealth] = useState<HealthReport | null>(null);
   const [loading, setLoading] = useState(true);
@@ -441,6 +562,14 @@ export default function AdminDataPipelinePage() {
             <Button onClick={fetchData} variant="outline" size="sm" className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]" disabled={loading}>
               <RefreshCw className={`w-3.5 h-3.5 mr-1.5 ${loading ? 'animate-spin' : ''}`} /> Refresh
             </Button>
+            <Button onClick={handleLogout} variant="outline" size="sm" className="border-red-500/20 text-red-400 hover:bg-red-500/10 hover:text-red-300">
+              Logout
+            </Button>
+            <Link href="/admin">
+              <Button variant="outline" size="sm" className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]">
+                &larr; Admin Dashboard
+              </Button>
+            </Link>
             {status?.status?.configured ? (
               <span className="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
                 <CheckCircle className="w-3 h-3" /> Pipeline Configured
