@@ -279,6 +279,8 @@ function ScrapingAntKeyStats({ sb }: { sb: any }) {
   );
 }
 
+export const dynamic = 'force-dynamic';
+
 // ─── Component ───
 
 export default function AdminDataPipelinePage() {
