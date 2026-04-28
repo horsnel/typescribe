@@ -282,12 +282,51 @@ function ScrapingAntKeyStats({ sb }: { sb: any }) {
 // ─── Component ───
 
 export default function AdminDataPipelinePage() {
-  // ─── Auth Gate ───
+  // ─── Auth Gate State ───
   const [authenticated, setAuthenticated] = useState(false);
   const [checkingAuth, setCheckingAuth] = useState(true);
   const [password, setPassword] = useState('');
   const [authError, setAuthError] = useState('');
   const [authLoading, setAuthLoading] = useState(false);
+
+  // ─── Data Pipeline State (must be declared before any conditional returns) ───
+  const [status, setStatus] = useState<any>(null);
+  const [health, setHealth] = useState<HealthReport | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [sortField, setSortField] = useState<SortField>('createdAt');
+  const [sortDir, setSortDir] = useState<SortDirection>('desc');
+  const [batchInput, setBatchInput] = useState('');
+  const [batchProcessing, setBatchProcessing] = useState(false);
+  const [batchResult, setBatchResult] = useState<any>(null);
+  const [actionLoading, setActionLoading] = useState<string | null>(null);
+  const [toast, setToastState] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+
+  const showToast = useCallback((message: string, type: 'success' | 'error' = 'success') => {
+    setToastState({ message, type });
+    setTimeout(() => setToastState(null), 3500);
+  }, []);
+
+  const fetchData = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const [statusRes, healthRes] = await Promise.allSettled([
+        fetch('/api/pipeline/status'),
+        fetch('/api/scrape/health'),
+      ]);
+      if (statusRes.status === 'fulfilled' && statusRes.value.ok) {
+        setStatus(await statusRes.value.json());
+      }
+      if (healthRes.status === 'fulfilled' && healthRes.value.ok) {
+        setHealth(await healthRes.value.json());
+      }
+    } catch (err: any) {
+      setError(err.message || 'Failed to fetch data');
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   // Check localStorage for admin auth token
   useEffect(() => {
@@ -299,6 +338,11 @@ export default function AdminDataPipelinePage() {
     }
     setCheckingAuth(false);
   }, []);
+
+  // Fetch data only when authenticated
+  useEffect(() => {
+    if (authenticated) { fetchData(); }
+  }, [authenticated, fetchData]);
 
   // Auth handler
   const handleAuthenticate = async () => {
@@ -333,7 +377,51 @@ export default function AdminDataPipelinePage() {
     setAuthenticated(false);
   };
 
-  // Auth gate
+  const handleCacheAction = async (action: string, key?: string) => {
+    setActionLoading(action);
+    try {
+      const url = key ? `/api/pipeline/cache?key=${encodeURIComponent(key)}` : '/api/pipeline/cache';
+      const res = await fetch(url, { method: 'DELETE' });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Action failed');
+      showToast(`Cache ${action} completed`);
+      await fetchData();
+    } catch (err: any) {
+      showToast(err.message, 'error');
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
+  const handleBatchProcess = async () => {
+    const ids = batchInput.split(/[,\n\s]+/).map(s => s.trim()).filter(Boolean).map(Number).filter(n => !isNaN(n) && n > 0);
+    if (ids.length === 0) { showToast('Enter valid TMDb IDs', 'error'); return; }
+    setBatchProcessing(true);
+    setBatchResult(null);
+    try {
+      const res = await fetch('/api/scrape/batch', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tmdbIds: ids }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Batch failed');
+      setBatchResult(data);
+      showToast(`Processed ${data.totalProcessed} movies (${data.successCount} succeeded)`);
+      await fetchData();
+    } catch (err: any) {
+      showToast(err.message, 'error');
+    } finally {
+      setBatchProcessing(false);
+    }
+  };
+
+  const handleSort = (field: SortField) => {
+    if (sortField === field) setSortDir(d => (d === 'asc' ? 'desc' : 'asc'));
+    else { setSortField(field); setSortDir('desc'); }
+  };
+
+  // ─── Auth Gates (after all hooks) ───
   if (checkingAuth) {
     return (
       <div className="min-h-screen bg-[#050507] flex items-center justify-center">
@@ -400,91 +488,7 @@ export default function AdminDataPipelinePage() {
     );
   }
 
-  // ─── Data Pipeline State ───
-  const [status, setStatus] = useState<any>(null);
-  const [health, setHealth] = useState<HealthReport | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [sortField, setSortField] = useState<SortField>('createdAt');
-  const [sortDir, setSortDir] = useState<SortDirection>('desc');
-  const [batchInput, setBatchInput] = useState('');
-  const [batchProcessing, setBatchProcessing] = useState(false);
-  const [batchResult, setBatchResult] = useState<any>(null);
-  const [actionLoading, setActionLoading] = useState<string | null>(null);
-  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
-
-  const showToast = useCallback((message: string, type: 'success' | 'error' = 'success') => {
-    setToast({ message, type });
-    setTimeout(() => setToast(null), 3500);
-  }, []);
-
-  const fetchData = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const [statusRes, healthRes] = await Promise.allSettled([
-        fetch('/api/pipeline/status'),
-        fetch('/api/scrape/health'),
-      ]);
-      if (statusRes.status === 'fulfilled' && statusRes.value.ok) {
-        setStatus(await statusRes.value.json());
-      }
-      if (healthRes.status === 'fulfilled' && healthRes.value.ok) {
-        setHealth(await healthRes.value.json());
-      }
-    } catch (err: any) {
-      setError(err.message || 'Failed to fetch data');
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => { fetchData(); }, [fetchData]);
-
-  const handleCacheAction = async (action: string, key?: string) => {
-    setActionLoading(action);
-    try {
-      const url = key ? `/api/pipeline/cache?key=${encodeURIComponent(key)}` : '/api/pipeline/cache';
-      const res = await fetch(url, { method: 'DELETE' });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Action failed');
-      showToast(`Cache ${action} completed`);
-      await fetchData();
-    } catch (err: any) {
-      showToast(err.message, 'error');
-    } finally {
-      setActionLoading(null);
-    }
-  };
-
-  const handleBatchProcess = async () => {
-    const ids = batchInput.split(/[,\n\s]+/).map(s => s.trim()).filter(Boolean).map(Number).filter(n => !isNaN(n) && n > 0);
-    if (ids.length === 0) { showToast('Enter valid TMDb IDs', 'error'); return; }
-    setBatchProcessing(true);
-    setBatchResult(null);
-    try {
-      const res = await fetch('/api/scrape/batch', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ tmdbIds: ids }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Batch failed');
-      setBatchResult(data);
-      showToast(`Processed ${data.totalProcessed} movies (${data.successCount} succeeded)`);
-      await fetchData();
-    } catch (err: any) {
-      showToast(err.message, 'error');
-    } finally {
-      setBatchProcessing(false);
-    }
-  };
-
-  const handleSort = (field: SortField) => {
-    if (sortField === field) setSortDir(d => (d === 'asc' ? 'desc' : 'asc'));
-    else { setSortField(field); setSortDir('desc'); }
-  };
-
+  // ─── Authenticated Content ───
   const SortIcon = ({ field }: { field: SortField }) => {
     if (sortField !== field) return <ArrowUpDown className="w-3 h-3 ml-1 opacity-40" />;
     return sortDir === 'asc' ? <ChevronUp className="w-3 h-3 ml-1 text-[#d4a853]" /> : <ChevronDown className="w-3 h-3 ml-1 text-[#d4a853]" />;
