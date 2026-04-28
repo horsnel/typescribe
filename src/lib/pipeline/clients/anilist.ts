@@ -468,6 +468,101 @@ export async function getAnimeByAniListId(anilistId: number): Promise<AniListRes
   return result;
 }
 
+// ─── Recommendations ────────────────────────────────────────────────────────
+
+const RECOMMENDATIONS_QUERY = `
+  query ($id: Int, $page: Int, $perPage: Int) {
+    Media(id: $id, type: ANIME, isAdult: false) {
+      recommendations(page: $page, perPage: $perPage, sort: [RATING_DESC]) {
+        nodes {
+          mediaRecommendation {
+            id
+            idMal
+            title { romaji english native }
+            coverImage { large medium }
+            averageScore
+            meanScore
+            siteUrl
+            format
+            type
+          }
+          rating
+          userRating
+        }
+      }
+    }
+  }
+`;
+
+export interface AniListRecommendation {
+  anilistId: number;
+  malId: number | null;
+  title: { romaji: string | null; english: string | null; native: string | null };
+  coverImage: { large: string | null; medium: string | null };
+  averageScore: number | null;
+  meanScore: number | null;
+  siteUrl: string | null;
+  format: string | null;
+  recommendationRating: number;
+}
+
+/**
+ * Get anime recommendations from AniList by AniList ID.
+ * Returns recommendations sorted by community rating (highest first).
+ */
+export async function getRecommendations(
+  anilistId: number,
+  perPage: number = 8,
+): Promise<AniListRecommendation[]> {
+  const cacheKey = `recs:${anilistId}`;
+  const startTime = Date.now();
+
+  const data = await anilistFetch<{
+    Media: {
+      recommendations: {
+        nodes: Array<{
+          mediaRecommendation: AniListMediaNode | null;
+          rating: number;
+          userRating: number | null;
+        }>;
+      };
+    };
+  }>(
+    RECOMMENDATIONS_QUERY,
+    { id: anilistId, page: 1, perPage },
+    cacheKey,
+  );
+
+  if (!data?.Media?.recommendations?.nodes) {
+    warn(`No recommendations for AniList ID ${anilistId}`);
+    return [];
+  }
+
+  const recs = data.Media.recommendations.nodes
+    .filter((node) => node.mediaRecommendation !== null)
+    .map((node) => {
+      const media = node.mediaRecommendation!;
+      return {
+        anilistId: media.id,
+        malId: media.idMal ?? null,
+        title: {
+          romaji: media.title?.romaji ?? null,
+          english: media.title?.english ?? null,
+          native: media.title?.native ?? null,
+        },
+        coverImage: media.coverImage ?? { large: null, medium: null },
+        averageScore: media.averageScore ?? null,
+        meanScore: media.meanScore ?? null,
+        siteUrl: media.siteUrl ?? null,
+        format: media.format ?? null,
+        recommendationRating: node.rating,
+      };
+    });
+
+  log(`Recommendations for AniList ${anilistId} → ${recs.length} result(s) (${Date.now() - startTime}ms)`);
+  return recs;
+}
+
 // ─── Cache management ────────────────────────────────────────────────────────
 
 /** Return current cache size (useful for diagnostics). */

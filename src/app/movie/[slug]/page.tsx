@@ -170,6 +170,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
 
   // ─── Related Movies State ───
   const [relatedMovies, setRelatedMovies] = useState<Movie[]>([]);
+  const [recSources, setRecSources] = useState<string[]>([]);
 
   // Scroll to top on mount / slug change
   useEffect(() => {
@@ -517,18 +518,32 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
   const visibleReviews = sortedReviews.slice(0, reviewsVisible);
   const hasMoreReviews = sortedReviews.length > reviewsVisible;
 
-  // Fetch related movies from TMDb recommendations/similar API
+  // Fetch related movies — multi-source recommendation pipeline
+  // Phase 1: Fast TMDb recs (~2s), Phase 2: Enriched with Letterboxd/RT/AniList (~10s)
   useEffect(() => {
     if (!movie) return;
     const tmdbId = movie.tmdb_id || movie.id;
     const mediaType = movie.media_type === 'tv' || movie.media_type === 'anime' ? 'tv' : 'movie';
 
+    // Phase 1: Fast TMDb recommendations
     fetch(`/api/movies/${tmdbId}/recommendations?type=${mediaType}`)
       .then(res => res.ok ? res.json() : null)
       .then(data => {
         if (data?.recommendations && data.recommendations.length > 0) {
           setRelatedMovies(data.recommendations);
+          if (data.sources) setRecSources(data.sources);
         }
+
+        // Phase 2: Enrich with Letterboxd, RT, AniList, Jikan in background
+        fetch(`/api/movies/${tmdbId}/recommendations?type=${mediaType}&enriched=true`)
+          .then(res => res.ok ? res.json() : null)
+          .then(enrichedData => {
+            if (enrichedData?.recommendations && enrichedData.recommendations.length > 0) {
+              setRelatedMovies(enrichedData.recommendations);
+              if (enrichedData.sources) setRecSources(enrichedData.sources);
+            }
+          })
+          .catch(() => { /* enrichment failed, keep fast data */ });
       })
       .catch(() => { /* ignore — section simply won't show */ });
   }, [movie]);
@@ -1220,7 +1235,18 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
             {/* Related Movies */}
             {relatedMovies.length > 0 && (
               <section className="content-animate">
-                <h2 className="text-xl font-bold text-white mb-5">You Might Also Like</h2>
+                <div className="flex items-center gap-3 mb-5">
+                  <h2 className="text-xl font-bold text-white">You Might Also Like</h2>
+                  {recSources.length > 0 && (
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      {recSources.map((src) => (
+                        <span key={src} className="text-[10px] font-medium text-[#9ca3af] bg-[#0c0c10] border border-[#1e1e28] px-2 py-0.5 rounded-full">
+                          {src}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
                   {relatedMovies.map((m) => (
                     <div key={m.id}>

@@ -514,6 +514,136 @@ export async function getConsensus(
 }
 
 // ---------------------------------------------------------------------------
+// Similar Movies
+// ---------------------------------------------------------------------------
+
+export interface RTSimilarMovie {
+  title: string;
+  slug: string;
+  url: string;
+  tomatometer: number | null;
+  year: number | null;
+}
+
+/**
+ * Scrape "Similar Movies" from a Rotten Tomatoes movie page.
+ *
+ * RT shows similar movies in a "Movies Like This" section with
+ * title, slug, tomatometer, and year for each.
+ */
+export async function getSimilarMovies(
+  movieSlug: string,
+): Promise<RTSimilarMovie[] | null> {
+  if (!canRequest(SCRAPER_NAME)) {
+    warn(`Circuit breaker OPEN — skipping similar for "${movieSlug}"`);
+    return null;
+  }
+
+  const cacheKey = `similar:${movieSlug}`;
+  const cached = getCached(cacheKey);
+  if (cached) {
+    log(`Cache hit for similar:${movieSlug}`);
+    return cached;
+  }
+
+  const url = `${BASE_URL}/m/${movieSlug}/similar`;
+  log(`Scraping similar: ${url}`);
+
+  const startTime = Date.now();
+  const $ = await scrapeAndParse(url, SB_OPTIONS);
+
+  if (!$) {
+    const elapsed = Date.now() - startTime;
+    reportFailure(SCRAPER_NAME);
+    recordScraperFailure(SCRAPER_NAME, elapsed);
+    warn(`Similar page scrape failed for ${movieSlug} (${elapsed}ms)`);
+    return null;
+  }
+
+  try {
+    const similar: RTSimilarMovie[] = [];
+
+    // Strategy 1: JSON-LD structured data
+    const ldBlocks = parseJsonLdBlocks($);
+    for (const block of ldBlocks) {
+      if (block.name && block.aggregateRating) {
+        const slugMatch = block.description?.match(/rottentomatoes\.com\/m\/([^/?#\s"]+)/);
+        const slug = slugMatch ? slugMatch[1] : titleToRtSlug(block.name);
+        const pct = toNumber(block.aggregateRating.ratingValue);
+        similar.push({
+          title: block.name,
+          slug,
+          url: `${BASE_URL}/m/${slug}`,
+          tomatometer: pct,
+          year: null,
+        });
+      }
+    }
+
+    // Strategy 2: HTML tile rows
+    if (similar.length === 0) {
+      $('tiles-row-responsive a[data-track="similar_movie"], .similar-movies a, .movies-like-this a').each((_i, el) => {
+        const href = $(el).attr('href') || '';
+        const slugMatch = href.match(/\/m\/([^/?#]+)/);
+        const slug = slugMatch ? slugMatch[1] : '';
+        const title = $(el).find('img').attr('alt') || $(el).attr('title') || $(el).text().trim();
+        const tomatoEl = $(el).find('.tomatometer, [data-qa="tomatometer"]');
+        const tomato = tomatoEl.length ? toNumber(tomatoEl.text().replace(/%/g, '')) : null;
+
+        if (slug && title && !similar.some(s => s.slug === slug)) {
+          similar.push({
+            title,
+            slug,
+            url: `${BASE_URL}/m/${slug}`,
+            tomatometer: tomato,
+            year: null,
+          });
+        }
+      });
+    }
+
+    // Strategy 3: Generic film link extraction
+    if (similar.length === 0) {
+      $('a[href*="/m/"]').each((_i, el) => {
+        if (similar.length >= 8) return false;
+        const href = $(el).attr('href') || '';
+        const slugMatch = href.match(/\/m\/([^/?#]+)/);
+        const slug = slugMatch ? slugMatch[1] : '';
+        const title = $(el).find('img').attr('alt') || $(el).attr('title') || '';
+        if (slug && title && slug !== movieSlug && !similar.some(s => s.slug === slug)) {
+          similar.push({
+            title,
+            slug,
+            url: `${BASE_URL}/m/${slug}`,
+            tomatometer: null,
+            year: null,
+          });
+        }
+      });
+    }
+
+    const elapsed = Date.now() - startTime;
+    reportSuccess(SCRAPER_NAME);
+    recordScraperSuccess(SCRAPER_NAME, elapsed);
+
+    // Cache under a separate similar- namespace (stored as consensus object for compatibility)
+    (cache as Map<string, any>).set(`similar:${movieSlug}`, { data: similar, expiresAt: Date.now() + CACHE_TTL_MS });
+    log(`Similar movies for "${movieSlug}" → ${similar.length} films (${elapsed}ms)`);
+    return similar;
+  } catch (err) {
+    const elapsed = Date.now() - startTime;
+    reportFailure(SCRAPER_NAME);
+    recordScraperFailure(SCRAPER_NAME, elapsed);
+    warn(`Parse error for similar ${movieSlug}:`, err instanceof Error ? err.message : err);
+    return null;
+  }
+}
+
+function titleToRtSlug(title: string): string {
+  return title.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '');
+}
+
+// ---------------------------------------------------------------------------
 // IMDb → RT bridge
 // ---------------------------------------------------------------------------
 
