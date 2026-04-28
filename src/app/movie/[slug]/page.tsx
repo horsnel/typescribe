@@ -255,6 +255,37 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
       .finally(() => setWatchLoading(false));
   }, [movie]);
 
+  // Fetch related movies — multi-source recommendation pipeline
+  // Phase 1: Fast TMDb recs (~2s), Phase 2: Enriched with Letterboxd/RT/AniList (~10s)
+  // NOTE: This MUST be before any conditional returns (React Rules of Hooks)
+  useEffect(() => {
+    if (!movie) return;
+    const tmdbId = movie.tmdb_id || movie.id;
+    const mediaType = movie.media_type === 'tv' || movie.media_type === 'anime' ? 'tv' : 'movie';
+
+    // Phase 1: Fast TMDb recommendations
+    fetch(`/api/movies/${tmdbId}/recommendations?type=${mediaType}`)
+      .then(res => res.ok ? res.json() : null)
+      .then(data => {
+        if (data?.recommendations && data.recommendations.length > 0) {
+          setRelatedMovies(data.recommendations);
+          if (data.sources) setRecSources(data.sources);
+        }
+
+        // Phase 2: Enrich with Letterboxd, RT, AniList, Jikan in background
+        fetch(`/api/movies/${tmdbId}/recommendations?type=${mediaType}&enriched=true`)
+          .then(res => res.ok ? res.json() : null)
+          .then(enrichedData => {
+            if (enrichedData?.recommendations && enrichedData.recommendations.length > 0) {
+              setRelatedMovies(enrichedData.recommendations);
+              if (enrichedData.sources) setRecSources(enrichedData.sources);
+            }
+          })
+          .catch(() => { /* enrichment failed, keep fast data */ });
+      })
+      .catch(() => { /* ignore — section simply won't show */ });
+  }, [movie]);
+
   const saveComments = (updated: LocalComment[]) => {
     setComments(updated);
     try {
@@ -517,36 +548,6 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
 
   const visibleReviews = sortedReviews.slice(0, reviewsVisible);
   const hasMoreReviews = sortedReviews.length > reviewsVisible;
-
-  // Fetch related movies — multi-source recommendation pipeline
-  // Phase 1: Fast TMDb recs (~2s), Phase 2: Enriched with Letterboxd/RT/AniList (~10s)
-  useEffect(() => {
-    if (!movie) return;
-    const tmdbId = movie.tmdb_id || movie.id;
-    const mediaType = movie.media_type === 'tv' || movie.media_type === 'anime' ? 'tv' : 'movie';
-
-    // Phase 1: Fast TMDb recommendations
-    fetch(`/api/movies/${tmdbId}/recommendations?type=${mediaType}`)
-      .then(res => res.ok ? res.json() : null)
-      .then(data => {
-        if (data?.recommendations && data.recommendations.length > 0) {
-          setRelatedMovies(data.recommendations);
-          if (data.sources) setRecSources(data.sources);
-        }
-
-        // Phase 2: Enrich with Letterboxd, RT, AniList, Jikan in background
-        fetch(`/api/movies/${tmdbId}/recommendations?type=${mediaType}&enriched=true`)
-          .then(res => res.ok ? res.json() : null)
-          .then(enrichedData => {
-            if (enrichedData?.recommendations && enrichedData.recommendations.length > 0) {
-              setRelatedMovies(enrichedData.recommendations);
-              if (enrichedData.sources) setRecSources(enrichedData.sources);
-            }
-          })
-          .catch(() => { /* enrichment failed, keep fast data */ });
-      })
-      .catch(() => { /* ignore — section simply won't show */ });
-  }, [movie]);
 
   const isOverviewLong = movie.overview.length > 300;
   const displayOverview = isOverviewLong && !overviewExpanded

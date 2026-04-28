@@ -65,7 +65,7 @@ export async function GET(req: NextRequest) {
       itunes: sources.itunes ?? true,
       anilist: sources.anilist ?? true,
       jikan: true,
-      kitsu: sources.kitsu ?? true,
+      kitsu: true, // Kitsu is always configured (free, no key needed)
       youtube: sources.youtube,
       newsapi: sources.newsapi,
       newsdata: sources.newsdataIo,

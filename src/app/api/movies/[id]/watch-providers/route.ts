@@ -13,7 +13,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getMovieWatchProviders } from '@/lib/pipeline/clients/streaming';
 import { getMovieDetails } from '@/lib/pipeline/clients/tmdb';
-import { getWhereToWatch } from '@/lib/api/tvmaze';
+import { getWhereToWatch, type WhereToWatchResult } from '@/lib/api/tvmaze';
 import type { StreamingProvider } from '@/lib/pipeline/clients/streaming';
 
 export async function GET(
@@ -46,7 +46,7 @@ export async function GET(
     // We need the movie title to search TVMaze.  Fetch it from TMDb if we
     // don't already have it from the watch-providers response.
     let movieTitle: string | null = null;
-    let tvmazeResult = null;
+    let tvmazeResult: WhereToWatchResult | null = null;
 
     if (!hasTmdbProviders) {
       // No TMDb providers — definitely try TVMaze

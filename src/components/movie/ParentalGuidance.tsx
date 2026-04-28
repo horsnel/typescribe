@@ -116,6 +116,7 @@ function autoDetectCategories(genres: Array<{ id: number; name: string }>): Cont
     if (mapping) {
       for (const [catId, severity] of Object.entries(mapping)) {
         // Take the highest severity
+        if (!severity) continue;
         const current = categoryMap[catId];
         const levels: SeverityLevel[] = ['none', 'mild', 'moderate', 'severe'];
         if (!current || levels.indexOf(severity) > levels.indexOf(current)) {

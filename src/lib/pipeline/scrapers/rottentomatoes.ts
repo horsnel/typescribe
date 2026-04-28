@@ -34,7 +34,7 @@ export interface RTConsensusData {
 }
 
 interface CacheEntry {
-  data: RTConsensusData;
+  data: RTConsensusData | RTSimilarMovie[];
   expiresAt: number;
 }
 
@@ -58,7 +58,7 @@ const SB_OPTIONS: ScrapingBeeOptions = {
 
 const cache = new Map<string, CacheEntry>();
 
-function getCached(key: string): RTConsensusData | null {
+function getCached(key: string): RTConsensusData | RTSimilarMovie[] | null {
   const entry = cache.get(key);
   if (!entry) return null;
   if (Date.now() > entry.expiresAt) {
@@ -68,7 +68,7 @@ function getCached(key: string): RTConsensusData | null {
   return entry.data;
 }
 
-function setCache(key: string, data: RTConsensusData): void {
+function setCache(key: string, data: RTConsensusData | RTSimilarMovie[]): void {
   cache.set(key, { data, expiresAt: Date.now() + CACHE_TTL_MS });
 }
 
@@ -390,7 +390,7 @@ export async function getConsensus(
 
   const cacheKey = `consensus:${movieSlug}`;
   const cached = getCached(cacheKey);
-  if (cached) {
+  if (cached && !Array.isArray(cached)) {
     log(`Cache hit for ${movieSlug}`);
     return cached;
   }
@@ -541,7 +541,7 @@ export async function getSimilarMovies(
 
   const cacheKey = `similar:${movieSlug}`;
   const cached = getCached(cacheKey);
-  if (cached) {
+  if (cached && Array.isArray(cached)) {
     log(`Cache hit for similar:${movieSlug}`);
     return cached;
   }
@@ -555,7 +555,7 @@ export async function getSimilarMovies(
   if (!$) {
     const elapsed = Date.now() - startTime;
     reportFailure(SCRAPER_NAME);
-    recordScraperFailure(SCRAPER_NAME, elapsed);
+    recordScraperFailure(SCRAPER_NAME);
     warn(`Similar page scrape failed for ${movieSlug} (${elapsed}ms)`);
     return null;
   }
@@ -627,13 +627,13 @@ export async function getSimilarMovies(
     recordScraperSuccess(SCRAPER_NAME, elapsed);
 
     // Cache under a separate similar- namespace (stored as consensus object for compatibility)
-    (cache as Map<string, any>).set(`similar:${movieSlug}`, { data: similar, expiresAt: Date.now() + CACHE_TTL_MS });
+    setCache(`similar:${movieSlug}`, similar);
     log(`Similar movies for "${movieSlug}" → ${similar.length} films (${elapsed}ms)`);
     return similar;
   } catch (err) {
     const elapsed = Date.now() - startTime;
     reportFailure(SCRAPER_NAME);
-    recordScraperFailure(SCRAPER_NAME, elapsed);
+    recordScraperFailure(SCRAPER_NAME);
     warn(`Parse error for similar ${movieSlug}:`, err instanceof Error ? err.message : err);
     return null;
   }
@@ -664,7 +664,7 @@ export async function getConsensusByImdbId(
 
   const cacheKey = `imdb:${imdbId}`;
   const cached = getCached(cacheKey);
-  if (cached) {
+  if (cached && !Array.isArray(cached)) {
     log(`Cache hit for IMDb ${imdbId}`);
     return cached;
   }

@@ -11,7 +11,7 @@
  * Provides: Related film titles (resolved to TMDb IDs via search)
  */
 
-import { scrapeAndParse, type ScrapingAntOptions } from '@/lib/pipeline/core/scrapingbee';
+import { scrapeAndParse, type ScrapingBeeOptions } from '@/lib/pipeline/core/scrapingbee';
 import { canRequest, reportSuccess, reportFailure } from '@/lib/pipeline/core/circuit-breaker';
 import { recordScraperSuccess, recordScraperFailure } from '@/lib/pipeline/core/health-monitor';
 
@@ -48,7 +48,7 @@ const BASE_URL = 'https://letterboxd.com';
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
 
 // Direct fetch — Letterboxd doesn't need ScrapingAnt for film pages
-const SB_OPTIONS: ScrapingAntOptions = {
+const SB_OPTIONS: ScrapingBeeOptions = {
   directFetch: true,
 };
 
@@ -236,7 +236,7 @@ export async function getRelatedFilms(
     } catch (err) {
       const elapsed = Date.now() - startTime;
       reportFailure(SCRAPER_NAME);
-      recordScraperFailure(SCRAPER_NAME, elapsed);
+      recordScraperFailure(SCRAPER_NAME);
       warn(`Parse error for ${url}:`, err instanceof Error ? err.message : err);
     }
   }

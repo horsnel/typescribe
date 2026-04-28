@@ -359,7 +359,7 @@ export default function CommunityDetailPage() {
     };
     const localPosts = getLocalPosts(communityId);
     localPosts.unshift(newPost);
-    saveLocalPosts(communityId, newPost);
+    saveLocalPosts(communityId, localPosts);
     setPosts([newPost, ...posts.filter(p => !p.id.startsWith('local-'))]);
     setNewPostTitle('');
     setNewPostContent('');
