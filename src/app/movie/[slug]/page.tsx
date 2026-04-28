@@ -10,7 +10,7 @@ import {
   PenSquare, ThumbsUp, Flag, Reply, MoreHorizontal, Send, Loader2, Shield,
   DollarSign, Eye, MonitorPlay, Swords,
 } from 'lucide-react';
-import { movies, userReviews, getMovieBySlug } from '@/lib/data';
+import { userReviews, getMovieBySlug } from '@/lib/data';
 import type { Movie } from '@/lib/types';
 import { useAuth, isInWatchlist, toggleWatchlist } from '@/lib/auth';
 import RatingBadge from '@/components/movie/RatingBadge';
@@ -167,6 +167,9 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
   const [watchProviders, setWatchProviders] = useState<WatchProvidersData | null>(null);
   const [watchLoading, setWatchLoading] = useState(true);
   const [watchCountry, setWatchCountry] = useState('US');
+
+  // ─── Related Movies State ───
+  const [relatedMovies, setRelatedMovies] = useState<Movie[]>([]);
 
   // Scroll to top on mount / slug change
   useEffect(() => {
@@ -514,9 +517,21 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
   const visibleReviews = sortedReviews.slice(0, reviewsVisible);
   const hasMoreReviews = sortedReviews.length > reviewsVisible;
 
-  const relatedMovies = movies
-    .filter((m) => m.id !== movie.id && m.genres.some((g) => movie.genres.some((mg) => mg.id === g.id)))
-    .slice(0, 4);
+  // Fetch related movies from TMDb recommendations/similar API
+  useEffect(() => {
+    if (!movie) return;
+    const tmdbId = movie.tmdb_id || movie.id;
+    const mediaType = movie.media_type === 'tv' || movie.media_type === 'anime' ? 'tv' : 'movie';
+
+    fetch(`/api/movies/${tmdbId}/recommendations?type=${mediaType}`)
+      .then(res => res.ok ? res.json() : null)
+      .then(data => {
+        if (data?.recommendations && data.recommendations.length > 0) {
+          setRelatedMovies(data.recommendations);
+        }
+      })
+      .catch(() => { /* ignore — section simply won't show */ });
+  }, [movie]);
 
   const isOverviewLong = movie.overview.length > 300;
   const displayOverview = isOverviewLong && !overviewExpanded
@@ -1206,9 +1221,9 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
             {relatedMovies.length > 0 && (
               <section className="content-animate">
                 <h2 className="text-xl font-bold text-white mb-5">You Might Also Like</h2>
-                <div className="flex gap-5 overflow-x-auto pb-3 scrollbar-thin">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
                   {relatedMovies.map((m) => (
-                    <div key={m.id} className="flex-shrink-0 w-[160px] sm:w-[180px]">
+                    <div key={m.id}>
                       <MovieCard movie={m} />
                     </div>
                   ))}

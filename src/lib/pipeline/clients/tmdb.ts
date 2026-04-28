@@ -916,6 +916,103 @@ export async function searchAnime(
   }
 }
 
+// ─── Similar Movies & Recommendations ────────────────────────────────────────
+
+/**
+ * GET `/movie/{id}/similar`
+ *
+ * Returns a paginated list of similar movies.
+ * These are movies that TMDb determines are similar based on user behavior and metadata.
+ */
+export async function getSimilarMovies(
+  tmdbId: number,
+  page: number = 1,
+  apiKeyOverride?: string,
+): Promise<PaginatedResult<Movie> | null> {
+  const data = await tmdbFetch<PaginatedResult<TmdbMovieCard>>(
+    `/movie/${tmdbId}/similar`,
+    { page },
+    CACHE_TTL_LISTS,
+    apiKeyOverride,
+  );
+  if (!data) return null;
+
+  try {
+    return {
+      ...data,
+      results: data.results
+        .filter((m) => m.poster_path) // only include movies with poster images
+        .map(transformMovieCard),
+    };
+  } catch (err) {
+    console.error(`[TMDb] Failed to transform similar movies for ${tmdbId}`, err);
+    return null;
+  }
+}
+
+/**
+ * GET `/movie/{id}/recommendations`
+ *
+ * Returns a paginated list of recommended movies.
+ * These are curated recommendations based on user behavior patterns.
+ */
+export async function getMovieRecommendations(
+  tmdbId: number,
+  page: number = 1,
+  apiKeyOverride?: string,
+): Promise<PaginatedResult<Movie> | null> {
+  const data = await tmdbFetch<PaginatedResult<TmdbMovieCard>>(
+    `/movie/${tmdbId}/recommendations`,
+    { page },
+    CACHE_TTL_LISTS,
+    apiKeyOverride,
+  );
+  if (!data) return null;
+
+  try {
+    return {
+      ...data,
+      results: data.results
+        .filter((m) => m.poster_path) // only include movies with poster images
+        .map(transformMovieCard),
+    };
+  } catch (err) {
+    console.error(`[TMDb] Failed to transform movie recommendations for ${tmdbId}`, err);
+    return null;
+  }
+}
+
+/**
+ * GET `/tv/{id}/similar`
+ *
+ * Returns a paginated list of similar TV shows.
+ */
+export async function getSimilarTv(
+  tmdbId: number,
+  page: number = 1,
+  apiKeyOverride?: string,
+): Promise<PaginatedResult<Movie> | null> {
+  const data = await tmdbFetch<PaginatedResult<TmdbTvCard>>(
+    `/tv/${tmdbId}/similar`,
+    { page },
+    CACHE_TTL_LISTS,
+    apiKeyOverride,
+  );
+  if (!data) return null;
+
+  try {
+    return {
+      ...data,
+      results: data.results
+        .filter((m) => m.poster_path)
+        .map(transformTvCard),
+    };
+  } catch (err) {
+    console.error(`[TMDb] Failed to transform similar TV for ${tmdbId}`, err);
+    return null;
+  }
+}
+
 // ─── Re-export PaginatedResult for consumers ─────────────────────────────────
 
 export type { PaginatedResult, DiscoverMovieFilters, DiscoverTvFilters };
