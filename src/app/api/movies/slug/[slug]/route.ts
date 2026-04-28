@@ -17,7 +17,6 @@
  * while enriched data loads progressively.
  */
 import { NextRequest, NextResponse } from 'next/server';
-import { getMovieBySlug } from '@/lib/pipeline';
 import * as TMDb from '@/lib/pipeline/clients/tmdb';
 import { getCachedMovie, setCachedMovie } from '@/lib/pipeline/cache';
 import { mergeMovieData } from '@/lib/pipeline/merger';
@@ -74,8 +73,13 @@ export async function GET(
     if (wantEnriched) {
       if (tmdbId && tmdbId > 0) {
         try {
-          const result = await getMovieBySlug(trimmedSlug);
-          if (result) {
+          // Use mergeMovieData directly to bypass cache and get full pipeline data
+          const result = await mergeMovieData(tmdbId);
+          if (result && result.completeness > 0 && result.movie.title) {
+            // Cache the enriched result
+            setCachedMovie(slugCacheKey, result.movie, result.sources, result.completeness);
+            setCachedMovie(`tmdb:${tmdbId}`, result.movie, result.sources, result.completeness);
+
             return NextResponse.json({
               movie: result.movie,
               sources: result.sources,
@@ -83,9 +87,21 @@ export async function GET(
               enriched: true,
             });
           }
+          // Pipeline returned empty result — fall through to return cached data if any
         } catch (err) {
           console.warn(`[API /movies/slug] Full pipeline failed for "${trimmedSlug}"`, err);
         }
+      }
+
+      // If enriched failed, return whatever we have in cache
+      if (cached) {
+        return NextResponse.json({
+          movie: cached.movie,
+          sources: cached.sources,
+          completeness: cached.completeness,
+          enriched: cached.completeness >= 50,
+          fromCache: true,
+        });
       }
 
       return NextResponse.json(
