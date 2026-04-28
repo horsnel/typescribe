@@ -65,35 +65,29 @@ export default function TopRatedPage() {
     if (rank === 1) return <Crown className="w-6 h-6 text-[#f5c518]" />;
     if (rank === 2) return <Medal className="w-6 h-6 text-[#c0c0c0]" />;
     if (rank === 3) return <Medal className="w-6 h-6 text-[#cd7f32]" />;
-    return <span className="text-xl font-extrabold text-[#9ca3af]">#{rank}</span>;
+    return <span className="text-xl font-extrabold text-[#9ca3af]">{rank}</span>;
   };
 
   return (
     <div className="min-h-screen bg-[#050507] pt-8 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
-        <nav className="flex items-center gap-2 text-sm text-[#6b7280] mb-6">
-          <Link href="/" className="hover:text-white transition-colors">Home</Link>
-          <span>/</span>
-          <span className="text-[#9ca3af]">Top Rated</span>
-        </nav>
-
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
           <div>
             <div className="flex items-center gap-3 mb-2">
               <Trophy className="w-8 h-8 text-[#f5c518]" />
               <h1 className="text-3xl lg:text-4xl font-extrabold text-white">Top Rated Movies</h1>
               {fromAPI && (
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1"><Zap className="w-3 h-3" />Live</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#d4a853]/10 text-[#d4a853] border border-[#d4a853]/20 flex items-center gap-1"><Zap className="w-3 h-3" />Live</span>
               )}
             </div>
             <p className="text-[#6b7280]">{filtered.length} movies ranked by overall rating</p>
           </div>
           <div className="flex items-center gap-3">
             <div className="hidden sm:flex items-center border border-[#1e1e28] rounded-lg overflow-hidden">
-              <button onClick={() => setView('list')} className={`p-2 ${view === 'list' ? 'bg-[#e50914] text-white' : 'text-[#6b7280] hover:text-white'}`}>
+              <button onClick={() => setView('list')} className={`p-2 ${view === 'list' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white'}`}>
                 <Grid3X3 className="w-4 h-4" />
               </button>
-              <button onClick={() => setView('grid')} className={`p-2 ${view === 'grid' ? 'bg-[#e50914] text-white' : 'text-[#6b7280] hover:text-white'}`}>
+              <button onClick={() => setView('grid')} className={`p-2 ${view === 'grid' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white'}`}>
                 <List className="w-4 h-4" />
               </button>
             </div>
@@ -108,7 +102,7 @@ export default function TopRatedPage() {
               onClick={() => { setGenreFilter(name); setVisibleCount(20); }}
               className={`px-4 py-2 rounded-full text-xs font-medium whitespace-nowrap transition-colors capitalize ${
                 genreFilter === name
-                  ? 'bg-[#e50914] text-white'
+                  ? 'bg-[#d4a853] text-white'
                   : 'bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
               }`}
             >
@@ -119,7 +113,7 @@ export default function TopRatedPage() {
 
         {loading ? (
           <div className="flex items-center justify-center py-24">
-            <Loader2 className="w-8 h-8 text-[#e50914] animate-spin" />
+            <Loader2 className="w-8 h-8 text-[#d4a853] animate-spin" />
             <span className="ml-3 text-[#6b7280]">Loading top rated movies...</span>
           </div>
         ) : (
@@ -149,7 +143,7 @@ export default function TopRatedPage() {
                         <img src={movie.poster_path} alt={movie.title} className="w-full h-full object-cover" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-base font-bold text-white group-hover:text-[#e50914] transition-colors leading-snug">{movie.title}</h3>
+                        <h3 className="text-base font-bold text-white group-hover:text-[#d4a853] transition-colors leading-snug">{movie.title}</h3>
                         {consensus && <p className="text-xs text-[#9ca3af] italic mt-1 line-clamp-2">&ldquo;{consensus}&rdquo;</p>}
                         <div className="flex gap-2 mt-2">
                           {movie.imdb_rating && <span className="text-[10px] text-[#6b7280] bg-[#050507] px-1.5 py-0.5 rounded">IMDb {movie.imdb_rating}</span>}
@@ -168,13 +162,13 @@ export default function TopRatedPage() {
                 {visible.map(({ rank, movie, consensus }) => (
                   <Link key={movie.id} href={`/movie/${movie.slug}`} className="flex items-center gap-6 bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5 hover:border-[#3a3a45] hover:shadow-lg transition-all group">
                     <div className="w-12 text-center flex-shrink-0">
-                      {rank <= 3 ? rankBadge(rank) : <span className="text-xl font-extrabold text-[#6b7280]">#{rank}</span>}
+                      {rank <= 3 ? rankBadge(rank) : <span className="text-xl font-extrabold text-[#6b7280]">{rank}</span>}
                     </div>
                     <div className="w-14 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-[#050507]">
                       <img src={movie.poster_path} alt={movie.title} className="w-full h-full object-cover" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h2 className="text-lg font-bold text-white group-hover:text-[#e50914] transition-colors">{movie.title}</h2>
+                      <h2 className="text-lg font-bold text-white group-hover:text-[#d4a853] transition-colors">{movie.title}</h2>
                       <div className="flex items-center gap-3 mt-1 flex-wrap">
                         <div className="flex items-center gap-1"><Star className="w-4 h-4 text-[#f5c518] fill-[#f5c518]" /><span className="text-sm font-semibold text-[#f5c518]">{movie.vote_average.toFixed(1)}</span></div>
                         {movie.imdb_rating && <span className="text-xs text-[#6b7280]">IMDb {movie.imdb_rating}</span>}

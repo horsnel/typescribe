@@ -29,7 +29,7 @@ export default function WatchlistPage() {
       <div className="min-h-screen bg-[#050507] flex items-center justify-center">
         <div className="text-center">
           <p className="text-[#9ca3af] mb-4">Please sign in to view your watchlist</p>
-          <Link href="/login" className="text-[#e50914] hover:underline">Sign In</Link>
+          <Link href="/login" className="text-[#d4a853] hover:underline">Sign In</Link>
         </div>
       </div>
     );
@@ -71,16 +71,8 @@ export default function WatchlistPage() {
   return (
     <div className="min-h-screen bg-[#050507] pt-8 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
-        <nav className="flex items-center gap-2 text-sm text-[#6b7280] mb-6">
-          <Link href="/" className="hover:text-white transition-colors">Home</Link>
-          <span>/</span>
-          <Link href="/profile" className="hover:text-white transition-colors">Profile</Link>
-          <span>/</span>
-          <span className="text-[#9ca3af]">Watchlist</span>
-        </nav>
-
         <div className="flex items-center gap-3 mb-4">
-          <Bookmark className="w-6 h-6 text-[#e50914]" />
+          <Bookmark className="w-6 h-6 text-[#d4a853]" />
           <h1 className="text-3xl lg:text-4xl font-extrabold text-white">My Watchlist</h1>
         </div>
 
@@ -88,7 +80,7 @@ export default function WatchlistPage() {
         {watchlistMovies.length > 0 && (
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
             <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 text-center">
-              <Bookmark className="w-5 h-5 text-[#e50914] mx-auto mb-1" />
+              <Bookmark className="w-5 h-5 text-[#d4a853] mx-auto mb-1" />
               <div className="text-xl font-bold text-white">{watchlistMovies.length}</div>
               <div className="text-xs text-[#6b7280]">Movies</div>
             </div>
@@ -124,23 +116,23 @@ export default function WatchlistPage() {
                   key={value}
                   onClick={() => setSort(value)}
                   className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
-                    sort === value ? 'bg-[#e50914] text-white' : 'bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
+                    sort === value ? 'bg-[#d4a853] text-white' : 'bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
                   }`}
                 >
                   {label}
                 </button>
               ))}
               {genreNames.length > 1 && (
-                <Button variant="outline" onClick={() => setFiltersOpen(!filtersOpen)} className={`border-[#1e1e28] bg-transparent text-[#9ca3af] hover:bg-[#111118] hover:text-white gap-1 text-xs ${filtersOpen ? 'border-[#e50914]' : ''}`}>
+                <Button variant="outline" onClick={() => setFiltersOpen(!filtersOpen)} className={`border-[#1e1e28] bg-transparent text-[#9ca3af] hover:bg-[#111118] hover:text-white gap-1 text-xs ${filtersOpen ? 'border-[#d4a853]' : ''}`}>
                   <SlidersHorizontal className="w-3 h-3" /> Genre
                 </Button>
               )}
             </div>
             <div className="flex items-center border border-[#1e1e28] rounded-lg overflow-hidden">
-              <button onClick={() => setView('grid')} className={`p-2 ${view === 'grid' ? 'bg-[#e50914] text-white' : 'text-[#6b7280] hover:text-white'}`}>
+              <button onClick={() => setView('grid')} className={`p-2 ${view === 'grid' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white'}`}>
                 <Grid3X3 className="w-4 h-4" />
               </button>
-              <button onClick={() => setView('list')} className={`p-2 ${view === 'list' ? 'bg-[#e50914] text-white' : 'text-[#6b7280] hover:text-white'}`}>
+              <button onClick={() => setView('list')} className={`p-2 ${view === 'list' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white'}`}>
                 <List className="w-4 h-4" />
               </button>
             </div>
@@ -156,7 +148,7 @@ export default function WatchlistPage() {
                   key={name}
                   onClick={() => setSelectedGenres(prev => prev.includes(name) ? prev.filter(g => g !== name) : [...prev, name])}
                   className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
-                    selectedGenres.includes(name) ? 'bg-[#e50914] text-white' : 'bg-[#050507] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
+                    selectedGenres.includes(name) ? 'bg-[#d4a853] text-white' : 'bg-[#050507] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
                   }`}
                 >
                   {name}
@@ -193,7 +185,7 @@ export default function WatchlistPage() {
                     </Link>
                     <div className="flex-1 min-w-0">
                       <Link href={`/movie/${movie.slug}`}>
-                        <h3 className="text-sm font-semibold text-white group-hover:text-[#e50914] transition-colors truncate">{movie.title}</h3>
+                        <h3 className="text-sm font-semibold text-white group-hover:text-[#d4a853] transition-colors truncate">{movie.title}</h3>
                       </Link>
                       <div className="flex items-center gap-2 mt-1">
                         <span className="text-xs text-[#f5c518] font-medium">★ {movie.vote_average.toFixed(1)}</span>
@@ -215,7 +207,7 @@ export default function WatchlistPage() {
           ) : (
             <div className="text-center py-16">
               <p className="text-[#9ca3af] mb-2">No movies match your filter</p>
-              <button onClick={() => setSelectedGenres([])} className="text-[#e50914] hover:underline">Clear genre filter</button>
+              <button onClick={() => setSelectedGenres([])} className="text-[#d4a853] hover:underline">Clear genre filter</button>
             </div>
           )
         ) : (
@@ -223,7 +215,7 @@ export default function WatchlistPage() {
             <Bookmark className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
             <p className="text-lg text-[#9ca3af] mb-2">Your watchlist is empty</p>
             <p className="text-sm text-[#6b7280] mb-4">Start adding movies you want to watch</p>
-            <Link href="/browse" className="text-[#e50914] hover:underline">Browse Movies</Link>
+            <Link href="/browse" className="text-[#d4a853] hover:underline">Browse Movies</Link>
           </div>
         )}
       </div>

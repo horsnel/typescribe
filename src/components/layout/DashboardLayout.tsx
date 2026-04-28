@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Star, Users, Bookmark, Bell, Activity, BookmarkCheck, Settings, User, ChevronRight } from 'lucide-react';
+import { LayoutDashboard, Star, Users, Bookmark, Bell, Activity, BookmarkCheck, Settings, User } from 'lucide-react';
 
 const dashboardLinks = [
   { label: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
@@ -36,7 +36,7 @@ export default function DashboardSidebar({ children }: { children: React.ReactNo
                       href={link.href}
                       className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-colors ${
                         isActive
-                          ? 'bg-[#e50914] text-white'
+                          ? 'bg-[#d4a853] text-white'
                           : 'text-[#9ca3af] hover:text-white hover:bg-[#111118]'
                       }`}
                     >
@@ -51,19 +51,6 @@ export default function DashboardSidebar({ children }: { children: React.ReactNo
 
           {/* Main content */}
           <main className="flex-1 min-w-0">
-            {/* Breadcrumb */}
-            <div className="flex items-center gap-2 mb-6 text-sm text-[#6b7280]">
-              <Link href="/" className="hover:text-white transition-colors">Home</Link>
-              <ChevronRight className="w-3 h-3" />
-              <Link href="/dashboard" className="hover:text-white transition-colors">Dashboard</Link>
-              {pathname !== '/dashboard' && (
-                <>
-                  <ChevronRight className="w-3 h-3" />
-                  <span className="text-[#9ca3af]">{dashboardLinks.find(l => l.href === pathname)?.label || 'Page'}</span>
-                </>
-              )}
-            </div>
-
             {children}
           </main>
         </div>

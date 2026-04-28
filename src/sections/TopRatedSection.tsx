@@ -46,7 +46,7 @@ export default function TopRatedSection() {
                   <div className="relative aspect-[16/10] overflow-hidden">
                     <img src={movie.backdrop_path?.startsWith('http') ? movie.backdrop_path : movie.backdrop_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w780${movie.backdrop_path}` : movie.poster_path?.startsWith('http') ? movie.poster_path : movie.poster_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w780${movie.poster_path}` : ''} alt={movie.title} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#050507]/60 via-transparent to-transparent" />
-                    <div className="absolute top-3 left-3"><span className={`inline-flex items-center justify-center w-12 h-12 rounded-full ${rankBgColors[rank]} backdrop-blur-sm ${rankColors[rank]} text-2xl font-extrabold border-2 ${rank === 1 ? 'border-[#f5c518]' : rank === 2 ? 'border-[#c0c0c0]' : 'border-[#cd7f32]'}`} style={{ textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}>#{rank}</span></div>
+                    <div className="absolute top-3 left-3"><span className={`inline-flex items-center justify-center w-12 h-12 rounded-full ${rankBgColors[rank]} backdrop-blur-sm ${rankColors[rank]} text-2xl font-extrabold border-2 ${rank === 1 ? 'border-[#f5c518]' : rank === 2 ? 'border-[#c0c0c0]' : 'border-[#cd7f32]'}`} style={{ textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}>{rank}</span></div>
                   </div>
                   <div className="p-5">
                     <h3 className="text-lg font-bold text-white mb-1 group-hover:text-[#d4a853] transition-colors">{movie.title}</h3>

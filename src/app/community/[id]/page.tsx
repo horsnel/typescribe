@@ -172,7 +172,7 @@ export default function CommunityDetailPage() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-[#050507] pt-20 flex items-center justify-center">
-        <Loader2 className="w-8 h-8 text-[#e50914] animate-spin" />
+        <Loader2 className="w-8 h-8 text-[#d4a853] animate-spin" />
         <span className="ml-3 text-[#6b7280]">Loading community...</span>
       </div>
     );
@@ -186,7 +186,7 @@ export default function CommunityDetailPage() {
           <h2 className="text-xl font-bold text-white mb-2">Community not found</h2>
           <p className="text-[#6b7280] mb-6">This community doesn&apos;t exist or has been removed.</p>
           <Link href="/communities">
-            <Button className="bg-[#e50914] hover:bg-[#b20710] text-white">Browse Communities</Button>
+            <Button className="bg-[#d4a853] hover:bg-[#b8922e] text-white">Browse Communities</Button>
           </Link>
         </div>
       </div>
@@ -196,22 +196,13 @@ export default function CommunityDetailPage() {
   return (
     <div className="min-h-screen bg-[#050507] pt-20">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-sm text-[#6b7280] mb-6">
-          <Link href="/" className="hover:text-white transition-colors">Home</Link>
-          <span>/</span>
-          <Link href="/communities" className="hover:text-white transition-colors">Communities</Link>
-          <span>/</span>
-          <span className="text-[#9ca3af]">{community.name}</span>
-        </nav>
-
         {/* Community Header */}
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6 mb-6">
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-2">
                 <h1 className="text-2xl lg:text-3xl font-extrabold text-white">{community.name}</h1>
-                <span className="text-xs text-[#e50914] bg-[#e50914]/10 px-2 py-0.5 rounded-full font-medium">
+                <span className="text-xs text-[#d4a853] bg-[#d4a853]/10 px-2 py-0.5 rounded-full font-medium">
                   {community.type}
                 </span>
               </div>
@@ -234,7 +225,7 @@ export default function CommunityDetailPage() {
                   onClick={handleJoinToggle}
                   className={isJoined
                     ? 'bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:bg-[#111118] hover:border-[#3a3a45] gap-2'
-                    : 'bg-[#e50914] hover:bg-[#b20710] text-white gap-2'
+                    : 'bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2'
                   }
                 >
                   {isJoined ? <UserMinus className="w-4 h-4" /> : <UserPlus className="w-4 h-4" />}
@@ -242,7 +233,7 @@ export default function CommunityDetailPage() {
                 </Button>
               ) : (
                 <Link href="/login">
-                  <Button className="bg-[#e50914] hover:bg-[#b20710] text-white gap-2">
+                  <Button className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2">
                     <UserPlus className="w-4 h-4" /> Join Community
                   </Button>
                 </Link>
@@ -255,7 +246,7 @@ export default function CommunityDetailPage() {
         {community.rules && community.rules.length > 0 && (
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5 mb-6">
             <div className="flex items-center gap-2 mb-3">
-              <Shield className="w-4 h-4 text-[#e50914]" />
+              <Shield className="w-4 h-4 text-[#d4a853]" />
               <h2 className="text-sm font-semibold text-white">Community Rules</h2>
             </div>
             <ol className="space-y-2">
@@ -275,7 +266,7 @@ export default function CommunityDetailPage() {
           {isAuthenticated && (
             <Button
               onClick={() => setShowNewPost(!showNewPost)}
-              className="bg-[#e50914] hover:bg-[#b20710] text-white gap-2"
+              className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2"
               size="sm"
             >
               <Plus className="w-4 h-4" /> New Post
@@ -285,7 +276,7 @@ export default function CommunityDetailPage() {
 
         {/* New Post Form */}
         {showNewPost && (
-          <div className="bg-[#0c0c10] border border-[#e50914]/30 rounded-xl p-5 mb-6">
+          <div className="bg-[#0c0c10] border border-[#d4a853]/30 rounded-xl p-5 mb-6">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-semibold text-white">Create a new post</h3>
               <button
@@ -301,20 +292,20 @@ export default function CommunityDetailPage() {
                 value={newPostTitle}
                 onChange={(e) => setNewPostTitle(e.target.value)}
                 placeholder="Post title"
-                className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914] text-sm"
+                className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] text-sm"
               />
               <textarea
                 value={newPostContent}
                 onChange={(e) => setNewPostContent(e.target.value)}
                 placeholder="Share your thoughts..."
                 rows={4}
-                className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914] text-sm resize-none"
+                className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] text-sm resize-none"
               />
               <div className="flex justify-end">
                 <Button
                   onClick={handleNewPost}
                   disabled={!newPostTitle.trim() || !newPostContent.trim() || isSubmitting}
-                  className="bg-[#e50914] hover:bg-[#b20710] text-white gap-2"
+                  className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2"
                   size="sm"
                 >
                   <Send className="w-4 h-4" />
@@ -336,7 +327,7 @@ export default function CommunityDetailPage() {
                 <div className="flex items-start gap-3">
                   {/* Upvote column */}
                   <div className="flex flex-col items-center gap-1 pt-1">
-                    <button className="text-[#6b7280] hover:text-[#e50914] transition-colors">
+                    <button className="text-[#6b7280] hover:text-[#d4a853] transition-colors">
                       <ChevronUp className="w-5 h-5" />
                     </button>
                     <span className="text-xs font-bold text-[#9ca3af]">{post.upvoteCount}</span>
@@ -344,7 +335,7 @@ export default function CommunityDetailPage() {
 
                   {/* Post content */}
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-base font-semibold text-white group-hover:text-[#e50914] transition-colors mb-1">
+                    <h3 className="text-base font-semibold text-white group-hover:text-[#d4a853] transition-colors mb-1">
                       {post.title}
                     </h3>
                     <p className="text-sm text-[#9ca3af] line-clamp-2 mb-2">{post.content}</p>

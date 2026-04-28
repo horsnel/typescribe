@@ -98,19 +98,12 @@ export default function BoxOfficePage() {
   return (
     <div className="min-h-screen bg-[#050507] pt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
-        {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-sm text-[#6b7280] mb-6">
-          <Link href="/" className="hover:text-white transition-colors">Home</Link>
-          <span>/</span>
-          <span className="text-[#9ca3af]">Box Office</span>
-        </nav>
-
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 rounded-xl bg-[#e50914]/10 flex items-center justify-center">
-                <DollarSign className="w-6 h-6 text-[#e50914]" />
+              <div className="w-10 h-10 rounded-xl bg-[#d4a853]/10 flex items-center justify-center">
+                <DollarSign className="w-6 h-6 text-[#d4a853]" />
               </div>
               <h1 className="text-3xl lg:text-4xl font-extrabold text-white">Box Office</h1>
             </div>
@@ -126,7 +119,7 @@ export default function BoxOfficePage() {
               onClick={() => setActiveTab(tab.key)}
               className={`flex items-center gap-2 px-5 py-3 text-sm font-medium border-b-2 transition-colors ${
                 activeTab === tab.key
-                  ? 'border-[#e50914] text-white'
+                  ? 'border-[#d4a853] text-white'
                   : 'border-transparent text-[#6b7280] hover:text-white'
               }`}
             >
@@ -150,7 +143,7 @@ export default function BoxOfficePage() {
                   onClick={() => setSelectedCountry(country.code)}
                   className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                     selectedCountry === country.code
-                      ? 'bg-[#e50914] text-white'
+                      ? 'bg-[#d4a853] text-white'
                       : 'bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
                   }`}
                 >
@@ -166,17 +159,17 @@ export default function BoxOfficePage() {
         <div className="mb-6 flex items-center gap-2 bg-[#0c0c10] border border-[#1e1e28] rounded-lg px-4 py-2.5">
           {fromAPI ? (
             <>
-              <Zap className="w-4 h-4 text-emerald-400" />
-              <p className="text-xs text-emerald-400/80">
+              <Zap className="w-4 h-4 text-[#d4a853]" />
+              <p className="text-xs text-[#d4a853]/80">
                 Live data — Powered by TMDb + Box Office Mojo
               </p>
             </>
           ) : (
             <>
-              <BarChart3 className="w-4 h-4 text-[#e50914]" />
+              <BarChart3 className="w-4 h-4 text-[#d4a853]" />
               <p className="text-xs text-[#6b7280]">
                 Showing demo data. Connect TMDb API for live box office rankings.
-                <Link href="/admin/data" className="text-[#e50914] hover:underline ml-1">Set up pipeline →</Link>
+                <Link href="/admin/data" className="text-[#d4a853] hover:underline ml-1">Set up pipeline →</Link>
               </p>
             </>
           )}
@@ -185,7 +178,7 @@ export default function BoxOfficePage() {
         {/* Loading State */}
         {isLoading && (
           <div className="flex items-center justify-center py-20">
-            <Loader2 className="w-8 h-8 text-[#e50914] animate-spin" />
+            <Loader2 className="w-8 h-8 text-[#d4a853] animate-spin" />
             <span className="ml-3 text-[#6b7280]">Loading box office data...</span>
           </div>
         )}
@@ -200,11 +193,11 @@ export default function BoxOfficePage() {
                   <Link
                     key={entry.id}
                     href={entry.slug ? `/movie/${entry.slug}` : '#'}
-                    className="group relative bg-gradient-to-br from-[#e50914]/10 to-[#e50914]/5 border border-[#e50914]/20 rounded-xl p-5 hover:border-[#e50914]/40 transition-all"
+                    className="group relative bg-gradient-to-br from-[#d4a853]/10 to-[#d4a853]/5 border border-[#d4a853]/20 rounded-xl p-5 hover:border-[#d4a853]/40 transition-all"
                   >
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="w-8 h-8 rounded-full bg-[#e50914] flex items-center justify-center text-white font-bold text-sm">
-                        #{entry.rank}
+                      <div className="w-8 h-8 rounded-full bg-[#d4a853] flex items-center justify-center text-white font-bold text-sm">
+                        {entry.rank}
                       </div>
                       {entry.rank === 1 && <Crown className="w-5 h-5 text-[#f5c518]" />}
                     </div>
@@ -218,7 +211,7 @@ export default function BoxOfficePage() {
                         />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-base font-bold text-white group-hover:text-[#e50914] transition-colors leading-snug truncate">
+                        <h3 className="text-base font-bold text-white group-hover:text-[#d4a853] transition-colors leading-snug truncate">
                           {entry.title}
                         </h3>
                         <p className="text-xs text-[#6b7280] mt-0.5">{entry.year}</p>
@@ -248,7 +241,7 @@ export default function BoxOfficePage() {
                   >
                     <div className="flex items-center gap-3 mb-3">
                       {entry.rank === 1 ? <Crown className="w-6 h-6 text-[#f5c518]" /> :
-                       <span className="text-xl font-extrabold text-[#9ca3af]">#{entry.rank}</span>}
+                       <span className="text-xl font-extrabold text-[#9ca3af]">{entry.rank}</span>}
                     </div>
                     <div className="flex gap-3">
                       <div className="w-14 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-[#050507]">
@@ -260,7 +253,7 @@ export default function BoxOfficePage() {
                         />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-base font-bold text-white group-hover:text-[#e50914] transition-colors leading-snug truncate">
+                        <h3 className="text-base font-bold text-white group-hover:text-[#d4a853] transition-colors leading-snug truncate">
                           {entry.title}
                         </h3>
                         <p className="text-xs text-[#6b7280] mt-0.5">{entry.year}</p>
@@ -307,7 +300,7 @@ export default function BoxOfficePage() {
                     {/* Rank */}
                     <div className="flex items-center justify-center">
                       <span className={`text-lg font-bold ${entry.rank <= 3 ? 'text-[#f5c518]' : 'text-[#6b7280]'}`}>
-                        #{entry.rank}
+                        {entry.rank}
                       </span>
                     </div>
 
@@ -322,7 +315,7 @@ export default function BoxOfficePage() {
                         />
                       </div>
                       <div className="min-w-0">
-                        <h3 className="text-sm font-semibold text-white group-hover:text-[#e50914] transition-colors truncate">
+                        <h3 className="text-sm font-semibold text-white group-hover:text-[#d4a853] transition-colors truncate">
                           {entry.title}
                         </h3>
                         <span className="text-xs text-[#6b7280]">{entry.year}</span>

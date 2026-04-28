@@ -4,7 +4,7 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import gsap from 'gsap';
 import {
-  Heart, Share2, Play, ChevronRight, Sparkles, Clock,
+  Heart, Share2, Play, Sparkles, Clock,
   Calendar, Globe, Building2, Film, AlertTriangle,
   ExternalLink, ChevronDown, MessageSquare, Star, Tv,
   PenSquare, ThumbsUp, Flag, Reply, MoreHorizontal, Send, Loader2, Shield,
@@ -27,6 +27,7 @@ import ReportModal from '@/components/review/ReportModal';
 import { moderateContent, preSubmitCheck } from '@/lib/moderation';
 import type { ReportReason } from '@/lib/types';
 import { Button } from '@/components/ui/button';
+import MovieDetailSkeleton from '@/components/skeletons/MovieDetailSkeleton';
 
 type CommentTab = 'reviews' | 'discussion';
 
@@ -461,14 +462,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
 
   // Loading state
   if (loading) {
-    return (
-      <div className="min-h-screen bg-[#050507] flex items-center justify-center">
-        <div className="text-center">
-          <Loader2 className="w-8 h-8 animate-spin text-[#e50914] mx-auto mb-4" />
-          <p className="text-[#9ca3af]">Loading movie data…</p>
-        </div>
-      </div>
-    );
+    return <MovieDetailSkeleton />;
   }
 
   // 404 state
@@ -476,13 +470,13 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
     return (
       <div className="min-h-screen bg-[#050507] flex items-center justify-center">
         <div className="text-center">
-          <div className="text-6xl font-extrabold text-[#e50914]/20 mb-4">404</div>
+          <div className="text-6xl font-extrabold text-[#d4a853]/20 mb-4">404</div>
           <h1 className="text-3xl font-bold text-white mb-4">Movie Not Found</h1>
           <p className="text-[#9ca3af] mb-6">We couldn't find the movie you're looking for. It may have been removed or the link might be broken.</p>
           <div className="flex items-center justify-center gap-4">
             <Link
               href="/browse"
-              className="inline-flex items-center gap-2 bg-[#e50914] hover:bg-[#b20710] text-white px-6 py-3 rounded-lg font-medium transition-colors"
+              className="inline-flex items-center gap-2 bg-[#d4a853] hover:bg-[#b8922e] text-white px-6 py-3 rounded-lg font-medium transition-colors"
             >
               Browse Movies
             </Link>
@@ -560,19 +554,20 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
       {enriching && (
         <div className="fixed top-16 left-0 right-0 z-40 bg-[#0c0c10] border-b border-[#1e1e28] px-4 py-2">
           <div className="max-w-7xl mx-auto flex items-center gap-2 text-xs text-[#9ca3af]">
-            <Loader2 className="w-3 h-3 animate-spin text-[#e50914]" />
-            <span>Enriching data from additional sources…</span>
+            <Loader2 className="w-3 h-3 animate-spin text-[#d4a853]" />
+            <span>Enhancing from additional sources…</span>
           </div>
         </div>
       )}
       {/* ─── Hero Section ─── */}
-      <div ref={heroRef} className="relative h-[65vh] min-h-[520px]">
+      <div ref={heroRef} className="relative h-auto min-h-[65vh] md:h-[65vh] md:min-h-[520px]">
         {/* Backdrop */}
         <div className="absolute inset-0">
           <img
             src={movie.backdrop_path?.startsWith('http') ? movie.backdrop_path : movie.backdrop_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w1280${movie.backdrop_path}` : movie.backdrop_path || ''}
             alt={movie.title}
             className="w-full h-full object-cover opacity-30"
+            onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/80 to-[#0a0a0f]/40" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0f]/90 via-transparent to-transparent" />
@@ -581,25 +576,22 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
         {/* Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-full flex items-end pb-10 lg:pb-14">
           <div className="flex flex-col md:flex-row gap-6 lg:gap-10 items-end w-full">
+            {/* Mobile poster - small inline */}
+            <div className="md:hidden hero-animate flex-shrink-0 w-[120px] rounded-xl overflow-hidden shadow-2xl border border-white/[0.06]">
+              <img src={movie.poster_path?.startsWith('http') ? movie.poster_path : movie.poster_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : movie.poster_path || ''} alt={movie.title} className="w-full aspect-[2/3] object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+            </div>
             {/* Poster – hidden on mobile */}
             <div className="hidden md:block hero-animate flex-shrink-0 w-[220px] rounded-xl overflow-hidden shadow-2xl border border-[#1e1e28]/50">
               <img
                 src={movie.poster_path?.startsWith('http') ? movie.poster_path : movie.poster_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : movie.poster_path || ''}
                 alt={movie.title}
                 className="w-full aspect-[2/3] object-cover"
+                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
               />
             </div>
 
             {/* Info */}
             <div className="flex-1 min-w-0">
-              {/* Breadcrumb */}
-              <nav className="hero-animate flex items-center gap-2 mb-4 text-sm text-[#6b7280]">
-                <Link href="/" className="hover:text-white transition-colors">Home</Link>
-                <ChevronRight className="w-3 h-3" />
-                <Link href="/browse" className="hover:text-white transition-colors">Browse</Link>
-                <ChevronRight className="w-3 h-3" />
-                <span className="text-[#9ca3af] truncate max-w-[200px]">{movie.title}</span>
-              </nav>
 
               {/* Title */}
               <h1 className="hero-animate text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-2 leading-tight">
@@ -648,8 +640,8 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                   onClick={handleToggleWatchlist}
                   className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium transition-all ${
                     inWatchlist
-                      ? 'bg-[#e50914] text-white'
-                      : 'bg-[#111118] border border-[#1e1e28] text-white hover:bg-[#e50914] hover:border-[#e50914]'
+                      ? 'bg-[#d4a853] text-white'
+                      : 'bg-[#111118] border border-[#1e1e28] text-white hover:bg-[#d4a853] hover:border-[#d4a853]'
                   }`}
                 >
                   <Heart className={`w-4 h-4 ${inWatchlist ? 'fill-white' : ''}`} />
@@ -683,9 +675,9 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
             {/* AI Review — Dispute It! */}
             <section className="content-animate">
               <div className="flex items-center gap-2 mb-4">
-                <Sparkles className="w-5 h-5 text-[#e50914]" />
+                <Sparkles className="w-5 h-5 text-[#d4a853]" />
                 <h2 className="text-xl font-bold text-white">AI Review — Dispute It!</h2>
-                <span className="inline-flex items-center gap-1 text-[10px] font-semibold bg-[#e50914]/10 text-[#e50914] px-2.5 py-0.5 rounded-full border border-[#e50914]/20">
+                <span className="inline-flex items-center gap-1 text-[10px] font-semibold bg-[#d4a853]/10 text-[#d4a853] px-2.5 py-0.5 rounded-full border border-[#d4a853]/20">
                   <Sparkles className="w-3 h-3" /> AI
                 </span>
               </div>
@@ -705,14 +697,14 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                     <Button
                       onClick={() => setShowDisputeForm(!showDisputeForm)}
                       variant="outline"
-                      className="w-full border-[#e50914]/30 text-[#e50914] hover:bg-[#e50914]/10 hover:border-[#e50914] gap-2"
+                      className="w-full border-[#d4a853]/30 text-[#d4a853] hover:bg-[#d4a853]/10 hover:border-[#d4a853] gap-2"
                     >
                       <MessageSquare className="w-4 h-4" />
                       {showDisputeForm ? 'Cancel Dispute' : 'Dispute This Review'}
                     </Button>
                   ) : (
                     <div className="text-center text-sm text-[#6b7280]">
-                      <Link href="/login" className="text-[#e50914] hover:underline font-medium">Sign in</Link> to dispute this review
+                      <Link href="/login" className="text-[#d4a853] hover:underline font-medium">Sign in</Link> to dispute this review
                     </div>
                   )}
                 </div>
@@ -734,7 +726,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                             type="button"
                           >
                             <Star
-                              className={`w-5 h-5 ${star <= disputeRating ? 'text-[#e50914] fill-[#e50914]' : 'text-[#2a2a35]'}`}
+                              className={`w-5 h-5 ${star <= disputeRating ? 'text-[#d4a853] fill-[#d4a853]' : 'text-[#2a2a35]'}`}
                             />
                           </button>
                         ))}
@@ -750,12 +742,12 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                       onChange={(e) => setDisputeText(e.target.value)}
                       placeholder="What do you think the AI got wrong? Share your counter-argument..."
                       rows={4}
-                      className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914] resize-none text-sm mb-3"
+                      className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] resize-none text-sm mb-3"
                     />
 
                     {/* Spoilers Checkbox */}
                     <label className="flex items-center gap-2 mb-4 cursor-pointer">
-                      <div className={`w-4 h-4 rounded border flex items-center justify-center ${disputeSpoilers ? 'bg-[#e50914] border-[#e50914]' : 'border-[#1e1e28]'}`}>
+                      <div className={`w-4 h-4 rounded border flex items-center justify-center ${disputeSpoilers ? 'bg-[#d4a853] border-[#d4a853]' : 'border-[#1e1e28]'}`}>
                         {disputeSpoilers && <span className="text-white text-[10px]">✓</span>}
                       </div>
                       <Eye className="w-3.5 h-3.5 text-[#6b7280]" />
@@ -766,7 +758,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                     <Button
                       onClick={handleSubmitDispute}
                       disabled={!disputeText.trim() || disputeRating === 0 || disputeSubmitting}
-                      className="bg-[#e50914] hover:bg-[#b20710] text-white gap-2 text-sm disabled:opacity-50"
+                      className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 text-sm disabled:opacity-50"
                     >
                       {disputeSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
                       Submit Dispute
@@ -779,13 +771,13 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
               {disputes.length > 0 && (
                 <div className="mt-4 bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5">
                   <div className="flex items-center gap-2 mb-3">
-                    <Shield className="w-4 h-4 text-[#e50914]" />
+                    <Shield className="w-4 h-4 text-[#d4a853]" />
                     <h3 className="text-sm font-semibold text-white">Community Verdict</h3>
-                    <span className="text-[10px] bg-[#e50914]/10 text-[#e50914] px-2 py-0.5 rounded-full">{disputes.length} dispute{disputes.length !== 1 ? 's' : ''}</span>
+                    <span className="text-[10px] bg-[#d4a853]/10 text-[#d4a853] px-2 py-0.5 rounded-full">{disputes.length} dispute{disputes.length !== 1 ? 's' : ''}</span>
                   </div>
                   <div className="flex items-center gap-6 mb-4">
                     <div className="text-center">
-                      <p className="text-2xl font-bold text-[#e50914]">{aiRating.toFixed(1)}</p>
+                      <p className="text-2xl font-bold text-[#d4a853]">{aiRating.toFixed(1)}</p>
                       <p className="text-[10px] text-[#6b7280] uppercase tracking-wider">AI Rating</p>
                     </div>
                     <div className="text-[#2a2a35] text-xl font-light">vs</div>
@@ -817,8 +809,8 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                               <div className="flex items-center gap-2 mb-1">
                                 <span className="text-sm font-semibold text-white">{dispute.user_name}</span>
                                 <div className="flex items-center gap-0.5">
-                                  <Star className="w-3 h-3 text-[#e50914] fill-[#e50914]" />
-                                  <span className="text-xs font-semibold text-[#e50914]">{dispute.rating}/10</span>
+                                  <Star className="w-3 h-3 text-[#d4a853] fill-[#d4a853]" />
+                                  <span className="text-xs font-semibold text-[#d4a853]">{dispute.rating}/10</span>
                                 </div>
                                 {dispute.contains_spoilers && (
                                   <span className="inline-flex items-center gap-1 text-[10px] bg-yellow-500/10 text-yellow-400 px-1.5 py-0.5 rounded border border-yellow-500/20">
@@ -843,7 +835,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                                 <button
                                   onClick={() => handleToggleDisputeHelpful(dispute.id)}
                                   className={`flex items-center gap-1 text-xs transition-colors ${
-                                    helpedDisputes.has(dispute.id) ? 'text-[#e50914]' : 'text-[#6b7280] hover:text-[#9ca3af]'
+                                    helpedDisputes.has(dispute.id) ? 'text-[#d4a853]' : 'text-[#6b7280] hover:text-[#9ca3af]'
                                   }`}
                                 >
                                   <ThumbsUp className="w-3 h-3" /> Helpful ({dispute.helpful_count})
@@ -866,7 +858,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
               {isOverviewLong && (
                 <button
                   onClick={() => setOverviewExpanded(!overviewExpanded)}
-                  className="inline-flex items-center gap-1 text-[#e50914] hover:underline mt-2 text-sm font-medium"
+                  className="inline-flex items-center gap-1 text-[#d4a853] hover:underline mt-2 text-sm font-medium"
                 >
                   {overviewExpanded ? 'Show Less' : 'Read More'}
                   <ChevronDown className={`w-4 h-4 transition-transform ${overviewExpanded ? 'rotate-180' : ''}`} />
@@ -898,7 +890,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                 ))}
                 {/* Director card */}
                 <div className="flex flex-col items-center flex-shrink-0 w-[90px]">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#e50914] to-[#b20710] flex items-center justify-center mb-2 border-2 border-[#e50914]/30">
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#d4a853] to-[#b8922e] flex items-center justify-center mb-2 border-2 border-[#d4a853]/30">
                     <Film className="w-6 h-6 text-white" />
                   </div>
                   <span className="text-xs font-semibold text-white text-center leading-tight truncate w-full">
@@ -918,7 +910,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                     <button
                       onClick={() => setCommentTab('reviews')}
                       className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors ${
-                        commentTab === 'reviews' ? 'bg-[#e50914] text-white' : 'text-[#6b7280] hover:text-white hover:bg-[#111118]'
+                        commentTab === 'reviews' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white hover:bg-[#111118]'
                       }`}
                     >
                       <Star className="w-4 h-4" /> Reviews ({movieReviews.length})
@@ -926,7 +918,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                     <button
                       onClick={() => setCommentTab('discussion')}
                       className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors ${
-                        commentTab === 'discussion' ? 'bg-[#e50914] text-white' : 'text-[#6b7280] hover:text-white hover:bg-[#111118]'
+                        commentTab === 'discussion' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white hover:bg-[#111118]'
                       }`}
                     >
                       <MessageSquare className="w-4 h-4" /> Discussion ({comments.filter(c => c.parent_id === null).length})
@@ -945,7 +937,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                       {isAuthenticated && (
                         <Button
                           onClick={() => setShowReviewForm(!showReviewForm)}
-                          className="bg-[#e50914] hover:bg-[#b20710] text-white gap-2 text-sm"
+                          className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 text-sm"
                         >
                           <PenSquare className="w-4 h-4" /> Write a Review
                         </Button>
@@ -956,7 +948,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                           setReviewSort(e.target.value as typeof reviewSort);
                           setReviewsVisible(3);
                         }}
-                        className="bg-[#0c0c10] border border-[#1e1e28] rounded-lg py-1.5 px-3 text-sm text-[#9ca3af] focus:outline-none focus:border-[#e50914]"
+                        className="bg-[#0c0c10] border border-[#1e1e28] rounded-lg py-1.5 px-3 text-sm text-[#9ca3af] focus:outline-none focus:border-[#d4a853]"
                       >
                         <option value="recent">Most Recent</option>
                         <option value="highest">Highest Rated</option>
@@ -990,7 +982,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                       {isAuthenticated && (
                         <Button
                           onClick={() => setShowReviewForm(true)}
-                          className="mt-4 bg-[#e50914] hover:bg-[#b20710] text-white gap-2"
+                          className="mt-4 bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2"
                         >
                           <PenSquare className="w-4 h-4" /> Write a Review
                         </Button>
@@ -1023,7 +1015,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                   {isAuthenticated ? (
                     <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 mb-6">
                       <div className="flex items-start gap-3">
-                        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#e50914] to-[#b20710] flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+                        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#d4a853] to-[#b8922e] flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
                           {user?.display_name?.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)}
                         </div>
                         <div className="flex-1">
@@ -1032,7 +1024,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                             onChange={(e) => { setNewComment(e.target.value); if (commentModerationWarning) setCommentModerationWarning(''); }}
                             placeholder="Share your thoughts about this movie..."
                             rows={3}
-                            className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914] resize-none text-sm"
+                            className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] resize-none text-sm"
                           />
                           {commentModerationWarning && (
                             <div className="flex items-start gap-2 bg-red-500/5 border border-red-500/20 rounded-lg p-2 mt-2">
@@ -1050,7 +1042,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                             <Button
                               onClick={handleSubmitComment}
                               disabled={!newComment.trim() || commentSubmitting}
-                              className="bg-[#e50914] hover:bg-[#b20710] text-white gap-2 text-sm disabled:opacity-50"
+                              className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 text-sm disabled:opacity-50"
                             >
                               {commentSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />} Post Comment
                             </Button>
@@ -1062,7 +1054,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                     <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6 mb-6 text-center">
                       <MessageSquare className="w-8 h-8 text-[#2a2a35] mx-auto mb-2" />
                       <p className="text-[#9ca3af] mb-2">Sign in to join the discussion</p>
-                      <Link href="/login" className="text-[#e50914] hover:underline text-sm font-medium">Sign In</Link>
+                      <Link href="/login" className="text-[#d4a853] hover:underline text-sm font-medium">Sign In</Link>
                     </div>
                   )}
 
@@ -1098,7 +1090,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                                 </div>
                               )}
                               <div className="flex items-start gap-3">
-                                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#e50914] to-[#b20710] flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+                                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#d4a853] to-[#b8922e] flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
                                   {avatarFallback}
                                 </div>
                                 <div className="flex-1 min-w-0">
@@ -1113,7 +1105,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                                     <button
                                       onClick={() => handleToggleCommentHelpful(comment.id)}
                                       className={`flex items-center gap-1.5 text-xs transition-colors ${
-                                        helpedComments.has(comment.id) ? 'text-[#e50914]' : 'text-[#6b7280] hover:text-[#9ca3af]'
+                                        helpedComments.has(comment.id) ? 'text-[#d4a853]' : 'text-[#6b7280] hover:text-[#9ca3af]'
                                       }`}
                                     >
                                       <ThumbsUp className="w-3.5 h-3.5" /> Helpful ({comment.helpful_count})
@@ -1144,13 +1136,13 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                                         onChange={(e) => setReplyText(e.target.value)}
                                         placeholder="Write a reply..."
                                         rows={2}
-                                        className="flex-1 bg-[#050507] border border-[#1e1e28] rounded-lg py-2 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914] resize-none text-sm"
+                                        className="flex-1 bg-[#050507] border border-[#1e1e28] rounded-lg py-2 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] resize-none text-sm"
                                       />
                                       <div className="flex flex-col gap-1">
                                         <Button
                                           onClick={() => handleSubmitReply(comment.id)}
                                           disabled={!replyText.trim()}
-                                          className="bg-[#e50914] hover:bg-[#b20710] text-white text-xs px-3 py-1.5 disabled:opacity-50"
+                                          className="bg-[#d4a853] hover:bg-[#b8922e] text-white text-xs px-3 py-1.5 disabled:opacity-50"
                                         >
                                           Reply
                                         </Button>
@@ -1171,7 +1163,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                                         const replyAvatar = reply.user_name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
                                         return (
                                           <div key={reply.id} className="flex items-start gap-2">
-                                            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#e50914]/80 to-[#b20710]/80 flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">
+                                            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#d4a853]/80 to-[#b8922e]/80 flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">
                                               {replyAvatar}
                                             </div>
                                             <div className="flex-1 min-w-0">
@@ -1227,7 +1219,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
               <h3 className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider mb-4">Movie Info</h3>
 
               <div className="w-full aspect-video rounded-lg overflow-hidden mb-5 border border-[#1e1e28]/50">
-                <img src={movie.poster_path?.startsWith('http') ? movie.poster_path : movie.poster_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : movie.poster_path || ''} alt={movie.title} className="w-full h-full object-cover" />
+                <img src={movie.poster_path?.startsWith('http') ? movie.poster_path : movie.poster_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : movie.poster_path || ''} alt={movie.title} className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
               </div>
 
               <div className="space-y-3.5">
@@ -1383,11 +1375,11 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
               ) : (
                 <button
                   onClick={() => setTrailerOpen(true)}
-                  className="w-full aspect-video bg-[#050507] rounded-lg flex items-center justify-center border border-[#1e1e28] hover:border-[#e50914]/40 transition-colors group"
+                  className="w-full aspect-video bg-[#050507] rounded-lg flex items-center justify-center border border-[#1e1e28] hover:border-[#d4a853]/40 transition-colors group"
                 >
                   <div className="text-center">
-                    <div className="w-14 h-14 rounded-full bg-[#e50914]/20 flex items-center justify-center mx-auto mb-2 group-hover:bg-[#e50914]/30 transition-colors">
-                      <Play className="w-6 h-6 text-[#e50914] fill-[#e50914]" />
+                    <div className="w-14 h-14 rounded-full bg-[#d4a853]/20 flex items-center justify-center mx-auto mb-2 group-hover:bg-[#d4a853]/30 transition-colors">
+                      <Play className="w-6 h-6 text-[#d4a853] fill-[#d4a853]" />
                     </div>
                     <span className="text-sm text-[#6b7280]">Watch Trailer</span>
                   </div>
@@ -1408,7 +1400,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                       rel="noopener noreferrer"
                       className="block group"
                     >
-                      <p className="text-sm font-medium text-white group-hover:text-[#e50914] transition-colors leading-snug mb-1">
+                      <p className="text-sm font-medium text-white group-hover:text-[#d4a853] transition-colors leading-snug mb-1">
                         {headline.title}
                       </p>
                       <div className="flex items-center gap-2 text-xs text-[#6b7280]">
@@ -1433,7 +1425,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                   <select
                     value={watchCountry}
                     onChange={(e) => setWatchCountry(e.target.value)}
-                    className="bg-[#050507] border border-[#1e1e28] rounded-md py-1 px-2 text-xs text-[#9ca3af] focus:outline-none focus:border-[#e50914]"
+                    className="bg-[#050507] border border-[#1e1e28] rounded-md py-1 px-2 text-xs text-[#9ca3af] focus:outline-none focus:border-[#d4a853]"
                   >
                     {Object.keys(watchProviders.countries).map(code => (
                       <option key={code} value={code}>
@@ -1446,7 +1438,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
 
               {watchLoading ? (
                 <div className="flex flex-col items-center py-6">
-                  <Loader2 className="w-6 h-6 animate-spin text-[#e50914] mb-2" />
+                  <Loader2 className="w-6 h-6 animate-spin text-[#d4a853] mb-2" />
                   <p className="text-xs text-[#6b7280]">Loading providers...</p>
                 </div>
               ) : currentCountryProviders.length === 0 ? (

@@ -231,7 +231,7 @@ export default function SettingsPage() {
               </div>
               <div className="flex justify-between items-center py-2">
                 <span className="text-[#9ca3af]">Account ID</span>
-                <span className="text-white font-mono text-xs">#{user.id}</span>
+                <span className="text-white font-mono text-xs">{user.id}</span>
               </div>
               <div className="pt-3 border-t border-[#1e1e28] flex items-center gap-4">
                 <Link href="/profile/edit" className="text-[#e50914] hover:underline text-sm">Edit Profile</Link>
