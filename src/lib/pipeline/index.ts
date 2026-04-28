@@ -3,7 +3,7 @@
  *
  * Architecture: 70% Scraping, 30% APIs
  *
- * Scraping (70%): 15 sites across 3 tiers
+ * Scraping (70%): 16 sites across 3 tiers
  * APIs (30%): TMDb + OMDb + YouTube + NewsAPI
  *
  * Data flow:
@@ -38,6 +38,7 @@ interface PipelineStatus {
     fanartTv: boolean;
     gemini: boolean;
     anilist: boolean;
+    jikan: boolean;
     // Scrapers (70%)
     scrapers: Record<string, { tier: string; enabled: boolean; circuitOpen: boolean }>;
   };
@@ -79,7 +80,7 @@ export function getPipelineStatus(): PipelineStatus {
     wikipedia: 'a', senscritique: 'a', filmweb: 'a', csfd: 'a', dramabeans: 'a',
     animenewsnetwork: 'a',
     rottentomatoes: 'b', metacritic: 'b', mydramalist: 'b', commonsensemedia: 'b',
-    thenumbers: 'b', filmaffinity: 'b', allocine: 'b', myanimelist: 'b',
+    thenumbers: 'b', filmaffinity: 'b', allocine: 'b',
     boxofficemojo: 'c', douban: 'c', kinopoisk: 'c',
   };
 
@@ -104,6 +105,7 @@ export function getPipelineStatus(): PipelineStatus {
       fanartTv: !!process.env.FANART_TV_API_KEY,
       gemini: !!process.env.GEMINI_API_KEY,
       anilist: true, // Always configured (free API, no key needed)
+      jikan: true, // Always configured (free API, no key needed — MAL proxy)
       scrapers,
     },
     cache: {

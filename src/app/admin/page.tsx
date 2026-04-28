@@ -476,7 +476,7 @@ export default function AdminDashboardPage() {
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
             {[
-              { icon: Shield, label: 'Scrapers', value: `${healthyCount}/${healthData?.scrapers.length ?? 17}`, sub: 'Healthy', color: healthyCount >= 14 ? 'text-emerald-400' : healthyCount >= 10 ? 'text-amber-400' : 'text-red-400' },
+              { icon: Shield, label: 'Scrapers', value: `${healthyCount}/${healthData?.scrapers.length ?? 16}`, sub: 'Healthy', color: healthyCount >= 14 ? 'text-emerald-400' : healthyCount >= 10 ? 'text-amber-400' : 'text-red-400' },
               { icon: Cpu, label: 'APIs Configured', value: `${configuredApis}/${totalApis}`, sub: configuredApis >= 3 ? 'Operational' : 'Needs setup', color: configuredApis >= 3 ? 'text-emerald-400' : 'text-amber-400' },
               { icon: Zap, label: 'Total Requests', value: totalScraperRequests.toLocaleString(), sub: 'All scrapers', color: 'text-white' },
               { icon: HardDrive, label: 'Cache Entries', value: (healthData?.cache.totalEntries ?? 0).toLocaleString(), sub: `${((healthData?.cache.hitRate ?? 0) * 100).toFixed(0)}% hit rate`, color: 'text-white' },
@@ -534,7 +534,7 @@ export default function AdminDashboardPage() {
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
             <Shield className="w-5 h-5 text-[#d4a853]" /> Scraping Sources
-            <span className="text-xs font-normal text-[#6b7280] ml-1">(70% of data — 17 sites across 3 tiers)</span>
+            <span className="text-xs font-normal text-[#6b7280] ml-1">(70% of data — 16 sites across 3 tiers)</span>
           </h2>
 
           {healthLoading && !healthData ? (

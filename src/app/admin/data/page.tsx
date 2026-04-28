@@ -39,6 +39,7 @@ interface PipelineSources {
   newsdataIo: boolean;
   fanartTv: boolean;
   gemini: boolean;
+  jikan: boolean;
   scrapers: Record<string, ScraperInfo>;
 }
 
@@ -279,7 +280,7 @@ function ScrapingAntKeyStats({ sb }: { sb: any }) {
   );
 }
 
-export const dynamic = 'force-dynamic';
+
 
 // ─── Component ───
 
@@ -561,7 +562,7 @@ export default function AdminDataPipelinePage() {
             </div>
             <div>
               <h1 className="text-3xl lg:text-4xl font-extrabold text-white tracking-tight">Data Pipeline</h1>
-              <p className="text-[#6b7280] text-sm mt-0.5">70% Scraping + 30% APIs — 15 sites across 3 tiers</p>
+              <p className="text-[#6b7280] text-sm mt-0.5">70% Scraping + 30% APIs — 16 sites across 3 tiers</p>
             </div>
           </div>
           <div className="flex items-center gap-3 mt-4">
@@ -636,6 +637,7 @@ export default function AdminDataPipelinePage() {
               { name: 'Newsdata.io', key: 'newsdataIo' as const, desc: 'Supplementary news — fallback', envVar: 'NEWSDATA_IO_API_KEY', icon: Newspaper },
               { name: 'Fanart.tv', key: 'fanartTv' as const, desc: 'High-quality logos, clearart, backgrounds', envVar: 'FANART_TV_API_KEY', icon: ImageIcon },
               { name: 'Gemini AI', key: 'gemini' as const, desc: 'Intelligent review generation', envVar: 'GEMINI_API_KEY', icon: Brain },
+              { name: 'Jikan', key: 'jikan' as const, desc: 'MAL proxy — anime scores, rankings, details', envVar: 'No key needed (free API)', icon: Globe },
             ].map(src => {
               const ok = sources?.[src.key] ?? false;
               return (
@@ -661,7 +663,7 @@ export default function AdminDataPipelinePage() {
         {/* ─── Scraping Sources (70%) ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <Shield className="w-5 h-5 text-[#d4a853]" /> Scraping Sources <span className="text-xs font-normal text-[#6b7280]">(70% of data — 15 sites)</span>
+            <Shield className="w-5 h-5 text-[#d4a853]" /> Scraping Sources <span className="text-xs font-normal text-[#6b7280]">(70% of data — 16 sites)</span>
           </h2>
 
           {(['a', 'b', 'c'] as const).map(tier => {

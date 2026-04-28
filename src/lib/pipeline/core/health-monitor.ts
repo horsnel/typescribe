@@ -39,6 +39,7 @@ export interface PipelineHealthReport {
     youtube: { configured: boolean };
     newsapi: { configured: boolean };
     anilist: { configured: boolean };
+    jikan: { configured: boolean };
   };
   recommendations: string[];
 }
@@ -81,7 +82,7 @@ const SCRAPER_REGISTRY: ScraperConfig[] = [
   { name: 'thenumbers', tier: 'b', enabled: true },
   { name: 'filmaffinity', tier: 'b', enabled: true },
   { name: 'allocine', tier: 'b', enabled: true },
-  { name: 'myanimelist', tier: 'b', enabled: true },
+
   // Tier C: Medium protection
   { name: 'boxofficemojo', tier: 'c', enabled: true },
   { name: 'douban', tier: 'c', enabled: true },
@@ -224,6 +225,7 @@ export async function getPipelineHealthReport(): Promise<PipelineHealthReport> {
       youtube: { configured: !!process.env.YOUTUBE_API_KEY },
       newsapi: { configured: !!process.env.NEWS_API_KEY },
       anilist: { configured: true },
+      jikan: { configured: true },
     },
     recommendations,
   };

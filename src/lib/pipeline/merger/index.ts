@@ -6,7 +6,7 @@
  * Scraping Sources (70% — primary data):
  *   Tier A: Wikipedia, SensCritique, Filmweb, CSFD, Dramabeans, AnimeNewsNetwork
  *   Tier B: RottenTomatoes, Metacritic, MyDramaList, CommonSenseMedia,
- *           TheNumbers, FilmAffinity, AlloCiné, MyAnimeList
+ *           TheNumbers, FilmAffinity, AlloCiné
  *   Tier C: BoxOfficeMojo, Douban, Kinopoisk
  *
  * API Sources (30% — structural + fallback):
@@ -18,6 +18,7 @@
  *   Fanart.tv (high-quality logos, clearart, alternative images)
  *   Gemini AI (intelligent review generation)
  *   AniList (anime-specific: MAL score, studios, tags, streaming — always on)
+ *   Jikan (MAL proxy — anime scores, rankings, details — free, no key needed)
  *
  * Merge Strategy:
  *   1. TMDb provides the structural foundation (always first)
@@ -26,7 +27,7 @@
  *   4. Run all scraping sources in parallel (respecting circuit breaker)
  *   5. Run API sources in parallel (OMDb, YouTube, NewsAPI, AniList)
  *   6. Merge with priority: scraped data overrides API data for same fields
- *   7. Anime sources fill anime-specific fields (MAL, AniList, ANN)
+ *   7. Anime sources fill anime-specific fields (Jikan, AniList, ANN)
  *   8. APIs fill gaps where scrapers failed
  */
 
@@ -57,11 +58,11 @@ import * as CSFD from '@/lib/pipeline/scrapers/csfd';
 import * as Dramabeans from '@/lib/pipeline/scrapers/dramabeans';
 
 // Anime scraping sources
-import * as MyAnimeList from '@/lib/pipeline/scrapers/myanimelist';
 import * as AnimeNewsNetwork from '@/lib/pipeline/scrapers/animenewsnetwork';
 
-// Anime API client
+// Anime API clients
 import * as AniList from '@/lib/pipeline/clients/anilist';
+import * as Jikan from '@/lib/pipeline/clients/jikan';
 
 import { canRequest } from '@/lib/pipeline/core/circuit-breaker';
 
@@ -255,17 +256,7 @@ interface ScrapedData {
   mdlEpisodes?: number | null;
   mdlSynopsis?: string | null;
   dramabeansRecaps?: Array<{ title: string; url: string }> | null;
-  // Anime (MAL + AniList + ANN)
-  malScore?: number | null;
-  malRank?: number | null;
-  malPopularity?: number | null;
-  malMembers?: number | null;
-  malStudios?: string[] | null;
-  malSource?: string | null;
-  malSeason?: string | null;
-  malGenres?: string[] | null;
-  malEpisodes?: number | null;
-  malRating?: string | null;
+  // Anime (AniList + ANN)
   anilistScore?: number | null;         // 0-100
   anilistMeanScore?: number | null;
   anilistStudios?: string[] | null;
@@ -542,37 +533,9 @@ async function runScrapers(
 
   // ─── Anime Scrapers (conditional: only if anime detected) ───
 
-  if (isAnime || enabledScrapers.includes('myanimelist')) {
-    if (enabledScrapers.includes('myanimelist') && canRequest('myanimelist')) {
-      tasks.push({
-        name: 'MyAnimeList',
-        fn: async () => {
-          try {
-            const searchResults = await MyAnimeList.searchAnime(movieTitle);
-            if (searchResults && searchResults.length > 0) {
-              const malId = searchResults[0].malId;
-              const malData = await MyAnimeList.getAnimeDetails(malId);
-              if (malData) {
-                data.malScore = malData.score;
-                data.malRank = malData.ranked;
-                data.malPopularity = malData.popularity;
-                data.malMembers = malData.members;
-                data.malStudios = malData.studios;
-                data.malSource = malData.source;
-                data.malSeason = malData.season;
-                data.malGenres = malData.genres;
-                data.malEpisodes = malData.episodes;
-                data.malRating = malData.rating;
-                sources.push('MyAnimeList');
-              }
-            }
-          } catch (err: any) {
-            warnings.push(`MAL: ${err.message}`);
-          }
-        },
-      });
-    }
+  // MAL data now comes from Jikan API (see API section below)
 
+  if (isAnime || enabledScrapers.includes('animenewsnetwork')) {
     if (enabledScrapers.includes('animenewsnetwork') && canRequest('animenewsnetwork')) {
       tasks.push({
         name: 'AnimeNewsNetwork',
@@ -641,7 +604,7 @@ export const ALL_SCRAPER_NAMES = [
   'thenumbers', 'filmaffinity', 'allocine',
   'boxofficemojo', 'douban', 'kinopoisk',
   // Anime (conditional — activated when anime detected)
-  'myanimelist', 'animenewsnetwork',
+  'animenewsnetwork',
 ];
 
 // ─── Main Merge Function ───
@@ -746,15 +709,16 @@ export async function mergeMovieData(
     scraperWarnings = scrapeResult.warnings;
   }
 
-  // 3b: Run API sources in parallel (OMDb + YouTube + NewsAPI + NewsData + FanartTV + AniList)
+  // 3b: Run API sources in parallel (OMDb + YouTube + NewsAPI + NewsData + FanartTV + AniList + Jikan)
   let omdbData: OMDb.OMDbMovieData | null = null;
   let youtubeTrailerId: string | null = null;
   let newsHeadlines: Array<{ title: string; url: string; source: string; date: string }> = [];
   let fanartData: FanartTV.FanartResult | null = null;
   let anilistData: AniList.AniListResult | null = null;
+  let jikanData: Jikan.JikanAnimeResult | null = null;
 
   if (cfg.enableAPIs) {
-    const [omdbResult, youtubeResult, newsResult, newsDataResult, fanartResult, anilistResult] = await Promise.allSettled([
+    const [omdbResult, youtubeResult, newsResult, newsDataResult, fanartResult, anilistResult, jikanResult] = await Promise.allSettled([
       // OMDb
       (async () => {
         if (!imdbId) return null;
@@ -806,6 +770,17 @@ export async function mergeMovieData(
         }
         return result;
       })(),
+      // Jikan (MAL proxy — replaces MAL scraping, no key needed)
+      (async () => {
+        if (!Jikan.isJikanConfigured()) return null;
+        // Search by title
+        const searchResults = await Jikan.searchAnime(movie.title!, 3);
+        if (searchResults && searchResults.length > 0) {
+          sources.push('Jikan');
+          return searchResults[0]; // Return best match with full data
+        }
+        return null;
+      })(),
     ]);
 
     // Extract results
@@ -848,6 +823,10 @@ export async function mergeMovieData(
     // AniList results
     if (anilistResult.status === 'fulfilled' && anilistResult.value) {
       anilistData = anilistResult.value;
+    }
+    // Jikan results
+    if (jikanResult.status === 'fulfilled' && jikanResult.value) {
+      jikanData = jikanResult.value;
     }
   }
 
@@ -971,50 +950,55 @@ export async function mergeMovieData(
   }
 
   // --- Anime Detection & Anime-Specific Fields ---
-  // Auto-detect anime: Animation genre (16) + JP/CN/KR origin, or AniList/MAL match
+  // Auto-detect anime: Animation genre (16) + JP/CN/KR origin, or AniList/Jikan match
   const genreIds = movie.genres?.map(g => g.id) || [];
   const isAnime = (genreIds.includes(16) && ['JP', 'CN', 'KR'].includes(movie.origin_country || ''))
     || !!anilistData
-    || !!scrapedData.malScore;
+    || !!jikanData;
 
   if (isAnime) {
     movie.is_anime = true;
     movie.media_type = 'anime';
 
-    // MAL data (from scraper — higher priority)
-    if (scrapedData.malScore !== null && scrapedData.malScore !== undefined) {
-      movie.anime_mal_score = scrapedData.malScore;
+    // Jikan data (from API — replaces MAL scraper)
+    if (jikanData?.score !== null && jikanData?.score !== undefined) {
+      movie.anime_mal_score = jikanData.score;
     }
-    if (scrapedData.malRank !== null && scrapedData.malRank !== undefined) {
-      movie.anime_mal_rank = scrapedData.malRank;
+    if (jikanData?.rank !== null && jikanData?.rank !== undefined) {
+      movie.anime_mal_rank = jikanData.rank;
     }
-    if (scrapedData.malPopularity !== null && scrapedData.malPopularity !== undefined) {
-      movie.anime_mal_popularity = scrapedData.malPopularity;
+    if (jikanData?.popularity !== null && jikanData?.popularity !== undefined) {
+      movie.anime_mal_popularity = jikanData.popularity;
     }
-    if (scrapedData.malMembers !== null && scrapedData.malMembers !== undefined) {
-      movie.anime_mal_members = scrapedData.malMembers;
+    if (jikanData?.members !== null && jikanData?.members !== undefined) {
+      movie.anime_mal_members = jikanData.members;
     }
-    if (scrapedData.malStudios && scrapedData.malStudios.length > 0) {
-      movie.anime_studios = scrapedData.malStudios;
+    if (jikanData?.studios && jikanData.studios.length > 0) {
+      movie.anime_studios = jikanData.studios;
     }
-    if (scrapedData.malSource) {
-      movie.anime_source = scrapedData.malSource;
+    if (jikanData?.source) {
+      movie.anime_source = jikanData.source;
     }
-    if (scrapedData.malSeason) {
-      movie.anime_season = scrapedData.malSeason;
+    if (jikanData?.season && jikanData?.year) {
+      const seasonName = jikanData.season.charAt(0).toUpperCase() + jikanData.season.slice(1).toLowerCase();
+      movie.anime_season = `${seasonName} ${jikanData.year}`;
     }
-    if (scrapedData.malGenres && scrapedData.malGenres.length > 0) {
-      // Merge MAL genres into existing genres if they add new ones
+    if (jikanData?.genres && jikanData.genres.length > 0) {
+      // Merge Jikan genres into existing genres if they add new ones
       const existingGenreNames = new Set((movie.genres || []).map(g => g.name.toLowerCase()));
-      for (const gName of scrapedData.malGenres) {
+      for (const gName of jikanData.genres) {
         if (!existingGenreNames.has(gName.toLowerCase())) {
           movie.genres = [...(movie.genres || []), { id: -1, name: gName }];
         }
       }
     }
-    if (scrapedData.malEpisodes !== null && scrapedData.malEpisodes !== undefined) {
-      movie.episodes = scrapedData.malEpisodes;
-      movie.anime_episodes_aired = scrapedData.malEpisodes;
+    if (jikanData?.episodes !== null && jikanData?.episodes !== undefined) {
+      movie.episodes = jikanData.episodes;
+      movie.anime_episodes_aired = jikanData.episodes;
+    }
+    // MAL ID from Jikan result
+    if (jikanData?.malId && !movie.anime_mal_id) {
+      movie.anime_mal_id = jikanData.malId;
     }
 
     // AniList data (from API — fills gaps and adds unique data)
@@ -1023,7 +1007,7 @@ export async function mergeMovieData(
       if (anilistData.malId && !movie.anime_mal_id) {
         movie.anime_mal_id = anilistData.malId;
       }
-      // AniList score (0-100) — convert to 0-10 if not already set by MAL
+      // AniList score (0-100) — convert to 0-10 if not already set by Jikan
       if (anilistData.meanScore !== null && anilistData.meanScore !== undefined && !movie.anime_mal_score) {
         movie.anime_mal_score = Math.round((anilistData.meanScore / 10) * 10) / 10; // 0-10 scale
       }
