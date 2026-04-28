@@ -151,6 +151,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
   const [commentModerationWarning, setCommentModerationWarning] = useState('');
   const heroRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const hasAnimated = useRef(false);
 
   // ─── Dispute the AI State ───
   const [disputes, setDisputes] = useState<Dispute[]>([]);
@@ -173,6 +174,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
     setReviewsVisible(3);
     setOverviewExpanded(false);
     setTrailerOpen(false);
+    hasAnimated.current = false; // Reset animation flag for new movie
   }, [slug]);
 
   // Watchlist state
@@ -399,9 +401,10 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
     window.location.reload();
   };
 
-  // GSAP entrance
+  // GSAP entrance — only animate on initial render, not on data updates
   useEffect(() => {
-    if (!movie) return;
+    if (!movie || hasAnimated.current) return;
+    hasAnimated.current = true;
     const ctx = gsap.context(() => {
       gsap.fromTo(
         '.hero-animate',
@@ -625,7 +628,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
 
               {/* Rating Badges */}
               <div className="hero-animate mb-6">
-                <RatingBadge movie={movie} variant="all" />
+                <RatingBadge movie={movie} variant="all" enriching={enriching} />
               </div>
 
               {/* Taste Match & Genre Adjusted Rating */}
@@ -1361,32 +1364,86 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
               );
             })()}
 
-            {/* Trailer Embed */}
+            {/* Trailer — Priority: TMDb YouTube > iTunes Preview > YouTube Embed */}
             <div className="content-animate bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5">
               <h3 className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider mb-4">Trailer</h3>
-              {trailerOpen ? (
-                <div className="aspect-video rounded-lg overflow-hidden">
-                  <iframe
-                    src={`https://www.youtube.com/embed/${movie.trailer_youtube_id}?autoplay=1`}
-                    title={`${movie.title} Trailer`}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="w-full h-full"
-                  />
-                </div>
-              ) : (
-                <button
-                  onClick={() => setTrailerOpen(true)}
-                  className="w-full aspect-video bg-[#050507] rounded-lg flex items-center justify-center border border-[#1e1e28] hover:border-[#d4a853]/40 transition-colors group"
-                >
-                  <div className="text-center">
-                    <div className="w-14 h-14 rounded-full bg-[#d4a853]/20 flex items-center justify-center mx-auto mb-2 group-hover:bg-[#d4a853]/30 transition-colors">
-                      <Play className="w-6 h-6 text-[#d4a853] fill-[#d4a853]" />
+              {(() => {
+                const hasYouTubeId = !!movie.trailer_youtube_id;
+                const hasITunesPreview = !!movie.itunes_preview_url;
+
+                if (!hasYouTubeId && !hasITunesPreview) {
+                  return (
+                    <div className="w-full aspect-video bg-[#050507] rounded-lg flex items-center justify-center border border-[#1e1e28]">
+                      <div className="text-center">
+                        <Play className="w-8 h-8 text-[#2a2a35] mx-auto mb-2" />
+                        <span className="text-xs text-[#6b7280]">No trailer available</span>
+                      </div>
                     </div>
-                    <span className="text-sm text-[#6b7280]">Watch Trailer</span>
-                  </div>
-                </button>
-              )}
+                  );
+                }
+
+                if (trailerOpen) {
+                  // Prefer YouTube embed (from TMDb Videos or YouTube Data API)
+                  if (hasYouTubeId) {
+                    return (
+                      <div className="aspect-video rounded-lg overflow-hidden">
+                        <iframe
+                          src={`https://www.youtube.com/embed/${movie.trailer_youtube_id}?autoplay=1`}
+                          title={`${movie.title} Trailer`}
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                          className="w-full h-full"
+                        />
+                      </div>
+                    );
+                  }
+                  // Fallback: iTunes preview (30-sec m4v)
+                  if (hasITunesPreview) {
+                    return (
+                      <div className="aspect-video rounded-lg overflow-hidden bg-black">
+                        <video
+                          src={movie.itunes_preview_url}
+                          autoPlay
+                          controls
+                          className="w-full h-full object-contain"
+                          poster={movie.itunes_artwork_url || undefined}
+                        >
+                          Your browser does not support the video tag.
+                        </video>
+                      </div>
+                    );
+                  }
+                }
+
+                // Show play button with source indicator
+                const sourceLabel = hasYouTubeId
+                  ? 'YouTube Trailer'
+                  : 'iTunes Preview';
+
+                return (
+                  <button
+                    onClick={() => setTrailerOpen(true)}
+                    className="w-full aspect-video bg-[#050507] rounded-lg flex items-center justify-center border border-[#1e1e28] hover:border-[#d4a853]/40 transition-colors group relative overflow-hidden"
+                  >
+                    {movie.itunes_artwork_url && !hasYouTubeId && (
+                      <img
+                        src={movie.itunes_artwork_url}
+                        alt={movie.title}
+                        className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-40 transition-opacity"
+                      />
+                    )}
+                    <div className="text-center relative z-10">
+                      <div className="w-14 h-14 rounded-full bg-[#d4a853]/20 flex items-center justify-center mx-auto mb-2 group-hover:bg-[#d4a853]/30 transition-colors">
+                        <Play className="w-6 h-6 text-[#d4a853] fill-[#d4a853]" />
+                      </div>
+                      <span className="text-sm text-[#6b7280]">{sourceLabel}</span>
+                      {!hasYouTubeId && hasITunesPreview && (
+                        <span className="block text-[10px] text-[#4b5563] mt-1">30-sec preview</span>
+                      )}
+                    </div>
+                  </button>
+                );
+              })()}
             </div>
 
             {/* News Headlines */}

@@ -16,6 +16,8 @@ export interface Movie {
   rotten_tomatoes: string;
   metascore: string;
   trailer_youtube_id: string;
+  itunes_preview_url?: string;           // iTunes 30-sec trailer preview URL (fallback)
+  itunes_artwork_url?: string;           // iTunes trailer artwork URL
   news_headlines: Array<{ title: string; url: string; source: string; date: string }>;
   ai_review: string;
   director: string;

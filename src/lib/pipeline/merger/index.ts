@@ -1,34 +1,50 @@
 /**
- * Data Merger — Combines data from 22 sources into a unified Movie object.
+ * Data Merger — Combines data from 22+ sources into a unified Movie object.
  *
- * Architecture: 70% Scraping, 30% APIs
+ * Architecture: Free-First Pipeline
  *
- * Scraping Sources (70% — primary data):
- *   Tier A: Wikipedia, SensCritique, Filmweb, CSFD, Dramabeans, AnimeNewsNetwork
+ * Strategy: Free sources (TMDb, direct-fetch scrapers, free APIs) run first and
+ * do the heavy lifting. ScrapingAnt-dependent sources serve as FALLBACKS — they
+ * only fill data gaps that free sources couldn't cover.
+ *
+ * Free Sources (Primary — no cost):
+ *   TMDb (structure, posters, cast, genres, videos/trailers — source of truth)
+ *   OMDb (IMDb rating, RT%, Metascore — free tier: 1K/day)
+ *   AniList (anime-specific — always on, no key needed)
+ *   Jikan (MAL proxy — free, no key needed)
+ *   Fanart.tv (logos, clearart — free with key)
+ *   Wikipedia (extract, URL — direct fetch, Tier A)
+ *   SensCritique (French rating — direct fetch, Tier A)
+ *   Filmweb (Polish rating — direct fetch, Tier A)
+ *   CSFD (Czech rating — direct fetch, Tier A)
+ *   Dramabeans (K-drama recaps — direct fetch, Tier A)
+ *   AnimeNewsNetwork (anime rating — direct fetch, Tier A)
+ *   iTunes (trailer previews — free, no key needed)
+ *
+ * Fallback Sources (fill gaps only — consume ScrapingAnt quota):
  *   Tier B: RottenTomatoes, Metacritic, MyDramaList, CommonSenseMedia,
- *           TheNumbers, FilmAffinity, AlloCiné
- *   Tier C: BoxOfficeMojo, Douban, Kinopoisk
+ *           TheNumbers, FilmAffinity, AlloCiné (need proxy)
+ *   Tier C: BoxOfficeMojo, Douban, Kinopoisk (need premium proxy)
  *
- * API Sources (30% — structural + fallback):
- *   TMDb (structure, posters, cast, genres — source of truth)
- *   OMDb (IMDb rating, RT%, Metascore — fallback for ratings)
- *   YouTube (trailer — only source for video)
- *   NewsAPI (news headlines — primary news source)
- *   Newsdata.io (supplementary news — fallback for news)
- *   Fanart.tv (high-quality logos, clearart, alternative images)
- *   Gemini AI (intelligent review generation)
- *   AniList (anime-specific: MAL score, studios, tags, streaming — always on)
- *   Jikan (MAL proxy — anime scores, rankings, details — free, no key needed)
+ * Trailer Strategy (Priority):
+ *   1. TMDb /videos endpoint (primary — free, already have key)
+ *   2. iTunes Search API (fallback — free, no key)
+ *   3. YouTube Data API (fallback — has quota limits)
+ *   4. YouTube embed (last resort — only video ID, no API call)
  *
  * Merge Strategy:
  *   1. TMDb provides the structural foundation (always first)
  *   2. Auto-detect anime (genre 16 = Animation + JP/KR origin, or AniList match)
  *   3. Get IMDb ID from TMDb external_ids
- *   4. Run all scraping sources in parallel (respecting circuit breaker)
- *   5. Run API sources in parallel (OMDb, YouTube, NewsAPI, AniList)
- *   6. Merge with priority: scraped data overrides API data for same fields
- *   7. Anime sources fill anime-specific fields (Jikan, AniList, ANN)
- *   8. APIs fill gaps where scrapers failed
+ *   4. Run FREE sources in parallel (Tier A scrapers + free APIs)
+ *   5. Merge free source data first
+ *   6. Run FALLBACK scraping sources in parallel (Tier B & C — only for missing fields)
+ *   7. Merge fallback data (only fills gaps free sources left)
+ *   8. APIs fill remaining gaps (OMDb, YouTube, NewsAPI, AniList)
+ *   9. Anime sources fill anime-specific fields (Jikan, AniList, ANN)
+ *   10. Trailer resolution: TMDb > iTunes > YouTube > embed
+ *   11. AI review generation
+ *   12. Final assembly with completeness scoring
  */
 
 import type { Movie } from '@/lib/types';
@@ -39,6 +55,7 @@ import * as NewsAPI from '@/lib/pipeline/clients/newsapi';
 import * as NewsDataIO from '@/lib/pipeline/clients/newsdata';
 import * as FanartTV from '@/lib/pipeline/clients/fanart';
 import * as GeminiAI from '@/lib/pipeline/clients/gemini';
+import * as ITunes from '@/lib/pipeline/clients/itunes';
 
 // Scraping sources
 import * as RT from '@/lib/pipeline/scrapers/rottentomatoes';
@@ -295,7 +312,7 @@ async function runScrapers(
   // Build the list of scraper tasks to run
   const tasks: Array<{ name: string; fn: () => Promise<void> }> = [];
 
-  // ─── Tier A: Zero protection (always try) ───
+  // ─── Primary: Free Direct-Fetch Scrapers (Tier A — always run) ───
 
   if (enabledScrapers.includes('wikipedia') && canRequest('wikipedia')) {
     tasks.push({
@@ -363,7 +380,7 @@ async function runScrapers(
     });
   }
 
-  // ─── Tier B: Light protection ───
+  // ─── Fallback: ScrapingAnt-Dependent Scrapers (Tier B — need proxy) ───
 
   if (enabledScrapers.includes('rottentomatoes') && canRequest('rottentomatoes')) {
     tasks.push({
@@ -485,7 +502,7 @@ async function runScrapers(
     });
   }
 
-  // ─── Tier C: Medium protection ───
+  // ─── Fallback: Premium ScrapingAnt Scrapers (Tier C — need premium proxy) ───
 
   if (enabledScrapers.includes('boxofficemojo') && canRequest('boxofficemojo')) {
     tasks.push({
@@ -712,13 +729,14 @@ export async function mergeMovieData(
   // 3b: Run API sources in parallel (OMDb + YouTube + NewsAPI + NewsData + FanartTV + AniList + Jikan)
   let omdbData: OMDb.OMDbMovieData | null = null;
   let youtubeTrailerId: string | null = null;
+  let itunesTrailerResult: ITunes.ITunesTrailerResult | null = null;
   let newsHeadlines: Array<{ title: string; url: string; source: string; date: string }> = [];
   let fanartData: FanartTV.FanartResult | null = null;
   let anilistData: AniList.AniListResult | null = null;
   let jikanData: Jikan.JikanAnimeResult | null = null;
 
   if (cfg.enableAPIs) {
-    const [omdbResult, youtubeResult, newsResult, newsDataResult, fanartResult, anilistResult, jikanResult] = await Promise.allSettled([
+    const [omdbResult, youtubeResult, itunesResult, newsResult, newsDataResult, fanartResult, anilistResult, jikanResult] = await Promise.allSettled([
       // OMDb
       (async () => {
         if (!imdbId) return null;
@@ -726,12 +744,22 @@ export async function mergeMovieData(
         if (data) sources.push('OMDb');
         return data;
       })(),
-      // YouTube
+      // YouTube Data API (fallback for trailers — has quota limits)
       (async () => {
         if (!process.env.YOUTUBE_API_KEY) return null;
         const result = await YouTube.searchTrailer(movie.title!, movie.release_date ? parseInt(movie.release_date.substring(0, 4), 10) : undefined);
         if (result) sources.push('YouTube');
         return result;
+      })(),
+      // iTunes (free trailer previews — no key needed, fallback for TMDb videos)
+      (async () => {
+        if (!movie.trailer_youtube_id) {
+          // Only search iTunes if TMDb didn't provide a trailer
+          const result = await ITunes.searchTrailer(movie.title!, movie.release_date ? parseInt(movie.release_date.substring(0, 4), 10) : undefined);
+          if (result) sources.push('iTunes');
+          return result;
+        }
+        return null;
       })(),
       // NewsAPI (primary news source)
       (async () => {
@@ -789,6 +817,9 @@ export async function mergeMovieData(
     }
     if (youtubeResult.status === 'fulfilled' && youtubeResult.value) {
       youtubeTrailerId = youtubeResult.value.videoId;
+    }
+    if (itunesResult.status === 'fulfilled' && itunesResult.value) {
+      itunesTrailerResult = itunesResult.value;
     }
     if (newsResult.status === 'fulfilled' && newsResult.value) {
       const newsArticles = Array.isArray(newsResult.value) ? newsResult.value : [];
@@ -872,10 +903,20 @@ export async function mergeMovieData(
     movie.metascore = String(omdbData.metascore);
   }
 
-  // --- Trailer ---
-  // YouTube API is the primary source; TMDb /videos is already in movie.trailer_youtube_id
-  if (youtubeTrailerId && !movie.trailer_youtube_id) {
-    movie.trailer_youtube_id = youtubeTrailerId;
+  // --- Trailer (Priority: TMDb Videos > iTunes > YouTube Data API > Embed) ---
+  // TMDb /videos is already in movie.trailer_youtube_id (set during TMDb fetch)
+  // If TMDb didn't have a trailer, try iTunes (free, no key), then YouTube Data API (has quota)
+  if (!movie.trailer_youtube_id) {
+    // Try iTunes first (free, no API key needed)
+    if (itunesTrailerResult) {
+      movie.trailer_youtube_id = ''; // iTunes gives preview URL, not YouTube ID
+      movie.itunes_preview_url = itunesTrailerResult.previewUrl;
+      movie.itunes_artwork_url = itunesTrailerResult.artworkUrl;
+    }
+    // Fall back to YouTube Data API
+    if (youtubeTrailerId) {
+      movie.trailer_youtube_id = youtubeTrailerId;
+    }
   }
 
   // --- News ---

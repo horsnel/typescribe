@@ -1,13 +1,16 @@
 /**
  * Pipeline Orchestrator — The central entry point for the data pipeline.
  *
- * Architecture: 70% Scraping, 30% APIs
+ * Architecture: Free-First Pipeline
  *
- * Scraping (70%): 16 sites across 3 tiers
- * APIs (30%): TMDb + OMDb + YouTube + NewsAPI
+ * Free Sources (Primary): TMDb + OMDb + AniList + Jikan + Fanart.tv + iTunes + 6 Tier-A scrapers
+ * Fallback Sources (gaps): 7 Tier-B scrapers + 3 Tier-C scrapers (ScrapingAnt-dependent)
+ *
+ * Trailer Strategy: TMDb Videos → iTunes → YouTube Data API → Embed
  *
  * Data flow:
- *   Request → Cache check → TMDb foundation → Parallel scraping + APIs → Merge → Cache → Response
+ *   Request → Cache check → TMDb foundation → Free sources first →
+ *   Fallback scrapers (gap-fill) → Merge → Cache → Response
  *
  * Usage:
  *   import { getMovie, browseMovies, searchMovies } from '@/lib/pipeline';
@@ -29,9 +32,10 @@ interface PipelineStatus {
   configured: boolean;
   scrapingEnabled: boolean;
   sources: {
-    // APIs (30%)
+    // Free APIs (Primary)
     tmdb: boolean;
     omdb: boolean;
+    itunes: boolean;
     youtube: boolean;
     newsapi: boolean;
     newsdataIo: boolean;
@@ -39,7 +43,7 @@ interface PipelineStatus {
     gemini: boolean;
     anilist: boolean;
     jikan: boolean;
-    // Scrapers (70%)
+    // Scrapers (Free Tier-A primary + Fallback Tier-B/C)
     scrapers: Record<string, { tier: string; enabled: boolean; circuitOpen: boolean }>;
   };
   cache: {
@@ -99,6 +103,7 @@ export function getPipelineStatus(): PipelineStatus {
     sources: {
       tmdb: !!tmdbKey,
       omdb: !!omdbKey,
+      itunes: true, // Always configured (free, no key needed)
       youtube: !!process.env.YOUTUBE_API_KEY,
       newsapi: !!process.env.NEWS_API_KEY,
       newsdataIo: !!process.env.NEWSDATA_IO_API_KEY,
