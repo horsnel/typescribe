@@ -47,3 +47,29 @@ Stage Summary:
 - Top rated works: Shawshank, Godfather, etc. from TMDb top_rated
 - Browse works: trending, by country, by genre all use TMDb discover
 - Pipeline cache gracefully falls back to in-memory on Vercel's read-only FS
+---
+Task ID: 1
+Agent: Main Agent
+Task: Wire all pages to the real scraping pipeline, replacing mock data
+
+Work Log:
+- Analyzed full codebase: 17 scrapers, 11 API clients, ScrapingAnt round-robin, circuit breakers, health monitoring — ALL BUILT
+- Identified root cause: pages using mock data from @/lib/data instead of API routes
+- Fixed HeroSection: replaced mock movies.slice(0,8) with fetch('/api/browse?source=trending')
+- Fixed LatestReviews: replaced mock data with fetch('/api/browse?source=trending')
+- Fixed NewsSection: replaced mock newsItems with fetch('/api/news') using real NewsAPI
+- Fixed CommunityReviews: replaced mock userReviews with localStorage-based real user data
+- Fixed category/[genre]: replaced getMoviesByGenre() mock filtering with full TMDb discover API + pagination
+- Fixed TrendingCarousel: removed mock fallback, uses API only
+- Fixed TopRatedSection: removed mock fallback, uses API only
+- Fixed MovieCard: handles TMDb image URLs (relative /abc.jpg paths → https://image.tmdb.org/t/p/w500/abc.jpg)
+- Fixed movie detail page: handles TMDb image URLs for poster, backdrop, and cast profile images
+- Fixed PipelineStatus type mismatch (scrapingBee → scrapingAnt)
+- Built successfully, pushed to GitHub, deployed to Vercel
+
+Stage Summary:
+- Live at https://typescribe-mu.vercel.app
+- Pipeline verified working: TMDb + OMDb + Wikipedia + NewsAPI + NewsDataIO + YouTube + FanartTV merging
+- Shawshank Redemption test: 78% completeness, 7 sources, IMDb 9.3, RT 89%, Metascore 82
+- Category pages working with TMDb discover API
+- News section working with real NewsAPI articles
