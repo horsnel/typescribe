@@ -665,7 +665,7 @@ export default function AdminDataPipelinePage() {
           </h2>
 
           {(['a', 'b', 'c'] as const).map(tier => {
-            const tierScrapers = health?.scrapers.filter(s => s.tier === tier) || [];
+            const tierScrapers = (health?.scrapers || []).filter(s => s.tier === tier);
             const scraperInfos = sources?.scrapers || {};
             return (
               <div key={tier} className="mb-4">
