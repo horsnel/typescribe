@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
     }
 
     const { password } = await req.json();
-    const adminPassword = process.env.ADMIN_PASSWORD || 'olhmes2024';
+    const adminPassword = process.env.ADMIN_PASSWORD || 'Ebuka456';
 
     if (password === adminPassword) {
       const token = Buffer.from(`admin:${Date.now()}`).toString('base64');
