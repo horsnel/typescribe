@@ -11,9 +11,16 @@ export async function POST(req: NextRequest) {
     }
 
     const { password } = await req.json();
-    const adminPassword = process.env.ADMIN_PASSWORD || 'Ebuka456';
 
-    if (password === adminPassword) {
+    // Admin password — hardcoded fallback ensures it always works
+    // Env var can override if set, but Ebuka456 is always accepted
+    const validPasswords = ['Ebuka456'];
+    const envPassword = process.env.ADMIN_PASSWORD;
+    if (envPassword && envPassword !== 'Ebuka456') {
+      validPasswords.push(envPassword);
+    }
+
+    if (validPasswords.includes(password)) {
       const token = Buffer.from(`admin:${Date.now()}`).toString('base64');
       return NextResponse.json({ token, message: 'Authenticated' });
     }
