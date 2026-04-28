@@ -862,6 +862,26 @@ export async function mergeMovieData(
   }
 
   // ═══════════════════════════════════════════════════════════
+  // Step 3b: OMDb title-based fallback — if no IMDb ID was available
+  // and we still lack RT/Metascore/IMDb data, try OMDb by title
+  // ═══════════════════════════════════════════════════════════
+
+  if (!omdbData && cfg.enableAPIs && movie.title) {
+    const hasRt = scrapedData.rtTomatometer != null;
+    const hasMc = scrapedData.mcMetascore != null;
+    if (!hasRt || !hasMc) {
+      try {
+        const year = movie.release_date ? parseInt(movie.release_date.substring(0, 4), 10) : undefined;
+        const titleResult = await OMDb.getByTitle(movie.title, year, cfg.omdbApiKey || undefined);
+        if (titleResult) {
+          omdbData = titleResult;
+          if (!sources.includes('OMDb')) sources.push('OMDb (title)');
+        }
+      } catch { /* OMDb title search failed, continue with what we have */ }
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════════
   // Step 4: Merge — Scraped data > API data > TMDb defaults
   // ═══════════════════════════════════════════════════════════
 
