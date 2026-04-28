@@ -73,3 +73,27 @@ Stage Summary:
 - Shawshank Redemption test: 78% completeness, 7 sources, IMDb 9.3, RT 89%, Metascore 82
 - Category pages working with TMDb discover API
 - News section working with real NewsAPI articles
+---
+Task ID: 1
+Agent: Main
+Task: Fix movie details page 404 issue
+
+Work Log:
+- Investigated the movie details page architecture
+- Discovered root cause: pipeline takes 40+ seconds for uncached movies, causing Vercel serverless function timeouts
+- The pipeline runs 17 scrapers + 6 APIs on each request, leading to timeouts on first visit
+- Implemented two-tier response strategy: fast mode (TMDb only, ~1-2s) + enriched mode (full pipeline)
+- Updated /api/movies/slug/[slug] with background enrichment
+- Updated /api/movies/[id] with same fast-first pattern
+- Added maxDuration=60 to pipeline API routes
+- Updated movie details page to load fast with TMDb data, then progressively enrich
+- Added enrichment banner UI while data is being loaded from additional sources
+- Improved 404 page design with better UX
+- Fixed enriched mode to use mergeMovieData directly to bypass stale cache
+
+Stage Summary:
+- Movie details page now loads in ~0.5-1.5s instead of 40+ seconds or timing out
+- First visit shows TMDb data (title, poster, cast, director, trailer, genres)
+- Background enrichment runs and caches full pipeline data (IMDb, RT, Metacritic, Wikipedia, etc.)
+- Subsequent visits get enriched cached data
+- Deployed to production: https://typescribe-mu.vercel.app
