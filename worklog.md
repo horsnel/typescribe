@@ -21,3 +21,31 @@ Stage Summary:
 - Breadcrumbs completely eliminated from all pages
 - Movie details page fixed for mobile with proper skeleton loading
 - Deployment live at https://typescribe-mu.vercel.app
+
+---
+Task ID: 2
+Agent: Main Agent
+Task: Remove remaining breadcrumbs, restructure Navbar, mobile optimization
+
+Work Log:
+- Removed breadcrumbs from News page (2 locations: article view + list view) and New Releases page
+- Replaced all remaining #e50914 with #d4a853 in News and New Releases pages
+- Changed emerald Live badges to amber gold in New Releases
+- Restructured Navbar with avatar-centric dropdown (Instagram/X pattern):
+  - Removed standalone logout icon
+  - Avatar now triggers dropdown with Profile, Reviews, Watchlist, Settings, Logout
+  - Added click-outside and Escape key handlers for dropdown
+  - Avatar gets ring highlight when dropdown is open
+- Fixed mobile viewport padding across all pages (pt-8 → pt-20)
+- Fixed movie details hero: responsive items-center/items-end, pt-20 md:pt-0, sticky enrichment banner
+- Fixed anime detail hero: h-auto on mobile, responsive content positioning
+- Fixed MovieCard mobile sizing (w-full instead of fixed width)
+- Fixed mobile search input overflow protection
+- Build passed, committed, deployed to Vercel
+
+Stage Summary:
+- All breadcrumbs now completely eliminated from entire codebase
+- Navbar uses social-media-style avatar dropdown pattern
+- All pages properly offset from fixed navbar on mobile
+- Movie/anime hero sections no longer cut off on mobile
+- Deployment live at https://typescribe-mu.vercel.app
