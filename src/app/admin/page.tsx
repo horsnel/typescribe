@@ -106,9 +106,9 @@ function statusBg(status: string): string {
 
 function tierLabel(tier: string): string {
   switch (tier) {
-    case 'a': return 'Tier A — Zero Protection';
-    case 'b': return 'Tier B — Light Protection';
-    case 'c': return 'Tier C — Medium Protection';
+    case 'a': return 'Tier A — Primary: Free Direct-Fetch';
+    case 'b': return 'Tier B — Fallback: ScrapingAnt-Dependent';
+    case 'c': return 'Tier C — Fallback: Premium ScrapingAnt';
     default: return `Tier ${tier}`;
   }
 }
@@ -141,6 +141,7 @@ function apiIcon(key: string) {
   switch (key) {
     case 'tmdb': return Database;
     case 'omdb': return BarChart3;
+    case 'itunes': return Film;
     case 'anilist': return Tv;
     case 'jikan': return Search;
     case 'kitsu': return Globe;
@@ -530,11 +531,11 @@ export default function AdminDashboardPage() {
           </div>
         </section>
 
-        {/* ─── Scraping Sources (70%) ─── */}
+        {/* ─── Scraping Sources (Free-First) ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
             <Shield className="w-5 h-5 text-[#d4a853]" /> Scraping Sources
-            <span className="text-xs font-normal text-[#6b7280] ml-1">(70% of data — 16 sites across 3 tiers)</span>
+            <span className="text-xs font-normal text-[#6b7280] ml-1">(Free-First: 6 primary + 7 fallback + 3 premium = 16 sites)</span>
           </h2>
 
           {healthLoading && !healthData ? (
@@ -652,7 +653,7 @@ export default function AdminDashboardPage() {
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
             <Cpu className="w-5 h-5 text-[#d4a853]" /> API Health &amp; Usage
-            <span className="text-xs font-normal text-[#6b7280] ml-1">(30% of data — {totalApis} sources)</span>
+            <span className="text-xs font-normal text-[#6b7280] ml-1">(Free APIs &amp; Paid Fallbacks — {totalApis} sources)</span>
           </h2>
 
           {healthLoading && !healthData ? (

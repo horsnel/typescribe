@@ -31,7 +31,6 @@ export async function GET(req: NextRequest) {
       thenumbers:        { url: 'https://www.the-numbers.com', provides: 'Box office data, budgets, financials', region: 'US/Global' },
       filmaffinity:      { url: 'https://www.filmaffinity.com', provides: 'Spanish/Intl ratings, reviews, rankings', region: 'Spain/Global' },
       allocine:          { url: 'https://www.allocine.fr', provides: 'French ratings, press reviews, user scores', region: 'France' },
-      myanimelist:       { url: 'https://myanimelist.net', provides: 'Anime/manga scores, rankings, user lists', region: 'Global' },
       boxofficemojo:     { url: 'https://www.boxofficemojo.com', provides: 'Box office grosses, weekly/daily charts', region: 'US/Global' },
       douban:            { url: 'https://movie.douban.com', provides: 'Chinese ratings, reviews, short comments', region: 'China' },
       kinopoisk:         { url: 'https://www.kinopoisk.ru', provides: 'Russian ratings, reviews, film database', region: 'Russia' },
@@ -41,6 +40,7 @@ export async function GET(req: NextRequest) {
     const API_META: Record<string, { url: string; provides: string; freeLimit: string }> = {
       tmdb:     { url: 'https://api.themoviedb.org/3', provides: 'Structure, posters, cast, genres, credits, videos — source of truth', freeLimit: 'Unlimited (rate-limited)' },
       omdb:     { url: 'https://www.omdbapi.com', provides: 'IMDb rating, RT %, Metascore, plot, awards', freeLimit: '1,000/day (free tier)' },
+      itunes:   { url: 'https://itunes.apple.com/search', provides: 'Trailer previews, artwork — free, no key', freeLimit: 'Unlimited (free API)' },
       anilist:  { url: 'https://graphql.anilist.co', provides: 'Anime search, trending, seasonal, streaming links', freeLimit: 'Unlimited (rate-limited)' },
       jikan:    { url: 'https://api.jikan.moe/v4', provides: 'MyAnimeList proxy — anime details, seasonal, top', freeLimit: '3 req/s (unauthenticated)' },
       kitsu:    { url: 'https://kitsu.io/api/edge', provides: 'Anime streaming links, search, categories', freeLimit: 'Unlimited (rate-limited)' },
@@ -62,9 +62,10 @@ export async function GET(req: NextRequest) {
     const apiConfigMap: Record<string, boolean> = {
       tmdb: sources.tmdb,
       omdb: sources.omdb,
-      anilist: sources.anilist,
+      itunes: sources.itunes ?? true,
+      anilist: sources.anilist ?? true,
       jikan: true,
-      kitsu: true,
+      kitsu: sources.kitsu ?? true,
       youtube: sources.youtube,
       newsapi: sources.newsapi,
       newsdata: sources.newsdataIo,

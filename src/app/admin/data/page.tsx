@@ -34,12 +34,15 @@ interface ScraperInfo {
 interface PipelineSources {
   tmdb: boolean;
   omdb: boolean;
+  itunes: boolean;
+  anilist: boolean;
+  jikan: boolean;
+  kitsu: boolean;
   youtube: boolean;
   newsapi: boolean;
   newsdataIo: boolean;
   fanartTv: boolean;
   gemini: boolean;
-  jikan: boolean;
   scrapers: Record<string, ScraperInfo>;
 }
 
@@ -135,9 +138,9 @@ function statusDot(status: string): string {
 
 function tierLabel(tier: string): string {
   switch (tier) {
-    case 'a': return 'Tier A — Zero Protection';
-    case 'b': return 'Tier B — Light Protection';
-    case 'c': return 'Tier C — Medium Protection';
+    case 'a': return 'Tier A — Primary: Free Direct-Fetch';
+    case 'b': return 'Tier B — Fallback: ScrapingAnt-Dependent';
+    case 'c': return 'Tier C — Fallback: Premium ScrapingAnt';
     default: return `Tier ${tier}`;
   }
 }
@@ -562,7 +565,7 @@ export default function AdminDataPipelinePage() {
             </div>
             <div>
               <h1 className="text-3xl lg:text-4xl font-extrabold text-white tracking-tight">Data Pipeline</h1>
-              <p className="text-[#6b7280] text-sm mt-0.5">70% Scraping + 30% APIs — 16 sites across 3 tiers</p>
+              <p className="text-[#6b7280] text-sm mt-0.5">Free-First Pipeline — Free primary + Fallback sources</p>
             </div>
           </div>
           <div className="flex items-center gap-3 mt-4">
@@ -623,21 +626,24 @@ export default function AdminDataPipelinePage() {
           </section>
         )}
 
-        {/* ─── API Sources (30%) ─── */}
+        {/* ─── API Sources (Free & Paid) ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <Cpu className="w-5 h-5 text-[#d4a853]" /> API Sources <span className="text-xs font-normal text-[#6b7280]">(30% of data)</span>
+            <Cpu className="w-5 h-5 text-[#d4a853]" /> API Sources <span className="text-xs font-normal text-[#6b7280]">(Free APIs &amp; Paid Fallbacks)</span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              { name: 'TMDb', key: 'tmdb' as const, desc: 'Structure, posters, cast, genres — source of truth', envVar: 'TMDB_API_KEY', icon: Database },
+              { name: 'TMDb', key: 'tmdb' as const, desc: 'Structure, posters, cast, genres, videos — source of truth', envVar: 'TMDB_API_KEY', icon: Database },
               { name: 'OMDb', key: 'omdb' as const, desc: 'IMDb rating, RT %, Metascore fallback', envVar: 'OMDB_API_KEY', icon: BarChart3 },
-              { name: 'YouTube', key: 'youtube' as const, desc: 'Trailer video search', envVar: 'YOUTUBE_API_KEY', icon: Globe },
+              { name: 'iTunes', key: 'itunes' as const, desc: 'Trailer previews — free, no key needed', envVar: 'No key needed (free API)', icon: Globe },
+              { name: 'AniList', key: 'anilist' as const, desc: 'Anime search, trending, seasonal, streaming', envVar: 'No key needed (free API)', icon: Globe },
+              { name: 'Jikan', key: 'jikan' as const, desc: 'MAL proxy — anime scores, rankings, details', envVar: 'No key needed (free API)', icon: Globe },
+              { name: 'Kitsu', key: 'kitsu' as const, desc: 'Anime streaming links, search, categories', envVar: 'No key needed (free API)', icon: Globe },
+              { name: 'YouTube', key: 'youtube' as const, desc: 'Trailer video search — fallback for trailers', envVar: 'YOUTUBE_API_KEY', icon: Globe },
               { name: 'NewsAPI', key: 'newsapi' as const, desc: 'Movie news headlines — primary', envVar: 'NEWS_API_KEY', icon: Newspaper },
               { name: 'Newsdata.io', key: 'newsdataIo' as const, desc: 'Supplementary news — fallback', envVar: 'NEWSDATA_IO_API_KEY', icon: Newspaper },
               { name: 'Fanart.tv', key: 'fanartTv' as const, desc: 'High-quality logos, clearart, backgrounds', envVar: 'FANART_TV_API_KEY', icon: ImageIcon },
               { name: 'Gemini AI', key: 'gemini' as const, desc: 'Intelligent review generation', envVar: 'GEMINI_API_KEY', icon: Brain },
-              { name: 'Jikan', key: 'jikan' as const, desc: 'MAL proxy — anime scores, rankings, details', envVar: 'No key needed (free API)', icon: Globe },
             ].map(src => {
               const ok = sources?.[src.key] ?? false;
               return (
@@ -660,10 +666,10 @@ export default function AdminDataPipelinePage() {
           </div>
         </section>
 
-        {/* ─── Scraping Sources (70%) ─── */}
+        {/* ─── Scraping Sources (Free-First) ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <Shield className="w-5 h-5 text-[#d4a853]" /> Scraping Sources <span className="text-xs font-normal text-[#6b7280]">(70% of data — 16 sites)</span>
+            <Shield className="w-5 h-5 text-[#d4a853]" /> Scraping Sources <span className="text-xs font-normal text-[#6b7280]">(Free-First: 6 primary + 7 fallback + 3 premium)</span>
           </h2>
 
           {(['a', 'b', 'c'] as const).map(tier => {

@@ -36,10 +36,12 @@ export interface PipelineHealthReport {
   apiClients: {
     tmdb: { configured: boolean };
     omdb: { configured: boolean; dailyUsed: number; dailyLimit: number };
+    itunes: { configured: boolean };
     youtube: { configured: boolean };
     newsapi: { configured: boolean };
     anilist: { configured: boolean };
     jikan: { configured: boolean };
+    kitsu: { configured: boolean };
   };
   recommendations: string[];
 }
@@ -67,14 +69,14 @@ interface ScraperConfig {
 }
 
 const SCRAPER_REGISTRY: ScraperConfig[] = [
-  // Tier A: Zero protection
+  // Tier A: Primary — Free Direct-Fetch (always run, no proxy needed)
   { name: 'wikipedia', tier: 'a', enabled: true },
   { name: 'senscritique', tier: 'a', enabled: true },
   { name: 'filmweb', tier: 'a', enabled: true },
   { name: 'csfd', tier: 'a', enabled: true },
   { name: 'dramabeans', tier: 'a', enabled: true },
   { name: 'animenewsnetwork', tier: 'a', enabled: true },
-  // Tier B: Light protection
+  // Tier B: Fallback — ScrapingAnt-Dependent (gap-fill only, need proxy)
   { name: 'rottentomatoes', tier: 'b', enabled: true },
   { name: 'metacritic', tier: 'b', enabled: true },
   { name: 'mydramalist', tier: 'b', enabled: true },
@@ -83,7 +85,7 @@ const SCRAPER_REGISTRY: ScraperConfig[] = [
   { name: 'filmaffinity', tier: 'b', enabled: true },
   { name: 'allocine', tier: 'b', enabled: true },
 
-  // Tier C: Medium protection
+  // Tier C: Fallback — Premium ScrapingAnt (gap-fill only, premium proxy)
   { name: 'boxofficemojo', tier: 'c', enabled: true },
   { name: 'douban', tier: 'c', enabled: true },
   { name: 'kinopoisk', tier: 'c', enabled: true },
@@ -209,6 +211,26 @@ export async function getPipelineHealthReport(): Promise<PipelineHealthReport> {
     omdbStats.dailyLimit = omdbDaily.limit;
   } catch {}
 
+  // Free-first architecture recommendations
+  const freeApiCount = [
+    !!process.env.TMDB_API_KEY,
+    !!process.env.OMDB_API_KEY,
+    true, // iTunes — always free
+    true, // AniList — always free
+    true, // Jikan — always free
+    true, // Kitsu — always free
+  ].filter(Boolean).length;
+
+  if (freeApiCount < 3) {
+    recommendations.push('Free API coverage is low — ensure TMDb and OMDb keys are set for core coverage');
+  }
+
+  // Check if Tier A (free) scrapers are all healthy
+  const tierADown = scrapers.filter(s => s.tier === 'a' && s.status === 'down').length;
+  if (tierADown > 0) {
+    recommendations.push(`${tierADown} Tier A (free direct-fetch) scraper(s) are DOWN — these are primary data sources with zero cost`);
+  }
+
   return {
     timestamp: new Date().toISOString(),
     overallStatus,
@@ -222,10 +244,12 @@ export async function getPipelineHealthReport(): Promise<PipelineHealthReport> {
     apiClients: {
       tmdb: { configured: !!process.env.TMDB_API_KEY },
       omdb: omdbStats,
+      itunes: { configured: true }, // Always configured (free, no key needed)
       youtube: { configured: !!process.env.YOUTUBE_API_KEY },
       newsapi: { configured: !!process.env.NEWS_API_KEY },
-      anilist: { configured: true },
-      jikan: { configured: true },
+      anilist: { configured: true }, // Always configured (free, no key needed)
+      jikan: { configured: true }, // Always configured (free, no key needed)
+      kitsu: { configured: true }, // Always configured (free, no key needed)
     },
     recommendations,
   };
