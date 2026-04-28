@@ -1574,7 +1574,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
               <CriticTrustScore
                 movieId={movie.id}
                 movieTitle={movie.title}
-                userReviewCounts={disputes.length + movieReviews.length}
+                userReviewCount={disputes.length + movieReviews.length}
               />
             </div>
 

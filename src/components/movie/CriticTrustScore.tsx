@@ -14,12 +14,12 @@ function seededRandom(seed: number): number {
   return x - Math.floor(x);
 }
 
-export default function CriticTrustScore({ movieId, movieTitle, userReviewCount }: CriticTrustScoreProps) {
+export default function CriticTrustScore({ movieId, movieTitle, userReviewCount = 0 }: CriticTrustScoreProps) {
   const [alignmentScores, setAlignmentScores] = useState<{ source: string; score: number; icon: string }[]>([]);
 
   useEffect(() => {
     // Only show after user has rated 10+ movies
-    if (userReviewCount < 10) return;
+    if (!userReviewCount || userReviewCount < 10) return;
 
     // Generate deterministic alignment scores
     const sources = [
@@ -38,7 +38,7 @@ export default function CriticTrustScore({ movieId, movieTitle, userReviewCount 
     setAlignmentScores(scores);
   }, [movieId, userReviewCount]);
 
-  if (userReviewCount < 10) {
+  if (!userReviewCount || userReviewCount < 10 || alignmentScores.length === 0) {
     return (
       <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4">
         <div className="flex items-center gap-2 mb-2">
@@ -46,7 +46,7 @@ export default function CriticTrustScore({ movieId, movieTitle, userReviewCount 
           <h4 className="text-sm font-semibold text-white">Critics Like You</h4>
           <span className="text-[10px] bg-purple-500/20 text-purple-400 px-1.5 py-0.5 rounded-full">10+ REVIEWS NEEDED</span>
         </div>
-        <p className="text-xs text-[#6b7280]">Rate {10 - userReviewCount} more movies to unlock critic alignment scores that match your taste profile.</p>
+        <p className="text-xs text-[#6b7280]">Rate {10 - (userReviewCount || 0)} more movies to unlock critic alignment scores that match your taste profile.</p>
       </div>
     );
   }
