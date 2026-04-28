@@ -24,7 +24,7 @@ import {
   X,
   LogOut,
   Home,
-  MessageSquare,
+  Film,
 } from 'lucide-react';
 
 const sidebarLinks = [
@@ -59,7 +59,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           <h2 className="text-2xl font-bold text-white">Please sign in</h2>
           <p className="text-[#9ca3af]">You need to be logged in to access the dashboard.</p>
           <Link href="/login">
-            <Button className="bg-[#e50914] hover:bg-[#e50914]/90 text-white">Sign In</Button>
+            <Button className="bg-[#d4a853] hover:bg-[#b8922e] text-white">Sign In</Button>
           </Link>
         </div>
       </div>
@@ -83,8 +83,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     <div className="flex flex-col h-full">
       {/* Logo */}
       <div className="p-4 flex items-center gap-3">
-        <div className="w-8 h-8 bg-[#e50914] rounded-lg flex items-center justify-center flex-shrink-0">
-          <MessageSquare className="w-4 h-4 text-white" />
+        <div className="w-8 h-8 bg-[#d4a853] rounded-lg flex items-center justify-center flex-shrink-0">
+          <Film className="w-4 h-4 text-white" />
         </div>
         {!collapsed && (
           <span className="text-white font-bold text-lg tracking-tight">Typescribe</span>
@@ -105,7 +105,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 href={link.href}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-sm font-medium ${
                   active
-                    ? 'bg-[#e50914]/15 text-[#e50914]'
+                    ? 'bg-[#d4a853]/15 text-[#d4a853]'
                     : 'text-[#9ca3af] hover:text-white hover:bg-[#111118]'
                 }`}
               >
@@ -130,7 +130,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               href={link.href}
               className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-sm font-medium ${
                 active
-                  ? 'bg-[#e50914]/15 text-[#e50914]'
+                  ? 'bg-[#d4a853]/15 text-[#d4a853]'
                   : 'text-[#9ca3af] hover:text-white hover:bg-[#111118]'
               }`}
             >
@@ -148,7 +148,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <div className={`flex items-center gap-3 ${collapsed ? 'justify-center' : ''}`}>
           <Avatar className="w-9 h-9 flex-shrink-0 border border-[#1e1e28]">
             <AvatarImage src={user?.avatar} />
-            <AvatarFallback className="bg-[#e50914]/20 text-[#e50914] text-xs font-bold">
+            <AvatarFallback className="bg-[#d4a853]/20 text-[#d4a853] text-xs font-bold">
               {user?.display_name ? getInitials(user.display_name) : 'U'}
             </AvatarFallback>
           </Avatar>
@@ -166,7 +166,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               {!collapsed && <span className="ml-1.5 text-xs">Home</span>}
             </Button>
           </Link>
-          <Button variant="ghost" size="sm" className="text-[#6b7280] hover:text-[#e50914] h-8" onClick={logout}>
+          <Button variant="ghost" size="sm" className="text-[#6b7280] hover:text-red-400 h-8" onClick={logout}>
             <LogOut className="w-4 h-4" />
             {!collapsed && <span className="ml-1.5 text-xs">Logout</span>}
           </Button>
@@ -213,8 +213,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <Menu className="w-5 h-5" />
           </Button>
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 bg-[#e50914] rounded-lg flex items-center justify-center">
-              <MessageSquare className="w-3.5 h-3.5 text-white" />
+            <div className="w-7 h-7 bg-[#d4a853] rounded-lg flex items-center justify-center">
+              <Film className="w-3.5 h-3.5 text-white" />
             </div>
             <span className="text-white font-bold">Typescribe</span>
           </div>

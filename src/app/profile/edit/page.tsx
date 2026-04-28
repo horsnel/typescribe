@@ -40,7 +40,7 @@ export default function EditProfilePage() {
       <div className="min-h-screen bg-[#050507] flex items-center justify-center">
         <div className="text-center">
           <p className="text-[#9ca3af] mb-4">Please sign in to edit your profile</p>
-          <Link href="/login" className="text-[#e50914] hover:underline">Sign In</Link>
+          <Link href="/login" className="text-[#d4a853] hover:underline">Sign In</Link>
         </div>
       </div>
     );
@@ -75,8 +75,8 @@ export default function EditProfilePage() {
 
   return (
     <div className="min-h-screen bg-[#050507] pt-8 pb-16">
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
-        <Link href="/profile" className="inline-flex items-center gap-2 text-sm text-[#6b7280] hover:text-white transition-colors mb-6">
+      <div className="max-w-[800px] mx-auto px-4 sm:px-6 py-8">
+        <Link href="/profile" className="inline-flex items-center gap-2 text-sm text-[#6b7280] hover:text-[#d4a853] transition-colors mb-6">
           <ArrowLeft className="w-4 h-4" /> Back to Profile
         </Link>
         <h1 className="text-3xl font-extrabold text-white mb-8">Edit Profile</h1>
@@ -87,7 +87,7 @@ export default function EditProfilePage() {
             <label className="text-sm font-medium text-white mb-4 block">Profile Picture</label>
             <div className="flex items-center gap-6">
               <div className="relative">
-                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#e50914] to-[#b20710] flex items-center justify-center text-white text-xl font-bold overflow-hidden">
+                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#d4a853] to-[#b8922e] flex items-center justify-center text-white text-xl font-bold overflow-hidden">
                   {avatarUrl ? (
                     <img src={avatarUrl} alt="Avatar preview" className="w-full h-full object-cover" />
                   ) : (
@@ -98,7 +98,7 @@ export default function EditProfilePage() {
                   <DialogTrigger asChild>
                     <button
                       type="button"
-                      className="absolute -bottom-1 -right-1 w-8 h-8 bg-[#050507] border border-[#1e1e28] rounded-full flex items-center justify-center text-[#9ca3af] hover:text-white hover:border-[#e50914] transition-all"
+                      className="absolute -bottom-1 -right-1 w-8 h-8 bg-[#050507] border border-[#1e1e28] rounded-full flex items-center justify-center text-[#9ca3af] hover:text-white hover:border-[#d4a853] transition-all"
                       aria-label="Change avatar"
                     >
                       <Camera className="w-3.5 h-3.5" />
@@ -115,7 +115,7 @@ export default function EditProfilePage() {
                           type="button"
                           onClick={() => handleAvatarSelect(av.url)}
                           className={`relative rounded-xl p-1 transition-all hover:scale-105 ${
-                            avatarUrl === av.url ? 'ring-2 ring-[#e50914] bg-[#e50914]/10' : 'bg-[#050507] border border-[#1e1e28] hover:border-[#3a3a45]'
+                            avatarUrl === av.url ? 'ring-2 ring-[#d4a853] bg-[#d4a853]/10' : 'bg-[#050507] border border-[#1e1e28] hover:border-[#3a3a45]'
                           }`}
                         >
                           <img src={av.url} alt={av.label} className="w-full aspect-square rounded-lg" />
@@ -149,7 +149,7 @@ export default function EditProfilePage() {
                 value={displayName}
                 onChange={(e) => setDisplayName(e.target.value)}
                 required
-                className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914]"
+                className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] min-h-[44px]"
                 placeholder="Your display name"
               />
             </div>
@@ -160,7 +160,7 @@ export default function EditProfilePage() {
                 rows={4}
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
-                className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914] resize-none"
+                className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] resize-none"
                 placeholder="Tell us about yourself..."
               />
             </div>
@@ -175,9 +175,9 @@ export default function EditProfilePage() {
                   key={genre.id}
                   type="button"
                   onClick={() => toggleGenre(genre.name)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors min-h-[44px] ${
                     selectedGenres.includes(genre.name)
-                      ? 'bg-[#e50914] text-white'
+                      ? 'bg-[#d4a853] text-white'
                       : 'bg-[#050507] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
                   }`}
                 >
@@ -188,7 +188,7 @@ export default function EditProfilePage() {
           </div>
 
           <div className="flex items-center gap-4">
-            <Button type="submit" className="bg-[#e50914] hover:bg-[#b20710] text-white gap-2">
+            <Button type="submit" className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 min-h-[44px]">
               <Save className="w-4 h-4" /> Save Changes
             </Button>
             {saved && <span className="text-sm text-green-400">Profile saved!</span>}

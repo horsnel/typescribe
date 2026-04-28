@@ -35,13 +35,13 @@ export default function DashboardSettingsNotificationsPage() {
                 <notif.icon className="w-4 h-4 text-[#6b7280]" />
                 <span className="text-sm text-white">{notif.label}</span>
               </div>
-              <button className={`w-12 h-6 rounded-full relative transition-colors ${notif.default ? 'bg-[#e50914]' : 'bg-[#2a2a35]'}`}>
+              <button className={`w-12 h-6 rounded-full relative transition-colors ${notif.default ? 'bg-[#d4a853]' : 'bg-[#2a2a35]'}`}>
                 <span className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-transform ${notif.default ? 'right-1' : 'left-1'}`} />
               </button>
             </div>
           ))}
         </div>
-        <Button className="mt-6 bg-[#e50914] hover:bg-[#b20710] text-white">Save Preferences</Button>
+        <Button className="mt-6 bg-[#d4a853] hover:bg-[#b8922e] text-white">Save Preferences</Button>
       </div>
     </DashboardSidebar>
   );

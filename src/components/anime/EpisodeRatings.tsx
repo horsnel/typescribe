@@ -42,21 +42,21 @@ function getRatingColor(rating: number): string {
   if (rating >= 8) return 'text-[#22c55e]';
   if (rating >= 6) return 'text-[#f59e0b]';
   if (rating >= 4) return 'text-orange-400';
-  return 'text-[#e50914]';
+  return 'text-[#d4a853]';
 }
 
 function getBarColor(rating: number): string {
   if (rating >= 8) return 'bg-[#22c55e]';
   if (rating >= 6) return 'bg-[#f59e0b]';
   if (rating >= 4) return 'bg-orange-400';
-  return 'bg-[#e50914]';
+  return 'bg-[#d4a853]';
 }
 
 function getBarBg(rating: number): string {
   if (rating >= 8) return 'bg-[#22c55e]/20';
   if (rating >= 6) return 'bg-[#f59e0b]/20';
   if (rating >= 4) return 'bg-orange-400/20';
-  return 'bg-[#e50914]/20';
+  return 'bg-[#d4a853]/20';
 }
 
 // ─── Component ───
@@ -248,8 +248,8 @@ export default function EpisodeRatings({ animeId, episodeCount, title }: Episode
                 <p className="text-[10px] text-[#6b7280]">Average</p>
               </div>
               <div className="bg-[#050507] border border-[#1e1e28] rounded-lg p-3 text-center">
-                <TrendingDown className="w-4 h-4 text-[#e50914] mx-auto mb-1" />
-                <p className="text-lg font-bold text-[#e50914]">{stats.worst.rating}/10</p>
+                <TrendingDown className="w-4 h-4 text-[#d4a853] mx-auto mb-1" />
+                <p className="text-lg font-bold text-[#d4a853]">{stats.worst.rating}/10</p>
                 <p className="text-[10px] text-[#6b7280]">Worst (Ep {stats.worst.episode})</p>
               </div>
             </div>
@@ -265,7 +265,7 @@ export default function EpisodeRatings({ animeId, episodeCount, title }: Episode
                     setRatings({});
                     saveRatings(animeId, {});
                   }}
-                  className="text-[10px] text-[#6b7280] hover:text-[#e50914] transition-colors"
+                  className="text-[10px] text-[#6b7280] hover:text-[#d4a853] transition-colors"
                 >
                   Clear All
                 </button>

@@ -63,7 +63,7 @@ export default function DashboardWatchlistPage() {
   };
 
   if (!isAuthenticated) {
-    return <DashboardSidebar><div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center"><p className="text-[#9ca3af]">Please sign in to view your watchlist.</p><Link href="/login" className="text-[#e50914] hover:underline text-sm">Sign In</Link></div></DashboardSidebar>;
+    return <DashboardSidebar><div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center"><p className="text-[#9ca3af]">Please sign in to view your watchlist.</p><Link href="/login" className="text-[#d4a853] hover:underline text-sm">Sign In</Link></div></DashboardSidebar>;
   }
 
   return (
@@ -71,12 +71,12 @@ export default function DashboardWatchlistPage() {
       <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
         <h1 className="text-2xl font-bold text-white">Watchlist</h1>
         <div className="flex items-center gap-3">
-          <select value={sortBy} onChange={e => setSortBy(e.target.value)} className="bg-[#0c0c10] border border-[#1e1e28] rounded-lg py-1.5 px-3 text-sm text-[#9ca3af] focus:outline-none focus:border-[#e50914]">
+          <select value={sortBy} onChange={e => setSortBy(e.target.value)} className="bg-[#0c0c10] border border-[#1e1e28] rounded-lg py-1.5 px-3 text-sm text-[#9ca3af] focus:outline-none focus:border-[#d4a853]">
             <option value="date">Date Added</option>
             <option value="rating">Rating</option>
             <option value="title">Title</option>
           </select>
-          <Link href="/browse"><Button className="bg-[#e50914] hover:bg-[#b20710] text-white gap-2 text-sm"><Film className="w-4 h-4" />Add Movies</Button></Link>
+          <Link href="/browse"><Button className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 text-sm"><Film className="w-4 h-4" />Add Movies</Button></Link>
         </div>
       </div>
 
@@ -98,7 +98,7 @@ export default function DashboardWatchlistPage() {
           <Bookmark className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
           <h2 className="text-xl font-bold text-white mb-2">Your watchlist is empty</h2>
           <p className="text-[#9ca3af] mb-6">Start adding movies you want to watch.</p>
-          <Link href="/browse"><Button className="bg-[#e50914] hover:bg-[#b20710] text-white gap-2"><Film className="w-4 h-4" />Browse Movies</Button></Link>
+          <Link href="/browse"><Button className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2"><Film className="w-4 h-4" />Browse Movies</Button></Link>
         </div>
       ) : (
         <div className="space-y-3">
@@ -118,7 +118,7 @@ export default function DashboardWatchlistPage() {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
                   {item.slug ? (
-                    <Link href={`/movie/${item.slug}`} className="text-sm font-semibold text-white hover:text-[#e50914] transition-colors truncate">
+                    <Link href={`/movie/${item.slug}`} className="text-sm font-semibold text-white hover:text-[#d4a853] transition-colors truncate">
                       {item.title || `Movie #${item.movieId}`}
                     </Link>
                   ) : (

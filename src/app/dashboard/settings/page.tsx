@@ -56,7 +56,7 @@ export default function DashboardSettingsPage() {
     <DashboardSidebar>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-white">Account Settings</h1>
-        <Button onClick={handleSave} className="bg-[#e50914] hover:bg-[#b20710] text-white gap-2">
+        <Button onClick={handleSave} className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2">
           <Save className="w-4 h-4" />
           {saved ? 'Saved!' : 'Save All'}
         </Button>
@@ -73,7 +73,7 @@ export default function DashboardSettingsPage() {
         {/* Profile Info */}
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
           <div className="flex items-center gap-3 mb-4">
-            <User className="w-5 h-5 text-[#e50914]" />
+            <User className="w-5 h-5 text-[#d4a853]" />
             <h2 className="text-base font-semibold text-white">Profile Information</h2>
           </div>
           <div className="space-y-4">
@@ -83,7 +83,7 @@ export default function DashboardSettingsPage() {
                 type="text"
                 value={displayName}
                 onChange={e => setDisplayName(e.target.value)}
-                className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-[#e50914]"
+                className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-[#d4a853]"
               />
             </div>
             <div>
@@ -93,7 +93,7 @@ export default function DashboardSettingsPage() {
                 value={bio}
                 onChange={e => setBio(e.target.value.slice(0, 160))}
                 placeholder="Tell others about yourself..."
-                className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914] resize-none"
+                className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] resize-none"
               />
               <p className="text-xs text-[#6b7280] mt-1">{bio.length}/160</p>
             </div>
@@ -106,7 +106,7 @@ export default function DashboardSettingsPage() {
                     onClick={() => toggleGenre(genre)}
                     className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors border ${
                       favoriteGenres.includes(genre)
-                        ? 'bg-[#e50914] text-white border-[#e50914]'
+                        ? 'bg-[#d4a853] text-white border-[#d4a853]'
                         : 'bg-[#050507] text-[#9ca3af] border-[#1e1e28] hover:border-[#3a3a45] hover:text-white'
                     }`}
                   >
@@ -122,31 +122,31 @@ export default function DashboardSettingsPage() {
         {/* Email */}
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
           <div className="flex items-center gap-3 mb-4">
-            <Mail className="w-5 h-5 text-[#e50914]" />
+            <Mail className="w-5 h-5 text-[#d4a853]" />
             <h2 className="text-base font-semibold text-white">Email</h2>
           </div>
-          <input type="email" defaultValue={user?.email || ''} className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-[#e50914] mb-1" disabled />
+          <input type="email" defaultValue={user?.email || ''} className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-[#d4a853] mb-1" disabled />
           <p className="text-xs text-[#6b7280]">Email cannot be changed in this demo.</p>
         </div>
 
         {/* Password */}
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
           <div className="flex items-center gap-3 mb-4">
-            <Lock className="w-5 h-5 text-[#e50914]" />
+            <Lock className="w-5 h-5 text-[#d4a853]" />
             <h2 className="text-base font-semibold text-white">Password</h2>
           </div>
           <div className="space-y-3">
-            <input type="password" placeholder="Current password" className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914]" />
-            <input type="password" placeholder="New password" className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914]" />
-            <input type="password" placeholder="Confirm new password" className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914]" />
+            <input type="password" placeholder="Current password" className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853]" />
+            <input type="password" placeholder="New password" className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853]" />
+            <input type="password" placeholder="Confirm new password" className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853]" />
           </div>
-          <Button size="sm" className="mt-3 bg-[#e50914] hover:bg-[#b20710] text-white">Change Password</Button>
+          <Button size="sm" className="mt-3 bg-[#d4a853] hover:bg-[#b8922e] text-white">Change Password</Button>
         </div>
 
         {/* Preferences */}
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
           <div className="flex items-center gap-3 mb-4">
-            <Settings className="w-5 h-5 text-[#e50914]" />
+            <Settings className="w-5 h-5 text-[#d4a853]" />
             <h2 className="text-base font-semibold text-white">Preferences</h2>
           </div>
           <div className="space-y-4">
@@ -160,7 +160,7 @@ export default function DashboardSettingsPage() {
               </div>
               <button
                 onClick={() => setEmailNotifications(!emailNotifications)}
-                className={`w-12 h-6 rounded-full relative transition-colors ${emailNotifications ? 'bg-[#e50914]' : 'bg-[#2a2a35]'}`}
+                className={`w-12 h-6 rounded-full relative transition-colors ${emailNotifications ? 'bg-[#d4a853]' : 'bg-[#2a2a35]'}`}
               >
                 <span className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${emailNotifications ? 'right-1' : 'left-1'}`} />
               </button>
@@ -175,7 +175,7 @@ export default function DashboardSettingsPage() {
               </div>
               <button
                 onClick={() => setPublicProfile(!publicProfile)}
-                className={`w-12 h-6 rounded-full relative transition-colors ${publicProfile ? 'bg-[#e50914]' : 'bg-[#2a2a35]'}`}
+                className={`w-12 h-6 rounded-full relative transition-colors ${publicProfile ? 'bg-[#d4a853]' : 'bg-[#2a2a35]'}`}
               >
                 <span className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${publicProfile ? 'right-1' : 'left-1'}`} />
               </button>
@@ -185,7 +185,7 @@ export default function DashboardSettingsPage() {
                 <Moon className="w-4 h-4 text-[#9ca3af]" />
                 <div><p className="text-sm text-white">Dark Mode</p><p className="text-xs text-[#6b7280]">Default theme</p></div>
               </div>
-              <button className="w-12 h-6 bg-[#e50914] rounded-full relative"><span className="absolute right-1 top-1 w-4 h-4 bg-white rounded-full" /></button>
+              <button className="w-12 h-6 bg-[#d4a853] rounded-full relative"><span className="absolute right-1 top-1 w-4 h-4 bg-white rounded-full" /></button>
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">

@@ -71,7 +71,7 @@ export default function DashboardReviewsPage() {
   };
 
   if (!isAuthenticated) {
-    return <DashboardSidebar><div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center"><p className="text-[#9ca3af]">Please sign in to view your reviews.</p><Link href="/login" className="text-[#e50914] hover:underline text-sm">Sign In</Link></div></DashboardSidebar>;
+    return <DashboardSidebar><div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center"><p className="text-[#9ca3af]">Please sign in to view your reviews.</p><Link href="/login" className="text-[#d4a853] hover:underline text-sm">Sign In</Link></div></DashboardSidebar>;
   }
 
   return (
@@ -79,13 +79,13 @@ export default function DashboardReviewsPage() {
       <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
         <h1 className="text-2xl font-bold text-white">My Reviews</h1>
         <div className="flex items-center gap-3">
-          <select value={filter} onChange={e => setFilter(e.target.value)} className="bg-[#0c0c10] border border-[#1e1e28] rounded-lg py-1.5 px-3 text-sm text-[#9ca3af] focus:outline-none focus:border-[#e50914]">
+          <select value={filter} onChange={e => setFilter(e.target.value)} className="bg-[#0c0c10] border border-[#1e1e28] rounded-lg py-1.5 px-3 text-sm text-[#9ca3af] focus:outline-none focus:border-[#d4a853]">
             <option value="all">All Types</option>
             <option value="movie">Movies</option>
             <option value="tv">Series</option>
             <option value="anime">Anime</option>
           </select>
-          <select value={sort} onChange={e => setSort(e.target.value)} className="bg-[#0c0c10] border border-[#1e1e28] rounded-lg py-1.5 px-3 text-sm text-[#9ca3af] focus:outline-none focus:border-[#e50914]">
+          <select value={sort} onChange={e => setSort(e.target.value)} className="bg-[#0c0c10] border border-[#1e1e28] rounded-lg py-1.5 px-3 text-sm text-[#9ca3af] focus:outline-none focus:border-[#d4a853]">
             <option value="recent">Most Recent</option>
             <option value="highest">Highest Rated</option>
             <option value="lowest">Lowest Rated</option>
@@ -115,7 +115,7 @@ export default function DashboardReviewsPage() {
           <Star className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
           <h2 className="text-xl font-bold text-white mb-2">No reviews yet</h2>
           <p className="text-[#9ca3af] mb-6">Share your opinions and help others discover great movies.</p>
-          <Link href="/browse"><Button className="bg-[#e50914] hover:bg-[#b20710] text-white gap-2"><Film className="w-4 h-4" />Browse Movies to Review</Button></Link>
+          <Link href="/browse"><Button className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2"><Film className="w-4 h-4" />Browse Movies to Review</Button></Link>
         </div>
       ) : (
         <div className="space-y-4">
@@ -130,7 +130,7 @@ export default function DashboardReviewsPage() {
                     {/* Header */}
                     <div className="flex items-center gap-3 mb-2 flex-wrap">
                       {review.movie_slug ? (
-                        <Link href={`/movie/${review.movie_slug}`} className="text-base font-semibold text-white hover:text-[#e50914] transition-colors truncate">
+                        <Link href={`/movie/${review.movie_slug}`} className="text-base font-semibold text-white hover:text-[#d4a853] transition-colors truncate">
                           {review.movie_title || `Movie #${review.movie_id}`}
                         </Link>
                       ) : (

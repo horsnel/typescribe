@@ -91,7 +91,7 @@ function SearchContent() {
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => { if (e.key === 'Enter' && query.trim()) saveRecentSearch(query.trim()); }}
             placeholder="Search movies, reviews, news, actors, directors..."
-            className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-xl py-3.5 pl-12 pr-10 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914] text-lg"
+            className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-xl py-3.5 pl-12 pr-10 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] text-lg"
             autoFocus
           />
           {query && (
@@ -125,7 +125,7 @@ function SearchContent() {
             {/* Trending Searches */}
             <div>
               <div className="flex items-center gap-2 mb-3">
-                <TrendingUp className="w-4 h-4 text-[#e50914]" />
+                <TrendingUp className="w-4 h-4 text-[#d4a853]" />
                 <h3 className="text-sm font-semibold text-[#9ca3af] uppercase tracking-wider">Trending Searches</h3>
               </div>
               <div className="flex flex-wrap gap-2">
@@ -144,7 +144,7 @@ function SearchContent() {
                 {genres.slice(0, 9).map((genre) => (
                   <Link key={genre.id} href={`/category/${genre.id}`} className="flex items-center justify-between bg-[#0c0c10] border border-[#1e1e28] rounded-lg p-3 hover:border-[#3a3a45] transition-colors group">
                     <span className="text-sm text-[#9ca3af] group-hover:text-white transition-colors">{genre.name}</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-[#6b7280] group-hover:text-[#e50914] transition-colors" />
+                    <ArrowRight className="w-3.5 h-3.5 text-[#6b7280] group-hover:text-[#d4a853] transition-colors" />
                   </Link>
                 ))}
               </div>
@@ -176,7 +176,7 @@ function SearchContent() {
                   key={t}
                   onClick={() => setTab(t)}
                   className={`pb-3 text-sm font-medium transition-colors capitalize flex items-center gap-2 ${
-                    tab === t ? 'text-white border-b-2 border-[#e50914]' : 'text-[#6b7280] hover:text-[#9ca3af]'
+                    tab === t ? 'text-white border-b-2 border-[#d4a853]' : 'text-[#6b7280] hover:text-[#9ca3af]'
                   }`}
                 >
                   {t === 'movies' && <Film className="w-4 h-4" />}
@@ -215,7 +215,7 @@ function SearchContent() {
                             <span className="text-sm font-semibold text-[#f5c518]">{r.rating}/10</span>
                           </div>
                         </div>
-                        {movie && <p className="text-xs text-[#e50914] mb-2">Review of {movie.title}</p>}
+                        {movie && <p className="text-xs text-[#d4a853] mb-2">Review of {movie.title}</p>}
                         <p className="text-sm text-[#9ca3af] line-clamp-3">{r.text}</p>
                         <p className="text-xs text-[#6b7280] mt-2">{new Date(r.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
                       </Link>
@@ -259,7 +259,7 @@ export default function SearchPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-[#050507] flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-[#e50914]" />
+        <Loader2 className="w-8 h-8 animate-spin text-[#d4a853]" />
       </div>
     }>
       <SearchContent />

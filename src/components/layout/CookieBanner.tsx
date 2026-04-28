@@ -45,15 +45,15 @@ export default function CookieBanner() {
         {!showCustomize ? (
           <div className="p-6">
             <div className="flex items-start gap-4">
-              <Cookie className="w-8 h-8 text-[#e50914] flex-shrink-0 mt-0.5" />
+              <Cookie className="w-8 h-8 text-[#d4a853] flex-shrink-0 mt-0.5" />
               <div className="flex-1">
                 <h3 className="text-base font-semibold text-white mb-2">We use cookies</h3>
                 <p className="text-sm text-[#9ca3af] leading-relaxed mb-4">
                   We use cookies to improve your experience and deliver personalized content. By clicking &ldquo;Accept All&rdquo;, you consent to our use of cookies.{' '}
-                  <a href="/cookies" className="text-[#e50914] hover:underline">Learn more</a>
+                  <a href="/cookies" className="text-[#d4a853] hover:underline">Learn more</a>
                 </p>
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
-                  <Button onClick={handleAccept} className="bg-[#e50914] hover:bg-[#b20710] text-white text-sm font-medium">Accept All</Button>
+                  <Button onClick={handleAccept} className="bg-[#d4a853] hover:bg-[#b8922e] text-white text-sm font-medium">Accept All</Button>
                   <Button onClick={() => setShowCustomize(true)} variant="outline" className="border-[#1e1e28] bg-transparent text-[#9ca3af] hover:text-white hover:bg-[#111118] text-sm">Customize</Button>
                   <Button onClick={handleReject} variant="ghost" className="text-[#6b7280] hover:text-white text-sm">Reject Non-Essential</Button>
                 </div>
@@ -73,16 +73,16 @@ export default function CookieBanner() {
               <label className="flex items-center gap-4 p-3 bg-[#050507] rounded-xl border border-[#1e1e28] cursor-pointer">
                 <BarChart3 className="w-5 h-5 text-[#9ca3af] flex-shrink-0" />
                 <div className="flex-1"><p className="text-sm font-medium text-white">Analytics Cookies</p><p className="text-xs text-[#6b7280]">Help us understand how visitors interact with our site.</p></div>
-                <input type="checkbox" checked={prefs.analytics} onChange={(e) => setPrefs({ ...prefs, analytics: e.target.checked })} className="w-5 h-5 rounded accent-[#e50914]" />
+                <input type="checkbox" checked={prefs.analytics} onChange={(e) => setPrefs({ ...prefs, analytics: e.target.checked })} className="w-5 h-5 rounded accent-[#d4a853]" />
               </label>
               <label className="flex items-center gap-4 p-3 bg-[#050507] rounded-xl border border-[#1e1e28] cursor-pointer">
                 <Settings className="w-5 h-5 text-[#9ca3af] flex-shrink-0" />
                 <div className="flex-1"><p className="text-sm font-medium text-white">Preference Cookies</p><p className="text-xs text-[#6b7280]">Remember your settings and personalization choices.</p></div>
-                <input type="checkbox" checked={prefs.preferences} onChange={(e) => setPrefs({ ...prefs, preferences: e.target.checked })} className="w-5 h-5 rounded accent-[#e50914]" />
+                <input type="checkbox" checked={prefs.preferences} onChange={(e) => setPrefs({ ...prefs, preferences: e.target.checked })} className="w-5 h-5 rounded accent-[#d4a853]" />
               </label>
             </div>
             <div className="flex items-center gap-3">
-              <Button onClick={handleCustomize} className="bg-[#e50914] hover:bg-[#b20710] text-white text-sm font-medium">Save Preferences</Button>
+              <Button onClick={handleCustomize} className="bg-[#d4a853] hover:bg-[#b8922e] text-white text-sm font-medium">Save Preferences</Button>
               <Button onClick={handleAccept} variant="outline" className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:bg-[#111118] text-sm">Accept All</Button>
               <button onClick={() => setShowCustomize(false)} className="text-sm text-[#6b7280] hover:text-white ml-2">Back</button>
             </div>

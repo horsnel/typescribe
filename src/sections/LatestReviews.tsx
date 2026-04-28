@@ -26,7 +26,7 @@ export default function LatestReviews() {
         <div className="reveal-section flex items-center justify-between mb-10">
           <div className="flex items-center gap-3">
             <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">Latest AI Reviews</h2>
-            <span className="flex items-center gap-1 text-xs bg-[#e50914]/10 text-[#e50914] px-2.5 py-1 rounded-full font-medium"><Sparkles className="w-3 h-3" />Powered by AI</span>
+            <span className="flex items-center gap-1 text-xs bg-[#d4a853]/10 text-[#d4a853] px-2.5 py-1 rounded-full font-medium"><Sparkles className="w-3 h-3" />Powered by AI</span>
           </div>
         </div>
         {loading ? (
@@ -49,13 +49,13 @@ export default function LatestReviews() {
               const genreNames = movie.genres.slice(0, 2).map((g) => g.name).join(', ');
               const posterUrl = movie.poster_path?.startsWith('http') ? movie.poster_path : movie.poster_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w185${movie.poster_path}` : movie.poster_path;
               return (
-                <Link key={movie.id} href={`/movie/${movie.slug}`} className="card-reveal bg-[#0c0c10] border border-white/[0.06] rounded-xl p-5 flex gap-4 hover:border-[#e50914]/30 hover:shadow-lg transition-all group">
+                <Link key={movie.id} href={`/movie/${movie.slug}`} className="card-reveal bg-[#0c0c10] border border-white/[0.06] rounded-xl p-5 flex gap-4 hover:border-[#d4a853]/30 hover:shadow-lg transition-all group">
                   <div className="flex-shrink-0 w-16 h-24 rounded-lg overflow-hidden bg-[#0c0c10]"><img src={posterUrl} alt={movie.title} className="w-full h-full object-cover" loading="lazy" /></div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1"><h3 className="text-base font-semibold text-white truncate group-hover:text-[#e50914] transition-colors">{movie.title}</h3><span className="text-xs font-bold text-[#f5c518] flex-shrink-0">{movie.vote_average.toFixed(1)}</span></div>
+                    <div className="flex items-center gap-2 mb-1"><h3 className="text-base font-semibold text-white truncate group-hover:text-[#d4a853] transition-colors">{movie.title}</h3><span className="text-xs font-bold text-[#f5c518] flex-shrink-0">{movie.vote_average.toFixed(1)}</span></div>
                     <div className="flex items-center gap-2 mb-2">{year && <span className="text-xs text-[#6b7280]">{year}</span>}{year && genreNames && <span className="text-[#1e1e28]">·</span>}{genreNames && <span className="text-xs text-[#6b7280]">{genreNames}</span>}</div>
                     <p className="text-sm text-[#9ca3af] line-clamp-2 leading-relaxed mb-2">{movie.overview}</p>
-                    <span className="inline-flex items-center gap-1 text-sm text-[#e50914] hover:text-[#ff1a25] transition-colors font-medium">Read Full Review<ArrowRight className="w-3.5 h-3.5" /></span>
+                    <span className="inline-flex items-center gap-1 text-sm text-[#d4a853] hover:text-[#ff1a25] transition-colors font-medium">Read Full Review<ArrowRight className="w-3.5 h-3.5" /></span>
                   </div>
                 </Link>
               );

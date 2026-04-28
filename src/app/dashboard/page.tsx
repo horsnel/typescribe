@@ -101,7 +101,7 @@ export default function DashboardPage() {
           <Film className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
           <h2 className="text-xl font-bold text-white mb-2">Sign in to access your dashboard</h2>
           <p className="text-[#9ca3af] mb-6">Track your reviews, watchlist, and community activity.</p>
-          <Link href="/login"><Button className="bg-[#e50914] hover:bg-[#b20710] text-white">Sign In</Button></Link>
+          <Link href="/login"><Button className="bg-[#d4a853] hover:bg-[#b8922e] text-white">Sign In</Button></Link>
         </div>
       </DashboardSidebar>
     );
@@ -110,7 +110,7 @@ export default function DashboardPage() {
   const stats = [
     { label: 'Reviews Written', value: reviewCount, icon: Star, color: 'text-[#f5c518]' },
     { label: 'Movies Watched', value: reviewCount + watchlistCount, icon: Eye, color: 'text-[#3b82f6]' },
-    { label: 'Watchlist', value: watchlistCount, icon: Bookmark, color: 'text-[#e50914]' },
+    { label: 'Watchlist', value: watchlistCount, icon: Bookmark, color: 'text-[#d4a853]' },
     { label: 'Communities', value: communityCount, icon: Users, color: 'text-[#22c55e]' },
   ];
 
@@ -152,7 +152,7 @@ export default function DashboardPage() {
       <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6 mb-8">
         <h2 className="text-lg font-bold text-white mb-4">Quick Actions</h2>
         <div className="flex flex-wrap gap-3">
-          <Link href="/browse"><Button className="bg-[#e50914] hover:bg-[#b20710] text-white gap-2"><Film className="w-4 h-4" />Browse Movies</Button></Link>
+          <Link href="/browse"><Button className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2"><Film className="w-4 h-4" />Browse Movies</Button></Link>
           <Link href="/communities"><Button variant="outline" className="border-[#1e1e28] text-white hover:bg-[#111118] gap-2"><Plus className="w-4 h-4" />Create Community</Button></Link>
           <Link href="/dashboard/reviews"><Button variant="outline" className="border-[#1e1e28] text-white hover:bg-[#111118] gap-2"><PenSquare className="w-4 h-4" />Write Review</Button></Link>
           <Link href="/dashboard/watchlist"><Button variant="outline" className="border-[#1e1e28] text-white hover:bg-[#111118] gap-2"><Bookmark className="w-4 h-4" />My Watchlist</Button></Link>
@@ -175,7 +175,7 @@ export default function DashboardPage() {
               {recentActivity.map((item) => (
                 <div key={item.id} className="flex items-center gap-3 py-2 border-b border-[#1e1e28]/50 last:border-0">
                   <div className="w-8 h-8 rounded-full bg-[#111118] flex items-center justify-center flex-shrink-0">
-                    <item.icon className={`w-4 h-4 ${item.type === 'review' ? 'text-[#f5c518]' : 'text-[#e50914]'}`} />
+                    <item.icon className={`w-4 h-4 ${item.type === 'review' ? 'text-[#f5c518]' : 'text-[#d4a853]'}`} />
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm text-[#9ca3af] truncate">{item.description}</p>
@@ -212,7 +212,7 @@ export default function DashboardPage() {
               <Star className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" />
               <p className="text-[#9ca3af] mb-1">No ratings yet</p>
               <p className="text-sm text-[#6b7280]">Rate movies to see your summary.</p>
-              <Link href="/browse"><Button className="mt-3 bg-[#e50914] hover:bg-[#b20710] text-white text-sm">Browse Movies</Button></Link>
+              <Link href="/browse"><Button className="mt-3 bg-[#d4a853] hover:bg-[#b8922e] text-white text-sm">Browse Movies</Button></Link>
             </div>
           )}
         </div>
@@ -225,7 +225,7 @@ export default function DashboardPage() {
           <Heart className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" />
           <p className="text-[#9ca3af] mb-1">Personalized recommendations</p>
           <p className="text-sm text-[#6b7280]">Rate more movies to get better suggestions.</p>
-          <Link href="/browse"><Button className="mt-4 bg-[#e50914] hover:bg-[#b20710] text-white">Browse Movies</Button></Link>
+          <Link href="/browse"><Button className="mt-4 bg-[#d4a853] hover:bg-[#b8922e] text-white">Browse Movies</Button></Link>
         </div>
       </div>
     </DashboardSidebar>

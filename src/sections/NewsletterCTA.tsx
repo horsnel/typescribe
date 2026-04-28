@@ -36,7 +36,7 @@ export default function NewsletterCTA() {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-br from-[#e50914] to-[#b20710]">
+    <section className="py-20 bg-gradient-to-br from-[#d4a853] to-[#b8922e]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center">
         <div className="reveal-section max-w-xl mx-auto">
           <div className="mb-6"><Mail className="w-12 h-12 text-white/80 mx-auto" /></div>
@@ -60,7 +60,7 @@ export default function NewsletterCTA() {
                 required
                 className="flex-1 bg-white/15 border border-white/20 rounded-lg px-4 py-3 text-white placeholder:text-white/50 focus:outline-none focus:border-white/40 transition-colors"
               />
-              <Button type="submit" disabled={loading} className="bg-white text-[#e50914] hover:bg-white/90 font-semibold px-6 py-3 rounded-lg transition-colors disabled:opacity-60">
+              <Button type="submit" disabled={loading} className="bg-white text-[#d4a853] hover:bg-white/90 font-semibold px-6 py-3 rounded-lg transition-colors disabled:opacity-60">
                 {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Subscribe'}
               </Button>
             </form>

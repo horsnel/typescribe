@@ -44,7 +44,7 @@ export default function MyReviewsPage() {
       <div className="min-h-screen bg-[#050507] flex items-center justify-center">
         <div className="text-center">
           <p className="text-[#9ca3af] mb-4">Please sign in to view your reviews</p>
-          <Link href="/login" className="text-[#e50914] hover:underline">Sign In</Link>
+          <Link href="/login" className="text-[#d4a853] hover:underline">Sign In</Link>
         </div>
       </div>
     );
@@ -124,7 +124,7 @@ export default function MyReviewsPage() {
         </nav>
 
         <div className="flex items-center gap-3 mb-4">
-          <MessageSquare className="w-6 h-6 text-[#e50914]" />
+          <MessageSquare className="w-6 h-6 text-[#d4a853]" />
           <h1 className="text-3xl lg:text-4xl font-extrabold text-white">My Reviews</h1>
         </div>
 
@@ -132,7 +132,7 @@ export default function MyReviewsPage() {
         {allReviews.length > 0 && (
           <div className="grid grid-cols-3 gap-4 mb-8">
             <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 text-center">
-              <MessageSquare className="w-5 h-5 text-[#e50914] mx-auto mb-1" />
+              <MessageSquare className="w-5 h-5 text-[#d4a853] mx-auto mb-1" />
               <div className="text-xl font-bold text-white">{allReviews.length}</div>
               <div className="text-xs text-[#6b7280]">Reviews</div>
             </div>
@@ -159,7 +159,7 @@ export default function MyReviewsPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search your reviews..."
-                className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-lg py-2 pl-10 pr-4 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914] text-sm"
+                className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-lg py-2 pl-10 pr-4 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] text-sm"
               />
             </div>
             <div className="flex gap-2">
@@ -173,7 +173,7 @@ export default function MyReviewsPage() {
                   key={value}
                   onClick={() => setSort(value)}
                   className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
-                    sort === value ? 'bg-[#e50914] text-white' : 'bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
+                    sort === value ? 'bg-[#d4a853] text-white' : 'bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
                   }`}
                 >
                   {label}
@@ -203,7 +203,7 @@ export default function MyReviewsPage() {
                       <div className="flex items-center justify-between mb-2">
                         <div>
                           <Link href={movie ? `/movie/${movie.slug}` : '#'}>
-                            <h3 className="text-sm font-semibold text-white hover:text-[#e50914] transition-colors">
+                            <h3 className="text-sm font-semibold text-white hover:text-[#d4a853] transition-colors">
                               {movie?.title || 'Unknown Movie'}
                             </h3>
                           </Link>
@@ -234,10 +234,10 @@ export default function MyReviewsPage() {
                             value={editText}
                             onChange={(e) => setEditText(e.target.value)}
                             rows={4}
-                            className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914] resize-none text-sm"
+                            className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] resize-none text-sm"
                           />
                           <div className="flex items-center gap-3">
-                            <Button onClick={() => handleEditSave(review.id)} className="bg-[#e50914] hover:bg-[#b20710] text-white text-sm gap-2">
+                            <Button onClick={() => handleEditSave(review.id)} className="bg-[#d4a853] hover:bg-[#b8922e] text-white text-sm gap-2">
                               Save Changes
                             </Button>
                             <Button variant="outline" onClick={() => setEditingReviewId(null)} className="border-[#1e1e28] text-[#9ca3af] hover:text-white text-sm">
@@ -279,7 +279,7 @@ export default function MyReviewsPage() {
             <MessageSquare className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
             <p className="text-lg text-[#9ca3af] mb-2">{searchQuery ? 'No reviews match your search' : 'No reviews yet'}</p>
             <p className="text-sm text-[#6b7280] mb-4">{searchQuery ? 'Try a different search term' : 'Share your thoughts about movies you\'ve watched'}</p>
-            {!searchQuery && <Link href="/browse" className="text-[#e50914] hover:underline">Browse Movies</Link>}
+            {!searchQuery && <Link href="/browse" className="text-[#d4a853] hover:underline">Browse Movies</Link>}
           </div>
         )}
       </div>

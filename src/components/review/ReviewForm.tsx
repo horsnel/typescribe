@@ -84,7 +84,7 @@ export default function ReviewForm({ movieId, onSubmit, onCancel }: ReviewFormPr
 
       <div className="mb-4">
         <label className="text-sm font-medium text-white mb-2 block">Your Review</label>
-        <textarea rows={5} value={text} onChange={(e) => handleTextChange(e.target.value)} placeholder="Share your thoughts about this movie..." className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914] resize-none text-sm" maxLength={MAX_CHARS} />
+        <textarea rows={5} value={text} onChange={(e) => handleTextChange(e.target.value)} placeholder="Share your thoughts about this movie..." className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] resize-none text-sm" maxLength={MAX_CHARS} />
         <div className="flex items-center justify-between mt-1">
           {errors.text ? <p className="text-xs text-red-400">{errors.text}</p> : <span />}
           <p className={`text-xs ${text.length > MAX_CHARS * 0.9 ? 'text-red-400' : 'text-[#6b7280]'}`}>{text.length}/{MAX_CHARS}</p>
@@ -118,7 +118,7 @@ export default function ReviewForm({ movieId, onSubmit, onCancel }: ReviewFormPr
       )}
 
       <div className="flex items-center gap-3">
-        <Button type="submit" disabled={!isValid} className="bg-[#e50914] hover:bg-[#b20710] text-white gap-2 disabled:opacity-50 disabled:cursor-not-allowed"><Send className="w-4 h-4" />Submit Review</Button>
+        <Button type="submit" disabled={!isValid} className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 disabled:opacity-50 disabled:cursor-not-allowed"><Send className="w-4 h-4" />Submit Review</Button>
         {onCancel && <Button type="button" variant="outline" onClick={onCancel} className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:bg-[#111118] gap-2"><X className="w-4 h-4" />Cancel</Button>}
       </div>
     </form>

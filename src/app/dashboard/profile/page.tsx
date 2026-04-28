@@ -75,18 +75,18 @@ export default function DashboardProfilePage() {
       <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6 mb-6">
         <div className="flex flex-col items-center">
           <div className="relative mb-4">
-            <div className="w-24 h-24 rounded-full overflow-hidden border-3 border-[#e50914]/30 ring-4 ring-[#e50914]/10">
+            <div className="w-24 h-24 rounded-full overflow-hidden border-3 border-[#d4a853]/30 ring-4 ring-[#d4a853]/10">
               {user?.avatar ? (
                 <img src={user.avatar} alt={user.display_name} className="w-full h-full object-cover" />
               ) : (
-                <div className="w-full h-full bg-gradient-to-br from-[#e50914] to-[#b20710] flex items-center justify-center text-white text-3xl font-bold">
+                <div className="w-full h-full bg-gradient-to-br from-[#d4a853] to-[#b8922e] flex items-center justify-center text-white text-3xl font-bold">
                   {initials}
                 </div>
               )}
             </div>
             <button
               onClick={() => setShowAvatarPicker(true)}
-              className="absolute bottom-0 right-0 w-8 h-8 bg-[#e50914] rounded-full flex items-center justify-center text-white hover:bg-[#b20710] transition-colors border-2 border-[#12121a]"
+              className="absolute bottom-0 right-0 w-8 h-8 bg-[#d4a853] rounded-full flex items-center justify-center text-white hover:bg-[#b8922e] transition-colors border-2 border-[#12121a]"
             >
               <Camera className="w-4 h-4" />
             </button>
@@ -123,7 +123,7 @@ export default function DashboardProfilePage() {
                 <button
                   key={url}
                   onClick={() => handleAvatarSelect(url)}
-                  className={`w-16 h-16 rounded-full overflow-hidden border-2 transition-all hover:border-[#e50914] ${user?.avatar === url ? 'border-[#e50914] ring-2 ring-[#e50914]/30' : 'border-[#1e1e28]'}`}
+                  className={`w-16 h-16 rounded-full overflow-hidden border-2 transition-all hover:border-[#d4a853] ${user?.avatar === url ? 'border-[#d4a853] ring-2 ring-[#d4a853]/30' : 'border-[#1e1e28]'}`}
                 >
                   <img src={url} alt="Avatar" className="w-full h-full object-cover" />
                 </button>
@@ -147,7 +147,7 @@ export default function DashboardProfilePage() {
           <p className="text-xs text-[#6b7280]">Watched</p>
         </div>
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 text-center">
-          <Bookmark className="w-5 h-5 text-[#e50914] mx-auto mb-1" />
+          <Bookmark className="w-5 h-5 text-[#d4a853] mx-auto mb-1" />
           <p className="text-2xl font-bold text-white">{watchlistCount}</p>
           <p className="text-xs text-[#6b7280]">Watchlist</p>
         </div>

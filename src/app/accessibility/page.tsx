@@ -78,7 +78,7 @@ export default function AccessibilityPage() {
           <span className="text-[#9ca3af]">Accessibility</span>
         </nav>
         <div className="flex items-center gap-3 mb-2">
-          <Accessibility className="w-7 h-7 text-[#e50914]" />
+          <Accessibility className="w-7 h-7 text-[#d4a853]" />
           <h1 className="text-3xl lg:text-4xl font-extrabold text-white">Accessibility Settings</h1>
         </div>
         <p className="text-sm text-[#6b7280] mb-8">Customize your experience to make Typescribe work best for you. All preferences are saved automatically.</p>
@@ -88,8 +88,8 @@ export default function AccessibilityPage() {
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-[#e50914]/10 flex items-center justify-center">
-                  <Sun className="w-5 h-5 text-[#e50914]" />
+                <div className="w-10 h-10 rounded-lg bg-[#d4a853]/10 flex items-center justify-center">
+                  <Sun className="w-5 h-5 text-[#d4a853]" />
                 </div>
                 <div>
                   <h2 className="text-lg font-semibold text-white">High Contrast Mode</h2>
@@ -98,7 +98,7 @@ export default function AccessibilityPage() {
               </div>
               <button
                 onClick={() => update({ highContrast: !settings.highContrast })}
-                className={`relative w-14 h-7 rounded-full transition-colors duration-200 ${settings.highContrast ? 'bg-[#e50914]' : 'bg-[#2a2a35]'}`}
+                className={`relative w-14 h-7 rounded-full transition-colors duration-200 ${settings.highContrast ? 'bg-[#d4a853]' : 'bg-[#2a2a35]'}`}
                 aria-label="Toggle high contrast mode"
               >
                 <div className={`absolute top-0.5 w-6 h-6 rounded-full bg-white shadow transition-transform duration-200 ${settings.highContrast ? 'translate-x-7' : 'translate-x-0.5'}`} />
@@ -220,8 +220,8 @@ export default function AccessibilityPage() {
           {/* Focus Indicators */}
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-[#e50914]/10 flex items-center justify-center">
-                <Monitor className="w-5 h-5 text-[#e50914]" />
+              <div className="w-10 h-10 rounded-lg bg-[#d4a853]/10 flex items-center justify-center">
+                <Monitor className="w-5 h-5 text-[#d4a853]" />
               </div>
               <div>
                 <h2 className="text-lg font-semibold text-white">Focus Indicators</h2>
@@ -234,7 +234,7 @@ export default function AccessibilityPage() {
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
             <h2 className="text-lg font-semibold text-white mb-3">Our Commitment</h2>
             <p className="text-sm text-[#9ca3af] leading-relaxed mb-3">At Typescribe, we are committed to ensuring that our platform is accessible to all users, including those with disabilities. We aim to meet WCAG 2.1 Level AA standards and continuously improve our accessibility features. The settings above give you direct control over your browsing experience.</p>
-            <p className="text-sm text-[#9ca3af] leading-relaxed">If you encounter any barriers or have suggestions, please reach out at accessibility@typescribe.com or through <Link href="/contact" className="text-[#e50914] hover:underline">our contact page</Link>.</p>
+            <p className="text-sm text-[#9ca3af] leading-relaxed">If you encounter any barriers or have suggestions, please reach out at accessibility@typescribe.com or through <Link href="/contact" className="text-[#d4a853] hover:underline">our contact page</Link>.</p>
           </div>
         </div>
 

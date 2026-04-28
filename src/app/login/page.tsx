@@ -64,7 +64,7 @@ export default function LoginPage() {
         {/* Logo */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2 mb-6">
-            <Film className="w-8 h-8 text-[#e50914]" />
+            <Film className="w-8 h-8 text-[#d4a853]" />
             <span className="text-2xl font-extrabold text-white">Typescribe</span>
           </Link>
           <h1 className="text-2xl font-bold text-white mb-2">Welcome back</h1>
@@ -75,7 +75,7 @@ export default function LoginPage() {
           /* Forgot Password Form */
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6 space-y-4">
             <div className="flex items-center gap-3 mb-2">
-              <KeyRound className="w-5 h-5 text-[#e50914]" />
+              <KeyRound className="w-5 h-5 text-[#d4a853]" />
               <h2 className="text-lg font-semibold text-white">Reset Password</h2>
             </div>
             {forgotSent ? (
@@ -85,16 +85,16 @@ export default function LoginPage() {
                 </div>
                 <p className="text-white font-medium mb-1">Check your email</p>
                 <p className="text-sm text-[#6b7280]">If an account exists with that email, we&apos;ve sent password reset instructions.</p>
-                <button onClick={() => { setShowForgotPassword(false); setForgotSent(false); }} className="text-sm text-[#e50914] hover:underline mt-4">Back to Sign In</button>
+                <button onClick={() => { setShowForgotPassword(false); setForgotSent(false); }} className="text-sm text-[#d4a853] hover:underline mt-4">Back to Sign In</button>
               </div>
             ) : (
               <>
                 <p className="text-sm text-[#9ca3af]">Enter your email address and we&apos;ll send you instructions to reset your password.</p>
                 <div>
                   <label className="text-sm font-medium text-white mb-1.5 block">Email</label>
-                  <input type="email" value={forgotEmail} onChange={(e) => setForgotEmail(e.target.value)} required className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914]" placeholder="you@example.com" />
+                  <input type="email" value={forgotEmail} onChange={(e) => setForgotEmail(e.target.value)} required className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853]" placeholder="you@example.com" />
                 </div>
-                <Button onClick={handleForgotPassword} className="w-full bg-[#e50914] hover:bg-[#b20710] text-white font-medium">Send Reset Link</Button>
+                <Button onClick={handleForgotPassword} className="w-full bg-[#d4a853] hover:bg-[#b8922e] text-white font-medium">Send Reset Link</Button>
                 <button onClick={() => setShowForgotPassword(false)} className="text-sm text-[#6b7280] hover:text-white transition-colors w-full text-center">Back to Sign In</button>
               </>
             )}
@@ -134,7 +134,7 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914]"
+                  className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853]"
                   placeholder="you@example.com"
                 />
               </div>
@@ -147,7 +147,7 @@ export default function LoginPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 pr-10 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914]"
+                    className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 pr-10 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853]"
                     placeholder="Your password"
                   />
                   <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6b7280] hover:text-white">
@@ -158,21 +158,21 @@ export default function LoginPage() {
 
               <div className="flex items-center justify-between">
                 <label className="flex items-center gap-2">
-                  <input type="checkbox" className="rounded border-[#1e1e28] bg-[#050507] text-[#e50914] focus:ring-[#e50914]" />
+                  <input type="checkbox" className="rounded border-[#1e1e28] bg-[#050507] text-[#d4a853] focus:ring-[#d4a853]" />
                   <span className="text-xs text-[#6b7280]">Remember me</span>
                 </label>
-                <button type="button" onClick={() => setShowForgotPassword(true)} className="text-xs text-[#e50914] hover:underline">
+                <button type="button" onClick={() => setShowForgotPassword(true)} className="text-xs text-[#d4a853] hover:underline">
                   Forgot password?
                 </button>
               </div>
 
-              <Button type="submit" disabled={loading} className="w-full bg-[#e50914] hover:bg-[#b20710] text-white font-medium">
+              <Button type="submit" disabled={loading} className="w-full bg-[#d4a853] hover:bg-[#b8922e] text-white font-medium">
                 {loading ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : 'Sign In'}
               </Button>
 
               <p className="text-center text-sm text-[#6b7280]">
                 Don&apos;t have an account?{' '}
-                <Link href="/signup" className="text-[#e50914] hover:underline">Sign Up</Link>
+                <Link href="/signup" className="text-[#d4a853] hover:underline">Sign Up</Link>
               </p>
             </form>
           </>
