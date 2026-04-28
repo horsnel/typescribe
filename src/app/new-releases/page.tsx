@@ -105,21 +105,15 @@ export default function NewReleasesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050507] pt-8 pb-16">
+    <div className="min-h-screen bg-[#050507] pt-20 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
         {/* Header */}
-        <nav className="flex items-center gap-2 text-sm text-[#6b7280] mb-6">
-          <Link href="/" className="hover:text-white transition-colors">Home</Link>
-          <span>/</span>
-          <span className="text-[#9ca3af]">New Releases</span>
-        </nav>
-
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
           <div>
             <div className="flex items-center gap-3 mb-2">
               <h1 className="text-3xl lg:text-4xl font-extrabold text-white">New Releases</h1>
               {fromAPI && (
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1"><Zap className="w-3 h-3" />Live</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#d4a853]/10 text-[#d4a853] border border-[#d4a853]/20 flex items-center gap-1"><Zap className="w-3 h-3" />Live</span>
               )}
             </div>
             <p className="text-[#6b7280]">{filtered.length} movies released {timeLabels[timeFilter].toLowerCase()}</p>
@@ -128,15 +122,15 @@ export default function NewReleasesPage() {
             <Button
               variant="outline"
               onClick={() => setFiltersOpen(!filtersOpen)}
-              className={`border-[#1e1e28] bg-transparent text-white hover:bg-[#111118] hover:text-white gap-2 ${filtersOpen ? 'border-[#e50914]' : ''}`}
+              className={`border-[#1e1e28] bg-transparent text-white hover:bg-[#111118] hover:text-white gap-2 ${filtersOpen ? 'border-[#d4a853]' : ''}`}
             >
               <Filter className="w-4 h-4" /> Filters
             </Button>
             <div className="hidden sm:flex items-center border border-[#1e1e28] rounded-lg overflow-hidden">
-              <button onClick={() => setView('grid')} className={`p-2 ${view === 'grid' ? 'bg-[#e50914] text-white' : 'text-[#6b7280] hover:text-white'}`}>
+              <button onClick={() => setView('grid')} className={`p-2 ${view === 'grid' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white'}`}>
                 <Grid3X3 className="w-4 h-4" />
               </button>
-              <button onClick={() => setView('list')} className={`p-2 ${view === 'list' ? 'bg-[#e50914] text-white' : 'text-[#6b7280] hover:text-white'}`}>
+              <button onClick={() => setView('list')} className={`p-2 ${view === 'list' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white'}`}>
                 <List className="w-4 h-4" />
               </button>
             </div>
@@ -151,7 +145,7 @@ export default function NewReleasesPage() {
               onClick={() => { setTimeFilter(value); setVisibleCount(12); }}
               className={`px-4 py-2 rounded-full text-xs font-medium whitespace-nowrap transition-colors ${
                 timeFilter === value
-                  ? 'bg-[#e50914] text-white'
+                  ? 'bg-[#d4a853] text-white'
                   : 'bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
               }`}
             >
@@ -166,7 +160,7 @@ export default function NewReleasesPage() {
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-semibold text-white uppercase tracking-wider">Filters</h3>
               {selectedGenres.length > 0 && (
-                <button onClick={() => { setSelectedGenres([]); setVisibleCount(12); }} className="text-xs text-[#e50914] hover:underline">Clear Genres</button>
+                <button onClick={() => { setSelectedGenres([]); setVisibleCount(12); }} className="text-xs text-[#d4a853] hover:underline">Clear Genres</button>
               )}
             </div>
 
@@ -180,7 +174,7 @@ export default function NewReleasesPage() {
                     onClick={() => toggleGenre(name)}
                     className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                       selectedGenres.includes(name)
-                        ? 'bg-[#e50914] text-white'
+                        ? 'bg-[#d4a853] text-white'
                         : 'bg-[#050507] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
                     }`}
                   >
@@ -204,7 +198,7 @@ export default function NewReleasesPage() {
                     onClick={() => setSort(value)}
                     className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                       sort === value
-                        ? 'bg-[#e50914] text-white'
+                        ? 'bg-[#d4a853] text-white'
                         : 'bg-[#050507] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
                     }`}
                   >
@@ -218,7 +212,7 @@ export default function NewReleasesPage() {
 
         {loading ? (
           <div className="flex items-center justify-center py-24">
-            <Loader2 className="w-8 h-8 text-[#e50914] animate-spin" />
+            <Loader2 className="w-8 h-8 text-[#d4a853] animate-spin" />
             <span className="ml-3 text-[#6b7280]">Loading new releases...</span>
           </div>
         ) : filtered.length > 0 ? (
@@ -241,7 +235,7 @@ export default function NewReleasesPage() {
                       <img src={movie.poster_path} alt={movie.title} className="w-full h-full object-cover" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-sm font-semibold text-white group-hover:text-[#e50914] transition-colors truncate">{movie.title}</h3>
+                      <h3 className="text-sm font-semibold text-white group-hover:text-[#d4a853] transition-colors truncate">{movie.title}</h3>
                       <div className="flex items-center gap-2 mt-1">
                         <span className="text-xs text-[#f5c518] font-medium flex items-center gap-0.5"><Star className="w-3 h-3 fill-[#f5c518]" /> {movie.vote_average.toFixed(1)}</span>
                         <span className="text-xs text-[#6b7280] flex items-center gap-1"><Calendar className="w-3 h-3" /> {movie.release_date ? new Date(movie.release_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'TBA'}</span>
@@ -275,7 +269,7 @@ export default function NewReleasesPage() {
             <Calendar className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
             <p className="text-lg text-[#9ca3af] mb-2">No new releases found</p>
             <p className="text-sm text-[#6b7280] mb-4">Try adjusting your filters or time range</p>
-            <button onClick={() => { setTimeFilter('all'); setSelectedGenres([]); }} className="text-[#e50914] hover:underline">Show all movies</button>
+            <button onClick={() => { setTimeFilter('all'); setSelectedGenres([]); }} className="text-[#d4a853] hover:underline">Show all movies</button>
           </div>
         )}
       </div>

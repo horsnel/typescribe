@@ -184,7 +184,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
   return (
     <div className="min-h-screen bg-[#050507]">
       {/* ═══ Hero Section ═══ */}
-      <div ref={heroRef} className="relative h-[60vh] min-h-[480px]">
+      <div ref={heroRef} className="relative h-auto min-h-[60vh] md:h-[60vh] md:min-h-[480px]">
         {/* Backdrop */}
         <div className="absolute inset-0">
           {anime.imageUrl && (
@@ -199,7 +199,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
         </div>
 
         {/* Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-full flex items-end pb-10 lg:pb-14">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-full flex items-center md:items-end pb-10 lg:pb-14 pt-20 md:pt-0">
           <div className="flex flex-col md:flex-row gap-6 lg:gap-10 items-end w-full">
             {/* Cover Image */}
             {anime.imageUrl && (

@@ -175,16 +175,8 @@ export default function NewsPage() {
     const commentCount = comments.length;
 
     return (
-      <div className="min-h-screen bg-[#050507] pt-8 pb-16">
+      <div className="min-h-screen bg-[#050507] pt-20 pb-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
-          <nav className="flex items-center gap-2 text-sm text-[#6b7280] mb-6">
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
-            <span>/</span>
-            <button onClick={handleBack} className="hover:text-white transition-colors">News</button>
-            <span>/</span>
-            <span className="text-[#9ca3af] truncate max-w-[200px]">{originalItem?.title}</span>
-          </nav>
-
           <Button
             onClick={handleBack}
             variant="outline"
@@ -262,7 +254,7 @@ export default function NewsPage() {
                     href={selectedArticle.data.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-sm text-[#e50914] hover:underline"
+                    className="inline-flex items-center gap-2 text-sm text-[#d4a853] hover:underline"
                   >
                     Read original article <ArrowUpRight className="w-3.5 h-3.5" />
                   </a>
@@ -272,9 +264,9 @@ export default function NewsPage() {
               {/* Comment Section */}
               <div className="mt-10 pt-8 border-t border-[#1e1e28]">
                 <div className="flex items-center gap-3 mb-6">
-                  <MessageCircle className="w-5 h-5 text-[#e50914]" />
+                  <MessageCircle className="w-5 h-5 text-[#d4a853]" />
                   <h2 className="text-lg font-bold text-white">Comments</h2>
-                  <span className="px-2 py-0.5 bg-[#e50914] text-white text-xs font-bold rounded-full">{commentCount}</span>
+                  <span className="px-2 py-0.5 bg-[#d4a853] text-white text-xs font-bold rounded-full">{commentCount}</span>
                 </div>
 
                 {/* Comment Input */}
@@ -284,13 +276,13 @@ export default function NewsPage() {
                     onChange={(e) => setCommentText(e.target.value)}
                     placeholder="Share your thoughts on this article..."
                     rows={3}
-                    className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#e50914] resize-none text-sm"
+                    className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] resize-none text-sm"
                   />
                   <div className="flex justify-end mt-3">
                     <Button
                       onClick={handleAddComment}
                       disabled={!commentText.trim() || commentSubmitting}
-                      className="bg-[#e50914] hover:bg-[#b20710] text-white gap-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <Send className="w-3.5 h-3.5" />
                       {commentSubmitting ? 'Posting...' : 'Post Comment'}
@@ -304,7 +296,7 @@ export default function NewsPage() {
                     {comments.map((comment) => (
                       <div key={comment.id} className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4">
                         <div className="flex items-center gap-3 mb-2">
-                          <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#e50914] to-[#b20710] flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">
+                          <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#d4a853] to-[#b8922e] flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">
                             {comment.author.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)}
                           </div>
                           <span className="text-sm font-medium text-white">{comment.author}</span>
@@ -330,16 +322,10 @@ export default function NewsPage() {
 
   // ─── News List View ───
   return (
-    <div className="min-h-screen bg-[#050507] pt-8 pb-16">
+    <div className="min-h-screen bg-[#050507] pt-20 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
-        <nav className="flex items-center gap-2 text-sm text-[#6b7280] mb-6">
-          <Link href="/" className="hover:text-white transition-colors">Home</Link>
-          <span>/</span>
-          <span className="text-[#9ca3af]">News</span>
-        </nav>
-
         <div className="flex items-center gap-3 mb-2">
-          <Newspaper className="w-7 h-7 text-[#e50914]" />
+          <Newspaper className="w-7 h-7 text-[#d4a853]" />
           <h1 className="text-3xl lg:text-4xl font-extrabold text-white">Movie News</h1>
         </div>
         <p className="text-[#6b7280] mb-2">The latest stories from the world of cinema — industry insights, festival coverage, and cultural analysis.</p>
@@ -355,7 +341,7 @@ export default function NewsPage() {
               onClick={() => { setCategoryFilter(cat); setVisibleCount(9); }}
               className={`px-4 py-2 rounded-full text-xs font-medium whitespace-nowrap transition-colors ${
                 categoryFilter === cat
-                  ? 'bg-[#e50914] text-white'
+                  ? 'bg-[#d4a853] text-white'
                   : 'bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
               }`}
             >
@@ -407,12 +393,12 @@ export default function NewsPage() {
                   </div>
                   <div className="p-6 lg:p-8 flex flex-col justify-center">
                     <div className="flex items-center gap-2 mb-3">
-                      <span className="text-[10px] font-semibold uppercase tracking-wider bg-[#e50914] text-white px-2.5 py-1 rounded">Featured</span>
+                      <span className="text-[10px] font-semibold uppercase tracking-wider bg-[#d4a853] text-white px-2.5 py-1 rounded">Featured</span>
                       <span className="text-xs text-[#6b7280]">{featured.source} · {featured.date}</span>
                     </div>
-                    <h2 className="text-xl lg:text-2xl font-bold text-white mb-3 group-hover:text-[#e50914] transition-colors leading-snug">{featured.title}</h2>
+                    <h2 className="text-xl lg:text-2xl font-bold text-white mb-3 group-hover:text-[#d4a853] transition-colors leading-snug">{featured.title}</h2>
                     <p className="text-sm text-[#9ca3af] leading-relaxed mb-4">{featured.excerpt}</p>
-                    <span className="inline-flex items-center gap-1 text-sm text-[#e50914] font-medium group-hover:underline">Read Full Story <ArrowUpRight className="w-3.5 h-3.5" /></span>
+                    <span className="inline-flex items-center gap-1 text-sm text-[#d4a853] font-medium group-hover:underline">Read Full Story <ArrowUpRight className="w-3.5 h-3.5" /></span>
                   </div>
                 </div>
               </button>
@@ -447,11 +433,11 @@ export default function NewsPage() {
                               </>
                             )}
                           </div>
-                          <h3 className="text-sm font-semibold text-white mb-2 line-clamp-2 group-hover:text-[#e50914] transition-colors leading-snug">{item.title}</h3>
+                          <h3 className="text-sm font-semibold text-white mb-2 line-clamp-2 group-hover:text-[#d4a853] transition-colors leading-snug">{item.title}</h3>
                           <p className="text-xs text-[#9ca3af] line-clamp-2 mb-3 leading-relaxed">{item.excerpt}</p>
                           <div className="flex items-center justify-between">
                             <span className="text-xs text-[#6b7280]">Read more</span>
-                            <ArrowUpRight className="w-3.5 h-3.5 text-[#6b7280] group-hover:text-[#e50914]" />
+                            <ArrowUpRight className="w-3.5 h-3.5 text-[#6b7280] group-hover:text-[#d4a853]" />
                           </div>
                         </div>
                       </button>

@@ -552,7 +552,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
     <div className="min-h-screen bg-[#050507]">
       {/* Enrichment banner — shown while pipeline scrapers are still running */}
       {enriching && (
-        <div className="fixed top-16 left-0 right-0 z-40 bg-[#0c0c10] border-b border-[#1e1e28] px-4 py-2">
+        <div className="sticky top-16 z-40 bg-[#0c0c10] border-b border-[#1e1e28] px-4 py-2">
           <div className="max-w-7xl mx-auto flex items-center gap-2 text-xs text-[#9ca3af]">
             <Loader2 className="w-3 h-3 animate-spin text-[#d4a853]" />
             <span>Enhancing from additional sources…</span>
@@ -574,7 +574,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
         </div>
 
         {/* Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-full flex items-end pb-10 lg:pb-14">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-full flex items-center md:items-end pb-10 lg:pb-14 pt-20 md:pt-0">
           <div className="flex flex-col md:flex-row gap-6 lg:gap-10 items-end w-full">
             {/* Mobile poster - small inline */}
             <div className="md:hidden hero-animate flex-shrink-0 w-[120px] rounded-xl overflow-hidden shadow-2xl border border-white/[0.06]">
@@ -1205,7 +1205,9 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                 <h2 className="text-xl font-bold text-white mb-5">You Might Also Like</h2>
                 <div className="flex gap-5 overflow-x-auto pb-3 scrollbar-thin">
                   {relatedMovies.map((m) => (
-                    <MovieCard key={m.id} movie={m} />
+                    <div key={m.id} className="flex-shrink-0 w-[160px] sm:w-[180px]">
+                      <MovieCard movie={m} />
+                    </div>
                   ))}
                 </div>
               </section>

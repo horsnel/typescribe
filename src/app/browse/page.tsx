@@ -267,7 +267,7 @@ export default function BrowsePage() {
   }, [filters, query]);
 
   return (
-    <div className="min-h-screen bg-[#050507] pt-8 pb-16">
+    <div className="min-h-screen bg-[#050507] pt-20 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
         {/* ─── Header ─── */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
@@ -279,7 +279,7 @@ export default function BrowsePage() {
             </p>
           </div>
           <div className="flex items-center gap-3">
-            <div className="relative flex-1 sm:flex-none">
+            <div className="relative flex-1 sm:flex-none min-w-0">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6b7280]" />
               <input
                 type="text"

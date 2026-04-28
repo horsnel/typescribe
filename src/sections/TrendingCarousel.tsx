@@ -49,7 +49,7 @@ export default function TrendingCarousel() {
           </div>
         ) : (
           <div ref={scrollRef} className="carousel-track flex gap-5 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 -mx-6 px-6" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}>
-            {displayMovies.map((movie) => (<div key={movie.id} className="carousel-card snap-start flex-shrink-0"><MovieCard movie={movie} /></div>))}
+            {displayMovies.map((movie) => (<div key={movie.id} className="carousel-card snap-start flex-shrink-0 w-[160px] sm:w-[180px]"><MovieCard movie={movie} /></div>))}
           </div>
         )}
         <style>{`.carousel-track::-webkit-scrollbar { display: none; }`}</style>

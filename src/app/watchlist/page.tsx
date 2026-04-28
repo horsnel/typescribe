@@ -69,7 +69,7 @@ export default function WatchlistPage() {
   const mins = totalRuntime % 60;
 
   return (
-    <div className="min-h-screen bg-[#050507] pt-8 pb-16">
+    <div className="min-h-screen bg-[#050507] pt-20 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
         <div className="flex items-center gap-3 mb-4">
           <Bookmark className="w-6 h-6 text-[#d4a853]" />
