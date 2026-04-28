@@ -1,24 +1,25 @@
 /**
  * GET /api/movies/[id]
  *
- * Get a single movie by TMDb ID. Returns just the Movie object
- * (not the full MergedMovieResult with pipeline metadata).
+ * Get a single movie by TMDb ID.
  *
- * Strategy:
- *   1. Check cache first via getCachedMovie — instant if available
- *   2. If not cached, run the full pipeline via getMovie
- *   3. Return only the movie object
+ * Strategy (fast-first):
+ *   1. Check cache first — instant if available
+ *   2. If not cached, return TMDb data immediately (fast)
+ *   3. Run full pipeline in background for enrichment
  */
 import { NextRequest, NextResponse } from 'next/server';
 import { getMovie } from '@/lib/pipeline';
-import { getCachedMovie } from '@/lib/pipeline/cache';
+import { getCachedMovie, setCachedMovie } from '@/lib/pipeline/cache';
+import * as TMDb from '@/lib/pipeline/clients/tmdb';
+
+export const maxDuration = 60;
 
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    // ── Parse & validate TMDb ID ──
     const { id } = await params;
     const tmdbId = parseInt(id, 10);
 
@@ -38,20 +39,34 @@ export async function GET(
       return NextResponse.json(cached.movie);
     }
 
-    // ── Not cached — run the full pipeline ──
-    console.log(`[API /movies] Cache miss for tmdb:${tmdbId}, running pipeline`);
+    // ── Not cached — return TMDb data immediately (fast ~2-3s) ──
+    console.log(`[API /movies] Cache miss for tmdb:${tmdbId}, fetching from TMDb`);
 
-    const result = await getMovie(tmdbId);
-
-    // If the pipeline returned no useful data, return 404
-    if (result.completeness === 0 && !result.movie.title) {
-      return NextResponse.json(
-        { error: `Movie with TMDb ID ${tmdbId} not found.` },
-        { status: 404 },
-      );
+    let movie = await TMDb.getMovieDetails(tmdbId);
+    if (!movie) {
+      movie = await TMDb.getTvDetails(tmdbId);
     }
 
-    return NextResponse.json(result.movie);
+    if (movie) {
+      // Cache the TMDb result
+      setCachedMovie(cacheKey, movie, ['TMDb'], 30);
+      setCachedMovie(`slug:${movie.slug}`, movie, ['TMDb'], 30);
+
+      // Run full pipeline in background (fire-and-forget)
+      getMovie(tmdbId).then(result => {
+        if (result.completeness > 0 && result.movie.title) {
+          setCachedMovie(cacheKey, result.movie, result.sources, result.completeness);
+          setCachedMovie(`slug:${result.movie.slug}`, result.movie, result.sources, result.completeness);
+        }
+      }).catch(() => {});
+
+      return NextResponse.json(movie);
+    }
+
+    return NextResponse.json(
+      { error: `Movie with TMDb ID ${tmdbId} not found.` },
+      { status: 404 },
+    );
   } catch (error: any) {
     console.error('[API /movies] Error:', error);
     return NextResponse.json(

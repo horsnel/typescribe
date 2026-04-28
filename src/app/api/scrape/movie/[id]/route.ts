@@ -15,6 +15,8 @@ import { getMovie } from '@/lib/pipeline';
 import { invalidateCachedMovie } from '@/lib/pipeline/cache';
 import type { PipelineConfig } from '@/lib/pipeline/merger';
 
+export const maxDuration = 60; // Allow up to 60s for full pipeline
+
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> },

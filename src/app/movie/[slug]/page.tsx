@@ -82,11 +82,15 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
   const [loading, setLoading] = React.useState(true);
   const [pipelineSources, setPipelineSources] = React.useState<string[]>([]);
   const [completeness, setCompleteness] = React.useState(0);
+  const [enriching, setEnriching] = React.useState(false);
+  const [enriched, setEnriched] = React.useState(false);
 
   React.useEffect(() => {
     if (!slug) return;
     setLoading(true);
-    // Try pipeline API first, fall back to mock data
+    setEnriched(false);
+
+    // Phase 1: Fast fetch — returns TMDb data immediately (~2-3s)
     fetch(`/api/movies/slug/${slug}`)
       .then(res => res.ok ? res.json() : null)
       .then(data => {
@@ -94,19 +98,40 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
           setMovie(data.movie);
           setPipelineSources(data.sources || []);
           setCompleteness(data.completeness || 0);
+          setLoading(false);
+
+          // Phase 2: If not enriched, fetch enriched data in background
+          if (!data.enriched && data.completeness < 50) {
+            setEnriching(true);
+            fetch(`/api/movies/slug/${slug}?enriched=true`)
+              .then(res => res.ok ? res.json() : null)
+              .then(enrichedData => {
+                if (enrichedData?.movie) {
+                  setMovie(enrichedData.movie);
+                  setPipelineSources(enrichedData.sources || []);
+                  setCompleteness(enrichedData.completeness || 0);
+                  setEnriched(true);
+                }
+              })
+              .catch(() => { /* enrichment failed, keep fast data */ })
+              .finally(() => setEnriching(false));
+          } else {
+            setEnriched(true);
+          }
         } else {
           // Fallback to mock data
           const mock = getMovieBySlug(slug);
           setMovie(mock);
           setPipelineSources(mock ? ['mock'] : []);
+          setLoading(false);
         }
       })
       .catch(() => {
         const mock = getMovieBySlug(slug);
         setMovie(mock);
         setPipelineSources(mock ? ['mock'] : []);
-      })
-      .finally(() => setLoading(false));
+        setLoading(false);
+      });
   }, [slug]);
   const [inWatchlist, setInWatchlist] = useState(false);
   const [overviewExpanded, setOverviewExpanded] = useState(false);
@@ -440,7 +465,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
       <div className="min-h-screen bg-[#050507] flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-8 h-8 animate-spin text-[#e50914] mx-auto mb-4" />
-          <p className="text-[#9ca3af]">Loading movie data from pipeline…</p>
+          <p className="text-[#9ca3af]">Loading movie data…</p>
         </div>
       </div>
     );
@@ -451,14 +476,23 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
     return (
       <div className="min-h-screen bg-[#050507] flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-white mb-4">Movie Not Found</h1>
-          <p className="text-[#9ca3af] mb-6">The movie you are looking for does not exist.</p>
-          <Link
-            href="/browse"
-            className="inline-flex items-center gap-2 bg-[#e50914] hover:bg-[#b20710] text-white px-6 py-3 rounded-lg font-medium transition-colors"
-          >
-            Browse Movies
-          </Link>
+          <div className="text-6xl font-extrabold text-[#e50914]/20 mb-4">404</div>
+          <h1 className="text-3xl font-bold text-white mb-4">Movie Not Found</h1>
+          <p className="text-[#9ca3af] mb-6">We couldn't find the movie you're looking for. It may have been removed or the link might be broken.</p>
+          <div className="flex items-center justify-center gap-4">
+            <Link
+              href="/browse"
+              className="inline-flex items-center gap-2 bg-[#e50914] hover:bg-[#b20710] text-white px-6 py-3 rounded-lg font-medium transition-colors"
+            >
+              Browse Movies
+            </Link>
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 bg-[#111118] border border-[#1e1e28] text-white px-6 py-3 rounded-lg font-medium hover:bg-[#1a1a22] transition-colors"
+            >
+              Go Home
+            </Link>
+          </div>
         </div>
       </div>
     );
@@ -522,6 +556,15 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
 
   return (
     <div className="min-h-screen bg-[#050507]">
+      {/* Enrichment banner — shown while pipeline scrapers are still running */}
+      {enriching && (
+        <div className="fixed top-16 left-0 right-0 z-40 bg-[#0c0c10] border-b border-[#1e1e28] px-4 py-2">
+          <div className="max-w-7xl mx-auto flex items-center gap-2 text-xs text-[#9ca3af]">
+            <Loader2 className="w-3 h-3 animate-spin text-[#e50914]" />
+            <span>Enriching data from additional sources…</span>
+          </div>
+        </div>
+      )}
       {/* ─── Hero Section ─── */}
       <div ref={heroRef} className="relative h-[65vh] min-h-[520px]">
         {/* Backdrop */}
