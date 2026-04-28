@@ -54,5 +54,5 @@ export function rateLimit(options: {
 // Pre-configured limiters
 export const apiLimiter = rateLimit({ windowMs: 60000, maxRequests: 30 });
 export const searchLimiter = rateLimit({ windowMs: 60000, maxRequests: 15 });
-export const authLimiter = rateLimit({ windowMs: 900000, maxRequests: 5 }); // 5 per 15 min
+export const authLimiter = rateLimit({ windowMs: 900000, maxRequests: 10 }); // 10 per 15 min
 export const scrapeLimiter = rateLimit({ windowMs: 60000, maxRequests: 10 });
