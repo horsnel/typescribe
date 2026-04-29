@@ -97,7 +97,7 @@ export default function TrendingAnimeSection() {
             <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">Trending Anime</h2>
             {sources.length > 0 && (
               <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20">
-                {sources.length > 0 ? 'Live Data' : 'Curated'}
+                Updated
               </span>
             )}
           </div>

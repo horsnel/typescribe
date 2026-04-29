@@ -2,7 +2,7 @@
 import { Suspense } from 'react';
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { Search as SearchIcon, TrendingUp, Clock, X, Film, MessageSquare, Newspaper, Star, ArrowRight, Loader2, Zap } from 'lucide-react';
+import { Search as SearchIcon, TrendingUp, Clock, X, Film, MessageSquare, Newspaper, Star, ArrowRight, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { movies, userReviews, newsItems, genres } from '@/lib/data';
 import type { Movie } from '@/lib/types';
@@ -164,7 +164,6 @@ function SearchContent() {
                 ) : (
                   <>
                     {totalResults} results for &ldquo;{query}&rdquo;
-                    {fromAPI && <span className="ml-2 flex items-center gap-1 text-emerald-400/70"><Zap className="w-3 h-3" />Live</span>}
                   </>
                 )}
               </p>

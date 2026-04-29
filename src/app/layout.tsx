@@ -6,6 +6,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import CookieBanner from "@/components/layout/CookieBanner";
 import NativeScrollReveal from "@/components/layout/NativeScrollReveal";
+import NotificationPanel from "@/components/community/NotificationPanel";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,6 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Footer />
               </main>
               <CookieBanner />
+              <NotificationPanel />
             </div>
           </NativeScrollReveal>
         </AuthProvider>

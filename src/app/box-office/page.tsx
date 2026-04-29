@@ -159,12 +159,9 @@ export default function BoxOfficePage() {
         <div className="mb-6 flex items-center gap-2 bg-[#0c0c10] border border-[#1e1e28] rounded-lg px-4 py-2.5">
           {fromAPI ? (
             <>
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-              </span>
+              <BarChart3 className="w-4 h-4 text-emerald-400" />
               <p className="text-xs text-[#9ca3af]">
-                Live Data · Rankings update hourly
+                Rankings update hourly
               </p>
             </>
           ) : (
@@ -362,7 +359,7 @@ export default function BoxOfficePage() {
               <p className="text-xs text-[#6b7280]">
                 Rankings update hourly ·{' '}
                 {activeTab === 'by-country' && `${selectedCountryFlag} ${selectedCountryName} · `}
-                {fromAPI ? 'Live' : 'Curated'}
+                Data sourced{' '}
               </p>
             </div>
           </>

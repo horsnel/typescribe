@@ -26,13 +26,14 @@ import {
   Home,
   Film,
 } from 'lucide-react';
+import { openNotificationPanel } from '@/components/community/NotificationPanel';
 
 const sidebarLinks = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/dashboard/reviews', label: 'My Reviews', icon: PenSquare },
   { href: '/dashboard/communities', label: 'My Communities', icon: Users },
   { href: '/dashboard/watchlist', label: 'Watchlist', icon: Bookmark },
-  { href: '/dashboard/notifications', label: 'Notifications', icon: Bell },
+  { href: '#notifications', label: 'Notifications', icon: Bell, isPanel: true as const },
   { href: '/dashboard/activity', label: 'Activity Feed', icon: Activity },
   { href: '/dashboard/saved', label: 'Saved', icon: BookmarkCheck },
 ];
@@ -99,6 +100,20 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           {sidebarLinks.map((link) => {
             const Icon = link.icon;
             const active = isActive(link.href);
+            if ('isPanel' in link && link.isPanel) {
+              return (
+                <button
+                  key={link.href}
+                  onClick={openNotificationPanel}
+                  className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-sm font-medium w-full text-left ${
+                    'text-[#9ca3af] hover:text-white hover:bg-[#111118]'
+                  }`}
+                >
+                  <Icon className="w-5 h-5 flex-shrink-0" />
+                  {!collapsed && <span>{link.label}</span>}
+                </button>
+              );
+            }
             return (
               <Link
                 key={link.href}

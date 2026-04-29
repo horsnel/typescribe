@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState, useMemo } from 'react';
 import Link from 'next/link';
-import { Star, Trophy, ChevronDown, Grid3X3, List, Crown, Medal, Loader2, Zap } from 'lucide-react';
+import { Star, Trophy, ChevronDown, Grid3X3, List, Crown, Medal, Loader2 } from 'lucide-react';
 import { topRated, movies } from '@/lib/data';
 import MovieCard from '@/components/movie/MovieCard';
 import { Button } from '@/components/ui/button';
@@ -76,9 +76,6 @@ export default function TopRatedPage() {
             <div className="flex items-center gap-3 mb-2">
               <Trophy className="w-8 h-8 text-[#f5c518]" />
               <h1 className="text-3xl lg:text-4xl font-extrabold text-white">Top Rated Movies</h1>
-              {fromAPI && (
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#d4a853]/10 text-[#d4a853] border border-[#d4a853]/20 flex items-center gap-1"><Zap className="w-3 h-3" />Live</span>
-              )}
             </div>
             <p className="text-[#6b7280]">{filtered.length} movies ranked by overall rating</p>
           </div>

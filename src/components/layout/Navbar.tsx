@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { Search, Menu, X, Film, LogOut, LayoutDashboard, Star, Users, Bookmark, Bell, Settings, User, Lock, Loader2 } from 'lucide-react';
+import { openNotificationPanel } from '@/components/community/NotificationPanel';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/lib/auth';
 import SearchOverlay from '@/components/layout/SearchOverlay';
@@ -153,7 +154,7 @@ export default function Navbar() {
     { label: 'My Reviews', href: '/dashboard/reviews', icon: Star },
     { label: 'My Communities', href: '/dashboard/communities', icon: Users },
     { label: 'Watchlist', href: '/dashboard/watchlist', icon: Bookmark },
-    { label: 'Notifications', href: '/dashboard/notifications', icon: Bell },
+    { label: 'Notifications', href: '#notifications', icon: Bell, isPanel: true as const },
     { label: 'Saved', href: '/dashboard/saved', icon: Bookmark },
     { label: 'Settings', href: '/dashboard/settings', icon: Settings },
   ];
@@ -281,12 +282,22 @@ export default function Navbar() {
             <div className="border-t border-[#1e1e28] pt-4 mt-2">
               {isAuthenticated ? (
                 <>
-                  {mobileUserLinks.map((item) => (
-                    <Link key={item.label} href={item.href} onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 py-2.5 text-[#9ca3af] hover:text-amber-400 transition-colors">
-                      <item.icon className="w-4 h-4" />
-                      {item.label}
-                    </Link>
-                  ))}
+                  {mobileUserLinks.map((item) => {
+                    if ('isPanel' in item && item.isPanel) {
+                      return (
+                        <button key={item.label} onClick={() => { openNotificationPanel(); setMobileMenuOpen(false); }} className="flex items-center gap-3 py-2.5 text-[#9ca3af] hover:text-amber-400 transition-colors w-full text-left">
+                          <item.icon className="w-4 h-4" />
+                          {item.label}
+                        </button>
+                      );
+                    }
+                    return (
+                      <Link key={item.label} href={item.href} onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 py-2.5 text-[#9ca3af] hover:text-amber-400 transition-colors">
+                        <item.icon className="w-4 h-4" />
+                        {item.label}
+                      </Link>
+                    );
+                  })}
                   <button onClick={() => { logout(); setMobileMenuOpen(false); }} className="flex items-center gap-3 py-2.5 text-red-400 hover:text-red-300 transition-colors">
                     <LogOut className="w-4 h-4" />
                     Log Out

@@ -52,12 +52,10 @@ export default function LiveSentimentTracker({ movieTitle, movieId, isNowPlaying
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <Activity className="w-4 h-4 text-emerald-400" />
-          <h4 className="text-sm font-semibold text-white">Live Sentiment</h4>
-          <span className="text-[10px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded-full">LIVE</span>
+          <h4 className="text-sm font-semibold text-white">Sentiment</h4>
         </div>
         <div className={`flex items-center gap-1 ${pulse ? 'opacity-100' : 'opacity-60'} transition-opacity`}>
-          <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="text-[10px] text-emerald-400">Updating</span>
+          <span className="text-[10px] text-[#6b7280]">Updating</span>
         </div>
       </div>
 

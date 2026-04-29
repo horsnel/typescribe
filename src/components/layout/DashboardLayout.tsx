@@ -3,13 +3,14 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { LayoutDashboard, Star, Users, Bookmark, Bell, Activity, BookmarkCheck, Settings, User } from 'lucide-react';
+import { openNotificationPanel } from '@/components/community/NotificationPanel';
 
 const dashboardLinks = [
   { label: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
   { label: 'My Reviews', href: '/dashboard/reviews', icon: Star },
   { label: 'My Communities', href: '/dashboard/communities', icon: Users },
   { label: 'Watchlist', href: '/dashboard/watchlist', icon: Bookmark },
-  { label: 'Notifications', href: '/dashboard/notifications', icon: Bell },
+  { label: 'Notifications', href: '#notifications', icon: Bell, isPanel: true as const },
   { label: 'Activity', href: '/dashboard/activity', icon: Activity },
   { label: 'Saved', href: '/dashboard/saved', icon: BookmarkCheck },
   { label: 'Profile', href: '/dashboard/profile', icon: User },
@@ -30,6 +31,18 @@ export default function DashboardSidebar({ children }: { children: React.ReactNo
               <div className="flex lg:flex-col gap-1 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0">
                 {dashboardLinks.map((link) => {
                   const isActive = pathname === link.href;
+                  if ('isPanel' in link && link.isPanel) {
+                    return (
+                      <button
+                        key={link.href}
+                        onClick={openNotificationPanel}
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-colors text-[#9ca3af] hover:text-white hover:bg-[#111118]"
+                      >
+                        <link.icon className="w-4 h-4 flex-shrink-0" />
+                        <span className="hidden lg:inline">{link.label}</span>
+                      </button>
+                    );
+                  }
                   return (
                     <Link
                       key={link.href}

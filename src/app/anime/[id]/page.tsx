@@ -258,7 +258,6 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                 <span className="text-sm text-[#9ca3af] flex items-center gap-1">
                   {anime.airing ? (
                     <>
-                      <span className="w-2 h-2 rounded-full bg-[#d4a853] animate-pulse" />
                       Airing
                     </>
                   ) : (
