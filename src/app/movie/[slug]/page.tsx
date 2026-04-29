@@ -100,7 +100,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
     }, 10_000);
 
     // Phase 1: Fast fetch — returns TMDb data immediately (~2-3s)
-    fetch(`/api/movies/slug/${slug}`, { signal: controller.signal })
+    fetch(`/api/movies/slug/${slug}`, { signal: controller.signal, cache: 'no-store' as RequestCache })
       .then(res => res.ok ? res.json() : null)
       .then(data => {
         if (data?.movie) {
@@ -112,7 +112,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
           // Phase 2: If not enriched, fetch enriched data in background
           if (!data.enriched && data.completeness < 50) {
             setEnriching(true);
-            fetch(`/api/movies/slug/${slug}?enriched=true`, { signal: controller.signal })
+            fetch(`/api/movies/slug/${slug}?enriched=true`, { signal: controller.signal, cache: 'no-store' as RequestCache })
               .then(res => res.ok ? res.json() : null)
               .then(enrichedData => {
                 if (enrichedData?.movie) {
@@ -230,7 +230,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
     const tmdbId = movie.tmdb_id || movie.id;
 
     // Step 1: Try TMDb via API route (server-side)
-    fetch(`/api/movies/${tmdbId}/watch-providers`)
+    fetch(`/api/movies/${tmdbId}/watch-providers`, { cache: 'no-store' })
       .then(res => res.ok ? res.json() : null)
       .then(data => {
         if (data?.providers && data.providers.length > 0) {
@@ -281,7 +281,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
     const mediaType = movie.media_type === 'tv' || movie.media_type === 'anime' ? 'tv' : 'movie';
 
     // Phase 1: Fast TMDb recommendations
-    fetch(`/api/movies/${tmdbId}/recommendations?type=${mediaType}`)
+    fetch(`/api/movies/${tmdbId}/recommendations?type=${mediaType}`, { cache: 'no-store' })
       .then(res => res.ok ? res.json() : null)
       .then(data => {
         if (data?.recommendations && data.recommendations.length > 0) {
@@ -290,7 +290,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
         }
 
         // Phase 2: Enrich with Letterboxd, RT, AniList, Jikan in background
-        fetch(`/api/movies/${tmdbId}/recommendations?type=${mediaType}&enriched=true`)
+        fetch(`/api/movies/${tmdbId}/recommendations?type=${mediaType}&enriched=true`, { cache: 'no-store' })
           .then(res => res.ok ? res.json() : null)
           .then(enrichedData => {
             if (enrichedData?.recommendations && enrichedData.recommendations.length > 0) {

@@ -54,7 +54,7 @@ export default function BrowsePage() {
       if (filters.yearTo !== 2026) params.set('yearTo', String(filters.yearTo));
       params.set('page', String(currentPage));
 
-      const res = await fetch(`/api/browse?${params.toString()}`);
+      const res = await fetch(`/api/browse?${params.toString()}`, { cache: 'no-store' });
       if (res.ok) {
         const data = await res.json();
         setApiMovies(data.movies || []);

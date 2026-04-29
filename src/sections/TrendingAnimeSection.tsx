@@ -73,7 +73,7 @@ export default function TrendingAnimeSection() {
   };
 
   useEffect(() => {
-    fetch('/api/anime/trending')
+    fetch('/api/anime/trending', { cache: 'no-store' })
       .then(res => res.ok ? res.json() : null)
       .then(data => {
         if (data?.movies?.length > 0) {

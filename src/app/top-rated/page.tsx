@@ -28,7 +28,7 @@ export default function TopRatedPage() {
   // Fetch real data from API
   useEffect(() => {
     setLoading(true);
-    fetch('/api/browse?source=top_rated&page=1')
+    fetch('/api/browse?source=top_rated&page=1', { cache: 'no-store' })
       .then(res => res.ok ? res.json() : null)
       .then(data => {
         if (data?.movies?.length > 0 && data.fromAPI) {

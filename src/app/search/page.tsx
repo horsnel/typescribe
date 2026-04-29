@@ -43,7 +43,7 @@ function SearchContent() {
     const timer = setTimeout(async () => {
       setIsSearching(true);
       try {
-        const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+        const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`, { cache: 'no-store' });
         if (res.ok) {
           const data = await res.json();
           setApiMovies(data.movies || []);

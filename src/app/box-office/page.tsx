@@ -69,7 +69,7 @@ export default function BoxOfficePage() {
       if (activeTab === 'by-country') {
         params.set('country', selectedCountry);
       }
-      const res = await fetch(`/api/box-office?${params.toString()}`);
+      const res = await fetch(`/api/box-office?${params.toString()}`, { cache: 'no-store' });
       if (res.ok) {
         const data = await res.json();
         setEntries(data.entries || []);

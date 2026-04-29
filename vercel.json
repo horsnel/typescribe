@@ -9,5 +9,15 @@
     "SCRAPINGANT_KEY_4": "63d8770d7d5747ff81c5bf3c9c84f536",
     "SCRAPINGANT_KEY_5": "68f7a95600674e09a4aacb97ddef0b5e",
     "ADMIN_PASSWORD": "olhmes2024admin"
-  }
+  },
+  "crons": [
+    {
+      "path": "/api/cron/refresh",
+      "schedule": "0 * * * *"
+    },
+    {
+      "path": "/api/cron/prune-cache",
+      "schedule": "0 */6 * * *"
+    }
+  ]
 }
