@@ -19,6 +19,7 @@ import { useAuth } from '@/lib/auth';
 import { CommunityCardSkeleton } from '@/components/skeletons/CommunitySkeleton';
 import TasteMatchBadge from '@/components/community/TasteMatchBadge';
 import ActivityFeed from '@/components/community/ActivityFeed';
+import SmartRecommendations from '@/components/community/SmartRecommendationsWidget';
 import { getJoinedCommunities as getJoinedCommunityIds, saveJoinedCommunities as saveJoinedCommunityIds } from '@/lib/community-storage';
 
 interface Community {
@@ -231,6 +232,13 @@ export default function CommunitiesPage() {
         {isAuthenticated && joinedIds.length > 0 && (
           <div className="mb-8">
             <ActivityFeed joinedCommunityIds={joinedIds} maxItems={5} />
+          </div>
+        )}
+
+        {/* Smart Recommendations */}
+        {isAuthenticated && user?.favorite_genres && user.favorite_genres.length > 0 && (
+          <div className="mb-8">
+            <SmartRecommendations userGenres={user.favorite_genres} maxItems={4} />
           </div>
         )}
 

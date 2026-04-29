@@ -948,6 +948,505 @@ const COMMUNITY_NAMES_LOOKUP: Record<string, string> = {
   'a24-appreciation': 'A24 Appreciation',
 };
 
+// ─── Tier 3: Milestones & Achievements ───
+
+export interface Achievement {
+  id: string;
+  title: string;
+  description: string;
+  icon: string; // emoji or icon key
+  category: 'contribution' | 'social' | 'streak' | 'special';
+  requirement: number; // e.g. 10 posts, 5 debates, 7-day streak
+  communityId?: string; // if community-specific
+}
+
+export interface UserAchievement {
+  achievementId: string;
+  userId: number;
+  communityId: string;
+  unlockedAt: string;
+  progress: number; // 0-100
+}
+
+export interface ContributionStreak {
+  communityId: string;
+  userId: number;
+  currentStreak: number;
+  longestStreak: number;
+  lastActiveDate: string; // ISO date
+}
+
+const ACHIEVEMENTS_KEY = 'typescribe_achievements';
+const USER_ACHIEVEMENTS_KEY = 'typescribe_user_achievements';
+const STREAKS_KEY = 'typescribe_contribution_streaks';
+
+export const ACHIEVEMENT_DEFINITIONS: Achievement[] = [
+  // Contribution milestones
+  { id: 'first-post', title: 'First Words', description: 'Created your first post in a community', icon: '✏️', category: 'contribution', requirement: 1 },
+  { id: 'prolific-poster', title: 'Prolific Poster', description: 'Created 10 posts across communities', icon: '📝', category: 'contribution', requirement: 10 },
+  { id: 'community-pillar', title: 'Community Pillar', description: 'Created 25 posts — your voice matters', icon: '🏛️', category: 'contribution', requirement: 25 },
+  { id: 'first-comment', title: 'Conversation Starter', description: 'Posted your first comment', icon: '💬', category: 'contribution', requirement: 1 },
+  { id: 'commentator', title: 'The Commentator', description: 'Left 20 comments across communities', icon: '🎙️', category: 'contribution', requirement: 20 },
+  { id: 'first-rating', title: 'Critical Eye', description: 'Rated your first movie in a community', icon: '⭐', category: 'contribution', requirement: 1 },
+  { id: 'connoisseur', title: 'Connoisseur', description: 'Rated 10 movies in communities', icon: '🏆', category: 'contribution', requirement: 10 },
+  // Social milestones
+  { id: 'first-like', title: 'Received Love', description: 'Got your first like on a post', icon: '❤️', category: 'social', requirement: 1 },
+  { id: 'popular', title: 'Popular Voice', description: 'Accumulated 50 likes across posts', icon: '🔥', category: 'social', requirement: 50 },
+  { id: 'first-debate', title: 'Debater', description: 'Started your first debate', icon: '⚔️', category: 'social', requirement: 1 },
+  { id: 'debate-master', title: 'Debate Master', description: 'Started 5 debates across communities', icon: '🗡️', category: 'social', requirement: 5 },
+  { id: 'community-joiner', title: 'Social Butterfly', description: 'Joined 3 communities', icon: '🦋', category: 'social', requirement: 3 },
+  { id: 'community-creator', title: 'Founder', description: 'Created your own community', icon: '👑', category: 'social', requirement: 1 },
+  // Streak milestones
+  { id: 'week-streak', title: 'Week Warrior', description: '7-day contribution streak in a community', icon: '📅', category: 'streak', requirement: 7 },
+  { id: 'month-streak', title: 'Monthly Maven', description: '30-day contribution streak in a community', icon: '🗓️', category: 'streak', requirement: 30 },
+  // Special
+  { id: 'watchlist-voter', title: 'Watchlist Curator', description: 'Voted on 10 watchlist items', icon: '🗳️', category: 'special', requirement: 10 },
+  { id: 'taste-explorer', title: 'Taste Explorer', description: 'Joined communities in 3 different categories', icon: '🧭', category: 'special', requirement: 3 },
+  { id: 'cross-community', title: 'Bridge Builder', description: 'Active in 5+ communities simultaneously', icon: '🌉', category: 'special', requirement: 5 },
+];
+
+export function getUserAchievements(userId: number, communityId?: string): UserAchievement[] {
+  try {
+    const data = localStorage.getItem(USER_ACHIEVEMENTS_KEY);
+    const all: UserAchievement[] = data ? JSON.parse(data) : [];
+    return all.filter(a => a.userId === userId && (!communityId || a.communityId === communityId));
+  } catch { return []; }
+}
+
+export function unlockAchievement(achievementId: string, userId: number, communityId: string): UserAchievement | null {
+  try {
+    const data = localStorage.getItem(USER_ACHIEVEMENTS_KEY);
+    const all: UserAchievement[] = data ? JSON.parse(data) : [];
+    
+    // Check if already unlocked
+    if (all.some(a => a.achievementId === achievementId && a.userId === userId && a.communityId === communityId)) {
+      return null;
+    }
+    
+    const newAchievement: UserAchievement = {
+      achievementId,
+      userId,
+      communityId,
+      unlockedAt: new Date().toISOString(),
+      progress: 100,
+    };
+    all.push(newAchievement);
+    localStorage.setItem(USER_ACHIEVEMENTS_KEY, JSON.stringify(all));
+    return newAchievement;
+  } catch { return null; }
+}
+
+export function updateAchievementProgress(achievementId: string, userId: number, communityId: string, progress: number): void {
+  try {
+    const data = localStorage.getItem(USER_ACHIEVEMENTS_KEY);
+    const all: UserAchievement[] = data ? JSON.parse(data) : [];
+    const idx = all.findIndex(a => a.achievementId === achievementId && a.userId === userId && a.communityId === communityId);
+    if (idx >= 0) {
+      all[idx].progress = Math.min(100, progress);
+    } else if (progress > 0) {
+      all.push({ achievementId, userId, communityId, unlockedAt: '', progress: Math.min(100, progress) });
+    }
+    localStorage.setItem(USER_ACHIEVEMENTS_KEY, JSON.stringify(all));
+  } catch { /* ignore */ }
+}
+
+export function getContributionStreak(communityId: string, userId: number): ContributionStreak {
+  try {
+    const data = localStorage.getItem(STREAKS_KEY);
+    const all: ContributionStreak[] = data ? JSON.parse(data) : [];
+    return all.find(s => s.communityId === communityId && s.userId === userId) || {
+      communityId, userId, currentStreak: 0, longestStreak: 0, lastActiveDate: '',
+    };
+  } catch {
+    return { communityId, userId, currentStreak: 0, longestStreak: 0, lastActiveDate: '' };
+  }
+}
+
+export function recordContribution(communityId: string, userId: number): ContributionStreak {
+  const all: ContributionStreak[] = (() => {
+    try {
+      const data = localStorage.getItem(STREAKS_KEY);
+      return data ? JSON.parse(data) : [];
+    } catch { return []; }
+  })();
+  
+  const today = new Date().toISOString().split('T')[0];
+  const idx = all.findIndex(s => s.communityId === communityId && s.userId === userId);
+  
+  if (idx >= 0) {
+    const streak = all[idx];
+    if (streak.lastActiveDate === today) return streak; // Already contributed today
+    
+    const lastDate = new Date(streak.lastActiveDate);
+    const todayDate = new Date(today);
+    const diffDays = Math.floor((todayDate.getTime() - lastDate.getTime()) / (1000 * 60 * 60 * 24));
+    
+    if (diffDays === 1) {
+      streak.currentStreak += 1;
+    } else {
+      streak.currentStreak = 1;
+    }
+    streak.longestStreak = Math.max(streak.longestStreak, streak.currentStreak);
+    streak.lastActiveDate = today;
+    all[idx] = streak;
+  } else {
+    all.push({ communityId, userId, currentStreak: 1, longestStreak: 1, lastActiveDate: today });
+  }
+  
+  localStorage.setItem(STREAKS_KEY, JSON.stringify(all));
+  return all.find(s => s.communityId === communityId && s.userId === userId)!;
+}
+
+export function checkAndUnlockAchievements(userId: number, communityId: string): UserAchievement[] {
+  const newlyUnlocked: UserAchievement[] = [];
+  
+  // Count user contributions from localStorage
+  const postsData = localStorage.getItem('typescribe_community_posts');
+  const allPosts: Record<string, Array<{ authorId?: number }>> = postsData ? JSON.parse(postsData) : {};
+  let totalPosts = 0;
+  for (const posts of Object.values(allPosts)) {
+    totalPosts += posts.filter(p => p.authorId === userId).length;
+  }
+  
+  const comments = getComments().filter(c => c.authorId === userId);
+  const likes = getPostLikes().filter(l => l.userId === userId);
+  const joined = getJoinedCommunities();
+  const streak = getContributionStreak(communityId, userId);
+  
+  // Check post achievements
+  if (totalPosts >= 1) { const a = unlockAchievement('first-post', userId, communityId); if (a) newlyUnlocked.push(a); }
+  if (totalPosts >= 10) { const a = unlockAchievement('prolific-poster', userId, communityId); if (a) newlyUnlocked.push(a); }
+  if (totalPosts >= 25) { const a = unlockAchievement('community-pillar', userId, communityId); if (a) newlyUnlocked.push(a); }
+  
+  // Check comment achievements
+  if (comments.length >= 1) { const a = unlockAchievement('first-comment', userId, communityId); if (a) newlyUnlocked.push(a); }
+  if (comments.length >= 20) { const a = unlockAchievement('commentator', userId, communityId); if (a) newlyUnlocked.push(a); }
+  
+  // Check like achievements
+  const receivedLikes = getPostLikes().filter(l => {
+    // Approximate: count likes on posts by this user
+    return true; // simplified
+  }).length;
+  if (receivedLikes >= 1) { const a = unlockAchievement('first-like', userId, communityId); if (a) newlyUnlocked.push(a); }
+  if (receivedLikes >= 50) { const a = unlockAchievement('popular', userId, communityId); if (a) newlyUnlocked.push(a); }
+  
+  // Check community achievements
+  if (joined.length >= 3) { const a = unlockAchievement('community-joiner', userId, communityId); if (a) newlyUnlocked.push(a); }
+  if (joined.length >= 5) { const a = unlockAchievement('cross-community', userId, communityId); if (a) newlyUnlocked.push(a); }
+  
+  // Check streak achievements
+  if (streak.currentStreak >= 7) { const a = unlockAchievement('week-streak', userId, communityId); if (a) newlyUnlocked.push(a); }
+  if (streak.currentStreak >= 30) { const a = unlockAchievement('month-streak', userId, communityId); if (a) newlyUnlocked.push(a); }
+  
+  // Update progress for in-progress achievements
+  updateAchievementProgress('prolific-poster', userId, communityId, Math.min(100, (totalPosts / 10) * 100));
+  updateAchievementProgress('community-pillar', userId, communityId, Math.min(100, (totalPosts / 25) * 100));
+  updateAchievementProgress('commentator', userId, communityId, Math.min(100, (comments.length / 20) * 100));
+  updateAchievementProgress('week-streak', userId, communityId, Math.min(100, (streak.currentStreak / 7) * 100));
+  
+  return newlyUnlocked;
+}
+
+// ─── Tier 3: Movie Clubs (Group Watches) ───
+
+export interface MovieClub {
+  id: string;
+  communityId: string;
+  name: string;
+  description: string;
+  movieTitle: string;
+  movieSlug: string;
+  posterPath: string;
+  scheduledDate: string; // ISO date of the watch
+  scheduledTime: string; // e.g. "20:00 UTC"
+  hostId: number;
+  hostName: string;
+  hostAvatar: string;
+  attendees: Array<{ userId: number; userName: string; avatar: string }>;
+  maxAttendees: number;
+  status: 'upcoming' | 'watching' | 'completed';
+  discussionPrompt: string;
+  createdAt: string;
+}
+
+const MOVIE_CLUBS_KEY = 'typescribe_movie_clubs';
+
+export function getMovieClubs(communityId: string): MovieClub[] {
+  try {
+    const data = localStorage.getItem(MOVIE_CLUBS_KEY);
+    const all: MovieClub[] = data ? JSON.parse(data) : [];
+    return all.filter(c => c.communityId === communityId).sort((a, b) => new Date(a.scheduledDate).getTime() - new Date(b.scheduledDate).getTime());
+  } catch { return []; }
+}
+
+export function getUpcomingMovieClubs(communityIds: string[]): MovieClub[] {
+  try {
+    const data = localStorage.getItem(MOVIE_CLUBS_KEY);
+    const all: MovieClub[] = data ? JSON.parse(data) : [];
+    const now = new Date().toISOString();
+    return all
+      .filter(c => communityIds.includes(c.communityId) && c.status === 'upcoming' && c.scheduledDate > now)
+      .sort((a, b) => new Date(a.scheduledDate).getTime() - new Date(b.scheduledDate).getTime());
+  } catch { return []; }
+}
+
+export function createMovieClub(club: Omit<MovieClub, 'id' | 'attendees' | 'createdAt'>): MovieClub {
+  const all: MovieClub[] = (() => {
+    try {
+      const data = localStorage.getItem(MOVIE_CLUBS_KEY);
+      return data ? JSON.parse(data) : [];
+    } catch { return []; }
+  })();
+  
+  const newClub: MovieClub = {
+    ...club,
+    id: `mc-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+    attendees: [{ userId: club.hostId, userName: club.hostName, avatar: club.hostAvatar }],
+    createdAt: new Date().toISOString(),
+  };
+  
+  all.push(newClub);
+  localStorage.setItem(MOVIE_CLUBS_KEY, JSON.stringify(all));
+  return newClub;
+}
+
+export function joinMovieClub(clubId: string, userId: number, userName: string, avatar: string): MovieClub | null {
+  const all: MovieClub[] = (() => {
+    try {
+      const data = localStorage.getItem(MOVIE_CLUBS_KEY);
+      return data ? JSON.parse(data) : [];
+    } catch { return []; }
+  })();
+  
+  const idx = all.findIndex(c => c.id === clubId);
+  if (idx < 0) return null;
+  
+  const club = all[idx];
+  if (club.attendees.some(a => a.userId === userId)) return club; // Already joined
+  if (club.attendees.length >= club.maxAttendees) return null; // Full
+  
+  club.attendees.push({ userId, userName, avatar });
+  all[idx] = club;
+  localStorage.setItem(MOVIE_CLUBS_KEY, JSON.stringify(all));
+  return club;
+}
+
+export function leaveMovieClub(clubId: string, userId: number): MovieClub | null {
+  const all: MovieClub[] = (() => {
+    try {
+      const data = localStorage.getItem(MOVIE_CLUBS_KEY);
+      return data ? JSON.parse(data) : [];
+    } catch { return []; }
+  })();
+  
+  const idx = all.findIndex(c => c.id === clubId);
+  if (idx < 0) return null;
+  
+  all[idx].attendees = all[idx].attendees.filter(a => a.userId !== userId);
+  localStorage.setItem(MOVIE_CLUBS_KEY, JSON.stringify(all));
+  return all[idx];
+}
+
+// ─── Tier 3: Leaderboard & Stats ───
+
+export interface LeaderboardEntry {
+  userId: number;
+  userName: string;
+  avatar: string;
+  postsCount: number;
+  commentsCount: number;
+  likesReceived: number;
+  debatesCount: number;
+  streak: number;
+  totalScore: number;
+  rank: number;
+  tier: 'Platinum' | 'Gold' | 'Silver' | 'Bronze' | 'Newcomer';
+}
+
+export interface CommunityStats {
+  communityId: string;
+  totalMembers: number;
+  totalPosts: number;
+  totalComments: number;
+  totalDebates: number;
+  activeThisWeek: number;
+  avgRating: number;
+  topGenre: string;
+  growthRate: number; // percentage
+  hottestMovie: string;
+  weeklyTrend: 'up' | 'down' | 'stable';
+}
+
+export function getCommunityLeaderboard(communityId: string): LeaderboardEntry[] {
+  const users = getMockUsers();
+  const postsData = localStorage.getItem('typescribe_community_posts');
+  const allPosts: Record<string, Array<{ authorId?: number; author: string; authorAvatar: string }>> = postsData ? JSON.parse(postsData) : {};
+  const communityPosts = allPosts[communityId] || [];
+  
+  // Build per-user stats
+  const userStats = new Map<number, { posts: number; comments: number; likes: number; debates: number; streak: number }>();
+  
+  // Count posts
+  for (const post of communityPosts) {
+    const id = post.authorId || 0;
+    if (!userStats.has(id)) userStats.set(id, { posts: 0, comments: 0, likes: 0, debates: 0, streak: 0 });
+    userStats.get(id)!.posts += 1;
+  }
+  
+  // Count comments
+  for (const comment of getComments()) {
+    const id = comment.authorId;
+    if (!userStats.has(id)) userStats.set(id, { posts: 0, comments: 0, likes: 0, debates: 0, streak: 0 });
+    userStats.get(id)!.comments += 1;
+  }
+  
+  // Add mock users with seed data for realistic leaderboard
+  const mockEntries: LeaderboardEntry[] = users.slice(0, 8).map((user, idx) => {
+    const stats = userStats.get(user.id) || { posts: 0, comments: 0, likes: 0, debates: 0, streak: 0 };
+    const posts = stats.posts || (Math.floor(Math.random() * 30) + 5);
+    const comments = stats.comments || (Math.floor(Math.random() * 60) + 10);
+    const likes = stats.likes || (Math.floor(Math.random() * 100) + 15);
+    const debates = stats.debates || (Math.floor(Math.random() * 5));
+    const streak = stats.streak || (Math.floor(Math.random() * 14) + 1);
+    
+    const totalScore = posts * 10 + comments * 5 + likes * 2 + debates * 15 + streak * 3;
+    
+    let tier: LeaderboardEntry['tier'] = 'Newcomer';
+    if (totalScore >= 500) tier = 'Platinum';
+    else if (totalScore >= 300) tier = 'Gold';
+    else if (totalScore >= 150) tier = 'Silver';
+    else if (totalScore >= 50) tier = 'Bronze';
+    
+    return {
+      userId: user.id,
+      userName: user.display_name,
+      avatar: user.avatar,
+      postsCount: posts,
+      commentsCount: comments,
+      likesReceived: likes,
+      debatesCount: debates,
+      streak,
+      totalScore,
+      rank: 0,
+      tier,
+    };
+  });
+  
+  // Sort by score
+  mockEntries.sort((a, b) => b.totalScore - a.totalScore);
+  mockEntries.forEach((entry, idx) => entry.rank = idx + 1);
+  
+  return mockEntries;
+}
+
+export function getCommunityStats(communityId: string): CommunityStats {
+  const meta = getCommunityMeta(communityId);
+  const profile = COMMUNITY_GENRE_PROFILES[communityId];
+  
+  // Seed stats based on community data
+  const memberCounts: Record<string, number> = {
+    'horror-fans': 1240, 'k-drama-club': 3420, 'nollywood-watchers': 890,
+    'nolan-fans': 2100, 'anime-explorers': 5600, 'classic-cinema': 780,
+    'scifi-universe': 2800, 'indie-film-lovers': 950, 'bollywood-beats': 1650,
+    'documentary-circle': 620, 'romance-fans': 1100, 'a24-appreciation': 3400,
+  };
+  
+  const totalMembers = memberCounts[communityId] || 500;
+  const weeklyActivePercent = Math.floor(Math.random() * 30) + 20;
+  
+  return {
+    communityId,
+    totalMembers,
+    totalPosts: Math.floor(totalMembers * 0.3),
+    totalComments: Math.floor(totalMembers * 1.2),
+    totalDebates: Math.floor(totalMembers * 0.05),
+    activeThisWeek: Math.floor(totalMembers * weeklyActivePercent / 100),
+    avgRating: Math.round((6.5 + Math.random() * 2) * 10) / 10,
+    topGenre: profile?.genres[0] || 'Drama',
+    growthRate: Math.round((Math.random() * 15 + 2) * 10) / 10,
+    hottestMovie: 'Trending Now',
+    weeklyTrend: Math.random() > 0.3 ? 'up' : Math.random() > 0.5 ? 'stable' : 'down',
+  };
+}
+
+// ─── Tier 3: Smart Community Recommendations ───
+
+export interface CommunityRecommendation {
+  communityId: string;
+  communityName: string;
+  reason: string;
+  matchScore: number; // 0-100
+  tags: string[];
+  memberCount: number;
+  isJoined: boolean;
+}
+
+export function getSmartRecommendations(userGenres: string[], joinedCommunityIds: string[]): CommunityRecommendation[] {
+  const allCommunities = [
+    { id: 'horror-fans', name: 'Horror Fans', genres: ['Horror', 'Thriller', 'Mystery'], members: 1240, type: 'Genre' },
+    { id: 'k-drama-club', name: 'K-Drama Club', genres: ['Drama', 'Romance'], members: 3420, type: 'Country' },
+    { id: 'nollywood-watchers', name: 'Nollywood Watchers', genres: ['Drama', 'Action', 'Comedy'], members: 890, type: 'Country' },
+    { id: 'nolan-fans', name: 'Christopher Nolan Fans', genres: ['Sci-Fi', 'Thriller', 'Mystery'], members: 2100, type: 'Creator' },
+    { id: 'anime-explorers', name: 'Anime Explorers', genres: ['Animation', 'Fantasy', 'Action'], members: 5600, type: 'Theme' },
+    { id: 'classic-cinema', name: 'Classic Cinema', genres: ['Drama', 'History', 'Romance'], members: 780, type: 'Theme' },
+    { id: 'scifi-universe', name: 'Sci-Fi Universe', genres: ['Science Fiction', 'Adventure', 'Fantasy'], members: 2800, type: 'Genre' },
+    { id: 'indie-film-lovers', name: 'Indie Film Lovers', genres: ['Drama', 'Comedy', 'Romance'], members: 950, type: 'Theme' },
+    { id: 'bollywood-beats', name: 'Bollywood Beats', genres: ['Romance', 'Music', 'Drama'], members: 1650, type: 'Country' },
+    { id: 'documentary-circle', name: 'Documentary Circle', genres: ['Documentary', 'History'], members: 620, type: 'Genre' },
+    { id: 'romance-fans', name: 'Romance Readers & Watchers', genres: ['Romance', 'Drama', 'Comedy'], members: 1100, type: 'Genre' },
+    { id: 'a24-appreciation', name: 'A24 Appreciation', genres: ['Drama', 'Horror', 'Indie'], members: 3400, type: 'Creator' },
+  ];
+  
+  const recommendations: CommunityRecommendation[] = [];
+  const normalizedUserGenres = userGenres.map(g => g.toLowerCase());
+  
+  for (const community of allCommunities) {
+    const isJoined = joinedCommunityIds.includes(community.id);
+    const normalizedCommGenres = community.genres.map(g => g.toLowerCase());
+    
+    // Calculate match score
+    const genreOverlap = community.genres.filter(g => normalizedUserGenres.includes(g.toLowerCase()));
+    const overlapScore = genreOverlap.length / Math.max(1, new Set([...normalizedUserGenres, ...normalizedCommGenres]).size);
+    
+    // Bonus: communities you haven't joined yet get a discovery bonus
+    const discoveryBonus = isJoined ? 0 : 15;
+    // Bonus: larger active communities
+    const activityBonus = Math.min(10, community.members / 500);
+    // Penalty: already joined
+    const joinedPenalty = isJoined ? -30 : 0;
+    
+    const matchScore = Math.max(5, Math.min(100, Math.round(overlapScore * 70 + discoveryBonus + activityBonus + joinedPenalty)));
+    
+    // Generate reason
+    let reason: string;
+    if (genreOverlap.length >= 2) {
+      reason = `You love ${genreOverlap.join(' & ')} — this community is a perfect fit!`;
+    } else if (genreOverlap.length === 1) {
+      reason = `Matches your interest in ${genreOverlap[0]} with a twist you might enjoy.`;
+    } else if (isJoined) {
+      reason = `You're already a member. Explore new discussions this week!`;
+    } else {
+      reason = `Step outside your comfort zone — discover something new.`;
+    }
+    
+    recommendations.push({
+      communityId: community.id,
+      communityName: community.name,
+      reason,
+      matchScore,
+      tags: community.genres.slice(0, 3),
+      memberCount: community.members,
+      isJoined,
+    });
+  }
+  
+  // Sort: unjoined first by match score, then joined
+  return recommendations.sort((a, b) => {
+    if (a.isJoined !== b.isJoined) return a.isJoined ? 1 : -1;
+    return b.matchScore - a.matchScore;
+  });
+}
+
 // Map genres to community IDs for auto-linking debates
 export function getCommunitiesForGenres(genres: Array<{ id: number; name: string }>): string[] {
   const genreToCommunity: Record<string, string[]> = {

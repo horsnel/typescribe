@@ -3,9 +3,17 @@
 import { useEffect, useState } from 'react';
 import DashboardSidebar from '@/components/layout/DashboardLayout';
 import { useAuth } from '@/lib/auth';
-import { Users, Plus, Globe, Sparkles, Film, ExternalLink, LogOut } from 'lucide-react';
+import { Users, Plus, Globe, Sparkles, Film, ExternalLink, LogOut, Trophy, Video, Star } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import AchievementBadge from '@/components/community/AchievementBadge';
+import LeaderboardWidget from '@/components/community/LeaderboardWidget';
+import {
+  getJoinedCommunities as getJoinedCommunityIds,
+  saveJoinedCommunities as saveJoinedCommunityIds,
+  getUpcomingMovieClubs,
+  type MovieClub,
+} from '@/lib/community-storage';
 
 const ALL_COMMUNITIES = [
   { id: 'horror-fans', name: 'Horror Fans', members: 1240, description: 'For lovers of horror and thriller films', type: 'Genre' },
@@ -21,13 +29,13 @@ const ALL_COMMUNITIES = [
 export default function DashboardCommunitiesPage() {
   const { user, isAuthenticated } = useAuth();
   const [joinedIds, setJoinedIds] = useState<string[]>([]);
-  const [activeTab, setActiveTab] = useState<'joined' | 'discover'>('joined');
+  const [activeTab, setActiveTab] = useState<'joined' | 'discover' | 'achievements' | 'leaderboard'>('joined');
+  const [upcomingClubs, setUpcomingClubs] = useState<MovieClub[]>([]);
 
   useEffect(() => {
-    try {
-      const data = localStorage.getItem('typescribe_joined_communities');
-      if (data) setJoinedIds(JSON.parse(data));
-    } catch { /* ignore */ }
+    const ids = getJoinedCommunityIds();
+    setJoinedIds(ids);
+    setUpcomingClubs(getUpcomingMovieClubs(ids));
   }, []);
 
   const toggleJoin = (id: string) => {
@@ -35,7 +43,7 @@ export default function DashboardCommunitiesPage() {
       ? joinedIds.filter(j => j !== id)
       : [...joinedIds, id];
     setJoinedIds(updated);
-    localStorage.setItem('typescribe_joined_communities', JSON.stringify(updated));
+    saveJoinedCommunityIds(updated);
   };
 
   const joinedCommunities = ALL_COMMUNITIES.filter(c => joinedIds.includes(c.id));
@@ -52,26 +60,63 @@ export default function DashboardCommunitiesPage() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 text-center">
           <p className="text-2xl font-bold text-white">{joinedIds.length}</p>
-          <p className="text-xs text-[#6b7280]">Communities Joined</p>
+          <p className="text-xs text-[#6b7280]">Communities</p>
         </div>
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 text-center">
           <p className="text-2xl font-bold text-white">{joinedCommunities.reduce((sum, c) => sum + c.members, 0).toLocaleString()}</p>
           <p className="text-xs text-[#6b7280]">Total Members</p>
         </div>
+        <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 text-center">
+          <p className="text-2xl font-bold text-white">{upcomingClubs.length}</p>
+          <p className="text-xs text-[#6b7280]">Upcoming Clubs</p>
+        </div>
+        <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 text-center">
+          <p className="text-2xl font-bold text-[#d4a853]">{joinedIds.length > 0 ? 'Active' : 'New'}</p>
+          <p className="text-xs text-[#6b7280]">Status</p>
+        </div>
       </div>
 
+      {/* Upcoming Movie Clubs */}
+      {upcomingClubs.length > 0 && (
+        <div className="mb-6">
+          <div className="flex items-center gap-2 mb-3">
+            <Video className="w-5 h-5 text-blue-400" />
+            <h2 className="text-lg font-semibold text-white">Upcoming Watch Parties</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {upcomingClubs.slice(0, 4).map((club) => (
+              <Link
+                key={club.id}
+                href={`/community/${club.communityId}`}
+                className="bg-[#0c0c10] border border-blue-500/20 rounded-xl p-4 hover:border-blue-500/40 transition-all group"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center flex-shrink-0">
+                    <Film className="w-5 h-5 text-blue-400" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h4 className="text-sm font-semibold text-white group-hover:text-blue-400 transition-colors truncate">{club.movieTitle}</h4>
+                    <p className="text-[10px] text-[#6b7280]">{new Date(club.scheduledDate).toLocaleDateString()} · {club.attendees.length} attending</p>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Tabs */}
-      <div className="flex items-center gap-1 mb-6 border-b border-[#1e1e28]">
-        {(['joined', 'discover'] as const).map((tab) => (
+      <div className="flex items-center gap-1 mb-6 border-b border-[#1e1e28] overflow-x-auto">
+        {(['joined', 'achievements', 'leaderboard', 'discover'] as const).map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-4 py-3 text-sm font-medium transition-colors border-b-2 min-h-[44px] ${activeTab === tab ? 'text-white border-[#d4a853]' : 'text-[#6b7280] border-transparent hover:text-white'}`}
+            className={`px-4 py-3 text-sm font-medium transition-colors border-b-2 min-h-[44px] whitespace-nowrap ${activeTab === tab ? 'text-white border-[#d4a853]' : 'text-[#6b7280] border-transparent hover:text-white'}`}
           >
-            {tab === 'joined' ? `Joined (${joinedIds.length})` : 'Discover'}
+            {tab === 'joined' ? `Joined (${joinedIds.length})` : tab === 'achievements' ? 'Badges' : tab === 'leaderboard' ? 'Leaderboard' : 'Discover'}
           </button>
         ))}
       </div>
@@ -108,6 +153,38 @@ export default function DashboardCommunitiesPage() {
             ))}
           </div>
         )
+      )}
+
+      {activeTab === 'achievements' && user && (
+        <div>
+          {joinedIds.length > 0 ? (
+            <div className="space-y-6">
+              {joinedIds.slice(0, 3).map((communityId) => (
+                <AchievementBadge key={communityId} userId={user.id} communityId={communityId} />
+              ))}
+            </div>
+          ) : (
+            <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center">
+              <Trophy className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
+              <h2 className="text-xl font-bold text-white mb-2">No Badges Yet</h2>
+              <p className="text-[#9ca3af]">Join communities and start contributing to earn achievements!</p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {activeTab === 'leaderboard' && (
+        <div>
+          {joinedIds.length > 0 ? (
+            <LeaderboardWidget communityId={joinedIds[0]} communityName={ALL_COMMUNITIES.find(c => c.id === joinedIds[0])?.name || ''} />
+          ) : (
+            <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center">
+              <Star className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
+              <h2 className="text-xl font-bold text-white mb-2">Join a Community First</h2>
+              <p className="text-[#9ca3af]">Leaderboards appear once you join communities.</p>
+            </div>
+          )}
+        </div>
       )}
 
       {activeTab === 'discover' && (

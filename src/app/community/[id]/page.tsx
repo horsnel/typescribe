@@ -8,6 +8,7 @@ import {
   Shield, UserPlus, UserMinus, Loader2, Send, X,
   Heart, ThumbsDown, Share2, Crown, Check, ImagePlus,
   Pencil, Settings2, Swords, BookmarkPlus, Bell, GitCompare,
+  Trophy, Video, Sparkles,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/lib/auth';
@@ -20,6 +21,9 @@ import WeeklyThemeCard from '@/components/community/WeeklyThemeCard';
 import TasteMatchBadge from '@/components/community/TasteMatchBadge';
 import ActivityFeed from '@/components/community/ActivityFeed';
 import CrossCommunityComparison from '@/components/community/CrossCommunityComparison';
+import AchievementBadge from '@/components/community/AchievementBadge';
+import MovieClubWidget from '@/components/community/MovieClubWidget';
+import LeaderboardWidget from '@/components/community/LeaderboardWidget';
 import {
   getUserPostLike,
   getPostLikeCounts,
@@ -34,6 +38,8 @@ import {
   getJoinedCommunities as getJoinedCommunityIds,
   saveJoinedCommunities as saveJoinedCommunityIds,
   generateSeedActivity,
+  recordContribution,
+  checkAndUnlockAchievements,
   type CommunityDebate,
 } from '@/lib/community-storage';
 
@@ -307,7 +313,7 @@ export default function CommunityDetailPage() {
   const [editRules, setEditRules] = useState('');
   const [bgUrl, setBgUrl] = useState('');
   const [saved, setSaved] = useState(false);
-  const [activeTab, setActiveTab] = useState<'discussions' | 'watchlist' | 'debates' | 'activity' | 'compare'>('discussions');
+  const [activeTab, setActiveTab] = useState<'discussions' | 'watchlist' | 'debates' | 'activity' | 'compare' | 'clubs' | 'achievements' | 'leaderboard'>('discussions');
   const [debates, setDebates] = useState<CommunityDebate[]>([]);
 
   const fetchCommunity = useCallback(async () => {
@@ -378,6 +384,11 @@ export default function CommunityDetailPage() {
     setShowNewPost(false);
     setIsSubmitting(false);
     if (community) setCommunity({ ...community, posts: community.posts + 1 });
+    // Record contribution and check achievements (Tier 3)
+    if (user) {
+      recordContribution(communityId, user.id);
+      checkAndUnlockAchievements(user.id, communityId);
+    }
   };
 
   const handleLikeToggle = (postId: string, type: 'like' | 'dislike') => {
@@ -545,6 +556,9 @@ export default function CommunityDetailPage() {
             { key: 'discussions' as const, label: 'Discussions', icon: MessageSquare, count: sortedPosts.length },
             { key: 'watchlist' as const, label: 'Watchlist', icon: BookmarkPlus, count: null },
             { key: 'debates' as const, label: 'Debates', icon: Swords, count: debates.length },
+            { key: 'clubs' as const, label: 'Clubs', icon: Video, count: null },
+            { key: 'leaderboard' as const, label: 'Leaderboard', icon: Trophy, count: null },
+            { key: 'achievements' as const, label: 'Badges', icon: Sparkles, count: null },
             { key: 'activity' as const, label: 'Activity', icon: Bell, count: null },
             { key: 'compare' as const, label: 'Compare', icon: GitCompare, count: null },
           ]).map((tab) => (
@@ -695,6 +709,28 @@ export default function CommunityDetailPage() {
               communityId={communityId}
               communityName={community?.name || ''}
             />
+          </div>
+        )}
+
+        {/* ─── Movie Clubs Tab ─── */}
+        {activeTab === 'clubs' && (
+          <MovieClubWidget communityId={communityId} communityName={community?.name || ''} isMember={isJoined} />
+        )}
+
+        {/* ─── Leaderboard Tab ─── */}
+        {activeTab === 'leaderboard' && (
+          <LeaderboardWidget communityId={communityId} communityName={community?.name || ''} />
+        )}
+
+        {/* ─── Achievements Tab ─── */}
+        {activeTab === 'achievements' && user && (
+          <AchievementBadge userId={user.id} communityId={communityId} />
+        )}
+        {activeTab === 'achievements' && !user && (
+          <div className="text-center py-16 bg-[#0c0c10] border border-[#1e1e28] rounded-xl">
+            <Sparkles className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
+            <h3 className="text-lg font-bold text-white mb-2">Sign In to Track Achievements</h3>
+            <p className="text-sm text-[#6b7280]">Join the community and start earning badges!</p>
           </div>
         )}
 
