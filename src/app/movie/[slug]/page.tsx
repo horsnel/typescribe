@@ -86,18 +86,24 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
   const [completeness, setCompleteness] = React.useState(0);
   const [enriching, setEnriching] = React.useState(false);
   const [enriched, setEnriched] = React.useState(false);
+  const [aiReviewLoading, setAiReviewLoading] = React.useState(false);
+  const [aiReview, setAiReview] = React.useState<string>('');
+  const [trailerSearching, setTrailerSearching] = React.useState(false);
 
   React.useEffect(() => {
     if (!slug) return;
     setLoading(true);
     setEnriched(false);
+    setAiReview('');
+    setAiReviewLoading(false);
+    setTrailerSearching(false);
 
     const controller = new AbortController();
     const enrichmentTimeout = setTimeout(() => {
-      // Auto-dismiss enrichment after 10s — don't let the banner spin forever
+      // Auto-dismiss enrichment after 30s — give full pipeline time including Gemini (30s timeout)
       controller.abort();
       setEnriching(false);
-    }, 10_000);
+    }, 30_000);
 
     // Phase 1: Fast fetch — returns TMDb data immediately (~2-3s)
     fetch(`/api/movies/slug/${slug}`, { signal: controller.signal, cache: 'no-store' as RequestCache })
@@ -109,7 +115,48 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
           setCompleteness(data.completeness || 0);
           setLoading(false);
 
-          // Phase 2: If not enriched, fetch enriched data in background
+          const tmdbId = data.movie.tmdb_id || data.movie.id;
+
+          // Phase 2a: Independent AI Review fetch — doesn't depend on full pipeline
+          if (!data.movie.ai_review) {
+            setAiReviewLoading(true);
+            fetch(`/api/movies/${tmdbId}/ai-review`, { signal: controller.signal, cache: 'no-store' as RequestCache })
+              .then(res => res.ok ? res.json() : null)
+              .then(aiData => {
+                if (aiData?.ai_review) {
+                  setAiReview(aiData.ai_review);
+                  // Also update the movie state so other components can access it
+                  setMovie(prev => prev ? { ...prev, ai_review: aiData.ai_review } : prev);
+                }
+              })
+              .catch(() => { /* AI review fetch failed */ })
+              .finally(() => setAiReviewLoading(false));
+          } else {
+            setAiReview(data.movie.ai_review);
+          }
+
+          // Phase 2b: Client-side trailer fallback — search iTunes directly (free, no key needed)
+          if (!data.movie.trailer_youtube_id && !data.movie.itunes_preview_url) {
+            setTrailerSearching(true);
+            fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(data.movie.title + (data.movie.release_date ? ' ' + data.movie.release_date.substring(0, 4) : ''))}&entity=movie&media=movie&limit=3&country=US`)
+              .then(res => res.ok ? res.json() : null)
+              .then(itunesData => {
+                if (itunesData?.results?.length > 0) {
+                  const preview = itunesData.results.find((r: any) => r.previewUrl && (r.kind === 'feature-movie' || r.wrapperType === 'track'));
+                  if (preview) {
+                    setMovie(prev => prev ? {
+                      ...prev,
+                      itunes_preview_url: preview.previewUrl,
+                      itunes_artwork_url: preview.artworkUrl100?.replace('100x100', '600x600') || preview.artworkUrl100 || '',
+                    } : prev);
+                  }
+                }
+              })
+              .catch(() => { /* iTunes search failed */ })
+              .finally(() => setTrailerSearching(false));
+          }
+
+          // Phase 2c: Full enrichment pipeline (ratings, reviews, box office, etc.)
           if (!data.enriched && data.completeness < 50) {
             setEnriching(true);
             fetch(`/api/movies/slug/${slug}?enriched=true`, { signal: controller.signal, cache: 'no-store' as RequestCache })
@@ -120,6 +167,11 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                   setPipelineSources(enrichedData.sources || []);
                   setCompleteness(enrichedData.completeness || 0);
                   setEnriched(true);
+                  // Update AI review if enriched data has one (may have arrived before the dedicated fetch)
+                  if (enrichedData.movie.ai_review) {
+                    setAiReview(enrichedData.movie.ai_review);
+                    setAiReviewLoading(false);
+                  }
                 }
               })
               .catch(() => { /* enrichment failed, keep fast data */ })
@@ -727,9 +779,29 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                 <span className="inline-flex items-center gap-1 text-[10px] font-semibold bg-[#d4a853]/10 text-[#d4a853] px-2.5 py-0.5 rounded-full border border-[#d4a853]/20">
                   <Sparkles className="w-3 h-3" /> AI
                 </span>
+                {aiReviewLoading && (
+                  <span className="inline-flex items-center gap-1.5 text-[11px] text-[#d4a853] ml-auto">
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    Generating review...
+                  </span>
+                )}
               </div>
               <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
-                <p className="text-[#9ca3af] leading-relaxed text-[15px]">{movie.ai_review}</p>
+                {aiReviewLoading ? (
+                  <div className="space-y-3" aria-busy="true" aria-label="AI review is being generated">
+                    <div className="h-4 bg-[#1e1e28] rounded animate-pulse w-full" />
+                    <div className="h-4 bg-[#1e1e28] rounded animate-pulse w-11/12" />
+                    <div className="h-4 bg-[#1e1e28] rounded animate-pulse w-4/5" />
+                    <div className="h-4 bg-[#1e1e28] rounded animate-pulse w-full" />
+                    <div className="h-4 bg-[#1e1e28] rounded animate-pulse w-9/12" />
+                    <p className="text-xs text-[#6b7280] mt-3 italic flex items-center gap-1.5">
+                      <Sparkles className="w-3 h-3 text-[#d4a853]" />
+                      Gemini AI is analyzing this film...
+                    </p>
+                  </div>
+                ) : (
+                  <p className="text-[#9ca3af] leading-relaxed text-[15px]">{aiReview || movie.ai_review}</p>
+                )}
                 <div className="flex items-start gap-2 mt-5 pt-4 border-t border-[#1e1e28]/50">
                   <AlertTriangle className="w-4 h-4 text-[#6b7280] flex-shrink-0 mt-0.5" />
                   <p className="text-xs text-[#6b7280] italic flex-1">
@@ -1438,6 +1510,16 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                 const hasITunesPreview = !!movie.itunes_preview_url;
 
                 if (!hasYouTubeId && !hasITunesPreview) {
+                  if (trailerSearching) {
+                    return (
+                      <div className="w-full aspect-video bg-[#050507] rounded-lg flex items-center justify-center border border-[#1e1e28]">
+                        <div className="text-center">
+                          <Loader2 className="w-8 h-8 text-[#d4a853] mx-auto mb-2 animate-spin" />
+                          <span className="text-xs text-[#6b7280]">Searching for trailer...</span>
+                        </div>
+                      </div>
+                    );
+                  }
                   return (
                     <div className="w-full aspect-video bg-[#050507] rounded-lg flex items-center justify-center border border-[#1e1e28]">
                       <div className="text-center">
