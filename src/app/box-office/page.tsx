@@ -273,35 +273,37 @@ export default function BoxOfficePage() {
             )}
 
             {/* Full Table */}
-            <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl overflow-x-auto">
-              <div className="min-w-[640px]">
-                {/* Table Header */}
-                <div
-                  className="grid items-center gap-4 px-5 py-3 border-b border-[#1e1e28] text-xs font-semibold text-[#6b7280] uppercase tracking-wider bg-[#050507]/50"
-                  style={{ gridTemplateColumns: activeTab === 'top-all-time' ? '48px 1fr 140px' : '48px 1fr 130px 130px 70px 80px' }}
-                >
-                  <span>Rank</span>
-                  <span>Movie</span>
-                  {activeTab === 'top-all-time' ? (
-                    <span className="text-right">Total Gross</span>
-                  ) : (
-                    <>
-                      <span className="text-right">Weekend</span>
-                      <span className="text-right">Total Gross</span>
-                      <span className="text-right">Wks</span>
-                      <span className="text-right">Change</span>
-                    </>
-                  )}
-                </div>
+            <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl overflow-hidden">
+              {/* Table Header */}
+              <div className="hidden sm:grid items-center gap-4 px-5 py-3 border-b border-[#1e1e28] text-xs font-semibold text-[#6b7280] uppercase tracking-wider bg-[#050507]/50"
+                style={{ gridTemplateColumns: activeTab === 'top-all-time' ? '48px 1fr 140px' : '48px 1fr 1fr 1fr 64px 80px' }}
+              >
+                <span>Rank</span>
+                <span>Movie</span>
+                {activeTab === 'top-all-time' ? (
+                  <span className="text-right">Total Gross</span>
+                ) : (
+                  <>
+                    <span className="text-right">Weekend</span>
+                    <span className="text-right">Total</span>
+                    <span className="text-right">Wks</span>
+                    <span className="text-right">Change</span>
+                  </>
+                )}
+              </div>
 
-                {/* Table Body */}
-                <div className="divide-y divide-[#2a2a35]/50">
-                  {entries.map((entry) => (
-                    <Link
-                      key={entry.id}
-                      href={entry.slug ? `/movie/${entry.slug}` : '#'}
-                      className="grid items-center gap-4 px-5 py-3 hover:bg-[#111118] transition-colors group"
-                      style={{ gridTemplateColumns: activeTab === 'top-all-time' ? '48px 1fr 140px' : '48px 1fr 130px 130px 70px 80px' }}
+              {/* Table Body — Desktop grid, mobile cards */}
+              <div className="divide-y divide-[#2a2a35]/50">
+                {entries.map((entry) => (
+                  <Link
+                    key={entry.id}
+                    href={entry.slug ? `/movie/${entry.slug}` : '#'}
+                    className="group block"
+                  >
+                    {/* Desktop: Grid row */}
+                    <div
+                      className="hidden sm:grid items-center gap-4 px-5 py-3 hover:bg-[#111118] transition-colors"
+                      style={{ gridTemplateColumns: activeTab === 'top-all-time' ? '48px 1fr 140px' : '48px 1fr 1fr 1fr 64px 80px' }}
                     >
                       {/* Rank */}
                       <div className="flex items-center justify-center">
@@ -329,36 +331,66 @@ export default function BoxOfficePage() {
                       </div>
 
                       {activeTab === 'top-all-time' ? (
-                        /* Total Gross (All Time) */
-                        <div className="text-right whitespace-nowrap">
+                        <div className="text-right">
                           <span className="text-sm font-semibold text-[#f5c518]">{formatCurrency(entry.totalGross)}</span>
                         </div>
                       ) : (
                         <>
-                          {/* Weekend Gross */}
-                          <div className="text-right whitespace-nowrap">
+                          <div className="text-right">
                             <span className="text-sm font-medium text-white">{formatCurrency(entry.weekendGross)}</span>
                           </div>
-
-                          {/* Total Gross */}
-                          <div className="text-right whitespace-nowrap">
+                          <div className="text-right">
                             <span className="text-sm font-semibold text-[#f5c518]">{formatCurrency(entry.totalGross)}</span>
                           </div>
-
-                          {/* Weeks */}
-                          <div className="text-right whitespace-nowrap">
+                          <div className="text-right">
                             <span className="text-sm text-[#9ca3af]">{entry.weeks}wk{entry.weeks !== 1 ? 's' : ''}</span>
                           </div>
-
-                          {/* Change */}
-                          <div className="text-right text-sm font-medium whitespace-nowrap">
+                          <div className="text-right text-sm font-medium">
                             <ChangeIndicator value={entry.changePct} />
                           </div>
                         </>
                       )}
-                    </Link>
-                  ))}
-                </div>
+                    </div>
+
+                    {/* Mobile: Card layout */}
+                    <div className="sm:hidden flex gap-3 px-4 py-3 hover:bg-[#111118] transition-colors">
+                      {/* Rank */}
+                      <div className="flex flex-col items-center justify-start pt-1 w-8 flex-shrink-0">
+                        <span className={`text-lg font-bold ${entry.rank <= 3 ? 'text-[#f5c518]' : 'text-[#6b7280]'}`}>
+                          {entry.rank}
+                        </span>
+                      </div>
+                      {/* Poster */}
+                      <div className="w-12 h-[68px] rounded-lg overflow-hidden flex-shrink-0 bg-[#050507]">
+                        <img
+                          src={entry.poster_path}
+                          alt={entry.title}
+                          className="w-full h-full object-cover"
+                          onError={(e) => { (e.target as HTMLImageElement).src = '/images/poster-1.jpg'; }}
+                        />
+                      </div>
+                      {/* Info */}
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-sm font-semibold text-white group-hover:text-[#d4a853] transition-colors truncate">
+                          {entry.title}
+                        </h3>
+                        <span className="text-xs text-[#6b7280]">{entry.year}</span>
+                        <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 mt-1.5">
+                          {activeTab === 'top-all-time' ? (
+                            <span className="text-sm font-semibold text-[#f5c518]">{formatCurrency(entry.totalGross)}</span>
+                          ) : (
+                            <>
+                              <span className="text-xs"><span className="text-[#6b7280]">Wknd </span><span className="text-white font-medium">{formatCurrency(entry.weekendGross)}</span></span>
+                              <span className="text-xs"><span className="text-[#6b7280]">Total </span><span className="text-[#f5c518] font-semibold">{formatCurrency(entry.totalGross)}</span></span>
+                              <span className="text-xs text-[#9ca3af]">{entry.weeks}wk{entry.weeks !== 1 ? 's' : ''}</span>
+                              <span className="text-xs font-medium"><ChangeIndicator value={entry.changePct} /></span>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
               </div>
             </div>
 
