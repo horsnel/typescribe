@@ -16,7 +16,7 @@ interface RankedMovie {
 }
 
 export default function TopRatedPage() {
-  useEffect(() => { window.scrollTo(0, 0); }, []);
+  useEffect(() => { document.querySelector('main')?.scrollTo({ top: 0 }) || window.scrollTo(0, 0); }, []);
 
   const [genreFilter, setGenreFilter] = useState<GenreFilter>('all');
   const [view, setView] = useState<'list' | 'grid'>('list');

@@ -36,7 +36,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
 
   // ─── Scroll to top on mount ───
   useEffect(() => {
-    window.scrollTo(0, 0);
+    document.querySelector('main')?.scrollTo({ top: 0 }) || window.scrollTo(0, 0);
   }, [id]);
 
   // ─── Fetch anime data ───

@@ -70,7 +70,7 @@ function formatTimeAgo(dateStr: string): string {
 }
 
 export default function NewsPage() {
-  useEffect(() => { window.scrollTo(0, 0); }, []);
+  useEffect(() => { document.querySelector('main')?.scrollTo({ top: 0 }) || window.scrollTo(0, 0); }, []);
 
   const [articles, setArticles] = useState<NewsArticle[]>([]);
   const [loading, setLoading] = useState(true);
@@ -134,7 +134,7 @@ export default function NewsPage() {
 
   const handleArticleClick = useCallback(async (id: number) => {
     setSelectedArticle({ id, data: null, loading: true, error: null });
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.querySelector('main')?.scrollTo({ top: 0, behavior: 'smooth' as ScrollBehavior }) || window.scrollTo({ top: 0, behavior: 'smooth' as ScrollBehavior });
 
     try {
       const res = await fetch(`/api/news/${id}`);

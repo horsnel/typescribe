@@ -29,7 +29,7 @@ export default function MyReviewsPage() {
   const [showFilters, setShowFilters] = useState(false);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    document.querySelector('main')?.scrollTo({ top: 0 }) || window.scrollTo(0, 0);
     const loadReviews = () => {
       try {
         const data = localStorage.getItem('typescribe_user_reviews');

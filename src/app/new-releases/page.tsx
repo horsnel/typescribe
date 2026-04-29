@@ -11,7 +11,7 @@ type TimeFilter = 'this-week' | 'this-month' | 'last-3-months' | 'this-year' | '
 type SortOption = 'newest' | 'rating' | 'popularity';
 
 export default function NewReleasesPage() {
-  useEffect(() => { window.scrollTo(0, 0); }, []);
+  useEffect(() => { document.querySelector('main')?.scrollTo({ top: 0 }) || window.scrollTo(0, 0); }, []);
 
   const [timeFilter, setTimeFilter] = useState<TimeFilter>('this-year');
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);

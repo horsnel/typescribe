@@ -9,8 +9,8 @@ import { useEffect, useRef } from 'react';
  * Uses IntersectionObserver for scroll-triggered reveal animations
  * instead of Lenis + GSAP ScrollTrigger.
  *
- * This eliminates the "notebook page" scrolling feel caused by Lenis
- * smooth scroll while still providing elegant fade-in animations.
+ * Works with the app shell architecture where <main> is the scroll container
+ * (not window/document).
  *
  * The home page (src/app/page.tsx) initializes its own Lenis instance
  * for its showcase scroll experience.

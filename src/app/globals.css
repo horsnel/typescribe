@@ -119,11 +119,13 @@
   }
   html {
     scrollbar-gutter: stable;
-    overflow-x: hidden;
+    overflow: hidden;
+    height: 100%;
   }
   body {
     @apply bg-background text-foreground;
-    overflow-x: hidden;
+    overflow: hidden;
+    height: 100%;
   }
 }
 
@@ -216,12 +218,12 @@
 .scrollbar-thin::-webkit-scrollbar-thumb:hover { background: #3a3a45; }
 .scrollbar-thin { scrollbar-width: thin; scrollbar-color: #2a2a35 transparent; }
 
-/* Global page scrollbar */
-html::-webkit-scrollbar { width: 8px; }
-html::-webkit-scrollbar-track { background: #050507; }
-html::-webkit-scrollbar-thumb { background: #1e1e28; border-radius: 4px; }
-html::-webkit-scrollbar-thumb:hover { background: #2a2a35; }
-html { scrollbar-width: thin; scrollbar-color: #1e1e28 #050507; }
+/* Main content area scrollbar (the only scroll container on the page) */
+main::-webkit-scrollbar { width: 8px; }
+main::-webkit-scrollbar-track { background: #050507; }
+main::-webkit-scrollbar-thumb { background: #1e1e28; border-radius: 4px; }
+main::-webkit-scrollbar-thumb:hover { background: #2a2a35; }
+main { scrollbar-width: thin; scrollbar-color: #1e1e28 #050507; }
 
 /* ─── Native Scroll Reveal Animations ─── */
 /* Used by NativeScrollReveal component (IntersectionObserver-based) */

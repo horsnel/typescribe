@@ -191,7 +191,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
 
   // Scroll to top on mount / slug change
   useEffect(() => {
-    window.scrollTo(0, 0);
+    document.querySelector('main')?.scrollTo({ top: 0 }) || window.scrollTo(0, 0);
     setReviewsVisible(3);
     setOverviewExpanded(false);
     setTrailerOpen(false);

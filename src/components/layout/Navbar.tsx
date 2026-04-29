@@ -79,11 +79,17 @@ export default function Navbar() {
     }
   };
 
-  // Scroll detection
+  // Scroll detection — listen to the <main> scroll container (app shell architecture)
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    const mainEl = document.querySelector('main');
+    const handleScroll = () => setScrolled((mainEl?.scrollTop ?? window.scrollY) > 20);
+    if (mainEl) {
+      mainEl.addEventListener('scroll', handleScroll, { passive: true });
+      return () => mainEl.removeEventListener('scroll', handleScroll);
+    } else {
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      return () => window.removeEventListener('scroll', handleScroll);
+    }
   }, []);
 
   // Close mobile menu & profile dropdown on navigation

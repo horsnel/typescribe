@@ -25,18 +25,22 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#050507] text-white`}>
+    <html lang="en" className="dark h-full" suppressHydrationWarning>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#050507] text-white h-full overflow-hidden`}>
         {/* Subtle ambient glow */}
         <div className="fixed inset-0 pointer-events-none z-0">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#d4a853]/[0.03] rounded-full blur-[120px]" />
         </div>
         <AuthProvider>
           <NativeScrollReveal>
-            <div className="min-h-screen bg-[#050507] flex flex-col">
+            {/* App Shell: locked viewport — navbar stays, content scrolls inside */}
+            <div className="h-full flex flex-col bg-[#050507]">
               <Navbar />
-              <main className="flex-1">{children}</main>
-              <Footer />
+              {/* Scrollable content area — footer lives INSIDE this scroll container */}
+              <main className="flex-1 overflow-y-auto">
+                {children}
+                <Footer />
+              </main>
               <CookieBanner />
             </div>
           </NativeScrollReveal>

@@ -15,26 +15,39 @@ export function initLenis() {
     cleanupAnimations();
   }
 
+  // Target the <main> scroll container (not window) since the app shell
+  // uses overflow-y-auto on <main> with a locked viewport
+  const scrollContainer = document.querySelector('main') || undefined;
+
   lenis = new Lenis({
     duration: 1.2,
     easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     smoothWheel: true,
-    // Performance: reduce frequency of scroll events
     touchMultiplier: 1.5,
-    // Reduce layout thrashing
     infinite: false,
+    wrapper: scrollContainer,
+    content: scrollContainer,
   });
 
   // Use GSAP ticker instead of separate rAF loop to avoid double rAF calls
-  // This reduces CPU usage significantly (fixes device heating)
   gsap.ticker.add((time) => {
     lenis?.raf(time * 1000);
   });
 
-  // Remove the separate rAF loop — GSAP ticker handles it
-  // This was causing double animation frames, leading to device overheating
-
   lenis.on('scroll', ScrollTrigger.update);
+
+  // Tell ScrollTrigger to use the <main> as the scroll container
+  ScrollTrigger.scrollerProxy(scrollContainer!, {
+    scrollTop(value) {
+      if (arguments.length && value !== undefined) {
+        (scrollContainer as HTMLElement).scrollTop = value;
+      }
+      return (scrollContainer as HTMLElement).scrollTop;
+    },
+    getBoundingClientRect() {
+      return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
+    },
+  });
 
   // Performance: throttle ScrollTrigger refresh
   gsap.ticker.lagSmoothing(0);
@@ -59,12 +72,12 @@ export function animateHero() {
 
 export function initScrollReveal() {
   // Performance: Batch ScrollTrigger creation to reduce reflows
-  // Use a single refresh at the end instead of per-trigger refresh
   ScrollTrigger.config({
     limitCallbacks: true,
     ignoreMobileResize: true,
   });
 
+  const scrollContainer = document.querySelector('main') || undefined;
   const triggers: ScrollTrigger[] = [];
 
   gsap.utils.toArray<HTMLElement>('.reveal-section').forEach((section) => {
@@ -75,8 +88,8 @@ export function initScrollReveal() {
           trigger: section,
           start: 'top 85%',
           toggleActions: 'play none none none',
-          // Performance: only animate once, don't re-animate on scroll back
           once: true,
+          scroller: scrollContainer,
         },
       }).scrollTrigger!
     );
@@ -92,6 +105,7 @@ export function initScrollReveal() {
             trigger: grid,
             start: 'top 80%',
             once: true,
+            scroller: scrollContainer,
           },
         }).scrollTrigger!
       );
@@ -108,6 +122,7 @@ export function initScrollReveal() {
             trigger: carousel,
             start: 'top 85%',
             once: true,
+            scroller: scrollContainer,
           },
         }).scrollTrigger!
       );
@@ -116,6 +131,8 @@ export function initScrollReveal() {
 
   // Single refresh after all triggers are created
   ScrollTrigger.refresh();
+
+  return triggers;
 }
 
 export function cleanupAnimations() {

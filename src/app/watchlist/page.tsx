@@ -22,7 +22,7 @@ export default function WatchlistPage() {
       .filter((m): m is typeof movies[number] & { addedDate: string } => !!m.id)
   );
 
-  useEffect(() => { window.scrollTo(0, 0); }, []);
+  useEffect(() => { document.querySelector('main')?.scrollTo({ top: 0 }) || window.scrollTo(0, 0); }, []);
 
   if (!isAuthenticated || !user) {
     return (
