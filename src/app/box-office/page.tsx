@@ -181,7 +181,7 @@ export default function BoxOfficePage() {
           </div>
         )}
 
-        {/* Box Office Table */}
+        {/* Box Office Rankings */}
         {!isLoading && entries.length > 0 && (
           <>
             {/* Top 3 Highlight Cards */}
@@ -214,11 +214,11 @@ export default function BoxOfficePage() {
                         </h3>
                         <p className="text-xs text-[#6b7280] mt-0.5">{entry.year}</p>
                         <div className="flex items-center gap-2 mt-2">
-                          <span className="text-sm font-semibold text-[#f5c518] whitespace-nowrap">{formatCurrency(entry.weekendGross)}</span>
+                          <span className="text-sm font-semibold text-[#f5c518]">{formatCurrency(entry.weekendGross)}</span>
                           <span className="text-xs text-[#6b7280]">wknd</span>
                         </div>
                         <div className="flex items-center gap-2 mt-1">
-                          <span className="text-xs font-medium text-white whitespace-nowrap">{formatCurrency(entry.totalGross)}</span>
+                          <span className="text-xs font-medium text-white">{formatCurrency(entry.totalGross)}</span>
                           <span className="text-[10px] text-[#6b7280]">total</span>
                           <span className="text-[10px] text-[#6b7280] ml-1">{entry.weeks}wk</span>
                         </div>
@@ -261,7 +261,7 @@ export default function BoxOfficePage() {
                         </h3>
                         <p className="text-xs text-[#6b7280] mt-0.5">{entry.year}</p>
                         <div className="flex items-center gap-3 mt-2">
-                          <span className="text-sm font-semibold text-[#f5c518] whitespace-nowrap">{formatCurrency(entry.totalGross)}</span>
+                          <span className="text-sm font-semibold text-[#f5c518]">{formatCurrency(entry.totalGross)}</span>
                           <span className="text-xs text-[#6b7280]">worldwide</span>
                         </div>
                       </div>
@@ -271,102 +271,90 @@ export default function BoxOfficePage() {
               </div>
             )}
 
-            {/* Full Table */}
-            <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl overflow-hidden">
-              {/* Scrollable wrapper for desktop table — allows horizontal scroll on narrow screens */}
-              <div className="overflow-x-auto">
-                <div className="min-w-[700px]">
-                  {/* Table Header — visible on md+ (768px+ after min-width scroll) */}
-                  <div className="grid items-center gap-4 px-5 py-3 border-b border-[#1e1e28] text-xs font-semibold text-[#6b7280] uppercase tracking-wider bg-[#050507]/50"
-                    style={{ gridTemplateColumns: activeTab === 'top-all-time'
-                      ? 'minmax(52px, 56px) minmax(200px, 1fr) minmax(120px, 160px)'
-                      : 'minmax(52px, 56px) minmax(200px, 1fr) minmax(90px, 120px) minmax(90px, 120px) minmax(56px, 70px) minmax(80px, 100px)'
-                    }}
-                  >
-                    <span>Rank</span>
-                    <span>Movie</span>
+            {/* ===== DESKTOP TABLE (md+ only) ===== */}
+            <div className="hidden md:block bg-[#0c0c10] border border-[#1e1e28] rounded-xl overflow-x-auto">
+              <table className="w-full border-collapse min-w-[780px]">
+                {/* Table Header */}
+                <thead>
+                  <tr className="border-b border-[#1e1e28] bg-[#050507]/50">
+                    <th className="text-left px-5 py-3 text-xs font-semibold text-[#6b7280] uppercase tracking-wider w-[56px]">Rank</th>
+                    <th className="text-left px-3 py-3 text-xs font-semibold text-[#6b7280] uppercase tracking-wider">Movie</th>
                     {activeTab === 'top-all-time' ? (
-                      <span className="text-right">Total Gross</span>
+                      <th className="text-right px-5 py-3 text-xs font-semibold text-[#6b7280] uppercase tracking-wider w-[150px]">Total Gross</th>
                     ) : (
                       <>
-                        <span className="text-right">Weekend</span>
-                        <span className="text-right">Total</span>
-                        <span className="text-right">Wks</span>
-                        <span className="text-right">Change</span>
+                        <th className="text-right px-3 py-3 text-xs font-semibold text-[#6b7280] uppercase tracking-wider w-[120px]">Weekend</th>
+                        <th className="text-right px-3 py-3 text-xs font-semibold text-[#6b7280] uppercase tracking-wider w-[120px]">Total</th>
+                        <th className="text-right px-3 py-3 text-xs font-semibold text-[#6b7280] uppercase tracking-wider w-[70px]">Wks</th>
+                        <th className="text-right px-5 py-3 text-xs font-semibold text-[#6b7280] uppercase tracking-wider w-[90px]">Change</th>
                       </>
                     )}
-                  </div>
-
-                  {/* Table Body — Desktop grid rows */}
-                  <div className="divide-y divide-[#2a2a35]/50">
-                    {entries.map((entry) => (
-                      <Link
-                        key={entry.id}
-                        href={entry.slug ? `/movie/${entry.slug}` : '#'}
-                        className="group block"
-                      >
-                        {/* Desktop: Grid row */}
-                        <div
-                          className="grid items-center gap-4 px-5 py-3 hover:bg-[#111118] transition-colors"
-                          style={{ gridTemplateColumns: activeTab === 'top-all-time'
-                            ? 'minmax(52px, 56px) minmax(200px, 1fr) minmax(120px, 160px)'
-                            : 'minmax(52px, 56px) minmax(200px, 1fr) minmax(90px, 120px) minmax(90px, 120px) minmax(56px, 70px) minmax(80px, 100px)'
-                          }}
+                  </tr>
+                </thead>
+                {/* Table Body */}
+                <tbody>
+                  {entries.map((entry) => (
+                    <tr
+                      key={entry.id}
+                      className="border-b border-[#2a2a35]/50 hover:bg-[#111118] transition-colors"
+                    >
+                      {/* Rank */}
+                      <td className="px-5 py-3">
+                        <span className={`text-lg font-bold ${entry.rank <= 3 ? 'text-[#f5c518]' : 'text-[#6b7280]'}`}>
+                          {entry.rank}
+                        </span>
+                      </td>
+                      {/* Movie */}
+                      <td className="px-3 py-3">
+                        <Link
+                          href={entry.slug ? `/movie/${entry.slug}` : '#'}
+                          className="group flex items-center gap-3"
                         >
-                          {/* Rank */}
-                          <div className="flex items-center justify-center">
-                            <span className={`text-lg font-bold whitespace-nowrap ${entry.rank <= 3 ? 'text-[#f5c518]' : 'text-[#6b7280]'}`}>
-                              {entry.rank}
-                            </span>
+                          <div className="w-10 h-14 rounded-lg overflow-hidden flex-shrink-0 bg-[#050507]">
+                            <img
+                              src={entry.poster_path}
+                              alt={entry.title}
+                              className="w-full h-full object-cover"
+                              onError={(e) => { (e.target as HTMLImageElement).src = '/images/poster-1.jpg'; }}
+                            />
                           </div>
-
-                          {/* Movie Info */}
-                          <div className="flex items-center gap-3 min-w-0">
-                            <div className="w-10 h-14 rounded-lg overflow-hidden flex-shrink-0 bg-[#050507]">
-                              <img
-                                src={entry.poster_path}
-                                alt={entry.title}
-                                className="w-full h-full object-cover"
-                                onError={(e) => { (e.target as HTMLImageElement).src = '/images/poster-1.jpg'; }}
-                              />
-                            </div>
-                            <div className="min-w-0 flex-1">
-                              <h3 className="text-sm font-semibold text-white group-hover:text-[#d4a853] transition-colors truncate">
-                                {entry.title}
-                              </h3>
-                              <span className="text-xs text-[#6b7280]">{entry.year}</span>
-                            </div>
+                          <div className="min-w-0">
+                            <h3 className="text-sm font-semibold text-white group-hover:text-[#d4a853] transition-colors truncate max-w-[300px]">
+                              {entry.title}
+                            </h3>
+                            <span className="text-xs text-[#6b7280]">{entry.year}</span>
                           </div>
+                        </Link>
+                      </td>
+                      {activeTab === 'top-all-time' ? (
+                        <td className="px-5 py-3 text-right">
+                          <span className="text-sm font-semibold text-[#f5c518]">{formatCurrency(entry.totalGross)}</span>
+                        </td>
+                      ) : (
+                        <>
+                          <td className="px-3 py-3 text-right">
+                            <span className="text-sm font-medium text-white">{formatCurrency(entry.weekendGross)}</span>
+                          </td>
+                          <td className="px-3 py-3 text-right">
+                            <span className="text-sm font-semibold text-[#f5c518]">{formatCurrency(entry.totalGross)}</span>
+                          </td>
+                          <td className="px-3 py-3 text-right">
+                            <span className="text-sm text-[#9ca3af]">{entry.weeks}wk{entry.weeks !== 1 ? 's' : ''}</span>
+                          </td>
+                          <td className="px-5 py-3 text-right text-sm font-medium">
+                            <ChangeIndicator value={entry.changePct} />
+                          </td>
+                        </>
+                      )}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
-                          {activeTab === 'top-all-time' ? (
-                            <div className="text-right">
-                              <span className="text-sm font-semibold text-[#f5c518] whitespace-nowrap">{formatCurrency(entry.totalGross)}</span>
-                            </div>
-                          ) : (
-                            <>
-                              <div className="text-right">
-                                <span className="text-sm font-medium text-white whitespace-nowrap">{formatCurrency(entry.weekendGross)}</span>
-                              </div>
-                              <div className="text-right">
-                                <span className="text-sm font-semibold text-[#f5c518] whitespace-nowrap">{formatCurrency(entry.totalGross)}</span>
-                              </div>
-                              <div className="text-right">
-                                <span className="text-sm text-[#9ca3af] whitespace-nowrap">{entry.weeks}wk{entry.weeks !== 1 ? 's' : ''}</span>
-                              </div>
-                              <div className="text-right text-sm font-medium whitespace-nowrap">
-                                <ChangeIndicator value={entry.changePct} />
-                              </div>
-                            </>
-                          )}
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Mobile: Card layout — visible only on small screens */}
-              <div className="md:hidden divide-y divide-[#2a2a35]/50">
+            {/* ===== MOBILE CARDS (below md) ===== */}
+            <div className="md:hidden bg-[#0c0c10] border border-[#1e1e28] rounded-xl overflow-hidden">
+              <div className="divide-y divide-[#2a2a35]/50">
                 {entries.map((entry) => (
                   <Link
                     key={entry.id}
@@ -376,7 +364,7 @@ export default function BoxOfficePage() {
                     <div className="flex gap-3 px-4 py-3 hover:bg-[#111118] transition-colors">
                       {/* Rank */}
                       <div className="flex flex-col items-center justify-start pt-1 w-9 flex-shrink-0">
-                        <span className={`text-lg font-bold whitespace-nowrap ${entry.rank <= 3 ? 'text-[#f5c518]' : 'text-[#6b7280]'}`}>
+                        <span className={`text-lg font-bold ${entry.rank <= 3 ? 'text-[#f5c518]' : 'text-[#6b7280]'}`}>
                           {entry.rank}
                         </span>
                       </div>
@@ -397,13 +385,13 @@ export default function BoxOfficePage() {
                         <span className="text-xs text-[#6b7280]">{entry.year}</span>
                         <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 mt-1.5">
                           {activeTab === 'top-all-time' ? (
-                            <span className="text-sm font-semibold text-[#f5c518] whitespace-nowrap">{formatCurrency(entry.totalGross)}</span>
+                            <span className="text-sm font-semibold text-[#f5c518]">{formatCurrency(entry.totalGross)}</span>
                           ) : (
                             <>
-                              <span className="text-xs whitespace-nowrap"><span className="text-[#6b7280]">Wknd </span><span className="text-white font-medium">{formatCurrency(entry.weekendGross)}</span></span>
-                              <span className="text-xs whitespace-nowrap"><span className="text-[#6b7280]">Total </span><span className="text-[#f5c518] font-semibold">{formatCurrency(entry.totalGross)}</span></span>
-                              <span className="text-xs text-[#9ca3af] whitespace-nowrap">{entry.weeks}wk{entry.weeks !== 1 ? 's' : ''}</span>
-                              <span className="text-xs font-medium whitespace-nowrap"><ChangeIndicator value={entry.changePct} /></span>
+                              <span className="text-xs"><span className="text-[#6b7280]">Wknd </span><span className="text-white font-medium">{formatCurrency(entry.weekendGross)}</span></span>
+                              <span className="text-xs"><span className="text-[#6b7280]">Total </span><span className="text-[#f5c518] font-semibold">{formatCurrency(entry.totalGross)}</span></span>
+                              <span className="text-xs text-[#9ca3af]">{entry.weeks}wk{entry.weeks !== 1 ? 's' : ''}</span>
+                              <span className="text-xs font-medium"><ChangeIndicator value={entry.changePct} /></span>
                             </>
                           )}
                         </div>
