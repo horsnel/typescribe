@@ -7,6 +7,7 @@ import { Search, Menu, X, Film, LogOut, LayoutDashboard, Star, Users, Bookmark, 
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/lib/auth';
 import SearchOverlay from '@/components/layout/SearchOverlay';
+import NotificationBell from '@/components/community/NotificationBell';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -192,6 +193,9 @@ export default function Navbar() {
           <button onClick={() => setSearchOpen(true)} className="sm:hidden p-2 text-[#9ca3af] hover:text-amber-400 transition-colors" aria-label="Search">
             <Search className="w-5 h-5" />
           </button>
+
+          {/* Notification Bell for authenticated users */}
+          {isAuthenticated && <NotificationBell />}
 
           {isAuthenticated ? (
             <div className="relative" ref={profileMenuRef}>

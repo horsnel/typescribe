@@ -543,6 +543,411 @@ export function addDebateToCommunity(debate: Omit<CommunityDebate, 'id'>): Commu
   return newDebate;
 }
 
+// ─── Weekly Themes ───
+
+export interface WeeklyTheme {
+  communityId: string;
+  weekStart: string; // ISO date of Monday
+  title: string;
+  description: string;
+  prompt: string;
+  suggestedMovies: Array<{ title: string; slug: string; reason: string }>;
+  createdAt: string;
+}
+
+const WEEKLY_THEMES_KEY = 'typescribe_community_weekly_themes';
+
+// Community genre profiles for theme generation
+const COMMUNITY_GENRE_PROFILES: Record<string, { genres: string[]; vibes: string[] }> = {
+  'horror-fans': { genres: ['Horror', 'Thriller', 'Mystery'], vibes: ['spine-chilling', 'unsettling', 'dark', 'atmospheric'] },
+  'k-drama-club': { genres: ['Drama', 'Romance'], vibes: ['emotional', 'heartwarming', 'binge-worthy', 'slow-burn'] },
+  'nollywood-watchers': { genres: ['Drama', 'Action', 'Comedy'], vibes: ['vibrant', 'culturally rich', 'groundbreaking', 'entertaining'] },
+  'nolan-fans': { genres: ['Sci-Fi', 'Thriller', 'Mystery'], vibes: ['mind-bending', 'cerebral', 'epic', 'non-linear'] },
+  'anime-explorers': { genres: ['Animation', 'Fantasy', 'Action'], vibes: ['visually stunning', 'imaginative', 'emotional', 'epic'] },
+  'classic-cinema': { genres: ['Drama', 'History', 'Romance'], vibes: ['timeless', 'pioneering', 'elegant', 'influential'] },
+  'scifi-universe': { genres: ['Science Fiction', 'Adventure', 'Fantasy'], vibes: ['visionary', 'thought-provoking', 'vast', 'futuristic'] },
+  'indie-film-lovers': { genres: ['Drama', 'Comedy', 'Romance'], vibes: ['intimate', 'authentic', 'hidden-gem', 'quirky'] },
+  'bollywood-beats': { genres: ['Romance', 'Music', 'Drama'], vibes: ['spectacular', 'musical', 'colourful', 'soulful'] },
+  'documentary-circle': { genres: ['Documentary', 'History'], vibes: ['eye-opening', 'real', 'investigative', 'impactful'] },
+  'romance-fans': { genres: ['Romance', 'Drama', 'Comedy'], vibes: ['heartwarming', 'passionate', 'tender', 'swoon-worthy'] },
+  'a24-appreciation': { genres: ['Drama', 'Horror', 'Indie'], vibes: ['avant-garde', 'haunting', 'beautifully strange', 'bold'] },
+};
+
+const THEME_TEMPLATES: Array<(vibes: string[]) => { title: string; description: string; prompt: string }> = [
+  (vibes) => ({
+    title: `Most ${vibes[0]} film of the decade?`,
+    description: `Share the film that left the most ${vibes[0]} impression on you from the past 10 years.`,
+    prompt: `What film gave you the most ${vibes[0]} experience in the last decade? Why does it stand out above the rest?`,
+  }),
+  (vibes) => ({
+    title: `Underrated ${vibes[1]} picks`,
+    description: `Hidden gems that deserve more recognition for their ${vibes[1]} qualities.`,
+    prompt: `What's a film with incredible ${vibes[1]} qualities that flew under the radar? Convince us to watch it.`,
+  }),
+  (vibes) => ({
+    title: `${vibes[2]} movie matchups`,
+    description: `Compare two films with similar ${vibes[2]} vibes and debate which one did it better.`,
+    prompt: `Pick two films that share ${vibes[2]} qualities. Which one executed it better and why?`,
+  }),
+  (vibes) => ({
+    title: `The ${vibes[3]} starter pack`,
+    description: `If someone wanted to experience the best ${vibes[3]} cinema, which 3 films would you recommend?`,
+    prompt: `You're introducing someone to ${vibes[3]} cinema. What 3 films make the perfect starter pack?`,
+  }),
+  (vibes) => ({
+    title: `Directors who master the ${vibes[0]} craft`,
+    description: `Celebrating filmmakers who consistently deliver ${vibes[0]} experiences.`,
+    prompt: `Which director consistently delivers the most ${vibes[0]} films? Share your favourite work of theirs.`,
+  }),
+  (vibes) => ({
+    title: `${vibes[1]} scenes that stayed with you`,
+    description: `Those unforgettable moments that define why we love ${vibes[1]} cinema.`,
+    prompt: `What single scene from a film is permanently etched in your mind for being so ${vibes[1]}? No spoilers!`,
+  }),
+];
+
+export function getWeeklyTheme(communityId: string): WeeklyTheme | null {
+  try {
+    const data = localStorage.getItem(WEEKLY_THEMES_KEY);
+    const all: WeeklyTheme[] = data ? JSON.parse(data) : [];
+    const now = new Date();
+    const monday = new Date(now);
+    monday.setDate(now.getDate() - ((now.getDay() + 6) % 7));
+    monday.setHours(0, 0, 0, 0);
+    const weekStart = monday.toISOString().split('T')[0];
+    return all.find(t => t.communityId === communityId && t.weekStart === weekStart) || null;
+  } catch { return null; }
+}
+
+export function generateWeeklyTheme(communityId: string): WeeklyTheme {
+  const profile = COMMUNITY_GENRE_PROFILES[communityId] || { genres: ['Drama'], vibes: ['compelling', 'thoughtful', 'powerful', 'moving'] };
+  const now = new Date();
+  const monday = new Date(now);
+  monday.setDate(now.getDate() - ((now.getDay() + 6) % 7));
+  monday.setHours(0, 0, 0, 0);
+  const weekStart = monday.toISOString().split('T')[0];
+
+  // Seeded random based on week + community
+  const seed = communityId.split('').reduce((a, c) => a + c.charCodeAt(0), 0) + monday.getTime() % 1000;
+  const templateIdx = seed % THEME_TEMPLATES.length;
+  const template = THEME_TEMPLATES[templateIdx](profile.vibes);
+
+  const theme: WeeklyTheme = {
+    communityId,
+    weekStart,
+    title: template.title,
+    description: template.description,
+    prompt: template.prompt,
+    suggestedMovies: [],
+    createdAt: new Date().toISOString(),
+  };
+
+  // Save it
+  try {
+    const data = localStorage.getItem(WEEKLY_THEMES_KEY);
+    const all: WeeklyTheme[] = data ? JSON.parse(data) : [];
+    const existingIdx = all.findIndex(t => t.communityId === communityId && t.weekStart === weekStart);
+    if (existingIdx >= 0) {
+      return all[existingIdx];
+    }
+    all.push(theme);
+    localStorage.setItem(WEEKLY_THEMES_KEY, JSON.stringify(all));
+  } catch { /* ignore */ }
+
+  return theme;
+}
+
+export function getAllWeeklyThemes(): WeeklyTheme[] {
+  try {
+    const data = localStorage.getItem(WEEKLY_THEMES_KEY);
+    return data ? JSON.parse(data) : [];
+  } catch { return []; }
+}
+
+// ─── Taste Match Score ───
+
+export interface TasteMatchResult {
+  communityId: string;
+  score: number; // 0-100
+  matchedGenres: string[];
+  totalGenres: string[];
+  label: string; // 'Perfect Match', 'Great Match', 'Good Match', 'Different Taste'
+}
+
+const COMMUNITY_TASTE_PROFILES: Record<string, { genres: string[]; avgRatingBias: Record<string, number> }> = {
+  'horror-fans': { genres: ['Horror', 'Thriller', 'Mystery'], avgRatingBias: { 'Horror': 1.3, 'Thriller': 1.15, 'Mystery': 1.1 } },
+  'k-drama-club': { genres: ['Drama', 'Romance'], avgRatingBias: { 'Drama': 1.2, 'Romance': 1.2 } },
+  'nollywood-watchers': { genres: ['Drama', 'Action', 'Comedy'], avgRatingBias: { 'Drama': 1.1, 'Action': 1.15, 'Comedy': 1.05 } },
+  'nolan-fans': { genres: ['Sci-Fi', 'Thriller', 'Mystery'], avgRatingBias: { 'Sci-Fi': 1.2, 'Thriller': 1.2, 'Mystery': 1.15 } },
+  'anime-explorers': { genres: ['Animation', 'Fantasy', 'Action'], avgRatingBias: { 'Animation': 1.3, 'Fantasy': 1.15, 'Action': 1.05 } },
+  'classic-cinema': { genres: ['Drama', 'History', 'Romance'], avgRatingBias: { 'Drama': 1.1, 'History': 1.3, 'Romance': 1.0 } },
+  'scifi-universe': { genres: ['Science Fiction', 'Adventure', 'Fantasy'], avgRatingBias: { 'Science Fiction': 1.3, 'Adventure': 1.1, 'Fantasy': 1.05 } },
+  'indie-film-lovers': { genres: ['Drama', 'Comedy', 'Romance'], avgRatingBias: { 'Drama': 1.15, 'Comedy': 1.1, 'Romance': 1.0 } },
+  'bollywood-beats': { genres: ['Romance', 'Music', 'Drama'], avgRatingBias: { 'Romance': 1.2, 'Music': 1.3, 'Drama': 1.05 } },
+  'documentary-circle': { genres: ['Documentary', 'History'], avgRatingBias: { 'Documentary': 1.35, 'History': 1.15 } },
+  'romance-fans': { genres: ['Romance', 'Drama', 'Comedy'], avgRatingBias: { 'Romance': 1.3, 'Drama': 1.05, 'Comedy': 1.0 } },
+  'a24-appreciation': { genres: ['Drama', 'Horror', 'Indie'], avgRatingBias: { 'Drama': 1.2, 'Horror': 1.15, 'Indie': 1.3 } },
+};
+
+export function calculateTasteMatch(userGenres: string[], communityId: string): TasteMatchResult {
+  const profile = COMMUNITY_TASTE_PROFILES[communityId];
+  if (!profile) {
+    return { communityId, score: 25, matchedGenres: [], totalGenres: userGenres, label: 'Different Taste' };
+  }
+
+  const communityGenres = profile.genres;
+  const normalizedUserGenres = userGenres.map(g => g.toLowerCase());
+  const normalizedCommunityGenres = communityGenres.map(g => g.toLowerCase());
+
+  // Calculate overlap
+  const matchedGenres = communityGenres.filter(g => normalizedUserGenres.includes(g.toLowerCase()));
+  const matchCount = matchedGenres.length;
+  const totalUnique = new Set([...normalizedUserGenres, ...normalizedCommunityGenres]).size;
+
+  // Base score from Jaccard similarity
+  const jaccardScore = totalUnique > 0 ? matchCount / totalUnique : 0;
+
+  // Bonus for high-bias genre alignment
+  let biasBonus = 0;
+  for (const genre of matchedGenres) {
+    const bias = profile.avgRatingBias[genre] || 1.0;
+    biasBonus += (bias - 1.0) * 20; // Up to ~6 points per matched genre
+  }
+
+  // Calculate final score
+  let score = Math.round(jaccardScore * 70 + biasBonus + matchCount * 5);
+  score = Math.max(5, Math.min(100, score));
+
+  let label: string;
+  if (score >= 85) label = 'Perfect Match';
+  else if (score >= 70) label = 'Great Match';
+  else if (score >= 50) label = 'Good Match';
+  else if (score >= 30) label = 'Worth Exploring';
+  else label = 'Different Taste';
+
+  return { communityId, score, matchedGenres, totalGenres: userGenres, label };
+}
+
+// ─── Activity Feed & Notifications ───
+
+export type ActivityType = 'new_post' | 'new_comment' | 'new_debate' | 'new_member' | 'weekly_theme' | 'watchlist_vote' | 'like';
+
+export interface ActivityItem {
+  id: string;
+  type: ActivityType;
+  communityId: string;
+  communityName: string;
+  actorId: number;
+  actorName: string;
+  actorAvatar: string;
+  targetId: string; // post id, debate id, watchlist item id, etc.
+  targetTitle: string; // post title, movie title, etc.
+  createdAt: string;
+  read: boolean;
+}
+
+const ACTIVITY_KEY = 'typescribe_community_activity';
+const UNREAD_KEY = 'typescribe_community_unread_count';
+
+export function getActivityFeed(communityId?: string, limit: number = 20): ActivityItem[] {
+  try {
+    const data = localStorage.getItem(ACTIVITY_KEY);
+    const all: ActivityItem[] = data ? JSON.parse(data) : [];
+    const filtered = communityId ? all.filter(a => a.communityId === communityId) : all;
+    return filtered.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).slice(0, limit);
+  } catch { return []; }
+}
+
+export function getMyActivityFeed(joinedCommunityIds: string[], limit: number = 20): ActivityItem[] {
+  try {
+    const data = localStorage.getItem(ACTIVITY_KEY);
+    const all: ActivityItem[] = data ? JSON.parse(data) : [];
+    const filtered = all.filter(a => joinedCommunityIds.includes(a.communityId));
+    return filtered.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).slice(0, limit);
+  } catch { return []; }
+}
+
+export function addActivity(item: Omit<ActivityItem, 'id' | 'read'>): ActivityItem {
+  try {
+    const data = localStorage.getItem(ACTIVITY_KEY);
+    const all: ActivityItem[] = data ? JSON.parse(data) : [];
+    const newActivity: ActivityItem = {
+      ...item,
+      id: `act-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+      read: false,
+    };
+    all.unshift(newActivity);
+    // Keep only last 100 activities
+    const trimmed = all.slice(0, 100);
+    localStorage.setItem(ACTIVITY_KEY, JSON.stringify(trimmed));
+    // Update unread count
+    const currentUnread = getUnreadCount();
+    localStorage.setItem(UNREAD_KEY, JSON.stringify(currentUnread + 1));
+    return newActivity;
+  } catch { 
+    return { ...item, id: `act-${Date.now()}`, read: false }; 
+  }
+}
+
+export function getUnreadCount(): number {
+  try {
+    const data = localStorage.getItem(UNREAD_KEY);
+    return data ? JSON.parse(data) : 0;
+  } catch { return 0; }
+}
+
+export function markActivitiesRead(communityId?: string): void {
+  try {
+    const data = localStorage.getItem(ACTIVITY_KEY);
+    const all: ActivityItem[] = data ? JSON.parse(data) : [];
+    all.forEach(a => {
+      if (!communityId || a.communityId === communityId) {
+        a.read = true;
+      }
+    });
+    localStorage.setItem(ACTIVITY_KEY, JSON.stringify(all));
+    localStorage.setItem(UNREAD_KEY, JSON.stringify(0));
+  } catch { /* ignore */ }
+}
+
+export function generateSeedActivity(communityId: string, communityName: string): void {
+  // Generate some realistic seed activity for a community
+  const actors = getMockUsers();
+  const now = Date.now();
+  const seedActivities: Array<Omit<ActivityItem, 'id' | 'read'>> = [
+    {
+      type: 'new_post',
+      communityId,
+      communityName,
+      actorId: actors[0]?.id || 201,
+      actorName: actors[0]?.display_name || 'FilmBuff42',
+      actorAvatar: actors[0]?.avatar || '',
+      targetId: `post-${communityId}-1`,
+      targetTitle: 'What are your top 3 films this year?',
+      createdAt: new Date(now - 2 * 60 * 60 * 1000).toISOString(),
+    },
+    {
+      type: 'new_comment',
+      communityId,
+      communityName,
+      actorId: actors[1]?.id || 202,
+      actorName: actors[1]?.display_name || 'HorrorHound',
+      actorAvatar: actors[1]?.avatar || '',
+      targetId: `post-${communityId}-1`,
+      targetTitle: 'What are your top 3 films this year?',
+      createdAt: new Date(now - 1.5 * 60 * 60 * 1000).toISOString(),
+    },
+    {
+      type: 'watchlist_vote',
+      communityId,
+      communityName,
+      actorId: actors[2]?.id || 203,
+      actorName: actors[2]?.display_name || 'CinePhreak',
+      actorAvatar: actors[2]?.avatar || '',
+      targetId: `wl-${communityId}-1`,
+      targetTitle: 'Dune: Part Two',
+      createdAt: new Date(now - 45 * 60 * 1000).toISOString(),
+    },
+    {
+      type: 'new_member',
+      communityId,
+      communityName,
+      actorId: actors[3]?.id || 204,
+      actorName: actors[3]?.display_name || 'DramaQueen',
+      actorAvatar: actors[3]?.avatar || '',
+      targetId: `member-${communityId}-1`,
+      targetTitle: 'joined the community',
+      createdAt: new Date(now - 30 * 60 * 1000).toISOString(),
+    },
+  ];
+
+  for (const activity of seedActivities) {
+    addActivity(activity);
+  }
+}
+
+// ─── Cross-Community Rating Comparisons ───
+
+export interface CrossCommunityComparison {
+  movieId: number;
+  movieTitle: string;
+  movieSlug: string;
+  posterPath: string;
+  communityRatings: Array<{
+    communityId: string;
+    communityName: string;
+    averageRating: number;
+    ratingCount: number;
+    trend: 'higher' | 'lower' | 'same';
+  }>;
+  generalRating: number;
+  biggestDivide: number; // difference between highest and lowest community rating
+}
+
+export function getCrossCommunityComparisons(communityIds: string[], limit: number = 5): CrossCommunityComparison[] {
+  // Generate cross-community comparisons based on stored ratings
+  try {
+    const data = localStorage.getItem(COMMUNITY_RATINGS_KEY);
+    const allRatings: CommunityMovieRating[] = data ? JSON.parse(data) : [];
+    
+    // Group by movie
+    const movieMap = new Map<number, CommunityMovieRating[]>();
+    for (const r of allRatings) {
+      if (!movieMap.has(r.movieId)) movieMap.set(r.movieId, []);
+      movieMap.get(r.movieId)!.push(r);
+    }
+
+    const comparisons: CrossCommunityComparison[] = [];
+    for (const [movieId, ratings] of movieMap) {
+      const filteredRatings = ratings.filter(r => communityIds.includes(r.communityId));
+      if (filteredRatings.length < 2) continue;
+
+      const communityRatings = filteredRatings.map(r => {
+        const name = COMMUNITY_NAMES_LOOKUP[r.communityId] || r.communityId;
+        const avg = r.averageRating;
+        const general = 7.0; // approximate
+        return {
+          communityId: r.communityId,
+          communityName: name,
+          averageRating: avg,
+          ratingCount: r.ratingCount,
+          trend: avg > general + 0.3 ? 'higher' as const : avg < general - 0.3 ? 'lower' as const : 'same' as const,
+        };
+      });
+
+      const maxRating = Math.max(...communityRatings.map(r => r.averageRating));
+      const minRating = Math.min(...communityRatings.map(r => r.averageRating));
+
+      comparisons.push({
+        movieId,
+        movieTitle: filteredRatings[0]?.movieSlug || `Movie ${movieId}`,
+        movieSlug: filteredRatings[0]?.movieSlug || '',
+        posterPath: '',
+        communityRatings,
+        generalRating: 7.0,
+        biggestDivide: Math.round((maxRating - minRating) * 10) / 10,
+      });
+    }
+
+    return comparisons.sort((a, b) => b.biggestDivide - a.biggestDivide).slice(0, limit);
+  } catch { return []; }
+}
+
+const COMMUNITY_NAMES_LOOKUP: Record<string, string> = {
+  'horror-fans': 'Horror Fans',
+  'k-drama-club': 'K-Drama Club',
+  'nollywood-watchers': 'Nollywood Watchers',
+  'nolan-fans': 'Nolan Fans',
+  'anime-explorers': 'Anime Explorers',
+  'classic-cinema': 'Classic Cinema',
+  'scifi-universe': 'Sci-Fi Universe',
+  'indie-film-lovers': 'Indie Film Lovers',
+  'bollywood-beats': 'Bollywood Beats',
+  'documentary-circle': 'Documentary Circle',
+  'romance-fans': 'Romance Fans',
+  'a24-appreciation': 'A24 Appreciation',
+};
+
 // Map genres to community IDs for auto-linking debates
 export function getCommunitiesForGenres(genres: Array<{ id: number; name: string }>): string[] {
   const genreToCommunity: Record<string, string[]> = {

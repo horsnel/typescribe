@@ -7,7 +7,7 @@ import {
   Users, MessageSquare, ArrowLeft, Plus, Clock,
   Shield, UserPlus, UserMinus, Loader2, Send, X,
   Heart, ThumbsDown, Share2, Crown, Check, ImagePlus,
-  Pencil, Settings2, Swords, BookmarkPlus,
+  Pencil, Settings2, Swords, BookmarkPlus, Bell, GitCompare,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/lib/auth';
@@ -16,6 +16,10 @@ import {
   PostCardSkeleton,
 } from '@/components/skeletons/CommunitySkeleton';
 import CommunityWatchlist from '@/components/community/CommunityWatchlist';
+import WeeklyThemeCard from '@/components/community/WeeklyThemeCard';
+import TasteMatchBadge from '@/components/community/TasteMatchBadge';
+import ActivityFeed from '@/components/community/ActivityFeed';
+import CrossCommunityComparison from '@/components/community/CrossCommunityComparison';
 import {
   getUserPostLike,
   getPostLikeCounts,
@@ -27,6 +31,9 @@ import {
   timeAgo,
   getDebatesForCommunity,
   addDebateToCommunity,
+  getJoinedCommunities as getJoinedCommunityIds,
+  saveJoinedCommunities as saveJoinedCommunityIds,
+  generateSeedActivity,
   type CommunityDebate,
 } from '@/lib/community-storage';
 
@@ -70,16 +77,11 @@ interface CommentData {
 
 // ─── LocalStorage Keys ───
 
-const JOINED_KEY = 'typescribe_joined_communities';
 const POSTS_KEY = 'typescribe_community_posts';
 
-function getJoinedCommunities(): string[] {
-  try { const data = localStorage.getItem(JOINED_KEY); return data ? JSON.parse(data) : []; } catch { return []; }
-}
-
-function saveJoinedCommunities(ids: string[]) {
-  localStorage.setItem(JOINED_KEY, JSON.stringify(ids));
-}
+// Re-export with shorter names for use in this component
+const getJoinedCommunities = getJoinedCommunityIds;
+const saveJoinedCommunities = saveJoinedCommunityIds;
 
 function getLocalPosts(communityId: string): CommunityPost[] {
   try {
@@ -305,7 +307,7 @@ export default function CommunityDetailPage() {
   const [editRules, setEditRules] = useState('');
   const [bgUrl, setBgUrl] = useState('');
   const [saved, setSaved] = useState(false);
-  const [activeTab, setActiveTab] = useState<'discussions' | 'watchlist' | 'debates'>('discussions');
+  const [activeTab, setActiveTab] = useState<'discussions' | 'watchlist' | 'debates' | 'activity' | 'compare'>('discussions');
   const [debates, setDebates] = useState<CommunityDebate[]>([]);
 
   const fetchCommunity = useCallback(async () => {
@@ -325,6 +327,8 @@ export default function CommunityDetailPage() {
         }
         // Load debates for this community
         setDebates(getDebatesForCommunity(communityId));
+        // Generate seed activity for this community if none exists
+        generateSeedActivity(communityId, data.community?.name || communityId);
       }
     } catch { /* handle error */ } finally { setIsLoading(false); }
   }, [communityId]);
@@ -541,6 +545,8 @@ export default function CommunityDetailPage() {
             { key: 'discussions' as const, label: 'Discussions', icon: MessageSquare, count: sortedPosts.length },
             { key: 'watchlist' as const, label: 'Watchlist', icon: BookmarkPlus, count: null },
             { key: 'debates' as const, label: 'Debates', icon: Swords, count: debates.length },
+            { key: 'activity' as const, label: 'Activity', icon: Bell, count: null },
+            { key: 'compare' as const, label: 'Compare', icon: GitCompare, count: null },
           ]).map((tab) => (
             <button
               key={tab.key}
@@ -670,6 +676,36 @@ export default function CommunityDetailPage() {
               </div>
             )}
           </>
+        )}
+
+        {/* ─── Weekly Theme Card ─── */}
+        {isJoined && activeTab === 'discussions' && (
+          <div className="mb-6">
+            <WeeklyThemeCard communityId={communityId} onDiscuss={() => {
+              if (!showNewPost) setShowNewPost(true);
+            }} />
+          </div>
+        )}
+
+        {/* ─── Taste Match (shown before joining) ─── */}
+        {!isJoined && isAuthenticated && user?.favorite_genres && (
+          <div className="mb-6">
+            <TasteMatchBadge
+              userGenres={user.favorite_genres}
+              communityId={communityId}
+              communityName={community?.name || ''}
+            />
+          </div>
+        )}
+
+        {/* ─── Activity Tab ─── */}
+        {activeTab === 'activity' && (
+          <ActivityFeed joinedCommunityIds={getJoinedCommunities()} communityId={communityId} />
+        )}
+
+        {/* ─── Cross-Community Comparison Tab ─── */}
+        {activeTab === 'compare' && (
+          <CrossCommunityComparison communityIds={getJoinedCommunities()} />
         )}
 
         {/* FAB */}

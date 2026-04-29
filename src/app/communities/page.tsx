@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import {
   Users, Plus, Search, MessageSquare,
-  UserPlus, UserMinus, CheckCircle2, Sparkles,
+  UserPlus, UserMinus, CheckCircle2, Sparkles, Bell,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -17,6 +17,9 @@ import {
 } from '@/components/ui/dialog';
 import { useAuth } from '@/lib/auth';
 import { CommunityCardSkeleton } from '@/components/skeletons/CommunitySkeleton';
+import TasteMatchBadge from '@/components/community/TasteMatchBadge';
+import ActivityFeed from '@/components/community/ActivityFeed';
+import { getJoinedCommunities as getJoinedCommunityIds, saveJoinedCommunities as saveJoinedCommunityIds } from '@/lib/community-storage';
 
 interface Community {
   id: string;
@@ -44,19 +47,11 @@ const ALL_COMMUNITIES: Community[] = [
 
 const TYPE_FILTERS = ['All', 'Genre', 'Country', 'Theme', 'Creator'];
 
-const JOINED_KEY = 'typescribe_joined_communities';
 const CREATED_KEY = 'typescribe_created_communities';
 
-function getJoinedCommunities(): string[] {
-  try {
-    const data = localStorage.getItem(JOINED_KEY);
-    return data ? JSON.parse(data) : [];
-  } catch { return []; }
-}
-
-function saveJoinedCommunities(ids: string[]) {
-  localStorage.setItem(JOINED_KEY, JSON.stringify(ids));
-}
+// Re-export with shorter names for use in this component
+const getJoinedCommunities = getJoinedCommunityIds;
+const saveJoinedCommunities = saveJoinedCommunityIds;
 
 function getCreatedCommunities(): Community[] {
   try {
@@ -70,7 +65,7 @@ function saveCreatedCommunities(communities: Community[]) {
 }
 
 export default function CommunitiesPage() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const [search, setSearch] = useState('');
   const [typeFilter, setTypeFilter] = useState('All');
   const [joinedIds, setJoinedIds] = useState<string[]>([]);
@@ -232,6 +227,13 @@ export default function CommunitiesPage() {
           </div>
         )}
 
+        {/* Activity Feed for joined communities */}
+        {isAuthenticated && joinedIds.length > 0 && (
+          <div className="mb-8">
+            <ActivityFeed joinedCommunityIds={joinedIds} maxItems={5} />
+          </div>
+        )}
+
         {/* Search & Filter */}
         <div className="flex flex-col sm:flex-row gap-4 mb-8">
           <div className="relative flex-1">
@@ -301,9 +303,20 @@ export default function CommunitiesPage() {
                   )}
                 </div>
                 <p className="text-sm text-[#9ca3af] mb-4 line-clamp-2">{community.description}</p>
-                <div className="flex items-center gap-4 text-xs text-[#6b7280]">
-                  <span className="flex items-center gap-1"><Users className="w-3.5 h-3.5" strokeWidth={2.5} /> {community.members.toLocaleString()}</span>
-                  <span className="flex items-center gap-1"><MessageSquare className="w-3.5 h-3.5" strokeWidth={2.5} /> {community.posts}</span>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4 text-xs text-[#6b7280]">
+                    <span className="flex items-center gap-1"><Users className="w-3.5 h-3.5" strokeWidth={2.5} /> {community.members.toLocaleString()}</span>
+                    <span className="flex items-center gap-1"><MessageSquare className="w-3.5 h-3.5" strokeWidth={2.5} /> {community.posts}</span>
+                  </div>
+                  {/* Taste Match Badge for unjoined communities */}
+                  {!isJoined && isAuthenticated && user?.favorite_genres && (
+                    <TasteMatchBadge
+                      userGenres={user.favorite_genres}
+                      communityId={community.id}
+                      communityName={community.name}
+                      compact
+                    />
+                  )}
                 </div>
               </Link>
             );
