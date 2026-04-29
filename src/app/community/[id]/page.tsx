@@ -7,7 +7,7 @@ import {
   Users, MessageSquare, ArrowLeft, Plus, Clock,
   Shield, UserPlus, UserMinus, Loader2, Send, X,
   Heart, ThumbsDown, Share2, Crown, Check, ImagePlus,
-  Pencil, Settings2,
+  Pencil, Settings2, Swords, BookmarkPlus,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/lib/auth';
@@ -15,6 +15,7 @@ import {
   CommunityHeaderSkeleton,
   PostCardSkeleton,
 } from '@/components/skeletons/CommunitySkeleton';
+import CommunityWatchlist from '@/components/community/CommunityWatchlist';
 import {
   getUserPostLike,
   getPostLikeCounts,
@@ -24,6 +25,9 @@ import {
   getCommunityMeta,
   saveCommunityMeta,
   timeAgo,
+  getDebatesForCommunity,
+  addDebateToCommunity,
+  type CommunityDebate,
 } from '@/lib/community-storage';
 
 // ─── Types ───
@@ -301,6 +305,8 @@ export default function CommunityDetailPage() {
   const [editRules, setEditRules] = useState('');
   const [bgUrl, setBgUrl] = useState('');
   const [saved, setSaved] = useState(false);
+  const [activeTab, setActiveTab] = useState<'discussions' | 'watchlist' | 'debates'>('discussions');
+  const [debates, setDebates] = useState<CommunityDebate[]>([]);
 
   const fetchCommunity = useCallback(async () => {
     setIsLoading(true);
@@ -317,6 +323,8 @@ export default function CommunityDetailPage() {
         if (meta) {
           setBgUrl(meta.backgroundUrl);
         }
+        // Load debates for this community
+        setDebates(getDebatesForCommunity(communityId));
       }
     } catch { /* handle error */ } finally { setIsLoading(false); }
   }, [communityId]);
@@ -527,58 +535,145 @@ export default function CommunityDetailPage() {
           </div>
         )}
 
-        {/* Posts Section Header */}
-        <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
-          <h2 className="text-lg font-bold text-white">Discussions</h2>
-          <div className="flex items-center gap-2">
-            <div className="flex items-center bg-[#0c0c10] border border-[#1e1e28] rounded-lg overflow-hidden">
-              <button onClick={() => setSortOrder('newest')} className={`px-3 py-1.5 text-xs font-medium transition-colors ${sortOrder === 'newest' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white'}`}>Newest</button>
-              <button onClick={() => setSortOrder('popular')} className={`px-3 py-1.5 text-xs font-medium transition-colors ${sortOrder === 'popular' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white'}`}>Popular</button>
-            </div>
-            {isAuthenticated && (
-              <Button onClick={() => setShowNewPost(!showNewPost)} className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 min-h-[44px]" size="sm">
-                <Plus className="w-4 h-4" /> New Post
-              </Button>
-            )}
-          </div>
+        {/* ─── Tab Navigation ─── */}
+        <div className="flex items-center gap-1 mb-6 border-b border-[#1e1e28] overflow-x-auto">
+          {([
+            { key: 'discussions' as const, label: 'Discussions', icon: MessageSquare, count: sortedPosts.length },
+            { key: 'watchlist' as const, label: 'Watchlist', icon: BookmarkPlus, count: null },
+            { key: 'debates' as const, label: 'Debates', icon: Swords, count: debates.length },
+          ]).map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key)}
+              className={`flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors border-b-2 min-h-[44px] whitespace-nowrap ${
+                activeTab === tab.key
+                  ? 'text-white border-[#d4a853]'
+                  : 'text-[#6b7280] border-transparent hover:text-white'
+              }`}
+            >
+              <tab.icon className="w-4 h-4" strokeWidth={2.5} />
+              {tab.label}
+              {tab.count !== null && tab.count > 0 && (
+                <span className="text-[10px] bg-[#d4a853]/10 text-[#d4a853] px-1.5 py-0.5 rounded-full">{tab.count}</span>
+              )}
+            </button>
+          ))}
         </div>
 
-        {/* New Post Form */}
-        {showNewPost && (
-          <div className="bg-[#0c0c10] border border-[#d4a853]/30 rounded-xl p-5 mb-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-semibold text-white">Create a new post</h3>
-              <button onClick={() => setShowNewPost(false)} className="text-[#6b7280] hover:text-white min-w-[44px] min-h-[44px] flex items-center justify-center"><X className="w-4 h-4" /></button>
-            </div>
-            <div className="space-y-3">
-              <input type="text" value={newPostTitle} onChange={(e) => setNewPostTitle(e.target.value)} placeholder="Post title" className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] text-sm" />
-              <textarea value={newPostContent} onChange={(e) => setNewPostContent(e.target.value)} placeholder="Share your thoughts..." rows={4} className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] text-sm resize-none" />
-              <div className="flex justify-end">
-                <Button onClick={handleNewPost} disabled={!newPostTitle.trim() || !newPostContent.trim() || isSubmitting} className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 min-h-[44px]" size="sm">
-                  <Send className="w-4 h-4" />{isSubmitting ? 'Posting...' : 'Post'}
-                </Button>
+        {/* ─── Discussions Tab ─── */}
+        {activeTab === 'discussions' && (
+          <>
+            <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+              <div className="flex items-center gap-2">
+                <div className="flex items-center bg-[#0c0c10] border border-[#1e1e28] rounded-lg overflow-hidden">
+                  <button onClick={() => setSortOrder('newest')} className={`px-3 py-1.5 text-xs font-medium transition-colors ${sortOrder === 'newest' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white'}`}>Newest</button>
+                  <button onClick={() => setSortOrder('popular')} className={`px-3 py-1.5 text-xs font-medium transition-colors ${sortOrder === 'popular' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white'}`}>Popular</button>
+                </div>
               </div>
+              {isAuthenticated && (
+                <Button onClick={() => setShowNewPost(!showNewPost)} className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 min-h-[44px]" size="sm">
+                  <Plus className="w-4 h-4" /> New Post
+                </Button>
+              )}
             </div>
-          </div>
+
+            {showNewPost && (
+              <div className="bg-[#0c0c10] border border-[#d4a853]/30 rounded-xl p-5 mb-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-sm font-semibold text-white">Create a new post</h3>
+                  <button onClick={() => setShowNewPost(false)} className="text-[#6b7280] hover:text-white min-w-[44px] min-h-[44px] flex items-center justify-center"><X className="w-4 h-4" /></button>
+                </div>
+                <div className="space-y-3">
+                  <input type="text" value={newPostTitle} onChange={(e) => setNewPostTitle(e.target.value)} placeholder="Post title" className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] text-sm" />
+                  <textarea value={newPostContent} onChange={(e) => setNewPostContent(e.target.value)} placeholder="Share your thoughts..." rows={4} className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] text-sm resize-none" />
+                  <div className="flex justify-end">
+                    <Button onClick={handleNewPost} disabled={!newPostTitle.trim() || !newPostContent.trim() || isSubmitting} className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 min-h-[44px]" size="sm">
+                      <Send className="w-4 h-4" />{isSubmitting ? 'Posting...' : 'Post'}
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {sortedPosts.length > 0 ? (
+              <div className="space-y-3">
+                {sortedPosts.map((post) => (
+                  <PostCard key={post.id} post={post} communityId={communityId} onLikeToggle={handleLikeToggle} onCommentToggle={handleCommentToggle} />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-16 bg-[#0c0c10] border border-[#1e1e28] rounded-xl">
+                <MessageSquare className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
+                <p className="text-[#9ca3af] mb-2">No discussions yet</p>
+                <p className="text-sm text-[#6b7280]">Be the first to start a conversation in this community!</p>
+              </div>
+            )}
+          </>
         )}
 
-        {/* Posts List */}
-        {sortedPosts.length > 0 ? (
-          <div className="space-y-3">
-            {sortedPosts.map((post) => (
-              <PostCard key={post.id} post={post} communityId={communityId} onLikeToggle={handleLikeToggle} onCommentToggle={handleCommentToggle} />
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-16 bg-[#0c0c10] border border-[#1e1e28] rounded-xl">
-            <MessageSquare className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
-            <p className="text-[#9ca3af] mb-2">No discussions yet</p>
-            <p className="text-sm text-[#6b7280]">Be the first to start a conversation in this community!</p>
-          </div>
+        {/* ─── Watchlist Tab ─── */}
+        {activeTab === 'watchlist' && (
+          <CommunityWatchlist communityId={communityId} isMember={isJoined} />
+        )}
+
+        {/* ─── Debates Tab ─── */}
+        {activeTab === 'debates' && (
+          <>
+            {debates.length > 0 ? (
+              <div className="space-y-4">
+                {debates.map((debate) => {
+                  const totalArgs = debate.defending + debate.challenging;
+                  const defendingPct = totalArgs > 0 ? Math.round((debate.defending / totalArgs) * 100) : 50;
+                  return (
+                    <Link
+                      key={debate.id}
+                      href={`/movie/${debate.movieSlug}/debates`}
+                      className="block bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5 hover:border-purple-500/30 transition-all group"
+                    >
+                      <div className="flex items-start gap-3 mb-3">
+                        <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center flex-shrink-0">
+                          <Swords className="w-4 h-4 text-purple-400" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-sm font-semibold text-white group-hover:text-purple-400 transition-colors leading-snug mb-1">
+                            &ldquo;{debate.proposition}&rdquo;
+                          </h3>
+                          <div className="flex items-center gap-3 text-xs text-[#6b7280]">
+                            <span>{debate.movieTitle}</span>
+                            <span>·</span>
+                            <span>Started by {debate.author}</span>
+                            <span>·</span>
+                            <span>{timeAgo(debate.createdAt)}</span>
+                          </div>
+                        </div>
+                      </div>
+                      {/* Mini verdict bar */}
+                      <div className="flex items-center gap-2">
+                        <div className="flex-1 h-1.5 bg-[#1e1e28] rounded-full overflow-hidden">
+                          <div className="h-full bg-green-500 rounded-full transition-all" style={{ width: `${defendingPct}%` }} />
+                        </div>
+                        <div className="flex items-center gap-2 text-[10px]">
+                          <span className="text-green-400">{debate.defending} Defend</span>
+                          <span className="text-red-400">{debate.challenging} Challenge</span>
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="text-center py-16 bg-[#0c0c10] border border-[#1e1e28] rounded-xl">
+                <Swords className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
+                <h3 className="text-lg font-bold text-white mb-2">No Debates Yet</h3>
+                <p className="text-sm text-[#6b7280] mb-4">Debates from relevant movies will appear here automatically.</p>
+                <p className="text-xs text-[#6b7280]">Start a debate on a movie page and it&apos;ll show up in matching communities!</p>
+              </div>
+            )}
+          </>
         )}
 
         {/* FAB */}
-        {isAuthenticated && isJoined && !showNewPost && (
+        {isAuthenticated && isJoined && !showNewPost && activeTab === 'discussions' && (
           <button onClick={() => setShowNewPost(true)} className="fixed bottom-6 right-6 w-14 h-14 bg-[#d4a853] hover:bg-[#b8922e] text-white rounded-full shadow-lg shadow-[#d4a853]/25 flex items-center justify-center transition-all hover:scale-105 z-30 min-w-[44px] min-h-[44px]" aria-label="Create post">
             <Plus className="w-6 h-6" strokeWidth={2.5} />
           </button>

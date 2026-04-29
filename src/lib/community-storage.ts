@@ -6,6 +6,7 @@ const LIKES_KEY = 'typescribe_post_likes';
 const COMMENTS_KEY = 'typescribe_post_comments';
 const FOLLOWING_KEY = 'typescribe_following';
 const COMMUNITY_META_KEY = 'typescribe_community_meta';
+const JOINED_COMMUNITIES_KEY = 'typescribe_joined_communities';
 
 // ─── Types ───
 
@@ -196,6 +197,19 @@ export function saveCommunityMeta(meta: CommunityMeta) {
   saveAllCommunityMeta(all);
 }
 
+// ─── Joined Communities ───
+
+export function getJoinedCommunities(): string[] {
+  try {
+    const data = localStorage.getItem(JOINED_COMMUNITIES_KEY);
+    return data ? JSON.parse(data) : [];
+  } catch { return []; }
+}
+
+export function saveJoinedCommunities(ids: string[]): void {
+  localStorage.setItem(JOINED_COMMUNITIES_KEY, JSON.stringify(ids));
+}
+
 // ─── Mock Users Database (for public profile lookups) ───
 
 export interface MockUser {
@@ -258,4 +272,300 @@ export function timeAgo(dateStr: string): string {
   if (days < 30) return `${days}d ago`;
   const months = Math.floor(days / 30);
   return `${months}mo ago`;
+}
+
+// ─── Community Watchlist ───
+
+export interface WatchlistItem {
+  id: string;
+  communityId: string;
+  movieId: number;
+  movieTitle: string;
+  movieSlug: string;
+  posterPath: string;
+  addedBy: string;
+  addedById: number;
+  votes: number;
+  votedUsers: number[]; // user IDs who voted
+  addedAt: string;
+}
+
+// ─── Community Movie Rating ───
+
+export interface CommunityMovieRating {
+  communityId: string;
+  movieId: number;
+  movieSlug: string;
+  averageRating: number;
+  ratingCount: number;
+  ratings: Array<{ userId: number; rating: number }>;
+}
+
+// ─── Community Debate Link ───
+
+export interface CommunityDebate {
+  id: string;
+  communityId: string;
+  movieSlug: string;
+  movieTitle: string;
+  proposition: string;
+  author: string;
+  defending: number;
+  challenging: number;
+  createdAt: string;
+}
+
+// ─── Watchlist Functions ───
+
+const WATCHLIST_KEY = 'typescribe_community_watchlists';
+
+export function getCommunityWatchlist(communityId: string): WatchlistItem[] {
+  try {
+    const data = localStorage.getItem(WATCHLIST_KEY);
+    const all: Record<string, WatchlistItem[]> = data ? JSON.parse(data) : {};
+    return all[communityId] || [];
+  } catch { return []; }
+}
+
+function saveAllWatchlists(all: Record<string, WatchlistItem[]>) {
+  localStorage.setItem(WATCHLIST_KEY, JSON.stringify(all));
+}
+
+export function addWatchlistItem(item: Omit<WatchlistItem, 'id' | 'votes' | 'votedUsers' | 'addedAt'>): WatchlistItem {
+  const all: Record<string, WatchlistItem[]> = (() => {
+    try {
+      const data = localStorage.getItem(WATCHLIST_KEY);
+      return data ? JSON.parse(data) : {};
+    } catch { return {}; }
+  })();
+  
+  const newItem: WatchlistItem = {
+    ...item,
+    id: `wl-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+    votes: 1,
+    votedUsers: [item.addedById],
+    addedAt: new Date().toISOString(),
+  };
+  
+  if (!all[item.communityId]) all[item.communityId] = [];
+  all[item.communityId].unshift(newItem);
+  saveAllWatchlists(all);
+  return newItem;
+}
+
+export function voteWatchlistItem(communityId: string, itemId: string, userId: number): WatchlistItem | null {
+  const all: Record<string, WatchlistItem[]> = (() => {
+    try {
+      const data = localStorage.getItem(WATCHLIST_KEY);
+      return data ? JSON.parse(data) : {};
+    } catch { return {}; }
+  })();
+  
+  if (!all[communityId]) return null;
+  const idx = all[communityId].findIndex(i => i.id === itemId);
+  if (idx < 0) return null;
+  
+  const item = all[communityId][idx];
+  if (item.votedUsers.includes(userId)) {
+    // Remove vote
+    item.votes = Math.max(0, item.votes - 1);
+    item.votedUsers = item.votedUsers.filter(id => id !== userId);
+  } else {
+    // Add vote
+    item.votes += 1;
+    item.votedUsers.push(userId);
+  }
+  
+  all[communityId][idx] = item;
+  saveAllWatchlists(all);
+  return item;
+}
+
+export function removeWatchlistItem(communityId: string, itemId: string): void {
+  const all: Record<string, WatchlistItem[]> = (() => {
+    try {
+      const data = localStorage.getItem(WATCHLIST_KEY);
+      return data ? JSON.parse(data) : {};
+    } catch { return {}; }
+  })();
+  
+  if (!all[communityId]) return;
+  all[communityId] = all[communityId].filter(i => i.id !== itemId);
+  saveAllWatchlists(all);
+}
+
+export function getWeeklyPick(communityId: string): WatchlistItem | null {
+  const items = getCommunityWatchlist(communityId);
+  if (items.length === 0) return null;
+  // Sort by votes descending, return top item
+  return [...items].sort((a, b) => b.votes - a.votes)[0];
+}
+
+// ─── Community Rating Functions ───
+
+const COMMUNITY_RATINGS_KEY = 'typescribe_community_ratings';
+
+export function getCommunityRatings(movieId: number): CommunityMovieRating[] {
+  try {
+    const data = localStorage.getItem(COMMUNITY_RATINGS_KEY);
+    const all: CommunityMovieRating[] = data ? JSON.parse(data) : [];
+    return all.filter(r => r.movieId === movieId);
+  } catch { return []; }
+}
+
+export function getCommunityRatingForMovie(communityId: string, movieId: number): CommunityMovieRating | null {
+  try {
+    const data = localStorage.getItem(COMMUNITY_RATINGS_KEY);
+    const all: CommunityMovieRating[] = data ? JSON.parse(data) : [];
+    return all.find(r => r.communityId === communityId && r.movieId === movieId) || null;
+  } catch { return null; }
+}
+
+export function setCommunityRating(communityId: string, movieId: number, movieSlug: string, userId: number, rating: number): CommunityMovieRating {
+  let all: CommunityMovieRating[] = [];
+  try {
+    const data = localStorage.getItem(COMMUNITY_RATINGS_KEY);
+    all = data ? JSON.parse(data) : [];
+  } catch { /* ignore */ }
+  
+  const idx = all.findIndex(r => r.communityId === communityId && r.movieId === movieId);
+  
+  if (idx >= 0) {
+    // Update existing
+    const existing = all[idx];
+    const userRatingIdx = existing.ratings.findIndex(r => r.userId === userId);
+    if (userRatingIdx >= 0) {
+      existing.ratings[userRatingIdx].rating = rating;
+    } else {
+      existing.ratings.push({ userId, rating });
+    }
+    existing.ratingCount = existing.ratings.length;
+    existing.averageRating = existing.ratings.reduce((sum, r) => sum + r.rating, 0) / existing.ratings.length;
+    all[idx] = existing;
+  } else {
+    // Create new
+    all.push({
+      communityId,
+      movieId,
+      movieSlug,
+      averageRating: rating,
+      ratingCount: 1,
+      ratings: [{ userId, rating }],
+    });
+  }
+  
+  localStorage.setItem(COMMUNITY_RATINGS_KEY, JSON.stringify(all));
+  return all.find(r => r.communityId === communityId && r.movieId === movieId)!;
+}
+
+export function generateMockCommunityRatings(movieId: number, genres: Array<{ id: number; name: string }>, generalRating: number): CommunityMovieRating[] {
+  // Generate realistic community-specific ratings based on genre alignment
+  const communities = [
+    { id: 'horror-fans', genres: ['Horror', 'Thriller'], bias: 1.2 },
+    { id: 'scifi-universe', genres: ['Science Fiction', 'Adventure'], bias: 1.15 },
+    { id: 'anime-explorers', genres: ['Animation', 'Anime'], bias: 1.25 },
+    { id: 'nolan-fans', genres: ['Thriller', 'Science Fiction'], bias: 1.1 },
+    { id: 'a24-appreciation', genres: ['Drama', 'Indie'], bias: 1.05 },
+    { id: 'classic-cinema', genres: ['Drama', 'History'], bias: 0.9 },
+    { id: 'bollywood-beats', genres: ['Romance', 'Music'], bias: 1.0 },
+    { id: 'k-drama-club', genres: ['Drama', 'Romance'], bias: 1.1 },
+    { id: 'documentary-circle', genres: ['Documentary'], bias: 0.95 },
+    { id: 'romance-fans', genres: ['Romance'], bias: 1.05 },
+    { id: 'indie-film-lovers', genres: ['Drama', 'Comedy'], bias: 1.0 },
+    { id: 'nollywood-watchers', genres: ['Drama', 'Action'], bias: 1.1 },
+  ];
+  
+  const movieGenreNames = genres.map(g => g.name);
+  
+  // Find communities that match this movie's genres
+  const matching = communities.filter(c => 
+    c.genres.some(cg => movieGenreNames.includes(cg))
+  );
+  
+  // Also include 2-3 random communities for variety
+  const nonMatching = communities.filter(c => !matching.includes(c));
+  const randomExtra = nonMatching.sort(() => Math.random() - 0.5).slice(0, 2);
+  
+  const relevant = [...matching, ...randomExtra];
+  
+  return relevant.map(c => {
+    const isGenreMatch = c.genres.some(cg => movieGenreNames.includes(cg));
+    // Genre-matching communities rate higher, others rate slightly lower
+    const variance = (Math.random() - 0.5) * 1.5;
+    const baseAdjust = isGenreMatch ? c.bias : 0.85;
+    const avgRating = Math.max(1, Math.min(10, Math.round((generalRating * baseAdjust + variance) * 10) / 10));
+    const ratingCount = isGenreMatch 
+      ? Math.floor(Math.random() * 80) + 20 
+      : Math.floor(Math.random() * 30) + 5;
+    
+    return {
+      communityId: c.id,
+      movieId,
+      movieSlug: '',
+      averageRating: avgRating,
+      ratingCount,
+      ratings: [],
+    };
+  }).filter(r => r.ratingCount > 0);
+}
+
+// ─── Community Debate Functions ───
+
+export function getDebatesForCommunity(communityId: string): CommunityDebate[] {
+  try {
+    const data = localStorage.getItem('typescribe_community_debates');
+    const all: CommunityDebate[] = data ? JSON.parse(data) : [];
+    return all.filter(d => d.communityId === communityId);
+  } catch { return []; }
+}
+
+export function addDebateToCommunity(debate: Omit<CommunityDebate, 'id'>): CommunityDebate {
+  let all: CommunityDebate[] = [];
+  try {
+    const data = localStorage.getItem('typescribe_community_debates');
+    all = data ? JSON.parse(data) : [];
+  } catch { /* ignore */ }
+  
+  // Check if already linked
+  const exists = all.some(d => 
+    d.communityId === debate.communityId && 
+    d.movieSlug === debate.movieSlug && 
+    d.proposition === debate.proposition
+  );
+  if (exists) return all.find(d => d.communityId === debate.communityId && d.movieSlug === debate.movieSlug && d.proposition === debate.proposition)!;
+  
+  const newDebate: CommunityDebate = {
+    ...debate,
+    id: `cd-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+  };
+  all.push(newDebate);
+  localStorage.setItem('typescribe_community_debates', JSON.stringify(all));
+  return newDebate;
+}
+
+// Map genres to community IDs for auto-linking debates
+export function getCommunitiesForGenres(genres: Array<{ id: number; name: string }>): string[] {
+  const genreToCommunity: Record<string, string[]> = {
+    'Horror': ['horror-fans'],
+    'Thriller': ['horror-fans', 'nolan-fans'],
+    'Science Fiction': ['scifi-universe', 'nolan-fans'],
+    'Action': ['nollywood-watchers'],
+    'Drama': ['a24-appreciation', 'classic-cinema', 'k-drama-club', 'indie-film-lovers'],
+    'Comedy': ['indie-film-lovers'],
+    'Romance': ['romance-fans', 'bollywood-beats', 'k-drama-club'],
+    'Animation': ['anime-explorers'],
+    'Anime': ['anime-explorers'],
+    'Documentary': ['documentary-circle'],
+    'Adventure': ['scifi-universe'],
+    'Fantasy': ['anime-explorers', 'scifi-universe'],
+    'Mystery': ['horror-fans', 'nolan-fans'],
+    'Music': ['bollywood-beats'],
+  };
+  
+  const communityIds = new Set<string>();
+  for (const genre of genres) {
+    const mapped = genreToCommunity[genre.name] || [];
+    mapped.forEach(id => communityIds.add(id));
+  }
+  return Array.from(communityIds);
 }

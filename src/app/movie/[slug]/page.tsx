@@ -20,6 +20,7 @@ import WhyTheDivide from '@/components/movie/WhyTheDivide';
 import ParentalGuidance from '@/components/movie/ParentalGuidance';
 import CriticTrustScore from '@/components/movie/CriticTrustScore';
 import LiveSentimentTracker from '@/components/movie/LiveSentimentTracker';
+import CommunityRatings from '@/components/movie/CommunityRatings';
 import MovieCard from '@/components/movie/MovieCard';
 import ReviewCard from '@/components/review/ReviewCard';
 import ReviewForm from '@/components/review/ReviewForm';
@@ -1696,6 +1697,16 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
               movieId={movie.id}
               isNowPlaying={movie.status === 'Now Playing' || movie.status === 'Released'}
             />
+
+            {/* Community Ratings */}
+            <div className="content-animate">
+              <CommunityRatings
+                movieId={movie.id}
+                movieSlug={movie.slug}
+                genres={movie.genres}
+                generalRating={movie.vote_average}
+              />
+            </div>
           </div>
         </div>
       </div>

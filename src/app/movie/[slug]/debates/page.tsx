@@ -10,6 +10,7 @@ import { getMovieBySlug } from '@/lib/data';
 import type { Movie } from '@/lib/types';
 import { useAuth } from '@/lib/auth';
 import { Button } from '@/components/ui/button';
+import { addDebateToCommunity, getCommunitiesForGenres } from '@/lib/community-storage';
 
 // ─── Types ───
 interface Argument {
@@ -175,6 +176,25 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
         const mockDebates = generateMockDebates(slug, movieTitle);
         setDebates(mockDebates);
         saveDebates(mockDebates);
+
+        // Auto-link mock debates to relevant communities
+        if (movie?.genres) {
+          const relevantCommunityIds = getCommunitiesForGenres(movie.genres);
+          for (const debate of mockDebates) {
+            for (const communityId of relevantCommunityIds) {
+              addDebateToCommunity({
+                communityId,
+                movieSlug: slug,
+                movieTitle,
+                proposition: debate.proposition,
+                author: debate.author,
+                defending: debate.arguments.filter(a => a.side === 'defending').length,
+                challenging: debate.arguments.filter(a => a.side === 'challenging').length,
+                createdAt: debate.createdAt,
+              });
+            }
+          }
+        }
       }
     } catch {
       const movieTitle = movie?.title || slug.replace(/-/g, ' ');
@@ -211,6 +231,23 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
     setNewProposition('');
     setShowNewDebateForm(false);
     setSubmitting(false);
+
+    // Auto-link this debate to relevant communities based on movie genres
+    if (movie?.genres) {
+      const relevantCommunityIds = getCommunitiesForGenres(movie.genres);
+      for (const communityId of relevantCommunityIds) {
+        addDebateToCommunity({
+          communityId,
+          movieSlug: slug,
+          movieTitle: movieTitle,
+          proposition: debate.proposition,
+          author: user.display_name,
+          defending: 0,
+          challenging: 0,
+          createdAt: debate.createdAt,
+        });
+      }
+    }
   };
 
   const handleSubmitArgument = (debateId: number) => {
