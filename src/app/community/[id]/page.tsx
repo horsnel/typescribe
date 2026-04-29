@@ -249,19 +249,19 @@ function PostCard({ post, communityId, onLikeToggle, onCommentToggle }: {
       <div className="h-px bg-[#1e1e28] my-3" />
       <div className="flex items-center gap-1 sm:gap-2">
         <button onClick={() => onLikeToggle(post.id, 'like')} className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm transition-all min-w-[44px] min-h-[44px] justify-center hover:bg-[#111118]" style={{ color: userLike?.type === 'like' ? '#d4a853' : '#6b7280' }}>
-          <Heart className="w-[18px] h-[18px]" strokeWidth={2.5} fill={userLike?.type === 'like' ? '#d4a853' : 'none'} />
+          <Heart className="w-[18px] h-[18px]" strokeWidth={1.5} fill={userLike?.type === 'like' ? '#d4a853' : 'none'} />
           <span className="text-xs font-medium">{totalLikes}</span>
         </button>
         <button onClick={() => onLikeToggle(post.id, 'dislike')} className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm transition-all min-w-[44px] min-h-[44px] justify-center hover:bg-[#111118]" style={{ color: userLike?.type === 'dislike' ? '#ef4444' : '#6b7280' }}>
-          <ThumbsDown className="w-[18px] h-[18px]" strokeWidth={2.5} />
+          <ThumbsDown className="w-[18px] h-[18px]" strokeWidth={1.5} />
           <span className="text-xs font-medium">{likeCounts.dislikes}</span>
         </button>
         <button onClick={() => { setShowComments(!showComments); onCommentToggle(post.id); }} className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm text-[#6b7280] hover:text-[#d4a853] transition-all min-w-[44px] min-h-[44px] justify-center hover:bg-[#111118]">
-          <MessageSquare className="w-[18px] h-[18px]" strokeWidth={2.5} />
+          <MessageSquare className="w-[18px] h-[18px]" strokeWidth={1.5} />
           <span className="text-xs font-medium">{comments.length || post.replyCount}</span>
         </button>
         <button onClick={onShare} className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm text-[#6b7280] hover:text-[#d4a853] transition-all min-w-[44px] min-h-[44px] justify-center hover:bg-[#111118]">
-          {shareCopied ? <Check className="w-[18px] h-[18px] text-[#d4a853]" strokeWidth={2.5} /> : <Share2 className="w-[18px] h-[18px]" strokeWidth={2.5} />}
+          {shareCopied ? <Check className="w-[18px] h-[18px] text-[#d4a853]" strokeWidth={1.5} /> : <Share2 className="w-[18px] h-[18px]" strokeWidth={1.5} />}
           <span className="text-xs font-medium">{shareCopied ? 'Copied!' : 'Share'}</span>
         </button>
         <span className="text-[10px] text-[#6b7280] ml-auto hidden sm:block">{timeAgo(post.createdAt)}</span>
@@ -571,7 +571,7 @@ export default function CommunityDetailPage() {
                   : 'text-[#6b7280] border-transparent hover:text-white'
               }`}
             >
-              <tab.icon className="w-4 h-4" strokeWidth={2.5} />
+              <tab.icon className="w-4 h-4" strokeWidth={1.5} />
               {tab.label}
               {tab.count !== null && tab.count > 0 && (
                 <span className="text-[10px] bg-[#d4a853]/10 text-[#d4a853] px-1.5 py-0.5 rounded-full">{tab.count}</span>
@@ -747,7 +747,7 @@ export default function CommunityDetailPage() {
         {/* FAB */}
         {isAuthenticated && isJoined && !showNewPost && activeTab === 'discussions' && (
           <button onClick={() => setShowNewPost(true)} className="fixed bottom-6 right-6 w-14 h-14 bg-[#d4a853] hover:bg-[#b8922e] text-white rounded-full shadow-lg shadow-[#d4a853]/25 flex items-center justify-center transition-all hover:scale-105 z-30 min-w-[44px] min-h-[44px]" aria-label="Create post">
-            <Plus className="w-6 h-6" strokeWidth={2.5} />
+            <Plus className="w-6 h-6" strokeWidth={1.5} />
           </button>
         )}
 

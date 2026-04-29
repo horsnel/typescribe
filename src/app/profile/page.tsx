@@ -200,7 +200,7 @@ export default function ProfilePage() {
             {/* Favorite Genres */}
             {user.favorite_genres && user.favorite_genres.length > 0 && (
               <div className="flex items-center gap-2 mb-3 flex-wrap justify-center sm:justify-start">
-                <Film className="w-3.5 h-3.5 text-[#d4a853]" strokeWidth={2.5} />
+                <Film className="w-3.5 h-3.5 text-[#d4a853]" strokeWidth={1.5} />
                 {user.favorite_genres.slice(0, 4).map((genre) => (
                   <span key={genre} className="text-xs text-[#d4a853] bg-[#d4a853]/10 px-2 py-0.5 rounded-full">{genre}</span>
                 ))}
@@ -275,7 +275,7 @@ export default function ProfilePage() {
               activeTab === 'posts' ? 'text-white border-b-2 border-[#d4a853]' : 'text-[#6b7280] hover:text-[#9ca3af]'
             }`}
           >
-            <Grid3x3 className="w-4 h-4" strokeWidth={2.5} /> Posts
+            <Grid3x3 className="w-4 h-4" strokeWidth={1.5} /> Posts
           </button>
           <button
             onClick={() => setActiveTab('reviews')}
@@ -283,7 +283,7 @@ export default function ProfilePage() {
               activeTab === 'reviews' ? 'text-white border-b-2 border-[#d4a853]' : 'text-[#6b7280] hover:text-[#9ca3af]'
             }`}
           >
-            <Star className="w-4 h-4" strokeWidth={2.5} /> Reviews
+            <Star className="w-4 h-4" strokeWidth={1.5} /> Reviews
           </button>
           <button
             onClick={() => setActiveTab('watchlist')}
@@ -291,7 +291,7 @@ export default function ProfilePage() {
               activeTab === 'watchlist' ? 'text-white border-b-2 border-[#d4a853]' : 'text-[#6b7280] hover:text-[#9ca3af]'
             }`}
           >
-            <Bookmark className="w-4 h-4" strokeWidth={2.5} /> Watchlist
+            <Bookmark className="w-4 h-4" strokeWidth={1.5} /> Watchlist
           </button>
         </div>
 
@@ -311,11 +311,11 @@ export default function ProfilePage() {
                 <div className="h-px bg-[#1e1e28] my-3" />
                 <div className="flex items-center gap-2">
                   <button className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm text-[#6b7280] hover:text-[#d4a853] transition-all min-w-[44px] min-h-[44px] justify-center hover:bg-[#111118]">
-                    <Heart className="w-[18px] h-[18px]" strokeWidth={2.5} />
+                    <Heart className="w-[18px] h-[18px]" strokeWidth={1.5} />
                     <span className="text-xs font-medium">{post.likes}</span>
                   </button>
                   <button className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm text-[#6b7280] hover:text-[#d4a853] transition-all min-w-[44px] min-h-[44px] justify-center hover:bg-[#111118]">
-                    <MessageSquare className="w-[18px] h-[18px]" strokeWidth={2.5} />
+                    <MessageSquare className="w-[18px] h-[18px]" strokeWidth={1.5} />
                     <span className="text-xs font-medium">{post.comments}</span>
                   </button>
                   <span className="text-[10px] text-[#6b7280] ml-auto">{post.time}</span>

@@ -5,7 +5,7 @@ import { AuthProvider } from "@/lib/auth";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import CookieBanner from "@/components/layout/CookieBanner";
-import SmoothScrollProvider from "@/components/layout/SmoothScrollProvider";
+import NativeScrollReveal from "@/components/layout/NativeScrollReveal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,14 +32,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#d4a853]/[0.03] rounded-full blur-[120px]" />
         </div>
         <AuthProvider>
-          <SmoothScrollProvider>
+          <NativeScrollReveal>
             <div className="min-h-screen bg-[#050507] flex flex-col">
               <Navbar />
               <main className="flex-1">{children}</main>
               <Footer />
               <CookieBanner />
             </div>
-          </SmoothScrollProvider>
+          </NativeScrollReveal>
         </AuthProvider>
       </body>
     </html>

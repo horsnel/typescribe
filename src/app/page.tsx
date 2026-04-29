@@ -21,10 +21,16 @@ export default function HomePage() {
   const [userName, setUserName] = useState('');
 
   useEffect(() => {
+    // Mark page as Lenis-active so CSS reveal animations don't interfere with GSAP
+    document.documentElement.classList.add('lenis-active');
     const lenis = initLenis();
     const heroTl = animateHero();
     initScrollReveal();
-    return () => { heroTl.kill(); cleanupAnimations(); };
+    return () => {
+      heroTl.kill();
+      cleanupAnimations();
+      document.documentElement.classList.remove('lenis-active');
+    };
   }, []);
 
   useEffect(() => {

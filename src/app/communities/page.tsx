@@ -175,7 +175,7 @@ export default function CommunitiesPage() {
               onClick={() => setShowCreateDialog(true)}
               className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 min-h-[44px]"
             >
-              <Plus className="w-4 h-4" strokeWidth={2.5} /> Create Community
+              <Plus className="w-4 h-4" strokeWidth={1.5} /> Create Community
             </Button>
           )}
         </div>
@@ -219,8 +219,8 @@ export default function CommunitiesPage() {
                   </div>
                   <p className="text-sm text-[#9ca3af] mb-4 line-clamp-2">{community.description}</p>
                   <div className="flex items-center gap-4 text-xs text-[#6b7280]">
-                    <span className="flex items-center gap-1"><Users className="w-3.5 h-3.5" strokeWidth={2.5} /> {community.members.toLocaleString()}</span>
-                    <span className="flex items-center gap-1"><MessageSquare className="w-3.5 h-3.5" strokeWidth={2.5} /> {community.posts}</span>
+                    <span className="flex items-center gap-1"><Users className="w-3.5 h-3.5" strokeWidth={1.5} /> {community.members.toLocaleString()}</span>
+                    <span className="flex items-center gap-1"><MessageSquare className="w-3.5 h-3.5" strokeWidth={1.5} /> {community.posts}</span>
                   </div>
                 </Link>
               ))}
@@ -245,7 +245,7 @@ export default function CommunitiesPage() {
         {/* Search & Filter */}
         <div className="flex flex-col sm:flex-row gap-4 mb-8">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6b7280]" strokeWidth={2.5} />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6b7280]" strokeWidth={1.5} />
             <input
               type="text"
               value={search}
@@ -313,8 +313,8 @@ export default function CommunitiesPage() {
                 <p className="text-sm text-[#9ca3af] mb-4 line-clamp-2">{community.description}</p>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4 text-xs text-[#6b7280]">
-                    <span className="flex items-center gap-1"><Users className="w-3.5 h-3.5" strokeWidth={2.5} /> {community.members.toLocaleString()}</span>
-                    <span className="flex items-center gap-1"><MessageSquare className="w-3.5 h-3.5" strokeWidth={2.5} /> {community.posts}</span>
+                    <span className="flex items-center gap-1"><Users className="w-3.5 h-3.5" strokeWidth={1.5} /> {community.members.toLocaleString()}</span>
+                    <span className="flex items-center gap-1"><MessageSquare className="w-3.5 h-3.5" strokeWidth={1.5} /> {community.posts}</span>
                   </div>
                   {/* Taste Match Badge for unjoined communities */}
                   {!isJoined && isAuthenticated && user?.favorite_genres && (

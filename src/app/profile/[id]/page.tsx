@@ -141,7 +141,7 @@ export default function PublicProfilePage() {
             {/* Favorite Genres */}
             {profileUser.favorite_genres.length > 0 && (
               <div className="flex items-center gap-2 mb-3 flex-wrap justify-center sm:justify-start">
-                <Film className="w-3.5 h-3.5 text-[#d4a853]" strokeWidth={2.5} />
+                <Film className="w-3.5 h-3.5 text-[#d4a853]" strokeWidth={1.5} />
                 {profileUser.favorite_genres.map((genre) => (
                   <span key={genre} className="text-xs text-[#d4a853] bg-[#d4a853]/10 px-2 py-0.5 rounded-full">{genre}</span>
                 ))}
@@ -151,7 +151,7 @@ export default function PublicProfilePage() {
             {/* Created Communities */}
             {profileUser.createdCommunities.length > 0 && (
               <div className="flex items-center gap-2 mb-3 flex-wrap justify-center sm:justify-start">
-                <Crown className="w-3.5 h-3.5 text-[#d4a853]" strokeWidth={2.5} />
+                <Crown className="w-3.5 h-3.5 text-[#d4a853]" strokeWidth={1.5} />
                 {profileUser.createdCommunities.map((cid) => (
                   <Link key={cid} href={`/community/${cid}`} className="text-xs text-[#d4a853] bg-[#d4a853]/10 px-2 py-0.5 rounded-full hover:bg-[#d4a853]/20 transition-colors">
                     {cid.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
@@ -216,7 +216,7 @@ export default function PublicProfilePage() {
               activeTab === 'posts' ? 'text-white border-b-2 border-[#d4a853]' : 'text-[#6b7280] hover:text-[#9ca3af]'
             }`}
           >
-            <MessageSquare className="w-4 h-4" strokeWidth={2.5} /> Posts
+            <MessageSquare className="w-4 h-4" strokeWidth={1.5} /> Posts
           </button>
           <button
             onClick={() => setActiveTab('reviews')}
@@ -224,7 +224,7 @@ export default function PublicProfilePage() {
               activeTab === 'reviews' ? 'text-white border-b-2 border-[#d4a853]' : 'text-[#6b7280] hover:text-[#9ca3af]'
             }`}
           >
-            <Star className="w-4 h-4" strokeWidth={2.5} /> Reviews
+            <Star className="w-4 h-4" strokeWidth={1.5} /> Reviews
           </button>
         </div>
 
@@ -242,11 +242,11 @@ export default function PublicProfilePage() {
                 <div className="h-px bg-[#1e1e28] my-3" />
                 <div className="flex items-center gap-2">
                   <button className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm text-[#6b7280] hover:text-[#d4a853] transition-all min-w-[44px] min-h-[44px] justify-center hover:bg-[#111118]">
-                    <Heart className="w-[18px] h-[18px]" strokeWidth={2.5} />
+                    <Heart className="w-[18px] h-[18px]" strokeWidth={1.5} />
                     <span className="text-xs font-medium">{post.likes}</span>
                   </button>
                   <button className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm text-[#6b7280] hover:text-[#d4a853] transition-all min-w-[44px] min-h-[44px] justify-center hover:bg-[#111118]">
-                    <MessageSquare className="w-[18px] h-[18px]" strokeWidth={2.5} />
+                    <MessageSquare className="w-[18px] h-[18px]" strokeWidth={1.5} />
                     <span className="text-xs font-medium">{post.comments}</span>
                   </button>
                 </div>

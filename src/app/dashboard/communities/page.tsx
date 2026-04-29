@@ -56,7 +56,7 @@ export default function DashboardCommunitiesPage() {
     <DashboardSidebar>
       <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
         <h1 className="text-2xl font-bold text-white">My Communities</h1>
-        <Link href="/communities"><Button className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 min-h-[44px]"><Plus className="w-4 h-4" strokeWidth={2.5} />Discover Communities</Button></Link>
+        <Link href="/communities"><Button className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 min-h-[44px]"><Plus className="w-4 h-4" strokeWidth={1.5} />Discover Communities</Button></Link>
       </div>
 
       {/* Stats */}
@@ -147,7 +147,7 @@ export default function DashboardCommunitiesPage() {
                 </div>
                 <p className="text-sm text-[#9ca3af] mb-3">{community.description}</p>
                 <div className="flex items-center gap-2 text-xs text-[#6b7280]">
-                  <Users className="w-3.5 h-3.5" strokeWidth={2.5} /> {community.members.toLocaleString()} members
+                  <Users className="w-3.5 h-3.5" strokeWidth={1.5} /> {community.members.toLocaleString()} members
                 </div>
               </div>
             ))}
@@ -206,7 +206,7 @@ export default function DashboardCommunitiesPage() {
                 </div>
                 <p className="text-sm text-[#9ca3af] mb-3">{community.description}</p>
                 <div className="flex items-center gap-2 text-xs text-[#6b7280]">
-                  <Users className="w-3.5 h-3.5" strokeWidth={2.5} /> {community.members.toLocaleString()} members
+                  <Users className="w-3.5 h-3.5" strokeWidth={1.5} /> {community.members.toLocaleString()} members
                 </div>
               </div>
             );
