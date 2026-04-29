@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import DashboardSidebar from '@/components/layout/DashboardLayout';
 import { useAuth } from '@/lib/auth';
 import { Settings, Mail, Lock, Bell, Shield, Trash2, Moon, Globe, Check, Save, User } from 'lucide-react';
 import Link from 'next/link';
@@ -49,12 +48,12 @@ export default function DashboardSettingsPage() {
   };
 
   if (!isAuthenticated) {
-    return <DashboardSidebar><div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center"><p className="text-[#9ca3af]">Please sign in to access settings.</p></div></DashboardSidebar>;
+    return <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center"><p className="text-[#9ca3af]">Please sign in to access settings.</p></div>;
   }
 
   return (
-    <DashboardSidebar>
-      <div className="flex items-center justify-between mb-6">
+    <>
+      <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
         <h1 className="text-2xl font-bold text-white">Account Settings</h1>
         <Button onClick={handleSave} className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2">
           <Save className="w-4 h-4" />
@@ -150,49 +149,49 @@ export default function DashboardSettingsPage() {
             <h2 className="text-base font-semibold text-white">Preferences</h2>
           </div>
           <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <Bell className="w-4 h-4 text-[#9ca3af]" />
-                <div>
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center gap-3 min-w-0">
+                <Bell className="w-4 h-4 text-[#9ca3af] flex-shrink-0" />
+                <div className="min-w-0">
                   <p className="text-sm text-white">Email Notifications</p>
                   <p className="text-xs text-[#6b7280]">Receive email about reviews and activity</p>
                 </div>
               </div>
               <button
                 onClick={() => setEmailNotifications(!emailNotifications)}
-                className={`w-12 h-6 rounded-full relative transition-colors ${emailNotifications ? 'bg-[#d4a853]' : 'bg-[#2a2a35]'}`}
+                className={`w-12 h-6 rounded-full relative transition-colors flex-shrink-0 ${emailNotifications ? 'bg-[#d4a853]' : 'bg-[#2a2a35]'}`}
               >
                 <span className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${emailNotifications ? 'right-1' : 'left-1'}`} />
               </button>
             </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <Globe className="w-4 h-4 text-[#9ca3af]" />
-                <div>
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center gap-3 min-w-0">
+                <Globe className="w-4 h-4 text-[#9ca3af] flex-shrink-0" />
+                <div className="min-w-0">
                   <p className="text-sm text-white">Public Profile</p>
                   <p className="text-xs text-[#6b7280]">Others can see your profile and reviews</p>
                 </div>
               </div>
               <button
                 onClick={() => setPublicProfile(!publicProfile)}
-                className={`w-12 h-6 rounded-full relative transition-colors ${publicProfile ? 'bg-[#d4a853]' : 'bg-[#2a2a35]'}`}
+                className={`w-12 h-6 rounded-full relative transition-colors flex-shrink-0 ${publicProfile ? 'bg-[#d4a853]' : 'bg-[#2a2a35]'}`}
               >
                 <span className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${publicProfile ? 'right-1' : 'left-1'}`} />
               </button>
             </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <Moon className="w-4 h-4 text-[#9ca3af]" />
-                <div><p className="text-sm text-white">Dark Mode</p><p className="text-xs text-[#6b7280]">Default theme</p></div>
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center gap-3 min-w-0">
+                <Moon className="w-4 h-4 text-[#9ca3af] flex-shrink-0" />
+                <div className="min-w-0"><p className="text-sm text-white">Dark Mode</p><p className="text-xs text-[#6b7280]">Default theme</p></div>
               </div>
-              <button className="w-12 h-6 bg-[#d4a853] rounded-full relative"><span className="absolute right-1 top-1 w-4 h-4 bg-white rounded-full" /></button>
+              <button className="w-12 h-6 bg-[#d4a853] rounded-full relative flex-shrink-0"><span className="absolute right-1 top-1 w-4 h-4 bg-white rounded-full" /></button>
             </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <Globe className="w-4 h-4 text-[#9ca3af]" />
-                <div><p className="text-sm text-white">Language</p><p className="text-xs text-[#6b7280]">Site language preference</p></div>
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center gap-3 min-w-0">
+                <Globe className="w-4 h-4 text-[#9ca3af] flex-shrink-0" />
+                <div className="min-w-0"><p className="text-sm text-white">Language</p><p className="text-xs text-[#6b7280]">Site language preference</p></div>
               </div>
-              <select className="bg-[#050507] border border-[#1e1e28] rounded-lg py-1.5 px-3 text-sm text-[#9ca3af]">
+              <select className="bg-[#050507] border border-[#1e1e28] rounded-lg py-1.5 px-3 text-sm text-[#9ca3af] flex-shrink-0">
                 <option>English</option>
                 <option>Français</option>
                 <option>Español</option>
@@ -212,6 +211,6 @@ export default function DashboardSettingsPage() {
           </Button>
         </div>
       </div>
-    </DashboardSidebar>
+    </>
   );
 }

@@ -2,7 +2,6 @@
 
 import { useEffect } from 'react';
 import { openNotificationPanel } from '@/components/community/NotificationPanel';
-import DashboardSidebar from '@/components/layout/DashboardLayout';
 
 export default function DashboardNotificationsPage() {
   useEffect(() => {
@@ -11,7 +10,7 @@ export default function DashboardNotificationsPage() {
   }, []);
 
   return (
-    <DashboardSidebar>
+    <>
       <div className="flex flex-col items-center justify-center py-24">
         <div className="w-16 h-16 rounded-full bg-[#d4a853]/10 flex items-center justify-center mb-4">
           <svg className="w-8 h-8 text-[#d4a853]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -23,6 +22,6 @@ export default function DashboardNotificationsPage() {
           Your notification panel has opened on the right. Click the bell icon in the navbar anytime to access it.
         </p>
       </div>
-    </DashboardSidebar>
+    </>
   );
 }

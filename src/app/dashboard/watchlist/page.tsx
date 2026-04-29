@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import DashboardSidebar from '@/components/layout/DashboardLayout';
 import { useAuth, getLocalWatchlist } from '@/lib/auth';
 import { Bookmark, Film, Trash2, ExternalLink, Star } from 'lucide-react';
 import Link from 'next/link';
@@ -63,11 +62,11 @@ export default function DashboardWatchlistPage() {
   };
 
   if (!isAuthenticated) {
-    return <DashboardSidebar><div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center"><p className="text-[#9ca3af]">Please sign in to view your watchlist.</p><Link href="/login" className="text-[#d4a853] hover:underline text-sm">Sign In</Link></div></DashboardSidebar>;
+    return <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center"><p className="text-[#9ca3af]">Please sign in to view your watchlist.</p><Link href="/login" className="text-[#d4a853] hover:underline text-sm">Sign In</Link></div>;
   }
 
   return (
-    <DashboardSidebar>
+    <>
       <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
         <h1 className="text-2xl font-bold text-white">Watchlist</h1>
         <div className="flex items-center gap-3">
@@ -151,6 +150,6 @@ export default function DashboardWatchlistPage() {
           ))}
         </div>
       )}
-    </DashboardSidebar>
+    </>
   );
 }

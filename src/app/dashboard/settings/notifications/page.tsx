@@ -1,6 +1,5 @@
 'use client';
 
-import DashboardSidebar from '@/components/layout/DashboardLayout';
 import { useAuth } from '@/lib/auth';
 import { Bell, Mail, Star, Users, Sparkles, Megaphone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -19,20 +18,20 @@ export default function DashboardSettingsNotificationsPage() {
   const { user, isAuthenticated } = useAuth();
 
   if (!isAuthenticated) {
-    return <DashboardSidebar><div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center"><p className="text-[#9ca3af]">Please sign in to access settings.</p></div></DashboardSidebar>;
+    return <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center"><p className="text-[#9ca3af]">Please sign in to access settings.</p></div>;
   }
 
   return (
-    <DashboardSidebar>
+    <>
       <h1 className="text-2xl font-bold text-white mb-6">Notification Preferences</h1>
 
       <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
         <p className="text-sm text-[#9ca3af] mb-6">Choose which notifications you want to receive. You can change these at any time.</p>
         <div className="space-y-4">
           {NOTIFICATION_TYPES.map((notif) => (
-            <div key={notif.key} className="flex items-center justify-between py-2 border-b border-[#1e1e28]/50 last:border-0">
-              <div className="flex items-center gap-3">
-                <notif.icon className="w-4 h-4 text-[#6b7280]" />
+            <div key={notif.key} className="flex items-center justify-between py-2 border-b border-[#1e1e28]/50 last:border-0 gap-3">
+              <div className="flex items-center gap-3 min-w-0">
+                <notif.icon className="w-4 h-4 text-[#6b7280] flex-shrink-0" />
                 <span className="text-sm text-white">{notif.label}</span>
               </div>
               <button className={`w-12 h-6 rounded-full relative transition-colors ${notif.default ? 'bg-[#d4a853]' : 'bg-[#2a2a35]'}`}>
@@ -43,6 +42,6 @@ export default function DashboardSettingsNotificationsPage() {
         </div>
         <Button className="mt-6 bg-[#d4a853] hover:bg-[#b8922e] text-white">Save Preferences</Button>
       </div>
-    </DashboardSidebar>
+    </>
   );
 }

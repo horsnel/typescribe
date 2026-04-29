@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation';
 import { useAuth } from '@/lib/auth';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import {
   LayoutDashboard,
@@ -55,8 +54,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#050507]">
-        <div className="text-center space-y-4">
+      <div className="flex items-center justify-center h-full bg-[#050507]">
+        <div className="text-center space-y-4 px-6">
           <h2 className="text-2xl font-bold text-white">Please sign in</h2>
           <p className="text-[#9ca3af]">You need to be logged in to access the dashboard.</p>
           <Link href="/login">
@@ -95,7 +94,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <Separator className="bg-[#2a2a35]" />
 
       {/* Nav */}
-      <ScrollArea className="flex-1 px-2 py-3">
+      <div className="flex-1 px-2 py-3 overflow-y-auto">
         <nav className="space-y-1">
           {sidebarLinks.map((link) => {
             const Icon = link.icon;
@@ -130,7 +129,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             );
           })}
         </nav>
-      </ScrollArea>
+      </div>
 
       <Separator className="bg-[#2a2a35]" />
 
@@ -191,10 +190,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   );
 
   return (
-    <div className="min-h-screen bg-[#050507] flex">
+    <div className="flex h-full bg-[#050507]">
       {/* Desktop Sidebar */}
       <aside
-        className={`hidden lg:flex flex-col border-r border-[#1e1e28] bg-[#050507] transition-all duration-300 relative ${
+        className={`hidden lg:flex flex-col border-r border-[#1e1e28] bg-[#050507] transition-all duration-300 relative flex-shrink-0 ${
           collapsed ? 'w-[68px]' : 'w-64'
         }`}
       >
@@ -207,35 +206,46 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </button>
       </aside>
 
-      {/* Mobile overlay */}
+      {/* Mobile overlay sidebar */}
       {mobileOpen && (
         <div className="fixed inset-0 z-40 lg:hidden">
-          <div className="fixed inset-0 bg-black/60" onClick={() => setMobileOpen(false)} />
-          <aside className="fixed left-0 top-0 bottom-0 w-64 bg-[#050507] border-r border-[#1e1e28] z-50">
-            <button onClick={() => setMobileOpen(false)} className="absolute top-4 right-4 text-[#6b7280] hover:text-white z-50">
-              <X className="w-5 h-5" />
-            </button>
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
+          <aside className="fixed left-0 top-0 bottom-0 w-72 bg-[#050507] border-r border-[#1e1e28] z-50 safe-bottom">
+            <div className="flex items-center justify-between p-4 border-b border-[#1e1e28]">
+              <div className="flex items-center gap-2">
+                <div className="w-7 h-7 bg-[#d4a853] rounded-lg flex items-center justify-center">
+                  <Film className="w-3.5 h-3.5 text-white" />
+                </div>
+                <span className="text-white font-bold">Typescribe</span>
+              </div>
+              <button onClick={() => setMobileOpen(false)} className="p-1 text-[#6b7280] hover:text-white">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
             {sidebarContent}
           </aside>
         </div>
       )}
 
-      {/* Main */}
-      <div className="flex-1 flex flex-col min-h-screen">
-        {/* Mobile header */}
-        <header className="lg:hidden flex items-center gap-3 p-4 border-b border-[#1e1e28] bg-[#050507]">
-          <Button variant="ghost" size="icon" onClick={() => setMobileOpen(true)} className="text-white hover:bg-[#111118]">
+      {/* Main content area */}
+      <div className="flex-1 flex flex-col min-w-0 h-full">
+        {/* Mobile header bar */}
+        <header className="lg:hidden flex items-center gap-3 px-4 py-3 border-b border-[#1e1e28] bg-[#050507] flex-shrink-0">
+          <Button variant="ghost" size="icon" onClick={() => setMobileOpen(true)} className="text-white hover:bg-[#111118] h-9 w-9">
             <Menu className="w-5 h-5" />
           </Button>
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 bg-[#d4a853] rounded-lg flex items-center justify-center">
+          <div className="flex items-center gap-2 flex-1 min-w-0">
+            <div className="w-7 h-7 bg-[#d4a853] rounded-lg flex items-center justify-center flex-shrink-0">
               <Film className="w-3.5 h-3.5 text-white" />
             </div>
-            <span className="text-white font-bold">Typescribe</span>
+            <span className="text-white font-bold truncate">Dashboard</span>
           </div>
         </header>
 
-        <main className="flex-1 p-4 md:p-6 lg:p-8 overflow-y-auto">{children}</main>
+        {/* Scrollable content */}
+        <main className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8">
+          {children}
+        </main>
       </div>
     </div>
   );

@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import DashboardSidebar from '@/components/layout/DashboardLayout';
 import { useAuth } from '@/lib/auth';
 import { Star, Users, Bookmark, MessageSquare, TrendingUp, Plus, Film, PenSquare, Clock, Eye, Heart } from 'lucide-react';
 import Link from 'next/link';
@@ -96,14 +95,12 @@ export default function DashboardPage() {
 
   if (!isAuthenticated) {
     return (
-      <DashboardSidebar>
-        <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center">
-          <Film className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
-          <h2 className="text-xl font-bold text-white mb-2">Sign in to access your dashboard</h2>
-          <p className="text-[#9ca3af] mb-6">Track your reviews, watchlist, and community activity.</p>
-          <Link href="/login"><Button className="bg-[#d4a853] hover:bg-[#b8922e] text-white">Sign In</Button></Link>
-        </div>
-      </DashboardSidebar>
+      <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center">
+        <Film className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
+        <h2 className="text-xl font-bold text-white mb-2">Sign in to access your dashboard</h2>
+        <p className="text-[#9ca3af] mb-6">Track your reviews, watchlist, and community activity.</p>
+        <Link href="/login"><Button className="bg-[#d4a853] hover:bg-[#b8922e] text-white">Sign In</Button></Link>
+      </div>
     );
   }
 
@@ -128,7 +125,7 @@ export default function DashboardPage() {
   };
 
   return (
-    <DashboardSidebar>
+    <>
       {/* Welcome */}
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-white mb-1">Welcome back, {user?.display_name || 'Movie Lover'}</h1>
@@ -228,6 +225,6 @@ export default function DashboardPage() {
           <Link href="/browse"><Button className="mt-4 bg-[#d4a853] hover:bg-[#b8922e] text-white">Browse Movies</Button></Link>
         </div>
       </div>
-    </DashboardSidebar>
+    </>
   );
 }

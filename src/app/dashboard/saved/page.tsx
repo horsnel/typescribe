@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import DashboardSidebar from '@/components/layout/DashboardLayout';
 import { useAuth } from '@/lib/auth';
 import { BookmarkCheck, Star, MessageSquare, Newspaper, ExternalLink, Trash2 } from 'lucide-react';
 import Link from 'next/link';
@@ -52,11 +51,11 @@ export default function DashboardSavedPage() {
   };
 
   if (!isAuthenticated) {
-    return <DashboardSidebar><div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center"><p className="text-[#9ca3af]">Please sign in to view your saved items.</p><Link href="/login" className="text-[#d4a853] hover:underline text-sm">Sign In</Link></div></DashboardSidebar>;
+    return <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center"><p className="text-[#9ca3af]">Please sign in to view your saved items.</p><Link href="/login" className="text-[#d4a853] hover:underline text-sm">Sign In</Link></div>;
   }
 
   return (
-    <DashboardSidebar>
+    <>
       <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
         <h1 className="text-2xl font-bold text-white">Saved & Bookmarks</h1>
         <Link href="/news" className="text-sm text-[#d4a853] hover:underline">Browse News</Link>
@@ -122,6 +121,6 @@ export default function DashboardSavedPage() {
           })}
         </div>
       )}
-    </DashboardSidebar>
+    </>
   );
 }

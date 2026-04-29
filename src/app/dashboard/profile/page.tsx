@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import DashboardSidebar from '@/components/layout/DashboardLayout';
 import { useAuth } from '@/lib/auth';
 import { User, Camera, Globe, Star, Film, Bookmark, Users, Calendar, Edit3, Check } from 'lucide-react';
 import Link from 'next/link';
@@ -61,11 +60,11 @@ export default function DashboardProfilePage() {
     : 'Recently';
 
   if (!isAuthenticated) {
-    return <DashboardSidebar><div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center"><p className="text-[#9ca3af]">Please sign in to edit your profile.</p></div></DashboardSidebar>;
+    return <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center"><p className="text-[#9ca3af]">Please sign in to edit your profile.</p></div>;
   }
 
   return (
-    <DashboardSidebar>
+    <>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-white">Profile</h1>
         <Link href="/dashboard/settings"><Button variant="outline" className="border-[#1e1e28] text-white hover:bg-[#111118] gap-2"><Edit3 className="w-4 h-4" />Edit Settings</Button></Link>
@@ -176,6 +175,6 @@ export default function DashboardProfilePage() {
           </Link>
         </div>
       </div>
-    </DashboardSidebar>
+    </>
   );
 }
