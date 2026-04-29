@@ -1430,6 +1430,23 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
               const reportedFormatted = formatCurrency(movie.budget_reported);
               const hasAnyFinancialData = budgetFormatted || revenueFormatted || domesticFormatted || internationalFormatted || worldwideFormatted || reportedFormatted;
 
+              // Show loading state while enrichment is in progress and no data yet
+              if (!hasAnyFinancialData && enriching) {
+                return (
+                  <div className="content-animate bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5">
+                    <h3 className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider mb-4 flex items-center gap-2">
+                      <DollarSign className="w-3.5 h-3.5" /> Financials
+                    </h3>
+                    <div className="space-y-3">
+                      <div className="h-4 bg-[#1e1e28] rounded animate-pulse w-3/4" />
+                      <div className="h-4 bg-[#1e1e28] rounded animate-pulse w-1/2" />
+                      <div className="h-4 bg-[#1e1e28] rounded animate-pulse w-2/3" />
+                    </div>
+                    <p className="text-[10px] text-[#6b7280] mt-3 italic">Loading financial data...</p>
+                  </div>
+                );
+              }
+
               return hasAnyFinancialData ? (
                 <div className="content-animate bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5">
                   <h3 className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider mb-4 flex items-center gap-2">

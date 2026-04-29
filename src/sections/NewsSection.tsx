@@ -68,12 +68,11 @@ export default function NewsSection() {
               <Link key={item.id} href={item.url !== '#' ? item.url : '/news'} target={item.url !== '#' ? '_blank' : undefined} rel={item.url !== '#' ? 'noopener noreferrer' : undefined} className="card-reveal group block bg-[#0c0c10] border border-white/[0.06] rounded-xl overflow-hidden hover:border-[#d4a853]/30 hover:shadow-lg transition-all">
                 <div className="aspect-[16/10] overflow-hidden bg-[#111118]">
                   {item.image ? (
-                    <img src={item.image} alt={item.title} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center">
-                      <Newspaper className="w-8 h-8 text-[#2a2a35]" />
-                    </div>
-                  )}
+                    <img src={item.image} alt={item.title} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; const p = (e.target as HTMLImageElement).nextElementSibling as HTMLElement; if (p) { p.style.display = 'flex'; } }} />
+                  ) : null}
+                  <div className={`w-full h-full items-center justify-center ${item.image ? 'hidden' : 'flex'}`}>
+                    <Newspaper className="w-8 h-8 text-[#2a2a35]" />
+                  </div>
                 </div>
                 <div className="p-4">
                   <h3 className="text-sm font-semibold text-white mb-2 line-clamp-2 group-hover:text-[#d4a853] transition-colors leading-snug">{item.title}</h3>

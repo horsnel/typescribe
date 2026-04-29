@@ -229,11 +229,12 @@ export default function NewsPage() {
 
               {/* Article image */}
               {selectedArticle.data.image && (
-                <div className="aspect-[16/9] overflow-hidden rounded-xl mb-8">
+                <div className="aspect-[16/9] overflow-hidden rounded-xl mb-8 bg-[#1e1e28]">
                   <img
                     src={selectedArticle.data.image}
                     alt={selectedArticle.data.title}
                     className="w-full h-full object-cover"
+                    onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
                   />
                 </div>
               )}
@@ -389,7 +390,7 @@ export default function NewsPage() {
               >
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
                   <div className="aspect-[16/10] lg:aspect-auto overflow-hidden">
-                    <img src={featured.image} alt={featured.title} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                    <img src={featured.image} alt={featured.title} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; (e.target as HTMLImageElement).parentElement!.classList.add('bg-[#1e1e28]', 'flex', 'items-center', 'justify-center'); (e.target as HTMLImageElement).parentElement!.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#2a2a35" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>'; }} />
                   </div>
                   <div className="p-6 lg:p-8 flex flex-col justify-center">
                     <div className="flex items-center gap-2 mb-3">
@@ -417,7 +418,7 @@ export default function NewsPage() {
                         className="group block w-full text-left bg-[#0c0c10] border border-[#1e1e28] rounded-xl overflow-hidden hover:border-[#3a3a45] hover:shadow-lg transition-all"
                       >
                         <div className="aspect-[16/10] overflow-hidden">
-                          <img src={item.image} alt={item.title} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                          <img src={item.image} alt={item.title} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; const p = (e.target as HTMLImageElement).parentElement!; p.classList.add('bg-[#1e1e28]', 'flex', 'items-center', 'justify-center'); p.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2a2a35" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>'; }} />
                         </div>
                         <div className="p-4">
                           <div className="flex items-center gap-2 mb-2">

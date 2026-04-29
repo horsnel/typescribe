@@ -23,13 +23,20 @@ function formatDate(dateStr: string): string {
 }
 
 /**
- * Try NewsAPI first, then Newsdata.io, then fall back to mock data.
+ * News strategy: Merge results from BOTH NewsAPI and NewsData.io,
+ * with each acting as a fallback for the other.
+ *
+ * 1. Try NewsAPI first (if configured)
+ * 2. Try NewsData.io (if configured) — always try, not just when NewsAPI fails
+ * 3. Merge & deduplicate results
+ * 4. Fall back to mock data only if BOTH APIs return nothing
  */
 export async function GET() {
   const articles: FormattedArticle[] = [];
-  let source = 'mock';
+  const seen = new Set<string>();
 
-  // 1. Try NewsAPI
+  // ── Collect from NewsAPI ──
+  let newsApiArticles: FormattedArticle[] = [];
   const newsApiKey = process.env.NEWS_API_KEY;
   if (newsApiKey) {
     try {
@@ -39,33 +46,29 @@ export async function GET() {
       ]);
 
       const combined = [...headlines, ...movieNews];
-      const seen = new Set<string>();
 
       for (const a of combined) {
         if (!a.title || seen.has(a.title.toLowerCase())) continue;
         seen.add(a.title.toLowerCase());
 
-        articles.push({
-          id: articles.length + 1,
+        newsApiArticles.push({
+          id: 0, // will be assigned below
           title: a.title,
           excerpt: a.description || '',
-          image: a.imageUrl || '/images/news-1.jpg',
+          image: a.imageUrl || '',  // empty string = no image, handled by UI
           source: a.source || 'NewsAPI',
           date: formatDate(a.publishedAt),
           url: a.url,
         });
-      }
-
-      if (articles.length > 0) {
-        source = 'newsapi';
       }
     } catch (err) {
       console.error('[/api/news] NewsAPI error:', err);
     }
   }
 
-  // 2. Try Newsdata.io
-  if (articles.length === 0 && isNewsDataConfigured()) {
+  // ── Collect from NewsData.io (always try, not just when NewsAPI failed) ──
+  let newsDataArticles: FormattedArticle[] = [];
+  if (isNewsDataConfigured()) {
     try {
       const [headlines, movieNews] = await Promise.all([
         getNewsDataHeadlines(),
@@ -73,33 +76,48 @@ export async function GET() {
       ]);
 
       const combined = [...headlines, ...movieNews];
-      const seen = new Set<string>();
 
       for (const a of combined) {
         const title = a.title;
         if (!title || seen.has(title.toLowerCase())) continue;
         seen.add(title.toLowerCase());
 
-        articles.push({
-          id: articles.length + 1,
+        newsDataArticles.push({
+          id: 0,
           title,
           excerpt: a.description || '',
-          image: a.image_url || '/images/news-1.jpg',
-          source: a.source_id || 'Newsdata.io',
+          image: a.image_url || '',  // empty string = no image, handled by UI
+          source: a.source_id || 'NewsData.io',
           date: formatDate(a.pubDate || new Date().toISOString()),
           url: a.link,
         });
-      }
-
-      if (articles.length > 0) {
-        source = 'newsdata';
       }
     } catch (err) {
       console.error('[/api/news] Newsdata.io error:', err);
     }
   }
 
-  // 3. Fall back to mock data
+  // ── Merge: NewsAPI results first, then NewsData supplements ──
+  const mergedArticles = [...newsApiArticles, ...newsDataArticles];
+
+  // Assign IDs
+  for (let i = 0; i < mergedArticles.length; i++) {
+    mergedArticles[i].id = i + 1;
+  }
+
+  articles.push(...mergedArticles);
+
+  // ── Determine source label ──
+  let source = 'mock';
+  if (newsApiArticles.length > 0 && newsDataArticles.length > 0) {
+    source = 'newsapi+newsdata';
+  } else if (newsApiArticles.length > 0) {
+    source = 'newsapi';
+  } else if (newsDataArticles.length > 0) {
+    source = 'newsdata';
+  }
+
+  // ── Fall back to mock data only if BOTH APIs returned nothing ──
   if (articles.length === 0) {
     for (const item of newsItems) {
       articles.push({

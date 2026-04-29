@@ -830,8 +830,8 @@ export async function mergeMovieData(
         date: a.publishedAt || '',
       }));
     }
-    // Supplement with NewsData.io if we got few results
-    if (newsHeadlines.length < 3 && newsDataResult.status === 'fulfilled' && newsDataResult.value) {
+    // Supplement with NewsData.io — always merge (acts as both supplement + fallback)
+    if (newsDataResult.status === 'fulfilled' && newsDataResult.value) {
       const ndArticles = Array.isArray(newsDataResult.value) ? newsDataResult.value : [];
       const additional = ndArticles.map((a: any) => ({
         title: a.title || '',
@@ -839,10 +839,11 @@ export async function mergeMovieData(
         source: a.source_id || a.source || '',
         date: a.pubDate || a.publishedAt || '',
       }));
-      // Add articles that aren't duplicates
+      // Deduplicate by URL and title
       const existingUrls = new Set(newsHeadlines.map(n => n.url));
+      const existingTitles = new Set(newsHeadlines.map(n => n.title.toLowerCase()));
       for (const a of additional) {
-        if (!existingUrls.has(a.url) && a.title) {
+        if (!existingUrls.has(a.url) && !existingTitles.has(a.title.toLowerCase()) && a.title) {
           newsHeadlines.push(a);
         }
       }

@@ -7,12 +7,16 @@
  * Features:
  *  - Context-aware reviews using all available movie data
  *  - Fallback to placeholder if Gemini is not configured or fails
- *  - 24h cache to avoid regenerating reviews for the same movie
+ *  - Aggressive caching: in-memory + file-based (7-day TTL, survives restarts)
+ *  - Same movie always gets the same cached review (deterministic by tmdb_id)
  *  - Rate limiting to respect API quotas
  *  - Prompt engineering for film-critic quality reviews
  *
  * Free tier: 15 RPM, 1M tokens/min, 1,500 RPD (Gemini 2.0 Flash)
  */
+
+import * as fs from 'fs';
+import * as path from 'path';
 
 // ─── Types ───
 
@@ -27,13 +31,34 @@ export interface GeminiReviewResult {
 
 const GEMINI_BASE = 'https://generativelanguage.googleapis.com/v1beta/models';
 const MODEL = 'gemini-2.0-flash';
-const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
+const CACHE_TTL_MS = 7 * 24 * 60 * 60 * 1000; // 7 days — aggressive caching
 const RATE_LIMIT_MS = 5000; // 5s between requests
 const MAX_REVIEW_TOKENS = 512;
 
+// ─── File-based Cache (survives server restarts) ───
+
+const CACHE_DIR = path.join(process.cwd(), 'data', 'gemini-reviews');
+
+let fsAvailable = true;
+try {
+  if (!fs.existsSync(CACHE_DIR)) {
+    fs.mkdirSync(CACHE_DIR, { recursive: true });
+  }
+  const testFile = path.join(CACHE_DIR, '.write-test');
+  fs.writeFileSync(testFile, '1');
+  fs.unlinkSync(testFile);
+} catch {
+  fsAvailable = false;
+}
+
+function reviewFilePath(cacheKey: string): string {
+  const sanitized = cacheKey.replace(/[^a-zA-Z0-9_-]/g, '_');
+  return path.join(CACHE_DIR, `${sanitized}.json`);
+}
+
 // ─── Internal State ───
 
-const cache = new Map<string, { data: GeminiReviewResult; expiresAt: number }>();
+const memoryCache = new Map<string, { data: GeminiReviewResult; expiresAt: number }>();
 let lastRequestAt = 0;
 
 // ─── Helpers ───
@@ -61,6 +86,59 @@ function log(...args: unknown[]): void {
 
 function warn(...args: unknown[]): void {
   console.warn('[Gemini]', ...args);
+}
+
+// ─── Aggressive Cache: Memory → Disk → Miss ───
+
+function getFromCache(cacheKey: string): GeminiReviewResult | null {
+  // Layer 1: In-memory (fastest)
+  const memEntry = memoryCache.get(cacheKey);
+  if (memEntry && Date.now() < memEntry.expiresAt) {
+    log(`Memory cache hit for "${cacheKey}"`);
+    return { ...memEntry.data, cached: true };
+  }
+
+  // Layer 2: File-based (survives restarts)
+  if (fsAvailable) {
+    const filePath = reviewFilePath(cacheKey);
+    try {
+      if (fs.existsSync(filePath)) {
+        const raw = fs.readFileSync(filePath, 'utf-8');
+        const entry: { data: GeminiReviewResult; expiresAt: number } = JSON.parse(raw);
+        if (Date.now() < entry.expiresAt) {
+          // Promote to memory cache
+          memoryCache.set(cacheKey, entry);
+          log(`Disk cache hit for "${cacheKey}"`);
+          return { ...entry.data, cached: true };
+        }
+        // Expired — remove from disk
+        try { fs.unlinkSync(filePath); } catch {}
+      }
+    } catch {
+      // Corrupt file — ignore
+    }
+  }
+
+  return null;
+}
+
+function writeToCache(cacheKey: string, result: GeminiReviewResult): void {
+  const entry = { data: result, expiresAt: Date.now() + CACHE_TTL_MS };
+
+  // Always write to memory
+  memoryCache.set(cacheKey, entry);
+
+  // Also persist to disk for durability across restarts
+  if (fsAvailable) {
+    try {
+      if (!fs.existsSync(CACHE_DIR)) {
+        fs.mkdirSync(CACHE_DIR, { recursive: true });
+      }
+      fs.writeFileSync(reviewFilePath(cacheKey), JSON.stringify(entry, null, 2));
+    } catch {
+      // Silently ignore write failures (Vercel read-only)
+    }
+  }
 }
 
 // ─── Prompt Engineering ───
@@ -123,6 +201,10 @@ Requirements:
 /**
  * Generate an AI review for a movie using Gemini.
  * Falls back to a placeholder review if Gemini is unavailable.
+ *
+ * Aggressive caching: The same movie (by tmdb_id) always returns the same
+ * cached review for 7 days. Reviews are persisted to disk so they survive
+ * server restarts and Vercel re-deployments (when filesystem is available).
  */
 export async function generateAIReview(movie: {
   title?: string;
@@ -147,22 +229,23 @@ export async function generateAIReview(movie: {
   const apiKey = getApiKey();
   const cacheKey = `review:${movie.tmdb_id || movie.title}`;
 
-  // Check cache
-  const cached = cache.get(cacheKey);
-  if (cached && Date.now() < cached.expiresAt) {
-    log(`Cache hit for "${movie.title}"`);
-    return { ...cached.data, cached: true };
+  // Aggressive cache check — memory then disk
+  const cached = getFromCache(cacheKey);
+  if (cached) {
+    return cached;
   }
 
-  // If no Gemini key, return placeholder
+  // If no Gemini key, return placeholder (also cache it)
   if (!apiKey) {
     log(`No API key — using placeholder for "${movie.title}"`);
-    return {
+    const result: GeminiReviewResult = {
       review: generatePlaceholderReview(movie),
       generatedAt: new Date().toISOString(),
       model: 'placeholder',
       cached: false,
     };
+    writeToCache(cacheKey, result);
+    return result;
   }
 
   await enforceRateLimit();
@@ -196,12 +279,14 @@ export async function generateAIReview(movie: {
     if (!res.ok) {
       const body = await res.text().catch(() => '');
       warn(`HTTP ${res.status} for "${movie.title}" — ${body.slice(0, 200)}`);
-      return {
+      const result: GeminiReviewResult = {
         review: generatePlaceholderReview(movie),
         generatedAt: new Date().toISOString(),
         model: 'placeholder',
         cached: false,
       };
+      writeToCache(cacheKey, result);
+      return result;
     }
 
     const data = await res.json();
@@ -214,12 +299,14 @@ export async function generateAIReview(movie: {
 
     if (!reviewText) {
       warn(`Empty response for "${movie.title}"`);
-      return {
+      const result: GeminiReviewResult = {
         review: generatePlaceholderReview(movie),
         generatedAt: new Date().toISOString(),
         model: 'placeholder',
         cached: false,
       };
+      writeToCache(cacheKey, result);
+      return result;
     }
 
     const result: GeminiReviewResult = {
@@ -229,20 +316,22 @@ export async function generateAIReview(movie: {
       cached: false,
     };
 
-    // Cache the result
-    cache.set(cacheKey, { data: result, expiresAt: Date.now() + CACHE_TTL_MS });
+    // Aggressively cache the result (7 days, persisted to disk)
+    writeToCache(cacheKey, result);
 
     log(`Generated review for "${movie.title}" (${result.review.length} chars)`);
 
     return result;
   } catch (err) {
     warn(`Generation error for "${movie.title}":`, err instanceof Error ? err.message : err);
-    return {
+    const result: GeminiReviewResult = {
       review: generatePlaceholderReview(movie),
       generatedAt: new Date().toISOString(),
       model: 'placeholder',
       cached: false,
     };
+    writeToCache(cacheKey, result);
+    return result;
   }
 }
 
@@ -294,13 +383,36 @@ function generatePlaceholderReview(movie: {
   return parts.join(' ');
 }
 
-/** Clear all cached reviews */
+/** Clear all cached reviews (memory + disk) */
 export function clearGeminiCache(): void {
-  cache.clear();
-  log('Cache cleared');
+  memoryCache.clear();
+  if (fsAvailable) {
+    try {
+      if (fs.existsSync(CACHE_DIR)) {
+        const files = fs.readdirSync(CACHE_DIR);
+        for (const file of files) {
+          if (file.endsWith('.json')) {
+            try { fs.unlinkSync(path.join(CACHE_DIR, file)); } catch {}
+          }
+        }
+      }
+    } catch {}
+  }
+  log('Cache cleared (memory + disk)');
 }
 
 /** Get cache size */
 export function geminiCacheSize(): number {
-  return cache.size;
+  return memoryCache.size;
+}
+
+/** Get disk cache count */
+export function geminiDiskCacheSize(): number {
+  if (!fsAvailable) return 0;
+  try {
+    if (!fs.existsSync(CACHE_DIR)) return 0;
+    return fs.readdirSync(CACHE_DIR).filter(f => f.endsWith('.json')).length;
+  } catch {
+    return 0;
+  }
 }
