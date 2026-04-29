@@ -37,7 +37,10 @@ const MAX_REVIEW_TOKENS = 512;
 
 // ─── File-based Cache (survives server restarts) ───
 
-const CACHE_DIR = path.join(process.cwd(), 'data', 'gemini-reviews');
+// On Vercel, /tmp is writable; fallback to project dir for local dev
+const CACHE_DIR = process.env.VERCEL
+  ? path.join('/tmp', 'gemini-reviews')
+  : path.join(process.cwd(), 'data', 'gemini-reviews');
 
 let fsAvailable = true;
 try {
@@ -48,12 +51,30 @@ try {
   fs.writeFileSync(testFile, '1');
   fs.unlinkSync(testFile);
 } catch {
-  fsAvailable = false;
+  // Try /tmp as fallback
+  const tmpDir = path.join('/tmp', 'gemini-reviews');
+  try {
+    if (!fs.existsSync(tmpDir)) {
+      fs.mkdirSync(tmpDir, { recursive: true });
+    }
+    const testFile = path.join(tmpDir, '.write-test');
+    fs.writeFileSync(testFile, '1');
+    fs.unlinkSync(testFile);
+    // Override CACHE_DIR (reassign via a let)
+    (globalThis as any).__GEMINI_CACHE_DIR__ = tmpDir;
+    fsAvailable = true;
+  } catch {
+    fsAvailable = false;
+  }
+}
+
+function getCacheDir(): string {
+  return (globalThis as any).__GEMINI_CACHE_DIR__ || CACHE_DIR;
 }
 
 function reviewFilePath(cacheKey: string): string {
   const sanitized = cacheKey.replace(/[^a-zA-Z0-9_-]/g, '_');
-  return path.join(CACHE_DIR, `${sanitized}.json`);
+  return path.join(getCacheDir(), `${sanitized}.json`);
 }
 
 // ─── Internal State ───
@@ -131,8 +152,8 @@ function writeToCache(cacheKey: string, result: GeminiReviewResult): void {
   // Also persist to disk for durability across restarts
   if (fsAvailable) {
     try {
-      if (!fs.existsSync(CACHE_DIR)) {
-        fs.mkdirSync(CACHE_DIR, { recursive: true });
+      if (!fs.existsSync(getCacheDir())) {
+        fs.mkdirSync(getCacheDir(), { recursive: true });
       }
       fs.writeFileSync(reviewFilePath(cacheKey), JSON.stringify(entry, null, 2));
     } catch {
@@ -388,11 +409,11 @@ export function clearGeminiCache(): void {
   memoryCache.clear();
   if (fsAvailable) {
     try {
-      if (fs.existsSync(CACHE_DIR)) {
-        const files = fs.readdirSync(CACHE_DIR);
+      if (fs.existsSync(getCacheDir())) {
+        const files = fs.readdirSync(getCacheDir());
         for (const file of files) {
           if (file.endsWith('.json')) {
-            try { fs.unlinkSync(path.join(CACHE_DIR, file)); } catch {}
+            try { fs.unlinkSync(path.join(getCacheDir(), file)); } catch {}
           }
         }
       }
@@ -410,8 +431,8 @@ export function geminiCacheSize(): number {
 export function geminiDiskCacheSize(): number {
   if (!fsAvailable) return 0;
   try {
-    if (!fs.existsSync(CACHE_DIR)) return 0;
-    return fs.readdirSync(CACHE_DIR).filter(f => f.endsWith('.json')).length;
+    if (!fs.existsSync(getCacheDir())) return 0;
+    return fs.readdirSync(getCacheDir()).filter(f => f.endsWith('.json')).length;
   } catch {
     return 0;
   }

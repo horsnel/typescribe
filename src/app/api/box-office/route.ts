@@ -2,6 +2,7 @@
  * GET /api/box-office
  *
  * Fetches box office data from TMDb (now_playing + discover sorted by revenue).
+ * Fetches real revenue/budget from movie detail endpoints for top entries.
  * Falls back to mock data from local movies array if API is unavailable.
  *
  * Query params:
@@ -34,16 +35,55 @@ function formatCurrency(amount: number): string {
   return `$${amount}`;
 }
 
+/**
+ * Fetch real revenue/budget data for a batch of TMDb movie IDs.
+ * Returns a map of movieId -> { revenue, budget }.
+ */
+async function fetchMovieDetailsBatch(movieIds: number[]): Promise<Map<number, { revenue: number; budget: number }>> {
+  const detailMap = new Map<number, { revenue: number; budget: number }>();
+
+  const results = await Promise.allSettled(
+    movieIds.map(async (id) => {
+      try {
+        const res = await fetch(
+          `${TMDB_BASE}/movie/${id}?api_key=${TMDB_API_KEY}&language=en-US`,
+          { next: { revalidate: 3600 } }
+        );
+        if (!res.ok) return;
+        const data = await res.json();
+        detailMap.set(id, {
+          revenue: data.revenue || 0,
+          budget: data.budget || 0,
+        });
+      } catch {
+        // Silently skip failed individual requests
+      }
+    })
+  );
+
+  return detailMap;
+}
+
+/**
+ * Estimate weekend gross from total revenue based on typical box office patterns.
+ * Most films earn 25-40% of total gross on opening weekend.
+ */
+function estimateWeekendGross(totalGross: number, weeks: number): number {
+  if (totalGross <= 0) return 0;
+  // Newer releases (fewer weeks) have a higher weekend-to-total ratio
+  const ratio = weeks <= 1 ? 0.45 : weeks <= 3 ? 0.35 : weeks <= 6 ? 0.25 : 0.15;
+  return Math.floor(totalGross * ratio);
+}
+
 function generateMockThisWeek(): BoxOfficeEntry[] {
-  // Take movies sorted by revenue descending, simulate box office numbers
   const sorted = [...movies]
     .sort((a, b) => (b.revenue || 0) - (a.revenue || 0))
     .slice(0, 20);
 
   return sorted.map((movie, i) => {
     const revenue = movie.revenue || Math.floor(Math.random() * 300_000_000) + 10_000_000;
-    const weekendGross = Math.floor(revenue * (0.2 + Math.random() * 0.3));
     const weeks = Math.floor(Math.random() * 10) + 1;
+    const weekendGross = estimateWeekendGross(revenue, weeks);
     const changePct = i === 0 ? null : Math.floor(Math.random() * 60) - 30;
 
     return {
@@ -81,7 +121,6 @@ function generateMockAllTime(): BoxOfficeEntry[] {
 }
 
 function generateMockByCountry(countryCode: string): BoxOfficeEntry[] {
-  // Filter movies by origin_country or original_language
   const countryLangMap: Record<string, string[]> = {
     US: ['en'], GB: ['en'], KR: ['ko'], JP: ['ja'], IN: ['hi', 'ta', 'te'],
     CN: ['zh', 'cmn'], NG: ['ig', 'yo', 'ha'], FR: ['fr'], IT: ['it'],
@@ -95,24 +134,35 @@ function generateMockByCountry(countryCode: string): BoxOfficeEntry[] {
     );
   }
 
-  // If no matches, just return all sorted by revenue
   if (filtered.length === 0) filtered = movies;
 
   return filtered
     .sort((a, b) => (b.revenue || 0) - (a.revenue || 0))
     .slice(0, 20)
-    .map((movie, i) => ({
-      rank: i + 1,
-      id: movie.id,
-      slug: movie.slug,
-      title: movie.title,
-      year: movie.release_date?.split('-')[0] || '2025',
-      poster_path: movie.poster_path,
-      weekendGross: Math.floor((movie.revenue || 50_000_000) * 0.25),
-      totalGross: movie.revenue || Math.floor(Math.random() * 300_000_000) + 10_000_000,
-      weeks: Math.floor(Math.random() * 8) + 1,
-      changePct: i === 0 ? null : Math.floor(Math.random() * 50) - 20,
-    }));
+    .map((movie, i) => {
+      const revenue = movie.revenue || Math.floor(Math.random() * 300_000_000) + 10_000_000;
+      const weeks = Math.floor(Math.random() * 8) + 1;
+      return {
+        rank: i + 1,
+        id: movie.id,
+        slug: movie.slug,
+        title: movie.title,
+        year: movie.release_date?.split('-')[0] || '2025',
+        poster_path: movie.poster_path,
+        weekendGross: estimateWeekendGross(revenue, weeks),
+        totalGross: revenue,
+        weeks,
+        changePct: i === 0 ? null : Math.floor(Math.random() * 50) - 20,
+      };
+    });
+}
+
+function makeSlug(title: string, id: number): string {
+  return `${(title || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}-${id}`;
+}
+
+function makePosterUrl(path: string | null): string {
+  return path ? `https://image.tmdb.org/t/p/w500${path}` : '/images/poster-1.jpg';
 }
 
 async function fetchTMDbNowPlaying(): Promise<BoxOfficeEntry[] | null> {
@@ -125,21 +175,33 @@ async function fetchTMDbNowPlaying(): Promise<BoxOfficeEntry[] | null> {
     if (!res.ok) return null;
     const data = await res.json();
     const results = data.results?.slice(0, 20) || [];
+    if (results.length === 0) return null;
 
-    return results.map((m: any, i: number) => ({
-      rank: i + 1,
-      id: m.id,
-      slug: `${(m.title || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}-${m.id}`,
-      title: m.title || 'Unknown',
-      year: (m.release_date || '').split('-')[0] || '2025',
-      poster_path: m.poster_path
-        ? `https://image.tmdb.org/t/p/w500${m.poster_path}`
-        : '/images/poster-1.jpg',
-      weekendGross: Math.floor(Math.random() * 80_000_000) + 5_000_000,
-      totalGross: Math.floor(Math.random() * 400_000_000) + 20_000_000,
-      weeks: Math.floor(Math.random() * 8) + 1,
-      changePct: i === 0 ? null : Math.floor(Math.random() * 60) - 30,
-    }));
+    // Fetch real revenue for top 15 movies
+    const topIds = results.slice(0, 15).map((m: any) => m.id as number);
+    const details = await fetchMovieDetailsBatch(topIds);
+
+    return results.map((m: any, i: number) => {
+      const detail = details.get(m.id);
+      const totalGross = detail?.revenue || 0;
+      const weeks = Math.floor(Math.random() * 8) + 1;
+      const weekendGross = totalGross > 0
+        ? estimateWeekendGross(totalGross, weeks)
+        : Math.floor(Math.random() * 80_000_000) + 5_000_000;
+
+      return {
+        rank: i + 1,
+        id: m.id,
+        slug: makeSlug(m.title, m.id),
+        title: m.title || 'Unknown',
+        year: (m.release_date || '').split('-')[0] || '2025',
+        poster_path: makePosterUrl(m.poster_path),
+        weekendGross,
+        totalGross: totalGross > 0 ? totalGross : Math.floor(Math.random() * 400_000_000) + 20_000_000,
+        weeks,
+        changePct: i === 0 ? null : Math.floor(Math.random() * 60) - 30,
+      };
+    });
   } catch {
     return null;
   }
@@ -155,21 +217,29 @@ async function fetchTMDbTopAllTime(): Promise<BoxOfficeEntry[] | null> {
     if (!res.ok) return null;
     const data = await res.json();
     const results = data.results?.slice(0, 20) || [];
+    if (results.length === 0) return null;
 
-    return results.map((m: any, i: number) => ({
-      rank: i + 1,
-      id: m.id,
-      slug: `${(m.title || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}-${m.id}`,
-      title: m.title || 'Unknown',
-      year: (m.release_date || '').split('-')[0] || '2025',
-      poster_path: m.poster_path
-        ? `https://image.tmdb.org/t/p/w500${m.poster_path}`
-        : '/images/poster-1.jpg',
-      weekendGross: 0,
-      totalGross: Math.floor(Math.random() * 2_000_000_000) + 100_000_000,
-      weeks: 0,
-      changePct: null,
-    }));
+    // Fetch real revenue for top 15 movies
+    const topIds = results.slice(0, 15).map((m: any) => m.id as number);
+    const details = await fetchMovieDetailsBatch(topIds);
+
+    return results.map((m: any, i: number) => {
+      const detail = details.get(m.id);
+      const totalGross = detail?.revenue || 0;
+
+      return {
+        rank: i + 1,
+        id: m.id,
+        slug: makeSlug(m.title, m.id),
+        title: m.title || 'Unknown',
+        year: (m.release_date || '').split('-')[0] || '2025',
+        poster_path: makePosterUrl(m.poster_path),
+        weekendGross: 0,
+        totalGross: totalGross > 0 ? totalGross : Math.floor(Math.random() * 2_000_000_000) + 100_000_000,
+        weeks: 0,
+        changePct: null,
+      };
+    });
   } catch {
     return null;
   }
@@ -185,21 +255,33 @@ async function fetchTMDbByCountry(countryCode: string): Promise<BoxOfficeEntry[]
     if (!res.ok) return null;
     const data = await res.json();
     const results = data.results?.slice(0, 20) || [];
+    if (results.length === 0) return null;
 
-    return results.map((m: any, i: number) => ({
-      rank: i + 1,
-      id: m.id,
-      slug: `${(m.title || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}-${m.id}`,
-      title: m.title || 'Unknown',
-      year: (m.release_date || '').split('-')[0] || '2025',
-      poster_path: m.poster_path
-        ? `https://image.tmdb.org/t/p/w500${m.poster_path}`
-        : '/images/poster-1.jpg',
-      weekendGross: Math.floor(Math.random() * 50_000_000) + 2_000_000,
-      totalGross: Math.floor(Math.random() * 300_000_000) + 10_000_000,
-      weeks: Math.floor(Math.random() * 6) + 1,
-      changePct: i === 0 ? null : Math.floor(Math.random() * 40) - 15,
-    }));
+    // Fetch real revenue for top 15 movies
+    const topIds = results.slice(0, 15).map((m: any) => m.id as number);
+    const details = await fetchMovieDetailsBatch(topIds);
+
+    return results.map((m: any, i: number) => {
+      const detail = details.get(m.id);
+      const totalGross = detail?.revenue || 0;
+      const weeks = Math.floor(Math.random() * 6) + 1;
+      const weekendGross = totalGross > 0
+        ? estimateWeekendGross(totalGross, weeks)
+        : Math.floor(Math.random() * 50_000_000) + 2_000_000;
+
+      return {
+        rank: i + 1,
+        id: m.id,
+        slug: makeSlug(m.title, m.id),
+        title: m.title || 'Unknown',
+        year: (m.release_date || '').split('-')[0] || '2025',
+        poster_path: makePosterUrl(m.poster_path),
+        weekendGross,
+        totalGross: totalGross > 0 ? totalGross : Math.floor(Math.random() * 300_000_000) + 10_000_000,
+        weeks,
+        changePct: i === 0 ? null : Math.floor(Math.random() * 40) - 15,
+      };
+    });
   } catch {
     return null;
   }

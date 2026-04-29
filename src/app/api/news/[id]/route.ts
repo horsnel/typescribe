@@ -1,27 +1,68 @@
-import { NextResponse } from 'next/server';
-import { newsItems } from '@/lib/data';
-
 /**
  * GET /api/news/[id]
  *
  * Fetches the full article content for a news item.
- * - For real URLs: fetches the page and extracts article content
- * - For mock data (url === '#'): generates a richer article body from the excerpt
+ * Works with both mock data and dynamically fetched API articles.
+ *
+ * Strategy:
+ *   1. Check the shared article cache (populated by /api/news)
+ *   2. Fall back to static mock data
+ *   3. For real URLs: fetch the page and extract article content
+ *   4. For mock data (url === '#'): generate a richer article body
  */
+import { NextResponse } from 'next/server';
+import { newsItems } from '@/lib/data';
+
+// ─── Shared article cache (populated by /api/news) ───
+
+interface CachedArticle {
+  id: number;
+  title: string;
+  excerpt: string;
+  image: string;
+  source: string;
+  date: string;
+  url: string;
+}
+
+const articleCache = new Map<number, CachedArticle>();
+let cacheSetAt = 0;
+const CACHE_TTL = 60 * 60 * 1000; // 1 hour
+
+/** Called by /api/news to store fetched articles for detail lookups */
+export function cacheArticles(articles: CachedArticle[]): void {
+  const now = Date.now();
+  // Only refresh cache if expired or empty
+  if (articleCache.size > 0 && now - cacheSetAt < CACHE_TTL) return;
+
+  articleCache.clear();
+  for (const article of articles) {
+    articleCache.set(article.id, article);
+  }
+  cacheSetAt = now;
+}
+
 export async function GET(
   _request: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
   const { id } = await params;
   const articleId = parseInt(id, 10);
-  const article = newsItems.find((n) => n.id === articleId);
+
+  // Step 1: Check the shared article cache first (API-sourced articles)
+  const cachedArticle = articleCache.get(articleId);
+
+  // Step 2: Fall back to static mock data
+  const mockArticle = newsItems.find((n) => n.id === articleId);
+
+  const article = cachedArticle || mockArticle;
 
   if (!article) {
     return NextResponse.json({ error: 'Article not found' }, { status: 404 });
   }
 
   // Mock data — generate a richer article body from the excerpt
-  if (article.url === '#') {
+  if (article.url === '#' || !article.url) {
     const richContent = generateMockArticle(article.title, article.excerpt, article.source, article.date);
     return NextResponse.json({
       title: article.title,
@@ -75,13 +116,11 @@ export async function GET(
 
 /**
  * Extract article content from raw HTML.
- * Tries common article selectors, then falls back to <p> tags.
  */
 function extractArticleContent(
   html: string,
   _url: string,
 ): { title: string | null; content: string; image: string | null } {
-  // Simple extraction — look for common article containers
   const articlePatterns = [
     /<article[^>]*>([\s\S]*?)<\/article>/gi,
     /<div[^>]*class="[^"]*(?:article|post-content|entry-content|story-body|article-body)[^"]*"[^>]*>([\s\S]*?)<\/div>/gi,
@@ -92,13 +131,11 @@ function extractArticleContent(
   let content = '';
   let image: string | null = null;
 
-  // Extract title
   const titleMatch = html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i);
   if (titleMatch) {
     title = titleMatch[1].replace(/<[^>]*>/g, '').trim();
   }
 
-  // Extract og:image
   const ogImageMatch = html.match(
     /<meta[^>]*property="og:image"[^>]*content="([^"]*)"[^>]*\/?>/i,
   );
@@ -106,30 +143,27 @@ function extractArticleContent(
     image = ogImageMatch[1];
   }
 
-  // Extract article body
   for (const pattern of articlePatterns) {
     const match = pattern.exec(html);
     if (match) {
-      // Extract all <p> tags from the matched container
       const pTags = match[1].match(/<p[^>]*>([\s\S]*?)<\/p>/gi);
       if (pTags && pTags.length > 0) {
         content = pTags
           .map((p) => p.replace(/<[^>]*>/g, '').trim())
-          .filter((p) => p.length > 40) // Filter out short/non-content paragraphs
+          .filter((p) => p.length > 40)
           .join('\n\n');
         break;
       }
     }
   }
 
-  // Fallback: extract all meaningful <p> tags from the entire page
   if (!content) {
     const allPTags = html.match(/<p[^>]*>([\s\S]*?)<\/p>/gi);
     if (allPTags) {
       content = allPTags
         .map((p) => p.replace(/<[^>]*>/g, '').trim())
         .filter((p) => p.length > 60)
-        .slice(0, 15) // Limit to first 15 paragraphs
+        .slice(0, 15)
         .join('\n\n');
     }
   }
@@ -139,7 +173,6 @@ function extractArticleContent(
 
 /**
  * Generate a richer mock article body from an excerpt.
- * Creates multi-paragraph content that expands on the excerpt.
  */
 function generateMockArticle(
   title: string,

@@ -46,6 +46,11 @@ export async function GET(
         ai_review: cached.movie.ai_review,
         model: cached.sources?.includes('Gemini') ? 'gemini-2.0-flash' : 'placeholder',
         cached: true,
+      }, {
+        headers: {
+          'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=604800',
+          'CDN-Cache-Control': 'public, max-age=86400',
+        },
       });
     }
 
@@ -117,6 +122,11 @@ export async function GET(
       ai_review: aiReview,
       model,
       cached: false,
+    }, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=604800',
+        'CDN-Cache-Control': 'public, max-age=86400',
+      },
     });
   } catch (error: any) {
     console.error('[AI Review API] Error:', error);

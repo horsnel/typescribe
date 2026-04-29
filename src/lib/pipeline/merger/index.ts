@@ -140,6 +140,14 @@ function generateSlug(title: string, id: number): string {
     + `-${id}`;
 }
 
+/** Parse a dollar string like "$123,456,789" into a number */
+function parseDollarString(value: string): number | null {
+  if (!value || value === 'N/A') return null;
+  const cleaned = value.replace(/[^0-9.-]/g, '');
+  const num = parseInt(cleaned, 10);
+  return isNaN(num) ? null : num;
+}
+
 // ─── Completeness Score (enhanced with scraped fields) ───
 
 function calculateCompleteness(movie: Movie): number {
@@ -959,6 +967,16 @@ export async function mergeMovieData(
   // Override TMDb budget/revenue if we have scraped box office data
   if (budgetReported && !movie.budget) movie.budget = budgetReported;
   if (boxWorldwide && !movie.revenue) movie.revenue = boxWorldwide;
+
+  // --- Box Office fallback: OMDb ---
+  // OMDb returns a dollar string like "$123,456,789" — parse it as a fallback
+  if (omdbData?.boxOffice && !movie.box_office_worldwide) {
+    const parsed = parseDollarString(omdbData.boxOffice);
+    if (parsed && parsed > 0) {
+      movie.box_office_worldwide = parsed;
+      if (!movie.revenue) movie.revenue = parsed;
+    }
+  }
 
   // --- Age Ratings (Common Sense Media) ---
   if (scrapedData.csmAgeRating) movie.age_rating = scrapedData.csmAgeRating;

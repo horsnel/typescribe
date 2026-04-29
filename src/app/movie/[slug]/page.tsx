@@ -119,18 +119,32 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
 
           // Phase 2a: Independent AI Review fetch — doesn't depend on full pipeline
           if (!data.movie.ai_review) {
-            setAiReviewLoading(true);
-            fetch(`/api/movies/${tmdbId}/ai-review`, { signal: controller.signal, cache: 'no-store' as RequestCache })
-              .then(res => res.ok ? res.json() : null)
-              .then(aiData => {
-                if (aiData?.ai_review) {
-                  setAiReview(aiData.ai_review);
-                  // Also update the movie state so other components can access it
-                  setMovie(prev => prev ? { ...prev, ai_review: aiData.ai_review } : prev);
-                }
-              })
-              .catch(() => { /* AI review fetch failed */ })
-              .finally(() => setAiReviewLoading(false));
+            // Check client-side sessionStorage cache first (instant, no API call)
+            const sessionKey = `ai-review:${tmdbId}`;
+            let sessionReview: string | null = null;
+            try {
+              sessionReview = sessionStorage.getItem(sessionKey);
+            } catch { /* sessionStorage not available */ }
+
+            if (sessionReview) {
+              setAiReview(sessionReview);
+              setMovie(prev => prev ? { ...prev, ai_review: sessionReview } : prev);
+            } else {
+              setAiReviewLoading(true);
+              fetch(`/api/movies/${tmdbId}/ai-review`, { signal: controller.signal })
+                .then(res => res.ok ? res.json() : null)
+                .then(aiData => {
+                  if (aiData?.ai_review) {
+                    setAiReview(aiData.ai_review);
+                    // Also update the movie state so other components can access it
+                    setMovie(prev => prev ? { ...prev, ai_review: aiData.ai_review } : prev);
+                    // Cache in sessionStorage for instant revisit
+                    try { sessionStorage.setItem(sessionKey, aiData.ai_review); } catch {}
+                  }
+                })
+                .catch(() => { /* AI review fetch failed */ })
+                .finally(() => setAiReviewLoading(false));
+            }
           } else {
             setAiReview(data.movie.ai_review);
           }

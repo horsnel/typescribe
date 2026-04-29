@@ -11,7 +11,10 @@ import type { Movie } from '@/lib/types';
 
 // ─── Configuration ───
 
-const CACHE_DIR = path.join(process.cwd(), 'data', 'pipeline');
+// On Vercel, /tmp is writable; fallback to project dir for local dev
+const CACHE_DIR = process.env.VERCEL
+  ? path.join('/tmp', 'pipeline-cache')
+  : path.join(process.cwd(), 'data', 'pipeline');
 const DEFAULT_TTL_HOURS = 24;
 
 // ─── Detect if filesystem is writable ───

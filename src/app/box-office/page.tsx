@@ -214,9 +214,14 @@ export default function BoxOfficePage() {
                           {entry.title}
                         </h3>
                         <p className="text-xs text-[#6b7280] mt-0.5">{entry.year}</p>
-                        <div className="flex items-center gap-3 mt-2">
+                        <div className="flex items-center gap-2 mt-2">
                           <span className="text-sm font-semibold text-[#f5c518]">{formatCurrency(entry.weekendGross)}</span>
-                          <span className="text-xs text-[#6b7280]">weekend</span>
+                          <span className="text-xs text-[#6b7280]">wknd</span>
+                        </div>
+                        <div className="flex items-center gap-2 mt-1">
+                          <span className="text-xs font-medium text-white">{formatCurrency(entry.totalGross)}</span>
+                          <span className="text-[10px] text-[#6b7280]">total</span>
+                          <span className="text-[10px] text-[#6b7280] ml-1">{entry.weeks}wk</span>
                         </div>
                       </div>
                     </div>
@@ -268,10 +273,13 @@ export default function BoxOfficePage() {
             )}
 
             {/* Full Table */}
-            <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl overflow-hidden">
-              {/* Table Header */}
-              <div className="grid items-center gap-4 px-5 py-3 border-b border-[#1e1e28] text-xs font-semibold text-[#6b7280] uppercase tracking-wider bg-[#050507]/50">
-                <div className="grid items-center gap-4" style={{ gridTemplateColumns: '48px 1fr 120px 120px 80px 80px' }}>
+            <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl overflow-x-auto">
+              <div className="min-w-[640px]">
+                {/* Table Header */}
+                <div
+                  className="grid items-center gap-4 px-5 py-3 border-b border-[#1e1e28] text-xs font-semibold text-[#6b7280] uppercase tracking-wider bg-[#050507]/50"
+                  style={{ gridTemplateColumns: activeTab === 'top-all-time' ? '48px 1fr 140px' : '48px 1fr 130px 130px 70px 80px' }}
+                >
                   <span>Rank</span>
                   <span>Movie</span>
                   {activeTab === 'top-all-time' ? (
@@ -280,77 +288,77 @@ export default function BoxOfficePage() {
                     <>
                       <span className="text-right">Weekend</span>
                       <span className="text-right">Total Gross</span>
-                      <span className="text-right">Weeks</span>
+                      <span className="text-right">Wks</span>
                       <span className="text-right">Change</span>
                     </>
                   )}
                 </div>
-              </div>
 
-              {/* Table Body */}
-              <div className="divide-y divide-[#2a2a35]/50">
-                {entries.map((entry) => (
-                  <Link
-                    key={entry.id}
-                    href={entry.slug ? `/movie/${entry.slug}` : '#'}
-                    className="grid items-center gap-4 px-5 py-3 hover:bg-[#111118] transition-colors group"
-                    style={{ gridTemplateColumns: activeTab === 'top-all-time' ? '48px 1fr 120px' : '48px 1fr 120px 120px 80px 80px' }}
-                  >
-                    {/* Rank */}
-                    <div className="flex items-center justify-center">
-                      <span className={`text-lg font-bold ${entry.rank <= 3 ? 'text-[#f5c518]' : 'text-[#6b7280]'}`}>
-                        {entry.rank}
-                      </span>
-                    </div>
+                {/* Table Body */}
+                <div className="divide-y divide-[#2a2a35]/50">
+                  {entries.map((entry) => (
+                    <Link
+                      key={entry.id}
+                      href={entry.slug ? `/movie/${entry.slug}` : '#'}
+                      className="grid items-center gap-4 px-5 py-3 hover:bg-[#111118] transition-colors group"
+                      style={{ gridTemplateColumns: activeTab === 'top-all-time' ? '48px 1fr 140px' : '48px 1fr 130px 130px 70px 80px' }}
+                    >
+                      {/* Rank */}
+                      <div className="flex items-center justify-center">
+                        <span className={`text-lg font-bold ${entry.rank <= 3 ? 'text-[#f5c518]' : 'text-[#6b7280]'}`}>
+                          {entry.rank}
+                        </span>
+                      </div>
 
-                    {/* Movie Info */}
-                    <div className="flex items-center gap-3 min-w-0">
-                      <div className="w-10 h-14 rounded-lg overflow-hidden flex-shrink-0 bg-[#050507]">
-                        <img
-                          src={entry.poster_path}
-                          alt={entry.title}
-                          className="w-full h-full object-cover"
-                          onError={(e) => { (e.target as HTMLImageElement).src = '/images/poster-1.jpg'; }}
-                        />
-                      </div>
-                      <div className="min-w-0">
-                        <h3 className="text-sm font-semibold text-white group-hover:text-[#d4a853] transition-colors truncate">
-                          {entry.title}
-                        </h3>
-                        <span className="text-xs text-[#6b7280]">{entry.year}</span>
-                      </div>
-                    </div>
-
-                    {activeTab === 'top-all-time' ? (
-                      /* Total Gross (All Time) */
-                      <div className="text-right">
-                        <span className="text-sm font-semibold text-[#f5c518]">{formatCurrency(entry.totalGross)}</span>
-                      </div>
-                    ) : (
-                      <>
-                        {/* Weekend Gross */}
-                        <div className="text-right">
-                          <span className="text-sm font-medium text-white">{formatCurrency(entry.weekendGross)}</span>
+                      {/* Movie Info */}
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className="w-10 h-14 rounded-lg overflow-hidden flex-shrink-0 bg-[#050507]">
+                          <img
+                            src={entry.poster_path}
+                            alt={entry.title}
+                            className="w-full h-full object-cover"
+                            onError={(e) => { (e.target as HTMLImageElement).src = '/images/poster-1.jpg'; }}
+                          />
                         </div>
+                        <div className="min-w-0">
+                          <h3 className="text-sm font-semibold text-white group-hover:text-[#d4a853] transition-colors truncate">
+                            {entry.title}
+                          </h3>
+                          <span className="text-xs text-[#6b7280]">{entry.year}</span>
+                        </div>
+                      </div>
 
-                        {/* Total Gross */}
-                        <div className="text-right">
+                      {activeTab === 'top-all-time' ? (
+                        /* Total Gross (All Time) */
+                        <div className="text-right whitespace-nowrap">
                           <span className="text-sm font-semibold text-[#f5c518]">{formatCurrency(entry.totalGross)}</span>
                         </div>
+                      ) : (
+                        <>
+                          {/* Weekend Gross */}
+                          <div className="text-right whitespace-nowrap">
+                            <span className="text-sm font-medium text-white">{formatCurrency(entry.weekendGross)}</span>
+                          </div>
 
-                        {/* Weeks */}
-                        <div className="text-right">
-                          <span className="text-sm text-[#9ca3af]">{entry.weeks}wk{entry.weeks !== 1 ? 's' : ''}</span>
-                        </div>
+                          {/* Total Gross */}
+                          <div className="text-right whitespace-nowrap">
+                            <span className="text-sm font-semibold text-[#f5c518]">{formatCurrency(entry.totalGross)}</span>
+                          </div>
 
-                        {/* Change */}
-                        <div className="text-right text-sm font-medium">
-                          <ChangeIndicator value={entry.changePct} />
-                        </div>
-                      </>
-                    )}
-                  </Link>
-                ))}
+                          {/* Weeks */}
+                          <div className="text-right whitespace-nowrap">
+                            <span className="text-sm text-[#9ca3af]">{entry.weeks}wk{entry.weeks !== 1 ? 's' : ''}</span>
+                          </div>
+
+                          {/* Change */}
+                          <div className="text-right text-sm font-medium whitespace-nowrap">
+                            <ChangeIndicator value={entry.changePct} />
+                          </div>
+                        </>
+                      )}
+                    </Link>
+                  ))}
+                </div>
               </div>
             </div>
 

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getEntertainmentHeadlines as getNewsApiHeadlines, getMovieNews as getNewsApiMovieNews } from '@/lib/pipeline/clients/newsapi';
 import { getEntertainmentHeadlines as getNewsDataHeadlines, getMovieNews as getNewsDataMovieNews, isNewsDataConfigured } from '@/lib/pipeline/clients/newsdata';
 import { newsItems } from '@/lib/data';
+import { cacheArticles } from './[id]/route';
 
 interface FormattedArticle {
   id: number;
@@ -23,89 +24,67 @@ function formatDate(dateStr: string): string {
 }
 
 /**
- * News strategy: Merge results from BOTH NewsAPI and NewsData.io,
+ * News strategy: Parallel fetch from BOTH NewsAPI and NewsData.io,
  * with each acting as a fallback for the other.
  *
- * 1. Try NewsAPI first (if configured)
- * 2. Try NewsData.io (if configured) — always try, not just when NewsAPI fails
- * 3. Merge & deduplicate results
+ * 1. Run NewsAPI + NewsData in PARALLEL (not sequential)
+ * 2. Merge & deduplicate results
+ * 3. Prioritize articles WITH images (better UX)
  * 4. Fall back to mock data only if BOTH APIs return nothing
+ *
+ * This ensures:
+ * - If one API is down, the other still works (fallback)
+ * - Maximum article coverage from both sources
+ * - Articles with images appear first for better presentation
+ * - Fast response (parallel fetching, not sequential)
  */
 export async function GET() {
-  const articles: FormattedArticle[] = [];
   const seen = new Set<string>();
 
-  // ── Collect from NewsAPI ──
-  let newsApiArticles: FormattedArticle[] = [];
-  const newsApiKey = process.env.NEWS_API_KEY;
-  if (newsApiKey) {
-    try {
-      const [headlines, movieNews] = await Promise.all([
-        getNewsApiHeadlines(),
-        getNewsApiMovieNews('movies OR film OR cinema OR hollywood'),
-      ]);
+  // ── Run BOTH APIs in parallel for maximum speed and coverage ──
+  const [newsApiResult, newsDataResult] = await Promise.allSettled([
+    fetchNewsApi(),
+    fetchNewsData(),
+  ]);
 
-      const combined = [...headlines, ...movieNews];
+  const newsApiArticles = newsApiResult.status === 'fulfilled' ? newsApiResult.value : [];
+  const newsDataArticles = newsDataResult.status === 'fulfilled' ? newsDataResult.value : [];
 
-      for (const a of combined) {
-        if (!a.title || seen.has(a.title.toLowerCase())) continue;
-        seen.add(a.title.toLowerCase());
-
-        newsApiArticles.push({
-          id: 0, // will be assigned below
-          title: a.title,
-          excerpt: a.description || '',
-          image: a.imageUrl || '',  // empty string = no image, handled by UI
-          source: a.source || 'NewsAPI',
-          date: formatDate(a.publishedAt),
-          url: a.url,
-        });
-      }
-    } catch (err) {
-      console.error('[/api/news] NewsAPI error:', err);
-    }
+  if (newsApiResult.status === 'rejected') {
+    console.error('[/api/news] NewsAPI error:', newsApiResult.reason);
+  }
+  if (newsDataResult.status === 'rejected') {
+    console.error('[/api/news] NewsData.io error:', newsDataResult.reason);
   }
 
-  // ── Collect from NewsData.io (always try, not just when NewsAPI failed) ──
-  let newsDataArticles: FormattedArticle[] = [];
-  if (isNewsDataConfigured()) {
-    try {
-      const [headlines, movieNews] = await Promise.all([
-        getNewsDataHeadlines(),
-        getNewsDataMovieNews('movies film hollywood'),
-      ]);
+  // ── Merge: deduplicate by title, keep both sources ──
+  const mergedArticles: FormattedArticle[] = [];
 
-      const combined = [...headlines, ...movieNews];
-
-      for (const a of combined) {
-        const title = a.title;
-        if (!title || seen.has(title.toLowerCase())) continue;
-        seen.add(title.toLowerCase());
-
-        newsDataArticles.push({
-          id: 0,
-          title,
-          excerpt: a.description || '',
-          image: a.image_url || '',  // empty string = no image, handled by UI
-          source: a.source_id || 'NewsData.io',
-          date: formatDate(a.pubDate || new Date().toISOString()),
-          url: a.link,
-        });
-      }
-    } catch (err) {
-      console.error('[/api/news] Newsdata.io error:', err);
-    }
+  // Add NewsAPI articles first (generally higher quality images)
+  for (const a of newsApiArticles) {
+    if (!a.title || seen.has(a.title.toLowerCase())) continue;
+    seen.add(a.title.toLowerCase());
+    mergedArticles.push(a);
   }
 
-  // ── Merge: NewsAPI results first, then NewsData supplements ──
-  const mergedArticles = [...newsApiArticles, ...newsDataArticles];
+  // Add NewsData articles as supplements (fill gaps)
+  for (const a of newsDataArticles) {
+    if (!a.title || seen.has(a.title.toLowerCase())) continue;
+    seen.add(a.title.toLowerCase());
+    mergedArticles.push(a);
+  }
 
-  // Assign IDs
+  // ── Sort: articles WITH images first (better UX) ──
+  mergedArticles.sort((a, b) => {
+    const aHasImage = a.image && a.image.length > 0 ? 1 : 0;
+    const bHasImage = b.image && b.image.length > 0 ? 1 : 0;
+    return bHasImage - aHasImage;
+  });
+
+  // Assign sequential IDs after sorting
   for (let i = 0; i < mergedArticles.length; i++) {
     mergedArticles[i].id = i + 1;
   }
-
-  articles.push(...mergedArticles);
 
   // ── Determine source label ──
   let source = 'mock';
@@ -118,6 +97,7 @@ export async function GET() {
   }
 
   // ── Fall back to mock data only if BOTH APIs returned nothing ──
+  const articles: FormattedArticle[] = [...mergedArticles];
   if (articles.length === 0) {
     for (const item of newsItems) {
       articles.push({
@@ -133,9 +113,69 @@ export async function GET() {
     source = 'mock';
   }
 
+  // ── Cache articles for the /api/news/[id] detail endpoint ──
+  cacheArticles(articles);
+
   return NextResponse.json({
     articles,
     source,
     count: articles.length,
   });
+}
+
+/**
+ * Fetch from NewsAPI.org — returns formatted articles.
+ * Returns empty array on failure (not thrown) for fallback behavior.
+ */
+async function fetchNewsApi(): Promise<FormattedArticle[]> {
+  const apiKey = process.env.NEWS_API_KEY;
+  if (!apiKey) return [];
+
+  const [headlines, movieNews] = await Promise.all([
+    getNewsApiHeadlines(),
+    getNewsApiMovieNews('movies OR film OR cinema OR hollywood'),
+  ]);
+
+  const articles: FormattedArticle[] = [];
+  for (const a of [...headlines, ...movieNews]) {
+    if (!a.title) continue;
+    articles.push({
+      id: 0, // assigned later
+      title: a.title,
+      excerpt: a.description || '',
+      image: a.imageUrl || '',
+      source: a.source || 'NewsAPI',
+      date: formatDate(a.publishedAt),
+      url: a.url,
+    });
+  }
+  return articles;
+}
+
+/**
+ * Fetch from NewsData.io — returns formatted articles.
+ * Returns empty array on failure (not thrown) for fallback behavior.
+ */
+async function fetchNewsData(): Promise<FormattedArticle[]> {
+  if (!isNewsDataConfigured()) return [];
+
+  const [headlines, movieNews] = await Promise.all([
+    getNewsDataHeadlines(),
+    getNewsDataMovieNews('movies film hollywood'),
+  ]);
+
+  const articles: FormattedArticle[] = [];
+  for (const a of [...headlines, ...movieNews]) {
+    if (!a.title) continue;
+    articles.push({
+      id: 0, // assigned later
+      title: a.title,
+      excerpt: a.description || '',
+      image: a.image_url || '',
+      source: a.source_id || 'NewsData.io',
+      date: formatDate(a.pubDate || new Date().toISOString()),
+      url: a.link,
+    });
+  }
+  return articles;
 }
