@@ -60,7 +60,7 @@ function AnimeCard() {
 
       <div className="flex flex-col min-w-0 relative z-10">
         <span className="text-[#f1f1f4] font-semibold text-sm truncate">Anime</span>
-        <span className="text-[#6b7280] text-xs mt-0.5">Browse from Jikan & AniList</span>
+        <span className="text-[#6b7280] text-xs mt-0.5">Explore top anime series and films</span>
       </div>
 
       <ChevronRight size={16} className="ml-auto text-[#6b7280] opacity-0 group-hover:opacity-100 transition-opacity relative z-10" strokeWidth={1.5} />

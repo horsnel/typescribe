@@ -330,7 +330,7 @@ export default function NewsPage() {
         </div>
         <p className="text-[#6b7280] mb-2">The latest stories from the world of cinema — industry insights, festival coverage, and cultural analysis.</p>
         <p className="text-xs text-[#6b7280] mb-8">
-          {dataSource === 'mock' ? 'Showing curated stories' : `Powered by ${dataSource === 'newsapi' ? 'NewsAPI' : 'Newsdata.io'}`}
+          {dataSource === 'mock' ? 'Curated stories' : 'Live coverage'}
         </p>
 
         {/* Category Filter */}

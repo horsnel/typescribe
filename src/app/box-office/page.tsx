@@ -155,21 +155,23 @@ export default function BoxOfficePage() {
           </div>
         )}
 
-        {/* Data source indicator */}
+        {/* Data freshness indicator */}
         <div className="mb-6 flex items-center gap-2 bg-[#0c0c10] border border-[#1e1e28] rounded-lg px-4 py-2.5">
           {fromAPI ? (
             <>
-              <Zap className="w-4 h-4 text-[#d4a853]" />
-              <p className="text-xs text-[#d4a853]/80">
-                Live data — Powered by TMDb + Box Office Mojo
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              <p className="text-xs text-[#9ca3af]">
+                Live Data · Rankings update hourly
               </p>
             </>
           ) : (
             <>
               <BarChart3 className="w-4 h-4 text-[#d4a853]" />
               <p className="text-xs text-[#6b7280]">
-                Showing demo data. Connect TMDb API for live box office rankings.
-                <Link href="/admin/data" className="text-[#d4a853] hover:underline ml-1">Set up pipeline →</Link>
+                Curated rankings · Connect your API keys for live box office data
               </p>
             </>
           )}
@@ -358,9 +360,9 @@ export default function BoxOfficePage() {
             {/* Footer note */}
             <div className="mt-6 text-center">
               <p className="text-xs text-[#6b7280]">
-                Powered by TMDb + Box Office Mojo · Data refreshed hourly ·{' '}
+                Rankings update hourly ·{' '}
                 {activeTab === 'by-country' && `${selectedCountryFlag} ${selectedCountryName} · `}
-                {fromAPI ? 'Live data' : 'Demo data'}
+                {fromAPI ? 'Live' : 'Curated'}
               </p>
             </div>
           </>

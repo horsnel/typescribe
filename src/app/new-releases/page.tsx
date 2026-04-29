@@ -259,7 +259,7 @@ export default function NewReleasesPage() {
                   variant="outline"
                   className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:bg-[#111118] hover:border-[#3a3a45] gap-2"
                 >
-                  <ChevronDown className="w-4 h-4" /> Load More Movies ({filtered.length - visibleCount} remaining)
+                  <ChevronDown className="w-4 h-4" /> Load More
                 </Button>
               </div>
             )}

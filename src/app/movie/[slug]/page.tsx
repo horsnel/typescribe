@@ -91,8 +91,15 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
     setLoading(true);
     setEnriched(false);
 
+    const controller = new AbortController();
+    const enrichmentTimeout = setTimeout(() => {
+      // Auto-dismiss enrichment after 10s — don't let the banner spin forever
+      controller.abort();
+      setEnriching(false);
+    }, 10_000);
+
     // Phase 1: Fast fetch — returns TMDb data immediately (~2-3s)
-    fetch(`/api/movies/slug/${slug}`)
+    fetch(`/api/movies/slug/${slug}`, { signal: controller.signal })
       .then(res => res.ok ? res.json() : null)
       .then(data => {
         if (data?.movie) {
@@ -104,7 +111,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
           // Phase 2: If not enriched, fetch enriched data in background
           if (!data.enriched && data.completeness < 50) {
             setEnriching(true);
-            fetch(`/api/movies/slug/${slug}?enriched=true`)
+            fetch(`/api/movies/slug/${slug}?enriched=true`, { signal: controller.signal })
               .then(res => res.ok ? res.json() : null)
               .then(enrichedData => {
                 if (enrichedData?.movie) {
@@ -115,8 +122,12 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                 }
               })
               .catch(() => { /* enrichment failed, keep fast data */ })
-              .finally(() => setEnriching(false));
+              .finally(() => {
+                clearTimeout(enrichmentTimeout);
+                setEnriching(false);
+              });
           } else {
+            clearTimeout(enrichmentTimeout);
             setEnriched(true);
           }
         } else {
@@ -133,6 +144,11 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
         setPipelineSources(mock ? ['mock'] : []);
         setLoading(false);
       });
+
+    return () => {
+      controller.abort();
+      clearTimeout(enrichmentTimeout);
+    };
   }, [slug]);
   const [inWatchlist, setInWatchlist] = useState(false);
   const [overviewExpanded, setOverviewExpanded] = useState(false);
@@ -584,15 +600,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
 
   return (
     <div className="min-h-screen bg-[#050507]">
-      {/* Enrichment banner — shown while pipeline scrapers are still running */}
-      {enriching && (
-        <div className="sticky top-16 z-40 bg-[#0c0c10] border-b border-[#1e1e28] px-4 py-2">
-          <div className="max-w-7xl mx-auto flex items-center gap-2 text-xs text-[#9ca3af]">
-            <Loader2 className="w-3 h-3 animate-spin text-[#d4a853]" />
-            <span>Enhancing from additional sources…</span>
-          </div>
-        </div>
-      )}
+      {/* Subtle enrichment indicator — small pulse dot in hero instead of full banner */}
       {/* ─── Hero Section ─── */}
       <div ref={heroRef} className="relative h-auto min-h-[65vh] md:h-[65vh] md:min-h-[520px]">
         {/* Backdrop */}
@@ -1240,11 +1248,22 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                   <h2 className="text-xl font-bold text-white">You Might Also Like</h2>
                   {recSources.length > 0 && (
                     <div className="flex items-center gap-1.5 flex-wrap">
-                      {recSources.map((src) => (
-                        <span key={src} className="text-[10px] font-medium text-[#9ca3af] bg-[#0c0c10] border border-[#1e1e28] px-2 py-0.5 rounded-full">
-                          {src}
-                        </span>
-                      ))}
+                      {recSources.map((src) => {
+                        // Map internal source names to consumer-friendly labels
+                        const label: Record<string, string> = {
+                          'TMDb Recommendations': 'Based on Taste',
+                          'TMDb Similar': 'Similar Films',
+                          'Letterboxd': 'Film Lovers',
+                          'Rotten Tomatoes': 'Critics',
+                          'AniList': 'Anime Community',
+                          'Jikan/MAL': 'Anime Fans',
+                        };
+                        return (
+                          <span key={src} className="text-[10px] font-medium text-[#9ca3af] bg-[#0c0c10] border border-[#1e1e28] px-2 py-0.5 rounded-full">
+                            {label[src] || src}
+                          </span>
+                        );
+                      })}
                     </div>
                   )}
                 </div>

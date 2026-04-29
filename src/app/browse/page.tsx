@@ -613,21 +613,23 @@ export default function BrowsePage() {
           </div>
         )}
 
-        {/* ─── Data Source Indicator ─── */}
+        {/* ─── Data Freshness Indicator ─── */}
         <div className="mb-6 flex items-center gap-2 bg-[#0c0c10] border border-[#1e1e28] rounded-lg px-4 py-2.5">
           {fromAPI ? (
             <>
-              <Zap className="w-4 h-4 text-[#d4a853]" />
-              <p className="text-xs text-[#d4a853]/80">
-                Live data — Connected to TMDb + OMDb pipeline. Showing {filtered.length} of {totalResults.toLocaleString()} results.
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              <p className="text-xs text-[#9ca3af]">
+                Live Data · {totalResults.toLocaleString()} titles available
               </p>
             </>
           ) : (
             <>
               <Sparkles className="w-4 h-4 text-[#d4a853]" />
               <p className="text-xs text-[#6b7280]">
-                Showing demo data. Connect your TMDb + OMDb API keys to unlock real-time data for 14+ countries, all genres, and themed collections.
-                <Link href="/admin/data" className="text-[#d4a853] hover:underline ml-1">Set up pipeline →</Link>
+                Curated collection · Connect your API keys for real-time data across all genres and regions
               </p>
             </>
           )}
@@ -637,7 +639,7 @@ export default function BrowsePage() {
         {isLoading && (
           <div className="flex items-center justify-center py-12">
             <Loader2 className="w-8 h-8 text-[#d4a853] animate-spin" />
-            <span className="ml-3 text-[#6b7280]">Loading from pipeline...</span>
+            <span className="ml-3 text-[#6b7280]">Loading...</span>
           </div>
         )}
 
