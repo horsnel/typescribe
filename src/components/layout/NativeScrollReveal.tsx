@@ -5,57 +5,70 @@ import { useEffect, useRef } from 'react';
 /**
  * NativeScrollReveal
  *
- * Lightweight replacement for SmoothScrollProvider on non-home pages.
- * Uses IntersectionObserver for scroll-triggered reveal animations
- * instead of Lenis + GSAP ScrollTrigger.
+ * Lightweight scroll-reveal using IntersectionObserver.
+ * Replaces Lenis + GSAP ScrollTrigger on non-home pages.
  *
- * Works with the app shell architecture where <main> is the scroll container
- * (not window/document).
+ * Uses MutationObserver to catch elements added after
+ * async data loads (e.g., movie detail page sections).
  *
- * The home page (src/app/page.tsx) initializes its own Lenis instance
- * for its showcase scroll experience.
+ * The home page uses its own Lenis + GSAP setup.
  */
 export default function NativeScrollReveal({ children }: { children: React.ReactNode }) {
   const observerRef = useRef<IntersectionObserver | null>(null);
+  const mutationRef = useRef<MutationObserver | null>(null);
 
   useEffect(() => {
-    // Small delay to allow DOM to settle after navigation
-    const initTimer = setTimeout(() => {
-      observerRef.current = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('revealed');
-              // Only animate once
-              observerRef.current?.unobserve(entry.target);
-            }
-          });
-        },
-        {
-          threshold: 0.08,
-          rootMargin: '0px 0px -8% 0px',
-        }
-      );
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            observerRef.current?.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.08,
+        rootMargin: '0px 0px -8% 0px',
+      }
+    );
 
-      // Observe all reveal-able elements
-      const selectors = [
-        '.reveal-section',
-        '.card-reveal',
-        '.carousel-card',
-        '.content-animate',
-        '.hero-animate',
-      ];
+    const selectors = [
+      '.reveal-section',
+      '.card-reveal',
+      '.carousel-card',
+      '.content-animate',
+      '.hero-animate',
+    ];
 
+    const observeElements = () => {
       selectors.forEach((selector) => {
         document.querySelectorAll(selector).forEach((el) => {
-          observerRef.current?.observe(el);
+          if (!el.classList.contains('revealed')) {
+            observerRef.current?.observe(el);
+          }
         });
       });
-    }, 150);
+    };
+
+    // Initial pass
+    const initTimer = setTimeout(observeElements, 150);
+
+    // Re-observe when new elements are added to the DOM
+    // (catches async-loaded content like movie detail sections)
+    mutationRef.current = new MutationObserver(() => {
+      observeElements();
+    });
+
+    mutationRef.current.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
 
     return () => {
       clearTimeout(initTimer);
       observerRef.current?.disconnect();
+      mutationRef.current?.disconnect();
     };
   }, []);
 

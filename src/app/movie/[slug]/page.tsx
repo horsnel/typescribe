@@ -457,19 +457,23 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
   useEffect(() => {
     if (!movie || hasAnimated.current) return;
     hasAnimated.current = true;
-    const ctx = gsap.context(() => {
+    // Hero animations scoped to heroRef
+    const heroCtx = gsap.context(() => {
       gsap.fromTo(
         '.hero-animate',
         { opacity: 0, y: 30 },
         { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: 'power3.out', delay: 0.2 }
       );
+    }, heroRef);
+    // Content animations scoped to contentRef (heroRef doesn't contain .content-animate elements)
+    const contentCtx = gsap.context(() => {
       gsap.fromTo(
         '.content-animate',
         { opacity: 0, y: 20 },
         { opacity: 1, y: 0, duration: 0.6, stagger: 0.08, ease: 'power2.out', delay: 0.5 }
       );
-    }, heroRef);
-    return () => ctx.revert();
+    }, contentRef);
+    return () => { heroCtx.revert(); contentCtx.revert(); };
   }, [movie]);
 
   const handleToggleWatchlist = useCallback(() => {
