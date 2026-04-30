@@ -26,13 +26,7 @@ export default function TrailerModal({
   itunesArtworkUrl,
   title,
 }: TrailerModalProps) {
-  const [thumbnailError, setThumbnailError] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
-
-  // Construct YouTube thumbnail URL
-  const youtubeThumbnail = youtubeId
-    ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`
-    : null;
 
   // Close on Escape key
   useEffect(() => {
@@ -59,7 +53,6 @@ export default function TrailerModal({
   // Reset states when modal opens
   useEffect(() => {
     if (isOpen) {
-      setThumbnailError(false);
       setVideoReady(false);
     }
   }, [isOpen]);
@@ -79,16 +72,23 @@ export default function TrailerModal({
   return (
     <div
       className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6"
+      style={{ animation: 'trailerFadeIn 0.2s ease-out' }}
       onClick={handleBackdropClick}
       role="dialog"
       aria-modal="true"
       aria-label={`${title} trailer`}
     >
       {/* Backdrop — blurry dark overlay */}
-      <div className="absolute inset-0 bg-black/80 backdrop-blur-md animate-fade-in" />
+      <div
+        className="absolute inset-0 bg-black/80 backdrop-blur-md"
+        style={{ animation: 'trailerFadeIn 0.2s ease-out' }}
+      />
 
       {/* Modal content */}
-      <div className="relative z-10 w-full max-w-4xl animate-scale-in">
+      <div
+        className="relative z-10 w-full max-w-4xl"
+        style={{ animation: 'trailerScaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1)' }}
+      >
         {/* Close button */}
         <button
           onClick={onClose}
@@ -152,29 +152,17 @@ export default function TrailerModal({
         </div>
       </div>
 
-      {/* Animation styles */}
-      <style jsx>{`
-        @keyframes fade-in {
+      {/* Global animation keyframes — injected once via inline style tag */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes trailerFadeIn {
           from { opacity: 0; }
           to { opacity: 1; }
         }
-        @keyframes scale-in {
-          from {
-            opacity: 0;
-            transform: scale(0.92);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1);
-          }
+        @keyframes trailerScaleIn {
+          from { opacity: 0; transform: scale(0.92); }
+          to { opacity: 1; transform: scale(1); }
         }
-        .animate-fade-in {
-          animation: fade-in 0.2s ease-out;
-        }
-        .animate-scale-in {
-          animation: scale-in 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-      `}</style>
+      ` }} />
     </div>
   );
 }
