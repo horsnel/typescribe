@@ -10,6 +10,7 @@ import {
   Pencil, Settings2, Swords, BookmarkPlus, Bell, GitCompare,
   Trophy, Video, Sparkles,
 } from 'lucide-react';
+import PostCard from '@/components/community/PostCard';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/lib/auth';
 import {
@@ -120,176 +121,9 @@ async function handleShare(title: string, communityId: string) {
   return false;
 }
 
-// ─── Comment Thread Component ───
+// CommentThread is now inside @/components/community/PostCard
 
-function CommentThread({ comments, postId, onAddComment, depth = 0 }: {
-  comments: CommentData[];
-  postId: string;
-  onAddComment: (postId: string, parentId: string | null, content: string) => void;
-  depth?: number;
-}) {
-  const { user } = useAuth();
-  const [replyTo, setReplyTo] = useState<string | null>(null);
-  const [replyContent, setReplyContent] = useState('');
-
-  const topLevel = comments.filter(c => c.parentId === null);
-  const getReplies = (parentId: string) => comments.filter(c => c.parentId === parentId);
-
-  const handleReply = (parentId: string) => {
-    if (!replyContent.trim() || !user) return;
-    onAddComment(postId, parentId, replyContent.trim());
-    setReplyContent('');
-    setReplyTo(null);
-  };
-
-  return (
-    <div className={depth > 0 ? 'ml-6 border-l border-[#1e1e28] pl-4' : ''}>
-      {topLevel.map((comment) => {
-        const profileHref = comment.authorId ? `/profile/${comment.authorId}` : '/profile';
-        return (
-          <div key={comment.id} className="py-3">
-            <div className="flex items-start gap-3">
-              <Link href={profileHref} className="flex-shrink-0">
-                <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#d4a853] to-[#b8922e] flex items-center justify-center text-white text-[10px] font-bold overflow-hidden">
-                  {comment.authorAvatar ? (
-                    <img src={comment.authorAvatar} alt={comment.authorName} className="w-full h-full object-cover" />
-                  ) : (
-                    comment.authorName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
-                  )}
-                </div>
-              </Link>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-1">
-                  <Link href={profileHref} className="text-xs font-semibold text-[#d4a853] hover:underline">{comment.authorName}</Link>
-                  <span className="text-[10px] text-[#6b7280]">{timeAgo(comment.createdAt)}</span>
-                </div>
-                <p className="text-sm text-[#9ca3af] leading-relaxed">{comment.content}</p>
-                <button onClick={() => setReplyTo(replyTo === comment.id ? null : comment.id)} className="text-[10px] text-[#6b7280] hover:text-[#d4a853] mt-1 transition-colors">Reply</button>
-              </div>
-            </div>
-            {replyTo === comment.id && (
-              <div className="ml-10 mt-2 flex items-center gap-2">
-                <input type="text" value={replyContent} onChange={(e) => setReplyContent(e.target.value)} placeholder="Write a reply..." className="flex-1 bg-[#050507] border border-[#1e1e28] rounded-lg px-3 py-1.5 text-sm text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853]" onKeyDown={(e) => { if (e.key === 'Enter') handleReply(comment.id); }} />
-                <Button size="sm" onClick={() => handleReply(comment.id)} disabled={!replyContent.trim()} className="bg-[#d4a853] hover:bg-[#b8922e] text-white h-8 w-8 p-0"><Send className="w-3.5 h-3.5" strokeWidth={1.5} /></Button>
-              </div>
-            )}
-            {getReplies(comment.id).length > 0 && <CommentThread comments={getReplies(comment.id)} postId={postId} onAddComment={onAddComment} depth={depth + 1} />}
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
-// ─── Post Card Component ───
-
-function PostCard({ post, communityId, onLikeToggle, onCommentToggle }: {
-  post: CommunityPost;
-  communityId: string;
-  onLikeToggle: (postId: string, type: 'like' | 'dislike') => void;
-  onCommentToggle: (postId: string) => void;
-}) {
-  const { user } = useAuth();
-  const [showComments, setShowComments] = useState(false);
-  const [commentInput, setCommentInput] = useState('');
-  const [comments, setComments] = useState<CommentData[]>([]);
-  const [shareCopied, setShareCopied] = useState(false);
-
-  const userLike = user ? getUserPostLike(post.id, user.id) : undefined;
-  const likeCounts = getPostLikeCounts(post.id);
-  const totalLikes = likeCounts.likes + (post.upvoteCount || 0);
-
-  const profileHref = post.authorId ? `/profile/${post.authorId}` : '/profile';
-
-  useEffect(() => { setComments(getPostComments(post.id)); }, [post.id, showComments]);
-
-  const handleComment = () => {
-    if (!commentInput.trim() || !user) return;
-    const newComment = addComment(post.id, null, user.id, user.display_name || 'Anonymous', user.avatar || '', commentInput.trim());
-    setComments(prev => [newComment, ...prev]);
-    setCommentInput('');
-  };
-
-  const handleAddComment = (postId: string, parentId: string | null, content: string) => {
-    if (!user) return;
-    const newComment = addComment(postId, parentId, user.id, user.display_name || 'Anonymous', user.avatar || '', content);
-    setComments(prev => [newComment, ...prev]);
-  };
-
-  const onShare = async () => {
-    const copied = await handleShare(post.title, communityId);
-    if (copied) {
-      setShareCopied(true);
-      setTimeout(() => setShareCopied(false), 2000);
-    }
-  };
-
-  return (
-    <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 sm:p-5 hover:border-[#2a2a35] transition-all group">
-      <div className="flex items-start gap-3 mb-3">
-        <Link href={profileHref} className="flex-shrink-0">
-          <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#d4a853] to-[#b8922e] flex items-center justify-center text-white text-xs font-bold overflow-hidden">
-            {post.authorAvatar ? (
-              <img src={post.authorAvatar} alt={post.author} className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
-            ) : (
-              post.author.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
-            )}
-          </div>
-        </Link>
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-0.5">
-            <Link href={profileHref} className="text-sm font-semibold text-[#d4a853] hover:underline">{post.author}</Link>
-            <span className="text-[10px] text-[#6b7280]">{timeAgo(post.createdAt)}</span>
-          </div>
-          <h3 className="text-base font-semibold text-white group-hover:text-[#d4a853] transition-colors mb-1">{post.title}</h3>
-          <p className="text-sm text-[#9ca3af] leading-relaxed">{post.content}</p>
-        </div>
-      </div>
-
-      <div className="h-px bg-[#1e1e28] my-3" />
-      <div className="flex items-center gap-1 sm:gap-2">
-        <button onClick={() => onLikeToggle(post.id, 'like')} className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm transition-all min-w-[44px] min-h-[44px] justify-center hover:bg-[#111118]" style={{ color: userLike?.type === 'like' ? '#d4a853' : '#6b7280' }}>
-          <Heart className="w-[18px] h-[18px]" strokeWidth={1.5} fill={userLike?.type === 'like' ? '#d4a853' : 'none'} />
-          <span className="text-xs font-medium">{totalLikes}</span>
-        </button>
-        <button onClick={() => onLikeToggle(post.id, 'dislike')} className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm transition-all min-w-[44px] min-h-[44px] justify-center hover:bg-[#111118]" style={{ color: userLike?.type === 'dislike' ? '#ef4444' : '#6b7280' }}>
-          <ThumbsDown className="w-[18px] h-[18px]" strokeWidth={1.5} />
-          <span className="text-xs font-medium">{likeCounts.dislikes}</span>
-        </button>
-        <button onClick={() => { setShowComments(!showComments); onCommentToggle(post.id); }} className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm text-[#6b7280] hover:text-[#d4a853] transition-all min-w-[44px] min-h-[44px] justify-center hover:bg-[#111118]">
-          <MessageSquare className="w-[18px] h-[18px]" strokeWidth={1.5} />
-          <span className="text-xs font-medium">{comments.length || post.replyCount}</span>
-        </button>
-        <button onClick={onShare} className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm text-[#6b7280] hover:text-[#d4a853] transition-all min-w-[44px] min-h-[44px] justify-center hover:bg-[#111118]">
-          {shareCopied ? <Check className="w-[18px] h-[18px] text-[#d4a853]" strokeWidth={1.5} /> : <Share2 className="w-[18px] h-[18px]" strokeWidth={1.5} />}
-          <span className="text-xs font-medium">{shareCopied ? 'Copied!' : 'Share'}</span>
-        </button>
-        <span className="text-[10px] text-[#6b7280] ml-auto hidden sm:block">{timeAgo(post.createdAt)}</span>
-      </div>
-
-      {showComments && (
-        <div className="mt-4 border-t border-[#1e1e28] pt-4">
-          {user && (
-            <div className="flex items-start gap-3 mb-4">
-              <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#d4a853] to-[#b8922e] flex items-center justify-center text-white text-[10px] font-bold overflow-hidden flex-shrink-0">
-                {user.avatar ? <img src={user.avatar} alt={user.display_name} className="w-full h-full object-cover" /> : user.display_name?.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || 'U'}
-              </div>
-              <div className="flex-1 flex items-center gap-2">
-                <input type="text" value={commentInput} onChange={(e) => setCommentInput(e.target.value)} placeholder="Add a comment..." className="flex-1 bg-[#050507] border border-[#1e1e28] rounded-lg px-3 py-2 text-sm text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853]" onKeyDown={(e) => { if (e.key === 'Enter') handleComment(); }} />
-                <Button size="sm" onClick={handleComment} disabled={!commentInput.trim()} className="bg-[#d4a853] hover:bg-[#b8922e] text-white h-9 w-9 p-0 flex-shrink-0"><Send className="w-3.5 h-3.5" strokeWidth={1.5} /></Button>
-              </div>
-            </div>
-          )}
-          {comments.length > 0 ? (
-            <CommentThread comments={comments} postId={post.id} onAddComment={handleAddComment} />
-          ) : (
-            <p className="text-xs text-[#6b7280] text-center py-4">No comments yet. Be the first to share your thoughts!</p>
-          )}
-        </div>
-      )}
-    </div>
-  );
-}
+// PostCard is now imported from @/components/community/PostCard
 
 // ─── Main Community Detail Page ───
 
@@ -630,8 +464,8 @@ export default function CommunityDetailPage() {
 
             {sortedPosts.length > 0 ? (
               <div className="space-y-3">
-                {sortedPosts.map((post) => (
-                  <PostCard key={post.id} post={post} communityId={communityId} onLikeToggle={handleLikeToggle} onCommentToggle={handleCommentToggle} />
+                {sortedPosts.map((post, i) => (
+                  <PostCard key={post.id} post={post} communityId={communityId} onLikeToggle={handleLikeToggle} onCommentToggle={handleCommentToggle} index={i} />
                 ))}
               </div>
             ) : (
