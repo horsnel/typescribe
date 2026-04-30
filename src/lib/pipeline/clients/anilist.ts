@@ -241,6 +241,40 @@ const BY_MAL_ID_QUERY = `
   }
 `;
 
+const TRENDING_QUERY = `
+  query ($page: Int, $perPage: Int) {
+    Page(page: $page, perPage: $perPage) {
+      pageInfo {
+        total
+        currentPage
+        lastPage
+        hasNextPage
+        perPage
+      }
+      media(type: ANIME, isAdult: false, sort: TRENDING_DESC) {
+        ${MEDIA_FRAGMENT}
+      }
+    }
+  }
+`;
+
+const POPULAR_QUERY = `
+  query ($page: Int, $perPage: Int) {
+    Page(page: $page, perPage: $perPage) {
+      pageInfo {
+        total
+        currentPage
+        lastPage
+        hasNextPage
+        perPage
+      }
+      media(type: ANIME, isAdult: false, sort: POPULARITY_DESC) {
+        ${MEDIA_FRAGMENT}
+      }
+    }
+  }
+`;
+
 // ─── Raw Fetch ───────────────────────────────────────────────────────────────
 
 async function anilistFetch<T>(
@@ -561,6 +595,74 @@ export async function getRecommendations(
 
   log(`Recommendations for AniList ${anilistId} → ${recs.length} result(s) (${Date.now() - startTime}ms)`);
   return recs;
+}
+
+// ─── Trending & Popular ──────────────────────────────────────────────────────
+
+/**
+ * Get currently trending anime from AniList (sorted by TRENDING_DESC).
+ * This is the proper way to get trending anime, rather than searching for "trending".
+ * Returns up to `limit` results, filtering out entries with no cover image.
+ */
+export async function getTrendingAnime(limit: number = 10): Promise<AniListResult[]> {
+  const cacheKey = `trending:${limit}`;
+  const startTime = Date.now();
+
+  const data = await anilistFetch<{
+    Page: {
+      pageInfo: { total: number; hasNextPage: boolean };
+      media: AniListMediaNode[];
+    };
+  }>(
+    TRENDING_QUERY,
+    { page: 1, perPage: limit * 2 }, // Over-fetch to allow filtering
+    cacheKey,
+  );
+
+  if (!data?.Page?.media) {
+    warn('No trending anime results');
+    return [];
+  }
+
+  const results = data.Page.media
+    .map(transformMediaNode)
+    .filter((a) => a.coverImage?.large); // Filter out entries with no cover image
+
+  log(`Trending → ${results.length} result(s) (${Date.now() - startTime}ms)`);
+  return results.slice(0, limit);
+}
+
+/**
+ * Get popular anime from AniList (sorted by POPULARITY_DESC).
+ * Useful as a fallback when trending returns too few results.
+ * Returns up to `limit` results, filtering out entries with no cover image.
+ */
+export async function getPopularAnime(limit: number = 10): Promise<AniListResult[]> {
+  const cacheKey = `popular:${limit}`;
+  const startTime = Date.now();
+
+  const data = await anilistFetch<{
+    Page: {
+      pageInfo: { total: number; hasNextPage: boolean };
+      media: AniListMediaNode[];
+    };
+  }>(
+    POPULAR_QUERY,
+    { page: 1, perPage: limit * 2 },
+    cacheKey,
+  );
+
+  if (!data?.Page?.media) {
+    warn('No popular anime results');
+    return [];
+  }
+
+  const results = data.Page.media
+    .map(transformMediaNode)
+    .filter((a) => a.coverImage?.large);
+
+  log(`Popular → ${results.length} result(s) (${Date.now() - startTime}ms)`);
+  return results.slice(0, limit);
 }
 
 // ─── Cache management ────────────────────────────────────────────────────────

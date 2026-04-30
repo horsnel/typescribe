@@ -3,11 +3,13 @@ import { useRef, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight, ChevronLeft, ChevronRight, Loader2, Wand2, Star, Play } from 'lucide-react';
 import type { Movie } from '@/lib/types';
+import { resolveImageUrl, handleImageError } from '@/lib/utils';
 
 function AnimeCard({ anime }: { anime: Movie }) {
   const year = anime.release_date ? anime.release_date.split('-')[0] : '';
   const genreNames = anime.genres.slice(0, 2).map((g) => g.name);
   const seasonTag = anime.anime_season;
+  const imgSrc = resolveImageUrl(anime.poster_path, 'w500');
 
   return (
     <Link
@@ -16,10 +18,11 @@ function AnimeCard({ anime }: { anime: Movie }) {
     >
       <div className="relative aspect-[2/3] rounded-xl overflow-hidden bg-[#0c0c10]">
         <img
-          src={anime.poster_path}
+          src={imgSrc}
           alt={anime.title}
           className="w-full h-full object-cover transition-all duration-300 group-hover:scale-[1.03]"
           loading="lazy"
+          onError={(e) => handleImageError(e, 'poster')}
         />
         {/* Anime badge */}
         <div className="absolute top-2 left-2 flex items-center gap-1 bg-purple-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-lg z-10">

@@ -6,6 +6,7 @@ import {
   TrendingUp, DollarSign, Globe, Minus,
   Crown, Loader2, BarChart3, ArrowUpRight, ArrowDownRight,
 } from 'lucide-react';
+import { resolveImageUrl, handleImageError } from '@/lib/utils';
 
 interface BoxOfficeEntry {
   rank: number;
@@ -202,7 +203,7 @@ export default function BoxOfficePage() {
                     <div className="flex gap-3">
                       <div className="w-14 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-[#050507]">
                         <img
-                          src={entry.poster_path}
+                          src={resolveImageUrl(entry.poster_path, 'w500')}
                           alt={entry.title}
                           className="w-full h-full object-cover"
                           onError={(e) => { (e.target as HTMLImageElement).src = '/images/poster-1.jpg'; }}
@@ -249,7 +250,7 @@ export default function BoxOfficePage() {
                     <div className="flex gap-3">
                       <div className="w-14 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-[#050507]">
                         <img
-                          src={entry.poster_path}
+                          src={resolveImageUrl(entry.poster_path, 'w500')}
                           alt={entry.title}
                           className="w-full h-full object-cover"
                           onError={(e) => { (e.target as HTMLImageElement).src = '/images/poster-1.jpg'; }}
@@ -312,7 +313,7 @@ export default function BoxOfficePage() {
                         >
                           <div className="w-10 h-14 rounded-lg overflow-hidden flex-shrink-0 bg-[#050507]">
                             <img
-                              src={entry.poster_path}
+                              src={resolveImageUrl(entry.poster_path, 'w500')}
                               alt={entry.title}
                               className="w-full h-full object-cover"
                               onError={(e) => { (e.target as HTMLImageElement).src = '/images/poster-1.jpg'; }}
@@ -371,7 +372,7 @@ export default function BoxOfficePage() {
                       {/* Poster */}
                       <div className="w-12 h-[68px] rounded-lg overflow-hidden flex-shrink-0 bg-[#050507]">
                         <img
-                          src={entry.poster_path}
+                          src={resolveImageUrl(entry.poster_path, 'w500')}
                           alt={entry.title}
                           className="w-full h-full object-cover"
                           onError={(e) => { (e.target as HTMLImageElement).src = '/images/poster-1.jpg'; }}

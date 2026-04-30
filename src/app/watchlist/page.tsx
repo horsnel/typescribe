@@ -7,6 +7,7 @@ import { useAuth, getLocalWatchlist, toggleWatchlist } from '@/lib/auth';
 import { movies } from '@/lib/data';
 import MovieCard from '@/components/movie/MovieCard';
 import { Button } from '@/components/ui/button';
+import { resolveImageUrl, handleImageError } from '@/lib/utils';
 
 type SortOption = 'date-added' | 'rating' | 'release' | 'title';
 
@@ -181,7 +182,7 @@ export default function WatchlistPage() {
                 {filtered.map((movie) => (
                   <div key={movie.id} className="flex items-center gap-4 bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 group hover:border-[#3a3a45] transition-colors">
                     <Link href={`/movie/${movie.slug}`} className="w-12 h-18 rounded-lg overflow-hidden flex-shrink-0 bg-[#050507]">
-                      <img src={movie.poster_path} alt={movie.title} className="w-full h-full object-cover" />
+                      <img src={resolveImageUrl(movie.poster_path, 'w500')} alt={movie.title} className="w-full h-full object-cover" />
                     </Link>
                     <div className="flex-1 min-w-0">
                       <Link href={`/movie/${movie.slug}`}>

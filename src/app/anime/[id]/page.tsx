@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import type { JikanAnimeResult, JikanCharacterResult, JikanRecommendation } from '@/lib/pipeline/clients/jikan';
 import EpisodeRatings from '@/components/anime/EpisodeRatings';
+import { handleImageError, POSTER_PLACEHOLDER, BACKDROP_PLACEHOLDER } from '@/lib/utils';
 
 // ─── Types ───
 
@@ -187,13 +188,14 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
       <div ref={heroRef} className="relative h-auto min-h-[60vh] md:h-[60vh] md:min-h-[480px]">
         {/* Backdrop */}
         <div className="absolute inset-0">
-          {anime.imageUrl && (
+          {anime.imageUrl ? (
             <img
               src={anime.imageUrl}
               alt={anime.title}
               className="w-full h-full object-cover opacity-20 blur-sm scale-105"
+              onError={(e) => { e.currentTarget.style.display = 'none'; }}
             />
-          )}
+          ) : null}
           <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/80 to-[#0a0a0f]/40" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0f]/90 via-transparent to-transparent" />
         </div>
@@ -208,6 +210,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                   src={anime.imageUrl}
                   alt={anime.title}
                   className="w-full aspect-[3/4] object-cover"
+                  onError={(e) => handleImageError(e, 'poster')}
                 />
               </div>
             )}
@@ -468,6 +471,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                             alt={rec.title}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                             loading="lazy"
+                            onError={(e) => handleImageError(e, 'poster')}
                           />
                         ) : (
                           <div className="w-full h-full bg-[#111118] flex items-center justify-center">
@@ -681,6 +685,7 @@ function CharacterCard({ character }: { character: JikanCharacterResult }) {
             alt={character.name}
             className="w-full h-full object-cover"
             loading="lazy"
+            onError={(e) => handleImageError(e, 'poster')}
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
@@ -718,6 +723,7 @@ function CharacterCard({ character }: { character: JikanCharacterResult }) {
             alt={primaryVA.name}
             className="w-full h-full object-cover"
             loading="lazy"
+            onError={(e) => { e.currentTarget.style.display = 'none'; }}
           />
         </div>
       )}

@@ -11,6 +11,7 @@ import { COUNTRIES, GENRES, THEMES, SORT_OPTIONS, getCountryLabel } from '@/lib/
 import type { MediaFormat, BrowseFilters, Movie } from '@/lib/types';
 import MovieCard from '@/components/movie/MovieCard';
 import { Button } from '@/components/ui/button';
+import { resolveImageUrl, handleImageError } from '@/lib/utils';
 
 type ViewMode = 'grid' | 'list';
 
@@ -659,7 +660,7 @@ export default function BrowsePage() {
                   className="flex items-center gap-4 bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 hover:border-[#3a3a45] transition-colors group"
                 >
                   <div className="w-12 h-18 rounded-lg overflow-hidden flex-shrink-0 bg-[#050507]">
-                    <img src={movie.poster_path} alt={movie.title} className="w-full h-full object-cover" />
+                    <img src={resolveImageUrl(movie.poster_path, 'w500')} alt={movie.title} className="w-full h-full object-cover" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <h3 className="text-sm font-semibold text-white group-hover:text-[#d4a853] transition-colors truncate">

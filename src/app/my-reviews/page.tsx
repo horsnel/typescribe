@@ -6,6 +6,7 @@ import { MessageSquare, Star, Edit, Trash2, Filter, ChevronDown, Search, SortAsc
 import { useAuth } from '@/lib/auth';
 import { userReviews, movies } from '@/lib/data';
 import { Button } from '@/components/ui/button';
+import { resolveImageUrl, handleImageError } from '@/lib/utils';
 
 interface LocalReview {
   id: number;
@@ -196,7 +197,7 @@ export default function MyReviewsPage() {
                     {/* Movie Poster */}
                     {movie && (
                       <Link href={`/movie/${movie.slug}`} className="w-12 h-18 rounded-lg overflow-hidden flex-shrink-0 bg-[#050507] hidden sm:block">
-                        <img src={movie.poster_path} alt={movie.title} className="w-full h-full object-cover" />
+                        <img src={resolveImageUrl(movie.poster_path, 'w500')} alt={movie.title} className="w-full h-full object-cover" />
                       </Link>
                     )}
                     <div className="flex-1 min-w-0">

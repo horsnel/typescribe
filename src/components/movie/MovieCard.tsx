@@ -2,7 +2,7 @@
 import { Play, Star } from 'lucide-react';
 import Link from 'next/link';
 import type { Movie } from '@/lib/types';
-import { cn } from '@/lib/utils';
+import { cn, resolveImageUrl, handleImageError } from '@/lib/utils';
 
 interface MovieCardProps { movie: Movie; className?: string; }
 
@@ -13,11 +13,11 @@ export default function MovieCard({ movie, className }: MovieCardProps) {
     <Link href={`/movie/${movie.slug}`} className={cn('group relative flex-shrink-0 w-full cursor-pointer block', className)}>
       <div className="relative aspect-[2/3] rounded-2xl overflow-hidden bg-[#0c0c10]" style={{ boxShadow: '0 4px 24px -4px rgba(0,0,0,0.6)' }}>
         <img
-          src={movie.poster_path?.startsWith('http') ? movie.poster_path : movie.poster_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : movie.poster_path || ''}
+          src={resolveImageUrl(movie.poster_path, 'w500')}
           alt={movie.title}
           className="w-full h-full object-cover transition-all duration-300 group-hover:scale-[1.03]"
           loading="lazy"
-          onError={(e) => { const img = e.target as HTMLImageElement; img.src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 750"><rect fill="%230c0c10" width="500" height="750"/><text x="250" y="375" text-anchor="middle" fill="%232a2a35" font-size="48" font-family="sans-serif">🎬</text></svg>'); }}
+          onError={(e) => handleImageError(e, 'poster')}
         />
         {/* Sheen overlay */}
         <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 40%)' }} />

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Calendar, ChevronRight, Sparkles, Clock, Film, Tv, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import type { Movie } from '@/lib/types';
+import { resolveImageUrl, handleImageError } from '@/lib/utils';
 
 export default function UpcomingMoviesSection() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -82,10 +83,11 @@ export default function UpcomingMoviesSection() {
                 >
                   <div className="aspect-[2/3] relative overflow-hidden bg-[#111118]">
                     <img
-                      src={item.poster_path}
+                      src={resolveImageUrl(item.poster_path, 'w500')}
                       alt={item.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       loading="lazy"
+                      onError={(e) => handleImageError(e, 'poster')}
                     />
                     {/* Gradient overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c10] via-transparent to-transparent" />

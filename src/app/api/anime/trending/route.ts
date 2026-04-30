@@ -9,6 +9,9 @@ import { getCurrentSeason, getTopAnime } from '@/lib/pipeline/clients/jikan';
 import * as AniList from '@/lib/pipeline/clients/anilist';
 import type { Movie } from '@/lib/types';
 
+// Maximum time (ms) to wait for any single API source before moving on
+const SOURCE_TIMEOUT = 8_000;
+
 function jikanToMovie(a: any): Movie {
   const title = a.titleEnglish || a.title || 'Unknown';
   return {
@@ -107,76 +110,117 @@ export async function GET() {
     const movies: Movie[] = [];
     const sources: string[] = [];
 
-    // Try Jikan current season first
+    // ── Strategy: Try AniList trending first (most reliable, always has images),
+    //    then Jikan seasonal, then Jikan top, then AniList popular, then mock.
+    //    AniList is prioritized because it has no rate-limit issues and always
+    //    returns cover images. Jikan is kept as secondary because it often has
+    //    downtime (500 errors).
+
+    // 1. Try AniList trending (proper TRENDING_DESC sort)
     try {
-      const seasonal = await getCurrentSeason('tv');
-      if (seasonal && seasonal.length > 0) {
-        sources.push('Jikan');
-        for (const a of seasonal.slice(0, 8)) {
-          movies.push(jikanToMovie(a));
+      const trending = await Promise.race([
+        AniList.getTrendingAnime(10),
+        new Promise<null>((_, rej) => setTimeout(() => rej(new Error('timeout')), SOURCE_TIMEOUT)),
+      ]) as Awaited<ReturnType<typeof AniList.getTrendingAnime>> | null;
+      if (trending && trending.length > 0) {
+        sources.push('AniList');
+        for (const a of trending.slice(0, 8)) {
+          const movie = anilistToMovie(a);
+          if (movie.poster_path) movies.push(movie); // Only include if we have an image
         }
       }
-    } catch (err) {
-      console.warn('[API /anime/trending] Jikan seasonal failed:', err);
+    } catch (err: any) {
+      console.warn('[API /anime/trending] AniList trending failed:', err?.message || err);
     }
 
-    // If we got enough from Jikan, return early
+    // If we got enough from AniList trending, return early
     if (movies.length >= 6) {
-      return NextResponse.json({ movies, sources, totalResults: movies.length });
+      return NextResponse.json({ movies: movies.slice(0, 8), sources, totalResults: movies.length });
     }
 
-    // Fallback: Jikan top anime
+    // 2. Try Jikan current season
     try {
-      const top = await getTopAnime('tv', 'airing');
+      const seasonal = await Promise.race([
+        getCurrentSeason('tv'),
+        new Promise<null>((_, rej) => setTimeout(() => rej(new Error('timeout')), SOURCE_TIMEOUT)),
+      ]) as Awaited<ReturnType<typeof getCurrentSeason>> | null;
+      if (seasonal && seasonal.length > 0) {
+        if (!sources.includes('Jikan')) sources.push('Jikan');
+        const existingTitles = new Set(movies.map(m => m.title.toLowerCase()));
+        for (const a of seasonal.slice(0, 10)) {
+          const movie = jikanToMovie(a);
+          if (movie.poster_path && !existingTitles.has(movie.title.toLowerCase())) {
+            movies.push(movie);
+            existingTitles.add(movie.title.toLowerCase());
+          }
+        }
+      }
+    } catch (err: any) {
+      console.warn('[API /anime/trending] Jikan seasonal failed:', err?.message || err);
+    }
+
+    if (movies.length >= 6) {
+      return NextResponse.json({ movies: movies.slice(0, 8), sources, totalResults: movies.length });
+    }
+
+    // 3. Fallback: Jikan top anime
+    try {
+      const top = await Promise.race([
+        getTopAnime('tv', 'airing'),
+        new Promise<null>((_, rej) => setTimeout(() => rej(new Error('timeout')), SOURCE_TIMEOUT)),
+      ]) as Awaited<ReturnType<typeof getTopAnime>> | null;
       if (top && top.length > 0) {
         if (!sources.includes('Jikan')) sources.push('Jikan');
         const existingTitles = new Set(movies.map(m => m.title.toLowerCase()));
         for (const a of top.slice(0, 10)) {
-          const title = a.titleEnglish || a.title || '';
-          if (!existingTitles.has(title.toLowerCase())) {
-            movies.push(jikanToMovie(a));
-            existingTitles.add(title.toLowerCase());
+          const movie = jikanToMovie(a);
+          if (movie.poster_path && !existingTitles.has(movie.title.toLowerCase())) {
+            movies.push(movie);
+            existingTitles.add(movie.title.toLowerCase());
           }
         }
       }
-    } catch (err) {
-      console.warn('[API /anime/trending] Jikan top failed:', err);
+    } catch (err: any) {
+      console.warn('[API /anime/trending] Jikan top failed:', err?.message || err);
     }
 
-    // If still not enough, try AniList trending
+    if (movies.length >= 6) {
+      return NextResponse.json({ movies: movies.slice(0, 8), sources, totalResults: movies.length });
+    }
+
+    // 4. Fallback: AniList popular (POPULARITY_DESC sort)
     if (movies.length < 4) {
       try {
-        // AniList doesn't have a direct "trending" endpoint we can call easily
-        // Use searchAnime with a popular term as a workaround
-        const anilistResults = await AniList.searchAnime('trending');
-        if (anilistResults && anilistResults.length > 0) {
-          sources.push('AniList');
+        const popular = await AniList.getPopularAnime(10);
+        if (popular && popular.length > 0) {
+          if (!sources.includes('AniList')) sources.push('AniList');
           const existingTitles = new Set(movies.map(m => m.title.toLowerCase()));
-          for (const a of anilistResults.slice(0, 8)) {
-            const title = a.title?.english || a.title?.romaji || '';
-            if (!existingTitles.has(title.toLowerCase())) {
-              movies.push(anilistToMovie(a));
-              existingTitles.add(title.toLowerCase());
+          for (const a of popular.slice(0, 8)) {
+            const movie = anilistToMovie(a);
+            if (movie.poster_path && !existingTitles.has(movie.title.toLowerCase())) {
+              movies.push(movie);
+              existingTitles.add(movie.title.toLowerCase());
             }
           }
         }
-      } catch (err) {
-        console.warn('[API /anime/trending] AniList fallback failed:', err);
+      } catch (err: any) {
+        console.warn('[API /anime/trending] AniList popular fallback failed:', err?.message || err);
       }
     }
 
-    // If all APIs fail, provide mock anime data so the UI isn't empty
+    // If all APIs fail, provide mock anime data with VERIFIED working image URLs
+    // NOTE: MAL CDN URLs can break over time; AniList CDN is more stable.
     if (movies.length === 0) {
       sources.push('Mock');
       const mockAnime = [
         { title: 'Attack on Titan: The Final Season', score: 9.0, year: 2024, genres: ['Action', 'Drama', 'Fantasy'], image: 'https://cdn.myanimelist.net/images/anime/1000/110531.jpg', studio: 'MAPPA', season: 'Winter 2024' },
         { title: 'Jujutsu Kaisen Season 2', score: 8.7, year: 2023, genres: ['Action', 'Supernatural'], image: 'https://cdn.myanimelist.net/images/anime/1792/138022.jpg', studio: 'MAPPA', season: 'Summer 2023' },
-        { title: 'Demon Slayer: Hashira Training', score: 8.5, year: 2024, genres: ['Action', 'Fantasy'], image: 'https://cdn.myanimelist.net/images/anime/1428/141939.jpg', studio: 'Ufotable', season: 'Spring 2024' },
-        { title: 'Spy x Family Season 2', score: 8.4, year: 2023, genres: ['Action', 'Comedy'], image: 'https://cdn.myanimelist.net/images/anime/1441/139629.jpg', studio: 'WIT Studio', season: 'Fall 2023' },
+        { title: 'Demon Slayer: Hashira Training', score: 8.5, year: 2024, genres: ['Action', 'Fantasy'], image: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx166240-PBV7zukIHW7V.png', studio: 'Ufotable', season: 'Spring 2024' },
+        { title: 'Spy x Family Season 2', score: 8.4, year: 2023, genres: ['Action', 'Comedy'], image: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/b158927-lfO85WVguYgc.png', studio: 'WIT Studio', season: 'Fall 2023' },
         { title: 'Frieren: Beyond Journey\'s End', score: 9.1, year: 2023, genres: ['Adventure', 'Fantasy', 'Drama'], image: 'https://cdn.myanimelist.net/images/anime/1015/138006.jpg', studio: 'Madhouse', season: 'Fall 2023' },
-        { title: 'Solo Leveling', score: 8.3, year: 2024, genres: ['Action', 'Fantasy'], image: 'https://cdn.myanimelist.net/images/anime/1422/135042.jpg', studio: 'A-1 Pictures', season: 'Winter 2024' },
+        { title: 'Solo Leveling', score: 8.3, year: 2024, genres: ['Action', 'Fantasy'], image: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx151807-it355ZgzquUd.png', studio: 'A-1 Pictures', season: 'Winter 2024' },
         { title: 'Chainsaw Man', score: 8.5, year: 2022, genres: ['Action', 'Horror'], image: 'https://cdn.myanimelist.net/images/anime/1806/126216.jpg', studio: 'MAPPA', season: 'Fall 2022' },
-        { title: 'One Punch Man Season 3', score: 8.0, year: 2025, genres: ['Action', 'Comedy'], image: 'https://cdn.myanimelist.net/images/anime/12/73739.jpg', studio: 'J.C.Staff', season: 'Summer 2025' },
+        { title: 'One Punch Man', score: 8.0, year: 2015, genres: ['Action', 'Comedy'], image: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx21087-B5DHjqZ3kW4b.jpg', studio: 'Madhouse', season: 'Fall 2015' },
       ];
       for (const a of mockAnime) {
         const id = a.title.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
@@ -218,10 +262,13 @@ export async function GET() {
       }
     }
 
+    // Final safety net: filter out any entries with no poster image
+    const validMovies = movies.filter(m => m.poster_path && m.poster_path.trim() !== '');
+
     return NextResponse.json({
-      movies: movies.slice(0, 8),
+      movies: validMovies.slice(0, 8),
       sources,
-      totalResults: movies.length,
+      totalResults: validMovies.length,
     });
   } catch (error: any) {
     console.error('[API /anime/trending] Error:', error);

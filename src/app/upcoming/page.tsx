@@ -5,6 +5,7 @@ import { Calendar, Filter, Grid3X3, List, Star, Clock, ChevronDown, Loader2, Fil
 import MovieCard from '@/components/movie/MovieCard';
 import { Button } from '@/components/ui/button';
 import type { Movie } from '@/lib/types';
+import { resolveImageUrl, handleImageError } from '@/lib/utils';
 
 type MediaType = 'movie' | 'tv' | 'all';
 type TimeFilter = 'next-30' | 'next-90' | 'this-year' | 'all';
@@ -313,7 +314,7 @@ export default function UpcomingPage() {
                       className="flex items-center gap-4 bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 hover:border-[#3a3a45] transition-colors group"
                     >
                       <div className="w-12 h-18 rounded-lg overflow-hidden flex-shrink-0 bg-[#050507] relative">
-                        <img src={movie.poster_path} alt={movie.title} className="w-full h-full object-cover" />
+                        <img src={resolveImageUrl(movie.poster_path, 'w500')} alt={movie.title} className="w-full h-full object-cover" />
                         <div className="absolute top-0 left-0 right-0 bg-[#d4a853] text-[8px] font-bold text-white text-center py-0.5">UPCOMING</div>
                       </div>
                       <div className="flex-1 min-w-0">

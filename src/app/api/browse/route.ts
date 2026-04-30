@@ -240,16 +240,16 @@ export async function GET(request: NextRequest) {
           durationMs: result.durationMs,
         };
       } else {
-        // Last resort: mock anime data
+        // Last resort: mock anime data with VERIFIED working image URLs
         const mockAnime = [
           { t: 'Attack on Titan: The Final Season', s: 9.0, y: 2024, g: ['Action','Drama','Fantasy'], img: 'https://cdn.myanimelist.net/images/anime/1000/110531.jpg', st: 'MAPPA' },
           { t: 'Jujutsu Kaisen Season 2', s: 8.7, y: 2023, g: ['Action','Supernatural'], img: 'https://cdn.myanimelist.net/images/anime/1792/138022.jpg', st: 'MAPPA' },
-          { t: 'Demon Slayer: Hashira Training', s: 8.5, y: 2024, g: ['Action','Fantasy'], img: 'https://cdn.myanimelist.net/images/anime/1428/141939.jpg', st: 'Ufotable' },
-          { t: 'Spy x Family Season 2', s: 8.4, y: 2023, g: ['Action','Comedy'], img: 'https://cdn.myanimelist.net/images/anime/1441/139629.jpg', st: 'WIT Studio' },
+          { t: 'Demon Slayer: Hashira Training', s: 8.5, y: 2024, g: ['Action','Fantasy'], img: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx166240-PBV7zukIHW7V.png', st: 'Ufotable' },
+          { t: 'Spy x Family Season 2', s: 8.4, y: 2023, g: ['Action','Comedy'], img: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/b158927-lfO85WVguYgc.png', st: 'WIT Studio' },
           { t: 'Frieren: Beyond Journey\'s End', s: 9.1, y: 2023, g: ['Adventure','Fantasy','Drama'], img: 'https://cdn.myanimelist.net/images/anime/1015/138006.jpg', st: 'Madhouse' },
-          { t: 'Solo Leveling', s: 8.3, y: 2024, g: ['Action','Fantasy'], img: 'https://cdn.myanimelist.net/images/anime/1422/135042.jpg', st: 'A-1 Pictures' },
+          { t: 'Solo Leveling', s: 8.3, y: 2024, g: ['Action','Fantasy'], img: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx151807-it355ZgzquUd.png', st: 'A-1 Pictures' },
           { t: 'Chainsaw Man', s: 8.5, y: 2022, g: ['Action','Horror'], img: 'https://cdn.myanimelist.net/images/anime/1806/126216.jpg', st: 'MAPPA' },
-          { t: 'My Hero Academia Season 7', s: 7.9, y: 2024, g: ['Action','Superhero'], img: 'https://cdn.myanimelist.net/images/anime/1030/138298.jpg', st: 'Bones' },
+          { t: 'My Hero Academia Season 7', s: 7.9, y: 2024, g: ['Action','Superhero'], img: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx163139-JchZhUFlNTWU.jpg', st: 'Bones' },
         ];
         result = {
           movies: mockAnime.map((a, i) => ({

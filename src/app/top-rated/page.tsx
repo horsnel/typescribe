@@ -6,6 +6,7 @@ import { topRated, movies } from '@/lib/data';
 import MovieCard from '@/components/movie/MovieCard';
 import { Button } from '@/components/ui/button';
 import type { Movie } from '@/lib/types';
+import { resolveImageUrl, handleImageError } from '@/lib/utils';
 
 type GenreFilter = 'all' | string;
 
@@ -137,7 +138,7 @@ export default function TopRatedPage() {
                     </div>
                     <div className="flex gap-3">
                       <div className="w-16 h-24 rounded-lg overflow-hidden flex-shrink-0 bg-[#050507]">
-                        <img src={movie.poster_path} alt={movie.title} className="w-full h-full object-cover" />
+                        <img src={resolveImageUrl(movie.poster_path, 'w500')} alt={movie.title} className="w-full h-full object-cover" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <h3 className="text-base font-bold text-white group-hover:text-[#d4a853] transition-colors leading-snug">{movie.title}</h3>
@@ -162,7 +163,7 @@ export default function TopRatedPage() {
                       {rank <= 3 ? rankBadge(rank) : <span className="text-xl font-extrabold text-[#6b7280]">{rank}</span>}
                     </div>
                     <div className="w-14 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-[#050507]">
-                      <img src={movie.poster_path} alt={movie.title} className="w-full h-full object-cover" />
+                      <img src={resolveImageUrl(movie.poster_path, 'w500')} alt={movie.title} className="w-full h-full object-cover" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <h2 className="text-lg font-bold text-white group-hover:text-[#d4a853] transition-colors">{movie.title}</h2>
