@@ -96,7 +96,7 @@ export default function DashboardPage() {
   if (!isAuthenticated) {
     return (
       <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center">
-        <Film className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
+        <Film className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" strokeWidth={1.5} />
         <h2 className="text-xl font-bold text-white mb-2">Sign in to access your dashboard</h2>
         <p className="text-[#9ca3af] mb-6">Track your reviews, watchlist, and community activity.</p>
         <Link href="/login"><Button className="bg-[#d4a853] hover:bg-[#b8922e] text-white">Sign In</Button></Link>
@@ -149,10 +149,10 @@ export default function DashboardPage() {
       <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6 mb-8">
         <h2 className="text-lg font-bold text-white mb-4">Quick Actions</h2>
         <div className="flex flex-wrap gap-3">
-          <Link href="/browse"><Button className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2"><Film className="w-4 h-4" />Browse Movies</Button></Link>
-          <Link href="/communities"><Button variant="outline" className="border-[#1e1e28] text-white hover:bg-[#111118] gap-2"><Plus className="w-4 h-4" />Create Community</Button></Link>
-          <Link href="/dashboard/reviews"><Button variant="outline" className="border-[#1e1e28] text-white hover:bg-[#111118] gap-2"><PenSquare className="w-4 h-4" />Write Review</Button></Link>
-          <Link href="/dashboard/watchlist"><Button variant="outline" className="border-[#1e1e28] text-white hover:bg-[#111118] gap-2"><Bookmark className="w-4 h-4" />My Watchlist</Button></Link>
+          <Link href="/browse"><Button className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2"><Film className="w-4 h-4" strokeWidth={1.5} />Browse Movies</Button></Link>
+          <Link href="/communities"><Button variant="outline" className="border-[#1e1e28] text-white hover:bg-[#111118] gap-2"><Plus className="w-4 h-4" strokeWidth={1.5} />Create Community</Button></Link>
+          <Link href="/dashboard/reviews"><Button variant="outline" className="border-[#1e1e28] text-white hover:bg-[#111118] gap-2"><PenSquare className="w-4 h-4" strokeWidth={1.5} />Write Review</Button></Link>
+          <Link href="/dashboard/watchlist"><Button variant="outline" className="border-[#1e1e28] text-white hover:bg-[#111118] gap-2"><Bookmark className="w-4 h-4" strokeWidth={1.5} />My Watchlist</Button></Link>
         </div>
       </div>
 
@@ -163,7 +163,7 @@ export default function DashboardPage() {
           <h2 className="text-lg font-bold text-white mb-4">Recent Activity</h2>
           {recentActivity.length === 0 ? (
             <div className="text-center py-6">
-              <TrendingUp className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" />
+              <TrendingUp className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" strokeWidth={1.5} />
               <p className="text-[#9ca3af] mb-1">No activity yet</p>
               <p className="text-sm text-[#6b7280]">Start by reviewing a movie or joining a community.</p>
             </div>
@@ -206,7 +206,7 @@ export default function DashboardPage() {
             </div>
           ) : (
             <div className="text-center py-6">
-              <Star className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" />
+              <Star className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" strokeWidth={1.5} />
               <p className="text-[#9ca3af] mb-1">No ratings yet</p>
               <p className="text-sm text-[#6b7280]">Rate movies to see your summary.</p>
               <Link href="/browse"><Button className="mt-3 bg-[#d4a853] hover:bg-[#b8922e] text-white text-sm">Browse Movies</Button></Link>
@@ -219,7 +219,7 @@ export default function DashboardPage() {
       <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
         <h2 className="text-lg font-bold text-white mb-4">Recommended For You</h2>
         <div className="text-center py-6">
-          <Heart className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" />
+          <Heart className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" strokeWidth={1.5} />
           <p className="text-[#9ca3af] mb-1">Personalized recommendations</p>
           <p className="text-sm text-[#6b7280]">Rate more movies to get better suggestions.</p>
           <Link href="/browse"><Button className="mt-4 bg-[#d4a853] hover:bg-[#b8922e] text-white">Browse Movies</Button></Link>

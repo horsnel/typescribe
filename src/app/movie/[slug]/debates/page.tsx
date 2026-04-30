@@ -327,16 +327,16 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 mb-4 text-sm text-[#6b7280]">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
-            <ChevronRight className="w-3 h-3" />
+            <ChevronRight className="w-3 h-3" strokeWidth={1.5} />
             <Link href={`/movie/${slug}`} className="hover:text-white transition-colors">{movieTitle}</Link>
-            <ChevronRight className="w-3 h-3" />
+            <ChevronRight className="w-3 h-3" strokeWidth={1.5} />
             <span className="text-[#9ca3af]">Debates</span>
           </nav>
 
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">
-                <Swords className="w-5 h-5 text-purple-400" />
+                <Swords className="w-5 h-5 text-purple-400" strokeWidth={1.5} />
               </div>
               <div>
                 <h1 className="text-2xl sm:text-3xl font-extrabold text-white">
@@ -352,21 +352,21 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
                 href={`/movie/${slug}`}
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-[#111118] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:bg-[#2a2a35] transition-colors"
               >
-                <ArrowLeft className="w-4 h-4" /> Back to Movie
+                <ArrowLeft className="w-4 h-4" strokeWidth={1.5} /> Back to Movie
               </Link>
               {isAuthenticated ? (
                 <Button
                   onClick={() => setShowNewDebateForm(!showNewDebateForm)}
                   className="bg-purple-600 hover:bg-purple-700 text-white gap-2"
                 >
-                  <Plus className="w-4 h-4" /> Start a Debate
+                  <Plus className="w-4 h-4" strokeWidth={1.5} /> Start a Debate
                 </Button>
               ) : (
                 <Link
                   href="/login"
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-purple-600 hover:bg-purple-700 text-white transition-colors"
                 >
-                  <Plus className="w-4 h-4" /> Start a Debate
+                  <Plus className="w-4 h-4" strokeWidth={1.5} /> Start a Debate
                 </Link>
               )}
             </div>
@@ -380,7 +380,7 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
         {showNewDebateForm && (
           <div className="bg-[#0c0c10] border border-purple-500/30 rounded-xl p-6 mb-8">
             <div className="flex items-center gap-2 mb-4">
-              <Swords className="w-5 h-5 text-purple-400" />
+              <Swords className="w-5 h-5 text-purple-400" strokeWidth={1.5} />
               <h3 className="text-lg font-bold text-white">Start a New Debate</h3>
             </div>
             <p className="text-sm text-[#6b7280] mb-4">
@@ -399,7 +399,7 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
                 disabled={!newProposition.trim() || submitting}
                 className="bg-purple-600 hover:bg-purple-700 text-white gap-2 disabled:opacity-50"
               >
-                {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+                {submitting ? <Loader2 className="w-4 h-4 animate-spin" strokeWidth={1.5} /> : <Send className="w-4 h-4" strokeWidth={1.5} />}
                 Create Debate
               </Button>
               <Button
@@ -416,7 +416,7 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
         {/* Debates List */}
         {debates.length === 0 ? (
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center">
-            <Swords className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
+            <Swords className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" strokeWidth={1.5} />
             <h3 className="text-lg font-bold text-white mb-2">No Debates Yet</h3>
             <p className="text-sm text-[#6b7280] mb-4">Be the first to start a debate about {movieTitle}!</p>
             {isAuthenticated && (
@@ -424,7 +424,7 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
                 onClick={() => setShowNewDebateForm(true)}
                 className="bg-purple-600 hover:bg-purple-700 text-white gap-2"
               >
-                <Plus className="w-4 h-4" /> Start a Debate
+                <Plus className="w-4 h-4" strokeWidth={1.5} /> Start a Debate
               </Button>
             )}
           </div>
@@ -441,7 +441,7 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
                   <div className="p-5 border-b border-[#1e1e28]/50">
                     <div className="flex items-start gap-3">
                       <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <Shield className="w-4 h-4 text-purple-400" />
+                        <Shield className="w-4 h-4 text-purple-400" strokeWidth={1.5} />
                       </div>
                       <div className="flex-1 min-w-0">
                         <h3 className="text-base font-bold text-white leading-snug mb-1">
@@ -502,7 +502,7 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
                                       : 'text-[#6b7280] hover:text-green-400 hover:bg-green-500/10'
                                   }`}
                                 >
-                                  <ThumbsUp className="w-3 h-3" /> {arg.upvotes}
+                                  <ThumbsUp className="w-3 h-3" strokeWidth={1.5} /> {arg.upvotes}
                                 </button>
                                 <button
                                   onClick={() => handleVote(debate.id, arg.id, 'down')}
@@ -512,7 +512,7 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
                                       : 'text-[#6b7280] hover:text-red-400 hover:bg-red-500/10'
                                   }`}
                                 >
-                                  <ThumbsDown className="w-3 h-3" /> {arg.downvotes}
+                                  <ThumbsDown className="w-3 h-3" strokeWidth={1.5} /> {arg.downvotes}
                                 </button>
                               </div>
                             </div>
@@ -537,7 +537,7 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
                               size="sm"
                               className="bg-green-600 hover:bg-green-700 text-white gap-1 text-xs disabled:opacity-50"
                             >
-                              {argSubmitting ? <Loader2 className="w-3 h-3 animate-spin" /> : <Send className="w-3 h-3" />}
+                              {argSubmitting ? <Loader2 className="w-3 h-3 animate-spin" strokeWidth={1.5} /> : <Send className="w-3 h-3" strokeWidth={1.5} />}
                               Submit
                             </Button>
                             <Button
@@ -590,7 +590,7 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
                                       : 'text-[#6b7280] hover:text-green-400 hover:bg-green-500/10'
                                   }`}
                                 >
-                                  <ThumbsUp className="w-3 h-3" /> {arg.upvotes}
+                                  <ThumbsUp className="w-3 h-3" strokeWidth={1.5} /> {arg.upvotes}
                                 </button>
                                 <button
                                   onClick={() => handleVote(debate.id, arg.id, 'down')}
@@ -600,7 +600,7 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
                                       : 'text-[#6b7280] hover:text-red-400 hover:bg-red-500/10'
                                   }`}
                                 >
-                                  <ThumbsDown className="w-3 h-3" /> {arg.downvotes}
+                                  <ThumbsDown className="w-3 h-3" strokeWidth={1.5} /> {arg.downvotes}
                                 </button>
                               </div>
                             </div>
@@ -625,7 +625,7 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
                               size="sm"
                               className="bg-red-600 hover:bg-red-700 text-white gap-1 text-xs disabled:opacity-50"
                             >
-                              {argSubmitting ? <Loader2 className="w-3 h-3 animate-spin" /> : <Send className="w-3 h-3" />}
+                              {argSubmitting ? <Loader2 className="w-3 h-3 animate-spin" strokeWidth={1.5} /> : <Send className="w-3 h-3" strokeWidth={1.5} />}
                               Submit
                             </Button>
                             <Button

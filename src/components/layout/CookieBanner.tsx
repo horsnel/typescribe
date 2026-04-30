@@ -45,7 +45,7 @@ export default function CookieBanner() {
         {!showCustomize ? (
           <div className="p-6">
             <div className="flex items-start gap-4">
-              <Cookie className="w-8 h-8 text-[#d4a853] flex-shrink-0 mt-0.5" />
+              <Cookie className="w-8 h-8 text-[#d4a853] flex-shrink-0 mt-0.5" strokeWidth={1.5} />
               <div className="flex-1">
                 <h3 className="text-base font-semibold text-white mb-2">We use cookies</h3>
                 <p className="text-sm text-[#9ca3af] leading-relaxed mb-4">
@@ -58,7 +58,7 @@ export default function CookieBanner() {
                   <Button onClick={handleReject} variant="ghost" className="text-[#6b7280] hover:text-white text-sm">Reject Non-Essential</Button>
                 </div>
               </div>
-              <button onClick={handleReject} className="p-1 text-[#6b7280] hover:text-white transition-colors flex-shrink-0" aria-label="Close"><X className="w-4 h-4" /></button>
+              <button onClick={handleReject} className="p-1 text-[#6b7280] hover:text-white transition-colors flex-shrink-0" aria-label="Close"><X className="w-4 h-4" strokeWidth={1.5} /></button>
             </div>
           </div>
         ) : (
@@ -66,17 +66,17 @@ export default function CookieBanner() {
             <h3 className="text-base font-semibold text-white mb-4">Customize Cookie Preferences</h3>
             <div className="space-y-4 mb-6">
               <div className="flex items-center gap-4 p-3 bg-[#050507] rounded-xl border border-[#1e1e28]">
-                <Shield className="w-5 h-5 text-[#22c55e] flex-shrink-0" />
+                <Shield className="w-5 h-5 text-[#22c55e] flex-shrink-0" strokeWidth={1.5} />
                 <div className="flex-1"><p className="text-sm font-medium text-white">Essential Cookies</p><p className="text-xs text-[#6b7280]">Required for the site to function. Cannot be disabled.</p></div>
                 <span className="text-xs text-[#22c55e] font-medium">Always Active</span>
               </div>
               <label className="flex items-center gap-4 p-3 bg-[#050507] rounded-xl border border-[#1e1e28] cursor-pointer">
-                <BarChart3 className="w-5 h-5 text-[#9ca3af] flex-shrink-0" />
+                <BarChart3 className="w-5 h-5 text-[#9ca3af] flex-shrink-0" strokeWidth={1.5} />
                 <div className="flex-1"><p className="text-sm font-medium text-white">Analytics Cookies</p><p className="text-xs text-[#6b7280]">Help us understand how visitors interact with our site.</p></div>
                 <input type="checkbox" checked={prefs.analytics} onChange={(e) => setPrefs({ ...prefs, analytics: e.target.checked })} className="w-5 h-5 rounded accent-[#d4a853]" />
               </label>
               <label className="flex items-center gap-4 p-3 bg-[#050507] rounded-xl border border-[#1e1e28] cursor-pointer">
-                <Settings className="w-5 h-5 text-[#9ca3af] flex-shrink-0" />
+                <Settings className="w-5 h-5 text-[#9ca3af] flex-shrink-0" strokeWidth={1.5} />
                 <div className="flex-1"><p className="text-sm font-medium text-white">Preference Cookies</p><p className="text-xs text-[#6b7280]">Remember your settings and personalization choices.</p></div>
                 <input type="checkbox" checked={prefs.preferences} onChange={(e) => setPrefs({ ...prefs, preferences: e.target.checked })} className="w-5 h-5 rounded accent-[#d4a853]" />
               </label>

@@ -59,7 +59,7 @@ export default function ReviewForm({ movieId, onSubmit, onCancel }: ReviewFormPr
       <div className="flex items-center gap-2 mb-4">
         <h3 className="text-lg font-semibold text-white">Write a Review</h3>
         <div className="flex items-center gap-1 text-[10px] font-semibold bg-green-500/10 text-green-400 px-2 py-0.5 rounded-full border border-green-500/20">
-          <ShieldCheck className="w-3 h-3" /> AI Moderated
+          <ShieldCheck className="w-3 h-3" strokeWidth={1.5} /> AI Moderated
         </div>
       </div>
 
@@ -68,7 +68,7 @@ export default function ReviewForm({ movieId, onSubmit, onCancel }: ReviewFormPr
         <div className="flex items-center gap-1">
           {Array.from({ length: 10 }, (_, i) => (
             <button key={i + 1} type="button" onClick={() => { setRating(i + 1); setErrors((prev) => ({ ...prev, rating: undefined })); }} onMouseEnter={() => setHoverRating(i + 1)} onMouseLeave={() => setHoverRating(0)} className="p-0.5 transition-transform hover:scale-110">
-              <Star className={`w-6 h-6 transition-colors ${i + 1 <= displayRating ? 'text-[#f5c518] fill-[#f5c518]' : 'text-[#2a2a35]'}`} />
+              <Star className={`w-6 h-6 transition-colors ${i + 1 <= displayRating ? 'text-[#f5c518] fill-[#f5c518]' : 'text-[#2a2a35]'}`} strokeWidth={1.5} />
             </button>
           ))}
           {displayRating > 0 && <span className="ml-2 text-lg font-bold text-[#f5c518]">{displayRating}/10</span>}
@@ -76,7 +76,7 @@ export default function ReviewForm({ movieId, onSubmit, onCancel }: ReviewFormPr
         {errors.rating && <p className="text-xs text-red-400 mt-1">{errors.rating}</p>}
         {displayRating > 0 && (displayRating === 1 || displayRating === 10) && (
           <p className="text-xs text-yellow-400/80 mt-1 flex items-center gap-1">
-            <AlertTriangle className="w-3 h-3" />
+            <AlertTriangle className="w-3 h-3" strokeWidth={1.5} />
             Extreme ratings work best with detailed explanations
           </p>
         )}
@@ -96,7 +96,7 @@ export default function ReviewForm({ movieId, onSubmit, onCancel }: ReviewFormPr
         <div className="mb-4 space-y-2">
           {moderationWarnings.map((warning, i) => (
             <div key={i} className="flex items-start gap-2 bg-yellow-500/5 border border-yellow-500/20 rounded-lg p-3">
-              <AlertTriangle className="w-4 h-4 text-yellow-400 flex-shrink-0 mt-0.5" />
+              <AlertTriangle className="w-4 h-4 text-yellow-400 flex-shrink-0 mt-0.5" strokeWidth={1.5} />
               <div>
                 <p className="text-xs text-yellow-300/80">{warning}</p>
                 <p className="text-[10px] text-yellow-300/50 mt-1">Your review will be submitted but may be held for manual review.</p>
@@ -109,7 +109,7 @@ export default function ReviewForm({ movieId, onSubmit, onCancel }: ReviewFormPr
       {/* Moderation Blocked */}
       {moderationBlocked && (
         <div className="mb-4 flex items-start gap-2 bg-red-500/5 border border-red-500/20 rounded-lg p-3">
-          <AlertTriangle className="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5" />
+          <AlertTriangle className="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5" strokeWidth={1.5} />
           <div>
             <p className="text-xs text-red-300">{moderationBlocked}</p>
             <p className="text-[10px] text-red-300/50 mt-1">Please revise your review to comply with community guidelines.</p>
@@ -118,8 +118,8 @@ export default function ReviewForm({ movieId, onSubmit, onCancel }: ReviewFormPr
       )}
 
       <div className="flex items-center gap-3">
-        <Button type="submit" disabled={!isValid} className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 disabled:opacity-50 disabled:cursor-not-allowed"><Send className="w-4 h-4" />Submit Review</Button>
-        {onCancel && <Button type="button" variant="outline" onClick={onCancel} className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:bg-[#111118] gap-2"><X className="w-4 h-4" />Cancel</Button>}
+        <Button type="submit" disabled={!isValid} className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 disabled:opacity-50 disabled:cursor-not-allowed"><Send className="w-4 h-4" strokeWidth={1.5} />Submit Review</Button>
+        {onCancel && <Button type="button" variant="outline" onClick={onCancel} className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:bg-[#111118] gap-2"><X className="w-4 h-4" strokeWidth={1.5} />Cancel</Button>}
       </div>
     </form>
   );

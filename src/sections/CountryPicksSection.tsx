@@ -55,13 +55,13 @@ function CountrySection({ code, name, label }: CountrySectionProps) {
             href={`/browse?country=${code}`}
             className="flex items-center gap-1 text-sm text-[#d4a853] hover:underline font-medium"
           >
-            View all <ChevronRight className="w-4 h-4" />
+            View all <ChevronRight className="w-4 h-4" strokeWidth={1.5} />
           </Link>
         </div>
 
         {loading ? (
           <div className="flex items-center gap-3 py-8">
-            <Loader2 className="w-6 h-6 text-[#d4a853] animate-spin" />
+            <Loader2 className="w-6 h-6 text-[#d4a853] animate-spin" strokeWidth={1.5} />
             <span className="text-sm text-[#6b7280]">Loading {name} content...</span>
           </div>
         ) : (

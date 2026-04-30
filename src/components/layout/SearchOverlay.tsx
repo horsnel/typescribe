@@ -112,7 +112,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
   };
 
   const getIcon = (type: SearchResult['type']) => {
-    switch (type) { case 'movie': return <Film className="w-4 h-4 text-[#d4a853]" />; case 'review': return <MessageSquare className="w-4 h-4 text-[#f5c518]" />; case 'news': return <Newspaper className="w-4 h-4 text-[#22c55e]" />; }
+    switch (type) { case 'movie': return <Film className="w-4 h-4 text-[#d4a853]" strokeWidth={1.5} />; case 'review': return <MessageSquare className="w-4 h-4 text-[#f5c518]" strokeWidth={1.5} />; case 'news': return <Newspaper className="w-4 h-4 text-[#22c55e]" strokeWidth={1.5} />; }
   };
 
   const movieResults = results.filter((r) => r.type === 'movie');
@@ -126,10 +126,10 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
       <div className="w-full max-w-2xl">
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-2xl shadow-2xl overflow-hidden">
           <div className="flex items-center gap-3 px-5 py-4 border-b border-[#1e1e28]">
-            <Search className="w-5 h-5 text-[#6b7280] flex-shrink-0" />
+            <Search className="w-5 h-5 text-[#6b7280] flex-shrink-0" strokeWidth={1.5} />
             <input ref={inputRef} type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search movies, anime, reviews, news..." className="flex-1 bg-transparent text-white placeholder:text-[#6b7280] focus:outline-none text-lg" />
-            {isSearching && <Loader2 className="w-4 h-4 animate-spin text-[#6b7280]" />}
-            <button onClick={onClose} className="p-1.5 text-[#6b7280] hover:text-white transition-colors" aria-label="Close search"><X className="w-5 h-5" /></button>
+            {isSearching && <Loader2 className="w-4 h-4 animate-spin text-[#6b7280]" strokeWidth={1.5} />}
+            <button onClick={onClose} className="p-1.5 text-[#6b7280] hover:text-white transition-colors" aria-label="Close search"><X className="w-5 h-5" strokeWidth={1.5} /></button>
           </div>
           {debouncedQuery && (
             <div className="max-h-96 overflow-y-auto">
@@ -173,7 +173,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                       onClick={() => { router.push(`/search?q=${encodeURIComponent(debouncedQuery)}`); onClose(); }}
                       className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-[#d4a853] hover:bg-[#d4a853]/10 transition-colors text-sm font-medium"
                     >
-                      <Search className="w-4 h-4" /> View all results for &ldquo;{debouncedQuery}&rdquo;
+                      <Search className="w-4 h-4" strokeWidth={1.5} /> View all results for &ldquo;{debouncedQuery}&rdquo;
                     </button>
                   </div>
                 </>

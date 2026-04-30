@@ -93,7 +93,7 @@ export default function MovieClubWidget({ communityId, communityName, isMember }
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
-            <Video className="w-5 h-5 text-blue-400" />
+            <Video className="w-5 h-5 text-blue-400" strokeWidth={1.5} />
           </div>
           <div>
             <h3 className="text-lg font-bold text-white">Movie Clubs</h3>
@@ -106,7 +106,7 @@ export default function MovieClubWidget({ communityId, communityName, isMember }
             size="sm"
             className="bg-blue-500 hover:bg-blue-600 text-white gap-2 min-h-[44px]"
           >
-            <Plus className="w-4 h-4" /> Schedule
+            <Plus className="w-4 h-4" strokeWidth={1.5} /> Schedule
           </Button>
         )}
       </div>
@@ -117,7 +117,7 @@ export default function MovieClubWidget({ communityId, communityName, isMember }
           <div className="flex items-center justify-between mb-2">
             <h4 className="text-sm font-semibold text-white">Schedule a Movie Club</h4>
             <button onClick={() => setShowCreate(false)} className="text-[#6b7280] hover:text-white min-w-[44px] min-h-[44px] flex items-center justify-center">
-              <X className="w-4 h-4" />
+              <X className="w-4 h-4" strokeWidth={1.5} />
             </button>
           </div>
           <input
@@ -161,7 +161,7 @@ export default function MovieClubWidget({ communityId, communityName, isMember }
             className="w-full bg-blue-500 hover:bg-blue-600 text-white gap-2 min-h-[44px]"
             size="sm"
           >
-            <Calendar className="w-4 h-4" /> Schedule Watch Party
+            <Calendar className="w-4 h-4" strokeWidth={1.5} /> Schedule Watch Party
           </Button>
         </div>
       )}
@@ -179,7 +179,7 @@ export default function MovieClubWidget({ communityId, communityName, isMember }
               <div key={club.id} className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5 hover:border-blue-500/20 transition-all group">
                 <div className="flex items-start gap-3 mb-3">
                   <div className="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center flex-shrink-0">
-                    <Film className="w-5 h-5 text-blue-400" />
+                    <Film className="w-5 h-5 text-blue-400" strokeWidth={1.5} />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
@@ -193,13 +193,13 @@ export default function MovieClubWidget({ communityId, communityName, isMember }
                     <p className="text-xs text-[#9ca3af] mb-1">{club.movieTitle}</p>
                     <div className="flex items-center gap-3 text-[10px] text-[#6b7280]">
                       <span className="flex items-center gap-1">
-                        <Calendar className="w-3 h-3" /> {scheduledDate.toLocaleDateString()} {club.scheduledTime}
+                        <Calendar className="w-3 h-3" strokeWidth={1.5} /> {scheduledDate.toLocaleDateString()} {club.scheduledTime}
                       </span>
                       <span className="flex items-center gap-1">
-                        <Users className="w-3 h-3" /> {club.attendees.length}/{club.maxAttendees}
+                        <Users className="w-3 h-3" strokeWidth={1.5} /> {club.attendees.length}/{club.maxAttendees}
                       </span>
                       <span className="flex items-center gap-1">
-                        <Clock className="w-3 h-3" /> Hosted by {club.hostName}
+                        <Clock className="w-3 h-3" strokeWidth={1.5} /> Hosted by {club.hostName}
                       </span>
                     </div>
                   </div>
@@ -225,7 +225,7 @@ export default function MovieClubWidget({ communityId, communityName, isMember }
                 {club.discussionPrompt && (
                   <div className="bg-[#050507] border border-[#1e1e28] rounded-lg p-3 mb-3">
                     <p className="text-xs text-[#9ca3af]">
-                      <MessageSquare className="w-3 h-3 inline mr-1 text-purple-400" />
+                      <MessageSquare className="w-3 h-3 inline mr-1 text-purple-400" strokeWidth={1.5} />
                       {club.discussionPrompt}
                     </p>
                   </div>
@@ -240,7 +240,7 @@ export default function MovieClubWidget({ communityId, communityName, isMember }
                       size="sm"
                       className="border-blue-500/30 text-blue-400 hover:bg-blue-500 hover:text-white gap-2 min-h-[36px] w-full"
                     >
-                      <UserMinus className="w-3.5 h-3.5" /> Leave Watch Party
+                      <UserMinus className="w-3.5 h-3.5" strokeWidth={1.5} /> Leave Watch Party
                     </Button>
                   ) : (
                     <Button
@@ -249,7 +249,7 @@ export default function MovieClubWidget({ communityId, communityName, isMember }
                       disabled={isFull}
                       className="bg-blue-500 hover:bg-blue-600 text-white gap-2 min-h-[36px] w-full"
                     >
-                      <UserPlus className="w-3.5 h-3.5" /> {isFull ? 'Full' : 'Join Watch Party'}
+                      <UserPlus className="w-3.5 h-3.5" strokeWidth={1.5} /> {isFull ? 'Full' : 'Join Watch Party'}
                     </Button>
                   )
                 )}
@@ -259,7 +259,7 @@ export default function MovieClubWidget({ communityId, communityName, isMember }
         </div>
       ) : (
         <div className="text-center py-10 bg-[#0c0c10] border border-[#1e1e28] rounded-xl">
-          <Video className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" />
+          <Video className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" strokeWidth={1.5} />
           <h4 className="text-sm font-semibold text-white mb-1">No Movie Clubs Yet</h4>
           <p className="text-xs text-[#6b7280]">Schedule a watch party and invite the community to watch together!</p>
         </div>
@@ -272,7 +272,7 @@ export default function MovieClubWidget({ communityId, communityName, isMember }
           <div className="space-y-2">
             {pastClubs.slice(0, 3).map((club) => (
               <div key={club.id} className="flex items-center gap-3 p-3 bg-[#0c0c10] border border-[#1e1e28] rounded-lg opacity-60">
-                <Film className="w-4 h-4 text-[#6b7280]" />
+                <Film className="w-4 h-4 text-[#6b7280]" strokeWidth={1.5} />
                 <div className="flex-1 min-w-0">
                   <p className="text-xs text-[#9ca3af] truncate">{club.movieTitle}</p>
                   <p className="text-[10px] text-[#6b7280]">{new Date(club.scheduledDate).toLocaleDateString()} · {club.attendees.length} attended</p>

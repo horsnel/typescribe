@@ -111,7 +111,7 @@ export default function DashboardActivityPage() {
 
       {activities.length === 0 ? (
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center">
-          <Activity className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
+          <Activity className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" strokeWidth={1.5} />
           <h2 className="text-xl font-bold text-white mb-2">No activity yet</h2>
           <p className="text-[#9ca3af] mb-1">Your personal timeline will show up here.</p>
           <p className="text-sm text-[#6b7280]">Rate movies, write reviews, and join communities to populate your feed.</p>

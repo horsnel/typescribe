@@ -580,6 +580,19 @@ export default function CommunityDetailPage() {
           ))}
         </div>
 
+        {/* ─── Weekly Theme Card (prominent on all tabs for joined members) ─── */}
+        {isJoined && (
+          <div className="mb-6">
+            <WeeklyThemeCard communityId={communityId} onDiscuss={() => {
+              setActiveTab('discussions');
+              if (!showNewPost) setShowNewPost(true);
+              setTimeout(() => {
+                document.getElementById('new-post-area')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }, 200);
+            }} />
+          </div>
+        )}
+
         {/* ─── Discussions Tab ─── */}
         {activeTab === 'discussions' && (
           <>
@@ -598,7 +611,7 @@ export default function CommunityDetailPage() {
             </div>
 
             {showNewPost && (
-              <div className="bg-[#0c0c10] border border-[#d4a853]/30 rounded-xl p-5 mb-6">
+              <div id="new-post-area" className="bg-[#0c0c10] border border-[#d4a853]/30 rounded-xl p-5 mb-6">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-sm font-semibold text-white">Create a new post</h3>
                   <button onClick={() => setShowNewPost(false)} className="text-[#6b7280] hover:text-white min-w-[44px] min-h-[44px] flex items-center justify-center"><X className="w-4 h-4" strokeWidth={1.5} /></button>
@@ -692,14 +705,6 @@ export default function CommunityDetailPage() {
           </>
         )}
 
-        {/* ─── Weekly Theme Card ─── */}
-        {isJoined && activeTab === 'discussions' && (
-          <div className="mb-6">
-            <WeeklyThemeCard communityId={communityId} onDiscuss={() => {
-              if (!showNewPost) setShowNewPost(true);
-            }} />
-          </div>
-        )}
 
         {/* ─── Taste Match (shown before joining) ─── */}
         {!isJoined && isAuthenticated && user?.favorite_genres && (

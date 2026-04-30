@@ -135,7 +135,7 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
               <div className="h-4 w-px bg-white/10" />
               <div className="flex items-center gap-1">
                 <span className="text-xs text-[#6b7280]">Avg Rating</span>
-                <Star className="w-3.5 h-3.5 text-[#f5c518] fill-[#f5c518] ml-2" />
+                <Star className="w-3.5 h-3.5 text-[#f5c518] fill-[#f5c518] ml-2" strokeWidth={1.5} />
                 <span className="text-sm font-bold text-[#f5c518]">{avgRating}</span>
               </div>
               <div className="h-4 w-px bg-white/10" />
@@ -177,10 +177,10 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
               </div>
               <div className="flex items-center border border-[#1e1e28] rounded-lg overflow-hidden">
                 <button onClick={() => setView('grid')} className={`p-2 ${view === 'grid' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white'}`}>
-                  <Grid3X3 className="w-4 h-4" />
+                  <Grid3X3 className="w-4 h-4" strokeWidth={1.5} />
                 </button>
                 <button onClick={() => setView('list')} className={`p-2 ${view === 'list' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white'}`}>
-                  <List className="w-4 h-4" />
+                  <List className="w-4 h-4" strokeWidth={1.5} />
                 </button>
               </div>
             </div>
@@ -188,7 +188,7 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
             {/* Loading */}
             {loading ? (
               <div className="flex items-center justify-center py-24">
-                <Loader2 className="w-8 h-8 animate-spin text-[#d4a853]" />
+                <Loader2 className="w-8 h-8 animate-spin text-[#d4a853]" strokeWidth={1.5} />
               </div>
             ) : genreMovies.length > 0 ? (
               <>
@@ -256,7 +256,7 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
                   {relatedGenres.map((g) => g && (
                     <Link key={g.id} href={`/category/${g.id}`} className="flex items-center justify-between p-2.5 bg-[#050507] border border-[#1e1e28] rounded-lg hover:border-[#3a3a45] transition-colors group">
                       <span className="text-sm text-[#9ca3af] group-hover:text-white transition-colors">{g.name}</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-[#6b7280] group-hover:text-[#d4a853] transition-colors" />
+                      <ArrowRight className="w-3.5 h-3.5 text-[#6b7280] group-hover:text-[#d4a853] transition-colors" strokeWidth={1.5} />
                     </Link>
                   ))}
                 </div>

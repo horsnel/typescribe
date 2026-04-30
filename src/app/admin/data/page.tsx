@@ -180,7 +180,7 @@ function ScrapingAntKeyStats({ sb }: { sb: any }) {
   if (loadingAnt) {
     return (
       <div className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-8 text-center">
-        <Loader2 className="w-6 h-6 animate-spin text-[#d4a853] mx-auto mb-2" />
+        <Loader2 className="w-6 h-6 animate-spin text-[#d4a853] mx-auto mb-2" strokeWidth={1.5} />
         <p className="text-[#6b7280] text-sm">Loading ScrapingAnt stats...</p>
       </div>
     );
@@ -255,7 +255,7 @@ function ScrapingAntKeyStats({ sb }: { sb: any }) {
               <div key={idx} className="bg-[#050507] border border-[#1e1e28] rounded-lg p-3">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
-                    <Key className="w-3.5 h-3.5 text-[#6b7280]" />
+                    <Key className="w-3.5 h-3.5 text-[#6b7280]" strokeWidth={1.5} />
                     <span className="text-sm text-white font-medium">Key {idx + 1}</span>
                     {key.configured ? (
                       <span className="text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">ACTIVE</span>
@@ -431,7 +431,7 @@ export default function AdminDataPipelinePage() {
   if (checkingAuth) {
     return (
       <div className="min-h-screen bg-[#050507] flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-[#d4a853]" />
+        <Loader2 className="w-8 h-8 animate-spin text-[#d4a853]" strokeWidth={1.5} />
       </div>
     );
   }
@@ -442,7 +442,7 @@ export default function AdminDataPipelinePage() {
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-2xl p-8 max-w-md w-full shadow-2xl">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-10 h-10 rounded-full bg-[#d4a853]/10 flex items-center justify-center">
-              <Lock className="w-5 h-5 text-[#d4a853]" />
+              <Lock className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
             </div>
             <div>
               <h1 className="text-lg font-bold text-white">Data Pipeline Access</h1>
@@ -473,9 +473,9 @@ export default function AdminDataPipelinePage() {
               className="flex-1 bg-[#d4a853] hover:bg-[#b8922e] text-white disabled:opacity-50"
             >
               {authLoading ? (
-                <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                <Loader2 className="w-4 h-4 animate-spin mr-2" strokeWidth={1.5} />
               ) : (
-                <Lock className="w-4 h-4 mr-2" />
+                <Lock className="w-4 h-4 mr-2" strokeWidth={1.5} />
               )}
               Authenticate
             </Button>
@@ -496,8 +496,8 @@ export default function AdminDataPipelinePage() {
 
   // ─── Authenticated Content ───
   const SortIcon = ({ field }: { field: SortField }) => {
-    if (sortField !== field) return <ArrowUpDown className="w-3 h-3 ml-1 opacity-40" />;
-    return sortDir === 'asc' ? <ChevronUp className="w-3 h-3 ml-1 text-[#d4a853]" /> : <ChevronDown className="w-3 h-3 ml-1 text-[#d4a853]" />;
+    if (sortField !== field) return <ArrowUpDown className="w-3 h-3 ml-1 opacity-40" strokeWidth={1.5} />;
+    return sortDir === 'asc' ? <ChevronUp className="w-3 h-3 ml-1 text-[#d4a853]" strokeWidth={1.5} /> : <ChevronDown className="w-3 h-3 ml-1 text-[#d4a853]" strokeWidth={1.5} />;
   };
 
   const sources = status?.status?.sources as PipelineSources | undefined;
@@ -535,7 +535,7 @@ export default function AdminDataPipelinePage() {
     return (
       <div className="min-h-screen bg-[#050507] flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-8 h-8 animate-spin text-[#d4a853] mx-auto mb-4" />
+          <Loader2 className="w-8 h-8 animate-spin text-[#d4a853] mx-auto mb-4" strokeWidth={1.5} />
           <p className="text-[#9ca3af]">Loading pipeline status…</p>
         </div>
       </div>
@@ -550,7 +550,7 @@ export default function AdminDataPipelinePage() {
           <div className={`flex items-center gap-2 px-4 py-3 rounded-xl border shadow-lg backdrop-blur-xl text-sm font-medium ${
             toast.type === 'success' ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' : 'bg-red-500/10 border-red-500/20 text-red-400'
           }`}>
-            {toast.type === 'success' ? <CheckCircle className="w-4 h-4" /> : <XCircle className="w-4 h-4" />}
+            {toast.type === 'success' ? <CheckCircle className="w-4 h-4" strokeWidth={1.5} /> : <XCircle className="w-4 h-4" strokeWidth={1.5} />}
             {toast.message}
           </div>
         </div>
@@ -561,7 +561,7 @@ export default function AdminDataPipelinePage() {
         <div className="mb-10">
           <div className="flex items-center gap-3 mb-2">
             <div className="p-2 bg-[#d4a853]/10 rounded-lg border border-[#d4a853]/20">
-              <Database className="w-6 h-6 text-[#d4a853]" />
+              <Database className="w-6 h-6 text-[#d4a853]" strokeWidth={1.5} />
             </div>
             <div>
               <h1 className="text-3xl lg:text-4xl font-extrabold text-white tracking-tight">Data Pipeline</h1>
@@ -570,7 +570,7 @@ export default function AdminDataPipelinePage() {
           </div>
           <div className="flex items-center gap-3 mt-4">
             <Button onClick={fetchData} variant="outline" size="sm" className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]" disabled={loading}>
-              <RefreshCw className={`w-3.5 h-3.5 mr-1.5 ${loading ? 'animate-spin' : ''}`} /> Refresh
+              <RefreshCw className={`w-3.5 h-3.5 mr-1.5 ${loading ? 'animate-spin' : ''}`} strokeWidth={1.5} /> Refresh
             </Button>
             <Button onClick={handleLogout} variant="outline" size="sm" className="border-red-500/20 text-red-400 hover:bg-red-500/10 hover:text-red-300">
               Logout
@@ -582,11 +582,11 @@ export default function AdminDataPipelinePage() {
             </Link>
             {status?.status?.configured ? (
               <span className="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
-                <CheckCircle className="w-3 h-3" /> Pipeline Configured
+                <CheckCircle className="w-3 h-3" strokeWidth={1.5} /> Pipeline Configured
               </span>
             ) : (
               <span className="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-400">
-                <XCircle className="w-3 h-3" /> Not Configured
+                <XCircle className="w-3 h-3" strokeWidth={1.5} /> Not Configured
               </span>
             )}
           </div>
@@ -604,7 +604,7 @@ export default function AdminDataPipelinePage() {
                 <Activity className={`w-5 h-5 ${
                   health.overallStatus === 'healthy' ? 'text-emerald-400' :
                   health.overallStatus === 'degraded' ? 'text-amber-400' : 'text-red-400'
-                }`} />
+                }`} strokeWidth={1.5} />
                 <span className="text-white font-semibold">Pipeline Health: {health.overallStatus.toUpperCase()}</span>
                 <span className="text-[#6b7280] text-xs">
                   {(health.scrapers || []).filter(s => s.status === 'healthy').length} healthy,
@@ -616,7 +616,7 @@ export default function AdminDataPipelinePage() {
                 <div className="space-y-1.5">
                   {(health.recommendations || []).slice(0, 5).map((rec, i) => (
                     <div key={i} className="flex items-start gap-2 text-xs">
-                      <AlertTriangle className="w-3.5 h-3.5 text-amber-400 flex-shrink-0 mt-0.5" />
+                      <AlertTriangle className="w-3.5 h-3.5 text-amber-400 flex-shrink-0 mt-0.5" strokeWidth={1.5} />
                       <span className="text-[#9ca3af]">{rec}</span>
                     </div>
                   ))}
@@ -629,7 +629,7 @@ export default function AdminDataPipelinePage() {
         {/* ─── API Sources (Free & Paid) ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <Cpu className="w-5 h-5 text-[#d4a853]" /> API Sources <span className="text-xs font-normal text-[#6b7280]">(Free APIs &amp; Paid Fallbacks)</span>
+            <Cpu className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} /> API Sources <span className="text-xs font-normal text-[#6b7280]">(Free APIs &amp; Paid Fallbacks)</span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
@@ -654,7 +654,7 @@ export default function AdminDataPipelinePage() {
                       <span className="text-white font-semibold text-sm">{src.name}</span>
                     </div>
                     <span className={`inline-flex items-center gap-1 text-[10px] font-medium px-1.5 py-0.5 rounded-full ${ok ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'}`}>
-                      {ok ? <CheckCircle className="w-2.5 h-2.5" /> : <XCircle className="w-2.5 h-2.5" />}
+                      {ok ? <CheckCircle className="w-2.5 h-2.5" strokeWidth={1.5} /> : <XCircle className="w-2.5 h-2.5" strokeWidth={1.5} />}
                       {ok ? 'OK' : 'Missing'}
                     </span>
                   </div>
@@ -669,7 +669,7 @@ export default function AdminDataPipelinePage() {
         {/* ─── Scraping Sources (Free-First) ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <Shield className="w-5 h-5 text-[#d4a853]" /> Scraping Sources <span className="text-xs font-normal text-[#6b7280]">(Free-First: 6 primary + 7 fallback + 3 premium)</span>
+            <Shield className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} /> Scraping Sources <span className="text-xs font-normal text-[#6b7280]">(Free-First: 6 primary + 7 fallback + 3 premium)</span>
           </h2>
 
           {(['a', 'b', 'c'] as const).map(tier => {
@@ -723,7 +723,7 @@ export default function AdminDataPipelinePage() {
         {/* ─── ScrapingAnt 5-Key Status ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <Zap className="w-5 h-5 text-[#d4a853]" /> ScrapingAnt 5-Key Rotation
+            <Zap className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} /> ScrapingAnt 5-Key Rotation
           </h2>
           <ScrapingAntKeyStats sb={sb} />
         </section>
@@ -731,7 +731,7 @@ export default function AdminDataPipelinePage() {
         {/* ─── Cache Stats ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <BarChart3 className="w-5 h-5 text-[#d4a853]" /> Cache Statistics
+            <BarChart3 className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} /> Cache Statistics
           </h2>
           <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
             {[
@@ -754,13 +754,13 @@ export default function AdminDataPipelinePage() {
         {/* ─── Cache Management ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <HardDrive className="w-5 h-5 text-[#d4a853]" /> Cache Management
+            <HardDrive className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} /> Cache Management
           </h2>
           <div className="flex flex-wrap gap-3">
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button variant="outline" className="border-red-500/20 text-red-400 hover:bg-red-500/10 hover:text-red-300 hover:border-red-500/40" disabled={actionLoading !== null}>
-                  <Trash2 className="w-4 h-4 mr-1.5" /> Clear All Cache
+                  <Trash2 className="w-4 h-4 mr-1.5" strokeWidth={1.5} /> Clear All Cache
                 </Button>
               </AlertDialogTrigger>
               <AlertDialogContent className="bg-[#0c0c10] border-[#1e1e28]">
@@ -773,13 +773,13 @@ export default function AdminDataPipelinePage() {
                 <AlertDialogFooter>
                   <AlertDialogCancel className="border-[#1e1e28] text-[#9ca3af] hover:text-white">Cancel</AlertDialogCancel>
                   <AlertDialogAction onClick={() => handleCacheAction('clear')} className="bg-red-500 hover:bg-red-600 text-white">
-                    <Trash2 className="w-4 h-4 mr-1.5" /> Clear All
+                    <Trash2 className="w-4 h-4 mr-1.5" strokeWidth={1.5} /> Clear All
                   </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
             <Button variant="outline" className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]" onClick={() => handleCacheAction('prune')} disabled={actionLoading !== null}>
-              <RefreshCw className="w-4 h-4 mr-1.5" /> Prune Expired
+              <RefreshCw className="w-4 h-4 mr-1.5" strokeWidth={1.5} /> Prune Expired
             </Button>
           </div>
         </section>
@@ -787,12 +787,12 @@ export default function AdminDataPipelinePage() {
         {/* ─── Cached Movies Table ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <FileText className="w-5 h-5 text-[#d4a853]" /> Cached Movies
+            <FileText className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} /> Cached Movies
             {(cache?.totalEntries ?? 0) > 0 && <span className="text-xs font-normal text-[#6b7280] ml-1">({cache?.totalEntries} entries)</span>}
           </h2>
           {sortedMovies.length === 0 ? (
             <div className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-12 text-center">
-              <Database className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" />
+              <Database className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" strokeWidth={1.5} />
               <p className="text-[#6b7280] text-sm">No cached movies yet</p>
               <p className="text-[#4a4a5a] text-xs mt-1">Process movies through batch below to populate cache</p>
             </div>
@@ -849,7 +849,7 @@ export default function AdminDataPipelinePage() {
         {/* ─── Batch Processing ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <Zap className="w-5 h-5 text-[#d4a853]" /> Batch Processing
+            <Zap className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} /> Batch Processing
           </h2>
           <div className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-6">
             <div className="mb-4">
@@ -862,7 +862,7 @@ export default function AdminDataPipelinePage() {
               />
             </div>
             <Button onClick={handleBatchProcess} disabled={batchProcessing || !batchInput.trim()} className="bg-[#d4a853] hover:bg-[#b8922e] text-white">
-              {batchProcessing ? <><Loader2 className="w-4 h-4 animate-spin" /> Processing…</> : <><Zap className="w-4 h-4" /> Process Batch</>}
+              {batchProcessing ? <><Loader2 className="w-4 h-4 animate-spin" strokeWidth={1.5} /> Processing…</> : <><Zap className="w-4 h-4" strokeWidth={1.5} /> Process Batch</>}
             </Button>
             {batchResult && (
               <div className="mt-6 border-t border-[#1e1e28] pt-6">
@@ -888,7 +888,7 @@ export default function AdminDataPipelinePage() {
         {/* ─── API Key Config ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <Key className="w-5 h-5 text-[#d4a853]" /> API Key Configuration
+            <Key className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} /> API Key Configuration
           </h2>
           <div className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-6">
             <p className="text-[#9ca3af] text-sm mb-5">
@@ -906,7 +906,7 @@ export default function AdminDataPipelinePage() {
                 { name: 'GEMINI_API_KEY', desc: 'Optional — AI review generation', ok: sources?.gemini },
               ].map(env => (
                 <div key={env.name} className="flex items-center gap-3 p-3 rounded-lg bg-[#050507] border border-[#1e1e28]">
-                  {env.ok ? <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" /> : <XCircle className="w-4 h-4 text-red-400 flex-shrink-0" />}
+                  {env.ok ? <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" strokeWidth={1.5} /> : <XCircle className="w-4 h-4 text-red-400 flex-shrink-0" strokeWidth={1.5} />}
                   <div className="flex-1 min-w-0">
                     <code className="text-white font-mono text-sm bg-[#111118] px-2 py-0.5 rounded">{env.name}</code>
                     <span className="text-[#6b7280] text-xs ml-2">{env.desc}</span>

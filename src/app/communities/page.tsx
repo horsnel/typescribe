@@ -184,7 +184,7 @@ export default function CommunitiesPage() {
         {isAuthenticated && myCommunities.length > 0 && (
           <div className="mb-8">
             <div className="flex items-center gap-2 mb-4">
-              <CheckCircle2 className="w-5 h-5 text-[#d4a853]" />
+              <CheckCircle2 className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
               <h2 className="text-lg font-semibold text-white">My Communities</h2>
               <span className="text-xs text-[#d4a853] bg-[#d4a853]/10 px-2 py-0.5 rounded-full">
                 {myCommunities.length}
@@ -214,7 +214,7 @@ export default function CommunitiesPage() {
                       }}
                       className="border-[#d4a853]/30 text-[#d4a853] hover:text-white hover:bg-[#d4a853] hover:border-[#d4a853] text-xs gap-1 min-h-[44px]"
                     >
-                      <UserMinus className="w-3 h-3" /> Leave
+                      <UserMinus className="w-3 h-3" strokeWidth={1.5} /> Leave
                     </Button>
                   </div>
                   <p className="text-sm text-[#9ca3af] mb-4 line-clamp-2">{community.description}</p>
@@ -301,7 +301,7 @@ export default function CommunitiesPage() {
                           : 'border-[#1e1e28] text-[#9ca3af] hover:text-white hover:bg-[#d4a853] hover:border-[#d4a853]'
                       }`}
                     >
-                      {isJoined ? <UserMinus className="w-3 h-3" /> : <UserPlus className="w-3 h-3" />}
+                      {isJoined ? <UserMinus className="w-3 h-3" strokeWidth={1.5} /> : <UserPlus className="w-3 h-3" strokeWidth={1.5} />}
                       {isJoined ? 'Joined' : 'Join'}
                     </Button>
                   ) : (
@@ -333,7 +333,7 @@ export default function CommunitiesPage() {
 
         {filtered.length === 0 && (
           <div className="text-center py-16">
-            <Users className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
+            <Users className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" strokeWidth={1.5} />
             <p className="text-[#9ca3af]">No communities found matching your search.</p>
           </div>
         )}
@@ -400,7 +400,7 @@ export default function CommunitiesPage() {
                 disabled={!newName.trim() || !newDescription.trim()}
                 className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2"
               >
-                <Sparkles className="w-4 h-4" /> Create Community
+                <Sparkles className="w-4 h-4" strokeWidth={1.5} /> Create Community
               </Button>
             </DialogFooter>
           </DialogContent>

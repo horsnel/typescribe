@@ -124,7 +124,7 @@ export default function LocalPicksSection() {
             </div>
             <p className="text-[#9ca3af] text-sm">
               {detecting ? (
-                <span className="flex items-center gap-2"><Loader2 className="w-3.5 h-3.5 animate-spin" /> Finding content tailored to your region...</span>
+                <span className="flex items-center gap-2"><Loader2 className="w-3.5 h-3.5 animate-spin" strokeWidth={1.5} /> Finding content tailored to your region...</span>
               ) : location ? (
                 <>
                   {location.reason} — based on {location.countryName}
@@ -132,21 +132,21 @@ export default function LocalPicksSection() {
                     onClick={() => setShowCountryPicker(!showCountryPicker)}
                     className="ml-2 text-[#d4a853] hover:underline inline-flex items-center gap-1"
                   >
-                    <Globe className="w-3.5 h-3.5" /> Change
+                    <Globe className="w-3.5 h-3.5" strokeWidth={1.5} /> Change
                   </button>
                 </>
               ) : (
                 <>
                   Movies trending in your area
                   <button onClick={() => setShowCountryPicker(!showCountryPicker)} className="ml-2 text-[#d4a853] hover:underline inline-flex items-center gap-1">
-                    <Globe className="w-3.5 h-3.5" /> Pick region
+                    <Globe className="w-3.5 h-3.5" strokeWidth={1.5} /> Pick region
                   </button>
                 </>
               )}
             </p>
           </div>
           <Link href="/browse" className="text-sm text-[#d4a853] hover:underline flex items-center gap-1">
-            Browse All <ChevronRight className="w-4 h-4" />
+            Browse All <ChevronRight className="w-4 h-4" strokeWidth={1.5} />
           </Link>
         </div>
 
@@ -173,7 +173,7 @@ export default function LocalPicksSection() {
         {/* Movie Grid */}
         {loadingMovies ? (
           <div className="flex items-center justify-center py-16">
-            <Loader2 className="w-8 h-8 animate-spin text-[#d4a853]" />
+            <Loader2 className="w-8 h-8 animate-spin text-[#d4a853]" strokeWidth={1.5} />
             <span className="ml-3 text-[#9ca3af]">Loading local picks...</span>
           </div>
         ) : (

@@ -23,16 +23,16 @@ function AnimeCard({ anime }: { anime: Movie }) {
         />
         {/* Anime badge */}
         <div className="absolute top-2 left-2 flex items-center gap-1 bg-purple-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-lg z-10">
-          <Wand2 className="w-2.5 h-2.5" /> ANIME
+          <Wand2 className="w-2.5 h-2.5" strokeWidth={1.5} /> ANIME
         </div>
         {/* Rating badge */}
         <div className="absolute top-2 right-2 flex items-center gap-1 bg-[#f5c518] text-black text-xs font-bold px-2 py-0.5 rounded-full shadow-lg z-10">
-          <Star className="w-3 h-3 fill-black" />{anime.vote_average.toFixed(1)}
+          <Star className="w-3 h-3 fill-black" strokeWidth={1.5} />{anime.vote_average.toFixed(1)}
         </div>
         {/* Hover overlay */}
         <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
-            <Play className="w-4 h-4 text-white fill-white" />
+            <Play className="w-4 h-4 text-white fill-white" strokeWidth={1.5} />
             <span className="text-sm font-medium text-white">View Details</span>
           </div>
         </div>
@@ -108,27 +108,27 @@ export default function TrendingAnimeSection() {
                 className="w-10 h-10 flex items-center justify-center rounded-full bg-[#0c0c10] border border-white/[0.06] text-white hover:border-purple-500 hover:text-purple-400 transition-colors"
                 aria-label="Scroll left"
               >
-                <ChevronLeft className="w-5 h-5" />
+                <ChevronLeft className="w-5 h-5" strokeWidth={1.5} />
               </button>
               <button
                 onClick={() => scroll('right')}
                 className="w-10 h-10 flex items-center justify-center rounded-full bg-[#0c0c10] border border-white/[0.06] text-white hover:border-purple-500 hover:text-purple-400 transition-colors"
                 aria-label="Scroll right"
               >
-                <ChevronRight className="w-5 h-5" />
+                <ChevronRight className="w-5 h-5" strokeWidth={1.5} />
               </button>
             </div>
             <Link
               href="/browse?format=anime"
               className="flex items-center gap-1.5 text-sm text-[#9ca3af] hover:text-purple-400 transition-colors"
             >
-              Browse All <ArrowRight className="w-4 h-4" />
+              Browse All <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
             </Link>
           </div>
         </div>
         {loading ? (
           <div className="flex items-center justify-center py-12">
-            <Loader2 className="w-6 h-6 text-purple-400 animate-spin" />
+            <Loader2 className="w-6 h-6 text-purple-400 animate-spin" strokeWidth={1.5} />
             <span className="ml-3 text-[#6b7280] text-sm">Loading anime...</span>
           </div>
         ) : (

@@ -101,11 +101,11 @@ function calculateAgeRecommendation(categories: ContentCategory[]): number {
 
 function autoDetectCategories(genres: Array<{ id: number; name: string }>): ContentCategory[] {
   const baseCategories: ContentCategory[] = [
-    { id: 'violence', label: 'Violence', icon: <Skull className="w-3.5 h-3.5" />, severity: 'none' },
-    { id: 'language', label: 'Language', icon: <MessageSquare className="w-3.5 h-3.5" />, severity: 'none' },
-    { id: 'sexual', label: 'Sexual Content', icon: <Eye className="w-3.5 h-3.5" />, severity: 'none' },
-    { id: 'substance', label: 'Substance Use', icon: <AlertTriangle className="w-3.5 h-3.5" />, severity: 'none' },
-    { id: 'frightening', label: 'Frightening Scenes', icon: <Skull className="w-3.5 h-3.5" />, severity: 'none' },
+    { id: 'violence', label: 'Violence', icon: <Skull className="w-3.5 h-3.5" strokeWidth={1.5} />, severity: 'none' },
+    { id: 'language', label: 'Language', icon: <MessageSquare className="w-3.5 h-3.5" strokeWidth={1.5} />, severity: 'none' },
+    { id: 'sexual', label: 'Sexual Content', icon: <Eye className="w-3.5 h-3.5" strokeWidth={1.5} />, severity: 'none' },
+    { id: 'substance', label: 'Substance Use', icon: <AlertTriangle className="w-3.5 h-3.5" strokeWidth={1.5} />, severity: 'none' },
+    { id: 'frightening', label: 'Frightening Scenes', icon: <Skull className="w-3.5 h-3.5" strokeWidth={1.5} />, severity: 'none' },
   ];
 
   // Apply genre-based severity
@@ -254,7 +254,7 @@ export default function ParentalGuidance({ movieTitle, movieId, genres }: Parent
         className="w-full flex items-center justify-between p-5 hover:bg-[#111118] transition-colors"
       >
         <div className="flex items-center gap-3">
-          <Shield className="w-5 h-5 text-[#f59e0b]" />
+          <Shield className="w-5 h-5 text-[#f59e0b]" strokeWidth={1.5} />
           <h2 className="text-lg font-bold text-white">Parental Guidance</h2>
           {hasAnyWarning && (
             <span className={`text-xs font-medium px-2.5 py-0.5 rounded-full border ${getSeverityColor(
@@ -267,8 +267,8 @@ export default function ParentalGuidance({ movieTitle, movieId, genres }: Parent
           )}
         </div>
         {expanded
-          ? <ChevronUp className="w-5 h-5 text-[#6b7280]" />
-          : <ChevronDown className="w-5 h-5 text-[#6b7280]" />
+          ? <ChevronUp className="w-5 h-5 text-[#6b7280]" strokeWidth={1.5} />
+          : <ChevronDown className="w-5 h-5 text-[#6b7280]" strokeWidth={1.5} />
         }
       </button>
 
@@ -290,7 +290,7 @@ export default function ParentalGuidance({ movieTitle, movieId, genres }: Parent
           {/* ─── Content Warning Categories ─── */}
           <div>
             <h3 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
-              <AlertTriangle className="w-4 h-4 text-[#f59e0b]" />
+              <AlertTriangle className="w-4 h-4 text-[#f59e0b]" strokeWidth={1.5} />
               Content Warnings
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -325,14 +325,14 @@ export default function ParentalGuidance({ movieTitle, movieId, genres }: Parent
           <div>
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-sm font-semibold text-white flex items-center gap-2">
-                <Clock className="w-4 h-4 text-[#a855f7]" />
+                <Clock className="w-4 h-4 text-[#a855f7]" strokeWidth={1.5} />
                 Skip Timestamps
               </h3>
               <button
                 onClick={() => setShowTimestampForm(!showTimestampForm)}
                 className="text-[10px] text-[#a855f7] hover:text-[#a855f7]/80 transition-colors flex items-center gap-1"
               >
-                <Plus className="w-3 h-3" /> Add
+                <Plus className="w-3 h-3" strokeWidth={1.5} /> Add
               </button>
             </div>
 
@@ -410,7 +410,7 @@ export default function ParentalGuidance({ movieTitle, movieId, genres }: Parent
                     className="flex items-start gap-3 bg-[#050507] border border-[#1e1e28] rounded-lg p-3 group"
                   >
                     <div className="flex-shrink-0 flex items-center gap-1.5 bg-[#111118] rounded px-2 py-1">
-                      <Clock className="w-3 h-3 text-[#a855f7]" />
+                      <Clock className="w-3 h-3 text-[#a855f7]" strokeWidth={1.5} />
                       <span className="text-xs font-mono text-[#a855f7]">
                         {ts.startTime}
                         {ts.endTime !== ts.startTime && ` – ${ts.endTime}`}
@@ -424,14 +424,14 @@ export default function ParentalGuidance({ movieTitle, movieId, genres }: Parent
                       onClick={() => handleRemoveTimestamp(ts.id)}
                       className="opacity-0 group-hover:opacity-100 transition-opacity text-[#6b7280] hover:text-[#d4a853]"
                     >
-                      <X className="w-3.5 h-3.5" />
+                      <X className="w-3.5 h-3.5" strokeWidth={1.5} />
                     </button>
                   </div>
                 ))}
               </div>
             ) : (
               <div className="bg-[#050507] border border-[#1e1e28] rounded-lg p-4 text-center">
-                <Clock className="w-6 h-6 text-[#2a2a35] mx-auto mb-2" />
+                <Clock className="w-6 h-6 text-[#2a2a35] mx-auto mb-2" strokeWidth={1.5} />
                 <p className="text-xs text-[#6b7280]">No skip timestamps added yet</p>
                 <p className="text-[10px] text-[#2a2a35]">Add timestamps for intense scenes</p>
               </div>
@@ -442,7 +442,7 @@ export default function ParentalGuidance({ movieTitle, movieId, genres }: Parent
           <div>
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-sm font-semibold text-white flex items-center gap-2">
-                <MessageSquare className="w-4 h-4 text-[#22c55e]" />
+                <MessageSquare className="w-4 h-4 text-[#22c55e]" strokeWidth={1.5} />
                 Content Advisories
                 {advisories.length > 0 && (
                   <span className="text-[10px] bg-[#22c55e]/10 text-[#22c55e] px-1.5 py-0.5 rounded-full">{advisories.length}</span>
@@ -452,7 +452,7 @@ export default function ParentalGuidance({ movieTitle, movieId, genres }: Parent
                 onClick={() => setShowAdvisoryForm(!showAdvisoryForm)}
                 className="text-[10px] text-[#22c55e] hover:text-[#22c55e]/80 transition-colors flex items-center gap-1"
               >
-                <Plus className="w-3 h-3" /> Add Advisory
+                <Plus className="w-3 h-3" strokeWidth={1.5} /> Add Advisory
               </button>
             </div>
 
@@ -534,7 +534,7 @@ export default function ParentalGuidance({ movieTitle, movieId, genres }: Parent
               </div>
             ) : (
               <div className="bg-[#050507] border border-[#1e1e28] rounded-lg p-4 text-center">
-                <MessageSquare className="w-6 h-6 text-[#2a2a35] mx-auto mb-2" />
+                <MessageSquare className="w-6 h-6 text-[#2a2a35] mx-auto mb-2" strokeWidth={1.5} />
                 <p className="text-xs text-[#6b7280]">No community advisories yet</p>
                 <p className="text-[10px] text-[#2a2a35]">Help other parents by submitting content advisories</p>
               </div>
@@ -543,7 +543,7 @@ export default function ParentalGuidance({ movieTitle, movieId, genres }: Parent
 
           {/* ─── Disclaimer ─── */}
           <div className="flex items-start gap-2 pt-3 border-t border-[#1e1e28]/50">
-            <AlertTriangle className="w-3.5 h-3.5 text-[#6b7280] flex-shrink-0 mt-0.5" />
+            <AlertTriangle className="w-3.5 h-3.5 text-[#6b7280] flex-shrink-0 mt-0.5" strokeWidth={1.5} />
             <p className="text-[10px] text-[#6b7280] italic">
               Content ratings are auto-detected based on genre and may not reflect actual content.
               Parents should verify independently. Community advisories are user-submitted.

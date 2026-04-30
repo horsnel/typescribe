@@ -37,15 +37,15 @@ export default function TrendingCarousel() {
           </div>
           <div className="flex items-center gap-4">
             <div className="hidden md:flex items-center gap-2">
-              <button onClick={() => scroll('left')} className="w-10 h-10 flex items-center justify-center rounded-full bg-[#0c0c10] border border-white/[0.06] text-white hover:border-[#d4a853] hover:text-[#d4a853] transition-colors" aria-label="Scroll left"><ChevronLeft className="w-5 h-5" /></button>
-              <button onClick={() => scroll('right')} className="w-10 h-10 flex items-center justify-center rounded-full bg-[#0c0c10] border border-white/[0.06] text-white hover:border-[#d4a853] hover:text-[#d4a853] transition-colors" aria-label="Scroll right"><ChevronRight className="w-5 h-5" /></button>
+              <button onClick={() => scroll('left')} className="w-10 h-10 flex items-center justify-center rounded-full bg-[#0c0c10] border border-white/[0.06] text-white hover:border-[#d4a853] hover:text-[#d4a853] transition-colors" aria-label="Scroll left"><ChevronLeft className="w-5 h-5" strokeWidth={1.5} /></button>
+              <button onClick={() => scroll('right')} className="w-10 h-10 flex items-center justify-center rounded-full bg-[#0c0c10] border border-white/[0.06] text-white hover:border-[#d4a853] hover:text-[#d4a853] transition-colors" aria-label="Scroll right"><ChevronRight className="w-5 h-5" strokeWidth={1.5} /></button>
             </div>
-            <Link href="/browse" className="flex items-center gap-1.5 text-sm text-[#9ca3af] hover:text-[#d4a853] transition-colors">See All<ArrowRight className="w-4 h-4" /></Link>
+            <Link href="/browse" className="flex items-center gap-1.5 text-sm text-[#9ca3af] hover:text-[#d4a853] transition-colors">See All<ArrowRight className="w-4 h-4" strokeWidth={1.5} /></Link>
           </div>
         </div>
         {loading ? (
           <div className="flex items-center justify-center py-12">
-            <Loader2 className="w-6 h-6 text-[#d4a853] animate-spin" />
+            <Loader2 className="w-6 h-6 text-[#d4a853] animate-spin" strokeWidth={1.5} />
           </div>
         ) : (
           <div ref={scrollRef} className="carousel-track flex gap-5 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 -mx-6 px-6" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}>

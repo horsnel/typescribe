@@ -81,14 +81,14 @@ export default function ReviewCard({
           <div className="flex items-center gap-2 mb-1">
             <span className="text-sm font-semibold text-white">{review.user_name}</span>
             <div className={`flex items-center gap-1 px-2 py-0.5 rounded-full ${ratingColor}`}>
-              <Star className="w-3 h-3 fill-current" />
+              <Star className="w-3 h-3 fill-current" strokeWidth={1.5} />
               <span className="text-xs font-bold">{review.rating}/10</span>
             </div>
           </div>
           {showMovieTitle && movieSlug && <Link href={`/movie/${movieSlug}`} className="text-xs text-[#6b7280] hover:text-[#9ca3af] mb-1 block">Review of {movieSlug}</Link>}
           <p className="text-sm text-[#9ca3af] line-clamp-2">{review.text}</p>
           <div className="flex items-center gap-4 mt-2">
-            <button onClick={handleHelpful} className={cn('flex items-center gap-1 text-xs transition-colors', helped ? 'text-[#d4a853]' : 'text-[#6b7280] hover:text-[#9ca3af]')}><ThumbsUp className="w-3 h-3" /><span>{helpfulCount}</span></button>
+            <button onClick={handleHelpful} className={cn('flex items-center gap-1 text-xs transition-colors', helped ? 'text-[#d4a853]' : 'text-[#6b7280] hover:text-[#9ca3af]')}><ThumbsUp className="w-3 h-3" strokeWidth={1.5} /><span>{helpfulCount}</span></button>
             <span className="text-xs text-[#6b7280]">{formatDate(review.created_at)}</span>
           </div>
         </div>
@@ -103,11 +103,11 @@ export default function ReviewCard({
         {badge && (
           <div className={`flex items-center gap-2 px-3 py-2 rounded-lg border mb-4 ${badge.bgColor}`}>
             {badge.type === 'pending' ? (
-              <Clock className={`w-4 h-4 ${badge.color}`} />
+              <Clock className={`w-4 h-4 ${badge.color}`} strokeWidth={1.5} />
             ) : badge.type === 'flagged' ? (
-              <AlertTriangle className={`w-4 h-4 ${badge.color}`} />
+              <AlertTriangle className={`w-4 h-4 ${badge.color}`} strokeWidth={1.5} />
             ) : (
-              <Shield className={`w-4 h-4 ${badge.color}`} />
+              <Shield className={`w-4 h-4 ${badge.color}`} strokeWidth={1.5} />
             )}
             <span className={`text-xs font-medium ${badge.color}`}>{badge.label}</span>
           </div>
@@ -122,7 +122,7 @@ export default function ReviewCard({
               <div className="flex items-center gap-3">
                 <span className="font-semibold text-white">{review.user_name}</span>
                 <div className={`flex items-center gap-1 px-2 py-0.5 rounded-full ${ratingColor}`}>
-                  <Star className="w-3 h-3 fill-current" />
+                  <Star className="w-3 h-3 fill-current" strokeWidth={1.5} />
                   <span className="text-xs font-bold">{review.rating}/10</span>
                 </div>
               </div>
@@ -159,7 +159,7 @@ export default function ReviewCard({
             {/* Action Bar */}
             <div className="flex items-center gap-6">
               <button onClick={handleHelpful} className={cn('flex items-center gap-1.5 text-xs transition-colors', helped ? 'text-[#d4a853]' : 'text-[#6b7280] hover:text-[#9ca3af]')}>
-                <ThumbsUp className="w-3.5 h-3.5" /><span>Helpful ({helpfulCount})</span>
+                <ThumbsUp className="w-3.5 h-3.5" strokeWidth={1.5} /><span>Helpful ({helpfulCount})</span>
               </button>
 
               {!isOwnReview && !reported && (
@@ -167,12 +167,12 @@ export default function ReviewCard({
                   onClick={() => setReportModalOpen(true)}
                   className="flex items-center gap-1.5 text-xs text-[#6b7280] hover:text-[#9ca3af] transition-colors"
                 >
-                  <Flag className="w-3.5 h-3.5" /><span>Report</span>
+                  <Flag className="w-3.5 h-3.5" strokeWidth={1.5} /><span>Report</span>
                 </button>
               )}
               {!isOwnReview && reported && (
                 <span className="flex items-center gap-1.5 text-xs text-[#6b7280]">
-                  <Shield className="w-3.5 h-3.5" />Reported
+                  <Shield className="w-3.5 h-3.5" strokeWidth={1.5} />Reported
                 </span>
               )}
 
@@ -180,12 +180,12 @@ export default function ReviewCard({
                 <>
                   {onEdit && (
                     <button onClick={() => onEdit(review.id)} className="flex items-center gap-1.5 text-xs text-[#6b7280] hover:text-[#9ca3af] transition-colors">
-                      <Edit className="w-3.5 h-3.5" /><span>Edit</span>
+                      <Edit className="w-3.5 h-3.5" strokeWidth={1.5} /><span>Edit</span>
                     </button>
                   )}
                   {onDelete && (
                     <button onClick={() => onDelete(review.id)} className="flex items-center gap-1.5 text-xs text-red-400 hover:text-red-300 transition-colors">
-                      <Trash2 className="w-3.5 h-3.5" /><span>Delete</span>
+                      <Trash2 className="w-3.5 h-3.5" strokeWidth={1.5} /><span>Delete</span>
                     </button>
                   )}
                 </>

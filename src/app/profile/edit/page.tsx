@@ -77,7 +77,7 @@ export default function EditProfilePage() {
     <div className="min-h-screen bg-[#050507] pt-8 pb-16">
       <div className="max-w-[800px] mx-auto px-4 sm:px-6 py-8">
         <Link href="/profile" className="inline-flex items-center gap-2 text-sm text-[#6b7280] hover:text-[#d4a853] transition-colors mb-6">
-          <ArrowLeft className="w-4 h-4" /> Back to Profile
+          <ArrowLeft className="w-4 h-4" strokeWidth={1.5} /> Back to Profile
         </Link>
         <h1 className="text-3xl font-extrabold text-white mb-8">Edit Profile</h1>
 
@@ -101,7 +101,7 @@ export default function EditProfilePage() {
                       className="absolute -bottom-1 -right-1 w-8 h-8 bg-[#050507] border border-[#1e1e28] rounded-full flex items-center justify-center text-[#9ca3af] hover:text-white hover:border-[#d4a853] transition-all"
                       aria-label="Change avatar"
                     >
-                      <Camera className="w-3.5 h-3.5" />
+                      <Camera className="w-3.5 h-3.5" strokeWidth={1.5} />
                     </button>
                   </DialogTrigger>
                   <DialogContent className="bg-[#0c0c10] border-[#1e1e28] text-white max-w-md">
@@ -189,7 +189,7 @@ export default function EditProfilePage() {
 
           <div className="flex items-center gap-4">
             <Button type="submit" className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 min-h-[44px]">
-              <Save className="w-4 h-4" /> Save Changes
+              <Save className="w-4 h-4" strokeWidth={1.5} /> Save Changes
             </Button>
             {saved && <span className="text-sm text-green-400">Profile saved!</span>}
           </div>

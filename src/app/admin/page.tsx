@@ -279,7 +279,7 @@ export default function AdminDashboardPage() {
   if (checkingAuth) {
     return (
       <div className="min-h-screen bg-[#050507] flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-[#d4a853]" />
+        <Loader2 className="w-8 h-8 animate-spin text-[#d4a853]" strokeWidth={1.5} />
       </div>
     );
   }
@@ -291,7 +291,7 @@ export default function AdminDashboardPage() {
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-2xl p-8 max-w-md w-full shadow-2xl">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-10 h-10 rounded-full bg-[#d4a853]/10 flex items-center justify-center">
-              <Lock className="w-5 h-5 text-[#d4a853]" />
+              <Lock className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
             </div>
             <div>
               <h1 className="text-lg font-bold text-white">Admin Access</h1>
@@ -322,9 +322,9 @@ export default function AdminDashboardPage() {
               className="flex-1 bg-[#d4a853] hover:bg-[#b8922e] text-white disabled:opacity-50"
             >
               {authLoading ? (
-                <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                <Loader2 className="w-4 h-4 animate-spin mr-2" strokeWidth={1.5} />
               ) : (
-                <Lock className="w-4 h-4 mr-2" />
+                <Lock className="w-4 h-4 mr-2" strokeWidth={1.5} />
               )}
               Authenticate
             </Button>
@@ -369,7 +369,7 @@ export default function AdminDashboardPage() {
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-[#d4a853]/10 rounded-lg border border-[#d4a853]/20">
-                <Shield className="w-6 h-6 text-[#d4a853]" />
+                <Shield className="w-6 h-6 text-[#d4a853]" strokeWidth={1.5} />
               </div>
               <div>
                 <h1 className="text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
@@ -397,7 +397,7 @@ export default function AdminDashboardPage() {
                 className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]"
                 disabled={healthLoading}
               >
-                <RefreshCw className={`w-3.5 h-3.5 mr-1.5 ${healthLoading ? 'animate-spin' : ''}`} /> Refresh
+                <RefreshCw className={`w-3.5 h-3.5 mr-1.5 ${healthLoading ? 'animate-spin' : ''}`} strokeWidth={1.5} /> Refresh
               </Button>
               <Button
                 onClick={handleLogout}
@@ -433,7 +433,7 @@ export default function AdminDashboardPage() {
                   <Activity className={`w-5 h-5 ${
                     healthData.overallStatus === 'healthy' ? 'text-emerald-400' :
                     healthData.overallStatus === 'degraded' ? 'text-amber-400' : 'text-red-400'
-                  }`} />
+                  }`} strokeWidth={1.5} />
                   <span className="text-white font-semibold text-lg">
                     Pipeline Health: {healthData.overallStatus.toUpperCase()}
                   </span>
@@ -460,7 +460,7 @@ export default function AdminDashboardPage() {
                 <div className="space-y-1.5 mt-3 pt-3 border-t border-white/[0.06]">
                   {healthData.recommendations.slice(0, 5).map((rec, i) => (
                     <div key={i} className="flex items-start gap-2 text-xs">
-                      <AlertTriangle className="w-3.5 h-3.5 text-amber-400 flex-shrink-0 mt-0.5" />
+                      <AlertTriangle className="w-3.5 h-3.5 text-amber-400 flex-shrink-0 mt-0.5" strokeWidth={1.5} />
                       <span className="text-[#9ca3af]">{rec}</span>
                     </div>
                   ))}
@@ -473,7 +473,7 @@ export default function AdminDashboardPage() {
         {/* ─── Quick Stats Grid ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <BarChart3 className="w-5 h-5 text-[#d4a853]" /> Pipeline Overview
+            <BarChart3 className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} /> Pipeline Overview
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
             {[
@@ -504,10 +504,10 @@ export default function AdminDashboardPage() {
               <div className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-5 hover:border-[#d4a853]/30 transition-all duration-200 h-full">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
-                    <Database className="w-5 h-5 text-[#d4a853]" />
+                    <Database className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
                     <h3 className="text-white font-semibold">Data Pipeline</h3>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-[#4a4a5a] group-hover:text-[#d4a853] group-hover:translate-x-1 transition-all" />
+                  <ArrowRight className="w-4 h-4 text-[#4a4a5a] group-hover:text-[#d4a853] group-hover:translate-x-1 transition-all" strokeWidth={1.5} />
                 </div>
                 <p className="text-[#6b7280] text-sm leading-relaxed">
                   Cache management, batch processing, and API key configuration.
@@ -518,10 +518,10 @@ export default function AdminDashboardPage() {
               <div className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-5 hover:border-[#d4a853]/30 transition-all duration-200 h-full">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
-                    <RefreshCw className="w-5 h-5 text-[#d4a853]" />
+                    <RefreshCw className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
                     <h3 className="text-white font-semibold">Refresh Health Data</h3>
                   </div>
-                  <Activity className="w-4 h-4 text-[#4a4a5a] group-hover:text-[#d4a853] transition-all" />
+                  <Activity className="w-4 h-4 text-[#4a4a5a] group-hover:text-[#d4a853] transition-all" strokeWidth={1.5} />
                 </div>
                 <p className="text-[#6b7280] text-sm leading-relaxed">
                   Force refresh all health checks, API statuses, and ScrapingAnt key usage.
@@ -534,13 +534,13 @@ export default function AdminDashboardPage() {
         {/* ─── Scraping Sources (Free-First) ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <Shield className="w-5 h-5 text-[#d4a853]" /> Scraping Sources
+            <Shield className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} /> Scraping Sources
             <span className="text-xs font-normal text-[#6b7280] ml-1">(Free-First: 6 primary + 7 fallback + 3 premium = 16 sites)</span>
           </h2>
 
           {healthLoading && !healthData ? (
             <div className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-12 text-center">
-              <Loader2 className="w-6 h-6 animate-spin text-[#d4a853] mx-auto mb-3" />
+              <Loader2 className="w-6 h-6 animate-spin text-[#d4a853] mx-auto mb-3" strokeWidth={1.5} />
               <p className="text-[#6b7280] text-sm">Loading scraper health...</p>
             </div>
           ) : (
@@ -557,7 +557,7 @@ export default function AdminDashboardPage() {
                       {tierLabel(tier)}
                     </span>
                     <span className="text-[#4a4a5a] text-xs">({tierScrapers.length} sites)</span>
-                    {isExpanded ? <ChevronUp className="w-3.5 h-3.5 text-[#4a4a5a] ml-auto" /> : <ChevronDown className="w-3.5 h-3.5 text-[#4a4a5a] ml-auto" />}
+                    {isExpanded ? <ChevronUp className="w-3.5 h-3.5 text-[#4a4a5a] ml-auto" strokeWidth={1.5} /> : <ChevronDown className="w-3.5 h-3.5 text-[#4a4a5a] ml-auto" strokeWidth={1.5} />}
                   </button>
                   {isExpanded && (
                     <div className={`rounded-xl border p-4 ${tierAccent(tier)}`}>
@@ -591,9 +591,9 @@ export default function AdminDashboardPage() {
                                 rel="noopener noreferrer"
                                 className="flex items-center gap-1 text-[10px] text-[#4a4a5a] hover:text-[#9ca3af] transition-colors mb-2"
                               >
-                                <Globe className="w-2.5 h-2.5" />
+                                <Globe className="w-2.5 h-2.5" strokeWidth={1.5} />
                                 {scraper.meta.url.replace('https://', '').replace('http://', '')}
-                                <ExternalLink className="w-2 h-2" />
+                                <ExternalLink className="w-2 h-2" strokeWidth={1.5} />
                               </a>
                             )}
 
@@ -621,12 +621,12 @@ export default function AdminDashboardPage() {
                             {/* Last activity */}
                             <div className="flex items-center gap-3 text-[9px] text-[#4a4a5a]">
                               <span className="flex items-center gap-1">
-                                <CheckCircle className="w-2.5 h-2.5 text-emerald-400/40" />
+                                <CheckCircle className="w-2.5 h-2.5 text-emerald-400/40" strokeWidth={1.5} />
                                 Last OK: {timeAgo(scraper.lastSuccess)}
                               </span>
                               {scraper.lastFailure && (
                                 <span className="flex items-center gap-1">
-                                  <XCircle className="w-2.5 h-2.5 text-red-400/40" />
+                                  <XCircle className="w-2.5 h-2.5 text-red-400/40" strokeWidth={1.5} />
                                   Last fail: {timeAgo(scraper.lastFailure)}
                                 </span>
                               )}
@@ -652,13 +652,13 @@ export default function AdminDashboardPage() {
         {/* ─── API Health & Usage (30%) ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <Cpu className="w-5 h-5 text-[#d4a853]" /> API Health &amp; Usage
+            <Cpu className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} /> API Health &amp; Usage
             <span className="text-xs font-normal text-[#6b7280] ml-1">(Free APIs &amp; Paid Fallbacks — {totalApis} sources)</span>
           </h2>
 
           {healthLoading && !healthData ? (
             <div className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-12 text-center">
-              <Loader2 className="w-6 h-6 animate-spin text-[#d4a853] mx-auto mb-3" />
+              <Loader2 className="w-6 h-6 animate-spin text-[#d4a853] mx-auto mb-3" strokeWidth={1.5} />
               <p className="text-[#6b7280] text-sm">Loading API status...</p>
             </div>
           ) : (
@@ -683,7 +683,7 @@ export default function AdminDashboardPage() {
                           ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
                           : 'bg-red-500/10 text-red-400 border border-red-500/20'
                       }`}>
-                        {api.configured ? <Wifi className="w-2.5 h-2.5" /> : <WifiOff className="w-2.5 h-2.5" />}
+                        {api.configured ? <Wifi className="w-2.5 h-2.5" strokeWidth={1.5} /> : <WifiOff className="w-2.5 h-2.5" strokeWidth={1.5} />}
                         {api.configured ? 'CONFIGURED' : 'MISSING KEY'}
                       </span>
                     </div>
@@ -695,9 +695,9 @@ export default function AdminDashboardPage() {
                       rel="noopener noreferrer"
                       className="flex items-center gap-1 text-[10px] text-[#4a4a5a] hover:text-[#9ca3af] transition-colors mb-2"
                     >
-                      <Globe className="w-2.5 h-2.5" />
+                      <Globe className="w-2.5 h-2.5" strokeWidth={1.5} />
                       {api.url.replace('https://', '').replace('http://', '')}
-                      <ExternalLink className="w-2 h-2" />
+                      <ExternalLink className="w-2 h-2" strokeWidth={1.5} />
                     </a>
 
                     {/* What it provides */}
@@ -705,7 +705,7 @@ export default function AdminDashboardPage() {
 
                     {/* Free tier limit */}
                     <div className="flex items-center gap-2 text-[10px] text-[#4a4a5a]">
-                      <Clock className="w-2.5 h-2.5" />
+                      <Clock className="w-2.5 h-2.5" strokeWidth={1.5} />
                       <span>Free limit: {api.freeLimit}</span>
                     </div>
 
@@ -735,13 +735,13 @@ export default function AdminDashboardPage() {
         {/* ─── ScrapingAnt 5-Key Rotation ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <Key className="w-5 h-5 text-[#d4a853]" /> ScrapingAnt 5-Key Rotation
+            <Key className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} /> ScrapingAnt 5-Key Rotation
             <span className="text-xs font-normal text-[#6b7280] ml-1">(Round-robin · 10K req/key/month)</span>
           </h2>
           <div className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-6">
             {antLoading ? (
               <div className="flex items-center justify-center py-8">
-                <Loader2 className="w-6 h-6 animate-spin text-[#d4a853]" />
+                <Loader2 className="w-6 h-6 animate-spin text-[#d4a853]" strokeWidth={1.5} />
                 <span className="ml-3 text-[#6b7280] text-sm">Loading key stats...</span>
               </div>
             ) : antStats ? (
@@ -783,12 +783,12 @@ export default function AdminDashboardPage() {
                       return (
                         <div key={idx} className="flex items-center gap-4 p-3 rounded-lg bg-[#050507] border border-[#1e1e28]">
                           <div className="flex items-center gap-2 min-w-[100px]">
-                            <Key className="w-3.5 h-3.5 text-[#d4a853]" />
+                            <Key className="w-3.5 h-3.5 text-[#d4a853]" strokeWidth={1.5} />
                             <span className="text-white text-sm font-medium">Key {idx + 1}</span>
                             {configured ? (
-                              <CheckCircle className="w-3 h-3 text-emerald-400" />
+                              <CheckCircle className="w-3 h-3 text-emerald-400" strokeWidth={1.5} />
                             ) : (
-                              <XCircle className="w-3 h-3 text-red-400" />
+                              <XCircle className="w-3 h-3 text-red-400" strokeWidth={1.5} />
                             )}
                           </div>
                           <div className="flex-1">
@@ -820,12 +820,12 @@ export default function AdminDashboardPage() {
                 <div className="mt-4 pt-4 border-t border-[#1e1e28] flex items-center gap-2">
                   {(antStats.configured ?? healthData?.scrapingAnt.configured) ? (
                     <>
-                      <CheckCircle className="w-4 h-4 text-emerald-400" />
+                      <CheckCircle className="w-4 h-4 text-emerald-400" strokeWidth={1.5} />
                       <span className="text-sm text-emerald-400">ScrapingAnt Configured</span>
                     </>
                   ) : (
                     <>
-                      <XCircle className="w-4 h-4 text-red-400" />
+                      <XCircle className="w-4 h-4 text-red-400" strokeWidth={1.5} />
                       <span className="text-sm text-red-400">ScrapingAnt Not Configured</span>
                     </>
                   )}
@@ -836,7 +836,7 @@ export default function AdminDashboardPage() {
               </>
             ) : (
               <div className="text-center py-8">
-                <Key className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" />
+                <Key className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" strokeWidth={1.5} />
                 <p className="text-[#6b7280] text-sm">Unable to load ScrapingAnt stats</p>
                 <Button
                   variant="outline"
@@ -854,7 +854,7 @@ export default function AdminDashboardPage() {
         {/* ─── System Health Summary ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <Server className="w-5 h-5 text-[#d4a853]" /> System Health
+            <Server className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} /> System Health
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[

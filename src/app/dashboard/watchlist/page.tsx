@@ -75,7 +75,7 @@ export default function DashboardWatchlistPage() {
             <option value="rating">Rating</option>
             <option value="title">Title</option>
           </select>
-          <Link href="/browse"><Button className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 text-sm"><Film className="w-4 h-4" />Add Movies</Button></Link>
+          <Link href="/browse"><Button className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 text-sm"><Film className="w-4 h-4" strokeWidth={1.5} />Add Movies</Button></Link>
         </div>
       </div>
 
@@ -94,10 +94,10 @@ export default function DashboardWatchlistPage() {
       {/* Watchlist or Empty State */}
       {sortedWatchlist.length === 0 ? (
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center">
-          <Bookmark className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
+          <Bookmark className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" strokeWidth={1.5} />
           <h2 className="text-xl font-bold text-white mb-2">Your watchlist is empty</h2>
           <p className="text-[#9ca3af] mb-6">Start adding movies you want to watch.</p>
-          <Link href="/browse"><Button className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2"><Film className="w-4 h-4" />Browse Movies</Button></Link>
+          <Link href="/browse"><Button className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2"><Film className="w-4 h-4" strokeWidth={1.5} />Browse Movies</Button></Link>
         </div>
       ) : (
         <div className="space-y-3">
@@ -109,7 +109,7 @@ export default function DashboardWatchlistPage() {
                   <img src={item.poster} alt={item.title || ''} className="w-full h-full object-cover" />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
-                    <Film className="w-5 h-5 text-[#2a2a35]" />
+                    <Film className="w-5 h-5 text-[#2a2a35]" strokeWidth={1.5} />
                   </div>
                 )}
               </div>
@@ -125,7 +125,7 @@ export default function DashboardWatchlistPage() {
                   )}
                   {item.rating && (
                     <div className="flex items-center gap-1 text-xs text-[#f5c518] flex-shrink-0">
-                      <Star className="w-3 h-3 fill-[#f5c518]" />
+                      <Star className="w-3 h-3 fill-[#f5c518]" strokeWidth={1.5} />
                       <span>{item.rating}</span>
                     </div>
                   )}
@@ -139,11 +139,11 @@ export default function DashboardWatchlistPage() {
               <div className="flex items-center gap-2 flex-shrink-0">
                 {item.slug && (
                   <Link href={`/movie/${item.slug}`} className="p-2 text-[#6b7280] hover:text-white transition-colors">
-                    <ExternalLink className="w-4 h-4" />
+                    <ExternalLink className="w-4 h-4" strokeWidth={1.5} />
                   </Link>
                 )}
                 <button onClick={() => handleRemove(item.movieId)} className="p-2 text-[#6b7280] hover:text-red-400 transition-colors rounded-lg hover:bg-[#111118]">
-                  <Trash2 className="w-4 h-4" />
+                  <Trash2 className="w-4 h-4" strokeWidth={1.5} />
                 </button>
               </div>
             </div>

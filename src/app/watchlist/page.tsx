@@ -72,7 +72,7 @@ export default function WatchlistPage() {
     <div className="min-h-screen bg-[#050507] pt-20 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
         <div className="flex items-center gap-3 mb-4">
-          <Bookmark className="w-6 h-6 text-[#d4a853]" />
+          <Bookmark className="w-6 h-6 text-[#d4a853]" strokeWidth={1.5} />
           <h1 className="text-3xl lg:text-4xl font-extrabold text-white">My Watchlist</h1>
         </div>
 
@@ -80,22 +80,22 @@ export default function WatchlistPage() {
         {watchlistMovies.length > 0 && (
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
             <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 text-center">
-              <Bookmark className="w-5 h-5 text-[#d4a853] mx-auto mb-1" />
+              <Bookmark className="w-5 h-5 text-[#d4a853] mx-auto mb-1" strokeWidth={1.5} />
               <div className="text-xl font-bold text-white">{watchlistMovies.length}</div>
               <div className="text-xs text-[#6b7280]">Movies</div>
             </div>
             <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 text-center">
-              <Star className="w-5 h-5 text-[#f5c518] mx-auto mb-1" />
+              <Star className="w-5 h-5 text-[#f5c518] mx-auto mb-1" strokeWidth={1.5} />
               <div className="text-xl font-bold text-white">{avgRating}</div>
               <div className="text-xs text-[#6b7280]">Avg Rating</div>
             </div>
             <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 text-center">
-              <Clock className="w-5 h-5 text-green-400 mx-auto mb-1" />
+              <Clock className="w-5 h-5 text-green-400 mx-auto mb-1" strokeWidth={1.5} />
               <div className="text-xl font-bold text-white">{hours}h {mins}m</div>
               <div className="text-xs text-[#6b7280]">Total Runtime</div>
             </div>
             <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 text-center">
-              <Calendar className="w-5 h-5 text-blue-400 mx-auto mb-1" />
+              <Calendar className="w-5 h-5 text-blue-400 mx-auto mb-1" strokeWidth={1.5} />
               <div className="text-xl font-bold text-white">{new Set(watchlistMovies.flatMap(m => m.genres.map(g => g.name))).size}</div>
               <div className="text-xs text-[#6b7280]">Genres</div>
             </div>
@@ -124,16 +124,16 @@ export default function WatchlistPage() {
               ))}
               {genreNames.length > 1 && (
                 <Button variant="outline" onClick={() => setFiltersOpen(!filtersOpen)} className={`border-[#1e1e28] bg-transparent text-[#9ca3af] hover:bg-[#111118] hover:text-white gap-1 text-xs ${filtersOpen ? 'border-[#d4a853]' : ''}`}>
-                  <SlidersHorizontal className="w-3 h-3" /> Genre
+                  <SlidersHorizontal className="w-3 h-3" strokeWidth={1.5} /> Genre
                 </Button>
               )}
             </div>
             <div className="flex items-center border border-[#1e1e28] rounded-lg overflow-hidden">
               <button onClick={() => setView('grid')} className={`p-2 ${view === 'grid' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white'}`}>
-                <Grid3X3 className="w-4 h-4" />
+                <Grid3X3 className="w-4 h-4" strokeWidth={1.5} />
               </button>
               <button onClick={() => setView('list')} className={`p-2 ${view === 'list' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white'}`}>
-                <List className="w-4 h-4" />
+                <List className="w-4 h-4" strokeWidth={1.5} />
               </button>
             </div>
           </div>
@@ -171,7 +171,7 @@ export default function WatchlistPage() {
                       className="absolute top-2 right-2 z-10 p-1.5 bg-[#050507]/80 rounded-full text-[#6b7280] hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity"
                       title="Remove from watchlist"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <Trash2 className="w-4 h-4" strokeWidth={1.5} />
                     </button>
                   </div>
                 ))}
@@ -198,7 +198,7 @@ export default function WatchlistPage() {
                       className="p-2 text-[#6b7280] hover:text-red-400 transition-colors flex-shrink-0"
                       title="Remove from watchlist"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <Trash2 className="w-4 h-4" strokeWidth={1.5} />
                     </button>
                   </div>
                 ))}
@@ -212,7 +212,7 @@ export default function WatchlistPage() {
           )
         ) : (
           <div className="text-center py-24">
-            <Bookmark className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
+            <Bookmark className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" strokeWidth={1.5} />
             <p className="text-lg text-[#9ca3af] mb-2">Your watchlist is empty</p>
             <p className="text-sm text-[#6b7280] mb-4">Start adding movies you want to watch</p>
             <Link href="/browse" className="text-[#d4a853] hover:underline">Browse Movies</Link>

@@ -69,7 +69,7 @@ export default function ReportModal({ isOpen, onClose, onSubmit, contentType, co
         <div className="flex items-center justify-between p-5 border-b border-[#1e1e28]">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center">
-              <Flag className="w-5 h-5 text-red-400" />
+              <Flag className="w-5 h-5 text-red-400" strokeWidth={1.5} />
             </div>
             <div>
               <h3 className="text-lg font-semibold text-white">Report {contentType === 'review' ? 'Review' : 'Comment'}</h3>
@@ -80,7 +80,7 @@ export default function ReportModal({ isOpen, onClose, onSubmit, contentType, co
             onClick={handleClose}
             className="w-8 h-8 rounded-full bg-[#050507] border border-[#1e1e28] flex items-center justify-center text-[#6b7280] hover:text-white transition-colors"
           >
-            <X className="w-4 h-4" />
+            <X className="w-4 h-4" strokeWidth={1.5} />
           </button>
         </div>
 
@@ -98,7 +98,7 @@ export default function ReportModal({ isOpen, onClose, onSubmit, contentType, co
           /* Success State */
           <div className="p-8 text-center">
             <div className="w-16 h-16 rounded-full bg-green-500/10 flex items-center justify-center mx-auto mb-4">
-              <Shield className="w-8 h-8 text-green-400" />
+              <Shield className="w-8 h-8 text-green-400" strokeWidth={1.5} />
             </div>
             <h4 className="text-lg font-semibold text-white mb-2">Report Submitted</h4>
             <p className="text-sm text-[#9ca3af]">
@@ -164,7 +164,7 @@ export default function ReportModal({ isOpen, onClose, onSubmit, contentType, co
 
               {/* Warning */}
               <div className="flex items-start gap-2 bg-yellow-500/5 border border-yellow-500/20 rounded-lg p-3">
-                <AlertTriangle className="w-4 h-4 text-yellow-400 flex-shrink-0 mt-0.5" />
+                <AlertTriangle className="w-4 h-4 text-yellow-400 flex-shrink-0 mt-0.5" strokeWidth={1.5} />
                 <p className="text-xs text-yellow-300/80">
                   False reports may result in account restrictions. Only report content that genuinely violates community guidelines.
                 </p>
@@ -192,7 +192,7 @@ export default function ReportModal({ isOpen, onClose, onSubmit, contentType, co
                   </>
                 ) : (
                   <>
-                    <Flag className="w-4 h-4" />
+                    <Flag className="w-4 h-4" strokeWidth={1.5} />
                     Submit Report
                   </>
                 )}

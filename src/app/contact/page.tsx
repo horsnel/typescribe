@@ -62,7 +62,7 @@ export default function ContactPage() {
           <div>
             {sent ? (
               <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-10 text-center">
-                <Mail className="w-14 h-14 text-[#d4a853] mx-auto mb-4" />
+                <Mail className="w-14 h-14 text-[#d4a853] mx-auto mb-4" strokeWidth={1.5} />
                 <h2 className="text-xl font-bold text-white mb-2">Message Sent!</h2>
                 <p className="text-[#9ca3af] mb-1">Thank you for reaching out. We will get back to you as soon as possible.</p>
                 <p className="text-sm text-[#6b7280]">Typical response time: within 24 hours</p>
@@ -100,7 +100,7 @@ export default function ContactPage() {
                 </div>
 
                 <Button type="submit" disabled={loading} className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 disabled:opacity-60">
-                  {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+                  {loading ? <Loader2 className="w-4 h-4 animate-spin" strokeWidth={1.5} /> : <Send className="w-4 h-4" strokeWidth={1.5} />}
                   Send Message
                 </Button>
               </form>
@@ -113,21 +113,21 @@ export default function ContactPage() {
               <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">Get in Touch</h3>
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
-                  <Mail className="w-5 h-5 text-[#d4a853] flex-shrink-0 mt-0.5" />
+                  <Mail className="w-5 h-5 text-[#d4a853] flex-shrink-0 mt-0.5" strokeWidth={1.5} />
                   <div>
                     <p className="text-sm text-white font-medium">Email</p>
                     <p className="text-xs text-[#6b7280]">hello@typescribe.com</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <Clock className="w-5 h-5 text-[#d4a853] flex-shrink-0 mt-0.5" />
+                  <Clock className="w-5 h-5 text-[#d4a853] flex-shrink-0 mt-0.5" strokeWidth={1.5} />
                   <div>
                     <p className="text-sm text-white font-medium">Response Time</p>
                     <p className="text-xs text-[#6b7280]">Usually within 24 hours</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-[#d4a853] flex-shrink-0 mt-0.5" />
+                  <MapPin className="w-5 h-5 text-[#d4a853] flex-shrink-0 mt-0.5" strokeWidth={1.5} />
                   <div>
                     <p className="text-sm text-white font-medium">Location</p>
                     <p className="text-xs text-[#6b7280]">San Francisco, CA & Remote</p>
@@ -171,7 +171,7 @@ export default function ContactPage() {
                   className="w-full flex items-center justify-between p-5 text-left hover:bg-[#111118] transition-colors"
                 >
                   <span className="text-sm font-medium text-white pr-4">{faq.q}</span>
-                  {openFaq === i ? <ChevronUp className="w-4 h-4 text-[#d4a853] flex-shrink-0" /> : <ChevronDown className="w-4 h-4 text-[#6b7280] flex-shrink-0" />}
+                  {openFaq === i ? <ChevronUp className="w-4 h-4 text-[#d4a853] flex-shrink-0" strokeWidth={1.5} /> : <ChevronDown className="w-4 h-4 text-[#6b7280] flex-shrink-0" strokeWidth={1.5} />}
                 </button>
                 {openFaq === i && (
                   <div className="px-5 pb-5 pt-0">

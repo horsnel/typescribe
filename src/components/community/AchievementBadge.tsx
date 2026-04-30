@@ -114,7 +114,7 @@ export default function AchievementBadge({ userId, communityId, compact = false 
         </span>
         {streak.currentStreak > 0 && (
           <span className="flex items-center gap-1 text-xs text-orange-400">
-            <Flame className="w-3 h-3" /> {streak.currentStreak}d
+            <Flame className="w-3 h-3" strokeWidth={1.5} /> {streak.currentStreak}d
           </span>
         )}
       </div>
@@ -128,7 +128,7 @@ export default function AchievementBadge({ userId, communityId, compact = false 
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#d4a853]/20 to-purple-500/20 border border-[#d4a853]/30 flex items-center justify-center">
-              <Trophy className="w-6 h-6 text-[#d4a853]" />
+              <Trophy className="w-6 h-6 text-[#d4a853]" strokeWidth={1.5} />
             </div>
             <div>
               <h3 className="text-lg font-bold text-white">Achievements</h3>
@@ -139,7 +139,7 @@ export default function AchievementBadge({ userId, communityId, compact = false 
                 <span className="text-xs text-[#9ca3af]">{unlockedCount} of {ACHIEVEMENT_DEFINITIONS.length} unlocked</span>
                 {streak.currentStreak > 0 && (
                   <span className="flex items-center gap-1 text-xs text-orange-400">
-                    <Flame className="w-3 h-3" /> {streak.currentStreak}-day streak
+                    <Flame className="w-3 h-3" strokeWidth={1.5} /> {streak.currentStreak}-day streak
                   </span>
                 )}
               </div>
@@ -185,9 +185,9 @@ export default function AchievementBadge({ userId, communityId, compact = false 
                     return <IconComponent className={`w-5 h-5 ${isUnlocked ? colors.text : 'text-[#6b7280]'}`} />;
                   })()}
                   {isUnlocked ? (
-                    <Unlock className={`w-3 h-3 ${colors.text}`} />
+                    <Unlock className={`w-3 h-3 ${colors.text}`} strokeWidth={1.5} />
                   ) : (
-                    <Lock className="w-3 h-3 text-[#6b7280]" />
+                    <Lock className="w-3 h-3 text-[#6b7280]" strokeWidth={1.5} />
                   )}
                 </div>
 
@@ -218,7 +218,7 @@ export default function AchievementBadge({ userId, communityId, compact = false 
               className="text-xs text-[#6b7280] hover:text-[#d4a853] gap-1 min-h-[36px]"
             >
               {showAll ? 'Show Less' : `Show All (${ACHIEVEMENT_DEFINITIONS.length})`}
-              <ChevronRight className={`w-3 h-3 transition-transform ${showAll ? 'rotate-90' : ''}`} />
+              <ChevronRight className={`w-3 h-3 transition-transform ${showAll ? 'rotate-90' : ''}`} strokeWidth={1.5} />
             </Button>
           </div>
         )}

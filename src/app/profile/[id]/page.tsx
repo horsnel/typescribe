@@ -52,7 +52,7 @@ export default function PublicProfilePage() {
           <p className="text-[#9ca3af] mb-4">This is your profile!</p>
           <Link href="/profile">
             <Button className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2">
-              <Edit3 className="w-4 h-4" /> Go to My Profile
+              <Edit3 className="w-4 h-4" strokeWidth={1.5} /> Go to My Profile
             </Button>
           </Link>
         </div>
@@ -64,7 +64,7 @@ export default function PublicProfilePage() {
     return (
       <div className="min-h-screen bg-[#050507] pt-8 pb-16">
         <div className="max-w-[800px] mx-auto px-4 sm:px-6 py-8 text-center">
-          <Users className="w-16 h-16 text-[#2a2a35] mx-auto mb-4" />
+          <Users className="w-16 h-16 text-[#2a2a35] mx-auto mb-4" strokeWidth={1.5} />
           <h2 className="text-xl font-bold text-white mb-2">User not found</h2>
           <p className="text-[#6b7280] mb-6">This profile doesn&apos;t exist or has been removed.</p>
           <Link href="/communities">
@@ -106,7 +106,7 @@ export default function PublicProfilePage() {
       <div className="max-w-[800px] mx-auto px-4 sm:px-6 py-4">
         {/* Back link */}
         <Link href="/communities" className="inline-flex items-center gap-2 text-sm text-[#6b7280] hover:text-[#d4a853] transition-colors mb-4">
-          <ArrowLeft className="w-4 h-4" /> Back
+          <ArrowLeft className="w-4 h-4" strokeWidth={1.5} /> Back
         </Link>
 
         {/* ─── Profile Header ─── */}
@@ -123,7 +123,7 @@ export default function PublicProfilePage() {
             {/* Creator badge */}
             {profileUser.isCreator && (
               <div className="absolute -bottom-1 -right-1 w-8 h-8 bg-[#d4a853] rounded-full flex items-center justify-center shadow-lg border-2 border-[#050507]">
-                <Crown className="w-4 h-4 text-white" />
+                <Crown className="w-4 h-4 text-white" strokeWidth={1.5} />
               </div>
             )}
           </div>
@@ -172,19 +172,19 @@ export default function PublicProfilePage() {
                     }
                     variant={followState ? 'outline' : 'default'}
                   >
-                    <Users className="w-4 h-4" /> {followState ? 'Following' : 'Follow'}
+                    <Users className="w-4 h-4" strokeWidth={1.5} /> {followState ? 'Following' : 'Follow'}
                   </Button>
                   <Button
                     variant="outline"
                     className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:bg-[#111118] hover:border-[#3a3a45] gap-2 min-h-[44px]"
                   >
-                    <Mail className="w-4 h-4" /> Message
+                    <Mail className="w-4 h-4" strokeWidth={1.5} /> Message
                   </Button>
                 </>
               ) : (
                 <Link href="/login">
                   <Button className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 min-h-[44px]">
-                    <Users className="w-4 h-4" /> Sign in to Follow
+                    <Users className="w-4 h-4" strokeWidth={1.5} /> Sign in to Follow
                   </Button>
                 </Link>
               )}
@@ -258,7 +258,7 @@ export default function PublicProfilePage() {
         {/* ─── Reviews Tab ─── */}
         {activeTab === 'reviews' && (
           <div className="text-center py-12">
-            <Star className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" />
+            <Star className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" strokeWidth={1.5} />
             <p className="text-[#9ca3af]">{profileUser.reviewCount} reviews written</p>
             <p className="text-sm text-[#6b7280] mt-1">Follow this user to see their reviews in your feed</p>
           </div>

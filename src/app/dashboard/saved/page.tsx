@@ -79,7 +79,7 @@ export default function DashboardSavedPage() {
 
       {savedItems.length === 0 ? (
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center">
-          <BookmarkCheck className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
+          <BookmarkCheck className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" strokeWidth={1.5} />
           <h2 className="text-xl font-bold text-white mb-2">No saved items yet</h2>
           <p className="text-[#9ca3af] mb-1">Bookmark reviews, community posts, and news articles to find them here later.</p>
           <div className="flex items-center justify-center gap-4 mt-4">
@@ -109,11 +109,11 @@ export default function DashboardSavedPage() {
                 <div className="flex items-center gap-2 flex-shrink-0">
                   {item.link && (
                     <Link href={item.link} className="p-2 text-[#6b7280] hover:text-white transition-colors">
-                      <ExternalLink className="w-4 h-4" />
+                      <ExternalLink className="w-4 h-4" strokeWidth={1.5} />
                     </Link>
                   )}
                   <button onClick={() => handleRemove(item.id)} className="p-2 text-[#6b7280] hover:text-red-400 transition-colors">
-                    <Trash2 className="w-4 h-4" />
+                    <Trash2 className="w-4 h-4" strokeWidth={1.5} />
                   </button>
                 </div>
               </div>

@@ -49,9 +49,9 @@ function formatCurrency(amount: number): string {
 
 function ChangeIndicator({ value }: { value: number | null }) {
   if (value === null) return <span className="text-[#6b7280]">NEW</span>;
-  if (value > 0) return <span className="text-emerald-400 inline-flex items-center gap-0.5"><ArrowUpRight className="w-3 h-3" />+{value}%</span>;
-  if (value < 0) return <span className="text-red-400 inline-flex items-center gap-0.5"><ArrowDownRight className="w-3 h-3" />{value}%</span>;
-  return <span className="text-[#6b7280] inline-flex items-center gap-0.5"><Minus className="w-3 h-3" />0%</span>;
+  if (value > 0) return <span className="text-emerald-400 inline-flex items-center gap-0.5"><ArrowUpRight className="w-3 h-3" strokeWidth={1.5} />+{value}%</span>;
+  if (value < 0) return <span className="text-red-400 inline-flex items-center gap-0.5"><ArrowDownRight className="w-3 h-3" strokeWidth={1.5} />{value}%</span>;
+  return <span className="text-[#6b7280] inline-flex items-center gap-0.5"><Minus className="w-3 h-3" strokeWidth={1.5} />0%</span>;
 }
 
 export default function BoxOfficePage() {
@@ -86,9 +86,9 @@ export default function BoxOfficePage() {
   }, [fetchBoxOffice]);
 
   const tabs: { key: Tab; label: string; icon: React.ReactNode }[] = [
-    { key: 'this-week', label: 'This Week', icon: <TrendingUp className="w-4 h-4" /> },
-    { key: 'top-all-time', label: 'Top All Time', icon: <Crown className="w-4 h-4" /> },
-    { key: 'by-country', label: 'By Country', icon: <Globe className="w-4 h-4" /> },
+    { key: 'this-week', label: 'This Week', icon: <TrendingUp className="w-4 h-4" strokeWidth={1.5} /> },
+    { key: 'top-all-time', label: 'Top All Time', icon: <Crown className="w-4 h-4" strokeWidth={1.5} /> },
+    { key: 'by-country', label: 'By Country', icon: <Globe className="w-4 h-4" strokeWidth={1.5} /> },
   ];
 
   const selectedCountryName = COUNTRIES.find(c => c.code === selectedCountry)?.name || 'United States';
@@ -102,7 +102,7 @@ export default function BoxOfficePage() {
           <div>
             <div className="flex items-center gap-3 mb-2">
               <div className="w-10 h-10 rounded-xl bg-[#d4a853]/10 flex items-center justify-center">
-                <DollarSign className="w-6 h-6 text-[#d4a853]" />
+                <DollarSign className="w-6 h-6 text-[#d4a853]" strokeWidth={1.5} />
               </div>
               <h1 className="text-3xl lg:text-4xl font-extrabold text-white">Box Office</h1>
             </div>
@@ -132,7 +132,7 @@ export default function BoxOfficePage() {
         {activeTab === 'by-country' && (
           <div className="mb-8">
             <div className="flex items-center gap-3 mb-3">
-              <Globe className="w-4 h-4 text-[#6b7280]" />
+              <Globe className="w-4 h-4 text-[#6b7280]" strokeWidth={1.5} />
               <span className="text-sm text-[#6b7280] font-medium">Select Country</span>
             </div>
             <div className="flex gap-2 flex-wrap">
@@ -158,14 +158,14 @@ export default function BoxOfficePage() {
         <div className="mb-6 flex items-center gap-2 bg-[#0c0c10] border border-[#1e1e28] rounded-lg px-4 py-2.5">
           {fromAPI ? (
             <>
-              <BarChart3 className="w-4 h-4 text-emerald-400" />
+              <BarChart3 className="w-4 h-4 text-emerald-400" strokeWidth={1.5} />
               <p className="text-xs text-[#9ca3af]">
                 Rankings update hourly
               </p>
             </>
           ) : (
             <>
-              <BarChart3 className="w-4 h-4 text-[#d4a853]" />
+              <BarChart3 className="w-4 h-4 text-[#d4a853]" strokeWidth={1.5} />
               <p className="text-xs text-[#6b7280]">
                 Curated rankings · Connect your API keys for live box office data
               </p>
@@ -176,7 +176,7 @@ export default function BoxOfficePage() {
         {/* Loading State */}
         {isLoading && (
           <div className="flex items-center justify-center py-20">
-            <Loader2 className="w-8 h-8 text-[#d4a853] animate-spin" />
+            <Loader2 className="w-8 h-8 text-[#d4a853] animate-spin" strokeWidth={1.5} />
             <span className="ml-3 text-[#6b7280]">Loading box office data...</span>
           </div>
         )}
@@ -197,7 +197,7 @@ export default function BoxOfficePage() {
                       <div className="w-8 h-8 rounded-full bg-[#d4a853] flex items-center justify-center text-white font-bold text-sm">
                         {entry.rank}
                       </div>
-                      {entry.rank === 1 && <Crown className="w-5 h-5 text-[#f5c518]" />}
+                      {entry.rank === 1 && <Crown className="w-5 h-5 text-[#f5c518]" strokeWidth={1.5} />}
                     </div>
                     <div className="flex gap-3">
                       <div className="w-14 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-[#050507]">
@@ -243,7 +243,7 @@ export default function BoxOfficePage() {
                     } border rounded-xl p-5 hover:shadow-xl transition-all`}
                   >
                     <div className="flex items-center gap-3 mb-3">
-                      {entry.rank === 1 ? <Crown className="w-6 h-6 text-[#f5c518]" /> :
+                      {entry.rank === 1 ? <Crown className="w-6 h-6 text-[#f5c518]" strokeWidth={1.5} /> :
                        <span className="text-xl font-extrabold text-[#9ca3af]">{entry.rank}</span>}
                     </div>
                     <div className="flex gap-3">
@@ -415,7 +415,7 @@ export default function BoxOfficePage() {
 
         {!isLoading && entries.length === 0 && (
           <div className="text-center py-24">
-            <DollarSign className="w-16 h-16 text-[#2a2a35] mx-auto mb-4" />
+            <DollarSign className="w-16 h-16 text-[#2a2a35] mx-auto mb-4" strokeWidth={1.5} />
             <p className="text-lg text-[#9ca3af] mb-2">No box office data available</p>
             <p className="text-sm text-[#6b7280]">Check back later for updated rankings.</p>
           </div>

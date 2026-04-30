@@ -97,7 +97,7 @@ export default function CommunityWatchlist({ communityId, isMember }: CommunityW
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">
-              <BookmarkPlus className="w-5 h-5 text-purple-400" />
+              <BookmarkPlus className="w-5 h-5 text-purple-400" strokeWidth={1.5} />
             </div>
             <div>
               <h3 className="text-lg font-bold text-white">Watchlist</h3>
@@ -110,7 +110,7 @@ export default function CommunityWatchlist({ communityId, isMember }: CommunityW
               size="sm"
               className="bg-purple-600 hover:bg-purple-700 text-white gap-2 min-h-[44px]"
             >
-              <Plus className="w-4 h-4" /> Add Movie
+              <Plus className="w-4 h-4" strokeWidth={1.5} /> Add Movie
             </Button>
           )}
         </div>
@@ -123,11 +123,11 @@ export default function CommunityWatchlist({ communityId, isMember }: CommunityW
             <div className="flex items-center justify-between mb-3">
               <h4 className="text-sm font-semibold text-white">Add a movie</h4>
               <button onClick={() => { setShowAddForm(false); setSearchQuery(''); setSearchResults([]); }} className="text-[#6b7280] hover:text-white min-w-[44px] min-h-[44px] flex items-center justify-center">
-                <X className="w-4 h-4" />
+                <X className="w-4 h-4" strokeWidth={1.5} />
               </button>
             </div>
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6b7280]" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6b7280]" strokeWidth={1.5} />
               <input
                 type="text"
                 value={searchQuery}
@@ -178,7 +178,7 @@ export default function CommunityWatchlist({ communityId, isMember }: CommunityW
         {weeklyPick && (
           <div className="mb-5 bg-gradient-to-r from-purple-500/10 to-[#d4a853]/10 border border-purple-500/20 rounded-lg p-4">
             <div className="flex items-center gap-2 mb-3">
-              <Crown className="w-4 h-4 text-[#d4a853]" />
+              <Crown className="w-4 h-4 text-[#d4a853]" strokeWidth={1.5} />
               <span className="text-xs font-bold text-[#d4a853] uppercase tracking-wider">This Week&apos;s Pick</span>
             </div>
             <Link href={`/movie/${weeklyPick.movieSlug}`} className="flex items-center gap-3 group">
@@ -222,7 +222,7 @@ export default function CommunityWatchlist({ communityId, isMember }: CommunityW
                         voted ? 'text-purple-400' : 'text-[#6b7280] hover:text-purple-400'
                       } ${!isAuthenticated || !isMember ? 'opacity-30 cursor-not-allowed' : 'cursor-pointer'}`}
                     >
-                      <ChevronUp className="w-5 h-5" fill={voted ? 'currentColor' : 'none'} />
+                      <ChevronUp className="w-5 h-5" fill={voted ? 'currentColor' : 'none'} strokeWidth={1.5} />
                     </button>
                     <span className={`text-xs font-bold ${isTopPick ? 'text-purple-400' : voted ? 'text-purple-400' : 'text-[#9ca3af]'}`}>
                       {item.votes}
@@ -257,7 +257,7 @@ export default function CommunityWatchlist({ communityId, isMember }: CommunityW
                       onClick={() => handleRemove(item.id)}
                       className="text-[#6b7280] hover:text-red-400 transition-colors min-w-[28px] min-h-[28px] flex items-center justify-center"
                     >
-                      <Trash2 className="w-3.5 h-3.5" />
+                      <Trash2 className="w-3.5 h-3.5" strokeWidth={1.5} />
                     </button>
                   )}
                 </div>
@@ -266,7 +266,7 @@ export default function CommunityWatchlist({ communityId, isMember }: CommunityW
           </div>
         ) : (
           <div className="text-center py-8">
-            <Film className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" />
+            <Film className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" strokeWidth={1.5} />
             <p className="text-sm text-[#9ca3af] mb-1">No movies yet</p>
             <p className="text-xs text-[#6b7280]">Add a movie to the community watchlist!</p>
           </div>

@@ -96,7 +96,7 @@ function SearchContent() {
           />
           {query && (
             <button onClick={() => setQuery('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-[#6b7280] hover:text-white">
-              <X className="w-5 h-5" />
+              <X className="w-5 h-5" strokeWidth={1.5} />
             </button>
           )}
         </div>
@@ -108,7 +108,7 @@ function SearchContent() {
             {recentSearches.length > 0 && (
               <div>
                 <div className="flex items-center gap-2 mb-3">
-                  <Clock className="w-4 h-4 text-[#6b7280]" />
+                  <Clock className="w-4 h-4 text-[#6b7280]" strokeWidth={1.5} />
                   <h3 className="text-sm font-semibold text-[#9ca3af] uppercase tracking-wider">Recent Searches</h3>
                   <button onClick={() => { setRecentSearches([]); try { localStorage.removeItem('typescribe_recent_searches'); } catch {} }} className="text-xs text-[#6b7280] hover:text-white ml-auto">Clear</button>
                 </div>
@@ -125,7 +125,7 @@ function SearchContent() {
             {/* Trending Searches */}
             <div>
               <div className="flex items-center gap-2 mb-3">
-                <TrendingUp className="w-4 h-4 text-[#d4a853]" />
+                <TrendingUp className="w-4 h-4 text-[#d4a853]" strokeWidth={1.5} />
                 <h3 className="text-sm font-semibold text-[#9ca3af] uppercase tracking-wider">Trending Searches</h3>
               </div>
               <div className="flex flex-wrap gap-2">
@@ -144,7 +144,7 @@ function SearchContent() {
                 {genres.slice(0, 9).map((genre) => (
                   <Link key={genre.id} href={`/category/${genre.id}`} className="flex items-center justify-between bg-[#0c0c10] border border-[#1e1e28] rounded-lg p-3 hover:border-[#3a3a45] transition-colors group">
                     <span className="text-sm text-[#9ca3af] group-hover:text-white transition-colors">{genre.name}</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-[#6b7280] group-hover:text-[#d4a853] transition-colors" />
+                    <ArrowRight className="w-3.5 h-3.5 text-[#6b7280] group-hover:text-[#d4a853] transition-colors" strokeWidth={1.5} />
                   </Link>
                 ))}
               </div>
@@ -159,7 +159,7 @@ function SearchContent() {
               <p className="text-sm text-[#6b7280]">
                 {isSearching ? (
                   <span className="flex items-center gap-2">
-                    <Loader2 className="w-3.5 h-3.5 animate-spin" /> Searching...
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" strokeWidth={1.5} /> Searching...
                   </span>
                 ) : (
                   <>
@@ -178,9 +178,9 @@ function SearchContent() {
                     tab === t ? 'text-white border-b-2 border-[#d4a853]' : 'text-[#6b7280] hover:text-[#9ca3af]'
                   }`}
                 >
-                  {t === 'movies' && <Film className="w-4 h-4" />}
-                  {t === 'reviews' && <MessageSquare className="w-4 h-4" />}
-                  {t === 'news' && <Newspaper className="w-4 h-4" />}
+                  {t === 'movies' && <Film className="w-4 h-4" strokeWidth={1.5} />}
+                  {t === 'reviews' && <MessageSquare className="w-4 h-4" strokeWidth={1.5} />}
+                  {t === 'news' && <Newspaper className="w-4 h-4" strokeWidth={1.5} />}
                   {t} ({t === 'movies' ? movieResults.length : t === 'reviews' ? reviewResults.length : newsResults.length})
                 </button>
               ))}
@@ -193,7 +193,7 @@ function SearchContent() {
                 </div>
               ) : (
                 <div className="text-center py-16">
-                  <Film className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" />
+                  <Film className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" strokeWidth={1.5} />
                   <p className="text-[#9ca3af] mb-1">No movies found</p>
                   <p className="text-sm text-[#6b7280]">Try a different search term or browse by genre</p>
                 </div>
@@ -210,7 +210,7 @@ function SearchContent() {
                         <div className="flex items-center justify-between mb-2">
                           <span className="text-sm font-semibold text-white">{r.user_name}</span>
                           <div className="flex items-center gap-1">
-                            <Star className="w-3.5 h-3.5 text-[#f5c518] fill-[#f5c518]" />
+                            <Star className="w-3.5 h-3.5 text-[#f5c518] fill-[#f5c518]" strokeWidth={1.5} />
                             <span className="text-sm font-semibold text-[#f5c518]">{r.rating}/10</span>
                           </div>
                         </div>
@@ -223,7 +223,7 @@ function SearchContent() {
                 </div>
               ) : (
                 <div className="text-center py-16">
-                  <MessageSquare className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" />
+                  <MessageSquare className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" strokeWidth={1.5} />
                   <p className="text-[#9ca3af]">No reviews found</p>
                 </div>
               )
@@ -242,7 +242,7 @@ function SearchContent() {
                 </div>
               ) : (
                 <div className="text-center py-16">
-                  <Newspaper className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" />
+                  <Newspaper className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" strokeWidth={1.5} />
                   <p className="text-[#9ca3af]">No news found</p>
                 </div>
               )
@@ -258,7 +258,7 @@ export default function SearchPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-[#050507] flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-[#d4a853]" />
+        <Loader2 className="w-8 h-8 animate-spin text-[#d4a853]" strokeWidth={1.5} />
       </div>
     }>
       <SearchContent />

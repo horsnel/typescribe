@@ -68,7 +68,7 @@ export default function CommunityRatings({ movieId, movieSlug, genres, generalRa
       <div className="p-5 border-b border-[#1e1e28]/50">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-lg bg-[#d4a853]/10 border border-[#d4a853]/20 flex items-center justify-center">
-            <Users className="w-5 h-5 text-[#d4a853]" />
+            <Users className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
           </div>
           <div>
             <h3 className="text-lg font-bold text-white">Community Ratings</h3>
@@ -127,7 +127,7 @@ export default function CommunityRatings({ movieId, movieSlug, genres, generalRa
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-xs text-[#6b7280] flex items-center gap-0.5">
-                      <Users className="w-3 h-3" /> {rating.ratingCount}
+                      <Users className="w-3 h-3" strokeWidth={1.5} /> {rating.ratingCount}
                     </span>
                     <span className="text-sm font-bold text-white w-8 text-right">{rating.averageRating.toFixed(1)}</span>
                     <span className={`text-[10px] font-semibold flex items-center gap-0.5 ${diffColor}`}>

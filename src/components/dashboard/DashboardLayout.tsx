@@ -84,7 +84,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       {/* Logo */}
       <div className="p-4 flex items-center gap-3">
         <div className="w-8 h-8 bg-[#d4a853] rounded-lg flex items-center justify-center flex-shrink-0">
-          <Film className="w-4 h-4 text-white" />
+          <Film className="w-4 h-4 text-white" strokeWidth={1.5} />
         </div>
         {!collapsed && (
           <span className="text-white font-bold text-lg tracking-tight">Typescribe</span>
@@ -176,12 +176,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <div className={`flex gap-2 mt-2 ${collapsed ? 'justify-center' : ''}`}>
           <Link href="/">
             <Button variant="ghost" size="sm" className="text-[#6b7280] hover:text-white h-8">
-              <Home className="w-4 h-4" />
+              <Home className="w-4 h-4" strokeWidth={1.5} />
               {!collapsed && <span className="ml-1.5 text-xs">Home</span>}
             </Button>
           </Link>
           <Button variant="ghost" size="sm" className="text-[#6b7280] hover:text-red-400 h-8" onClick={logout}>
-            <LogOut className="w-4 h-4" />
+            <LogOut className="w-4 h-4" strokeWidth={1.5} />
             {!collapsed && <span className="ml-1.5 text-xs">Logout</span>}
           </Button>
         </div>
@@ -202,7 +202,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           onClick={() => setCollapsed(!collapsed)}
           className="absolute top-6 -right-3 z-10 w-6 h-6 bg-[#111118] border border-[#1e1e28] rounded-full flex items-center justify-center text-[#6b7280] hover:text-white transition-colors"
         >
-          {collapsed ? <ChevronRight className="w-3 h-3" /> : <ChevronLeft className="w-3 h-3" />}
+          {collapsed ? <ChevronRight className="w-3 h-3" strokeWidth={1.5} /> : <ChevronLeft className="w-3 h-3" strokeWidth={1.5} />}
         </button>
       </aside>
 
@@ -214,12 +214,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <div className="flex items-center justify-between p-4 border-b border-[#1e1e28]">
               <div className="flex items-center gap-2">
                 <div className="w-7 h-7 bg-[#d4a853] rounded-lg flex items-center justify-center">
-                  <Film className="w-3.5 h-3.5 text-white" />
+                  <Film className="w-3.5 h-3.5 text-white" strokeWidth={1.5} />
                 </div>
                 <span className="text-white font-bold">Typescribe</span>
               </div>
               <button onClick={() => setMobileOpen(false)} className="p-1 text-[#6b7280] hover:text-white">
-                <X className="w-5 h-5" />
+                <X className="w-5 h-5" strokeWidth={1.5} />
               </button>
             </div>
             {sidebarContent}
@@ -232,11 +232,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         {/* Mobile header bar */}
         <header className="lg:hidden flex items-center gap-3 px-4 py-3 border-b border-[#1e1e28] bg-[#050507] flex-shrink-0">
           <Button variant="ghost" size="icon" onClick={() => setMobileOpen(true)} className="text-white hover:bg-[#111118] h-9 w-9">
-            <Menu className="w-5 h-5" />
+            <Menu className="w-5 h-5" strokeWidth={1.5} />
           </Button>
           <div className="flex items-center gap-2 flex-1 min-w-0">
             <div className="w-7 h-7 bg-[#d4a853] rounded-lg flex items-center justify-center flex-shrink-0">
-              <Film className="w-3.5 h-3.5 text-white" />
+              <Film className="w-3.5 h-3.5 text-white" strokeWidth={1.5} />
             </div>
             <span className="text-white font-bold truncate">Dashboard</span>
           </div>

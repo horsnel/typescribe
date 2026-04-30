@@ -124,7 +124,7 @@ export default function MyReviewsPage() {
         </nav>
 
         <div className="flex items-center gap-3 mb-4">
-          <MessageSquare className="w-6 h-6 text-[#d4a853]" />
+          <MessageSquare className="w-6 h-6 text-[#d4a853]" strokeWidth={1.5} />
           <h1 className="text-3xl lg:text-4xl font-extrabold text-white">My Reviews</h1>
         </div>
 
@@ -132,17 +132,17 @@ export default function MyReviewsPage() {
         {allReviews.length > 0 && (
           <div className="grid grid-cols-3 gap-4 mb-8">
             <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 text-center">
-              <MessageSquare className="w-5 h-5 text-[#d4a853] mx-auto mb-1" />
+              <MessageSquare className="w-5 h-5 text-[#d4a853] mx-auto mb-1" strokeWidth={1.5} />
               <div className="text-xl font-bold text-white">{allReviews.length}</div>
               <div className="text-xs text-[#6b7280]">Reviews</div>
             </div>
             <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 text-center">
-              <Star className="w-5 h-5 text-[#f5c518] mx-auto mb-1" />
+              <Star className="w-5 h-5 text-[#f5c518] mx-auto mb-1" strokeWidth={1.5} />
               <div className="text-xl font-bold text-[#f5c518]">{avgRating}</div>
               <div className="text-xs text-[#6b7280]">Avg Rating</div>
             </div>
             <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 text-center">
-              <Star className="w-5 h-5 text-green-400 mx-auto mb-1" />
+              <Star className="w-5 h-5 text-green-400 mx-auto mb-1" strokeWidth={1.5} />
               <div className="text-xl font-bold text-white">{fiveStarCount}</div>
               <div className="text-xs text-[#6b7280]">Highly Rated (8+)</div>
             </div>
@@ -153,7 +153,7 @@ export default function MyReviewsPage() {
         {allReviews.length > 0 && (
           <div className="flex items-center gap-3 mb-6 flex-wrap">
             <div className="relative flex-1 min-w-[200px]">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6b7280]" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6b7280]" strokeWidth={1.5} />
               <input
                 type="text"
                 value={searchQuery}
@@ -212,7 +212,7 @@ export default function MyReviewsPage() {
                           </p>
                         </div>
                         <div className="flex items-center gap-1">
-                          <Star className="w-4 h-4 text-[#f5c518] fill-[#f5c518]" />
+                          <Star className="w-4 h-4 text-[#f5c518] fill-[#f5c518]" strokeWidth={1.5} />
                           <span className="text-sm font-semibold text-[#f5c518]">{review.rating}/10</span>
                         </div>
                       </div>
@@ -224,7 +224,7 @@ export default function MyReviewsPage() {
                             <div className="flex items-center gap-1">
                               {Array.from({ length: 10 }, (_, i) => (
                                 <button key={i + 1} type="button" onClick={() => setEditRating(i + 1)} className="p-0.5">
-                                  <Star className={`w-5 h-5 transition-colors ${i + 1 <= editRating ? 'text-[#f5c518] fill-[#f5c518]' : 'text-[#2a2a35]'}`} />
+                                  <Star className={`w-5 h-5 transition-colors ${i + 1 <= editRating ? 'text-[#f5c518] fill-[#f5c518]' : 'text-[#2a2a35]'}`} strokeWidth={1.5} />
                                 </button>
                               ))}
                               <span className="ml-2 text-sm font-bold text-[#f5c518]">{editRating}/10</span>
@@ -251,7 +251,7 @@ export default function MyReviewsPage() {
                           {'isLocal' in review && review.isLocal && (
                             <div className="flex items-center gap-4 mt-3 pt-3 border-t border-[#1e1e28]">
                               <button onClick={() => startEdit(review)} className="flex items-center gap-1.5 text-xs text-[#6b7280] hover:text-[#9ca3af] transition-colors">
-                                <Edit className="w-3.5 h-3.5" /> Edit
+                                <Edit className="w-3.5 h-3.5" strokeWidth={1.5} /> Edit
                               </button>
                               {deleteConfirmId === review.id ? (
                                 <div className="flex items-center gap-2">
@@ -261,7 +261,7 @@ export default function MyReviewsPage() {
                                 </div>
                               ) : (
                                 <button onClick={() => setDeleteConfirmId(review.id)} className="flex items-center gap-1.5 text-xs text-[#6b7280] hover:text-red-400 transition-colors">
-                                  <Trash2 className="w-3.5 h-3.5" /> Delete
+                                  <Trash2 className="w-3.5 h-3.5" strokeWidth={1.5} /> Delete
                                 </button>
                               )}
                             </div>
@@ -276,7 +276,7 @@ export default function MyReviewsPage() {
           </div>
         ) : (
           <div className="text-center py-24">
-            <MessageSquare className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
+            <MessageSquare className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" strokeWidth={1.5} />
             <p className="text-lg text-[#9ca3af] mb-2">{searchQuery ? 'No reviews match your search' : 'No reviews yet'}</p>
             <p className="text-sm text-[#6b7280] mb-4">{searchQuery ? 'Try a different search term' : 'Share your thoughts about movies you\'ve watched'}</p>
             {!searchQuery && <Link href="/browse" className="text-[#d4a853] hover:underline">Browse Movies</Link>}

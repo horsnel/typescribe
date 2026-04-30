@@ -63,7 +63,7 @@ export default function OnboardingPage() {
         {/* Logo */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2 mb-4">
-            <Film className="w-7 h-7 text-[#d4a853]" />
+            <Film className="w-7 h-7 text-[#d4a853]" strokeWidth={1.5} />
             <span className="text-xl font-extrabold text-white">Typescribe</span>
           </Link>
         </div>
@@ -105,7 +105,7 @@ export default function OnboardingPage() {
                           : 'border-[#3a3a45]'
                       }`}
                     >
-                      {selectedGenres.includes(genre.name) && <Check className="w-3 h-3 text-white" />}
+                      {selectedGenres.includes(genre.name) && <Check className="w-3 h-3 text-white" strokeWidth={1.5} />}
                     </div>
                     <span className="text-sm font-medium">{genre.name}</span>
                   </button>
@@ -188,7 +188,7 @@ export default function OnboardingPage() {
             <>
               <div className="text-center py-6">
                 <div className="w-16 h-16 rounded-full bg-[#d4a853]/20 flex items-center justify-center mx-auto mb-4">
-                  <Check className="w-8 h-8 text-[#d4a853]" />
+                  <Check className="w-8 h-8 text-[#d4a853]" strokeWidth={1.5} />
                 </div>
                 <h2 className="text-xl font-bold text-white mb-2">You&apos;re all set!</h2>
                 <p className="text-sm text-[#6b7280]">
@@ -206,7 +206,7 @@ export default function OnboardingPage() {
                   Skip
                 </button>
                 <Button onClick={handleNext} className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2">
-                  Continue <ChevronRight className="w-4 h-4" />
+                  Continue <ChevronRight className="w-4 h-4" strokeWidth={1.5} />
                 </Button>
               </>
             ) : (

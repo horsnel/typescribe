@@ -164,7 +164,7 @@ export default function ProfilePage() {
                     className="absolute bottom-1 right-1 w-9 h-9 bg-[#0c0c10] border border-[#1e1e28] rounded-full flex items-center justify-center text-[#9ca3af] hover:text-white hover:border-[#d4a853] transition-all shadow-lg min-w-[44px] min-h-[44px]"
                     aria-label="Change avatar"
                   >
-                    <Camera className="w-4 h-4" />
+                    <Camera className="w-4 h-4" strokeWidth={1.5} />
                   </button>
                 </DialogTrigger>
                 <DialogContent className="bg-[#0c0c10] border-[#1e1e28] text-white max-w-md">
@@ -216,14 +216,14 @@ export default function ProfilePage() {
                     className="bg-[#0c0c10] border border-[#d4a853]/30 text-[#d4a853] hover:bg-[#d4a853] hover:text-white hover:border-[#d4a853] gap-2 min-h-[44px]"
                     variant="outline"
                   >
-                    <Edit3 className="w-4 h-4" /> Edit Profile
+                    <Edit3 className="w-4 h-4" strokeWidth={1.5} /> Edit Profile
                   </Button>
                   <Link href="/settings">
                     <Button
                       variant="outline"
                       className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:bg-[#111118] hover:border-[#3a3a45] gap-2 min-h-[44px]"
                     >
-                      <Settings className="w-4 h-4" /> Settings
+                      <Settings className="w-4 h-4" strokeWidth={1.5} /> Settings
                     </Button>
                   </Link>
                 </>
@@ -237,13 +237,13 @@ export default function ProfilePage() {
                     }
                     variant={followState ? 'outline' : 'default'}
                   >
-                    <Users className="w-4 h-4" /> {followState ? 'Following' : 'Follow'}
+                    <Users className="w-4 h-4" strokeWidth={1.5} /> {followState ? 'Following' : 'Follow'}
                   </Button>
                   <Button
                     variant="outline"
                     className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:bg-[#111118] hover:border-[#3a3a45] gap-2 min-h-[44px]"
                   >
-                    <Mail className="w-4 h-4" /> Message
+                    <Mail className="w-4 h-4" strokeWidth={1.5} /> Message
                   </Button>
                 </>
               )}
@@ -348,7 +348,7 @@ export default function ProfilePage() {
                           />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center">
-                            <Film className="w-4 h-4 text-[#2a2a35]" />
+                            <Film className="w-4 h-4 text-[#2a2a35]" strokeWidth={1.5} />
                           </div>
                         )}
                       </div>
@@ -366,7 +366,7 @@ export default function ProfilePage() {
                         <div className="flex items-center gap-2 mt-1.5 text-[10px] text-[#6b7280]">
                           <span>{new Date(review.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
                           <span className="flex items-center gap-1">
-                            <TrendingUp className="w-3 h-3" /> {review.helpful_count} helpful
+                            <TrendingUp className="w-3 h-3" strokeWidth={1.5} /> {review.helpful_count} helpful
                           </span>
                         </div>
                       </div>
@@ -376,7 +376,7 @@ export default function ProfilePage() {
               </div>
             ) : (
               <div className="text-center py-12">
-                <Star className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" />
+                <Star className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" strokeWidth={1.5} />
                 <p className="text-[#9ca3af]">No reviews yet</p>
                 <p className="text-sm text-[#6b7280]">Start reviewing movies to see them here</p>
               </div>
@@ -432,7 +432,7 @@ export default function ProfilePage() {
         {/* ─── Watchlist Tab ─── */}
         {activeTab === 'watchlist' && (
           <div className="text-center py-12">
-            <ListVideo className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" />
+            <ListVideo className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" strokeWidth={1.5} />
             <p className="text-[#9ca3af] mb-1">{watchlistCount} movies in watchlist</p>
             <Link href="/watchlist" className="text-sm text-[#d4a853] hover:underline">View full watchlist</Link>
           </div>
@@ -458,7 +458,7 @@ export default function ProfilePage() {
               <Dialog open={avatarDialogOpen} onOpenChange={setAvatarDialogOpen}>
                 <DialogTrigger asChild>
                   <Button variant="outline" className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:bg-[#111118] gap-2">
-                    <Camera className="w-4 h-4" /> Change Avatar
+                    <Camera className="w-4 h-4" strokeWidth={1.5} /> Change Avatar
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="bg-[#0c0c10] border-[#1e1e28] text-white max-w-md">
@@ -523,7 +523,7 @@ export default function ProfilePage() {
               onClick={handleEditSave}
               className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 min-h-[44px]"
             >
-              <Pencil className="w-4 h-4" /> Save Changes
+              <Pencil className="w-4 h-4" strokeWidth={1.5} /> Save Changes
             </Button>
           </div>
         </DialogContent>

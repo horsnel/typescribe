@@ -67,7 +67,7 @@ export default function DashboardProfilePage() {
     <>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-white">Profile</h1>
-        <Link href="/dashboard/settings"><Button variant="outline" className="border-[#1e1e28] text-white hover:bg-[#111118] gap-2"><Edit3 className="w-4 h-4" />Edit Settings</Button></Link>
+        <Link href="/dashboard/settings"><Button variant="outline" className="border-[#1e1e28] text-white hover:bg-[#111118] gap-2"><Edit3 className="w-4 h-4" strokeWidth={1.5} />Edit Settings</Button></Link>
       </div>
 
       {/* Avatar Section */}
@@ -87,13 +87,13 @@ export default function DashboardProfilePage() {
               onClick={() => setShowAvatarPicker(true)}
               className="absolute bottom-0 right-0 w-8 h-8 bg-[#d4a853] rounded-full flex items-center justify-center text-white hover:bg-[#b8922e] transition-colors border-2 border-[#12121a]"
             >
-              <Camera className="w-4 h-4" />
+              <Camera className="w-4 h-4" strokeWidth={1.5} />
             </button>
           </div>
           <h2 className="text-xl font-bold text-white">{user?.display_name || 'Movie Lover'}</h2>
           <p className="text-sm text-[#6b7280] mt-1">{user?.email}</p>
           <div className="flex items-center gap-2 text-xs text-[#6b7280] mt-2">
-            <Calendar className="w-3.5 h-3.5" />
+            <Calendar className="w-3.5 h-3.5" strokeWidth={1.5} />
             <span>Member since {memberSince}</span>
           </div>
           {user?.bio && (
@@ -136,22 +136,22 @@ export default function DashboardProfilePage() {
       {/* Stats Grid */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 text-center">
-          <Star className="w-5 h-5 text-[#f5c518] mx-auto mb-1" />
+          <Star className="w-5 h-5 text-[#f5c518] mx-auto mb-1" strokeWidth={1.5} />
           <p className="text-2xl font-bold text-white">{reviewCount}</p>
           <p className="text-xs text-[#6b7280]">Reviews</p>
         </div>
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 text-center">
-          <Film className="w-5 h-5 text-[#3b82f6] mx-auto mb-1" />
+          <Film className="w-5 h-5 text-[#3b82f6] mx-auto mb-1" strokeWidth={1.5} />
           <p className="text-2xl font-bold text-white">{reviewCount + watchlistCount}</p>
           <p className="text-xs text-[#6b7280]">Watched</p>
         </div>
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 text-center">
-          <Bookmark className="w-5 h-5 text-[#d4a853] mx-auto mb-1" />
+          <Bookmark className="w-5 h-5 text-[#d4a853] mx-auto mb-1" strokeWidth={1.5} />
           <p className="text-2xl font-bold text-white">{watchlistCount}</p>
           <p className="text-xs text-[#6b7280]">Watchlist</p>
         </div>
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 text-center">
-          <Users className="w-5 h-5 text-[#22c55e] mx-auto mb-1" />
+          <Users className="w-5 h-5 text-[#22c55e] mx-auto mb-1" strokeWidth={1.5} />
           <p className="text-2xl font-bold text-white">{communityCount}</p>
           <p className="text-xs text-[#6b7280]">Communities</p>
         </div>
@@ -162,16 +162,16 @@ export default function DashboardProfilePage() {
         <h2 className="text-lg font-bold text-white mb-4">Quick Links</h2>
         <div className="space-y-2">
           <Link href="/dashboard/reviews" className="flex items-center gap-3 px-3 py-2.5 text-sm text-[#9ca3af] hover:text-white hover:bg-[#111118] rounded-lg transition-colors">
-            <Star className="w-4 h-4" /> My Reviews
+            <Star className="w-4 h-4" strokeWidth={1.5} /> My Reviews
           </Link>
           <Link href="/dashboard/watchlist" className="flex items-center gap-3 px-3 py-2.5 text-sm text-[#9ca3af] hover:text-white hover:bg-[#111118] rounded-lg transition-colors">
-            <Bookmark className="w-4 h-4" /> My Watchlist
+            <Bookmark className="w-4 h-4" strokeWidth={1.5} /> My Watchlist
           </Link>
           <Link href="/dashboard/communities" className="flex items-center gap-3 px-3 py-2.5 text-sm text-[#9ca3af] hover:text-white hover:bg-[#111118] rounded-lg transition-colors">
-            <Users className="w-4 h-4" /> My Communities
+            <Users className="w-4 h-4" strokeWidth={1.5} /> My Communities
           </Link>
           <Link href="/dashboard/settings" className="flex items-center gap-3 px-3 py-2.5 text-sm text-[#9ca3af] hover:text-white hover:bg-[#111118] rounded-lg transition-colors">
-            <Edit3 className="w-4 h-4" /> Edit Profile
+            <Edit3 className="w-4 h-4" strokeWidth={1.5} /> Edit Profile
           </Link>
         </div>
       </div>

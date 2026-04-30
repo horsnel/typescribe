@@ -111,10 +111,10 @@ export default function DashboardReviewsPage() {
       {/* Reviews List or Empty State */}
       {sortedReviews.length === 0 ? (
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center">
-          <Star className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
+          <Star className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" strokeWidth={1.5} />
           <h2 className="text-xl font-bold text-white mb-2">No reviews yet</h2>
           <p className="text-[#9ca3af] mb-6">Share your opinions and help others discover great movies.</p>
-          <Link href="/browse"><Button className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2"><Film className="w-4 h-4" />Browse Movies to Review</Button></Link>
+          <Link href="/browse"><Button className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2"><Film className="w-4 h-4" strokeWidth={1.5} />Browse Movies to Review</Button></Link>
         </div>
       ) : (
         <div className="space-y-4">
@@ -136,12 +136,12 @@ export default function DashboardReviewsPage() {
                         <span className="text-base font-semibold text-white truncate">{review.movie_title || `Movie #${review.movie_id}`}</span>
                       )}
                       <div className={`flex items-center gap-1 px-2 py-0.5 rounded-full ${ratingColor}`}>
-                        <Star className="w-3 h-3 fill-current" />
+                        <Star className="w-3 h-3 fill-current" strokeWidth={1.5} />
                         <span className="text-xs font-bold">{review.rating}/10</span>
                       </div>
                       {isSpoiler && (
                         <span className="inline-flex items-center gap-1 text-[10px] font-bold bg-yellow-500/10 text-yellow-400 px-2 py-0.5 rounded-full border border-yellow-500/20">
-                          <Eye className="w-3 h-3" /> SPOILER
+                          <Eye className="w-3 h-3" strokeWidth={1.5} /> SPOILER
                         </span>
                       )}
                     </div>
@@ -167,7 +167,7 @@ export default function DashboardReviewsPage() {
                   {/* Actions */}
                   <div className="flex items-center gap-1 flex-shrink-0">
                     <button onClick={() => handleDelete(review.id)} className="p-2 text-[#6b7280] hover:text-red-400 transition-colors rounded-lg hover:bg-[#111118]">
-                      <Trash2 className="w-4 h-4" />
+                      <Trash2 className="w-4 h-4" strokeWidth={1.5} />
                     </button>
                   </div>
                 </div>

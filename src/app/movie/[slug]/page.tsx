@@ -8,7 +8,7 @@ import {
   Calendar, Globe, Building2, Film, AlertTriangle,
   ExternalLink, ChevronDown, MessageSquare, Star, Tv,
   PenSquare, ThumbsUp, Flag, Reply, MoreHorizontal, Send, Loader2, Shield,
-  DollarSign, Eye, MonitorPlay, Swords,
+  DollarSign, Eye, MonitorPlay, Swords, TrendingUp, TrendingDown,
 } from 'lucide-react';
 import { userReviews, getMovieBySlug } from '@/lib/data';
 import type { Movie } from '@/lib/types';
@@ -721,7 +721,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                 <span className="text-sm text-[#9ca3af]">{year}</span>
                 <span className="w-1 h-1 rounded-full bg-[#6b6b7b]" />
                 <span className="text-sm text-[#9ca3af] flex items-center gap-1">
-                  <Clock className="w-3.5 h-3.5" /> {runtimeStr}
+                  <Clock className="w-3.5 h-3.5" strokeWidth={1.5} /> {runtimeStr}
                 </span>
                 <span className="w-1 h-1 rounded-full bg-[#6b6b7b]" />
                 <div className="flex gap-2">
@@ -757,7 +757,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                       : 'bg-[#111118] border border-[#1e1e28] text-white hover:bg-[#d4a853] hover:border-[#d4a853]'
                   }`}
                 >
-                  <Heart className={`w-4 h-4 ${inWatchlist ? 'fill-white' : ''}`} />
+                  <Heart className={`w-4 h-4 ${inWatchlist ? 'fill-white' : ''}`} strokeWidth={1.5} />
                   {inWatchlist ? 'In Watchlist' : 'Add to Watchlist'}
                 </button>
 
@@ -765,14 +765,14 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                   onClick={handleShare}
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium bg-[#111118] border border-[#1e1e28] text-white hover:bg-[#2a2a35] transition-colors"
                 >
-                  <Share2 className="w-4 h-4" /> Share
+                  <Share2 className="w-4 h-4" strokeWidth={1.5} /> Share
                 </button>
 
                 <button
                   onClick={() => setTrailerOpen(true)}
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium bg-[#111118] border border-[#1e1e28] text-white hover:bg-[#2a2a35] transition-colors"
                 >
-                  <Play className="w-4 h-4 fill-white" /> Watch Trailer
+                  <Play className="w-4 h-4 fill-white" strokeWidth={1.5} /> Watch Trailer
                 </button>
               </div>
             </div>
@@ -788,14 +788,14 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
             {/* AI Review — Dispute It! */}
             <section className="content-animate">
               <div className="flex items-center gap-2 mb-4">
-                <Sparkles className="w-5 h-5 text-[#d4a853]" />
+                <Sparkles className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
                 <h2 className="text-xl font-bold text-white">AI Review — Dispute It!</h2>
                 <span className="inline-flex items-center gap-1 text-[10px] font-semibold bg-[#d4a853]/10 text-[#d4a853] px-2.5 py-0.5 rounded-full border border-[#d4a853]/20">
-                  <Sparkles className="w-3 h-3" /> AI
+                  <Sparkles className="w-3 h-3" strokeWidth={1.5} /> AI
                 </span>
                 {aiReviewLoading && (
                   <span className="inline-flex items-center gap-1.5 text-[11px] text-[#d4a853] ml-auto">
-                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" strokeWidth={1.5} />
                     Generating review...
                   </span>
                 )}
@@ -809,7 +809,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                     <div className="h-4 bg-[#1e1e28] rounded animate-pulse w-full" />
                     <div className="h-4 bg-[#1e1e28] rounded animate-pulse w-9/12" />
                     <p className="text-xs text-[#6b7280] mt-3 italic flex items-center gap-1.5">
-                      <Sparkles className="w-3 h-3 text-[#d4a853]" />
+                      <Sparkles className="w-3 h-3 text-[#d4a853]" strokeWidth={1.5} />
                       Gemini AI is analyzing this film...
                     </p>
                   </div>
@@ -817,7 +817,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                   <p className="text-[#9ca3af] leading-relaxed text-[15px]">{aiReview || movie.ai_review}</p>
                 )}
                 <div className="flex items-start gap-2 mt-5 pt-4 border-t border-[#1e1e28]/50">
-                  <AlertTriangle className="w-4 h-4 text-[#6b7280] flex-shrink-0 mt-0.5" />
+                  <AlertTriangle className="w-4 h-4 text-[#6b7280] flex-shrink-0 mt-0.5" strokeWidth={1.5} />
                   <p className="text-xs text-[#6b7280] italic flex-1">
                     This review was generated by AI based on available data and should not replace professional
                     criticism. AI-generated content may contain inaccuracies.
@@ -832,7 +832,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                       variant="outline"
                       className="w-full border-[#d4a853]/30 text-[#d4a853] hover:bg-[#d4a853]/10 hover:border-[#d4a853] gap-2"
                     >
-                      <MessageSquare className="w-4 h-4" />
+                      <MessageSquare className="w-4 h-4" strokeWidth={1.5} />
                       {showDisputeForm ? 'Cancel Dispute' : 'Dispute This Review'}
                     </Button>
                   ) : (
@@ -860,7 +860,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                           >
                             <Star
                               className={`w-5 h-5 ${star <= disputeRating ? 'text-[#d4a853] fill-[#d4a853]' : 'text-[#2a2a35]'}`}
-                            />
+                            strokeWidth={1.5} />
                           </button>
                         ))}
                         {disputeRating > 0 && (
@@ -883,7 +883,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                       <div className={`w-4 h-4 rounded border flex items-center justify-center ${disputeSpoilers ? 'bg-[#d4a853] border-[#d4a853]' : 'border-[#1e1e28]'}`}>
                         {disputeSpoilers && <span className="text-white text-[10px]">✓</span>}
                       </div>
-                      <Eye className="w-3.5 h-3.5 text-[#6b7280]" />
+                      <Eye className="w-3.5 h-3.5 text-[#6b7280]" strokeWidth={1.5} />
                       <span className="text-xs text-[#9ca3af]">Contains spoilers</span>
                     </label>
 
@@ -893,7 +893,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                       disabled={!disputeText.trim() || disputeRating === 0 || disputeSubmitting}
                       className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 text-sm disabled:opacity-50"
                     >
-                      {disputeSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+                      {disputeSubmitting ? <Loader2 className="w-4 h-4 animate-spin" strokeWidth={1.5} /> : <Send className="w-4 h-4" strokeWidth={1.5} />}
                       Submit Dispute
                     </Button>
                   </div>
@@ -904,7 +904,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
               {disputes.length > 0 && (
                 <div className="mt-4 bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5">
                   <div className="flex items-center gap-2 mb-3">
-                    <Shield className="w-4 h-4 text-[#d4a853]" />
+                    <Shield className="w-4 h-4 text-[#d4a853]" strokeWidth={1.5} />
                     <h3 className="text-sm font-semibold text-white">Community Verdict</h3>
                     <span className="text-[10px] bg-[#d4a853]/10 text-[#d4a853] px-2 py-0.5 rounded-full">{disputes.length} dispute{disputes.length !== 1 ? 's' : ''}</span>
                   </div>
@@ -920,7 +920,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                     </div>
                     <div className="text-center ml-auto">
                       <p className="text-2xl font-bold text-white">
-                        {avgUserRating !== null && Math.abs(avgUserRating - aiRating) < 1 ? '👍' : avgUserRating !== null && avgUserRating > aiRating ? '📈' : '📉'}
+                        {avgUserRating !== null && Math.abs(avgUserRating - aiRating) < 1 ? <ThumbsUp className="w-7 h-7 text-[#d4a853]" strokeWidth={1.5} /> : avgUserRating !== null && avgUserRating > aiRating ? <TrendingUp className="w-7 h-7 text-green-400" strokeWidth={1.5} /> : <TrendingDown className="w-7 h-7 text-red-400" strokeWidth={1.5} />}
                       </p>
                       <p className="text-[10px] text-[#6b7280] uppercase tracking-wider">
                         {avgUserRating !== null && Math.abs(avgUserRating - aiRating) < 1 ? 'Agrees' : avgUserRating !== null && avgUserRating > aiRating ? 'Higher' : 'Lower'}
@@ -942,12 +942,12 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                               <div className="flex items-center gap-2 mb-1">
                                 <span className="text-sm font-semibold text-white">{dispute.user_name}</span>
                                 <div className="flex items-center gap-0.5">
-                                  <Star className="w-3 h-3 text-[#d4a853] fill-[#d4a853]" />
+                                  <Star className="w-3 h-3 text-[#d4a853] fill-[#d4a853]" strokeWidth={1.5} />
                                   <span className="text-xs font-semibold text-[#d4a853]">{dispute.rating}/10</span>
                                 </div>
                                 {dispute.contains_spoilers && (
                                   <span className="inline-flex items-center gap-1 text-[10px] bg-yellow-500/10 text-yellow-400 px-1.5 py-0.5 rounded border border-yellow-500/20">
-                                    <Eye className="w-2.5 h-2.5" /> Spoiler
+                                    <Eye className="w-2.5 h-2.5" strokeWidth={1.5} /> Spoiler
                                   </span>
                                 )}
                                 <span className="text-[10px] text-[#6b7280] ml-auto">
@@ -971,7 +971,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                                     helpedDisputes.has(dispute.id) ? 'text-[#d4a853]' : 'text-[#6b7280] hover:text-[#9ca3af]'
                                   }`}
                                 >
-                                  <ThumbsUp className="w-3 h-3" /> Helpful ({dispute.helpful_count})
+                                  <ThumbsUp className="w-3 h-3" strokeWidth={1.5} /> Helpful ({dispute.helpful_count})
                                 </button>
                               </div>
                             </div>
@@ -994,7 +994,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                   className="inline-flex items-center gap-1 text-[#d4a853] hover:underline mt-2 text-sm font-medium"
                 >
                   {overviewExpanded ? 'Show Less' : 'Read More'}
-                  <ChevronDown className={`w-4 h-4 transition-transform ${overviewExpanded ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`w-4 h-4 transition-transform ${overviewExpanded ? 'rotate-180' : ''}`} strokeWidth={1.5} />
                 </button>
               )}
             </section>
@@ -1024,7 +1024,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                 {/* Director card */}
                 <div className="flex flex-col items-center flex-shrink-0 w-[90px]">
                   <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#d4a853] to-[#b8922e] flex items-center justify-center mb-2 border-2 border-[#d4a853]/30">
-                    <Film className="w-6 h-6 text-white" />
+                    <Film className="w-6 h-6 text-white" strokeWidth={1.5} />
                   </div>
                   <span className="text-xs font-semibold text-white text-center leading-tight truncate w-full">
                     {movie.director}
@@ -1046,7 +1046,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                         commentTab === 'reviews' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white hover:bg-[#111118]'
                       }`}
                     >
-                      <Star className="w-4 h-4" /> Reviews ({movieReviews.length})
+                      <Star className="w-4 h-4" strokeWidth={1.5} /> Reviews ({movieReviews.length})
                     </button>
                     <button
                       onClick={() => setCommentTab('discussion')}
@@ -1054,7 +1054,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                         commentTab === 'discussion' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white hover:bg-[#111118]'
                       }`}
                     >
-                      <MessageSquare className="w-4 h-4" /> Discussion ({comments.filter(c => c.parent_id === null).length})
+                      <MessageSquare className="w-4 h-4" strokeWidth={1.5} /> Discussion ({comments.filter(c => c.parent_id === null).length})
                     </button>
                   </div>
                 </div>
@@ -1063,7 +1063,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                     href={`/movie/${slug}/debates`}
                     className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-purple-500/10 border border-purple-500/20 text-purple-400 hover:bg-purple-500/20 hover:border-purple-500/30 transition-colors"
                   >
-                    <Swords className="w-4 h-4" /> Debate
+                    <Swords className="w-4 h-4" strokeWidth={1.5} /> Debate
                   </Link>
                   {commentTab === 'reviews' && (
                     <>
@@ -1072,7 +1072,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                           onClick={() => setShowReviewForm(!showReviewForm)}
                           className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 text-sm"
                         >
-                          <PenSquare className="w-4 h-4" /> Write a Review
+                          <PenSquare className="w-4 h-4" strokeWidth={1.5} /> Write a Review
                         </Button>
                       )}
                       <select
@@ -1109,7 +1109,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                 <>
                   {movieReviews.length === 0 ? (
                     <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-8 text-center">
-                      <Star className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" />
+                      <Star className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" strokeWidth={1.5} />
                       <p className="text-[#9ca3af] mb-1">No reviews yet</p>
                       <p className="text-sm text-[#6b7280]">Be the first to share your rating and review about this movie.</p>
                       {isAuthenticated && (
@@ -1117,7 +1117,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                           onClick={() => setShowReviewForm(true)}
                           className="mt-4 bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2"
                         >
-                          <PenSquare className="w-4 h-4" /> Write a Review
+                          <PenSquare className="w-4 h-4" strokeWidth={1.5} /> Write a Review
                         </Button>
                       )}
                     </div>
@@ -1161,7 +1161,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                           />
                           {commentModerationWarning && (
                             <div className="flex items-start gap-2 bg-red-500/5 border border-red-500/20 rounded-lg p-2 mt-2">
-                              <AlertTriangle className="w-3.5 h-3.5 text-red-400 flex-shrink-0 mt-0.5" />
+                              <AlertTriangle className="w-3.5 h-3.5 text-red-400 flex-shrink-0 mt-0.5" strokeWidth={1.5} />
                               <p className="text-xs text-red-300">{commentModerationWarning}</p>
                             </div>
                           )}
@@ -1169,7 +1169,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                             <div className="flex items-center gap-2">
                               <span className="text-xs text-[#6b7280]">{newComment.length > 0 ? `${newComment.length} characters` : 'Be respectful and constructive'}</span>
                               <div className="flex items-center gap-1 text-[10px] text-green-400/70">
-                                <Shield className="w-3 h-3" /> AI Moderated
+                                <Shield className="w-3 h-3" strokeWidth={1.5} /> AI Moderated
                               </div>
                             </div>
                             <Button
@@ -1177,7 +1177,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                               disabled={!newComment.trim() || commentSubmitting}
                               className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 text-sm disabled:opacity-50"
                             >
-                              {commentSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />} Post Comment
+                              {commentSubmitting ? <Loader2 className="w-4 h-4 animate-spin" strokeWidth={1.5} /> : <Send className="w-4 h-4" strokeWidth={1.5} />} Post Comment
                             </Button>
                           </div>
                         </div>
@@ -1185,7 +1185,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                     </div>
                   ) : (
                     <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6 mb-6 text-center">
-                      <MessageSquare className="w-8 h-8 text-[#2a2a35] mx-auto mb-2" />
+                      <MessageSquare className="w-8 h-8 text-[#2a2a35] mx-auto mb-2" strokeWidth={1.5} />
                       <p className="text-[#9ca3af] mb-2">Sign in to join the discussion</p>
                       <Link href="/login" className="text-[#d4a853] hover:underline text-sm font-medium">Sign In</Link>
                     </div>
@@ -1194,7 +1194,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                   {/* Comments List */}
                   {comments.filter(c => c.parent_id === null).length === 0 ? (
                     <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-8 text-center">
-                      <MessageSquare className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" />
+                      <MessageSquare className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" strokeWidth={1.5} />
                       <p className="text-[#9ca3af] mb-1">No comments yet</p>
                       <p className="text-sm text-[#6b7280]">Start the conversation about this movie.</p>
                     </div>
@@ -1212,13 +1212,13 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                               {/* Moderation badge */}
                               {comment.moderated && comment.moderation_note && (
                                 <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-yellow-500/10 border border-yellow-500/20 mb-3">
-                                  <AlertTriangle className="w-3.5 h-3.5 text-yellow-400" />
+                                  <AlertTriangle className="w-3.5 h-3.5 text-yellow-400" strokeWidth={1.5} />
                                   <span className="text-xs text-yellow-300">{comment.moderation_note}</span>
                                 </div>
                               )}
                               {comment.reports && comment.reports.length > 0 && (
                                 <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-orange-500/10 border border-orange-500/20 mb-3">
-                                  <Shield className="w-3.5 h-3.5 text-orange-400" />
+                                  <Shield className="w-3.5 h-3.5 text-orange-400" strokeWidth={1.5} />
                                   <span className="text-xs text-orange-300">Under review ({comment.reports.length} report{comment.reports.length > 1 ? 's' : ''})</span>
                                 </div>
                               )}
@@ -1241,14 +1241,14 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                                         helpedComments.has(comment.id) ? 'text-[#d4a853]' : 'text-[#6b7280] hover:text-[#9ca3af]'
                                       }`}
                                     >
-                                      <ThumbsUp className="w-3.5 h-3.5" /> Helpful ({comment.helpful_count})
+                                      <ThumbsUp className="w-3.5 h-3.5" strokeWidth={1.5} /> Helpful ({comment.helpful_count})
                                     </button>
                                     {isAuthenticated && (
                                       <button
                                         onClick={() => { setReplyingTo(replyingTo === comment.id ? null : comment.id); setReplyText(''); }}
                                         className="flex items-center gap-1.5 text-xs text-[#6b7280] hover:text-[#9ca3af] transition-colors"
                                       >
-                                        <Reply className="w-3.5 h-3.5" /> Reply
+                                        <Reply className="w-3.5 h-3.5" strokeWidth={1.5} /> Reply
                                       </button>
                                     )}
                                     {isAuthenticated && user?.id !== comment.user_id && (
@@ -1256,7 +1256,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                                         onClick={() => setReportingCommentId(comment.id)}
                                         className="flex items-center gap-1.5 text-xs text-[#6b7280] hover:text-[#9ca3af] transition-colors"
                                       >
-                                        <Flag className="w-3.5 h-3.5" /> Report
+                                        <Flag className="w-3.5 h-3.5" strokeWidth={1.5} /> Report
                                       </button>
                                     )}
                                   </div>
@@ -1381,7 +1381,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
 
               <div className="space-y-3.5">
                 <div className="flex items-center gap-3">
-                  <Calendar className="w-4 h-4 text-[#6b7280] flex-shrink-0" />
+                  <Calendar className="w-4 h-4 text-[#6b7280] flex-shrink-0" strokeWidth={1.5} />
                   <div>
                     <span className="text-xs text-[#6b7280]">Release Date</span>
                     <p className="text-sm text-white">
@@ -1393,7 +1393,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <Clock className="w-4 h-4 text-[#6b7280] flex-shrink-0" />
+                  <Clock className="w-4 h-4 text-[#6b7280] flex-shrink-0" strokeWidth={1.5} />
                   <div>
                     <span className="text-xs text-[#6b7280]">Runtime</span>
                     <p className="text-sm text-white">{runtimeStr}</p>
@@ -1401,7 +1401,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <Globe className="w-4 h-4 text-[#6b7280] flex-shrink-0" />
+                  <Globe className="w-4 h-4 text-[#6b7280] flex-shrink-0" strokeWidth={1.5} />
                   <div>
                     <span className="text-xs text-[#6b7280]">Language</span>
                     <p className="text-sm text-white">{languageNames[movie.original_language] || movie.original_language.toUpperCase()}</p>
@@ -1409,7 +1409,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <Film className="w-4 h-4 text-[#6b7280] flex-shrink-0" />
+                  <Film className="w-4 h-4 text-[#6b7280] flex-shrink-0" strokeWidth={1.5} />
                   <div>
                     <span className="text-xs text-[#6b7280]">Director</span>
                     <p className="text-sm text-white">{movie.director}</p>
@@ -1417,7 +1417,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <Building2 className="w-4 h-4 text-[#6b7280] flex-shrink-0" />
+                  <Building2 className="w-4 h-4 text-[#6b7280] flex-shrink-0" strokeWidth={1.5} />
                   <div>
                     <span className="text-xs text-[#6b7280]">Production</span>
                     <p className="text-sm text-white">{movie.production_companies.join(', ')}</p>
@@ -1425,7 +1425,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <Star className="w-4 h-4 text-[#6b7280] flex-shrink-0" />
+                  <Star className="w-4 h-4 text-[#6b7280] flex-shrink-0" strokeWidth={1.5} />
                   <div>
                     <span className="text-xs text-[#6b7280]">Status</span>
                     <p className="text-sm text-white">{movie.status}</p>
@@ -1449,7 +1449,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                 return (
                   <div className="content-animate bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5">
                     <h3 className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider mb-4 flex items-center gap-2">
-                      <DollarSign className="w-3.5 h-3.5" /> Financials
+                      <DollarSign className="w-3.5 h-3.5" strokeWidth={1.5} /> Financials
                     </h3>
                     <div className="space-y-3">
                       <div className="h-4 bg-[#1e1e28] rounded animate-pulse w-3/4" />
@@ -1464,12 +1464,12 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
               return hasAnyFinancialData ? (
                 <div className="content-animate bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5">
                   <h3 className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider mb-4 flex items-center gap-2">
-                    <DollarSign className="w-3.5 h-3.5" /> Financials
+                    <DollarSign className="w-3.5 h-3.5" strokeWidth={1.5} /> Financials
                   </h3>
                   <div className="space-y-3">
                     {budgetFormatted && (
                       <div className="flex items-center gap-3">
-                        <DollarSign className="w-4 h-4 text-[#6b7280] flex-shrink-0" />
+                        <DollarSign className="w-4 h-4 text-[#6b7280] flex-shrink-0" strokeWidth={1.5} />
                         <div>
                           <span className="text-xs text-[#6b7280]">Budget</span>
                           <p className="text-sm text-white font-medium">{budgetFormatted}</p>
@@ -1478,7 +1478,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                     )}
                     {reportedFormatted && (
                       <div className="flex items-center gap-3">
-                        <Building2 className="w-4 h-4 text-[#6b7280] flex-shrink-0" />
+                        <Building2 className="w-4 h-4 text-[#6b7280] flex-shrink-0" strokeWidth={1.5} />
                         <div>
                           <span className="text-xs text-[#6b7280]">Budget (Reported)</span>
                           <p className="text-sm text-white font-medium">{reportedFormatted}</p>
@@ -1487,7 +1487,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                     )}
                     {revenueFormatted && (
                       <div className="flex items-center gap-3">
-                        <DollarSign className="w-4 h-4 text-[#6b7280] flex-shrink-0" />
+                        <DollarSign className="w-4 h-4 text-[#6b7280] flex-shrink-0" strokeWidth={1.5} />
                         <div>
                           <span className="text-xs text-[#6b7280]">Revenue</span>
                           <p className="text-sm text-white font-medium">{revenueFormatted}</p>
@@ -1496,7 +1496,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                     )}
                     {domesticFormatted && (
                       <div className="flex items-center gap-3">
-                        <DollarSign className="w-4 h-4 text-[#6b7280] flex-shrink-0" />
+                        <DollarSign className="w-4 h-4 text-[#6b7280] flex-shrink-0" strokeWidth={1.5} />
                         <div>
                           <span className="text-xs text-[#6b7280]">Box Office Domestic</span>
                           <p className="text-sm text-white font-medium">{domesticFormatted}</p>
@@ -1505,7 +1505,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                     )}
                     {internationalFormatted && (
                       <div className="flex items-center gap-3">
-                        <DollarSign className="w-4 h-4 text-[#6b7280] flex-shrink-0" />
+                        <DollarSign className="w-4 h-4 text-[#6b7280] flex-shrink-0" strokeWidth={1.5} />
                         <div>
                           <span className="text-xs text-[#6b7280]">Box Office International</span>
                           <p className="text-sm text-white font-medium">{internationalFormatted}</p>
@@ -1514,7 +1514,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                     )}
                     {worldwideFormatted && (
                       <div className="flex items-center gap-3">
-                        <DollarSign className="w-4 h-4 text-green-400 flex-shrink-0" />
+                        <DollarSign className="w-4 h-4 text-green-400 flex-shrink-0" strokeWidth={1.5} />
                         <div>
                           <span className="text-xs text-[#6b7280]">Box Office Worldwide</span>
                           <p className="text-sm text-green-400 font-semibold">{worldwideFormatted}</p>
@@ -1526,7 +1526,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
               ) : (
                 <div className="content-animate bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5">
                   <h3 className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider mb-3 flex items-center gap-2">
-                    <DollarSign className="w-3.5 h-3.5" /> Financials
+                    <DollarSign className="w-3.5 h-3.5" strokeWidth={1.5} /> Financials
                   </h3>
                   <p className="text-sm text-[#2a2a35] italic">Financial data not available</p>
                 </div>
@@ -1545,7 +1545,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                     return (
                       <div className="w-full aspect-video bg-[#050507] rounded-lg flex items-center justify-center border border-[#1e1e28]">
                         <div className="text-center">
-                          <Loader2 className="w-8 h-8 text-[#d4a853] mx-auto mb-2 animate-spin" />
+                          <Loader2 className="w-8 h-8 text-[#d4a853] mx-auto mb-2 animate-spin" strokeWidth={1.5} />
                           <span className="text-xs text-[#6b7280]">Searching for trailer...</span>
                         </div>
                       </div>
@@ -1554,7 +1554,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                   return (
                     <div className="w-full aspect-video bg-[#050507] rounded-lg flex items-center justify-center border border-[#1e1e28]">
                       <div className="text-center">
-                        <Play className="w-8 h-8 text-[#2a2a35] mx-auto mb-2" />
+                        <Play className="w-8 h-8 text-[#2a2a35] mx-auto mb-2" strokeWidth={1.5} />
                         <span className="text-xs text-[#6b7280]">No trailer available</span>
                       </div>
                     </div>
@@ -1613,7 +1613,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                     )}
                     <div className="text-center relative z-10">
                       <div className="w-14 h-14 rounded-full bg-[#d4a853]/20 flex items-center justify-center mx-auto mb-2 group-hover:bg-[#d4a853]/30 transition-colors">
-                        <Play className="w-6 h-6 text-[#d4a853] fill-[#d4a853]" />
+                        <Play className="w-6 h-6 text-[#d4a853] fill-[#d4a853]" strokeWidth={1.5} />
                       </div>
                       <span className="text-sm text-[#6b7280]">{sourceLabel}</span>
                       {!hasYouTubeId && hasITunesPreview && (
@@ -1645,7 +1645,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                         <span>{headline.source}</span>
                         <span>·</span>
                         <span>{new Date(headline.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
-                        <ExternalLink className="w-3 h-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <ExternalLink className="w-3 h-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" strokeWidth={1.5} />
                       </div>
                     </a>
                   ))}
@@ -1657,7 +1657,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
             <div className="content-animate bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider flex items-center gap-2">
-                  <MonitorPlay className="w-3.5 h-3.5" /> Where to Watch
+                  <MonitorPlay className="w-3.5 h-3.5" strokeWidth={1.5} /> Where to Watch
                 </h3>
                 {watchProviders && Object.keys(watchProviders.countries).length > 1 && (
                   <select
@@ -1676,12 +1676,12 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
 
               {watchLoading ? (
                 <div className="flex flex-col items-center py-6">
-                  <Loader2 className="w-6 h-6 animate-spin text-[#d4a853] mb-2" />
+                  <Loader2 className="w-6 h-6 animate-spin text-[#d4a853] mb-2" strokeWidth={1.5} />
                   <p className="text-xs text-[#6b7280]">Loading providers...</p>
                 </div>
               ) : currentCountryProviders.length === 0 ? (
                 <div className="flex flex-col items-center py-4 text-center">
-                  <Tv className="w-8 h-8 text-[#2a2a35] mb-2" />
+                  <Tv className="w-8 h-8 text-[#2a2a35] mb-2" strokeWidth={1.5} />
                   <p className="text-sm text-[#6b7280]">Not available for streaming</p>
                   <p className="text-xs text-[#2a2a35]">No providers found in {countryNames[watchCountry] || watchCountry}.</p>
                 </div>
@@ -1698,7 +1698,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                               <img src={provider.logoUrl} alt={provider.name} className="w-7 h-7 rounded-md object-cover bg-[#050507]" />
                             ) : (
                               <div className="w-7 h-7 rounded-md bg-[#050507] flex items-center justify-center">
-                                <Tv className="w-3.5 h-3.5 text-[#6b7280]" />
+                                <Tv className="w-3.5 h-3.5 text-[#6b7280]" strokeWidth={1.5} />
                               </div>
                             )}
                             <span className="text-sm text-white flex-1 truncate">{provider.name}</span>
@@ -1720,7 +1720,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                               <img src={provider.logoUrl} alt={provider.name} className="w-7 h-7 rounded-md object-cover bg-[#050507]" />
                             ) : (
                               <div className="w-7 h-7 rounded-md bg-[#050507] flex items-center justify-center">
-                                <Tv className="w-3.5 h-3.5 text-[#6b7280]" />
+                                <Tv className="w-3.5 h-3.5 text-[#6b7280]" strokeWidth={1.5} />
                               </div>
                             )}
                             <span className="text-sm text-white flex-1 truncate">{provider.name}</span>
@@ -1742,7 +1742,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                               <img src={provider.logoUrl} alt={provider.name} className="w-7 h-7 rounded-md object-cover bg-[#050507]" />
                             ) : (
                               <div className="w-7 h-7 rounded-md bg-[#050507] flex items-center justify-center">
-                                <Tv className="w-3.5 h-3.5 text-[#6b7280]" />
+                                <Tv className="w-3.5 h-3.5 text-[#6b7280]" strokeWidth={1.5} />
                               </div>
                             )}
                             <span className="text-sm text-white flex-1 truncate">{provider.name}</span>
@@ -1764,7 +1764,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                               <img src={provider.logoUrl} alt={provider.name} className="w-7 h-7 rounded-md object-cover bg-[#050507]" />
                             ) : (
                               <div className="w-7 h-7 rounded-md bg-[#050507] flex items-center justify-center">
-                                <Tv className="w-3.5 h-3.5 text-[#6b7280]" />
+                                <Tv className="w-3.5 h-3.5 text-[#6b7280]" strokeWidth={1.5} />
                               </div>
                             )}
                             <span className="text-sm text-white flex-1 truncate">{provider.name}</span>
@@ -1783,7 +1783,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                       rel="noopener noreferrer"
                       className="flex items-center justify-center gap-1.5 text-[10px] text-[#6b7280] hover:text-[#9ca3af] pt-2 border-t border-[#1e1e28]/50 transition-colors"
                     >
-                      Data from JustWatch & TVMaze <ExternalLink className="w-2.5 h-2.5" />
+                      Data from JustWatch & TVMaze <ExternalLink className="w-2.5 h-2.5" strokeWidth={1.5} />
                     </a>
                   )}
                 </div>

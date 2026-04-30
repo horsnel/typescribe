@@ -67,7 +67,7 @@ export default function ActivityFeed({ joinedCommunityIds, communityId, maxItems
   if (activities.length === 0) {
     return (
       <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5 text-center">
-        <Bell className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" />
+        <Bell className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" strokeWidth={1.5} />
         <p className="text-sm text-[#9ca3af]">No activity yet</p>
         <p className="text-xs text-[#6b7280]">Activity from your communities will appear here</p>
       </div>
@@ -81,7 +81,7 @@ export default function ActivityFeed({ joinedCommunityIds, communityId, maxItems
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">
-                <Bell className="w-5 h-5 text-purple-400" />
+                <Bell className="w-5 h-5 text-purple-400" strokeWidth={1.5} />
               </div>
               <div>
                 <h3 className="text-lg font-bold text-white">Activity Feed</h3>
@@ -92,7 +92,7 @@ export default function ActivityFeed({ joinedCommunityIds, communityId, maxItems
               <div className="flex items-center gap-2">
                 <span className="text-[10px] bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded-full font-semibold">{unread} new</span>
                 <Button onClick={handleMarkRead} variant="ghost" size="sm" className="text-xs text-[#6b7280] hover:text-white gap-1 min-h-[32px]">
-                  <Check className="w-3 h-3" /> Mark read
+                  <Check className="w-3 h-3" strokeWidth={1.5} /> Mark read
                 </Button>
               </div>
             )}
@@ -135,7 +135,7 @@ export default function ActivityFeed({ joinedCommunityIds, communityId, maxItems
                 </p>
                 <div className="flex items-center gap-2 mt-1">
                   <span className="text-[10px] text-[#6b7280] flex items-center gap-1">
-                    <Clock className="w-3 h-3" /> {timeAgo(activity.createdAt)}
+                    <Clock className="w-3 h-3" strokeWidth={1.5} /> {timeAgo(activity.createdAt)}
                   </span>
                   {!activity.read && (
                     <span className="w-1.5 h-1.5 rounded-full bg-purple-400" />

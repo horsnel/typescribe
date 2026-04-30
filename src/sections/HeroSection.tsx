@@ -191,7 +191,7 @@ export default function HeroSection() {
               <div className="min-w-0">
                 <h3 className="text-sm font-bold text-white truncate group-hover:text-[#d4a853] transition-colors">{posterMovies[0].title}</h3>
                 <div className="flex items-center gap-2 mt-1">
-                  <Star className="w-3.5 h-3.5 text-[#f5c518] fill-[#f5c518]" />
+                  <Star className="w-3.5 h-3.5 text-[#f5c518] fill-[#f5c518]" strokeWidth={1.5} />
                   <span className="text-sm font-semibold text-[#f5c518]">{posterMovies[0].vote_average.toFixed(1)}</span>
                   {posterMovies[0].release_date && (
                     <>
@@ -209,7 +209,7 @@ export default function HeroSection() {
 
       <div className="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 opacity-0 z-20">
         <a href="#trending" className="block">
-          <ChevronDown className="w-8 h-8 text-[#9ca3af] animate-bounce" />
+          <ChevronDown className="w-8 h-8 text-[#9ca3af] animate-bounce" strokeWidth={1.5} />
         </a>
       </div>
     </section>

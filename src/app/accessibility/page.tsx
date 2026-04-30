@@ -74,11 +74,11 @@ export default function AccessibilityPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
         <nav className="flex items-center gap-2 text-sm text-[#6b7280] mb-6">
           <Link href="/" className="hover:text-white transition-colors">Home</Link>
-          <ChevronRight className="w-3 h-3" />
+          <ChevronRight className="w-3 h-3" strokeWidth={1.5} />
           <span className="text-[#9ca3af]">Accessibility</span>
         </nav>
         <div className="flex items-center gap-3 mb-2">
-          <Accessibility className="w-7 h-7 text-[#d4a853]" />
+          <Accessibility className="w-7 h-7 text-[#d4a853]" strokeWidth={1.5} />
           <h1 className="text-3xl lg:text-4xl font-extrabold text-white">Accessibility Settings</h1>
         </div>
         <p className="text-sm text-[#6b7280] mb-8">Customize your experience to make Typescribe work best for you. All preferences are saved automatically.</p>
@@ -89,7 +89,7 @@ export default function AccessibilityPage() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-[#d4a853]/10 flex items-center justify-center">
-                  <Sun className="w-5 h-5 text-[#d4a853]" />
+                  <Sun className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
                 </div>
                 <div>
                   <h2 className="text-lg font-semibold text-white">High Contrast Mode</h2>
@@ -106,7 +106,7 @@ export default function AccessibilityPage() {
             </div>
             {settings.highContrast && (
               <div className="mt-3 p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-lg flex items-center gap-2">
-                <Check className="w-4 h-4 text-emerald-400" />
+                <Check className="w-4 h-4 text-emerald-400" strokeWidth={1.5} />
                 <span className="text-sm text-emerald-400">High contrast enabled — text and borders are now more vivid</span>
               </div>
             )}
@@ -117,7 +117,7 @@ export default function AccessibilityPage() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center">
-                  <Moon className="w-5 h-5 text-purple-400" />
+                  <Moon className="w-5 h-5 text-purple-400" strokeWidth={1.5} />
                 </div>
                 <div>
                   <h2 className="text-lg font-semibold text-white">Reduced Motion</h2>
@@ -134,7 +134,7 @@ export default function AccessibilityPage() {
             </div>
             {settings.reducedMotion && (
               <div className="mt-3 p-3 bg-purple-500/10 border border-purple-500/20 rounded-lg flex items-center gap-2">
-                <Check className="w-4 h-4 text-purple-400" />
+                <Check className="w-4 h-4 text-purple-400" strokeWidth={1.5} />
                 <span className="text-sm text-purple-400">Reduced motion enabled — animations are now minimal</span>
               </div>
             )}
@@ -144,7 +144,7 @@ export default function AccessibilityPage() {
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center">
-                <Type className="w-5 h-5 text-amber-400" />
+                <Type className="w-5 h-5 text-amber-400" strokeWidth={1.5} />
               </div>
               <div>
                 <h2 className="text-lg font-semibold text-white">Font Size</h2>
@@ -179,7 +179,7 @@ export default function AccessibilityPage() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-sky-500/10 flex items-center justify-center">
-                  <Volume2 className="w-5 h-5 text-sky-400" />
+                  <Volume2 className="w-5 h-5 text-sky-400" strokeWidth={1.5} />
                 </div>
                 <div>
                   <h2 className="text-lg font-semibold text-white">Screen Reader Optimization</h2>
@@ -200,7 +200,7 @@ export default function AccessibilityPage() {
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center">
-                <Keyboard className="w-5 h-5 text-emerald-400" />
+                <Keyboard className="w-5 h-5 text-emerald-400" strokeWidth={1.5} />
               </div>
               <div>
                 <h2 className="text-lg font-semibold text-white">Keyboard Shortcuts</h2>
@@ -221,7 +221,7 @@ export default function AccessibilityPage() {
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-[#d4a853]/10 flex items-center justify-center">
-                <Monitor className="w-5 h-5 text-[#d4a853]" />
+                <Monitor className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
               </div>
               <div>
                 <h2 className="text-lg font-semibold text-white">Focus Indicators</h2>

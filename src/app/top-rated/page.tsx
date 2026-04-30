@@ -62,9 +62,9 @@ export default function TopRatedPage() {
   const hasMore = filtered.length > visibleCount;
 
   const rankBadge = (rank: number) => {
-    if (rank === 1) return <Crown className="w-6 h-6 text-[#f5c518]" />;
-    if (rank === 2) return <Medal className="w-6 h-6 text-[#c0c0c0]" />;
-    if (rank === 3) return <Medal className="w-6 h-6 text-[#cd7f32]" />;
+    if (rank === 1) return <Crown className="w-6 h-6 text-[#f5c518]" strokeWidth={1.5} />;
+    if (rank === 2) return <Medal className="w-6 h-6 text-[#c0c0c0]" strokeWidth={1.5} />;
+    if (rank === 3) return <Medal className="w-6 h-6 text-[#cd7f32]" strokeWidth={1.5} />;
     return <span className="text-xl font-extrabold text-[#9ca3af]">{rank}</span>;
   };
 
@@ -74,7 +74,7 @@ export default function TopRatedPage() {
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <Trophy className="w-8 h-8 text-[#f5c518]" />
+              <Trophy className="w-8 h-8 text-[#f5c518]" strokeWidth={1.5} />
               <h1 className="text-3xl lg:text-4xl font-extrabold text-white">Top Rated Movies</h1>
             </div>
             <p className="text-[#6b7280]">{filtered.length} movies ranked by overall rating</p>
@@ -82,10 +82,10 @@ export default function TopRatedPage() {
           <div className="flex items-center gap-3">
             <div className="hidden sm:flex items-center border border-[#1e1e28] rounded-lg overflow-hidden">
               <button onClick={() => setView('list')} className={`p-2 ${view === 'list' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white'}`}>
-                <Grid3X3 className="w-4 h-4" />
+                <Grid3X3 className="w-4 h-4" strokeWidth={1.5} />
               </button>
               <button onClick={() => setView('grid')} className={`p-2 ${view === 'grid' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white'}`}>
-                <List className="w-4 h-4" />
+                <List className="w-4 h-4" strokeWidth={1.5} />
               </button>
             </div>
           </div>
@@ -110,7 +110,7 @@ export default function TopRatedPage() {
 
         {loading ? (
           <div className="flex items-center justify-center py-24">
-            <Loader2 className="w-8 h-8 text-[#d4a853] animate-spin" />
+            <Loader2 className="w-8 h-8 text-[#d4a853] animate-spin" strokeWidth={1.5} />
             <span className="ml-3 text-[#6b7280]">Loading top rated movies...</span>
           </div>
         ) : (
@@ -131,7 +131,7 @@ export default function TopRatedPage() {
                     <div className="flex items-center gap-3 mb-3">
                       {rankBadge(rank)}
                       <div className="flex items-center gap-1">
-                        <Star className="w-4 h-4 text-[#f5c518] fill-[#f5c518]" />
+                        <Star className="w-4 h-4 text-[#f5c518] fill-[#f5c518]" strokeWidth={1.5} />
                         <span className="text-lg font-bold text-[#f5c518]">{movie.vote_average.toFixed(1)}</span>
                       </div>
                     </div>
@@ -167,7 +167,7 @@ export default function TopRatedPage() {
                     <div className="flex-1 min-w-0">
                       <h2 className="text-lg font-bold text-white group-hover:text-[#d4a853] transition-colors">{movie.title}</h2>
                       <div className="flex items-center gap-3 mt-1 flex-wrap">
-                        <div className="flex items-center gap-1"><Star className="w-4 h-4 text-[#f5c518] fill-[#f5c518]" /><span className="text-sm font-semibold text-[#f5c518]">{movie.vote_average.toFixed(1)}</span></div>
+                        <div className="flex items-center gap-1"><Star className="w-4 h-4 text-[#f5c518] fill-[#f5c518]" strokeWidth={1.5} /><span className="text-sm font-semibold text-[#f5c518]">{movie.vote_average.toFixed(1)}</span></div>
                         {movie.imdb_rating && <span className="text-xs text-[#6b7280]">IMDb {movie.imdb_rating}</span>}
                         {movie.rotten_tomatoes && <span className="text-xs text-[#6b7280]">RT {movie.rotten_tomatoes}</span>}
                         {movie.metascore && <span className="text-xs text-[#6b7280]">Metacritic {movie.metascore}</span>}
@@ -192,7 +192,7 @@ export default function TopRatedPage() {
                   variant="outline"
                   className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:bg-[#111118] hover:border-[#3a3a45] gap-2"
                 >
-                  <ChevronDown className="w-4 h-4" /> Show More
+                  <ChevronDown className="w-4 h-4" strokeWidth={1.5} /> Show More
                 </Button>
               </div>
             )}

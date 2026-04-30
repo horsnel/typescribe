@@ -186,7 +186,7 @@ export default function NotificationPanel() {
                 onClick={handleMarkAllRead}
                 className="text-[10px] text-[#d4a853] hover:text-[#b8922e] transition-colors flex items-center gap-1"
               >
-                <Check className="w-3 h-3" /> Mark all read
+                <Check className="w-3 h-3" strokeWidth={1.5} /> Mark all read
               </button>
             )}
             <button
@@ -194,7 +194,7 @@ export default function NotificationPanel() {
               className="p-1.5 text-[#6b7280] hover:text-white hover:bg-[#111118] rounded-lg transition-colors"
               aria-label="Close notifications"
             >
-              <X className="w-4 h-4" />
+              <X className="w-4 h-4" strokeWidth={1.5} />
             </button>
           </div>
         </div>
@@ -264,7 +264,7 @@ export default function NotificationPanel() {
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center py-16 px-6">
-                <Bell className="w-10 h-10 text-[#2a2a35] mb-3" />
+                <Bell className="w-10 h-10 text-[#2a2a35] mb-3" strokeWidth={1.5} />
                 <p className="text-sm text-[#6b7280] mb-1">No activity yet</p>
                 <p className="text-xs text-[#4a4a55]">Join communities to see activity here</p>
               </div>
@@ -351,7 +351,7 @@ export default function NotificationPanel() {
             onClick={close}
             className="text-xs text-[#d4a853] hover:underline flex items-center gap-1"
           >
-            <Settings className="w-3 h-3" /> Preferences
+            <Settings className="w-3 h-3" strokeWidth={1.5} /> Preferences
           </Link>
           <Link
             href="/communities"

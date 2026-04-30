@@ -151,7 +151,7 @@ export default function Footer() {
               <p className="text-sm text-[#9ca3af] mb-4 leading-relaxed">Get weekly movie picks and exclusive AI reviews delivered to your inbox every Friday.</p>
               {subscribed ? (
                 <div className="flex items-center gap-2 text-green-400 text-sm mb-4">
-                  <Check className="w-4 h-4" />
+                  <Check className="w-4 h-4" strokeWidth={1.5} />
                   <span>You&apos;re subscribed!</span>
                 </div>
               ) : (
@@ -165,7 +165,7 @@ export default function Footer() {
                     className="flex-1 bg-[#0c0c10] border border-[#1e1e28] rounded-lg px-3 py-2 text-sm text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853]"
                   />
                   <button type="submit" disabled={loading} className="px-4 py-2 bg-[#d4a853] hover:bg-[#b8922e] text-white text-sm font-medium rounded-lg transition-colors disabled:opacity-60">
-                    {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Mail className="w-4 h-4" />}
+                    {loading ? <Loader2 className="w-4 h-4 animate-spin" strokeWidth={1.5} /> : <Mail className="w-4 h-4" strokeWidth={1.5} />}
                   </button>
                 </form>
               )}
@@ -182,7 +182,7 @@ export default function Footer() {
           <Separator className="my-10 bg-[#1e1e28]" />
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
-              <Film className="w-5 h-5 text-[#d4a853]" />
+              <Film className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
               <span
                 onClick={handleBrandClick}
                 className="text-sm text-[#6b7280] font-bold tracking-[0.2em] cursor-pointer select-none hover:text-[#9ca3af] transition-colors"
@@ -202,7 +202,7 @@ export default function Footer() {
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-full bg-[#d4a853]/10 flex items-center justify-center">
-                <Lock className="w-5 h-5 text-[#d4a853]" />
+                <Lock className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
               </div>
               <div>
                 <h3 className="text-lg font-bold text-white">Data Pipeline Access</h3>
@@ -229,7 +229,7 @@ export default function Footer() {
                 disabled={!adminPassword || adminLoading}
                 className="flex-1 bg-[#d4a853] hover:bg-[#b8922e] text-white disabled:opacity-50"
               >
-                {adminLoading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Lock className="w-4 h-4 mr-2" />}
+                {adminLoading ? <Loader2 className="w-4 h-4 animate-spin mr-2" strokeWidth={1.5} /> : <Lock className="w-4 h-4 mr-2" strokeWidth={1.5} />}
                 Authenticate
               </Button>
               <Button

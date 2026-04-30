@@ -121,14 +121,14 @@ export default function NewReleasesPage() {
               onClick={() => setFiltersOpen(!filtersOpen)}
               className={`border-[#1e1e28] bg-transparent text-white hover:bg-[#111118] hover:text-white gap-2 ${filtersOpen ? 'border-[#d4a853]' : ''}`}
             >
-              <Filter className="w-4 h-4" /> Filters
+              <Filter className="w-4 h-4" strokeWidth={1.5} /> Filters
             </Button>
             <div className="hidden sm:flex items-center border border-[#1e1e28] rounded-lg overflow-hidden">
               <button onClick={() => setView('grid')} className={`p-2 ${view === 'grid' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white'}`}>
-                <Grid3X3 className="w-4 h-4" />
+                <Grid3X3 className="w-4 h-4" strokeWidth={1.5} />
               </button>
               <button onClick={() => setView('list')} className={`p-2 ${view === 'list' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white'}`}>
-                <List className="w-4 h-4" />
+                <List className="w-4 h-4" strokeWidth={1.5} />
               </button>
             </div>
           </div>
@@ -209,7 +209,7 @@ export default function NewReleasesPage() {
 
         {loading ? (
           <div className="flex items-center justify-center py-24">
-            <Loader2 className="w-8 h-8 text-[#d4a853] animate-spin" />
+            <Loader2 className="w-8 h-8 text-[#d4a853] animate-spin" strokeWidth={1.5} />
             <span className="ml-3 text-[#6b7280]">Loading new releases...</span>
           </div>
         ) : filtered.length > 0 ? (
@@ -234,9 +234,9 @@ export default function NewReleasesPage() {
                     <div className="flex-1 min-w-0">
                       <h3 className="text-sm font-semibold text-white group-hover:text-[#d4a853] transition-colors truncate">{movie.title}</h3>
                       <div className="flex items-center gap-2 mt-1">
-                        <span className="text-xs text-[#f5c518] font-medium flex items-center gap-0.5"><Star className="w-3 h-3 fill-[#f5c518]" /> {movie.vote_average.toFixed(1)}</span>
-                        <span className="text-xs text-[#6b7280] flex items-center gap-1"><Calendar className="w-3 h-3" /> {movie.release_date ? new Date(movie.release_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'TBA'}</span>
-                        {movie.runtime > 0 && <span className="text-xs text-[#6b7280] flex items-center gap-1"><Clock className="w-3 h-3" /> {movie.runtime}m</span>}
+                        <span className="text-xs text-[#f5c518] font-medium flex items-center gap-0.5"><Star className="w-3 h-3 fill-[#f5c518]" strokeWidth={1.5} /> {movie.vote_average.toFixed(1)}</span>
+                        <span className="text-xs text-[#6b7280] flex items-center gap-1"><Calendar className="w-3 h-3" strokeWidth={1.5} /> {movie.release_date ? new Date(movie.release_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'TBA'}</span>
+                        {movie.runtime > 0 && <span className="text-xs text-[#6b7280] flex items-center gap-1"><Clock className="w-3 h-3" strokeWidth={1.5} /> {movie.runtime}m</span>}
                       </div>
                       <div className="flex gap-1.5 mt-1.5">
                         {movie.genres.slice(0, 3).map((g) => (
@@ -256,14 +256,14 @@ export default function NewReleasesPage() {
                   variant="outline"
                   className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:bg-[#111118] hover:border-[#3a3a45] gap-2"
                 >
-                  <ChevronDown className="w-4 h-4" /> Load More
+                  <ChevronDown className="w-4 h-4" strokeWidth={1.5} /> Load More
                 </Button>
               </div>
             )}
           </>
         ) : (
           <div className="text-center py-24">
-            <Calendar className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
+            <Calendar className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" strokeWidth={1.5} />
             <p className="text-lg text-[#9ca3af] mb-2">No new releases found</p>
             <p className="text-sm text-[#6b7280] mb-4">Try adjusting your filters or time range</p>
             <button onClick={() => { setTimeFilter('all'); setSelectedGenres([]); }} className="text-[#d4a853] hover:underline">Show all movies</button>

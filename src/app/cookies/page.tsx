@@ -8,11 +8,11 @@ export default function CookiesPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
         <nav className="flex items-center gap-2 text-sm text-[#6b7280] mb-6">
           <Link href="/" className="hover:text-white transition-colors">Home</Link>
-          <ChevronRight className="w-3 h-3" />
+          <ChevronRight className="w-3 h-3" strokeWidth={1.5} />
           <span className="text-[#9ca3af]">Cookie Policy</span>
         </nav>
         <div className="flex items-center gap-3 mb-2">
-          <Cookie className="w-7 h-7 text-[#d4a853]" />
+          <Cookie className="w-7 h-7 text-[#d4a853]" strokeWidth={1.5} />
           <h1 className="text-3xl lg:text-4xl font-extrabold text-white">Cookie Policy</h1>
         </div>
         <p className="text-sm text-[#6b7280] mb-8">Last updated: April 22, 2026</p>

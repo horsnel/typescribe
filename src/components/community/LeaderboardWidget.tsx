@@ -80,7 +80,7 @@ export default function LeaderboardWidget({ communityId, communityName }: Leader
             activeView === 'leaderboard' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white'
           }`}
         >
-          <Trophy className="w-4 h-4" /> Leaderboard
+          <Trophy className="w-4 h-4" strokeWidth={1.5} /> Leaderboard
         </button>
         <button
           onClick={() => setActiveView('stats')}
@@ -88,7 +88,7 @@ export default function LeaderboardWidget({ communityId, communityName }: Leader
             activeView === 'stats' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white'
           }`}
         >
-          <BarChart3 className="w-4 h-4" /> Stats
+          <BarChart3 className="w-4 h-4" strokeWidth={1.5} /> Stats
         </button>
       </div>
 
@@ -99,7 +99,7 @@ export default function LeaderboardWidget({ communityId, communityName }: Leader
           <div className="p-5 border-b border-[#1e1e28]/50">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-[#d4a853]/10 border border-[#d4a853]/20 flex items-center justify-center">
-                <Trophy className="w-5 h-5 text-[#d4a853]" />
+                <Trophy className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
               </div>
               <div>
                 <h3 className="text-lg font-bold text-white">Top Contributors</h3>
@@ -188,8 +188,8 @@ export default function LeaderboardWidget({ communityId, communityName }: Leader
                       </span>
                     </div>
                     <div className="flex items-center gap-3 text-[10px] text-[#6b7280] mt-0.5">
-                      <span className="flex items-center gap-1"><MessageSquare className="w-2.5 h-2.5" /> {entry.postsCount}</span>
-                      <span className="flex items-center gap-1"><Flame className="w-2.5 h-2.5 text-orange-400" /> {entry.streak}d</span>
+                      <span className="flex items-center gap-1"><MessageSquare className="w-2.5 h-2.5" strokeWidth={1.5} /> {entry.postsCount}</span>
+                      <span className="flex items-center gap-1"><Flame className="w-2.5 h-2.5 text-orange-400" strokeWidth={1.5} /> {entry.streak}d</span>
                     </div>
                   </div>
 
@@ -212,7 +212,7 @@ export default function LeaderboardWidget({ communityId, communityName }: Leader
           <div className="p-5 border-b border-[#1e1e28]/50">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-green-500/10 border border-green-500/20 flex items-center justify-center">
-                <BarChart3 className="w-5 h-5 text-green-400" />
+                <BarChart3 className="w-5 h-5 text-green-400" strokeWidth={1.5} />
               </div>
               <div>
                 <h3 className="text-lg font-bold text-white">Community Stats</h3>
@@ -225,22 +225,22 @@ export default function LeaderboardWidget({ communityId, communityName }: Leader
           <div className="p-5">
             <div className="grid grid-cols-2 gap-3 mb-5">
               <div className="bg-[#050507] border border-[#1e1e28] rounded-lg p-4 text-center">
-                <Users className="w-5 h-5 text-[#d4a853] mx-auto mb-1" />
+                <Users className="w-5 h-5 text-[#d4a853] mx-auto mb-1" strokeWidth={1.5} />
                 <p className="text-xl font-bold text-white">{stats.totalMembers.toLocaleString()}</p>
                 <p className="text-[10px] text-[#6b7280]">Total Members</p>
               </div>
               <div className="bg-[#050507] border border-[#1e1e28] rounded-lg p-4 text-center">
-                <Activity className="w-5 h-5 text-green-400 mx-auto mb-1" />
+                <Activity className="w-5 h-5 text-green-400 mx-auto mb-1" strokeWidth={1.5} />
                 <p className="text-xl font-bold text-white">{stats.activeThisWeek.toLocaleString()}</p>
                 <p className="text-[10px] text-[#6b7280]">Active This Week</p>
               </div>
               <div className="bg-[#050507] border border-[#1e1e28] rounded-lg p-4 text-center">
-                <MessageSquare className="w-5 h-5 text-blue-400 mx-auto mb-1" />
+                <MessageSquare className="w-5 h-5 text-blue-400 mx-auto mb-1" strokeWidth={1.5} />
                 <p className="text-xl font-bold text-white">{stats.totalPosts.toLocaleString()}</p>
                 <p className="text-[10px] text-[#6b7280]">Total Posts</p>
               </div>
               <div className="bg-[#050507] border border-[#1e1e28] rounded-lg p-4 text-center">
-                <Star className="w-5 h-5 text-yellow-400 mx-auto mb-1" />
+                <Star className="w-5 h-5 text-yellow-400 mx-auto mb-1" strokeWidth={1.5} />
                 <p className="text-xl font-bold text-white">{stats.avgRating}</p>
                 <p className="text-[10px] text-[#6b7280]">Avg Rating</p>
               </div>
@@ -252,11 +252,11 @@ export default function LeaderboardWidget({ communityId, communityName }: Leader
                 <span className="text-sm font-semibold text-white">Community Health</span>
                 <div className="flex items-center gap-1">
                   {stats.weeklyTrend === 'up' ? (
-                    <TrendingUp className="w-4 h-4 text-green-400" />
+                    <TrendingUp className="w-4 h-4 text-green-400" strokeWidth={1.5} />
                   ) : stats.weeklyTrend === 'down' ? (
-                    <TrendingDown className="w-4 h-4 text-red-400" />
+                    <TrendingDown className="w-4 h-4 text-red-400" strokeWidth={1.5} />
                   ) : (
-                    <Minus className="w-4 h-4 text-yellow-400" />
+                    <Minus className="w-4 h-4 text-yellow-400" strokeWidth={1.5} />
                   )}
                   <span className={`text-xs font-semibold ${
                     stats.weeklyTrend === 'up' ? 'text-green-400' : stats.weeklyTrend === 'down' ? 'text-red-400' : 'text-yellow-400'
@@ -284,7 +284,7 @@ export default function LeaderboardWidget({ communityId, communityName }: Leader
 
               {/* Top genre */}
               <div className="flex items-center gap-2 mt-3">
-                <Crown className="w-3.5 h-3.5 text-[#d4a853]" />
+                <Crown className="w-3.5 h-3.5 text-[#d4a853]" strokeWidth={1.5} />
                 <span className="text-xs text-[#9ca3af]">Top Genre: </span>
                 <span className="text-xs font-semibold text-[#d4a853]">{stats.topGenre}</span>
               </div>

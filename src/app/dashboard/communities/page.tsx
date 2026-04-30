@@ -82,7 +82,7 @@ export default function DashboardCommunitiesPage() {
       {upcomingClubs.length > 0 && (
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-3">
-            <Video className="w-5 h-5 text-blue-400" />
+            <Video className="w-5 h-5 text-blue-400" strokeWidth={1.5} />
             <h2 className="text-lg font-semibold text-white">Upcoming Watch Parties</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -94,7 +94,7 @@ export default function DashboardCommunitiesPage() {
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center flex-shrink-0">
-                    <Film className="w-5 h-5 text-blue-400" />
+                    <Film className="w-5 h-5 text-blue-400" strokeWidth={1.5} />
                   </div>
                   <div className="flex-1 min-w-0">
                     <h4 className="text-sm font-semibold text-white group-hover:text-blue-400 transition-colors truncate">{club.movieTitle}</h4>
@@ -124,7 +124,7 @@ export default function DashboardCommunitiesPage() {
       {activeTab === 'joined' && (
         joinedCommunities.length === 0 ? (
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center">
-            <Users className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
+            <Users className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" strokeWidth={1.5} />
             <h2 className="text-xl font-bold text-white mb-2">No communities joined yet</h2>
             <p className="text-[#9ca3af] mb-6">Join communities to discuss movies with like-minded fans.</p>
             <button onClick={() => setActiveTab('discover')} className="text-[#d4a853] hover:underline text-sm">Discover Communities</button>
@@ -141,7 +141,7 @@ export default function DashboardCommunitiesPage() {
                     <span className="text-xs text-[#d4a853] bg-[#d4a853]/10 px-2 py-0.5 rounded-full ml-2">{community.type}</span>
                   </div>
                   <Button size="sm" onClick={() => toggleJoin(community.id)} variant="outline" className="border-[#d4a853]/30 text-[#d4a853] hover:bg-[#d4a853]/10 text-xs gap-1 min-h-[44px]">
-                    <LogOut className="w-3 h-3" />Leave
+                    <LogOut className="w-3 h-3" strokeWidth={1.5} />Leave
                   </Button>
                 </div>
                 <p className="text-sm text-[#9ca3af] mb-3">{community.description}</p>
@@ -164,7 +164,7 @@ export default function DashboardCommunitiesPage() {
             </div>
           ) : (
             <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center">
-              <Trophy className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
+              <Trophy className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" strokeWidth={1.5} />
               <h2 className="text-xl font-bold text-white mb-2">No Badges Yet</h2>
               <p className="text-[#9ca3af]">Join communities and start contributing to earn achievements!</p>
             </div>
@@ -178,7 +178,7 @@ export default function DashboardCommunitiesPage() {
             <LeaderboardWidget communityId={joinedIds[0]} communityName={ALL_COMMUNITIES.find(c => c.id === joinedIds[0])?.name || ''} />
           ) : (
             <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center">
-              <Star className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
+              <Star className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" strokeWidth={1.5} />
               <h2 className="text-xl font-bold text-white mb-2">Join a Community First</h2>
               <p className="text-[#9ca3af]">Leaderboards appear once you join communities.</p>
             </div>

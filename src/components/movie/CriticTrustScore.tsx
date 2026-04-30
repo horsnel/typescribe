@@ -1,5 +1,5 @@
 'use client';
-import { Star, Zap, TrendingUp } from 'lucide-react';
+import { Star, Zap, TrendingUp, Clapperboard, Cherry, BarChart3, Film } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 interface CriticTrustScoreProps {
@@ -15,7 +15,7 @@ function seededRandom(seed: number): number {
 }
 
 export default function CriticTrustScore({ movieId, movieTitle, userReviewCount = 0 }: CriticTrustScoreProps) {
-  const [alignmentScores, setAlignmentScores] = useState<{ source: string; score: number; icon: string }[]>([]);
+  const [alignmentScores, setAlignmentScores] = useState<{ source: string; score: number; Icon: React.ComponentType<{ className?: string; strokeWidth?: number; color?: string }>; color: string }[]>([]);
 
   useEffect(() => {
     // Only show after user has rated 10+ movies
@@ -23,16 +23,17 @@ export default function CriticTrustScore({ movieId, movieTitle, userReviewCount 
 
     // Generate deterministic alignment scores
     const sources = [
-      { source: 'IMDb', seed: movieId * 7 + 1, icon: '🎬' },
-      { source: 'Rotten Tomatoes', seed: movieId * 13 + 2, icon: '🍅' },
-      { source: 'Metacritic', seed: movieId * 19 + 3, icon: '📊' },
-      { source: 'Letterboxd', seed: movieId * 23 + 4, icon: '🎞️' },
+      { source: 'IMDb', seed: movieId * 7 + 1, Icon: Clapperboard, color: '#f5c518' },
+      { source: 'Rotten Tomatoes', seed: movieId * 13 + 2, Icon: Cherry, color: '#fa320a' },
+      { source: 'Metacritic', seed: movieId * 19 + 3, Icon: BarChart3, color: '#00ce68' },
+      { source: 'Letterboxd', seed: movieId * 23 + 4, Icon: Film, color: '#00d035' },
     ];
 
     const scores = sources.map(s => ({
       source: s.source,
       score: Math.round(55 + seededRandom(s.seed) * 40), // 55-95%
-      icon: s.icon,
+      Icon: s.Icon,
+      color: s.color,
     }));
 
     setAlignmentScores(scores);
@@ -42,7 +43,7 @@ export default function CriticTrustScore({ movieId, movieTitle, userReviewCount 
     return (
       <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4">
         <div className="flex items-center gap-2 mb-2">
-          <Star className="w-4 h-4 text-purple-400" />
+          <Star className="w-4 h-4 text-purple-400" strokeWidth={1.5} />
           <h4 className="text-sm font-semibold text-white">Critics Like You</h4>
           <span className="text-[10px] bg-purple-500/20 text-purple-400 px-1.5 py-0.5 rounded-full">10+ REVIEWS NEEDED</span>
         </div>
@@ -56,7 +57,7 @@ export default function CriticTrustScore({ movieId, movieTitle, userReviewCount 
   return (
     <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4">
       <div className="flex items-center gap-2 mb-3">
-        <Star className="w-4 h-4 text-purple-400" />
+        <Star className="w-4 h-4 text-purple-400" strokeWidth={1.5} />
         <h4 className="text-sm font-semibold text-white">Critics Like You</h4>
         <span className="text-[10px] bg-purple-500/20 text-purple-400 px-1.5 py-0.5 rounded-full">AI POWERED</span>
       </div>
@@ -64,7 +65,7 @@ export default function CriticTrustScore({ movieId, movieTitle, userReviewCount 
       <div className="grid grid-cols-2 gap-2">
         {alignmentScores.map(score => (
           <div key={score.source} className="flex items-center gap-2 bg-[#050507] border border-[#1e1e28] rounded-lg p-2.5">
-            <span className="text-base">{score.icon}</span>
+            <score.Icon className="w-5 h-5 flex-shrink-0" strokeWidth={1.5} color={score.color} />
             <div className="flex-1 min-w-0">
               <p className="text-[10px] text-[#6b7280] truncate">{score.source}</p>
               <div className="flex items-center gap-1.5">
@@ -83,7 +84,7 @@ export default function CriticTrustScore({ movieId, movieTitle, userReviewCount 
         ))}
       </div>
       <div className="mt-3 pt-2 border-t border-[#1e1e28] flex items-center gap-2">
-        <Zap className="w-3 h-3 text-purple-400" />
+        <Zap className="w-3 h-3 text-purple-400" strokeWidth={1.5} />
         <p className="text-[10px] text-[#6b7280]">
           You align most with <span className="text-purple-400 font-medium">{topSource.source}</span> critics ({topSource.score}% match)
         </p>

@@ -64,7 +64,7 @@ export default function LoginPage() {
         {/* Logo */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2 mb-6">
-            <Film className="w-8 h-8 text-[#d4a853]" />
+            <Film className="w-8 h-8 text-[#d4a853]" strokeWidth={1.5} />
             <span className="text-2xl font-extrabold text-white">Typescribe</span>
           </Link>
           <h1 className="text-2xl font-bold text-white mb-2">Welcome back</h1>
@@ -75,7 +75,7 @@ export default function LoginPage() {
           /* Forgot Password Form */
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6 space-y-4">
             <div className="flex items-center gap-3 mb-2">
-              <KeyRound className="w-5 h-5 text-[#d4a853]" />
+              <KeyRound className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
               <h2 className="text-lg font-semibold text-white">Reset Password</h2>
             </div>
             {forgotSent ? (
@@ -105,10 +105,10 @@ export default function LoginPage() {
             {/* Social Login */}
             <div className="space-y-3 mb-6">
               <button className="w-full flex items-center justify-center gap-3 bg-white text-black font-medium py-2.5 rounded-lg hover:bg-gray-100 transition-colors">
-                <Chrome className="w-5 h-5" /> Continue with Google
+                <Chrome className="w-5 h-5" strokeWidth={1.5} /> Continue with Google
               </button>
               <button className="w-full flex items-center justify-center gap-3 bg-[#24292e] text-white font-medium py-2.5 rounded-lg hover:bg-[#2f363d] transition-colors">
-                <Github className="w-5 h-5" /> Continue with GitHub
+                <Github className="w-5 h-5" strokeWidth={1.5} /> Continue with GitHub
               </button>
             </div>
 
@@ -122,7 +122,7 @@ export default function LoginPage() {
             <form onSubmit={handleSubmit} className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6 space-y-4">
               {error && (
                 <div className="flex items-center gap-2 bg-red-500/10 border border-red-500/20 rounded-lg p-3">
-                  <AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0" />
+                  <AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0" strokeWidth={1.5} />
                   <p className="text-sm text-red-400">{error}</p>
                 </div>
               )}
@@ -151,7 +151,7 @@ export default function LoginPage() {
                     placeholder="Your password"
                   />
                   <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6b7280] hover:text-white">
-                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    {showPassword ? <EyeOff className="w-4 h-4" strokeWidth={1.5} /> : <Eye className="w-4 h-4" strokeWidth={1.5} />}
                   </button>
                 </div>
               </div>
@@ -167,7 +167,7 @@ export default function LoginPage() {
               </div>
 
               <Button type="submit" disabled={loading} className="w-full bg-[#d4a853] hover:bg-[#b8922e] text-white font-medium">
-                {loading ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : 'Sign In'}
+                {loading ? <Loader2 className="w-5 h-5 animate-spin mx-auto" strokeWidth={1.5} /> : 'Sign In'}
               </Button>
 
               <p className="text-center text-sm text-[#6b7280]">

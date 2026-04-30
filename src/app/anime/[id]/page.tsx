@@ -124,7 +124,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
     return (
       <div className="min-h-screen bg-[#050507] flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-8 h-8 animate-spin text-[#d4a853] mx-auto mb-4" />
+          <Loader2 className="w-8 h-8 animate-spin text-[#d4a853] mx-auto mb-4" strokeWidth={1.5} />
           <p className="text-[#9ca3af]">Loading anime data…</p>
         </div>
       </div>
@@ -146,7 +146,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
             href="/"
             className="inline-flex items-center gap-2 bg-[#d4a853] hover:bg-[#b8922e] text-white px-6 py-3 rounded-lg font-medium transition-colors"
           >
-            <ChevronRight className="w-4 h-4" /> Back to Home
+            <ChevronRight className="w-4 h-4" strokeWidth={1.5} /> Back to Home
           </Link>
         </div>
       </div>
@@ -238,7 +238,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                 {/* Score Badge */}
                 {anime.score !== null && (
                   <span className="inline-flex items-center gap-1.5 text-sm font-semibold bg-[#d4a853]/15 text-[#d4a853] px-3 py-1 rounded-full border border-[#d4a853]/25">
-                    <Star className="w-3.5 h-3.5 fill-[#d4a853]" />
+                    <Star className="w-3.5 h-3.5 fill-[#d4a853]" strokeWidth={1.5} />
                     {anime.score.toFixed(1)}
                   </span>
                 )}
@@ -246,7 +246,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                 {/* Episodes */}
                 {anime.episodes !== null && (
                   <span className="text-sm text-[#9ca3af] flex items-center gap-1">
-                    <Film className="w-3.5 h-3.5" />
+                    <Film className="w-3.5 h-3.5" strokeWidth={1.5} />
                     {anime.episodes} Episode{anime.episodes !== 1 ? 's' : ''}
                   </span>
                 )}
@@ -270,7 +270,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
 
                 {/* Season/Year */}
                 <span className="text-sm text-[#9ca3af] flex items-center gap-1">
-                  <Calendar className="w-3.5 h-3.5" />
+                  <Calendar className="w-3.5 h-3.5" strokeWidth={1.5} />
                   {seasonYear}
                 </span>
               </div>
@@ -279,7 +279,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
               <div className="hero-animate flex items-center gap-2 mb-4 flex-wrap">
                 {anime.studios.length > 0 && (
                   <span className="text-sm text-[#9ca3af] flex items-center gap-1">
-                    <Tv className="w-3.5 h-3.5" />
+                    <Tv className="w-3.5 h-3.5" strokeWidth={1.5} />
                     {anime.studios.join(', ')}
                   </span>
                 )}
@@ -323,7 +323,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium bg-[#d4a853] hover:bg-[#b8922e] text-white transition-colors"
                   >
-                    <Play className="w-4 h-4 fill-white" /> Watch Trailer
+                    <Play className="w-4 h-4 fill-white" strokeWidth={1.5} /> Watch Trailer
                   </a>
                 )}
 
@@ -331,7 +331,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                   onClick={handleShare}
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium bg-[#111118] border border-[#1e1e28] text-white hover:bg-[#2a2a35] transition-colors"
                 >
-                  <Share2 className="w-4 h-4" /> Share
+                  <Share2 className="w-4 h-4" strokeWidth={1.5} /> Share
                 </button>
 
                 <a
@@ -340,7 +340,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium bg-[#111118] border border-[#1e1e28] text-white hover:bg-[#2a2a35] transition-colors"
                 >
-                  <ExternalLink className="w-4 h-4" /> MAL Page
+                  <ExternalLink className="w-4 h-4" strokeWidth={1.5} /> MAL Page
                 </a>
               </div>
             </div>
@@ -356,7 +356,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
             {/* Synopsis */}
             <section className="content-animate">
               <div className="flex items-center gap-2 mb-4">
-                <Sparkles className="w-5 h-5 text-[#d4a853]" />
+                <Sparkles className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
                 <h2 className="text-xl font-bold text-white">Synopsis</h2>
               </div>
               <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
@@ -371,7 +371,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                         {synopsisExpanded ? 'Show Less' : 'Read More'}
                         <ChevronDown
                           className={`w-4 h-4 transition-transform ${synopsisExpanded ? 'rotate-180' : ''}`}
-                        />
+                        strokeWidth={1.5} />
                       </button>
                     )}
                   </>
@@ -394,13 +394,13 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
             {/* Characters */}
             <section className="content-animate">
               <div className="flex items-center gap-2 mb-4">
-                <Users className="w-5 h-5 text-[#d4a853]" />
+                <Users className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
                 <h2 className="text-xl font-bold text-white">Characters & Voice Actors</h2>
               </div>
 
               {characters.length === 0 ? (
                 <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-8 text-center">
-                  <Users className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" />
+                  <Users className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" strokeWidth={1.5} />
                   <p className="text-[#9ca3af]">No character data available</p>
                 </div>
               ) : (
@@ -451,7 +451,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
             {recommendations.length > 0 && (
               <section className="content-animate">
                 <div className="flex items-center gap-2 mb-4">
-                  <Heart className="w-5 h-5 text-[#d4a853]" />
+                  <Heart className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
                   <h2 className="text-xl font-bold text-white">Recommendations</h2>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
@@ -471,7 +471,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                           />
                         ) : (
                           <div className="w-full h-full bg-[#111118] flex items-center justify-center">
-                            <Film className="w-8 h-8 text-[#2a2a35]" />
+                            <Film className="w-8 h-8 text-[#2a2a35]" strokeWidth={1.5} />
                           </div>
                         )}
                         <div className="absolute inset-0 bg-gradient-to-t from-[#12121a] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -498,47 +498,47 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
             {/* Anime Details Card */}
             <div className="content-animate bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
               <h3 className="text-lg font-bold text-white mb-5 flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-[#d4a853]" />
+                <Sparkles className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
                 Anime Details
               </h3>
 
               <div className="space-y-4">
                 {/* Episodes */}
                 {anime.episodes !== null && (
-                  <DetailRow icon={<Film className="w-4 h-4" />} label="Episodes" value={String(anime.episodes)} />
+                  <DetailRow icon={<Film className="w-4 h-4" strokeWidth={1.5} />} label="Episodes" value={String(anime.episodes)} />
                 )}
 
                 {/* Duration */}
                 {anime.duration && (
-                  <DetailRow icon={<Clock className="w-4 h-4" />} label="Duration" value={anime.duration} />
+                  <DetailRow icon={<Clock className="w-4 h-4" strokeWidth={1.5} />} label="Duration" value={anime.duration} />
                 )}
 
                 {/* Status */}
                 <DetailRow
-                  icon={<Tv className="w-4 h-4" />}
+                  icon={<Tv className="w-4 h-4" strokeWidth={1.5} />}
                   label="Status"
                   value={capitalizeFirst(anime.status)}
                 />
 
                 {/* Source */}
                 {anime.source && (
-                  <DetailRow icon={<Globe className="w-4 h-4" />} label="Source" value={anime.source} />
+                  <DetailRow icon={<Globe className="w-4 h-4" strokeWidth={1.5} />} label="Source" value={anime.source} />
                 )}
 
                 {/* Rating */}
                 {anime.rating && (
-                  <DetailRow icon={<Star className="w-4 h-4" />} label="Rating" value={anime.rating} />
+                  <DetailRow icon={<Star className="w-4 h-4" strokeWidth={1.5} />} label="Rating" value={anime.rating} />
                 )}
 
                 {/* Broadcast */}
                 {anime.broadcast && (
-                  <DetailRow icon={<Calendar className="w-4 h-4" />} label="Broadcast" value={anime.broadcast} />
+                  <DetailRow icon={<Calendar className="w-4 h-4" strokeWidth={1.5} />} label="Broadcast" value={anime.broadcast} />
                 )}
 
                 {/* Season */}
                 {anime.season && (
                   <DetailRow
-                    icon={<Calendar className="w-4 h-4" />}
+                    icon={<Calendar className="w-4 h-4" strokeWidth={1.5} />}
                     label="Season"
                     value={`${capitalizeFirst(anime.season)} ${anime.year ?? ''}`}
                   />
@@ -548,27 +548,27 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
 
                 {/* Rank */}
                 {anime.rank !== null && (
-                  <DetailRow icon={<ChevronRight className="w-4 h-4" />} label="Rank" value={formatNumber(anime.rank)} />
+                  <DetailRow icon={<ChevronRight className="w-4 h-4" strokeWidth={1.5} />} label="Rank" value={formatNumber(anime.rank)} />
                 )}
 
                 {/* Popularity */}
                 {anime.popularity !== null && (
-                  <DetailRow icon={<Users className="w-4 h-4" />} label="Popularity" value={formatNumber(anime.popularity)} />
+                  <DetailRow icon={<Users className="w-4 h-4" strokeWidth={1.5} />} label="Popularity" value={formatNumber(anime.popularity)} />
                 )}
 
                 {/* Members */}
                 {anime.members !== null && (
-                  <DetailRow icon={<Users className="w-4 h-4" />} label="Members" value={formatNumber(anime.members)} />
+                  <DetailRow icon={<Users className="w-4 h-4" strokeWidth={1.5} />} label="Members" value={formatNumber(anime.members)} />
                 )}
 
                 {/* Favorites */}
                 {anime.favorites !== null && (
-                  <DetailRow icon={<Heart className="w-4 h-4" />} label="Favorites" value={formatNumber(anime.favorites)} />
+                  <DetailRow icon={<Heart className="w-4 h-4" strokeWidth={1.5} />} label="Favorites" value={formatNumber(anime.favorites)} />
                 )}
 
                 {/* Scored By */}
                 {anime.scoredBy !== null && (
-                  <DetailRow icon={<Star className="w-4 h-4" />} label="Scored By" value={formatNumber(anime.scoredBy)} />
+                  <DetailRow icon={<Star className="w-4 h-4" strokeWidth={1.5} />} label="Scored By" value={formatNumber(anime.scoredBy)} />
                 )}
               </div>
             </div>
@@ -576,7 +576,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
             {/* External Links Card */}
             <div className="content-animate bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
               <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                <ExternalLink className="w-5 h-5 text-[#d4a853]" />
+                <ExternalLink className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
                 External Links
               </h3>
               <div className="space-y-2">
@@ -586,9 +586,9 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-sm text-[#9ca3af] hover:text-white transition-colors py-2 px-3 rounded-lg hover:bg-[#111118]"
                 >
-                  <Globe className="w-4 h-4 text-[#d4a853]" />
+                  <Globe className="w-4 h-4 text-[#d4a853]" strokeWidth={1.5} />
                   MyAnimeList Page
-                  <ExternalLink className="w-3 h-3 ml-auto text-[#6b7280]" />
+                  <ExternalLink className="w-3 h-3 ml-auto text-[#6b7280]" strokeWidth={1.5} />
                 </a>
                 {anime.trailerYoutubeId && (
                   <a
@@ -597,9 +597,9 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 text-sm text-[#9ca3af] hover:text-white transition-colors py-2 px-3 rounded-lg hover:bg-[#111118]"
                   >
-                    <Play className="w-4 h-4 text-[#d4a853]" />
+                    <Play className="w-4 h-4 text-[#d4a853]" strokeWidth={1.5} />
                     YouTube Trailer
-                    <ExternalLink className="w-3 h-3 ml-auto text-[#6b7280]" />
+                    <ExternalLink className="w-3 h-3 ml-auto text-[#6b7280]" strokeWidth={1.5} />
                   </a>
                 )}
               </div>
@@ -609,7 +609,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
             {(anime.studios.length > 0 || anime.producers.length > 0) && (
               <div className="content-animate bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
                 <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                  <Tv className="w-5 h-5 text-[#d4a853]" />
+                  <Tv className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
                   Studios & Producers
                 </h3>
                 <div className="space-y-3">
@@ -684,7 +684,7 @@ function CharacterCard({ character }: { character: JikanCharacterResult }) {
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
-            <Users className="w-5 h-5 text-[#2a2a35]" />
+            <Users className="w-5 h-5 text-[#2a2a35]" strokeWidth={1.5} />
           </div>
         )}
       </div>

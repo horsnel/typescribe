@@ -280,7 +280,7 @@ export default function BrowsePage() {
           </div>
           <div className="flex items-center gap-3">
             <div className="relative flex-1 sm:flex-none min-w-0">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6b7280]" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6b7280]" strokeWidth={1.5} />
               <input
                 type="text"
                 value={query}
@@ -290,7 +290,7 @@ export default function BrowsePage() {
               />
               {query && (
                 <button onClick={() => setQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6b7280] hover:text-white">
-                  <X className="w-4 h-4" />
+                  <X className="w-4 h-4" strokeWidth={1.5} />
                 </button>
               )}
             </div>
@@ -299,15 +299,15 @@ export default function BrowsePage() {
               onClick={() => setAdvancedOpen(!advancedOpen)}
               className={`border-[#1e1e28] bg-transparent text-white hover:bg-[#111118] hover:text-white gap-2 ${advancedOpen ? 'border-[#d4a853]' : ''}`}
             >
-              <SlidersHorizontal className="w-4 h-4" />
+              <SlidersHorizontal className="w-4 h-4" strokeWidth={1.5} />
               <span className="hidden sm:inline">More</span>
             </Button>
             <div className="hidden sm:flex items-center border border-[#1e1e28] rounded-lg overflow-hidden">
               <button onClick={() => setView('grid')} className={`p-2 ${view === 'grid' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white'}`}>
-                <Grid3X3 className="w-4 h-4" />
+                <Grid3X3 className="w-4 h-4" strokeWidth={1.5} />
               </button>
               <button onClick={() => setView('list')} className={`p-2 ${view === 'list' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white'}`}>
-                <List className="w-4 h-4" />
+                <List className="w-4 h-4" strokeWidth={1.5} />
               </button>
             </div>
           </div>
@@ -328,7 +328,7 @@ export default function BrowsePage() {
                   filters.format === 'all' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white hover:bg-[#111118]'
                 }`}
               >
-                <Sparkles className="w-4 h-4" /> All
+                <Sparkles className="w-4 h-4" strokeWidth={1.5} /> All
               </button>
               <button
                 onClick={() => updateFilter('format', 'movie')}
@@ -336,7 +336,7 @@ export default function BrowsePage() {
                   filters.format === 'movie' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white hover:bg-[#111118]'
                 }`}
               >
-                <Film className="w-4 h-4" /> Movies
+                <Film className="w-4 h-4" strokeWidth={1.5} /> Movies
               </button>
               <button
                 onClick={() => updateFilter('format', 'tv')}
@@ -344,7 +344,7 @@ export default function BrowsePage() {
                   filters.format === 'tv' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white hover:bg-[#111118]'
                 }`}
               >
-                <Tv className="w-4 h-4" /> Series
+                <Tv className="w-4 h-4" strokeWidth={1.5} /> Series
               </button>
               <button
                 onClick={() => updateFilter('format', 'anime')}
@@ -352,7 +352,7 @@ export default function BrowsePage() {
                   filters.format === 'anime' ? 'bg-[#d4a853] text-white' : 'text-[#6b7280] hover:text-white hover:bg-[#111118]'
                 }`}
               >
-                <Wand2 className="w-4 h-4" /> Anime
+                <Wand2 className="w-4 h-4" strokeWidth={1.5} /> Anime
               </button>
             </div>
           </div>
@@ -379,7 +379,7 @@ export default function BrowsePage() {
                   onClick={() => setAdvancedOpen(true)}
                   className="px-3 py-1.5 rounded-full text-xs font-medium text-[#6b7280] hover:text-white bg-[#0c0c10] border border-[#1e1e28] hover:border-[#3a3a45] flex items-center gap-1 transition-colors"
                 >
-                  More <ChevronDown className="w-3 h-3" />
+                  More <ChevronDown className="w-3 h-3" strokeWidth={1.5} />
                 </button>
               </div>
             </div>
@@ -406,7 +406,7 @@ export default function BrowsePage() {
                   className="p-2 text-[#6b7280] hover:text-white transition-colors rounded-lg hover:bg-[#111118]"
                   aria-label="Close panel"
                 >
-                  <X className="w-5 h-5" />
+                  <X className="w-5 h-5" strokeWidth={1.5} />
                 </button>
               </div>
 
@@ -425,7 +425,7 @@ export default function BrowsePage() {
                           : 'bg-[#050507] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
                       }`}
                     >
-                      <Globe className="w-3.5 h-3.5" /> All Countries
+                      <Globe className="w-3.5 h-3.5" strokeWidth={1.5} /> All Countries
                     </button>
                     {displayedCountries.map((country) => (
                       <button
@@ -446,7 +446,7 @@ export default function BrowsePage() {
                         onClick={() => setCountryExpanded(!countryExpanded)}
                         className="px-3 py-1.5 rounded-full text-xs font-medium text-[#6b7280] hover:text-white bg-[#050507] border border-[#1e1e28] hover:border-[#3a3a45] flex items-center gap-1 transition-colors"
                       >
-                        {countryExpanded ? 'Less' : 'More'} <ChevronDown className={`w-3 h-3 transition-transform ${countryExpanded ? 'rotate-180' : ''}`} />
+                        {countryExpanded ? 'Less' : 'More'} <ChevronDown className={`w-3 h-3 transition-transform ${countryExpanded ? 'rotate-180' : ''}`} strokeWidth={1.5} />
                       </button>
                     )}
                   </div>
@@ -474,7 +474,7 @@ export default function BrowsePage() {
                         onClick={() => setGenreExpanded(!genreExpanded)}
                         className="px-3 py-1.5 rounded-full text-xs font-medium text-[#6b7280] hover:text-white bg-[#050507] border border-[#1e1e28] hover:border-[#3a3a45] flex items-center gap-1 transition-colors"
                       >
-                        {genreExpanded ? 'Less' : 'More'} <ChevronDown className={`w-3 h-3 transition-transform ${genreExpanded ? 'rotate-180' : ''}`} />
+                        {genreExpanded ? 'Less' : 'More'} <ChevronDown className={`w-3 h-3 transition-transform ${genreExpanded ? 'rotate-180' : ''}`} strokeWidth={1.5} />
                       </button>
                     )}
                   </div>
@@ -513,7 +513,7 @@ export default function BrowsePage() {
                         onClick={() => setThemeExpanded(!themeExpanded)}
                         className="px-3 py-1.5 rounded-full text-xs font-medium text-[#6b7280] hover:text-white bg-[#050507] border border-[#1e1e28] hover:border-[#3a3a45] flex items-center gap-1 transition-colors"
                       >
-                        {themeExpanded ? 'Less' : 'More'} <ChevronDown className={`w-3 h-3 transition-transform ${themeExpanded ? 'rotate-180' : ''}`} />
+                        {themeExpanded ? 'Less' : 'More'} <ChevronDown className={`w-3 h-3 transition-transform ${themeExpanded ? 'rotate-180' : ''}`} strokeWidth={1.5} />
                       </button>
                     )}
                   </div>
@@ -604,7 +604,7 @@ export default function BrowsePage() {
                 className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-[#d4a853]/10 text-[#d4a853] border border-[#d4a853]/20 hover:bg-[#d4a853]/20 transition-colors"
               >
                 {tag.label}
-                <X className="w-3 h-3" />
+                <X className="w-3 h-3" strokeWidth={1.5} />
               </button>
             ))}
             <button onClick={clearAll} className="text-xs text-[#6b7280] hover:text-white underline">
@@ -617,14 +617,14 @@ export default function BrowsePage() {
         <div className="mb-6 flex items-center gap-2 bg-[#0c0c10] border border-[#1e1e28] rounded-lg px-4 py-2.5">
           {fromAPI ? (
             <>
-              <Sparkles className="w-4 h-4 text-emerald-400" />
+              <Sparkles className="w-4 h-4 text-emerald-400" strokeWidth={1.5} />
               <p className="text-xs text-[#9ca3af]">
                 {totalResults.toLocaleString()} titles available
               </p>
             </>
           ) : (
             <>
-              <Sparkles className="w-4 h-4 text-[#d4a853]" />
+              <Sparkles className="w-4 h-4 text-[#d4a853]" strokeWidth={1.5} />
               <p className="text-xs text-[#6b7280]">
                 Curated collection · Connect your API keys for real-time data across all genres and regions
               </p>
@@ -635,7 +635,7 @@ export default function BrowsePage() {
         {/* ─── Loading State ─── */}
         {isLoading && (
           <div className="flex items-center justify-center py-12">
-            <Loader2 className="w-8 h-8 text-[#d4a853] animate-spin" />
+            <Loader2 className="w-8 h-8 text-[#d4a853] animate-spin" strokeWidth={1.5} />
             <span className="ml-3 text-[#6b7280]">Loading...</span>
           </div>
         )}
@@ -666,7 +666,7 @@ export default function BrowsePage() {
                       {movie.title}
                     </h3>
                     <div className="flex items-center gap-2 mt-1">
-                      <span className="text-xs text-[#f5c518] font-medium flex items-center gap-0.5"><Star className="w-3 h-3 fill-[#f5c518]" /> {movie.vote_average.toFixed(1)}</span>
+                      <span className="text-xs text-[#f5c518] font-medium flex items-center gap-0.5"><Star className="w-3 h-3 fill-[#f5c518]" strokeWidth={1.5} /> {movie.vote_average.toFixed(1)}</span>
                       <span className="text-xs text-[#6b7280]">{movie.release_date.split('-')[0]}</span>
                       <span className="text-xs text-[#6b7280]">{movie.runtime}m</span>
                     </div>
@@ -691,7 +691,7 @@ export default function BrowsePage() {
           )
         ) : !isLoading ? (
           <div className="text-center py-24">
-            <Film className="w-16 h-16 text-[#2a2a35] mx-auto mb-4" />
+            <Film className="w-16 h-16 text-[#2a2a35] mx-auto mb-4" strokeWidth={1.5} />
             <p className="text-lg text-[#9ca3af] mb-2">No titles match your filters</p>
             <p className="text-sm text-[#6b7280] mb-4">Try adjusting your country, genre, or format selection.</p>
             <button onClick={clearAll} className="text-[#d4a853] hover:underline font-medium">Clear all filters</button>
@@ -703,7 +703,7 @@ export default function BrowsePage() {
           <div className="mt-10 bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
             <div className="flex items-start gap-3">
               <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center flex-shrink-0">
-                <Globe className="w-5 h-5 text-purple-400" />
+                <Globe className="w-5 h-5 text-purple-400" strokeWidth={1.5} />
               </div>
               <div>
                 <h3 className="text-white font-semibold mb-1">

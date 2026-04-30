@@ -35,7 +35,7 @@ export default function TopRatedSection() {
         </div>
         {loading ? (
           <div className="flex items-center justify-center py-12">
-            <Loader2 className="w-6 h-6 text-[#d4a853] animate-spin" />
+            <Loader2 className="w-6 h-6 text-[#d4a853] animate-spin" strokeWidth={1.5} />
           </div>
         ) : (
           <div className="card-grid grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -51,7 +51,7 @@ export default function TopRatedSection() {
                   <div className="p-5">
                     <h3 className="text-lg font-bold text-white mb-1 group-hover:text-[#d4a853] transition-colors">{movie.title}</h3>
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="flex items-center gap-1"><Star className="w-4 h-4 text-[#f5c518] fill-[#f5c518]" /><span className="text-sm font-semibold text-[#f5c518]">{movie.vote_average.toFixed(1)}</span></div>
+                      <div className="flex items-center gap-1"><Star className="w-4 h-4 text-[#f5c518] fill-[#f5c518]" strokeWidth={1.5} /><span className="text-sm font-semibold text-[#f5c518]">{movie.vote_average.toFixed(1)}</span></div>
                       {movie.imdb_rating && <span className="text-xs text-[#6b7280]">IMDb {movie.imdb_rating}</span>}
                       {movie.rotten_tomatoes && <span className="text-xs text-[#6b7280]">RT {movie.rotten_tomatoes}</span>}
                     </div>

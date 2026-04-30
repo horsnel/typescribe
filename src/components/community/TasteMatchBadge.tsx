@@ -40,10 +40,10 @@ export default function TasteMatchBadge({ userGenres, communityId, communityName
   };
 
   const getIcon = (score: number) => {
-    if (score >= 85) return <Heart className="w-4 h-4 text-green-400" fill="currentColor" />;
-    if (score >= 70) return <Zap className="w-4 h-4 text-emerald-400" />;
-    if (score >= 50) return <Target className="w-4 h-4 text-yellow-400" />;
-    return <ArrowRight className="w-4 h-4 text-orange-400" />;
+    if (score >= 85) return <Heart className="w-4 h-4 text-green-400" fill="currentColor" strokeWidth={1.5} />;
+    if (score >= 70) return <Zap className="w-4 h-4 text-emerald-400" strokeWidth={1.5} />;
+    if (score >= 50) return <Target className="w-4 h-4 text-yellow-400" strokeWidth={1.5} />;
+    return <ArrowRight className="w-4 h-4 text-orange-400" strokeWidth={1.5} />;
   };
 
   if (compact) {

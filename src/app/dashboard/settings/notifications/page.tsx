@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/lib/auth';
 import { Bell, Mail, Star, Users, Sparkles, Megaphone, Save, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
 
 const NOTIFICATION_TYPES = [
   { key: 'weekly_recos', label: 'Weekly movie recommendations email', icon: Mail, default: true },
@@ -65,14 +66,14 @@ export default function DashboardSettingsNotificationsPage() {
       <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
         <h1 className="text-2xl font-bold text-white">Notification Preferences</h1>
         <Button onClick={handleSave} className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2">
-          <Save className="w-4 h-4" />
+          <Save className="w-4 h-4" strokeWidth={1.5} />
           {saved ? 'Saved!' : 'Save Preferences'}
         </Button>
       </div>
 
       {saved && (
         <div className="mb-6 bg-green-500/10 border border-green-500/20 rounded-lg p-3 flex items-center gap-2">
-          <Check className="w-4 h-4 text-green-400" />
+          <Check className="w-4 h-4 text-green-400" strokeWidth={1.5} />
           <span className="text-sm text-green-400">Notification preferences saved successfully!</span>
         </div>
       )}
@@ -90,13 +91,12 @@ export default function DashboardSettingsNotificationsPage() {
                   </div>
                   <span className={`text-sm transition-colors ${isEnabled ? 'text-white' : 'text-[#9ca3af]'}`}>{notif.label}</span>
                 </div>
-                <button
-                  onClick={() => togglePref(notif.key)}
-                  className={`w-11 h-6 rounded-full relative transition-colors flex-shrink-0 ${isEnabled ? 'bg-[#d4a853]' : 'bg-[#2a2a35]'}`}
+                <Switch
+                  checked={isEnabled}
+                  onCheckedChange={() => togglePref(notif.key)}
+                  className={`data-[state=checked]:bg-[#d4a853] data-[state=unchecked]:bg-[#2a2a35] ${isEnabled ? '' : 'opacity-70'}`}
                   aria-label={`Toggle ${notif.label}`}
-                >
-                  <div className="w-5 h-5 bg-white rounded-full absolute top-0.5 transition-all" style={{ left: isEnabled ? '22px' : '2px' }} />
-                </button>
+                />
               </div>
             );
           })}

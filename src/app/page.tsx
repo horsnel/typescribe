@@ -6,6 +6,7 @@ import LocalPicksSection from '@/sections/LocalPicksSection';
 import CountryPicksSection from '@/sections/CountryPicksSection';
 import TrendingCarousel from '@/sections/TrendingCarousel';
 import MoodBrowsingSection from '@/sections/MoodBrowsingSection';
+import UpcomingMoviesSection from '@/sections/UpcomingMoviesSection';
 import CategoriesGrid from '@/sections/CategoriesGrid';
 import TrendingAnimeSection from '@/sections/TrendingAnimeSection';
 import LatestReviews from '@/sections/LatestReviews';
@@ -56,18 +57,18 @@ export default function HomePage() {
         <section className="py-6 bg-gradient-to-r from-[#d4a853]/5 via-[#0a0a0f] to-purple-500/5 border-b border-[#1e1e28]">
           <div className="max-w-7xl mx-auto px-6 lg:px-12">
             <div className="flex items-center gap-3">
-              <Sparkles className="w-5 h-5 text-[#d4a853]" />
+              <Sparkles className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
               <h2 className="text-lg font-semibold text-white">Welcome back, {userName}!</h2>
             </div>
             <div className="flex flex-wrap gap-3 mt-3">
               <Link href="/dashboard/watchlist" className="flex items-center gap-2 px-3 py-2 bg-[#0c0c10] border border-[#1e1e28] rounded-lg text-sm text-[#9ca3af] hover:text-white hover:border-[#3a3a45] transition-colors">
-                <Clock className="w-4 h-4 text-[#d4a853]" /> Continue Watching
+                <Clock className="w-4 h-4 text-[#d4a853]" strokeWidth={1.5} /> Continue Watching
               </Link>
               <Link href="/dashboard/communities" className="flex items-center gap-2 px-3 py-2 bg-[#0c0c10] border border-[#1e1e28] rounded-lg text-sm text-[#9ca3af] hover:text-white hover:border-[#3a3a45] transition-colors">
-                <Users className="w-4 h-4 text-purple-400" /> Your Communities
+                <Users className="w-4 h-4 text-purple-400" strokeWidth={1.5} /> Your Communities
               </Link>
               <Link href="/browse" className="flex items-center gap-2 px-3 py-2 bg-[#0c0c10] border border-[#1e1e28] rounded-lg text-sm text-[#9ca3af] hover:text-white hover:border-[#3a3a45] transition-colors">
-                <Film className="w-4 h-4 text-amber-400" /> Discover New
+                <Film className="w-4 h-4 text-amber-400" strokeWidth={1.5} /> Discover New
               </Link>
             </div>
           </div>
@@ -77,6 +78,7 @@ export default function HomePage() {
       <LocalPicksSection />
       <CountryPicksSection />
       <TrendingCarousel />
+      <UpcomingMoviesSection />
       <MoodBrowsingSection />
       <CategoriesGrid />
       <TrendingAnimeSection />

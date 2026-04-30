@@ -97,7 +97,7 @@ export default function AboutPage() {
               {timeline.map(({ year, title, desc }) => (
                 <div key={year} className="relative pl-12">
                   <div className="absolute left-0 top-1 w-8 h-8 rounded-full bg-[#d4a853] flex items-center justify-center">
-                    <Award className="w-4 h-4 text-white" />
+                    <Award className="w-4 h-4 text-white" strokeWidth={1.5} />
                   </div>
                   <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5">
                     <span className="text-xs font-semibold text-[#d4a853] uppercase tracking-wider">{year}</span>
@@ -129,7 +129,7 @@ export default function AboutPage() {
 
         {/* CTA */}
         <div className="bg-gradient-to-br from-[#d4a853]/20 to-[#b8922e]/10 border border-[#d4a853]/20 rounded-2xl p-8 text-center">
-          <Zap className="w-10 h-10 text-[#d4a853] mx-auto mb-4" />
+          <Zap className="w-10 h-10 text-[#d4a853] mx-auto mb-4" strokeWidth={1.5} />
           <h2 className="text-2xl font-bold text-white mb-3">Ready to Discover Great Movies?</h2>
           <p className="text-[#9ca3af] mb-6 max-w-md mx-auto">Join our community of film lovers and let AI-powered insights guide your next movie night.</p>
           <div className="flex items-center justify-center gap-4 flex-wrap">

@@ -14,7 +14,7 @@ export default function NotFound() {
         {/* 404 Animation */}
         <div className="mb-8">
           <div className="text-8xl sm:text-9xl font-extrabold text-[#d4a853]/20 mb-4">404</div>
-          <Film className="w-16 h-16 text-[#d4a853] mx-auto mb-4" />
+          <Film className="w-16 h-16 text-[#d4a853] mx-auto mb-4" strokeWidth={1.5} />
         </div>
 
         <h1 className="text-2xl sm:text-3xl font-bold text-white mb-3">Page Not Found</h1>
@@ -28,17 +28,17 @@ export default function NotFound() {
         <div className="flex items-center justify-center gap-4 flex-wrap mb-12">
           <Link href="/">
             <Button className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2">
-              <Home className="w-4 h-4" /> Go Home
+              <Home className="w-4 h-4" strokeWidth={1.5} /> Go Home
             </Button>
           </Link>
           <Link href="/search">
             <Button variant="outline" className="border-[#1e1e28] text-white hover:bg-[#111118] gap-2">
-              <Search className="w-4 h-4" /> Search Movies
+              <Search className="w-4 h-4" strokeWidth={1.5} /> Search Movies
             </Button>
           </Link>
           <Link href="/browse">
             <Button variant="outline" className="border-[#1e1e28] text-white hover:bg-[#111118] gap-2">
-              <Film className="w-4 h-4" /> Browse
+              <Film className="w-4 h-4" strokeWidth={1.5} /> Browse
             </Button>
           </Link>
         </div>

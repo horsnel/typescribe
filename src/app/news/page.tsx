@@ -74,7 +74,7 @@ function NewsImage({ src, alt, className = '' }: { src: string; alt: string; cla
   if (!src) {
     return (
       <div className={`w-full h-full bg-[#1e1e28] flex items-center justify-center ${className}`}>
-        <Newspaper className="w-8 h-8 text-[#2a2a35]" />
+        <Newspaper className="w-8 h-8 text-[#2a2a35]" strokeWidth={1.5} />
       </div>
     );
   }
@@ -212,7 +212,7 @@ export default function NewsPage() {
             size="sm"
             className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45] mb-6 gap-2"
           >
-            <ArrowLeft className="w-4 h-4" /> Back to News
+            <ArrowLeft className="w-4 h-4" strokeWidth={1.5} /> Back to News
           </Button>
 
           {selectedArticle.loading ? (
@@ -237,11 +237,11 @@ export default function NewsPage() {
             </div>
           ) : selectedArticle.error ? (
             <div className="text-center py-16">
-              <Newspaper className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" />
+              <Newspaper className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" strokeWidth={1.5} />
               <p className="text-[#9ca3af] mb-1">Could not load full article</p>
               <p className="text-sm text-[#6b7280] mb-4">{selectedArticle.error}</p>
               <Button onClick={handleBack} variant="outline" className="border-[#1e1e28] text-[#9ca3af] hover:text-white">
-                <ArrowLeft className="w-4 h-4 mr-2" /> Back to News
+                <ArrowLeft className="w-4 h-4 mr-2" strokeWidth={1.5} /> Back to News
               </Button>
             </div>
           ) : selectedArticle.data ? (
@@ -279,7 +279,7 @@ export default function NewsPage() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-sm text-[#d4a853] hover:underline"
                   >
-                    Read original article <ArrowUpRight className="w-3.5 h-3.5" />
+                    Read original article <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={1.5} />
                   </a>
                 </div>
               )}
@@ -287,7 +287,7 @@ export default function NewsPage() {
               {/* Comment Section */}
               <div className="mt-10 pt-8 border-t border-[#1e1e28]">
                 <div className="flex items-center gap-3 mb-6">
-                  <MessageCircle className="w-5 h-5 text-[#d4a853]" />
+                  <MessageCircle className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
                   <h2 className="text-lg font-bold text-white">Comments</h2>
                   <span className="px-2 py-0.5 bg-[#d4a853] text-white text-xs font-bold rounded-full">{commentCount}</span>
                 </div>
@@ -307,7 +307,7 @@ export default function NewsPage() {
                       disabled={!commentText.trim() || commentSubmitting}
                       className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      <Send className="w-3.5 h-3.5" />
+                      <Send className="w-3.5 h-3.5" strokeWidth={1.5} />
                       {commentSubmitting ? 'Posting...' : 'Post Comment'}
                     </Button>
                   </div>
@@ -331,7 +331,7 @@ export default function NewsPage() {
                   </div>
                 ) : (
                   <div className="text-center py-8">
-                    <MessageCircle className="w-8 h-8 text-[#2a2a35] mx-auto mb-2" />
+                    <MessageCircle className="w-8 h-8 text-[#2a2a35] mx-auto mb-2" strokeWidth={1.5} />
                     <p className="text-[#6b7280] text-sm">No comments yet. Be the first to share your thoughts!</p>
                   </div>
                 )}
@@ -348,7 +348,7 @@ export default function NewsPage() {
     <div className="min-h-screen bg-[#050507] pt-20 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
         <div className="flex items-center gap-3 mb-2">
-          <Newspaper className="w-7 h-7 text-[#d4a853]" />
+          <Newspaper className="w-7 h-7 text-[#d4a853]" strokeWidth={1.5} />
           <h1 className="text-3xl lg:text-4xl font-extrabold text-white">Movie News</h1>
         </div>
         <p className="text-[#6b7280] mb-2">The latest stories from the world of cinema — industry insights, festival coverage, and cultural analysis.</p>
@@ -421,7 +421,7 @@ export default function NewsPage() {
                     </div>
                     <h2 className="text-xl lg:text-2xl font-bold text-white mb-3 group-hover:text-[#d4a853] transition-colors leading-snug">{featured.title}</h2>
                     <p className="text-sm text-[#9ca3af] leading-relaxed mb-4">{featured.excerpt}</p>
-                    <span className="inline-flex items-center gap-1 text-sm text-[#d4a853] font-medium group-hover:underline">Read Full Story <ArrowUpRight className="w-3.5 h-3.5" /></span>
+                    <span className="inline-flex items-center gap-1 text-sm text-[#d4a853] font-medium group-hover:underline">Read Full Story <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={1.5} /></span>
                   </div>
                 </div>
               </button>
@@ -444,13 +444,13 @@ export default function NewsPage() {
                         </div>
                         <div className="p-4">
                           <div className="flex items-center gap-2 mb-2">
-                            <Clock className="w-3 h-3 text-[#6b7280]" />
+                            <Clock className="w-3 h-3 text-[#6b7280]" strokeWidth={1.5} />
                             <span className="text-xs text-[#6b7280]">{item.source} · {item.date}</span>
                             {articleComments.length > 0 && (
                               <>
                                 <span className="text-[#2a2a35]">·</span>
                                 <span className="flex items-center gap-1 text-xs text-[#6b7280]">
-                                  <MessageCircle className="w-3 h-3" />
+                                  <MessageCircle className="w-3 h-3" strokeWidth={1.5} />
                                   {articleComments.length}
                                 </span>
                               </>
@@ -460,7 +460,7 @@ export default function NewsPage() {
                           <p className="text-xs text-[#9ca3af] line-clamp-2 mb-3 leading-relaxed">{item.excerpt}</p>
                           <div className="flex items-center justify-between">
                             <span className="text-xs text-[#6b7280]">Read more</span>
-                            <ArrowUpRight className="w-3.5 h-3.5 text-[#6b7280] group-hover:text-[#d4a853]" />
+                            <ArrowUpRight className="w-3.5 h-3.5 text-[#6b7280] group-hover:text-[#d4a853]" strokeWidth={1.5} />
                           </div>
                         </div>
                       </button>
@@ -478,7 +478,7 @@ export default function NewsPage() {
               </>
             ) : (
               <div className="text-center py-16">
-                <Newspaper className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" />
+                <Newspaper className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" strokeWidth={1.5} />
                 <p className="text-[#9ca3af] mb-1">No news articles found</p>
                 <p className="text-sm text-[#6b7280]">Try a different source filter</p>
               </div>

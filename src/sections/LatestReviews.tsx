@@ -26,7 +26,7 @@ export default function LatestReviews() {
         <div className="reveal-section flex items-center justify-between mb-10">
           <div className="flex items-center gap-3">
             <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">Latest AI Reviews</h2>
-            <span className="flex items-center gap-1 text-xs bg-[#d4a853]/10 text-[#d4a853] px-2.5 py-1 rounded-full font-medium"><Sparkles className="w-3 h-3" />Powered by AI</span>
+            <span className="flex items-center gap-1 text-xs bg-[#d4a853]/10 text-[#d4a853] px-2.5 py-1 rounded-full font-medium"><Sparkles className="w-3 h-3" strokeWidth={1.5} />Powered by AI</span>
           </div>
         </div>
         {loading ? (
@@ -55,7 +55,7 @@ export default function LatestReviews() {
                     <div className="flex items-center gap-2 mb-1"><h3 className="text-base font-semibold text-white truncate group-hover:text-[#d4a853] transition-colors">{movie.title}</h3><span className="text-xs font-bold text-[#f5c518] flex-shrink-0">{movie.vote_average.toFixed(1)}</span></div>
                     <div className="flex items-center gap-2 mb-2">{year && <span className="text-xs text-[#6b7280]">{year}</span>}{year && genreNames && <span className="text-[#1e1e28]">·</span>}{genreNames && <span className="text-xs text-[#6b7280]">{genreNames}</span>}</div>
                     <p className="text-sm text-[#9ca3af] line-clamp-2 leading-relaxed mb-2">{movie.overview}</p>
-                    <span className="inline-flex items-center gap-1 text-sm text-[#d4a853] hover:text-[#ff1a25] transition-colors font-medium">Read Full Review<ArrowRight className="w-3.5 h-3.5" /></span>
+                    <span className="inline-flex items-center gap-1 text-sm text-[#d4a853] hover:text-[#ff1a25] transition-colors font-medium">Read Full Review<ArrowRight className="w-3.5 h-3.5" strokeWidth={1.5} /></span>
                   </div>
                 </Link>
               );

@@ -51,7 +51,7 @@ export default function LiveSentimentTracker({ movieTitle, movieId, isNowPlaying
     <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4">
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
-          <Activity className="w-4 h-4 text-emerald-400" />
+          <Activity className="w-4 h-4 text-emerald-400" strokeWidth={1.5} />
           <h4 className="text-sm font-semibold text-white">Sentiment</h4>
         </div>
         <div className={`flex items-center gap-1 ${pulse ? 'opacity-100' : 'opacity-60'} transition-opacity`}>
@@ -63,7 +63,7 @@ export default function LiveSentimentTracker({ movieTitle, movieId, isNowPlaying
       <div className="bg-[#050507] border border-[#1e1e28] rounded-lg p-3 mb-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <TrendingUp className="w-4 h-4 text-amber-400" />
+            <TrendingUp className="w-4 h-4 text-amber-400" strokeWidth={1.5} />
             <span className="text-xs text-[#9ca3af]">Opening Night Score</span>
           </div>
           <div className="flex items-center gap-1">
@@ -78,7 +78,7 @@ export default function LiveSentimentTracker({ movieTitle, movieId, isNowPlaying
       {/* Sentiment Breakdown */}
       <div className="space-y-2 mb-3">
         <div className="flex items-center gap-2">
-          <Smile className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
+          <Smile className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" strokeWidth={1.5} />
           <span className="text-[10px] text-[#6b7280] w-14">Positive</span>
           <div className="flex-1 h-2 bg-[#111118] rounded-full overflow-hidden">
             <div className="h-full bg-emerald-400 rounded-full transition-all duration-700" style={{ width: `${positive}%` }} />
@@ -86,7 +86,7 @@ export default function LiveSentimentTracker({ movieTitle, movieId, isNowPlaying
           <span className="text-xs font-bold text-emerald-400 w-8 text-right">{positive}%</span>
         </div>
         <div className="flex items-center gap-2">
-          <Meh className="w-3.5 h-3.5 text-amber-400 flex-shrink-0" />
+          <Meh className="w-3.5 h-3.5 text-amber-400 flex-shrink-0" strokeWidth={1.5} />
           <span className="text-[10px] text-[#6b7280] w-14">Mixed</span>
           <div className="flex-1 h-2 bg-[#111118] rounded-full overflow-hidden">
             <div className="h-full bg-amber-400 rounded-full transition-all duration-700" style={{ width: `${mixed}%` }} />
@@ -94,7 +94,7 @@ export default function LiveSentimentTracker({ movieTitle, movieId, isNowPlaying
           <span className="text-xs font-bold text-amber-400 w-8 text-right">{mixed}%</span>
         </div>
         <div className="flex items-center gap-2">
-          <Frown className="w-3.5 h-3.5 text-red-400 flex-shrink-0" />
+          <Frown className="w-3.5 h-3.5 text-red-400 flex-shrink-0" strokeWidth={1.5} />
           <span className="text-[10px] text-[#6b7280] w-14">Negative</span>
           <div className="flex-1 h-2 bg-[#111118] rounded-full overflow-hidden">
             <div className="h-full bg-red-400 rounded-full transition-all duration-700" style={{ width: `${negative}%` }} />
@@ -105,7 +105,7 @@ export default function LiveSentimentTracker({ movieTitle, movieId, isNowPlaying
 
       {/* Talking About Counter */}
       <div className="flex items-center gap-2 pt-2 border-t border-[#1e1e28]">
-        <Users className="w-3.5 h-3.5 text-purple-400" />
+        <Users className="w-3.5 h-3.5 text-purple-400" strokeWidth={1.5} />
         <p className="text-[10px] text-[#6b7280]">
           <span className="text-purple-400 font-bold">{talkingAbout.toLocaleString()}</span> people are talking about this right now
         </p>

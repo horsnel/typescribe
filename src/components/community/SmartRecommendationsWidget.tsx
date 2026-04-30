@@ -85,7 +85,7 @@ export default function SmartRecommendations({ userGenres, maxItems = 6 }: Smart
       <div className="p-5 border-b border-[#1e1e28]/50">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">
-            <Sparkles className="w-5 h-5 text-purple-400" />
+            <Sparkles className="w-5 h-5 text-purple-400" strokeWidth={1.5} />
           </div>
           <div>
             <h3 className="text-lg font-bold text-white">Recommended for You</h3>
@@ -112,7 +112,7 @@ export default function SmartRecommendations({ userGenres, maxItems = 6 }: Smart
                       {rec.communityName}
                     </Link>
                     <span className="flex items-center gap-1 text-[10px] text-[#6b7280]">
-                      <Users className="w-3 h-3" /> {rec.memberCount.toLocaleString()}
+                      <Users className="w-3 h-3" strokeWidth={1.5} /> {rec.memberCount.toLocaleString()}
                     </span>
                   </div>
                   <p className="text-xs text-[#9ca3af] mb-2 leading-relaxed">{rec.reason}</p>
@@ -131,7 +131,7 @@ export default function SmartRecommendations({ userGenres, maxItems = 6 }: Smart
                   size="sm"
                   className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-1 min-h-[36px] flex-shrink-0"
                 >
-                  <UserPlus className="w-3.5 h-3.5" /> Join
+                  <UserPlus className="w-3.5 h-3.5" strokeWidth={1.5} /> Join
                 </Button>
               </div>
             </div>
@@ -148,7 +148,7 @@ export default function SmartRecommendations({ userGenres, maxItems = 6 }: Smart
           <div key={rec.communityId} className="p-4 hover:bg-[#050507]/50 transition-colors group opacity-70">
             <div className="flex items-center gap-3">
               <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-[#d4a853]/10 border border-[#d4a853]/20 flex items-center justify-center">
-                <CheckCircle2 className="w-4 h-4 text-[#d4a853]" />
+                <CheckCircle2 className="w-4 h-4 text-[#d4a853]" strokeWidth={1.5} />
               </div>
               <div className="flex-1 min-w-0">
                 <Link href={`/community/${rec.communityId}`} className="text-sm font-semibold text-[#d4a853] group-hover:text-white transition-colors truncate">
@@ -156,7 +156,7 @@ export default function SmartRecommendations({ userGenres, maxItems = 6 }: Smart
                 </Link>
                 <p className="text-[10px] text-[#6b7280]">Already a member</p>
               </div>
-              <ChevronRight className="w-4 h-4 text-[#6b7280] group-hover:text-[#d4a853] transition-colors" />
+              <ChevronRight className="w-4 h-4 text-[#6b7280] group-hover:text-[#d4a853] transition-colors" strokeWidth={1.5} />
             </div>
           </div>
         ))}
@@ -165,7 +165,7 @@ export default function SmartRecommendations({ userGenres, maxItems = 6 }: Smart
       {/* Footer */}
       <div className="p-4 border-t border-[#1e1e28]/50 text-center">
         <Link href="/communities" className="text-xs text-[#d4a853] hover:underline flex items-center justify-center gap-1">
-          Browse all communities <ChevronRight className="w-3 h-3" />
+          Browse all communities <ChevronRight className="w-3 h-3" strokeWidth={1.5} />
         </Link>
       </div>
     </div>
