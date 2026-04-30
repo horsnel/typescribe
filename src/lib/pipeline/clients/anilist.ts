@@ -6,6 +6,8 @@
  * season info, source material, alternative titles, character data.
  */
 
+import { fetchWithTimeout, safeJsonParse, enforceCacheLimit } from '@/lib/pipeline/core/resilience';
+
 // ─── Constants ───────────────────────────────────────────────────────────────
 
 const BASE_URL = 'https://graphql.anilist.co';
@@ -122,6 +124,7 @@ function getCached<T>(key: string): T | null {
 
 function setCache<T>(key: string, data: T, ttl: number = CACHE_TTL_MS): void {
   cache.set(key, { data, expiresAt: Date.now() + ttl });
+  enforceCacheLimit(cache);
 }
 
 /** Clear the entire AniList in-memory cache. */
@@ -282,6 +285,7 @@ async function anilistFetch<T>(
   variables: Record<string, unknown>,
   cacheKey: string,
   ttl: number = CACHE_TTL_MS,
+  _retryCount: number = 0,
 ): Promise<T | null> {
   // Check cache first
   const cached = getCached<T>(cacheKey);
@@ -290,7 +294,7 @@ async function anilistFetch<T>(
   try {
     await enforceRateLimit();
 
-    const res = await fetch(BASE_URL, {
+    const res = await fetchWithTimeout(BASE_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -298,21 +302,30 @@ async function anilistFetch<T>(
       },
       body: JSON.stringify({ query, variables }),
       next: { revalidate: 0 },
-    });
+    }, 10_000);
 
+    if (!res) {
+      console.error('[AniList] Request failed (timeout/network)');
+      return null;
+    }
     if (!res.ok) {
-      // Handle rate limiting
-      if (res.status === 429) {
+      // Handle rate limiting — retry once on 429
+      if (res.status === 429 && _retryCount < 1) {
         const retryAfter = res.headers.get('Retry-After');
         const waitMs = retryAfter ? parseInt(retryAfter, 10) * 1000 : 60_000;
-        warn(`Rate limited by AniList. Retry after ${waitMs}ms.`);
-        return null;
+        warn(`Rate limited by AniList. Retrying after ${waitMs}ms.`);
+        await new Promise(r => setTimeout(r, waitMs));
+        return anilistFetch<T>(query, variables, cacheKey, ttl, _retryCount + 1);
       }
       warn(`${res.status} ${res.statusText}`);
       return null;
     }
 
-    const json = (await res.json()) as GraphQLResponse<T>;
+    const json = await safeJsonParse<GraphQLResponse<T>>(res);
+    if (!json) {
+      console.error('[AniList] Failed to parse JSON response');
+      return null;
+    }
 
     if (json.errors && json.errors.length > 0) {
       warn('GraphQL errors:', json.errors.map((e) => e.message).join('; '));

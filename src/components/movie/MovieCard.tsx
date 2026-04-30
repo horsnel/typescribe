@@ -10,7 +10,7 @@ export default function MovieCard({ movie, className }: MovieCardProps) {
   const year = movie.release_date ? movie.release_date.split('-')[0] : '';
   const genreNames = movie.genres.slice(0, 2).map((g) => g.name);
   return (
-    <Link href={`/movie/${movie.slug}`} className={cn('group relative flex-shrink-0 w-full cursor-pointer block', className)}>
+    <Link href={movie.slug ? `/movie/${movie.slug}` : '#'} className={cn('group relative flex-shrink-0 w-full cursor-pointer block', className)}>
       <div className="relative aspect-[2/3] rounded-2xl overflow-hidden bg-[#0c0c10]" style={{ boxShadow: '0 4px 24px -4px rgba(0,0,0,0.6)' }}>
         <img
           src={resolveImageUrl(movie.poster_path, 'w500')}

@@ -82,6 +82,7 @@ import * as AniList from '@/lib/pipeline/clients/anilist';
 import * as Jikan from '@/lib/pipeline/clients/jikan';
 
 import { canRequest } from '@/lib/pipeline/core/circuit-breaker';
+import { fetchWithTimeout } from '@/lib/pipeline/core/resilience';
 
 // ─── Pipeline Configuration ───
 
@@ -116,6 +117,10 @@ const DEFAULT_CONFIG: Required<PipelineConfig> = {
   maxConcurrency: 5,
   mediaType: 'movie',
 };
+
+// ─── Pipeline Timeout ───
+
+const PIPELINE_TIMEOUT_MS = 45_000;
 
 // ─── Merged Movie Result ───
 
@@ -653,6 +658,15 @@ export async function mergeMovieData(
   config: PipelineConfig = {}
 ): Promise<MergedMovieResult> {
   const start = Date.now();
+
+  // Pipeline-level timeout — prevents the merge from hanging indefinitely
+  const timeoutPromise = new Promise<never>((_, reject) =>
+    setTimeout(() => reject(new Error('Pipeline timeout after 45s')), PIPELINE_TIMEOUT_MS)
+  );
+
+  try {
+    return await Promise.race([
+      (async (): Promise<MergedMovieResult> => {
   const cfg = { ...DEFAULT_CONFIG, ...config };
   const sources: string[] = [];
   const warnings: string[] = [];
@@ -1338,6 +1352,22 @@ export async function mergeMovieData(
     warnings: allWarnings,
     durationMs: Date.now() - start,
   };
+      })(),
+      timeoutPromise,
+    ]);
+  } catch (err: any) {
+    if (err.message?.includes('Pipeline timeout')) {
+      console.error('[Merger] Pipeline timed out after 45s for TMDb ID', tmdbId);
+      return {
+        movie: emptyMovie(tmdbId),
+        sources: [],
+        completeness: 0,
+        warnings: ['Pipeline timed out after 45s'],
+        durationMs: Date.now() - start,
+      };
+    }
+    throw err;
+  }
 }
 
 // ─── Batch Merge ───

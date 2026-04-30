@@ -182,7 +182,7 @@ export default function BrowsePage() {
 
     // Year range filter
     result = result.filter((m) => {
-      const year = parseInt(m.release_date.split('-')[0]);
+      const year = parseInt(m.release_date?.split('-')[0] || '0');
       return year >= filters.yearFrom && year <= filters.yearTo;
     });
 
@@ -201,10 +201,10 @@ export default function BrowsePage() {
         result.sort((a, b) => a.vote_average - b.vote_average);
         break;
       case 'primary_release_date.desc':
-        result.sort((a, b) => new Date(b.release_date).getTime() - new Date(a.release_date).getTime());
+        result.sort((a, b) => new Date(b.release_date || 0).getTime() - new Date(a.release_date || 0).getTime());
         break;
       case 'primary_release_date.asc':
-        result.sort((a, b) => new Date(a.release_date).getTime() - new Date(b.release_date).getTime());
+        result.sort((a, b) => new Date(a.release_date || 0).getTime() - new Date(b.release_date || 0).getTime());
         break;
       case 'title.asc':
         result.sort((a, b) => a.title.localeCompare(b.title));
@@ -668,7 +668,7 @@ export default function BrowsePage() {
                     </h3>
                     <div className="flex items-center gap-2 mt-1">
                       <span className="text-xs text-[#f5c518] font-medium flex items-center gap-0.5"><Star className="w-3 h-3 fill-[#f5c518]" strokeWidth={1.5} /> {movie.vote_average.toFixed(1)}</span>
-                      <span className="text-xs text-[#6b7280]">{movie.release_date.split('-')[0]}</span>
+                      <span className="text-xs text-[#6b7280]">{movie.release_date?.split('-')[0] || ''}</span>
                       <span className="text-xs text-[#6b7280]">{movie.runtime}m</span>
                     </div>
                     <div className="flex gap-1.5 mt-1.5">

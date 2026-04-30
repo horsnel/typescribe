@@ -56,8 +56,10 @@ export default function NativeScrollReveal({ children }: { children: React.React
 
     // Re-observe when new elements are added to the DOM
     // (catches async-loaded content like movie detail sections)
+    let mutationDebounce: ReturnType<typeof setTimeout>;
     mutationRef.current = new MutationObserver(() => {
-      observeElements();
+      clearTimeout(mutationDebounce);
+      mutationDebounce = setTimeout(() => observeElements(), 150);
     });
 
     mutationRef.current.observe(document.body, {

@@ -5,6 +5,8 @@
  * Provides: Anime details, characters, seasonal, top anime, search, recommendations.
  */
 
+import { fetchWithTimeout, safeJsonParse, enforceCacheLimit } from '@/lib/pipeline/core/resilience';
+
 // ─── Constants ───
 
 const BASE_URL = 'https://api.jikan.moe/v4';
@@ -106,6 +108,7 @@ function getCached<T>(key: string): T | null {
 
 function setCache<T>(key: string, data: T, ttl: number = CACHE_TTL_MS): void {
   cache.set(key, { data, expiresAt: Date.now() + ttl });
+  enforceCacheLimit(cache);
 }
 
 /** Clear the entire Jikan in-memory cache. */
@@ -167,6 +170,7 @@ async function jikanFetch<T>(
   endpoint: string,
   params: Record<string, string | number | undefined> = {},
   ttl: number = CACHE_TTL_MS,
+  _retryCount: number = 0,
 ): Promise<T | null> {
   const qs = new URLSearchParams();
   for (const [k, v] of Object.entries(params)) {
@@ -181,24 +185,32 @@ async function jikanFetch<T>(
   try {
     await enforceRateLimit();
 
-    const res = await fetch(url, {
+    const res = await fetchWithTimeout(url, {
       headers: { 'Accept': 'application/json' },
       next: { revalidate: 0 },
-    });
+    }, 10_000);
 
+    if (!res) {
+      console.error('[Jikan] Request failed (timeout/network)');
+      return null;
+    }
     if (!res.ok) {
-      if (res.status === 429) {
+      if (res.status === 429 && _retryCount < 1) {
         const retryAfter = res.headers.get('Retry-After');
         const waitMs = retryAfter ? parseInt(retryAfter, 10) * 1000 : 3_000;
         warn(`Rate limited. Retrying after ${waitMs}ms.`);
         await new Promise(r => setTimeout(r, waitMs));
-        return jikanFetch<T>(endpoint, params, ttl); // Retry once
+        return jikanFetch<T>(endpoint, params, ttl, _retryCount + 1); // Retry once
       }
       warn(`${res.status} ${res.statusText} — ${url}`);
       return null;
     }
 
-    const json = await res.json();
+    const json = await safeJsonParse<any>(res);
+    if (!json) {
+      console.error('[Jikan] Failed to parse JSON response');
+      return null;
+    }
 
     if (json.status === false && json.type === 'HttpException') {
       warn(`API error: ${json.message}`);

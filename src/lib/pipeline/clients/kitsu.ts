@@ -6,6 +6,8 @@
  * Primary use case: "Where to Watch" streaming availability.
  */
 
+import { fetchWithTimeout, safeJsonParse, enforceCacheLimit } from '@/lib/pipeline/core/resilience';
+
 // ─── Constants ───
 
 const BASE_URL = 'https://kitsu.io/api/edge';
@@ -84,6 +86,7 @@ function getCached<T>(key: string): T | null {
 
 function setCache<T>(key: string, data: T, ttl: number = CACHE_TTL_MS): void {
   cache.set(key, { data, expiresAt: Date.now() + ttl });
+  enforceCacheLimit(cache);
 }
 
 export function clearKitsuCache(): void {
@@ -149,22 +152,30 @@ async function kitsuFetch<T>(
   try {
     await enforceRateLimit();
 
-    const res = await fetch(url, {
+    const res = await fetchWithTimeout(url, {
       headers: {
         'Accept': 'application/vnd.api+json',
         'Content-Type': 'application/vnd.api+json',
       },
       next: { revalidate: 0 },
-    });
+    }, 10_000);
 
+    if (!res) {
+      console.error('[Kitsu] Request failed (timeout/network)');
+      return null;
+    }
     if (!res.ok) {
       warn(`${res.status} ${res.statusText} — ${url}`);
       return null;
     }
 
-    const json = await res.json();
+    const json = await safeJsonParse<T>(res);
+    if (!json) {
+      console.error('[Kitsu] Failed to parse JSON response');
+      return null;
+    }
     setCache(url, json, ttl);
-    return json as T;
+    return json;
   } catch (err) {
     warn('Request failed:', err instanceof Error ? err.message : err);
     return null;

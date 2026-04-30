@@ -22,6 +22,7 @@ export default function LiveSentimentTracker({ movieTitle, movieId, isNowPlaying
     if (!isNowPlaying) return;
 
     // Simulate live updates every 5 seconds
+    let pulseTimeout: ReturnType<typeof setTimeout>;
     const interval = setInterval(() => {
       setSentiment(prev => {
         const drift = () => Math.round((Math.random() - 0.5) * 4);
@@ -37,10 +38,14 @@ export default function LiveSentimentTracker({ movieTitle, movieId, isNowPlaying
         };
       });
       setPulse(true);
-      setTimeout(() => setPulse(false), 600);
+      clearTimeout(pulseTimeout);
+      pulseTimeout = setTimeout(() => setPulse(false), 600);
     }, 5000);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      clearTimeout(pulseTimeout);
+    };
   }, [isNowPlaying]);
 
   if (!isNowPlaying) return null;

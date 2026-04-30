@@ -183,7 +183,7 @@ export default function UpcomingPage() {
             { value: 'movie' as MediaType, label: 'Movies', icon: Film },
             { value: 'tv' as MediaType, label: 'TV Series', icon: Tv },
             { value: 'all' as MediaType, label: 'All', icon: Sparkles },
-          ]).map(({ value, label, icon }) => (
+          ]).map(({ value, label, icon: Icon }) => (
             <button
               key={value}
               onClick={() => { setMediaType(value); setVisibleCount(12); }}
@@ -193,7 +193,7 @@ export default function UpcomingPage() {
                   : 'bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
               }`}
             >
-              <icon className="w-3.5 h-3.5" strokeWidth={1.5} />
+              <Icon className="w-3.5 h-3.5" strokeWidth={1.5} />
               {label}
             </button>
           ))}

@@ -7,6 +7,7 @@
  */
 
 import { getTmdbApiKey, tmdbImageUrl } from './tmdb';
+import { fetchWithTimeout, safeJsonParse } from '@/lib/pipeline/core/resilience';
 
 // ─── Types ───
 
@@ -43,14 +44,22 @@ export async function getMovieWatchProviders(
 
   try {
     const url = `https://api.themoviedb.org/3/movie/${tmdbId}/watch/providers?api_key=${apiKey}`;
-    const res = await fetch(url, { next: { revalidate: 3600 } }); // Cache 1 hour
+    const res = await fetchWithTimeout(url, { next: { revalidate: 3600 } }, 10_000);
 
+    if (!res) {
+      console.error('[WatchProviders] Request failed (timeout/network) for movie ' + tmdbId);
+      return null;
+    }
     if (!res.ok) {
       console.warn(`[WatchProviders] HTTP ${res.status} for movie ${tmdbId}`);
       return null;
     }
 
-    const data = await res.json();
+    const data = await safeJsonParse<any>(res);
+    if (!data) {
+      console.error('[WatchProviders] Failed to parse JSON response for movie ' + tmdbId);
+      return null;
+    }
     return transformWatchProviders(tmdbId, data);
   } catch (err) {
     console.warn(`[WatchProviders] Failed for movie ${tmdbId}:`, err);
@@ -66,14 +75,22 @@ export async function getTvWatchProviders(
 
   try {
     const url = `https://api.themoviedb.org/3/tv/${tmdbId}/watch/providers?api_key=${apiKey}`;
-    const res = await fetch(url, { next: { revalidate: 3600 } });
+    const res = await fetchWithTimeout(url, { next: { revalidate: 3600 } }, 10_000);
 
+    if (!res) {
+      console.error('[WatchProviders] Request failed (timeout/network) for TV ' + tmdbId);
+      return null;
+    }
     if (!res.ok) {
       console.warn(`[WatchProviders] HTTP ${res.status} for TV ${tmdbId}`);
       return null;
     }
 
-    const data = await res.json();
+    const data = await safeJsonParse<any>(res);
+    if (!data) {
+      console.error('[WatchProviders] Failed to parse JSON response for TV ' + tmdbId);
+      return null;
+    }
     return transformWatchProviders(tmdbId, data);
   } catch (err) {
     console.warn(`[WatchProviders] Failed for TV ${tmdbId}:`, err);

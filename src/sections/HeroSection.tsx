@@ -21,7 +21,8 @@ export default function HeroSection() {
   const [posterMovies, setPosterMovies] = useState<Movie[]>([]);
 
   useEffect(() => {
-    fetch('/api/browse?source=trending')
+    const controller = new AbortController();
+    fetch('/api/browse?source=trending', { signal: controller.signal })
       .then(res => res.ok ? res.json() : null)
       .then(data => {
         if (data?.movies && data.movies.length > 0) {
@@ -29,6 +30,7 @@ export default function HeroSection() {
         }
       })
       .catch(() => {});
+    return () => controller.abort();
   }, []);
 
   useEffect(() => {

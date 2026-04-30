@@ -14,6 +14,8 @@
  *  - `getOmdbDailyStats()` export for quota introspection
  */
 
+import { fetchWithTimeout, safeJsonParse, enforceCacheLimit } from '@/lib/pipeline/core/resilience';
+
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
@@ -204,6 +206,7 @@ function getCached<T>(key: string): T | undefined {
 
 function setCache<T>(key: string, value: T): void {
   cache.set(key, { value, expiresAt: Date.now() + CACHE_TTL_MS });
+  enforceCacheLimit(cache);
 }
 
 /** Clear the entire OMDb in-memory cache. */
@@ -288,13 +291,21 @@ async function omdbFetch<T>(
     lastRequestTime = Date.now();
     dailyUsed++;
 
-    const res = await fetch(url);
+    const res = await fetchWithTimeout(url, undefined, 10_000);
+    if (!res) {
+      console.error('[OMDb] Request failed (timeout/network)');
+      return null;
+    }
     if (!res.ok) {
       console.error(`[OMDb] HTTP ${res.status} for ${url}`);
       return null;
     }
 
-    const json = (await res.json()) as Record<string, unknown>;
+    const json = await safeJsonParse<Record<string, unknown>>(res);
+    if (!json) {
+      console.error('[OMDb] Failed to parse JSON response');
+      return null;
+    }
 
     // OMDb returns 200 even on "not found"; check the Response field.
     if (json.Response === "False") {

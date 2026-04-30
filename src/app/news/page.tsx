@@ -3,6 +3,7 @@ import { useEffect, useState, useMemo, useCallback } from 'react';
 import Link from 'next/link';
 import { ArrowUpRight, ArrowLeft, Clock, Newspaper, Loader2, MessageCircle, Send, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { handleImageError } from '@/lib/utils';
 
 type CategoryFilter = 'all' | string;
 
@@ -83,17 +84,7 @@ function NewsImage({ src, alt, className = '' }: { src: string; alt: string; cla
       src={src}
       alt={alt}
       className={`w-full h-full object-cover ${className}`}
-      onError={(e) => {
-        const img = e.target as HTMLImageElement;
-        img.style.display = 'none';
-        const parent = img.parentElement;
-        if (parent && !parent.querySelector('.news-img-fallback')) {
-          const fallback = document.createElement('div');
-          fallback.className = 'news-img-fallback w-full h-full bg-[#1e1e28] flex items-center justify-center';
-          fallback.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2a2a35" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>';
-          parent.appendChild(fallback);
-        }
-      }}
+      onError={(e) => handleImageError(e, 'poster')}
     />
   );
 }

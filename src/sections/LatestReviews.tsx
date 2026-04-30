@@ -9,7 +9,8 @@ export default function LatestReviews() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/browse?source=trending')
+    const controller = new AbortController();
+    fetch('/api/browse?source=trending', { signal: controller.signal })
       .then(res => res.ok ? res.json() : null)
       .then(data => {
         if (data?.movies && data.movies.length > 0) {
@@ -18,6 +19,7 @@ export default function LatestReviews() {
       })
       .catch(() => {})
       .finally(() => setLoading(false));
+    return () => controller.abort();
   }, []);
 
   return (

@@ -13,6 +13,8 @@
  *  - No API key needed
  */
 
+import { fetchWithTimeout, safeJsonParse, enforceCacheLimit } from '@/lib/pipeline/core/resilience';
+
 // ─── Types ────────────────────────────────────────────────────────────────
 
 export interface ITunesTrailerResult {
@@ -56,7 +58,21 @@ interface ITunesSearchResponse {
 const BASE_URL = 'https://itunes.apple.com/search';
 
 const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours
+const INTER_REQUEST_DELAY_MS = 200;
 const cache = new Map<string, { data: ITunesTrailerResult | null; expiresAt: number }>();
+
+// ─── Rate Limiter ───
+
+let lastRequestTime = 0;
+
+async function enforceRateLimit(): Promise<void> {
+  const now = Date.now();
+  const elapsed = now - lastRequestTime;
+  if (elapsed < INTER_REQUEST_DELAY_MS) {
+    await new Promise(resolve => setTimeout(resolve, INTER_REQUEST_DELAY_MS - elapsed));
+  }
+  lastRequestTime = Date.now();
+}
 
 function getCached(key: string): ITunesTrailerResult | null | undefined {
   const entry = cache.get(key);
@@ -70,6 +86,7 @@ function getCached(key: string): ITunesTrailerResult | null | undefined {
 
 function setCache(key: string, data: ITunesTrailerResult | null): void {
   cache.set(key, { data, expiresAt: Date.now() + CACHE_TTL });
+  enforceCacheLimit(cache);
 }
 
 /** Clear the entire iTunes cache. */
@@ -102,6 +119,8 @@ export async function searchTrailer(
   if (cached !== undefined) return cached;
 
   try {
+    await enforceRateLimit();
+
     const params = new URLSearchParams({
       term: query,
       entity: 'movie',
@@ -111,17 +130,27 @@ export async function searchTrailer(
     });
 
     const url = `${BASE_URL}?${params.toString()}`;
-    const res = await fetch(url, {
+    const res = await fetchWithTimeout(url, {
       headers: { 'Accept': 'application/json' },
-    });
+    }, 10_000);
 
+    if (!res) {
+      console.error('[iTunes] Request failed (timeout/network)');
+      setCache(cacheKey, null);
+      return null;
+    }
     if (!res.ok) {
       console.warn(`[iTunes] HTTP ${res.status} for search "${query}"`);
       setCache(cacheKey, null);
       return null;
     }
 
-    const data = (await res.json()) as ITunesSearchResponse;
+    const data = await safeJsonParse<ITunesSearchResponse>(res);
+    if (!data) {
+      console.error('[iTunes] Failed to parse JSON response');
+      setCache(cacheKey, null);
+      return null;
+    }
 
     if (!data.results || data.results.length === 0) {
       console.info(`[iTunes] No results for "${query}"`);

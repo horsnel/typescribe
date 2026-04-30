@@ -12,6 +12,7 @@
  */
 
 import type { Movie } from '@/lib/types';
+import { fetchWithTimeout, safeJsonParse, enforceCacheLimit } from '@/lib/pipeline/core/resilience';
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
@@ -129,6 +130,7 @@ function getCached<T>(key: string): T | null {
 
 function setCache<T>(key: string, data: T, ttl: number): void {
   cache.set(key, { data, expiresAt: Date.now() + ttl });
+  enforceCacheLimit(cache);
 }
 
 /** Clear the entire TMDb in-memory cache. */
@@ -167,18 +169,23 @@ async function tmdbFetch<T>(
   try {
     await enforceRateLimit();
 
-    const res = await fetch(url, {
+    const res = await fetchWithTimeout(url, {
       headers: { 'Content-Type': 'application/json' },
       next: { revalidate: 0 },
-    });
+    }, 15_000);
+
+    if (!res) {
+      console.error(`[TMDb] Request failed (timeout/network) — ${url}`);
+      return null;
+    }
 
     if (!res.ok) {
       console.error(`[TMDb] ${res.status} ${res.statusText} — ${url}`);
       return null;
     }
 
-    const data = (await res.json()) as T;
-    setCache(url, data, ttl);
+    const data = await safeJsonParse<T>(res);
+    if (data) setCache(url, data, ttl);
     return data;
   } catch (err) {
     console.error(`[TMDb] Request failed — ${url}`, err);

@@ -24,6 +24,8 @@ import type { Movie } from '@/lib/types';
 
 export const maxDuration = 60; // Vercel function timeout (seconds)
 
+const PIPELINE_TIMEOUT_MS = 45_000;
+
 // Track in-flight enrichment jobs to avoid duplicate work
 const inFlightEnrichment = new Map<string, Promise<void>>();
 
@@ -79,7 +81,12 @@ export async function GET(
           const mediaType = cachedMediaType === 'tv' ? 'tv' as const : 'movie' as const;
 
           // Use mergeMovieData directly to bypass cache and get full pipeline data
-          const result = await mergeMovieData(tmdbId, { mediaType });
+          const result = await Promise.race([
+            mergeMovieData(tmdbId, { mediaType }),
+            new Promise<null>((_, rej) =>
+              setTimeout(() => rej(new Error('Pipeline timeout')), PIPELINE_TIMEOUT_MS)
+            ),
+          ]);
           if (result && result.completeness > 0 && result.movie.title) {
             // Cache the enriched result
             setCachedMovie(slugCacheKey, result.movie, result.sources, result.completeness);

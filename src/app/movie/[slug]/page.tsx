@@ -372,24 +372,26 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
 
   const saveComments = (updated: LocalComment[]) => {
     setComments(updated);
+    if (!movie) return;
     try {
-      localStorage.setItem(`typescribe_comments_${movie!.id}`, JSON.stringify(updated));
+      localStorage.setItem(`typescribe_comments_${movie.id}`, JSON.stringify(updated));
     } catch { /* ignore */ }
   };
 
   const saveDisputes = (updated: Dispute[]) => {
     setDisputes(updated);
+    if (!movie) return;
     try {
-      localStorage.setItem(`typescribe_disputes_${movie!.id}`, JSON.stringify(updated));
+      localStorage.setItem(`typescribe_disputes_${movie.id}`, JSON.stringify(updated));
     } catch { /* ignore */ }
   };
 
   const handleSubmitDispute = () => {
-    if (!disputeText.trim() || !user || disputeRating === 0) return;
+    if (!disputeText.trim() || !user || disputeRating === 0 || !movie) return;
     setDisputeSubmitting(true);
     const dispute: Dispute = {
       id: Date.now(),
-      movie_id: movie!.id,
+      movie_id: movie.id,
       user_name: user.display_name,
       user_id: user.id,
       rating: disputeRating,
@@ -421,7 +423,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
   };
 
   const handleSubmitComment = () => {
-    if (!newComment.trim() || !user) return;
+    if (!newComment.trim() || !user || !movie) return;
     // AI Auto-Moderation check
     const check = preSubmitCheck(newComment);
     if (!check.canSubmit) {
@@ -437,7 +439,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
     const moderation = moderateContent(newComment);
     const comment: LocalComment = {
       id: Date.now(),
-      movie_id: movie!.id,
+      movie_id: movie.id,
       user_name: user.display_name,
       user_id: user.id,
       text: newComment.trim(),
@@ -455,14 +457,14 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
   };
 
   const handleSubmitReply = (parentId: number) => {
-    if (!replyText.trim() || !user) return;
+    if (!replyText.trim() || !user || !movie) return;
     // AI Auto-Moderation check
     const check = preSubmitCheck(replyText);
     if (!check.canSubmit) return; // Silently block for replies
     const moderation = moderateContent(replyText);
     const reply: LocalComment = {
       id: Date.now(),
-      movie_id: movie!.id,
+      movie_id: movie.id,
       user_name: user.display_name,
       user_id: user.id,
       text: replyText.trim(),
@@ -619,7 +621,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
   }
 
   // Derived data
-  const year = movie.release_date.split('-')[0];
+  const year = movie.release_date?.split('-')[0] || '';
   const runtimeHours = Math.floor(movie.runtime / 60);
   const runtimeMins = movie.runtime % 60;
   const runtimeStr = `${runtimeHours}h ${runtimeMins}m`;
@@ -637,7 +639,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
   const visibleReviews = sortedReviews.slice(0, reviewsVisible);
   const hasMoreReviews = sortedReviews.length > reviewsVisible;
 
-  const isOverviewLong = movie.overview.length > 300;
+  const isOverviewLong = (movie.overview?.length || 0) > 300;
   const displayOverview = isOverviewLong && !overviewExpanded
     ? movie.overview.slice(0, 300) + '...'
     : movie.overview;

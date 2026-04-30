@@ -16,6 +16,8 @@
  *  - `clearYoutubeCache()` export for cache invalidation
  */
 
+import { fetchWithTimeout, safeJsonParse, enforceCacheLimit } from '@/lib/pipeline/core/resilience';
+
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
@@ -206,6 +208,7 @@ function getCached<T>(key: string): T | undefined {
 
 function setCache<T>(key: string, value: T, ttl: number): void {
   cache.set(key, { value, expiresAt: Date.now() + ttl });
+  enforceCacheLimit(cache);
 }
 
 /** Clear the entire YouTube in-memory cache. */
@@ -246,13 +249,21 @@ async function youtubeFetch<T>(
     lastRequestTime = Date.now();
     dailyUsed++;
 
-    const res = await fetch(url);
+    const res = await fetchWithTimeout(url, undefined, 10_000);
+    if (!res) {
+      console.error('[YouTube] Request failed (timeout/network)');
+      return null;
+    }
     if (!res.ok) {
       console.error(`[YouTube] HTTP ${res.status} for ${endpoint}`);
       return null;
     }
 
-    const json = (await res.json()) as Record<string, unknown>;
+    const json = await safeJsonParse<Record<string, unknown>>(res);
+    if (!json) {
+      console.error('[YouTube] Failed to parse JSON response');
+      return null;
+    }
 
     // YouTube API returns error objects inside the JSON body even on 200
     if (json.error) {

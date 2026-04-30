@@ -13,7 +13,8 @@ export default function TopRatedSection() {
   const [fromAPI, setFromAPI] = useState(false);
 
   useEffect(() => {
-    fetch('/api/browse?source=top_rated')
+    const controller = new AbortController();
+    fetch('/api/browse?source=top_rated', { signal: controller.signal })
       .then(res => res.ok ? res.json() : null)
       .then(data => {
         if (data?.movies?.length > 0) {
@@ -23,6 +24,7 @@ export default function TopRatedSection() {
       })
       .catch(() => {})
       .finally(() => setLoading(false));
+    return () => controller.abort();
   }, []);
 
   const displayMovies = topMovies;

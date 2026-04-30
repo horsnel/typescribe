@@ -45,7 +45,7 @@ export default function WatchlistPage() {
     }
     switch (sort) {
       case 'rating': result.sort((a, b) => b.vote_average - a.vote_average); break;
-      case 'release': result.sort((a, b) => new Date(b.release_date).getTime() - new Date(a.release_date).getTime()); break;
+      case 'release': result.sort((a, b) => new Date(b.release_date || 0).getTime() - new Date(a.release_date || 0).getTime()); break;
       case 'title': result.sort((a, b) => a.title.localeCompare(b.title)); break;
       case 'date-added': result.sort((a, b) => new Date(b.addedDate).getTime() - new Date(a.addedDate).getTime()); break;
     }
@@ -190,7 +190,7 @@ export default function WatchlistPage() {
                       </Link>
                       <div className="flex items-center gap-2 mt-1">
                         <span className="text-xs text-[#f5c518] font-medium">★ {movie.vote_average.toFixed(1)}</span>
-                        <span className="text-xs text-[#6b7280]">{movie.release_date.split('-')[0]}</span>
+                        <span className="text-xs text-[#6b7280]">{movie.release_date?.split('-')[0] || ''}</span>
                         <span className="text-xs text-[#6b7280]">{movie.runtime}m</span>
                       </div>
                     </div>

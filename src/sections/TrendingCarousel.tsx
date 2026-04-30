@@ -14,7 +14,8 @@ export default function TrendingCarousel() {
   const scroll = (direction: 'left' | 'right') => { if (!scrollRef.current) return; scrollRef.current.scrollBy({ left: direction === 'left' ? -420 : 420, behavior: 'smooth' }); };
 
   useEffect(() => {
-    fetch('/api/browse?source=trending&count=20')
+    const controller = new AbortController();
+    fetch('/api/browse?source=trending&count=20', { signal: controller.signal })
       .then(res => res.ok ? res.json() : null)
       .then(data => {
         if (data?.movies?.length > 0) {
@@ -24,6 +25,7 @@ export default function TrendingCarousel() {
       })
       .catch(() => {})
       .finally(() => setLoading(false));
+    return () => controller.abort();
   }, []);
 
   const displayMovies = trendingMovies;
