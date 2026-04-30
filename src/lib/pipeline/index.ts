@@ -515,6 +515,20 @@ export async function getNowPlaying(page: number = 1): Promise<BrowseResult> {
   };
 }
 
+export async function getUpcoming(page: number = 1): Promise<BrowseResult> {
+  const start = Date.now();
+  const result = await TMDb.getUpcoming(page);
+
+  return {
+    movies: result?.results || [],
+    page: result?.page || 1,
+    totalPages: result?.total_pages || 1,
+    totalResults: result?.total_results || 0,
+    sources: result ? ['TMDb'] : [],
+    durationMs: Date.now() - start,
+  };
+}
+
 // ─── Batch Processing ───
 
 export async function processBatch(

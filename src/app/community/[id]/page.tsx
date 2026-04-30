@@ -170,7 +170,7 @@ function CommentThread({ comments, postId, onAddComment, depth = 0 }: {
             {replyTo === comment.id && (
               <div className="ml-10 mt-2 flex items-center gap-2">
                 <input type="text" value={replyContent} onChange={(e) => setReplyContent(e.target.value)} placeholder="Write a reply..." className="flex-1 bg-[#050507] border border-[#1e1e28] rounded-lg px-3 py-1.5 text-sm text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853]" onKeyDown={(e) => { if (e.key === 'Enter') handleReply(comment.id); }} />
-                <Button size="sm" onClick={() => handleReply(comment.id)} disabled={!replyContent.trim()} className="bg-[#d4a853] hover:bg-[#b8922e] text-white h-8 w-8 p-0"><Send className="w-3.5 h-3.5" /></Button>
+                <Button size="sm" onClick={() => handleReply(comment.id)} disabled={!replyContent.trim()} className="bg-[#d4a853] hover:bg-[#b8922e] text-white h-8 w-8 p-0"><Send className="w-3.5 h-3.5" strokeWidth={1.5} /></Button>
               </div>
             )}
             {getReplies(comment.id).length > 0 && <CommentThread comments={getReplies(comment.id)} postId={postId} onAddComment={onAddComment} depth={depth + 1} />}
@@ -276,7 +276,7 @@ function PostCard({ post, communityId, onLikeToggle, onCommentToggle }: {
               </div>
               <div className="flex-1 flex items-center gap-2">
                 <input type="text" value={commentInput} onChange={(e) => setCommentInput(e.target.value)} placeholder="Add a comment..." className="flex-1 bg-[#050507] border border-[#1e1e28] rounded-lg px-3 py-2 text-sm text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853]" onKeyDown={(e) => { if (e.key === 'Enter') handleComment(); }} />
-                <Button size="sm" onClick={handleComment} disabled={!commentInput.trim()} className="bg-[#d4a853] hover:bg-[#b8922e] text-white h-9 w-9 p-0 flex-shrink-0"><Send className="w-3.5 h-3.5" /></Button>
+                <Button size="sm" onClick={handleComment} disabled={!commentInput.trim()} className="bg-[#d4a853] hover:bg-[#b8922e] text-white h-9 w-9 p-0 flex-shrink-0"><Send className="w-3.5 h-3.5" strokeWidth={1.5} /></Button>
               </div>
             </div>
           )}
@@ -466,7 +466,7 @@ export default function CommunityDetailPage() {
     return (
       <div className="min-h-screen bg-[#050507] pt-20">
         <div className="max-w-[800px] mx-auto px-4 py-16 text-center">
-          <Users className="w-16 h-16 text-[#2a2a35] mx-auto mb-4" />
+          <Users className="w-16 h-16 text-[#2a2a35] mx-auto mb-4" strokeWidth={1.5} />
           <h2 className="text-xl font-bold text-white mb-2">Community not found</h2>
           <p className="text-[#6b7280] mb-6">This community doesn&apos;t exist or has been removed.</p>
           <Link href="/communities"><Button className="bg-[#d4a853] hover:bg-[#b8922e] text-white">Browse Communities</Button></Link>
@@ -496,36 +496,36 @@ export default function CommunityDetailPage() {
                   {/* Creator Badge */}
                   {community.creatorName && (
                     <Link href={`/profile/${community.creatorId || ''}`} className="flex items-center gap-1 text-xs text-[#d4a853] bg-[#d4a853]/10 px-2 py-0.5 rounded-full font-medium hover:bg-[#d4a853]/20 transition-colors">
-                      <Crown className="w-3 h-3" /> {community.creatorName}
+                      <Crown className="w-3 h-3" strokeWidth={1.5} /> {community.creatorName}
                     </Link>
                   )}
                 </div>
                 <p className="text-[#9ca3af] mb-4 text-sm leading-relaxed">{community.description}</p>
                 <div className="flex items-center gap-4 text-sm text-[#6b7280] flex-wrap">
-                  <span className="flex items-center gap-1.5"><Users className="w-4 h-4" /> {community.members.toLocaleString()} members</span>
-                  <span className="flex items-center gap-1.5"><MessageSquare className="w-4 h-4" /> {community.posts} posts</span>
-                  <span className="flex items-center gap-1.5"><Clock className="w-4 h-4" /> Created {new Date(community.createdAt).toLocaleDateString()}</span>
+                  <span className="flex items-center gap-1.5"><Users className="w-4 h-4" strokeWidth={1.5} /> {community.members.toLocaleString()} members</span>
+                  <span className="flex items-center gap-1.5"><MessageSquare className="w-4 h-4" strokeWidth={1.5} /> {community.posts} posts</span>
+                  <span className="flex items-center gap-1.5"><Clock className="w-4 h-4" strokeWidth={1.5} /> Created {new Date(community.createdAt).toLocaleDateString()}</span>
                 </div>
               </div>
               <div className="flex items-center gap-2 flex-wrap">
                 {/* Share community button */}
                 <Button onClick={onShareCommunity} variant="outline" className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:bg-[#111118] hover:border-[#3a3a45] gap-2 min-h-[44px]">
-                  {shareCopied ? <Check className="w-4 h-4 text-[#d4a853]" /> : <Share2 className="w-4 h-4" />}
+                  {shareCopied ? <Check className="w-4 h-4 text-[#d4a853]" strokeWidth={1.5} /> : <Share2 className="w-4 h-4" strokeWidth={1.5} />}
                   {shareCopied ? 'Copied!' : 'Share'}
                 </Button>
                 {/* Manage button for creator */}
                 {isCreator && (
                   <Button onClick={openManageModal} variant="outline" className="border-[#d4a853]/30 text-[#d4a853] hover:bg-[#d4a853] hover:text-white gap-2 min-h-[44px]">
-                    <Settings2 className="w-4 h-4" /> Manage
+                    <Settings2 className="w-4 h-4" strokeWidth={1.5} /> Manage
                   </Button>
                 )}
                 {isAuthenticated ? (
                   <Button onClick={handleJoinToggle} variant={isJoined ? 'outline' : 'default'} className={isJoined ? 'border-[#d4a853] text-[#d4a853] hover:text-white hover:bg-[#d4a853] hover:border-[#d4a853] gap-2 min-h-[44px]' : 'bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 min-h-[44px]'}>
-                    {isJoined ? <UserMinus className="w-4 h-4" /> : <UserPlus className="w-4 h-4" />}
+                    {isJoined ? <UserMinus className="w-4 h-4" strokeWidth={1.5} /> : <UserPlus className="w-4 h-4" strokeWidth={1.5} />}
                     {isJoined ? 'Joined' : 'Join Community'}
                   </Button>
                 ) : (
-                  <Link href="/login"><Button className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 min-h-[44px]"><UserPlus className="w-4 h-4" /> Join Community</Button></Link>
+                  <Link href="/login"><Button className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 min-h-[44px]"><UserPlus className="w-4 h-4" strokeWidth={1.5} /> Join Community</Button></Link>
                 )}
               </div>
             </div>
@@ -536,7 +536,7 @@ export default function CommunityDetailPage() {
         {community.rules && community.rules.length > 0 && (
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5 mb-6">
             <div className="flex items-center gap-2 mb-3">
-              <Shield className="w-4 h-4 text-[#d4a853]" />
+              <Shield className="w-4 h-4 text-[#d4a853]" strokeWidth={1.5} />
               <h2 className="text-sm font-semibold text-white">Community Rules</h2>
             </div>
             <ol className="space-y-2">
@@ -592,7 +592,7 @@ export default function CommunityDetailPage() {
               </div>
               {isAuthenticated && (
                 <Button onClick={() => setShowNewPost(!showNewPost)} className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 min-h-[44px]" size="sm">
-                  <Plus className="w-4 h-4" /> New Post
+                  <Plus className="w-4 h-4" strokeWidth={1.5} /> New Post
                 </Button>
               )}
             </div>
@@ -601,14 +601,14 @@ export default function CommunityDetailPage() {
               <div className="bg-[#0c0c10] border border-[#d4a853]/30 rounded-xl p-5 mb-6">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-sm font-semibold text-white">Create a new post</h3>
-                  <button onClick={() => setShowNewPost(false)} className="text-[#6b7280] hover:text-white min-w-[44px] min-h-[44px] flex items-center justify-center"><X className="w-4 h-4" /></button>
+                  <button onClick={() => setShowNewPost(false)} className="text-[#6b7280] hover:text-white min-w-[44px] min-h-[44px] flex items-center justify-center"><X className="w-4 h-4" strokeWidth={1.5} /></button>
                 </div>
                 <div className="space-y-3">
                   <input type="text" value={newPostTitle} onChange={(e) => setNewPostTitle(e.target.value)} placeholder="Post title" className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] text-sm" />
                   <textarea value={newPostContent} onChange={(e) => setNewPostContent(e.target.value)} placeholder="Share your thoughts..." rows={4} className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] text-sm resize-none" />
                   <div className="flex justify-end">
                     <Button onClick={handleNewPost} disabled={!newPostTitle.trim() || !newPostContent.trim() || isSubmitting} className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 min-h-[44px]" size="sm">
-                      <Send className="w-4 h-4" />{isSubmitting ? 'Posting...' : 'Post'}
+                      <Send className="w-4 h-4" strokeWidth={1.5} />{isSubmitting ? 'Posting...' : 'Post'}
                     </Button>
                   </div>
                 </div>
@@ -623,7 +623,7 @@ export default function CommunityDetailPage() {
               </div>
             ) : (
               <div className="text-center py-16 bg-[#0c0c10] border border-[#1e1e28] rounded-xl">
-                <MessageSquare className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
+                <MessageSquare className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" strokeWidth={1.5} />
                 <p className="text-[#9ca3af] mb-2">No discussions yet</p>
                 <p className="text-sm text-[#6b7280]">Be the first to start a conversation in this community!</p>
               </div>
@@ -652,7 +652,7 @@ export default function CommunityDetailPage() {
                     >
                       <div className="flex items-start gap-3 mb-3">
                         <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center flex-shrink-0">
-                          <Swords className="w-4 h-4 text-purple-400" />
+                          <Swords className="w-4 h-4 text-purple-400" strokeWidth={1.5} />
                         </div>
                         <div className="flex-1 min-w-0">
                           <h3 className="text-sm font-semibold text-white group-hover:text-purple-400 transition-colors leading-snug mb-1">
@@ -683,7 +683,7 @@ export default function CommunityDetailPage() {
               </div>
             ) : (
               <div className="text-center py-16 bg-[#0c0c10] border border-[#1e1e28] rounded-xl">
-                <Swords className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
+                <Swords className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" strokeWidth={1.5} />
                 <h3 className="text-lg font-bold text-white mb-2">No Debates Yet</h3>
                 <p className="text-sm text-[#6b7280] mb-4">Debates from relevant movies will appear here automatically.</p>
                 <p className="text-xs text-[#6b7280]">Start a debate on a movie page and it&apos;ll show up in matching communities!</p>
@@ -728,7 +728,7 @@ export default function CommunityDetailPage() {
         )}
         {activeTab === 'achievements' && !user && (
           <div className="text-center py-16 bg-[#0c0c10] border border-[#1e1e28] rounded-xl">
-            <Sparkles className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" />
+            <Sparkles className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" strokeWidth={1.5} />
             <h3 className="text-lg font-bold text-white mb-2">Sign In to Track Achievements</h3>
             <p className="text-sm text-[#6b7280]">Join the community and start earning badges!</p>
           </div>
@@ -754,7 +754,7 @@ export default function CommunityDetailPage() {
         {/* Back link */}
         <div className="mt-8">
           <Link href="/communities" className="inline-flex items-center gap-2 text-sm text-[#6b7280] hover:text-[#d4a853] transition-colors">
-            <ArrowLeft className="w-4 h-4" /> Back to Communities
+            <ArrowLeft className="w-4 h-4" strokeWidth={1.5} /> Back to Communities
           </Link>
         </div>
       </div>
@@ -765,16 +765,16 @@ export default function CommunityDetailPage() {
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-lg font-bold text-white flex items-center gap-2">
-                <Crown className="w-5 h-5 text-[#d4a853]" /> Manage Community
+                <Crown className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} /> Manage Community
               </h2>
-              <button onClick={() => setShowManageModal(false)} className="text-[#6b7280] hover:text-white min-w-[44px] min-h-[44px] flex items-center justify-center"><X className="w-5 h-5" /></button>
+              <button onClick={() => setShowManageModal(false)} className="text-[#6b7280] hover:text-white min-w-[44px] min-h-[44px] flex items-center justify-center"><X className="w-5 h-5" strokeWidth={1.5} /></button>
             </div>
 
             <div className="space-y-5">
               {/* Banner Image */}
               <div>
                 <label className="text-sm font-medium text-[#9ca3af] mb-1.5 block flex items-center gap-2">
-                  <ImagePlus className="w-4 h-4 text-[#d4a853]" /> Background Banner URL
+                  <ImagePlus className="w-4 h-4 text-[#d4a853]" strokeWidth={1.5} /> Background Banner URL
                 </label>
                 <input type="text" value={bgUrl} onChange={(e) => setBgUrl(e.target.value)} placeholder="https://example.com/banner.jpg" className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] text-sm min-h-[44px]" />
                 {bgUrl && (
@@ -787,7 +787,7 @@ export default function CommunityDetailPage() {
               {/* Description */}
               <div>
                 <label className="text-sm font-medium text-[#9ca3af] mb-1.5 block flex items-center gap-2">
-                  <Pencil className="w-4 h-4 text-[#d4a853]" /> Community Description
+                  <Pencil className="w-4 h-4 text-[#d4a853]" strokeWidth={1.5} /> Community Description
                 </label>
                 <textarea value={editDesc} onChange={(e) => setEditDesc(e.target.value)} rows={3} className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] text-sm resize-none" />
               </div>
@@ -795,7 +795,7 @@ export default function CommunityDetailPage() {
               {/* Rules */}
               <div>
                 <label className="text-sm font-medium text-[#9ca3af] mb-1.5 block flex items-center gap-2">
-                  <Shield className="w-4 h-4 text-[#d4a853]" /> Community Rules (one per line)
+                  <Shield className="w-4 h-4 text-[#d4a853]" strokeWidth={1.5} /> Community Rules (one per line)
                 </label>
                 <textarea value={editRules} onChange={(e) => setEditRules(e.target.value)} rows={5} className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] text-sm resize-none" placeholder="Be respectful&#10;Stay on topic&#10;No spam" />
               </div>
@@ -804,7 +804,7 @@ export default function CommunityDetailPage() {
             <div className="flex items-center gap-3 mt-6 justify-end">
               <Button variant="outline" onClick={() => setShowManageModal(false)} className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:bg-[#111118]">Cancel</Button>
               <Button onClick={saveManageChanges} className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 min-h-[44px]">
-                <Check className="w-4 h-4" /> Save Changes
+                <Check className="w-4 h-4" strokeWidth={1.5} /> Save Changes
               </Button>
             </div>
             {saved && <p className="text-sm text-green-400 mt-3 text-right">Changes saved!</p>}

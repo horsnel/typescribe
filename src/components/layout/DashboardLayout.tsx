@@ -38,7 +38,7 @@ export default function DashboardSidebar({ children }: { children: React.ReactNo
                         onClick={openNotificationPanel}
                         className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-colors text-[#9ca3af] hover:text-white hover:bg-[#111118]"
                       >
-                        <link.icon className="w-4 h-4 flex-shrink-0" />
+                        <link.icon className="w-4 h-4 flex-shrink-0" strokeWidth={1.5} />
                         <span className="hidden lg:inline">{link.label}</span>
                       </button>
                     );
@@ -53,7 +53,7 @@ export default function DashboardSidebar({ children }: { children: React.ReactNo
                           : 'text-[#9ca3af] hover:text-white hover:bg-[#111118]'
                       }`}
                     >
-                      <link.icon className="w-4 h-4 flex-shrink-0" />
+                      <link.icon className="w-4 h-4 flex-shrink-0" strokeWidth={1.5} />
                       <span className="hidden lg:inline">{link.label}</span>
                     </Link>
                   );

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { Calendar, Sparkles, MessageSquare, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -16,6 +17,7 @@ interface WeeklyThemeCardProps {
 
 export default function WeeklyThemeCard({ communityId, onDiscuss }: WeeklyThemeCardProps) {
   const [theme, setTheme] = useState<WeeklyTheme | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     let current = getWeeklyTheme(communityId);
@@ -34,13 +36,22 @@ export default function WeeklyThemeCard({ communityId, onDiscuss }: WeeklyThemeC
   nextMonday.setDate(nextMonday.getDate() + 7);
   const daysLeft = Math.max(0, Math.ceil((nextMonday.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)));
 
+  const handleDiscuss = () => {
+    if (onDiscuss) {
+      onDiscuss();
+    } else {
+      // Fallback: navigate to community discussions tab
+      router.push(`/community/${communityId}?tab=discussions`);
+    }
+  };
+
   return (
     <div className="bg-gradient-to-br from-[#0c0c10] to-[#0c0c14] border border-[#d4a853]/20 rounded-xl overflow-hidden">
       {/* Header banner */}
       <div className="bg-gradient-to-r from-[#d4a853]/15 to-purple-500/15 px-5 py-4 border-b border-[#d4a853]/10">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-lg bg-[#d4a853]/20 border border-[#d4a853]/30 flex items-center justify-center flex-shrink-0">
-            <Calendar className="w-5 h-5 text-[#d4a853]" />
+            <Calendar className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2">
@@ -58,7 +69,7 @@ export default function WeeklyThemeCard({ communityId, onDiscuss }: WeeklyThemeC
         {/* Discussion prompt */}
         <div className="bg-[#050507] border border-[#1e1e28] rounded-lg p-4 mb-4">
           <div className="flex items-start gap-2.5">
-            <Sparkles className="w-4 h-4 text-purple-400 mt-0.5 flex-shrink-0" />
+            <Sparkles className="w-4 h-4 text-purple-400 mt-0.5 flex-shrink-0" strokeWidth={1.5} />
             <div>
               <span className="text-[10px] text-purple-400 font-semibold uppercase tracking-wider">Discussion Prompt</span>
               <p className="text-sm text-white mt-1 leading-relaxed">{theme.prompt}</p>
@@ -68,13 +79,13 @@ export default function WeeklyThemeCard({ communityId, onDiscuss }: WeeklyThemeC
 
         {/* Action button */}
         <Button
-          onClick={onDiscuss}
+          onClick={handleDiscuss}
           className="w-full bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 min-h-[44px]"
           size="sm"
         >
-          <MessageSquare className="w-4 h-4" />
+          <MessageSquare className="w-4 h-4" strokeWidth={1.5} />
           Join the Discussion
-          <ChevronRight className="w-4 h-4 ml-auto" />
+          <ChevronRight className="w-4 h-4 ml-auto" strokeWidth={1.5} />
         </Button>
       </div>
     </div>

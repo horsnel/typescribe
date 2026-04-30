@@ -17,7 +17,7 @@
  *   page      – page number (default: 1)
  */
 import { NextRequest, NextResponse } from 'next/server';
-import { browseMovies, searchAnime, getTrending, getTopRated, getNowPlaying } from '@/lib/pipeline';
+import { browseMovies, searchAnime, getTrending, getTopRated, getNowPlaying, getUpcoming } from '@/lib/pipeline';
 import { getCurrentSeason, getTopAnime } from '@/lib/pipeline/clients/jikan';
 import type { Movie, MediaFormat } from '@/lib/types';
 import { apiLimiter } from '@/lib/rate-limit';
@@ -78,6 +78,9 @@ export async function GET(request: NextRequest) {
     } else if (source === 'now_playing') {
       console.log('[API /browse] Fetching now playing', { page });
       result = await getNowPlaying(page);
+    } else if (source === 'upcoming') {
+      console.log('[API /browse] Fetching upcoming', { page });
+      result = await getUpcoming(page);
     } else {
       // ── Call browseMovies ──
       console.log('[API /browse] Browsing movies', {

@@ -56,14 +56,14 @@ export default function DashboardSettingsPage() {
       <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
         <h1 className="text-2xl font-bold text-white">Account Settings</h1>
         <Button onClick={handleSave} className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2">
-          <Save className="w-4 h-4" />
+          <Save className="w-4 h-4" strokeWidth={1.5} />
           {saved ? 'Saved!' : 'Save All'}
         </Button>
       </div>
 
       {saved && (
         <div className="mb-6 bg-green-500/10 border border-green-500/20 rounded-lg p-3 flex items-center gap-2">
-          <Check className="w-4 h-4 text-green-400" />
+          <Check className="w-4 h-4 text-green-400" strokeWidth={1.5} />
           <span className="text-sm text-green-400">Settings saved successfully!</span>
         </div>
       )}
@@ -72,7 +72,7 @@ export default function DashboardSettingsPage() {
         {/* Profile Info */}
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
           <div className="flex items-center gap-3 mb-4">
-            <User className="w-5 h-5 text-[#d4a853]" />
+            <User className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
             <h2 className="text-base font-semibold text-white">Profile Information</h2>
           </div>
           <div className="space-y-4">
@@ -109,7 +109,7 @@ export default function DashboardSettingsPage() {
                         : 'bg-[#050507] text-[#9ca3af] border-[#1e1e28] hover:border-[#3a3a45] hover:text-white'
                     }`}
                   >
-                    {favoriteGenres.includes(genre) && <Check className="w-3 h-3 inline mr-1" />}
+                    {favoriteGenres.includes(genre) && <Check className="w-3 h-3 inline mr-1" strokeWidth={1.5} />}
                     {genre}
                   </button>
                 ))}
@@ -121,7 +121,7 @@ export default function DashboardSettingsPage() {
         {/* Email */}
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
           <div className="flex items-center gap-3 mb-4">
-            <Mail className="w-5 h-5 text-[#d4a853]" />
+            <Mail className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
             <h2 className="text-base font-semibold text-white">Email</h2>
           </div>
           <input type="email" defaultValue={user?.email || ''} className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-[#d4a853] mb-1" disabled />
@@ -131,7 +131,7 @@ export default function DashboardSettingsPage() {
         {/* Password */}
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
           <div className="flex items-center gap-3 mb-4">
-            <Lock className="w-5 h-5 text-[#d4a853]" />
+            <Lock className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
             <h2 className="text-base font-semibold text-white">Password</h2>
           </div>
           <div className="space-y-3">
@@ -145,13 +145,13 @@ export default function DashboardSettingsPage() {
         {/* Preferences */}
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
           <div className="flex items-center gap-3 mb-4">
-            <Settings className="w-5 h-5 text-[#d4a853]" />
+            <Settings className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
             <h2 className="text-base font-semibold text-white">Preferences</h2>
           </div>
           <div className="space-y-4">
             <div className="flex items-center justify-between gap-3">
               <div className="flex items-center gap-3 min-w-0">
-                <Bell className="w-4 h-4 text-[#9ca3af] flex-shrink-0" />
+                <Bell className="w-4 h-4 text-[#9ca3af] flex-shrink-0" strokeWidth={1.5} />
                 <div className="min-w-0">
                   <p className="text-sm text-white">Email Notifications</p>
                   <p className="text-xs text-[#6b7280]">Receive email about reviews and activity</p>
@@ -166,7 +166,7 @@ export default function DashboardSettingsPage() {
             </div>
             <div className="flex items-center justify-between gap-3">
               <div className="flex items-center gap-3 min-w-0">
-                <Globe className="w-4 h-4 text-[#9ca3af] flex-shrink-0" />
+                <Globe className="w-4 h-4 text-[#9ca3af] flex-shrink-0" strokeWidth={1.5} />
                 <div className="min-w-0">
                   <p className="text-sm text-white">Public Profile</p>
                   <p className="text-xs text-[#6b7280]">Others can see your profile and reviews</p>
@@ -181,14 +181,14 @@ export default function DashboardSettingsPage() {
             </div>
             <div className="flex items-center justify-between gap-3">
               <div className="flex items-center gap-3 min-w-0">
-                <Moon className="w-4 h-4 text-[#9ca3af] flex-shrink-0" />
+                <Moon className="w-4 h-4 text-[#9ca3af] flex-shrink-0" strokeWidth={1.5} />
                 <div className="min-w-0"><p className="text-sm text-white">Dark Mode</p><p className="text-xs text-[#6b7280]">Default theme</p></div>
               </div>
               <button className="w-12 h-6 bg-[#d4a853] rounded-full relative flex-shrink-0"><span className="absolute right-1 top-1 w-4 h-4 bg-white rounded-full" /></button>
             </div>
             <div className="flex items-center justify-between gap-3">
               <div className="flex items-center gap-3 min-w-0">
-                <Globe className="w-4 h-4 text-[#9ca3af] flex-shrink-0" />
+                <Globe className="w-4 h-4 text-[#9ca3af] flex-shrink-0" strokeWidth={1.5} />
                 <div className="min-w-0"><p className="text-sm text-white">Language</p><p className="text-xs text-[#6b7280]">Site language preference</p></div>
               </div>
               <select className="bg-[#050507] border border-[#1e1e28] rounded-lg py-1.5 px-3 text-sm text-[#9ca3af] flex-shrink-0">
@@ -207,7 +207,7 @@ export default function DashboardSettingsPage() {
           <h2 className="text-base font-semibold text-red-400 mb-2">Danger Zone</h2>
           <p className="text-sm text-[#6b7280] mb-4">Once you delete your account, there is no going back.</p>
           <Button variant="outline" className="border-red-500/30 text-red-400 hover:bg-red-500/10 hover:text-red-300 gap-2">
-            <Trash2 className="w-4 h-4" /> Delete Account
+            <Trash2 className="w-4 h-4" strokeWidth={1.5} /> Delete Account
           </Button>
         </div>
       </div>

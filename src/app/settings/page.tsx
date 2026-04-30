@@ -11,6 +11,8 @@ export default function SettingsPage() {
   const [emailNotifications, setEmailNotifications] = useState(user?.email_notifications ?? true);
   const [publicProfile, setPublicProfile] = useState(user?.public_profile ?? true);
   const [showSpoilers, setShowSpoilers] = useState(false);
+  const [replyNotifications, setReplyNotifications] = useState(true);
+  const [weeklyDigest, setWeeklyDigest] = useState(true);
   const [language, setLanguage] = useState('en');
   const [saved, setSaved] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -31,6 +33,12 @@ export default function SettingsPage() {
 
   const handleSave = () => {
     updateProfile({ email_notifications: emailNotifications, public_profile: publicProfile });
+    // Save notification prefs to localStorage
+    try {
+      localStorage.setItem('typescribe_notif_reply', JSON.stringify(replyNotifications));
+      localStorage.setItem('typescribe_notif_weekly', JSON.stringify(weeklyDigest));
+      localStorage.setItem('typescribe_notif_spoilers', JSON.stringify(showSpoilers));
+    } catch { /* ignore */ }
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
   };
@@ -59,6 +67,7 @@ export default function SettingsPage() {
     <button
       onClick={onChange}
       className={`w-11 h-6 rounded-full transition-colors relative flex-shrink-0 ${enabled ? 'bg-[#d4a853]' : 'bg-[#2a2a35]'}`}
+      aria-label="Toggle setting"
     >
       <div className="w-5 h-5 bg-white rounded-full absolute top-0.5 transition-all" style={{ left: enabled ? '22px' : '2px' }} />
     </button>
@@ -76,7 +85,7 @@ export default function SettingsPage() {
         </nav>
 
         <div className="flex items-center gap-3 mb-8">
-          <SettingsIcon className="w-6 h-6 text-[#d4a853]" />
+          <SettingsIcon className="w-6 h-6 text-[#d4a853]" strokeWidth={1.5} />
           <h1 className="text-3xl lg:text-4xl font-extrabold text-white">Settings</h1>
         </div>
 
@@ -84,7 +93,7 @@ export default function SettingsPage() {
           {/* Notification Settings */}
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
             <div className="flex items-center gap-2 mb-4">
-              <Bell className="w-5 h-5 text-[#d4a853]" />
+              <Bell className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
               <h2 className="text-lg font-semibold text-white">Notifications</h2>
             </div>
             <div className="space-y-4">
@@ -100,14 +109,14 @@ export default function SettingsPage() {
                   <p className="text-sm font-medium text-white">Reply Notifications</p>
                   <p className="text-xs text-[#6b7280] mt-0.5">Get notified when someone replies to your comment</p>
                 </div>
-                <Toggle enabled={true} onChange={() => {}} />
+                <Toggle enabled={replyNotifications} onChange={() => setReplyNotifications(!replyNotifications)} />
               </div>
               <div className="flex items-center justify-between p-4 bg-[#050507] border border-[#1e1e28] rounded-lg">
                 <div>
                   <p className="text-sm font-medium text-white">Weekly Digest</p>
                   <p className="text-xs text-[#6b7280] mt-0.5">Get a weekly summary of top movies and reviews</p>
                 </div>
-                <Toggle enabled={true} onChange={() => {}} />
+                <Toggle enabled={weeklyDigest} onChange={() => setWeeklyDigest(!weeklyDigest)} />
               </div>
             </div>
           </div>
@@ -115,7 +124,7 @@ export default function SettingsPage() {
           {/* Privacy Settings */}
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
             <div className="flex items-center gap-2 mb-4">
-              <Eye className="w-5 h-5 text-[#d4a853]" />
+              <Eye className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
               <h2 className="text-lg font-semibold text-white">Privacy</h2>
             </div>
             <div className="space-y-4">
@@ -139,7 +148,7 @@ export default function SettingsPage() {
           {/* Preferences */}
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
             <div className="flex items-center gap-2 mb-4">
-              <Palette className="w-5 h-5 text-[#d4a853]" />
+              <Palette className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
               <h2 className="text-lg font-semibold text-white">Preferences</h2>
             </div>
             <div className="space-y-4">
@@ -177,7 +186,7 @@ export default function SettingsPage() {
           {/* Change Password */}
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
             <div className="flex items-center gap-2 mb-4">
-              <Key className="w-5 h-5 text-[#d4a853]" />
+              <Key className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
               <h2 className="text-lg font-semibold text-white">Change Password</h2>
             </div>
             <form onSubmit={handlePasswordChange} className="space-y-4">
@@ -195,7 +204,7 @@ export default function SettingsPage() {
               </div>
               {passwordMsg && <p className={`text-sm ${passwordMsg.includes('success') ? 'text-green-400' : 'text-red-400'}`}>{passwordMsg}</p>}
               <Button type="submit" disabled={passwordSaving} className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2">
-                {passwordSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Key className="w-4 h-4" />} Update Password
+                {passwordSaving ? <Loader2 className="w-4 h-4 animate-spin" strokeWidth={1.5} /> : <Key className="w-4 h-4" strokeWidth={1.5} />} Update Password
               </Button>
             </form>
           </div>
@@ -203,7 +212,7 @@ export default function SettingsPage() {
           {/* Save Button */}
           <div className="flex items-center gap-4">
             <Button onClick={handleSave} className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2">
-              <Save className="w-4 h-4" /> Save Settings
+              <Save className="w-4 h-4" strokeWidth={1.5} /> Save Settings
             </Button>
             {saved && <span className="text-sm text-green-400">Settings saved!</span>}
           </div>
@@ -211,7 +220,7 @@ export default function SettingsPage() {
           {/* Account Section */}
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
             <div className="flex items-center gap-2 mb-4">
-              <Shield className="w-5 h-5 text-[#d4a853]" />
+              <Shield className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
               <h2 className="text-lg font-semibold text-white">Account</h2>
             </div>
             <div className="space-y-3 text-sm">
@@ -243,7 +252,7 @@ export default function SettingsPage() {
           {/* Danger Zone */}
           <div className="bg-[#0c0c10] border border-red-500/20 rounded-xl p-6">
             <div className="flex items-center gap-2 mb-4">
-              <AlertTriangle className="w-5 h-5 text-red-400" />
+              <AlertTriangle className="w-5 h-5 text-red-400" strokeWidth={1.5} />
               <h2 className="text-lg font-semibold text-red-400">Danger Zone</h2>
             </div>
             {!showDeleteConfirm ? (
@@ -261,7 +270,7 @@ export default function SettingsPage() {
                 <p className="text-sm text-red-400 mb-3">Are you sure? This action cannot be undone. All your reviews, watchlist, and account data will be permanently deleted.</p>
                 <div className="flex items-center gap-3">
                   <Button onClick={() => { logout(); }} className="bg-red-500 hover:bg-red-600 text-white gap-2">
-                    <Trash2 className="w-4 h-4" /> Yes, Delete My Account
+                    <Trash2 className="w-4 h-4" strokeWidth={1.5} /> Yes, Delete My Account
                   </Button>
                   <Button variant="outline" onClick={() => setShowDeleteConfirm(false)} className="border-[#1e1e28] text-[#9ca3af]">Cancel</Button>
                 </div>

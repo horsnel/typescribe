@@ -788,6 +788,34 @@ export async function getNowPlaying(
 }
 
 /**
+ * GET `/movie/upcoming`
+ *
+ * Returns upcoming movies that have not yet been released.
+ */
+export async function getUpcoming(
+  page: number = 1,
+  apiKeyOverride?: string,
+): Promise<PaginatedResult<Movie> | null> {
+  const data = await tmdbFetch<PaginatedResult<TmdbMovieCard>>(
+    '/movie/upcoming',
+    { page },
+    CACHE_TTL_LISTS,
+    apiKeyOverride,
+  );
+  if (!data) return null;
+
+  try {
+    return {
+      ...data,
+      results: data.results.map(transformMovieCard),
+    };
+  } catch (err) {
+    console.error('[TMDb] Failed to transform upcoming movies', err);
+    return null;
+  }
+}
+
+/**
  * GET `/genre/movie/list` and `/genre/tv/list`
  *
  * Returns a merged, deduped genre map keyed by ID.

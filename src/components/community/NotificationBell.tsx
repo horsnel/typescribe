@@ -21,7 +21,7 @@ export default function NotificationBell() {
       className="relative p-2 rounded-lg text-[#9ca3af] hover:text-white hover:bg-[#111118] transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
       aria-label="Notifications"
     >
-      <Bell className="w-5 h-5" />
+      <Bell className="w-5 h-5" strokeWidth={1.5} />
       {unread > 0 && (
         <span className="absolute top-1 right-1 w-4 h-4 bg-red-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center">
           {unread > 9 ? '9+' : unread}

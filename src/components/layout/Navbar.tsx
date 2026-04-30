@@ -141,6 +141,7 @@ export default function Navbar() {
     { label: 'Top Rated', href: '/top-rated' },
     { label: 'Box Office', href: '/box-office' },
     { label: 'New Releases', href: '/new-releases' },
+    { label: 'Upcoming', href: '/upcoming' },
     { label: 'News', href: '/news' },
     { label: 'Communities', href: '/communities' },
   ];
@@ -177,7 +178,7 @@ export default function Navbar() {
             className="flex items-center gap-2 cursor-pointer"
             aria-label="Typescribe Logo — Triple-click for Admin"
           >
-            <Film className="w-6 h-6 text-[#d4a853] group-hover:scale-110 transition-transform" />
+            <Film className="w-6 h-6 text-[#d4a853] group-hover:scale-110 transition-transform" strokeWidth={1.5} />
             {pathname === '/' && <span className="text-xl font-extrabold text-white tracking-tight">Typescribe</span>}
           </button>
         </div>
@@ -193,12 +194,12 @@ export default function Navbar() {
 
         <div className="flex items-center gap-2 z-10">
           <button onClick={() => setSearchOpen(true)} className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-[#0c0c10] border border-[#1e1e28] rounded-lg text-[#6b7280] hover:text-[#9ca3af] hover:border-[#3a3a45] focus:border-[#d4a853] transition-all text-sm" aria-label="Search">
-            <Search className="w-4 h-4" />
+            <Search className="w-4 h-4" strokeWidth={1.5} />
             <span className="hidden lg:inline">Search...</span>
             <kbd className="hidden lg:inline px-1.5 py-0.5 bg-[#050507] rounded text-[10px] font-mono border border-[#1e1e28]">⌘K</kbd>
           </button>
           <button onClick={() => setSearchOpen(true)} className="sm:hidden p-2 text-[#9ca3af] hover:text-amber-400 transition-colors" aria-label="Search">
-            <Search className="w-5 h-5" />
+            <Search className="w-5 h-5" strokeWidth={1.5} />
           </button>
 
           {/* Notification Bell for authenticated users */}
@@ -236,7 +237,7 @@ export default function Navbar() {
                         onClick={() => setProfileMenuOpen(false)}
                         className="flex items-center gap-3 px-4 py-2.5 text-sm text-[#9ca3af] hover:text-white hover:bg-[#111118] transition-colors"
                       >
-                        <item.icon className="w-4 h-4 text-[#d4a853]" />
+                        <item.icon className="w-4 h-4 text-[#d4a853]" strokeWidth={1.5} />
                         {item.label}
                       </Link>
                     ))}
@@ -248,7 +249,7 @@ export default function Navbar() {
                       onClick={() => { logout(); setProfileMenuOpen(false); }}
                       className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-[#9ca3af] hover:text-red-400 hover:bg-[#111118] transition-colors"
                     >
-                      <LogOut className="w-4 h-4 text-[#d4a853]" />
+                      <LogOut className="w-4 h-4 text-[#d4a853]" strokeWidth={1.5} />
                       Log Out
                     </button>
                   </div>
@@ -267,7 +268,7 @@ export default function Navbar() {
           )}
 
           <button className="md:hidden p-2 text-[#9ca3af] hover:text-amber-400 transition-colors" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Menu">
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileMenuOpen ? <X className="w-5 h-5" strokeWidth={1.5} /> : <Menu className="w-5 h-5" strokeWidth={1.5} />}
           </button>
         </div>
       </nav>
@@ -286,20 +287,20 @@ export default function Navbar() {
                     if ('isPanel' in item && item.isPanel) {
                       return (
                         <button key={item.label} onClick={() => { openNotificationPanel(); setMobileMenuOpen(false); }} className="flex items-center gap-3 py-2.5 text-[#9ca3af] hover:text-amber-400 transition-colors w-full text-left">
-                          <item.icon className="w-4 h-4" />
+                          <item.icon className="w-4 h-4" strokeWidth={1.5} />
                           {item.label}
                         </button>
                       );
                     }
                     return (
                       <Link key={item.label} href={item.href} onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 py-2.5 text-[#9ca3af] hover:text-amber-400 transition-colors">
-                        <item.icon className="w-4 h-4" />
+                        <item.icon className="w-4 h-4" strokeWidth={1.5} />
                         {item.label}
                       </Link>
                     );
                   })}
                   <button onClick={() => { logout(); setMobileMenuOpen(false); }} className="flex items-center gap-3 py-2.5 text-red-400 hover:text-red-300 transition-colors">
-                    <LogOut className="w-4 h-4" />
+                    <LogOut className="w-4 h-4" strokeWidth={1.5} />
                     Log Out
                   </button>
                 </>
@@ -322,7 +323,7 @@ export default function Navbar() {
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-full bg-[#d4a853]/10 flex items-center justify-center">
-                <Lock className="w-5 h-5 text-[#d4a853]" />
+                <Lock className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
               </div>
               <div>
                 <h3 className="text-lg font-bold text-white">Admin Access</h3>
@@ -349,7 +350,7 @@ export default function Navbar() {
                 disabled={!adminPassword || adminLoading}
                 className="flex-1 bg-[#d4a853] hover:bg-[#b8922e] text-white disabled:opacity-50"
               >
-                {adminLoading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Lock className="w-4 h-4 mr-2" />}
+                {adminLoading ? <Loader2 className="w-4 h-4 animate-spin mr-2" strokeWidth={1.5} /> : <Lock className="w-4 h-4 mr-2" strokeWidth={1.5} />}
                 Authenticate
               </Button>
               <Button
