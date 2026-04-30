@@ -11,6 +11,7 @@ import {
 import type { JikanAnimeResult, JikanCharacterResult, JikanRecommendation } from '@/lib/pipeline/clients/jikan';
 import EpisodeRatings from '@/components/anime/EpisodeRatings';
 import { handleImageError, POSTER_PLACEHOLDER, BACKDROP_PLACEHOLDER } from '@/lib/utils';
+import TrailerModal from '@/components/movie/TrailerModal';
 
 // ─── Types ───
 
@@ -31,6 +32,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
   const [error, setError] = useState<string | null>(null);
   const [synopsisExpanded, setSynopsisExpanded] = useState(false);
   const [recLoading, setRecLoading] = useState(true);
+  const [trailerOpen, setTrailerOpen] = useState(false);
 
   const heroRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -320,14 +322,12 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
               {/* Action Buttons */}
               <div className="hero-animate flex items-center gap-3 flex-wrap">
                 {anime.trailerYoutubeId && (
-                  <a
-                    href={`https://www.youtube.com/watch?v=${anime.trailerYoutubeId}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <button
+                    onClick={() => setTrailerOpen(true)}
                     className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium bg-[#d4a853] hover:bg-[#b8922e] text-white transition-colors"
                   >
                     <Play className="w-4 h-4 fill-white" strokeWidth={1.5} /> Watch Trailer
-                  </a>
+                  </button>
                 )}
 
                 <button
@@ -653,6 +653,16 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
           </aside>
         </div>
       </div>
+
+      {/* Trailer Modal — full-screen with blurry backdrop */}
+      {data?.anime?.trailerYoutubeId && (
+        <TrailerModal
+          isOpen={trailerOpen}
+          onClose={() => setTrailerOpen(false)}
+          youtubeId={data.anime.trailerYoutubeId}
+          title={data.anime.titleEnglish || data.anime.title || 'Anime'}
+        />
+      )}
     </div>
   );
 }

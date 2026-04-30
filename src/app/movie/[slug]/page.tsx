@@ -29,6 +29,7 @@ import { moderateContent, preSubmitCheck } from '@/lib/moderation';
 import type { ReportReason } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import MovieDetailSkeleton from '@/components/skeletons/MovieDetailSkeleton';
+import TrailerModal from '@/components/movie/TrailerModal';
 
 type CommentTab = 'reviews' | 'discussion';
 
@@ -1561,40 +1562,11 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                   );
                 }
 
-                if (trailerOpen) {
-                  // Prefer YouTube embed (from TMDb Videos or YouTube Data API)
-                  if (hasYouTubeId) {
-                    return (
-                      <div className="aspect-video rounded-lg overflow-hidden">
-                        <iframe
-                          src={`https://www.youtube.com/embed/${movie.trailer_youtube_id}?autoplay=1`}
-                          title={`${movie.title} Trailer`}
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                          className="w-full h-full"
-                        />
-                      </div>
-                    );
-                  }
-                  // Fallback: iTunes preview (30-sec m4v)
-                  if (hasITunesPreview) {
-                    return (
-                      <div className="aspect-video rounded-lg overflow-hidden bg-black">
-                        <video
-                          src={movie.itunes_preview_url}
-                          autoPlay
-                          controls
-                          className="w-full h-full object-contain"
-                          poster={movie.itunes_artwork_url || undefined}
-                        >
-                          Your browser does not support the video tag.
-                        </video>
-                      </div>
-                    );
-                  }
-                }
+                // Determine thumbnail image
+                const thumbnailUrl = hasYouTubeId
+                  ? `https://img.youtube.com/vi/${movie.trailer_youtube_id}/hqdefault.jpg`
+                  : movie.itunes_artwork_url || '';
 
-                // Show play button with source indicator
                 const sourceLabel = hasYouTubeId
                   ? 'YouTube Trailer'
                   : 'iTunes Preview';
@@ -1602,28 +1574,44 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                 return (
                   <button
                     onClick={() => setTrailerOpen(true)}
-                    className="w-full aspect-video bg-[#050507] rounded-lg flex items-center justify-center border border-[#1e1e28] hover:border-[#d4a853]/40 transition-colors group relative overflow-hidden"
+                    className="w-full aspect-video bg-[#050507] rounded-lg flex items-center justify-center border border-[#1e1e28] hover:border-[#d4a853]/40 transition-all group relative overflow-hidden cursor-pointer"
                   >
-                    {movie.itunes_artwork_url && !hasYouTubeId && (
+                    {thumbnailUrl && (
                       <img
-                        src={movie.itunes_artwork_url}
-                        alt={movie.title}
-                        className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-40 transition-opacity"
+                        src={thumbnailUrl}
+                        alt={`${movie.title} trailer thumbnail`}
+                        className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-[1.02] transition-all duration-300"
+                        onError={(e) => {
+                          // Hide broken thumbnail, fall back to play button only
+                          (e.target as HTMLImageElement).style.display = 'none';
+                        }}
                       />
                     )}
+                    {/* Gradient overlay for readability */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                     <div className="text-center relative z-10">
-                      <div className="w-14 h-14 rounded-full bg-[#d4a853]/20 flex items-center justify-center mx-auto mb-2 group-hover:bg-[#d4a853]/30 transition-colors">
+                      <div className="w-14 h-14 rounded-full bg-[#d4a853]/20 backdrop-blur-sm flex items-center justify-center mx-auto mb-2 group-hover:bg-[#d4a853]/30 group-hover:scale-110 transition-all duration-300">
                         <Play className="w-6 h-6 text-[#d4a853] fill-[#d4a853]" strokeWidth={1.5} />
                       </div>
-                      <span className="text-sm text-[#6b7280]">{sourceLabel}</span>
+                      <span className="text-sm text-white/80 font-medium">{sourceLabel}</span>
                       {!hasYouTubeId && hasITunesPreview && (
-                        <span className="block text-[10px] text-[#4b5563] mt-1">30-sec preview</span>
+                        <span className="block text-[10px] text-white/50 mt-1">30-sec preview</span>
                       )}
                     </div>
                   </button>
                 );
               })()}
             </div>
+
+            {/* Trailer Modal — full-screen with blurry backdrop */}
+            <TrailerModal
+              isOpen={trailerOpen}
+              onClose={() => setTrailerOpen(false)}
+              youtubeId={movie.trailer_youtube_id || undefined}
+              itunesPreviewUrl={movie.itunes_preview_url || undefined}
+              itunesArtworkUrl={movie.itunes_artwork_url || undefined}
+              title={movie.title}
+            />
 
             {/* News Headlines */}
             {movie.news_headlines.length > 0 && (
