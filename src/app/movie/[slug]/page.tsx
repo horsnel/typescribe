@@ -680,7 +680,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
             src={movie.backdrop_path?.startsWith('http') ? movie.backdrop_path : movie.backdrop_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w1280${movie.backdrop_path}` : movie.backdrop_path || ''}
             alt={movie.title}
             className="w-full h-full object-cover opacity-30"
-            onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+            onError={(e) => { (e.target as HTMLImageElement).src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720"><rect fill="%230c0c10" width="1280" height="720"/></svg>'); }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/80 to-[#0a0a0f]/40" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0f]/90 via-transparent to-transparent" />
@@ -691,7 +691,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
           <div className="flex flex-col md:flex-row gap-6 lg:gap-10 items-end w-full">
             {/* Mobile poster - small inline */}
             <div className="md:hidden hero-animate flex-shrink-0 w-[120px] rounded-xl overflow-hidden shadow-2xl border border-white/[0.06]">
-              <img src={movie.poster_path?.startsWith('http') ? movie.poster_path : movie.poster_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : movie.poster_path || ''} alt={movie.title} className="w-full aspect-[2/3] object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+              <img src={movie.poster_path?.startsWith('http') ? movie.poster_path : movie.poster_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : movie.poster_path || ''} alt={movie.title} className="w-full aspect-[2/3] object-cover" onError={(e) => { const img = e.target as HTMLImageElement; img.src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 750"><rect fill="%230c0c10" width="500" height="750"/><text x="250" y="375" text-anchor="middle" fill="%232a2a35" font-size="48" font-family="sans-serif">🎬</text></svg>'); }} />
             </div>
             {/* Poster – hidden on mobile */}
             <div className="hidden md:block hero-animate flex-shrink-0 w-[220px] rounded-xl overflow-hidden shadow-2xl border border-[#1e1e28]/50">
@@ -699,7 +699,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                 src={movie.poster_path?.startsWith('http') ? movie.poster_path : movie.poster_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : movie.poster_path || ''}
                 alt={movie.title}
                 className="w-full aspect-[2/3] object-cover"
-                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                onError={(e) => { const img = e.target as HTMLImageElement; img.src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 750"><rect fill="%230c0c10" width="500" height="750"/><text x="250" y="375" text-anchor="middle" fill="%232a2a35" font-size="48" font-family="sans-serif">🎬</text></svg>'); }}
               />
             </div>
 
@@ -1376,7 +1376,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
               <h3 className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider mb-4">Movie Info</h3>
 
               <div className="w-full aspect-video rounded-lg overflow-hidden mb-5 border border-[#1e1e28]/50">
-                <img src={movie.poster_path?.startsWith('http') ? movie.poster_path : movie.poster_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : movie.poster_path || ''} alt={movie.title} className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                <img src={movie.poster_path?.startsWith('http') ? movie.poster_path : movie.poster_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : movie.poster_path || ''} alt={movie.title} className="w-full h-full object-cover" onError={(e) => { const img = e.target as HTMLImageElement; img.src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 750"><rect fill="%230c0c10" width="500" height="750"/></svg>'); }} />
               </div>
 
               <div className="space-y-3.5">

@@ -101,6 +101,8 @@ export interface PipelineConfig {
   includeNews?: boolean;
   /** Max concurrent scraper calls (default: 5) */
   maxConcurrency?: number;
+  /** Media type hint: 'movie' or 'tv' — helps disambiguate TMDb IDs when both exist */
+  mediaType?: 'movie' | 'tv';
 }
 
 const DEFAULT_CONFIG: Required<PipelineConfig> = {
@@ -112,6 +114,7 @@ const DEFAULT_CONFIG: Required<PipelineConfig> = {
   generateAIReview: true,
   includeNews: true,
   maxConcurrency: 5,
+  mediaType: 'movie',
 };
 
 // ─── Merged Movie Result ───
@@ -666,18 +669,30 @@ export async function mergeMovieData(
   let movie: Partial<Movie> = {};
 
   try {
-    const isTvGuess = false; // Will determine after TMDb response
-    const tmdbData = await TMDb.getMovieDetails(tmdbId, cfg.tmdbApiKey || undefined);
-    if (tmdbData) {
+    // Try BOTH movie and TV endpoints in parallel — TMDb IDs are namespace-separated,
+    // so the same numeric ID can refer to a different movie vs TV show.
+    // If a mediaType hint is provided, use that to pick the right result.
+    const [tmdbData, tvData] = await Promise.all([
+      TMDb.getMovieDetails(tmdbId, cfg.tmdbApiKey || undefined).catch(() => null),
+      TMDb.getTvDetails(tmdbId, cfg.tmdbApiKey || undefined).catch(() => null),
+    ]);
+
+    const mediaTypeHint = config.mediaType as string | undefined;
+
+    if (tmdbData && tvData) {
+      // Both returned — use the mediaType hint if available, otherwise prefer movie
+      if (mediaTypeHint === 'tv') {
+        movie = { ...tvData };
+      } else {
+        movie = { ...tmdbData };
+      }
+      sources.push('TMDb');
+    } else if (tmdbData) {
       movie = { ...tmdbData };
       sources.push('TMDb');
-    } else {
-      // Try TV
-      const tvData = await TMDb.getTvDetails(tmdbId, cfg.tmdbApiKey || undefined);
-      if (tvData) {
-        movie = { ...tvData };
-        sources.push('TMDb');
-      }
+    } else if (tvData) {
+      movie = { ...tvData };
+      sources.push('TMDb');
     }
   } catch (error: any) {
     warnings.push(`TMDb error: ${error.message}`);

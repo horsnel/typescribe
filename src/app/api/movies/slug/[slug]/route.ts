@@ -20,6 +20,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import * as TMDb from '@/lib/pipeline/clients/tmdb';
 import { getCachedMovie, setCachedMovie } from '@/lib/pipeline/cache';
 import { mergeMovieData } from '@/lib/pipeline/merger';
+import type { Movie } from '@/lib/types';
 
 export const maxDuration = 60; // Vercel function timeout (seconds)
 
@@ -73,8 +74,12 @@ export async function GET(
     if (wantEnriched) {
       if (tmdbId && tmdbId > 0) {
         try {
+          // Determine media type hint from cached data if available
+          const cachedMediaType = cached?.movie?.media_type as string | undefined;
+          const mediaType = cachedMediaType === 'tv' ? 'tv' as const : 'movie' as const;
+
           // Use mergeMovieData directly to bypass cache and get full pipeline data
-          const result = await mergeMovieData(tmdbId);
+          const result = await mergeMovieData(tmdbId, { mediaType });
           if (result && result.completeness > 0 && result.movie.title) {
             // Cache the enriched result
             setCachedMovie(slugCacheKey, result.movie, result.sources, result.completeness);
@@ -114,19 +119,44 @@ export async function GET(
     if (tmdbId && tmdbId > 0) {
       console.log(`[API /movies/slug] Fast mode: fetching TMDb ID ${tmdbId}`);
 
-      // Try TMDb movie first
-      let movie = await TMDb.getMovieDetails(tmdbId);
+      // Try BOTH movie and TV endpoints in parallel — TMDb IDs are namespace-separated,
+      // so the same numeric ID can refer to a different movie vs TV show.
+      // We pick the result whose generated slug best matches the URL slug.
+      const [movieResult, tvResult] = await Promise.all([
+        TMDb.getMovieDetails(tmdbId).catch(() => null),
+        TMDb.getTvDetails(tmdbId).catch(() => null),
+      ]);
 
-      // If not a movie, try TV
-      if (!movie) {
-        movie = await TMDb.getTvDetails(tmdbId);
+      // Helper: compute slug similarity (exact match > prefix match > no match)
+      const slugScore = (m: { slug: string } | null): number => {
+        if (!m) return -1;
+        if (m.slug === trimmedSlug) return 100;
+        // Check if the title part of the slug matches
+        const mTitle = m.slug.replace(/-\d+$/, '');
+        const expectedTitle = trimmedSlug.replace(/-\d+$/, '');
+        if (mTitle === expectedTitle) return 90;
+        // Partial match
+        if (mTitle.length > 2 && expectedTitle.includes(mTitle)) return 70;
+        if (mTitle.length > 2 && mTitle.includes(expectedTitle)) return 70;
+        return 0;
+      };
+
+      const movieScore = slugScore(movieResult);
+      const tvScore = slugScore(tvResult);
+
+      let movie: Movie | null = null;
+      if (movieResult && tvResult) {
+        // Both returned — pick the one with better slug match
+        movie = tvScore > movieScore ? tvResult : movieResult;
+        console.log(`[API /movies/slug] Both endpoints returned. Movie slug="${movieResult.slug}" (score=${movieScore}), TV slug="${tvResult.slug}" (score=${tvScore}). Picked ${tvScore > movieScore ? 'TV' : 'Movie'}.`);
+      } else {
+        movie = movieResult || tvResult;
       }
 
       if (movie) {
-        // Ensure slug matches
-        const expectedSlug = trimmedSlug;
-        if (movie.slug !== expectedSlug) {
-          movie.slug = expectedSlug;
+        // Ensure slug matches the URL
+        if (movie.slug !== trimmedSlug) {
+          movie.slug = trimmedSlug;
         }
 
         // Cache the fast result (so next request is instant)
@@ -135,7 +165,7 @@ export async function GET(
         setCachedMovie(slugCacheKey, movie, ['TMDb'], 30);
 
         // Kick off background enrichment (fire-and-forget)
-        kickOffEnrichment(trimmedSlug, tmdbId);
+        kickOffEnrichment(trimmedSlug, tmdbId, movie.media_type as 'movie' | 'tv' | undefined);
 
         return NextResponse.json({
           movie,
@@ -186,15 +216,15 @@ export async function GET(
  * Runs the full pipeline (scrapers + APIs) and caches the result.
  * Avoids duplicate enrichment jobs for the same slug.
  */
-function kickOffEnrichment(slug: string, tmdbId: number): void {
+function kickOffEnrichment(slug: string, tmdbId: number, mediaType?: 'movie' | 'tv'): void {
   const key = `enrich:${slug}`;
 
   if (inFlightEnrichment.has(key)) return;
 
   const job = (async () => {
     try {
-      console.log(`[API /movies/slug] Starting background enrichment for "${slug}" (TMDb ${tmdbId})`);
-      const result = await mergeMovieData(tmdbId);
+      console.log(`[API /movies/slug] Starting background enrichment for "${slug}" (TMDb ${tmdbId}, mediaType=${mediaType || 'auto'})`);
+      const result = await mergeMovieData(tmdbId, mediaType ? { mediaType } : {});
 
       if (result.completeness > 0 && result.movie.title) {
         const slugCacheKey = `slug:${slug}`;

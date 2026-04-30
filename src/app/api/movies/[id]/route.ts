@@ -42,10 +42,14 @@ export async function GET(
     // ── Not cached — return TMDb data immediately (fast ~2-3s) ──
     console.log(`[API /movies] Cache miss for tmdb:${tmdbId}, fetching from TMDb`);
 
-    let movie = await TMDb.getMovieDetails(tmdbId);
-    if (!movie) {
-      movie = await TMDb.getTvDetails(tmdbId);
-    }
+    // Try BOTH movie and TV endpoints in parallel — TMDb IDs are namespace-separated
+    const [movieData, tvData] = await Promise.all([
+      TMDb.getMovieDetails(tmdbId).catch(() => null),
+      TMDb.getTvDetails(tmdbId).catch(() => null),
+    ]);
+
+    // Prefer movie result, fall back to TV
+    const movie = movieData || tvData;
 
     if (movie) {
       // Cache the TMDb result
@@ -53,7 +57,8 @@ export async function GET(
       setCachedMovie(`slug:${movie.slug}`, movie, ['TMDb'], 30);
 
       // Run full pipeline in background (fire-and-forget)
-      getMovie(tmdbId).then(result => {
+      const mediaType = movie.media_type as 'movie' | 'tv' | undefined;
+      getMovie(tmdbId, mediaType ? { mediaType } : {}).then(result => {
         if (result.completeness > 0 && result.movie.title) {
           setCachedMovie(cacheKey, result.movie, result.sources, result.completeness);
           setCachedMovie(`slug:${result.movie.slug}`, result.movie, result.sources, result.completeness);

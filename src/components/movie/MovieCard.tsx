@@ -17,6 +17,7 @@ export default function MovieCard({ movie, className }: MovieCardProps) {
           alt={movie.title}
           className="w-full h-full object-cover transition-all duration-300 group-hover:scale-[1.03]"
           loading="lazy"
+          onError={(e) => { const img = e.target as HTMLImageElement; img.src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 750"><rect fill="%230c0c10" width="500" height="750"/><text x="250" y="375" text-anchor="middle" fill="%232a2a35" font-size="48" font-family="sans-serif">🎬</text></svg>'); }}
         />
         {/* Sheen overlay */}
         <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 40%)' }} />
