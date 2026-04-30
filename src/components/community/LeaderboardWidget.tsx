@@ -27,7 +27,38 @@ const TIER_STYLES: Record<string, { bg: string; text: string; border: string }> 
   Newcomer: { bg: 'from-[#1e1e28] to-[#0c0c10]', text: 'text-[#6b7280]', border: 'border-[#1e1e28]' },
 };
 
-const RANK_BADGES = ['🥇', '🥈', '🥉'];
+// SVG Medal components for top 3 ranks
+function GoldMedal({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="10" fill="#d4a853" stroke="#b8922e" strokeWidth="1.5" />
+      <circle cx="12" cy="12" r="6.5" fill="#f5c518" stroke="#d4a853" strokeWidth="0.5" />
+      <path d="M12 7L13.5 10.5L17 11L14.5 13.5L15.25 17L12 15.25L8.75 17L9.5 13.5L7 11L10.5 10.5L12 7Z" fill="#fff8dc" />
+    </svg>
+  );
+}
+
+function SilverMedal({ className = 'w-5 h-5' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="10" fill="#9ca3af" stroke="#6b7280" strokeWidth="1.5" />
+      <circle cx="12" cy="12" r="6.5" fill="#d1d5db" stroke="#9ca3af" strokeWidth="0.5" />
+      <path d="M12 7L13.5 10.5L17 11L14.5 13.5L15.25 17L12 15.25L8.75 17L9.5 13.5L7 11L10.5 10.5L12 7Z" fill="#f3f4f6" />
+    </svg>
+  );
+}
+
+function BronzeMedal({ className = 'w-5 h-5' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="10" fill="#cd7f32" stroke="#a0522d" strokeWidth="1.5" />
+      <circle cx="12" cy="12" r="6.5" fill="#da8a43" stroke="#cd7f32" strokeWidth="0.5" />
+      <path d="M12 7L13.5 10.5L17 11L14.5 13.5L15.25 17L12 15.25L8.75 17L9.5 13.5L7 11L10.5 10.5L12 7Z" fill="#fde68a" />
+    </svg>
+  );
+}
+
+const RANK_MEDALS = [GoldMedal, SilverMedal, BronzeMedal];
 
 export default function LeaderboardWidget({ communityId, communityName }: LeaderboardWidgetProps) {
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
@@ -88,7 +119,7 @@ export default function LeaderboardWidget({ communityId, communityName }: Leader
                       <img src={leaderboard[1].avatar} alt="" className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
                     ) : leaderboard[1].userName[0]}
                   </div>
-                  <span className="text-lg">🥈</span>
+                  <SilverMedal className="w-6 h-6" />
                   <p className="text-xs font-semibold text-white mt-1 truncate">{leaderboard[1].userName}</p>
                   <p className="text-[10px] text-[#6b7280]">{leaderboard[1].totalScore} pts</p>
                 </div>
@@ -99,7 +130,7 @@ export default function LeaderboardWidget({ communityId, communityName }: Leader
                       <img src={leaderboard[0].avatar} alt="" className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
                     ) : leaderboard[0].userName[0]}
                   </div>
-                  <span className="text-2xl">🥇</span>
+                  <GoldMedal className="w-8 h-8" />
                   <p className="text-sm font-bold text-[#d4a853] mt-1 truncate">{leaderboard[0].userName}</p>
                   <p className="text-[10px] text-[#d4a853]">{leaderboard[0].totalScore} pts</p>
                   <span className={`inline-block text-[9px] px-2 py-0.5 rounded-full border mt-1 ${TIER_STYLES[leaderboard[0].tier].border} ${TIER_STYLES[leaderboard[0].tier].text} bg-gradient-to-r ${TIER_STYLES[leaderboard[0].tier].bg}`}>
@@ -113,7 +144,7 @@ export default function LeaderboardWidget({ communityId, communityName }: Leader
                       <img src={leaderboard[2].avatar} alt="" className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
                     ) : leaderboard[2].userName[0]}
                   </div>
-                  <span className="text-lg">🥉</span>
+                  <BronzeMedal className="w-6 h-6" />
                   <p className="text-xs font-semibold text-white mt-1 truncate">{leaderboard[2].userName}</p>
                   <p className="text-[10px] text-[#6b7280]">{leaderboard[2].totalScore} pts</p>
                 </div>
@@ -130,7 +161,10 @@ export default function LeaderboardWidget({ communityId, communityName }: Leader
                   {/* Rank */}
                   <div className="w-7 text-center flex-shrink-0">
                     {entry.rank <= 3 ? (
-                      <span className="text-base">{RANK_BADGES[entry.rank - 1]}</span>
+                      (() => {
+                        const MedalComponent = RANK_MEDALS[entry.rank - 1];
+                        return <MedalComponent className="w-5 h-5" />;
+                      })()
                     ) : (
                       <span className="text-xs font-bold text-[#6b7280]">#{entry.rank}</span>
                     )}

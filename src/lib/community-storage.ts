@@ -982,27 +982,27 @@ const STREAKS_KEY = 'typescribe_contribution_streaks';
 
 export const ACHIEVEMENT_DEFINITIONS: Achievement[] = [
   // Contribution milestones
-  { id: 'first-post', title: 'First Words', description: 'Created your first post in a community', icon: '✏️', category: 'contribution', requirement: 1 },
-  { id: 'prolific-poster', title: 'Prolific Poster', description: 'Created 10 posts across communities', icon: '📝', category: 'contribution', requirement: 10 },
-  { id: 'community-pillar', title: 'Community Pillar', description: 'Created 25 posts — your voice matters', icon: '🏛️', category: 'contribution', requirement: 25 },
-  { id: 'first-comment', title: 'Conversation Starter', description: 'Posted your first comment', icon: '💬', category: 'contribution', requirement: 1 },
-  { id: 'commentator', title: 'The Commentator', description: 'Left 20 comments across communities', icon: '🎙️', category: 'contribution', requirement: 20 },
-  { id: 'first-rating', title: 'Critical Eye', description: 'Rated your first movie in a community', icon: '⭐', category: 'contribution', requirement: 1 },
-  { id: 'connoisseur', title: 'Connoisseur', description: 'Rated 10 movies in communities', icon: '🏆', category: 'contribution', requirement: 10 },
+  { id: 'first-post', title: 'First Words', description: 'Created your first post in a community', icon: 'pen-line', category: 'contribution', requirement: 1 },
+  { id: 'prolific-poster', title: 'Prolific Poster', description: 'Created 10 posts across communities', icon: 'notebook-pen', category: 'contribution', requirement: 10 },
+  { id: 'community-pillar', title: 'Community Pillar', description: 'Created 25 posts — your voice matters', icon: 'landmark', category: 'contribution', requirement: 25 },
+  { id: 'first-comment', title: 'Conversation Starter', description: 'Posted your first comment', icon: 'message-circle', category: 'contribution', requirement: 1 },
+  { id: 'commentator', title: 'The Commentator', description: 'Left 20 comments across communities', icon: 'mic', category: 'contribution', requirement: 20 },
+  { id: 'first-rating', title: 'Critical Eye', description: 'Rated your first movie in a community', icon: 'star', category: 'contribution', requirement: 1 },
+  { id: 'connoisseur', title: 'Connoisseur', description: 'Rated 10 movies in communities', icon: 'trophy', category: 'contribution', requirement: 10 },
   // Social milestones
-  { id: 'first-like', title: 'Received Love', description: 'Got your first like on a post', icon: '❤️', category: 'social', requirement: 1 },
-  { id: 'popular', title: 'Popular Voice', description: 'Accumulated 50 likes across posts', icon: '🔥', category: 'social', requirement: 50 },
-  { id: 'first-debate', title: 'Debater', description: 'Started your first debate', icon: '⚔️', category: 'social', requirement: 1 },
-  { id: 'debate-master', title: 'Debate Master', description: 'Started 5 debates across communities', icon: '🗡️', category: 'social', requirement: 5 },
-  { id: 'community-joiner', title: 'Social Butterfly', description: 'Joined 3 communities', icon: '🦋', category: 'social', requirement: 3 },
-  { id: 'community-creator', title: 'Founder', description: 'Created your own community', icon: '👑', category: 'social', requirement: 1 },
+  { id: 'first-like', title: 'Received Love', description: 'Got your first like on a post', icon: 'heart', category: 'social', requirement: 1 },
+  { id: 'popular', title: 'Popular Voice', description: 'Accumulated 50 likes across posts', icon: 'flame', category: 'social', requirement: 50 },
+  { id: 'first-debate', title: 'Debater', description: 'Started your first debate', icon: 'swords', category: 'social', requirement: 1 },
+  { id: 'debate-master', title: 'Debate Master', description: 'Started 5 debates across communities', icon: 'sword', category: 'social', requirement: 5 },
+  { id: 'community-joiner', title: 'Social Butterfly', description: 'Joined 3 communities', icon: 'bird', category: 'social', requirement: 3 },
+  { id: 'community-creator', title: 'Founder', description: 'Created your own community', icon: 'crown', category: 'social', requirement: 1 },
   // Streak milestones
-  { id: 'week-streak', title: 'Week Warrior', description: '7-day contribution streak in a community', icon: '📅', category: 'streak', requirement: 7 },
-  { id: 'month-streak', title: 'Monthly Maven', description: '30-day contribution streak in a community', icon: '🗓️', category: 'streak', requirement: 30 },
+  { id: 'week-streak', title: 'Week Warrior', description: '7-day contribution streak in a community', icon: 'calendar-days', category: 'streak', requirement: 7 },
+  { id: 'month-streak', title: 'Monthly Maven', description: '30-day contribution streak in a community', icon: 'calendar-range', category: 'streak', requirement: 30 },
   // Special
-  { id: 'watchlist-voter', title: 'Watchlist Curator', description: 'Voted on 10 watchlist items', icon: '🗳️', category: 'special', requirement: 10 },
-  { id: 'taste-explorer', title: 'Taste Explorer', description: 'Joined communities in 3 different categories', icon: '🧭', category: 'special', requirement: 3 },
-  { id: 'cross-community', title: 'Bridge Builder', description: 'Active in 5+ communities simultaneously', icon: '🌉', category: 'special', requirement: 5 },
+  { id: 'watchlist-voter', title: 'Watchlist Curator', description: 'Voted on 10 watchlist items', icon: 'vote', category: 'special', requirement: 10 },
+  { id: 'taste-explorer', title: 'Taste Explorer', description: 'Joined communities in 3 different categories', icon: 'compass', category: 'special', requirement: 3 },
+  { id: 'cross-community', title: 'Bridge Builder', description: 'Active in 5+ communities simultaneously', icon: 'network', category: 'special', requirement: 5 },
 ];
 
 export function getUserAchievements(userId: number, communityId?: string): UserAchievement[] {

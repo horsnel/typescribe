@@ -1,7 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Trophy, Flame, Star, Zap, ChevronRight, Lock, Unlock } from 'lucide-react';
+import {
+  Trophy, Flame, Star, Zap, ChevronRight, Lock, Unlock,
+  PenLine, NotebookPen, Landmark, MessageCircle, Mic, Heart,
+  Swords, Bird, Crown, CalendarDays, CalendarRange, Compass,
+  Vote, Sword, Network,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   getUserAchievements,
@@ -23,6 +28,28 @@ const CATEGORY_ICONS: Record<string, typeof Trophy> = {
   social: Zap,
   streak: Flame,
   special: Trophy,
+};
+
+// Map achievement icon keys to Lucide components
+const ACHIEVEMENT_ICON_MAP: Record<string, typeof Trophy> = {
+  'pen-line': PenLine,
+  'notebook-pen': NotebookPen,
+  'landmark': Landmark,
+  'message-circle': MessageCircle,
+  'mic': Mic,
+  'star': Star,
+  'trophy': Trophy,
+  'heart': Heart,
+  'flame': Flame,
+  'swords': Swords,
+  'sword': Sword,
+  'bird': Bird,
+  'crown': Crown,
+  'calendar-days': CalendarDays,
+  'calendar-range': CalendarRange,
+  'vote': Vote,
+  'compass': Compass,
+  'network': Network,
 };
 
 const CATEGORY_COLORS: Record<string, { bg: string; text: string; border: string }> = {
@@ -127,7 +154,7 @@ export default function AchievementBadge({ userId, communityId, compact = false 
           <p className="text-xs text-green-400 font-medium">
             New achievement unlocked! {newlyUnlocked.map(a => {
               const def = ACHIEVEMENT_DEFINITIONS.find(d => d.id === a.achievementId);
-              return def ? `${def.icon} ${def.title}` : '';
+              return def ? def.title : '';
             }).join(', ')}
           </p>
         </div>
@@ -153,7 +180,10 @@ export default function AchievementBadge({ userId, communityId, compact = false 
               >
                 {/* Icon */}
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="text-lg">{def.icon}</span>
+                  {(() => {
+                    const IconComponent = ACHIEVEMENT_ICON_MAP[def.icon] || Star;
+                    return <IconComponent className={`w-5 h-5 ${isUnlocked ? colors.text : 'text-[#6b7280]'}`} />;
+                  })()}
                   {isUnlocked ? (
                     <Unlock className={`w-3 h-3 ${colors.text}`} />
                   ) : (
