@@ -67,14 +67,14 @@ export default function CommunityRatings({ movieId, movieSlug, genres, generalRa
       {/* Header */}
       <div className="p-5 border-b border-[#1e1e28]/50">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-[#d4a853]/10 border border-[#d4a853]/20 flex items-center justify-center">
-            <Users className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
+          <div className="w-10 h-10 rounded-lg bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 flex items-center justify-center">
+            <Users className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
           </div>
           <div>
             <h3 className="text-lg font-bold text-white">Community Ratings</h3>
             <p className="text-xs text-[#6b7280]">How different communities rate this movie</p>
           </div>
-          <span className="ml-auto text-[10px] bg-[#d4a853]/10 text-[#d4a853] px-2.5 py-0.5 rounded-full border border-[#d4a853]/20 font-semibold">
+          <span className="ml-auto text-[10px] bg-[#8B5CF6]/10 text-[#8B5CF6] px-2.5 py-0.5 rounded-full border border-[#8B5CF6]/20 font-semibold">
             EXCLUSIVE
           </span>
         </div>
@@ -115,14 +115,14 @@ export default function CommunityRatings({ movieId, movieSlug, genres, generalRa
             const DiffIcon = isHigher ? TrendingUp : isLower ? TrendingDown : Minus;
 
             return (
-              <div key={rating.communityId} className={`group ${isJoined ? 'bg-[#d4a853]/5 border border-[#d4a853]/10 rounded-lg p-3 -mx-1' : ''}`}>
+              <div key={rating.communityId} className={`group ${isJoined ? 'bg-[#8B5CF6]/5 border border-[#8B5CF6]/10 rounded-lg p-3 -mx-1' : ''}`}>
                 <div className="flex items-center justify-between mb-1.5">
                   <div className="flex items-center gap-2">
-                    <Link href={`/community/${rating.communityId}`} className="text-sm font-medium text-[#9ca3af] group-hover:text-[#d4a853] transition-colors">
+                    <Link href={`/community/${rating.communityId}`} className="text-sm font-medium text-[#9ca3af] group-hover:text-[#8B5CF6] transition-colors">
                       {name}
                     </Link>
                     {isJoined && (
-                      <span className="text-[9px] text-[#d4a853] bg-[#d4a853]/10 px-1.5 py-0.5 rounded-full">Joined</span>
+                      <span className="text-[9px] text-[#8B5CF6] bg-[#8B5CF6]/10 px-1.5 py-0.5 rounded-full">Joined</span>
                     )}
                   </div>
                   <div className="flex items-center gap-2">
@@ -150,7 +150,7 @@ export default function CommunityRatings({ movieId, movieSlug, genres, generalRa
         {/* Summary */}
         <div className="mt-5 pt-4 border-t border-[#1e1e28]/50">
           <p className="text-xs text-[#6b7280] text-center">
-            <span className="text-[#d4a853] font-semibold">{aboveAverage}</span> of{' '}
+            <span className="text-[#8B5CF6] font-semibold">{aboveAverage}</span> of{' '}
             <span className="text-[#9ca3af] font-semibold">{ratings.length}</span> communities rate this{' '}
             {aboveAverage > ratings.length / 2 ? 'above' : 'below'} average
           </p>

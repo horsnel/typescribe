@@ -68,7 +68,7 @@ function detectPostType(title: string, content: string): PostType {
 
 const POST_TYPE_CONFIG: Record<PostType, { label: string; color: string; bgColor: string; borderColor: string; icon: typeof Flame }> = {
   'discussion': { label: 'Discussion', color: 'text-blue-400', bgColor: 'bg-blue-500/10', borderColor: 'border-blue-500/20', icon: MessageSquare },
-  'review': { label: 'Review', color: 'text-[#d4a853]', bgColor: 'bg-[#d4a853]/10', borderColor: 'border-[#d4a853]/20', icon: Crown },
+  'review': { label: 'Review', color: 'text-[#8B5CF6]', bgColor: 'bg-[#8B5CF6]/10', borderColor: 'border-[#8B5CF6]/20', icon: Crown },
   'recommendation': { label: 'Recommendation', color: 'text-green-400', bgColor: 'bg-green-500/10', borderColor: 'border-green-500/20', icon: Zap },
   'hot-take': { label: 'Hot Take', color: 'text-orange-400', bgColor: 'bg-orange-500/10', borderColor: 'border-orange-500/20', icon: Flame },
   'question': { label: 'Question', color: 'text-purple-400', bgColor: 'bg-purple-500/10', borderColor: 'border-purple-500/20', icon: MessageSquare },
@@ -82,7 +82,7 @@ function EngagementRing({ score, size = 36 }: { score: number; size?: number }) 
   const progress = Math.min(score, 100) / 100;
   const strokeDashoffset = circumference * (1 - progress);
 
-  const color = score >= 70 ? '#4ade80' : score >= 40 ? '#d4a853' : '#6b7280';
+  const color = score >= 70 ? '#4ade80' : score >= 40 ? '#8B5CF6' : '#6b7280';
 
   return (
     <svg width={size} height={size} className="flex-shrink-0">
@@ -138,7 +138,7 @@ function HeartBurst({ active }: { active: boolean }) {
       {particles.map((p) => (
         <motion.div
           key={p.id}
-          className="absolute left-1/2 top-1/2 w-1.5 h-1.5 rounded-full bg-[#d4a853]"
+          className="absolute left-1/2 top-1/2 w-1.5 h-1.5 rounded-full bg-[#8B5CF6]"
           initial={{ scale: 0, x: 0, y: 0, opacity: 1 }}
           animate={{ scale: [0, 1.2, 0], x: Math.cos((p.angle * Math.PI) / 180) * 18, y: Math.sin((p.angle * Math.PI) / 180) * 18, opacity: [1, 0.8, 0] }}
           transition={{ duration: 0.5, delay: p.delay, ease: 'easeOut' }}
@@ -184,7 +184,7 @@ function CommentThread({ comments, postId, onAddComment, depth = 0 }: {
           >
             <div className="flex items-start gap-3">
               <Link href={profileHref} className="flex-shrink-0">
-                <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#d4a853] to-[#b8922e] flex items-center justify-center text-white text-[10px] font-bold overflow-hidden ring-2 ring-[#0c0c10]">
+                <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#7C3AED] flex items-center justify-center text-white text-[10px] font-bold overflow-hidden ring-2 ring-[#0c0c10]">
                   {comment.authorAvatar ? (
                     <img src={comment.authorAvatar} alt={comment.authorName} className="w-full h-full object-cover" />
                   ) : (
@@ -194,11 +194,11 @@ function CommentThread({ comments, postId, onAddComment, depth = 0 }: {
               </Link>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
-                  <Link href={profileHref} className="text-xs font-semibold text-[#d4a853] hover:underline">{comment.authorName}</Link>
+                  <Link href={profileHref} className="text-xs font-semibold text-[#8B5CF6] hover:underline">{comment.authorName}</Link>
                   <span className="text-[10px] text-[#6b7280]">{timeAgo(comment.createdAt)}</span>
                 </div>
                 <p className="text-sm text-[#9ca3af] leading-relaxed">{comment.content}</p>
-                <button onClick={() => setReplyTo(replyTo === comment.id ? null : comment.id)} className="text-[10px] text-[#6b7280] hover:text-[#d4a853] mt-1 transition-colors">Reply</button>
+                <button onClick={() => setReplyTo(replyTo === comment.id ? null : comment.id)} className="text-[10px] text-[#6b7280] hover:text-[#8B5CF6] mt-1 transition-colors">Reply</button>
               </div>
             </div>
             <AnimatePresence>
@@ -209,8 +209,8 @@ function CommentThread({ comments, postId, onAddComment, depth = 0 }: {
                   exit={{ opacity: 0, height: 0 }}
                   className="ml-10 mt-2 flex items-center gap-2 overflow-hidden"
                 >
-                  <input type="text" value={replyContent} onChange={(e) => setReplyContent(e.target.value)} placeholder="Write a reply..." className="flex-1 bg-[#050507] border border-[#1e1e28] rounded-lg px-3 py-1.5 text-sm text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853]" onKeyDown={(e) => { if (e.key === 'Enter') handleReply(comment.id); }} />
-                  <Button size="sm" onClick={() => handleReply(comment.id)} disabled={!replyContent.trim()} className="bg-[#d4a853] hover:bg-[#b8922e] text-white h-8 w-8 p-0"><Send className="w-3.5 h-3.5" strokeWidth={1.5} /></Button>
+                  <input type="text" value={replyContent} onChange={(e) => setReplyContent(e.target.value)} placeholder="Write a reply..." className="flex-1 bg-[#050507] border border-[#1e1e28] rounded-lg px-3 py-1.5 text-sm text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6]" onKeyDown={(e) => { if (e.key === 'Enter') handleReply(comment.id); }} />
+                  <Button size="sm" onClick={() => handleReply(comment.id)} disabled={!replyContent.trim()} className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white h-8 w-8 p-0"><Send className="w-3.5 h-3.5" strokeWidth={1.5} /></Button>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -321,7 +321,7 @@ export default function PostCard({ post, communityId, onLikeToggle, onCommentTog
       className="group relative"
     >
       {/* Glow border on hover */}
-      <div className="absolute -inset-[1px] rounded-xl bg-gradient-to-r from-[#d4a853]/0 via-[#d4a853]/0 to-purple-500/0 group-hover:from-[#d4a853]/20 group-hover:via-purple-500/10 group-hover:to-[#d4a853]/20 transition-all duration-500 blur-sm" />
+      <div className="absolute -inset-[1px] rounded-xl bg-gradient-to-r from-[#8B5CF6]/0 via-[#8B5CF6]/0 to-purple-500/0 group-hover:from-[#8B5CF6]/20 group-hover:via-purple-500/10 group-hover:to-[#8B5CF6]/20 transition-all duration-500 blur-sm" />
 
       <div className="relative bg-[#0c0c10]/95 backdrop-blur-sm border border-[#1e1e28] rounded-xl overflow-hidden group-hover:border-[#2a2a35] transition-all duration-300">
         {/* ─── Card Header ─── */}
@@ -329,7 +329,7 @@ export default function PostCard({ post, communityId, onLikeToggle, onCommentTog
           <div className="flex items-start gap-3">
             {/* Author Avatar with ring */}
             <Link href={profileHref} className="flex-shrink-0 relative">
-              <div className={`w-10 h-10 rounded-full bg-gradient-to-br from-[#d4a853] to-[#b8922e] flex items-center justify-center text-white text-xs font-bold overflow-hidden ring-2 ring-[#0c0c10] group-hover:ring-[#d4a853]/30 transition-all duration-300`}>
+              <div className={`w-10 h-10 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#7C3AED] flex items-center justify-center text-white text-xs font-bold overflow-hidden ring-2 ring-[#0c0c10] group-hover:ring-[#8B5CF6]/30 transition-all duration-300`}>
                 {post.authorAvatar ? (
                   <img src={post.authorAvatar} alt={post.author} className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
                 ) : (
@@ -343,9 +343,9 @@ export default function PostCard({ post, communityId, onLikeToggle, onCommentTog
             <div className="flex-1 min-w-0">
               {/* Author row */}
               <div className="flex items-center gap-2 mb-0.5 flex-wrap">
-                <Link href={profileHref} className="text-sm font-semibold text-[#d4a853] hover:underline">{post.author}</Link>
+                <Link href={profileHref} className="text-sm font-semibold text-[#8B5CF6] hover:underline">{post.author}</Link>
                 {isAuthorOP && (
-                  <span className="text-[9px] font-bold text-[#d4a853] bg-[#d4a853]/15 px-1.5 py-0.5 rounded-full border border-[#d4a853]/20 flex items-center gap-0.5">
+                  <span className="text-[9px] font-bold text-[#8B5CF6] bg-[#8B5CF6]/15 px-1.5 py-0.5 rounded-full border border-[#8B5CF6]/20 flex items-center gap-0.5">
                     <Crown className="w-2.5 h-2.5" strokeWidth={1.5} /> OP
                   </span>
                 )}
@@ -355,7 +355,7 @@ export default function PostCard({ post, communityId, onLikeToggle, onCommentTog
 
               {/* Post Title + Type Badge */}
               <div className="flex items-start gap-2 mb-1.5">
-                <h3 className="text-base font-semibold text-white group-hover:text-[#d4a853] transition-colors leading-snug flex-1">{post.title}</h3>
+                <h3 className="text-base font-semibold text-white group-hover:text-[#8B5CF6] transition-colors leading-snug flex-1">{post.title}</h3>
               </div>
 
               {/* Post type badge */}
@@ -370,10 +370,10 @@ export default function PostCard({ post, communityId, onLikeToggle, onCommentTog
               {engagementScore > 10 && <EngagementRing score={engagementScore} />}
               <button
                 onClick={toggleBookmark}
-                className="text-[#6b7280] hover:text-[#d4a853] transition-colors p-1"
+                className="text-[#6b7280] hover:text-[#8B5CF6] transition-colors p-1"
                 aria-label={bookmarked ? 'Remove bookmark' : 'Bookmark post'}
               >
-                {bookmarked ? <BookmarkCheck className="w-4 h-4 text-[#d4a853]" strokeWidth={1.5} /> : <Bookmark className="w-4 h-4" strokeWidth={1.5} />}
+                {bookmarked ? <BookmarkCheck className="w-4 h-4 text-[#8B5CF6]" strokeWidth={1.5} /> : <Bookmark className="w-4 h-4" strokeWidth={1.5} />}
               </button>
             </div>
           </div>
@@ -387,7 +387,7 @@ export default function PostCard({ post, communityId, onLikeToggle, onCommentTog
           {isLongContent && !expanded && (
             <button
               onClick={() => setExpanded(true)}
-              className="mt-1 text-xs font-medium text-[#d4a853] hover:text-[#e8be6a] transition-colors flex items-center gap-1"
+              className="mt-1 text-xs font-medium text-[#8B5CF6] hover:text-[#e8be6a] transition-colors flex items-center gap-1"
             >
               Read more <ChevronDown className="w-3 h-3" strokeWidth={1.5} />
             </button>
@@ -395,7 +395,7 @@ export default function PostCard({ post, communityId, onLikeToggle, onCommentTog
           {isLongContent && expanded && (
             <button
               onClick={() => setExpanded(false)}
-              className="mt-1 text-xs font-medium text-[#d4a853] hover:text-[#e8be6a] transition-colors flex items-center gap-1"
+              className="mt-1 text-xs font-medium text-[#8B5CF6] hover:text-[#e8be6a] transition-colors flex items-center gap-1"
             >
               Show less <ChevronUp className="w-3 h-3" strokeWidth={1.5} />
             </button>
@@ -407,7 +407,7 @@ export default function PostCard({ post, communityId, onLikeToggle, onCommentTog
           <div className="mx-4 sm:mx-5 mb-3 flex items-center gap-3 text-[10px] text-[#6b7280]">
             {totalLikes > 0 && (
               <span className="flex items-center gap-1">
-                <Heart className="w-3 h-3 text-[#d4a853]/50" strokeWidth={1.5} fill={totalLikes > 5 ? '#d4a85350' : 'none'} />
+                <Heart className="w-3 h-3 text-[#8B5CF6]/50" strokeWidth={1.5} fill={totalLikes > 5 ? '#8B5CF650' : 'none'} />
                 {totalLikes} {totalLikes === 1 ? 'like' : 'likes'}
               </span>
             )}
@@ -435,13 +435,13 @@ export default function PostCard({ post, communityId, onLikeToggle, onCommentTog
               onClick={handleLike}
               whileTap={{ scale: 0.85 }}
               className="flex items-center gap-1.5 px-2.5 sm:px-3 py-2 rounded-lg text-sm transition-all min-w-[44px] min-h-[40px] justify-center hover:bg-[#111118] relative z-10"
-              style={{ color: userLike?.type === 'like' ? '#d4a853' : '#6b7280' }}
+              style={{ color: userLike?.type === 'like' ? '#8B5CF6' : '#6b7280' }}
             >
               <motion.div
                 animate={userLike?.type === 'like' ? { scale: [1, 1.3, 1] } : {}}
                 transition={{ duration: 0.3 }}
               >
-                <Heart className="w-[17px] h-[17px]" strokeWidth={1.5} fill={userLike?.type === 'like' ? '#d4a853' : 'none'} />
+                <Heart className="w-[17px] h-[17px]" strokeWidth={1.5} fill={userLike?.type === 'like' ? '#8B5CF6' : 'none'} />
               </motion.div>
               <span className="text-xs font-medium">{totalLikes}</span>
             </motion.button>
@@ -451,7 +451,7 @@ export default function PostCard({ post, communityId, onLikeToggle, onCommentTog
           <motion.button
             onClick={() => { setShowComments(!showComments); onCommentToggle(post.id); }}
             whileTap={{ scale: 0.95 }}
-            className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-2 rounded-lg text-sm transition-all min-w-[44px] min-h-[40px] justify-center hover:bg-[#111118] ${showComments ? 'text-[#d4a853]' : 'text-[#6b7280] hover:text-[#d4a853]'}`}
+            className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-2 rounded-lg text-sm transition-all min-w-[44px] min-h-[40px] justify-center hover:bg-[#111118] ${showComments ? 'text-[#8B5CF6]' : 'text-[#6b7280] hover:text-[#8B5CF6]'}`}
           >
             <MessageSquare className="w-[17px] h-[17px]" strokeWidth={1.5} />
             <span className="text-xs font-medium">{comments.length || post.replyCount}</span>
@@ -461,9 +461,9 @@ export default function PostCard({ post, communityId, onLikeToggle, onCommentTog
           <motion.button
             onClick={onShare}
             whileTap={{ scale: 0.95 }}
-            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-2 rounded-lg text-sm transition-all min-w-[44px] min-h-[40px] justify-center hover:bg-[#111118] text-[#6b7280] hover:text-[#d4a853]"
+            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-2 rounded-lg text-sm transition-all min-w-[44px] min-h-[40px] justify-center hover:bg-[#111118] text-[#6b7280] hover:text-[#8B5CF6]"
           >
-            {shareCopied ? <Check className="w-[17px] h-[17px] text-[#d4a853]" strokeWidth={1.5} /> : <Share2 className="w-[17px] h-[17px]" strokeWidth={1.5} />}
+            {shareCopied ? <Check className="w-[17px] h-[17px] text-[#8B5CF6]" strokeWidth={1.5} /> : <Share2 className="w-[17px] h-[17px]" strokeWidth={1.5} />}
             <span className="text-xs font-medium hidden sm:inline">{shareCopied ? 'Copied!' : 'Share'}</span>
           </motion.button>
 
@@ -488,7 +488,7 @@ export default function PostCard({ post, communityId, onLikeToggle, onCommentTog
                 {/* Comment Input */}
                 {user && (
                   <div className="flex items-start gap-3 mb-4">
-                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#d4a853] to-[#b8922e] flex items-center justify-center text-white text-[10px] font-bold overflow-hidden flex-shrink-0 ring-2 ring-[#0c0c10]">
+                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#7C3AED] flex items-center justify-center text-white text-[10px] font-bold overflow-hidden flex-shrink-0 ring-2 ring-[#0c0c10]">
                       {user.avatar ? <img src={user.avatar} alt={user.display_name} className="w-full h-full object-cover" /> : user.display_name?.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || 'U'}
                     </div>
                     <div className="flex-1 flex items-center gap-2">
@@ -497,11 +497,11 @@ export default function PostCard({ post, communityId, onLikeToggle, onCommentTog
                         value={commentInput}
                         onChange={(e) => setCommentInput(e.target.value)}
                         placeholder="Add a comment..."
-                        className="flex-1 bg-[#050507] border border-[#1e1e28] rounded-lg px-3 py-2 text-sm text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] transition-colors"
+                        className="flex-1 bg-[#050507] border border-[#1e1e28] rounded-lg px-3 py-2 text-sm text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6] transition-colors"
                         onKeyDown={(e) => { if (e.key === 'Enter') handleComment(); }}
                       />
                       <motion.div whileTap={{ scale: 0.9 }}>
-                        <Button size="sm" onClick={handleComment} disabled={!commentInput.trim()} className="bg-[#d4a853] hover:bg-[#b8922e] text-white h-9 w-9 p-0 flex-shrink-0">
+                        <Button size="sm" onClick={handleComment} disabled={!commentInput.trim()} className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white h-9 w-9 p-0 flex-shrink-0">
                           <Send className="w-3.5 h-3.5" strokeWidth={1.5} />
                         </Button>
                       </motion.div>

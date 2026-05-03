@@ -19,7 +19,7 @@ export default function RootError({
         <p className="text-sm text-[#6b7280] mb-6">{error.message || 'An unexpected error occurred'}</p>
         <button
           onClick={reset}
-          className="px-5 py-2.5 rounded-lg bg-[#d4a853] text-white font-medium hover:bg-[#b8922e] transition-colors"
+          className="px-5 py-2.5 rounded-lg bg-[#8B5CF6] text-white font-medium hover:bg-[#7C3AED] transition-colors"
         >
           Try again
         </button>

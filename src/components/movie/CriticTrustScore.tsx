@@ -23,7 +23,7 @@ export default function CriticTrustScore({ movieId, movieTitle, userReviewCount 
 
     // Generate deterministic alignment scores
     const sources = [
-      { source: 'IMDb', seed: movieId * 7 + 1, Icon: Clapperboard, color: '#f5c518' },
+      { source: 'IMDb', seed: movieId * 7 + 1, Icon: Clapperboard, color: '#8B5CF6' },
       { source: 'Rotten Tomatoes', seed: movieId * 13 + 2, Icon: Cherry, color: '#fa320a' },
       { source: 'Metacritic', seed: movieId * 19 + 3, Icon: BarChart3, color: '#00ce68' },
       { source: 'Letterboxd', seed: movieId * 23 + 4, Icon: Film, color: '#00d035' },
@@ -71,11 +71,11 @@ export default function CriticTrustScore({ movieId, movieTitle, userReviewCount 
               <div className="flex items-center gap-1.5">
                 <div className="flex-1 h-1.5 bg-[#111118] rounded-full overflow-hidden">
                   <div
-                    className={`h-full rounded-full ${score.score >= 80 ? 'bg-emerald-400' : score.score >= 60 ? 'bg-amber-400' : 'bg-red-400'}`}
+                    className={`h-full rounded-full ${score.score >= 80 ? 'bg-emerald-400' : score.score >= 60 ? 'bg-violet-400' : 'bg-red-400'}`}
                     style={{ width: `${score.score}%` }}
                   />
                 </div>
-                <span className={`text-xs font-bold ${score.score >= 80 ? 'text-emerald-400' : score.score >= 60 ? 'text-amber-400' : 'text-red-400'}`}>
+                <span className={`text-xs font-bold ${score.score >= 80 ? 'text-emerald-400' : score.score >= 60 ? 'text-violet-400' : 'text-red-400'}`}>
                   {score.score}%
                 </span>
               </div>

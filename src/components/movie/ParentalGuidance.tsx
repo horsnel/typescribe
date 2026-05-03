@@ -73,7 +73,7 @@ function getSeverityColor(severity: SeverityLevel): string {
     case 'none': return 'bg-[#22c55e]/15 text-[#22c55e] border-[#22c55e]/25';
     case 'mild': return 'bg-[#f59e0b]/15 text-[#f59e0b] border-[#f59e0b]/25';
     case 'moderate': return 'bg-orange-500/15 text-orange-400 border-orange-500/25';
-    case 'severe': return 'bg-[#d4a853]/15 text-[#d4a853] border-[#d4a853]/25';
+    case 'severe': return 'bg-[#8B5CF6]/15 text-[#8B5CF6] border-[#8B5CF6]/25';
   }
 }
 
@@ -82,7 +82,7 @@ function getSeverityDot(severity: SeverityLevel): string {
     case 'none': return 'bg-[#22c55e]';
     case 'mild': return 'bg-[#f59e0b]';
     case 'moderate': return 'bg-orange-400';
-    case 'severe': return 'bg-[#d4a853]';
+    case 'severe': return 'bg-[#8B5CF6]';
   }
 }
 
@@ -422,7 +422,7 @@ export default function ParentalGuidance({ movieTitle, movieId, genres }: Parent
                     </div>
                     <button
                       onClick={() => handleRemoveTimestamp(ts.id)}
-                      className="opacity-0 group-hover:opacity-100 transition-opacity text-[#6b7280] hover:text-[#d4a853]"
+                      className="opacity-0 group-hover:opacity-100 transition-opacity text-[#6b7280] hover:text-[#8B5CF6]"
                     >
                       <X className="w-3.5 h-3.5" strokeWidth={1.5} />
                     </button>

@@ -120,7 +120,7 @@ export default function ReportModal({ isOpen, onClose, onSubmit, contentType, co
                       onClick={() => setSelectedReason(reason.value)}
                       className={`w-full text-left p-3 rounded-lg border transition-all ${
                         selectedReason === reason.value
-                          ? 'bg-[#d4a853]/10 border-[#d4a853]/40'
+                          ? 'bg-[#8B5CF6]/10 border-[#8B5CF6]/40'
                           : 'bg-[#050507] border-[#1e1e28] hover:border-[#3a3a45]'
                       }`}
                     >
@@ -128,7 +128,7 @@ export default function ReportModal({ isOpen, onClose, onSubmit, contentType, co
                         <div
                           className={`w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center transition-colors ${
                             selectedReason === reason.value
-                              ? 'border-[#d4a853] bg-[#d4a853]'
+                              ? 'border-[#8B5CF6] bg-[#8B5CF6]'
                               : 'border-[#1e1e28]'
                           }`}
                         >
@@ -158,7 +158,7 @@ export default function ReportModal({ isOpen, onClose, onSubmit, contentType, co
                   onChange={(e) => setDetails(e.target.value)}
                   placeholder="Provide more context about the issue..."
                   rows={3}
-                  className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] resize-none text-sm"
+                  className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6] resize-none text-sm"
                 />
               </div>
 

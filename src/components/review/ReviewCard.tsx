@@ -74,7 +74,7 @@ export default function ReviewCard({
   if (variant === 'compact') {
     return (
       <div className="bg-[#050507] border border-[#1e1e28] rounded-xl p-4 flex gap-3">
-        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#d4a853] to-[#b8922e] flex items-center justify-center text-white text-xs font-bold flex-shrink-0 overflow-hidden">
+        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#7C3AED] flex items-center justify-center text-white text-xs font-bold flex-shrink-0 overflow-hidden">
           {review.user_avatar ? <img src={review.user_avatar} alt={review.user_name} className="w-full h-full object-cover" /> : avatarFallback}
         </div>
         <div className="flex-1 min-w-0">
@@ -88,7 +88,7 @@ export default function ReviewCard({
           {showMovieTitle && movieSlug && <Link href={`/movie/${movieSlug}`} className="text-xs text-[#6b7280] hover:text-[#9ca3af] mb-1 block">Review of {movieSlug}</Link>}
           <p className="text-sm text-[#9ca3af] line-clamp-2">{review.text}</p>
           <div className="flex items-center gap-4 mt-2">
-            <button onClick={handleHelpful} className={cn('flex items-center gap-1 text-xs transition-colors', helped ? 'text-[#d4a853]' : 'text-[#6b7280] hover:text-[#9ca3af]')}><ThumbsUp className="w-3 h-3" strokeWidth={1.5} /><span>{helpfulCount}</span></button>
+            <button onClick={handleHelpful} className={cn('flex items-center gap-1 text-xs transition-colors', helped ? 'text-[#8B5CF6]' : 'text-[#6b7280] hover:text-[#9ca3af]')}><ThumbsUp className="w-3 h-3" strokeWidth={1.5} /><span>{helpfulCount}</span></button>
             <span className="text-xs text-[#6b7280]">{formatDate(review.created_at)}</span>
           </div>
         </div>
@@ -114,7 +114,7 @@ export default function ReviewCard({
         )}
 
         <div className="flex items-start gap-4">
-          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#d4a853] to-[#b8922e] flex items-center justify-center text-white text-sm font-bold flex-shrink-0 overflow-hidden">
+          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#7C3AED] flex items-center justify-center text-white text-sm font-bold flex-shrink-0 overflow-hidden">
             {review.user_avatar ? <img src={review.user_avatar} alt={review.user_name} className="w-full h-full object-cover" /> : avatarFallback}
           </div>
           <div className="flex-1">
@@ -152,13 +152,13 @@ export default function ReviewCard({
 
             <p className="text-sm text-[#9ca3af] leading-relaxed mb-3">
               {displayText}
-              {isLong && !expanded && <button onClick={() => setExpanded(true)} className="text-[#d4a853] hover:underline ml-1">Read more</button>}
-              {isLong && expanded && <button onClick={() => setExpanded(false)} className="text-[#d4a853] hover:underline ml-1">Show less</button>}
+              {isLong && !expanded && <button onClick={() => setExpanded(true)} className="text-[#8B5CF6] hover:underline ml-1">Read more</button>}
+              {isLong && expanded && <button onClick={() => setExpanded(false)} className="text-[#8B5CF6] hover:underline ml-1">Show less</button>}
             </p>
 
             {/* Action Bar */}
             <div className="flex items-center gap-6">
-              <button onClick={handleHelpful} className={cn('flex items-center gap-1.5 text-xs transition-colors', helped ? 'text-[#d4a853]' : 'text-[#6b7280] hover:text-[#9ca3af]')}>
+              <button onClick={handleHelpful} className={cn('flex items-center gap-1.5 text-xs transition-colors', helped ? 'text-[#8B5CF6]' : 'text-[#6b7280] hover:text-[#9ca3af]')}>
                 <ThumbsUp className="w-3.5 h-3.5" strokeWidth={1.5} /><span>Helpful ({helpfulCount})</span>
               </button>
 

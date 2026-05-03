@@ -102,8 +102,8 @@ export default function BoxOfficePage() {
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 rounded-xl bg-[#d4a853]/10 flex items-center justify-center">
-                <DollarSign className="w-6 h-6 text-[#d4a853]" strokeWidth={1.5} />
+              <div className="w-10 h-10 rounded-xl bg-[#8B5CF6]/10 flex items-center justify-center">
+                <DollarSign className="w-6 h-6 text-[#8B5CF6]" strokeWidth={1.5} />
               </div>
               <h1 className="text-3xl lg:text-4xl font-extrabold text-white">Box Office</h1>
             </div>
@@ -119,7 +119,7 @@ export default function BoxOfficePage() {
               onClick={() => setActiveTab(tab.key)}
               className={`flex items-center gap-2 px-5 py-3 text-sm font-medium border-b-2 transition-colors ${
                 activeTab === tab.key
-                  ? 'border-[#d4a853] text-white'
+                  ? 'border-[#8B5CF6] text-white'
                   : 'border-transparent text-[#6b7280] hover:text-white'
               }`}
             >
@@ -143,7 +143,7 @@ export default function BoxOfficePage() {
                   onClick={() => setSelectedCountry(country.code)}
                   className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                     selectedCountry === country.code
-                      ? 'bg-[#d4a853] text-white'
+                      ? 'bg-[#8B5CF6] text-white'
                       : 'bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
                   }`}
                 >
@@ -166,7 +166,7 @@ export default function BoxOfficePage() {
             </>
           ) : (
             <>
-              <BarChart3 className="w-4 h-4 text-[#d4a853]" strokeWidth={1.5} />
+              <BarChart3 className="w-4 h-4 text-[#8B5CF6]" strokeWidth={1.5} />
               <p className="text-xs text-[#6b7280]">
                 Curated rankings · Connect your API keys for live box office data
               </p>
@@ -177,7 +177,7 @@ export default function BoxOfficePage() {
         {/* Loading State */}
         {isLoading && (
           <div className="flex items-center justify-center py-20">
-            <Loader2 className="w-8 h-8 text-[#d4a853] animate-spin" strokeWidth={1.5} />
+            <Loader2 className="w-8 h-8 text-[#8B5CF6] animate-spin" strokeWidth={1.5} />
             <span className="ml-3 text-[#6b7280]">Loading box office data...</span>
           </div>
         )}
@@ -192,13 +192,13 @@ export default function BoxOfficePage() {
                   <Link
                     key={entry.id}
                     href={entry.slug ? `/movie/${entry.slug}` : '#'}
-                    className="group relative bg-gradient-to-br from-[#d4a853]/10 to-[#d4a853]/5 border border-[#d4a853]/20 rounded-xl p-5 hover:border-[#d4a853]/40 transition-all"
+                    className="group relative bg-gradient-to-br from-[#8B5CF6]/10 to-[#8B5CF6]/5 border border-[#8B5CF6]/20 rounded-xl p-5 hover:border-[#8B5CF6]/40 transition-all"
                   >
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="w-8 h-8 rounded-full bg-[#d4a853] flex items-center justify-center text-white font-bold text-sm">
+                      <div className="w-8 h-8 rounded-full bg-[#8B5CF6] flex items-center justify-center text-white font-bold text-sm">
                         {entry.rank}
                       </div>
-                      {entry.rank === 1 && <Crown className="w-5 h-5 text-[#f5c518]" strokeWidth={1.5} />}
+                      {entry.rank === 1 && <Crown className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />}
                     </div>
                     <div className="flex gap-3">
                       <div className="w-14 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-[#050507]">
@@ -210,12 +210,12 @@ export default function BoxOfficePage() {
                         />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-base font-bold text-white group-hover:text-[#d4a853] transition-colors leading-snug truncate">
+                        <h3 className="text-base font-bold text-white group-hover:text-[#8B5CF6] transition-colors leading-snug truncate">
                           {entry.title}
                         </h3>
                         <p className="text-xs text-[#6b7280] mt-0.5">{entry.year}</p>
                         <div className="flex items-center gap-2 mt-2">
-                          <span className="text-sm font-semibold text-[#f5c518]">{formatCurrency(entry.weekendGross)}</span>
+                          <span className="text-sm font-semibold text-[#8B5CF6]">{formatCurrency(entry.weekendGross)}</span>
                           <span className="text-xs text-[#6b7280]">wknd</span>
                         </div>
                         <div className="flex items-center gap-2 mt-1">
@@ -238,13 +238,13 @@ export default function BoxOfficePage() {
                     key={entry.id}
                     href={entry.slug ? `/movie/${entry.slug}` : '#'}
                     className={`group relative bg-gradient-to-br ${
-                      entry.rank === 1 ? 'from-[#f5c518]/10 to-[#f5c518]/5 border-[#f5c518]/30' :
+                      entry.rank === 1 ? 'from-[#8B5CF6]/10 to-[#8B5CF6]/5 border-[#8B5CF6]/30' :
                       entry.rank === 2 ? 'from-[#c0c0c0]/10 to-[#c0c0c0]/5 border-[#c0c0c0]/30' :
                       'from-[#cd7f32]/10 to-[#cd7f32]/5 border-[#cd7f32]/30'
                     } border rounded-xl p-5 hover:shadow-xl transition-all`}
                   >
                     <div className="flex items-center gap-3 mb-3">
-                      {entry.rank === 1 ? <Crown className="w-6 h-6 text-[#f5c518]" strokeWidth={1.5} /> :
+                      {entry.rank === 1 ? <Crown className="w-6 h-6 text-[#8B5CF6]" strokeWidth={1.5} /> :
                        <span className="text-xl font-extrabold text-[#9ca3af]">{entry.rank}</span>}
                     </div>
                     <div className="flex gap-3">
@@ -257,12 +257,12 @@ export default function BoxOfficePage() {
                         />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-base font-bold text-white group-hover:text-[#d4a853] transition-colors leading-snug truncate">
+                        <h3 className="text-base font-bold text-white group-hover:text-[#8B5CF6] transition-colors leading-snug truncate">
                           {entry.title}
                         </h3>
                         <p className="text-xs text-[#6b7280] mt-0.5">{entry.year}</p>
                         <div className="flex items-center gap-3 mt-2">
-                          <span className="text-sm font-semibold text-[#f5c518]">{formatCurrency(entry.totalGross)}</span>
+                          <span className="text-sm font-semibold text-[#8B5CF6]">{formatCurrency(entry.totalGross)}</span>
                           <span className="text-xs text-[#6b7280]">worldwide</span>
                         </div>
                       </div>
@@ -301,7 +301,7 @@ export default function BoxOfficePage() {
                     >
                       {/* Rank */}
                       <td className="px-5 py-3">
-                        <span className={`text-lg font-bold ${entry.rank <= 3 ? 'text-[#f5c518]' : 'text-[#6b7280]'}`}>
+                        <span className={`text-lg font-bold ${entry.rank <= 3 ? 'text-[#8B5CF6]' : 'text-[#6b7280]'}`}>
                           {entry.rank}
                         </span>
                       </td>
@@ -320,7 +320,7 @@ export default function BoxOfficePage() {
                             />
                           </div>
                           <div className="min-w-0">
-                            <h3 className="text-sm font-semibold text-white group-hover:text-[#d4a853] transition-colors truncate max-w-[300px]">
+                            <h3 className="text-sm font-semibold text-white group-hover:text-[#8B5CF6] transition-colors truncate max-w-[300px]">
                               {entry.title}
                             </h3>
                             <span className="text-xs text-[#6b7280]">{entry.year}</span>
@@ -329,7 +329,7 @@ export default function BoxOfficePage() {
                       </td>
                       {activeTab === 'top-all-time' ? (
                         <td className="px-5 py-3 text-right">
-                          <span className="text-sm font-semibold text-[#f5c518]">{formatCurrency(entry.totalGross)}</span>
+                          <span className="text-sm font-semibold text-[#8B5CF6]">{formatCurrency(entry.totalGross)}</span>
                         </td>
                       ) : (
                         <>
@@ -337,7 +337,7 @@ export default function BoxOfficePage() {
                             <span className="text-sm font-medium text-white">{formatCurrency(entry.weekendGross)}</span>
                           </td>
                           <td className="px-3 py-3 text-right">
-                            <span className="text-sm font-semibold text-[#f5c518]">{formatCurrency(entry.totalGross)}</span>
+                            <span className="text-sm font-semibold text-[#8B5CF6]">{formatCurrency(entry.totalGross)}</span>
                           </td>
                           <td className="px-3 py-3 text-right">
                             <span className="text-sm text-[#9ca3af]">{entry.weeks}wk{entry.weeks !== 1 ? 's' : ''}</span>
@@ -365,7 +365,7 @@ export default function BoxOfficePage() {
                     <div className="flex gap-3 px-4 py-3 hover:bg-[#111118] transition-colors">
                       {/* Rank */}
                       <div className="flex flex-col items-center justify-start pt-1 w-9 flex-shrink-0">
-                        <span className={`text-lg font-bold ${entry.rank <= 3 ? 'text-[#f5c518]' : 'text-[#6b7280]'}`}>
+                        <span className={`text-lg font-bold ${entry.rank <= 3 ? 'text-[#8B5CF6]' : 'text-[#6b7280]'}`}>
                           {entry.rank}
                         </span>
                       </div>
@@ -380,17 +380,17 @@ export default function BoxOfficePage() {
                       </div>
                       {/* Info */}
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-sm font-semibold text-white group-hover:text-[#d4a853] transition-colors truncate">
+                        <h3 className="text-sm font-semibold text-white group-hover:text-[#8B5CF6] transition-colors truncate">
                           {entry.title}
                         </h3>
                         <span className="text-xs text-[#6b7280]">{entry.year}</span>
                         <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 mt-1.5">
                           {activeTab === 'top-all-time' ? (
-                            <span className="text-sm font-semibold text-[#f5c518]">{formatCurrency(entry.totalGross)}</span>
+                            <span className="text-sm font-semibold text-[#8B5CF6]">{formatCurrency(entry.totalGross)}</span>
                           ) : (
                             <>
                               <span className="text-xs"><span className="text-[#6b7280]">Wknd </span><span className="text-white font-medium">{formatCurrency(entry.weekendGross)}</span></span>
-                              <span className="text-xs"><span className="text-[#6b7280]">Total </span><span className="text-[#f5c518] font-semibold">{formatCurrency(entry.totalGross)}</span></span>
+                              <span className="text-xs"><span className="text-[#6b7280]">Total </span><span className="text-[#8B5CF6] font-semibold">{formatCurrency(entry.totalGross)}</span></span>
                               <span className="text-xs text-[#9ca3af]">{entry.weeks}wk{entry.weeks !== 1 ? 's' : ''}</span>
                               <span className="text-xs font-medium"><ChangeIndicator value={entry.changePct} /></span>
                             </>

@@ -65,7 +65,7 @@ export default function TasteMatchBadge({ userGenres, communityId, communityName
             <span className="text-sm font-semibold text-white">{match.label}</span>
           </div>
           <p className="text-xs text-[#9ca3af]">
-            Your taste alignment with <Link href={`/community/${communityId}`} className="text-[#d4a853] hover:underline">{communityName}</Link>
+            Your taste alignment with <Link href={`/community/${communityId}`} className="text-[#8B5CF6] hover:underline">{communityName}</Link>
           </p>
         </div>
       </div>
@@ -75,7 +75,7 @@ export default function TasteMatchBadge({ userGenres, communityId, communityName
         <div className="flex items-center gap-1.5 flex-wrap">
           <span className="text-[10px] text-[#6b7280]">You both love:</span>
           {match.matchedGenres.map((genre) => (
-            <span key={genre} className="text-[10px] bg-[#d4a853]/10 text-[#d4a853] px-2 py-0.5 rounded-full border border-[#d4a853]/20 font-medium">
+            <span key={genre} className="text-[10px] bg-[#8B5CF6]/10 text-[#8B5CF6] px-2 py-0.5 rounded-full border border-[#8B5CF6]/20 font-medium">
               {genre}
             </span>
           ))}

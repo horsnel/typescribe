@@ -107,7 +107,7 @@ function formatBytes(bytes: number): string {
 
 function completenessColor(pct: number): string {
   if (pct >= 80) return 'text-emerald-400';
-  if (pct >= 50) return 'text-amber-400';
+  if (pct >= 50) return 'text-violet-400';
   return 'text-red-400';
 }
 
@@ -120,7 +120,7 @@ function completenessBg(pct: number): string {
 function statusColor(status: string): string {
   switch (status) {
     case 'healthy': return 'text-emerald-400';
-    case 'degraded': return 'text-amber-400';
+    case 'degraded': return 'text-violet-400';
     case 'down': return 'text-red-400';
     case 'disabled': return 'text-[#4a4a5a]';
     default: return 'text-[#6b7280]';
@@ -130,7 +130,7 @@ function statusColor(status: string): string {
 function statusDot(status: string): string {
   switch (status) {
     case 'healthy': return 'bg-emerald-400';
-    case 'degraded': return 'bg-amber-400';
+    case 'degraded': return 'bg-violet-400';
     case 'down': return 'bg-red-400';
     default: return 'bg-[#4a4a5a]';
   }
@@ -157,7 +157,7 @@ function tierAccent(tier: string): string {
 function tierBadge(tier: string): string {
   switch (tier) {
     case 'a': return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20';
-    case 'b': return 'bg-amber-500/10 text-amber-400 border-amber-500/20';
+    case 'b': return 'bg-amber-500/10 text-violet-400 border-amber-500/20';
     case 'c': return 'bg-red-500/10 text-red-400 border-red-500/20';
     default: return 'bg-[#111118] text-[#6b7280] border-[#1e1e28]';
   }
@@ -180,7 +180,7 @@ function ScrapingAntKeyStats({ sb }: { sb: any }) {
   if (loadingAnt) {
     return (
       <div className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-8 text-center">
-        <Loader2 className="w-6 h-6 animate-spin text-[#d4a853] mx-auto mb-2" strokeWidth={1.5} />
+        <Loader2 className="w-6 h-6 animate-spin text-[#8B5CF6] mx-auto mb-2" strokeWidth={1.5} />
         <p className="text-[#6b7280] text-sm">Loading ScrapingAnt stats...</p>
       </div>
     );
@@ -431,7 +431,7 @@ export default function AdminDataPipelinePage() {
   if (checkingAuth) {
     return (
       <div className="min-h-screen bg-[#050507] flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-[#d4a853]" strokeWidth={1.5} />
+        <Loader2 className="w-8 h-8 animate-spin text-[#8B5CF6]" strokeWidth={1.5} />
       </div>
     );
   }
@@ -441,8 +441,8 @@ export default function AdminDataPipelinePage() {
       <div className="min-h-screen bg-[#050507] flex items-center justify-center px-4">
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-2xl p-8 max-w-md w-full shadow-2xl">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-full bg-[#d4a853]/10 flex items-center justify-center">
-              <Lock className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
+            <div className="w-10 h-10 rounded-full bg-[#8B5CF6]/10 flex items-center justify-center">
+              <Lock className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
             </div>
             <div>
               <h1 className="text-lg font-bold text-white">Data Pipeline Access</h1>
@@ -462,7 +462,7 @@ export default function AdminDataPipelinePage() {
             onChange={(e) => setPassword(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleAuthenticate()}
             placeholder="Enter admin password"
-            className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] mb-4"
+            className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6] mb-4"
             autoFocus
           />
 
@@ -470,7 +470,7 @@ export default function AdminDataPipelinePage() {
             <Button
               onClick={handleAuthenticate}
               disabled={!password || authLoading}
-              className="flex-1 bg-[#d4a853] hover:bg-[#b8922e] text-white disabled:opacity-50"
+              className="flex-1 bg-[#8B5CF6] hover:bg-[#7C3AED] text-white disabled:opacity-50"
             >
               {authLoading ? (
                 <Loader2 className="w-4 h-4 animate-spin mr-2" strokeWidth={1.5} />
@@ -497,7 +497,7 @@ export default function AdminDataPipelinePage() {
   // ─── Authenticated Content ───
   const SortIcon = ({ field }: { field: SortField }) => {
     if (sortField !== field) return <ArrowUpDown className="w-3 h-3 ml-1 opacity-40" strokeWidth={1.5} />;
-    return sortDir === 'asc' ? <ChevronUp className="w-3 h-3 ml-1 text-[#d4a853]" strokeWidth={1.5} /> : <ChevronDown className="w-3 h-3 ml-1 text-[#d4a853]" strokeWidth={1.5} />;
+    return sortDir === 'asc' ? <ChevronUp className="w-3 h-3 ml-1 text-[#8B5CF6]" strokeWidth={1.5} /> : <ChevronDown className="w-3 h-3 ml-1 text-[#8B5CF6]" strokeWidth={1.5} />;
   };
 
   const sources = status?.status?.sources as PipelineSources | undefined;
@@ -535,7 +535,7 @@ export default function AdminDataPipelinePage() {
     return (
       <div className="min-h-screen bg-[#050507] flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-8 h-8 animate-spin text-[#d4a853] mx-auto mb-4" strokeWidth={1.5} />
+          <Loader2 className="w-8 h-8 animate-spin text-[#8B5CF6] mx-auto mb-4" strokeWidth={1.5} />
           <p className="text-[#9ca3af]">Loading pipeline status…</p>
         </div>
       </div>
@@ -560,8 +560,8 @@ export default function AdminDataPipelinePage() {
         {/* ─── Header ─── */}
         <div className="mb-10">
           <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 bg-[#d4a853]/10 rounded-lg border border-[#d4a853]/20">
-              <Database className="w-6 h-6 text-[#d4a853]" strokeWidth={1.5} />
+            <div className="p-2 bg-[#8B5CF6]/10 rounded-lg border border-[#8B5CF6]/20">
+              <Database className="w-6 h-6 text-[#8B5CF6]" strokeWidth={1.5} />
             </div>
             <div>
               <h1 className="text-3xl lg:text-4xl font-extrabold text-white tracking-tight">Data Pipeline</h1>
@@ -603,7 +603,7 @@ export default function AdminDataPipelinePage() {
               <div className="flex items-center gap-3 mb-3">
                 <Activity className={`w-5 h-5 ${
                   health.overallStatus === 'healthy' ? 'text-emerald-400' :
-                  health.overallStatus === 'degraded' ? 'text-amber-400' : 'text-red-400'
+                  health.overallStatus === 'degraded' ? 'text-violet-400' : 'text-red-400'
                 }`} strokeWidth={1.5} />
                 <span className="text-white font-semibold">Pipeline Health: {health.overallStatus.toUpperCase()}</span>
                 <span className="text-[#6b7280] text-xs">
@@ -616,7 +616,7 @@ export default function AdminDataPipelinePage() {
                 <div className="space-y-1.5">
                   {(health.recommendations || []).slice(0, 5).map((rec, i) => (
                     <div key={i} className="flex items-start gap-2 text-xs">
-                      <AlertTriangle className="w-3.5 h-3.5 text-amber-400 flex-shrink-0 mt-0.5" strokeWidth={1.5} />
+                      <AlertTriangle className="w-3.5 h-3.5 text-violet-400 flex-shrink-0 mt-0.5" strokeWidth={1.5} />
                       <span className="text-[#9ca3af]">{rec}</span>
                     </div>
                   ))}
@@ -629,7 +629,7 @@ export default function AdminDataPipelinePage() {
         {/* ─── API Sources (Free & Paid) ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <Cpu className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} /> API Sources <span className="text-xs font-normal text-[#6b7280]">(Free APIs &amp; Paid Fallbacks)</span>
+            <Cpu className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} /> API Sources <span className="text-xs font-normal text-[#6b7280]">(Free APIs &amp; Paid Fallbacks)</span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
@@ -650,7 +650,7 @@ export default function AdminDataPipelinePage() {
                 <div key={src.name} className={`rounded-xl border backdrop-blur-xl p-4 transition-colors ${ok ? 'bg-[#0c0c10] border-emerald-500/15' : 'bg-[#0c0c10] border-[#1e1e28]'}`}>
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
-                      <src.icon className="w-4 h-4 text-[#d4a853]" />
+                      <src.icon className="w-4 h-4 text-[#8B5CF6]" />
                       <span className="text-white font-semibold text-sm">{src.name}</span>
                     </div>
                     <span className={`inline-flex items-center gap-1 text-[10px] font-medium px-1.5 py-0.5 rounded-full ${ok ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'}`}>
@@ -669,7 +669,7 @@ export default function AdminDataPipelinePage() {
         {/* ─── Scraping Sources (Free-First) ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <Shield className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} /> Scraping Sources <span className="text-xs font-normal text-[#6b7280]">(Free-First: 6 primary + 7 fallback + 3 premium)</span>
+            <Shield className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} /> Scraping Sources <span className="text-xs font-normal text-[#6b7280]">(Free-First: 6 primary + 7 fallback + 3 premium)</span>
           </h2>
 
           {(['a', 'b', 'c'] as const).map(tier => {
@@ -723,7 +723,7 @@ export default function AdminDataPipelinePage() {
         {/* ─── ScrapingAnt 5-Key Status ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <Zap className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} /> ScrapingAnt 5-Key Rotation
+            <Zap className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} /> ScrapingAnt 5-Key Rotation
           </h2>
           <ScrapingAntKeyStats sb={sb} />
         </section>
@@ -731,7 +731,7 @@ export default function AdminDataPipelinePage() {
         {/* ─── Cache Stats ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <BarChart3 className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} /> Cache Statistics
+            <BarChart3 className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} /> Cache Statistics
           </h2>
           <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
             {[
@@ -742,7 +742,7 @@ export default function AdminDataPipelinePage() {
               { icon: Clock, label: 'Newest Entry', value: formatDate(cache?.newestEntry ?? null), sub: '' },
             ].map(stat => (
               <div key={stat.label} className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-5">
-                <stat.icon className="w-4 h-4 text-[#d4a853] mb-2" />
+                <stat.icon className="w-4 h-4 text-[#8B5CF6] mb-2" />
                 <p className="text-[#6b7280] text-xs mb-1">{stat.label}</p>
                 <p className="text-white text-lg font-bold">{stat.value}</p>
                 {stat.sub && <p className="text-[#4a4a5a] text-[10px] mt-0.5">{stat.sub}</p>}
@@ -754,7 +754,7 @@ export default function AdminDataPipelinePage() {
         {/* ─── Cache Management ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <HardDrive className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} /> Cache Management
+            <HardDrive className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} /> Cache Management
           </h2>
           <div className="flex flex-wrap gap-3">
             <AlertDialog>
@@ -787,7 +787,7 @@ export default function AdminDataPipelinePage() {
         {/* ─── Cached Movies Table ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <FileText className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} /> Cached Movies
+            <FileText className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} /> Cached Movies
             {(cache?.totalEntries ?? 0) > 0 && <span className="text-xs font-normal text-[#6b7280] ml-1">({cache?.totalEntries} entries)</span>}
           </h2>
           {sortedMovies.length === 0 ? (
@@ -849,7 +849,7 @@ export default function AdminDataPipelinePage() {
         {/* ─── Batch Processing ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <Zap className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} /> Batch Processing
+            <Zap className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} /> Batch Processing
           </h2>
           <div className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-6">
             <div className="mb-4">
@@ -858,10 +858,10 @@ export default function AdminDataPipelinePage() {
                 value={batchInput}
                 onChange={e => setBatchInput(e.target.value)}
                 placeholder="Enter TMDb IDs separated by commas or newlines&#10;e.g. 550, 155, 680"
-                className="bg-[#050507] border-[#1e1e28] text-white placeholder:text-[#4a4a5a] min-h-[100px] resize-y focus:border-[#d4a853] focus-visible:ring-[#d4a853]/20"
+                className="bg-[#050507] border-[#1e1e28] text-white placeholder:text-[#4a4a5a] min-h-[100px] resize-y focus:border-[#8B5CF6] focus-visible:ring-[#8B5CF6]/20"
               />
             </div>
-            <Button onClick={handleBatchProcess} disabled={batchProcessing || !batchInput.trim()} className="bg-[#d4a853] hover:bg-[#b8922e] text-white">
+            <Button onClick={handleBatchProcess} disabled={batchProcessing || !batchInput.trim()} className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white">
               {batchProcessing ? <><Loader2 className="w-4 h-4 animate-spin" strokeWidth={1.5} /> Processing…</> : <><Zap className="w-4 h-4" strokeWidth={1.5} /> Process Batch</>}
             </Button>
             {batchResult && (
@@ -888,11 +888,11 @@ export default function AdminDataPipelinePage() {
         {/* ─── API Key Config ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <Key className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} /> API Key Configuration
+            <Key className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} /> API Key Configuration
           </h2>
           <div className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-6">
             <p className="text-[#9ca3af] text-sm mb-5">
-              Add these to your <code className="text-[#d4a853] bg-[#d4a853]/10 px-1.5 py-0.5 rounded text-xs">.env.local</code> file.
+              Add these to your <code className="text-[#8B5CF6] bg-[#8B5CF6]/10 px-1.5 py-0.5 rounded text-xs">.env.local</code> file.
             </p>
             <div className="space-y-2">
               {[

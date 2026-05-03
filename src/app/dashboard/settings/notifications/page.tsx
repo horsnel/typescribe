@@ -65,7 +65,7 @@ export default function DashboardSettingsNotificationsPage() {
     <>
       <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
         <h1 className="text-2xl font-bold text-white">Notification Preferences</h1>
-        <Button onClick={handleSave} className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2">
+        <Button onClick={handleSave} className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white gap-2">
           <Save className="w-4 h-4" strokeWidth={1.5} />
           {saved ? 'Saved!' : 'Save Preferences'}
         </Button>
@@ -86,15 +86,15 @@ export default function DashboardSettingsNotificationsPage() {
             return (
               <div key={notif.key} className="flex items-center justify-between py-3 border-b border-[#1e1e28]/50 last:border-0 gap-3">
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${isEnabled ? 'bg-[#d4a853]/10' : 'bg-[#1e1e28]'}`}>
-                    <notif.icon className={`w-4 h-4 flex-shrink-0 ${isEnabled ? 'text-[#d4a853]' : 'text-[#6b7280]'}`} strokeWidth={1.5} />
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${isEnabled ? 'bg-[#8B5CF6]/10' : 'bg-[#1e1e28]'}`}>
+                    <notif.icon className={`w-4 h-4 flex-shrink-0 ${isEnabled ? 'text-[#8B5CF6]' : 'text-[#6b7280]'}`} strokeWidth={1.5} />
                   </div>
                   <span className={`text-sm transition-colors ${isEnabled ? 'text-white' : 'text-[#9ca3af]'}`}>{notif.label}</span>
                 </div>
                 <Switch
                   checked={isEnabled}
                   onCheckedChange={() => togglePref(notif.key)}
-                  className={`data-[state=checked]:bg-[#d4a853] data-[state=unchecked]:bg-[#2a2a35] ${isEnabled ? '' : 'opacity-70'}`}
+                  className={`data-[state=checked]:bg-[#8B5CF6] data-[state=unchecked]:bg-[#2a2a35] ${isEnabled ? '' : 'opacity-70'}`}
                   aria-label={`Toggle ${notif.label}`}
                 />
               </div>

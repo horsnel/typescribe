@@ -48,7 +48,7 @@ export default function CrossCommunityComparisonWidget({ communityIds, limit = 5
               <div className="flex items-center justify-between mb-3">
                 <Link
                   href={comp.movieSlug ? `/movie/${comp.movieSlug}` : '#'}
-                  className="text-sm font-semibold text-white hover:text-[#d4a853] transition-colors"
+                  className="text-sm font-semibold text-white hover:text-[#8B5CF6] transition-colors"
                 >
                   {comp.movieTitle}
                 </Link>
@@ -66,7 +66,7 @@ export default function CrossCommunityComparisonWidget({ communityIds, limit = 5
 
                   return (
                     <div key={cr.communityId} className="flex items-center gap-2">
-                      <Link href={`/community/${cr.communityId}`} className="text-xs text-[#9ca3af] hover:text-[#d4a853] transition-colors w-28 truncate flex-shrink-0">
+                      <Link href={`/community/${cr.communityId}`} className="text-xs text-[#9ca3af] hover:text-[#8B5CF6] transition-colors w-28 truncate flex-shrink-0">
                         {cr.communityName}
                       </Link>
                       <div className="flex-1 h-1.5 bg-[#1e1e28] rounded-full overflow-hidden">

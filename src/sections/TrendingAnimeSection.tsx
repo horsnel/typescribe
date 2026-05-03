@@ -29,7 +29,7 @@ function AnimeCard({ anime }: { anime: Movie }) {
           <Wand2 className="w-2.5 h-2.5" strokeWidth={1.5} /> ANIME
         </div>
         {/* Rating badge */}
-        <div className="absolute top-2 right-2 flex items-center gap-1 bg-[#f5c518] text-black text-xs font-bold px-2 py-0.5 rounded-full shadow-lg z-10">
+        <div className="absolute top-2 right-2 flex items-center gap-1 bg-[#8B5CF6] text-black text-xs font-bold px-2 py-0.5 rounded-full shadow-lg z-10">
           <Star className="w-3 h-3 fill-black" strokeWidth={1.5} />{anime.vote_average.toFixed(1)}
         </div>
         {/* Hover overlay */}

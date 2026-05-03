@@ -74,18 +74,18 @@ export default function DashboardProfilePage() {
       <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6 mb-6">
         <div className="flex flex-col items-center">
           <div className="relative mb-4">
-            <div className="w-24 h-24 rounded-full overflow-hidden border-3 border-[#d4a853]/30 ring-4 ring-[#d4a853]/10">
+            <div className="w-24 h-24 rounded-full overflow-hidden border-3 border-[#8B5CF6]/30 ring-4 ring-[#8B5CF6]/10">
               {user?.avatar ? (
                 <img src={user.avatar} alt={user.display_name} className="w-full h-full object-cover" />
               ) : (
-                <div className="w-full h-full bg-gradient-to-br from-[#d4a853] to-[#b8922e] flex items-center justify-center text-white text-3xl font-bold">
+                <div className="w-full h-full bg-gradient-to-br from-[#8B5CF6] to-[#7C3AED] flex items-center justify-center text-white text-3xl font-bold">
                   {initials}
                 </div>
               )}
             </div>
             <button
               onClick={() => setShowAvatarPicker(true)}
-              className="absolute bottom-0 right-0 w-8 h-8 bg-[#d4a853] rounded-full flex items-center justify-center text-white hover:bg-[#b8922e] transition-colors border-2 border-[#12121a]"
+              className="absolute bottom-0 right-0 w-8 h-8 bg-[#8B5CF6] rounded-full flex items-center justify-center text-white hover:bg-[#7C3AED] transition-colors border-2 border-[#12121a]"
             >
               <Camera className="w-4 h-4" strokeWidth={1.5} />
             </button>
@@ -122,7 +122,7 @@ export default function DashboardProfilePage() {
                 <button
                   key={url}
                   onClick={() => handleAvatarSelect(url)}
-                  className={`w-16 h-16 rounded-full overflow-hidden border-2 transition-all hover:border-[#d4a853] ${user?.avatar === url ? 'border-[#d4a853] ring-2 ring-[#d4a853]/30' : 'border-[#1e1e28]'}`}
+                  className={`w-16 h-16 rounded-full overflow-hidden border-2 transition-all hover:border-[#8B5CF6] ${user?.avatar === url ? 'border-[#8B5CF6] ring-2 ring-[#8B5CF6]/30' : 'border-[#1e1e28]'}`}
                 >
                   <img src={url} alt="Avatar" className="w-full h-full object-cover" />
                 </button>
@@ -136,7 +136,7 @@ export default function DashboardProfilePage() {
       {/* Stats Grid */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 text-center">
-          <Star className="w-5 h-5 text-[#f5c518] mx-auto mb-1" strokeWidth={1.5} />
+          <Star className="w-5 h-5 text-[#8B5CF6] mx-auto mb-1" strokeWidth={1.5} />
           <p className="text-2xl font-bold text-white">{reviewCount}</p>
           <p className="text-xs text-[#6b7280]">Reviews</p>
         </div>
@@ -146,7 +146,7 @@ export default function DashboardProfilePage() {
           <p className="text-xs text-[#6b7280]">Watched</p>
         </div>
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 text-center">
-          <Bookmark className="w-5 h-5 text-[#d4a853] mx-auto mb-1" strokeWidth={1.5} />
+          <Bookmark className="w-5 h-5 text-[#8B5CF6] mx-auto mb-1" strokeWidth={1.5} />
           <p className="text-2xl font-bold text-white">{watchlistCount}</p>
           <p className="text-xs text-[#6b7280]">Watchlist</p>
         </div>

@@ -32,13 +32,13 @@ export default function DashboardSettingsPrivacyPage() {
                 <p className="text-sm text-white">{option.label}</p>
                 <p className="text-xs text-[#6b7280] mt-0.5">{option.description}</p>
               </div>
-              <button className={`w-12 h-6 rounded-full relative transition-colors flex-shrink-0 ${option.default ? 'bg-[#d4a853]' : 'bg-[#2a2a35]'}`}>
+              <button className={`w-12 h-6 rounded-full relative transition-colors flex-shrink-0 ${option.default ? 'bg-[#8B5CF6]' : 'bg-[#2a2a35]'}`}>
                 <span className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-transform ${option.default ? 'right-1' : 'left-1'}`} />
               </button>
             </div>
           ))}
         </div>
-        <Button className="mt-6 bg-[#d4a853] hover:bg-[#b8922e] text-white">Save Privacy Settings</Button>
+        <Button className="mt-6 bg-[#8B5CF6] hover:bg-[#7C3AED] text-white">Save Privacy Settings</Button>
       </div>
     </>
   );

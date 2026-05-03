@@ -173,7 +173,7 @@ export default function CommunitiesPage() {
           {isAuthenticated && (
             <Button
               onClick={() => setShowCreateDialog(true)}
-              className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 min-h-[44px]"
+              className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white gap-2 min-h-[44px]"
             >
               <Plus className="w-4 h-4" strokeWidth={1.5} /> Create Community
             </Button>
@@ -184,9 +184,9 @@ export default function CommunitiesPage() {
         {isAuthenticated && myCommunities.length > 0 && (
           <div className="mb-8">
             <div className="flex items-center gap-2 mb-4">
-              <CheckCircle2 className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
+              <CheckCircle2 className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
               <h2 className="text-lg font-semibold text-white">My Communities</h2>
-              <span className="text-xs text-[#d4a853] bg-[#d4a853]/10 px-2 py-0.5 rounded-full">
+              <span className="text-xs text-[#8B5CF6] bg-[#8B5CF6]/10 px-2 py-0.5 rounded-full">
                 {myCommunities.length}
               </span>
             </div>
@@ -195,14 +195,14 @@ export default function CommunitiesPage() {
                 <Link
                   key={community.id}
                   href={`/community/${community.id}`}
-                  className="bg-[#0c0c10] border border-[#d4a853]/20 rounded-xl p-5 hover:border-[#d4a853]/40 transition-all hover:shadow-lg hover:shadow-[#d4a853]/5 group"
+                  className="bg-[#0c0c10] border border-[#8B5CF6]/20 rounded-2xl p-6 hover:border-[#8B5CF6]/40 transition-all hover:shadow-lg hover:shadow-[#8B5CF6]/5 group"
                 >
                   <div className="flex items-start justify-between mb-3">
                     <div>
-                      <h3 className="text-base font-semibold text-white group-hover:text-[#d4a853] transition-colors mb-1">
+                      <h3 className="text-base font-semibold text-white group-hover:text-[#8B5CF6] transition-colors mb-1">
                         {community.name}
                       </h3>
-                      <span className="text-xs text-[#d4a853] bg-[#d4a853]/10 px-2 py-0.5 rounded-full">{community.type}</span>
+                      <span className="text-xs text-[#8B5CF6] bg-[#8B5CF6]/10 px-2 py-0.5 rounded-full">{community.type}</span>
                     </div>
                     <Button
                       size="sm"
@@ -212,7 +212,7 @@ export default function CommunitiesPage() {
                         e.stopPropagation();
                         handleJoinToggle(community.id);
                       }}
-                      className="border-[#d4a853]/30 text-[#d4a853] hover:text-white hover:bg-[#d4a853] hover:border-[#d4a853] text-xs gap-1 min-h-[44px]"
+                      className="border-[#8B5CF6]/30 text-[#8B5CF6] hover:text-white hover:bg-[#8B5CF6] hover:border-[#8B5CF6] text-xs gap-1 min-h-[44px]"
                     >
                       <UserMinus className="w-3 h-3" strokeWidth={1.5} /> Leave
                     </Button>
@@ -251,7 +251,7 @@ export default function CommunitiesPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search communities..."
-              className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-lg pl-10 pr-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] min-h-[44px]"
+              className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-lg pl-10 pr-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6] min-h-[44px]"
             />
           </div>
           <div className="flex items-center gap-2 overflow-x-auto pb-1">
@@ -260,7 +260,7 @@ export default function CommunitiesPage() {
                 key={type}
                 onClick={() => setTypeFilter(type)}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap min-h-[44px] ${
-                  typeFilter === type ? 'bg-[#d4a853] text-white' : 'bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
+                  typeFilter === type ? 'bg-[#8B5CF6] text-white' : 'bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
                 }`}
               >
                 {type}
@@ -277,14 +277,14 @@ export default function CommunitiesPage() {
               <Link
                 key={community.id}
                 href={`/community/${community.id}`}
-                className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5 hover:border-[#3a3a45] transition-all hover:shadow-lg hover:shadow-black/20 group"
+                className="bg-[#0c0c10] border border-[#1e1e28] rounded-2xl p-6 hover:border-[#8B5CF6]/30 transition-all hover:shadow-lg hover:shadow-[#8B5CF6]/5 group"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div>
-                    <h3 className="text-base font-semibold text-white group-hover:text-[#d4a853] transition-colors mb-1">
+                    <h3 className="text-base font-semibold text-white group-hover:text-[#8B5CF6] transition-colors mb-1">
                       {community.name}
                     </h3>
-                    <span className="text-xs text-[#d4a853] bg-[#d4a853]/10 px-2 py-0.5 rounded-full">{community.type}</span>
+                    <span className="text-xs text-[#8B5CF6] bg-[#8B5CF6]/10 px-2 py-0.5 rounded-full">{community.type}</span>
                   </div>
                   {isAuthenticated ? (
                     <Button
@@ -297,8 +297,8 @@ export default function CommunitiesPage() {
                       }}
                       className={`text-xs gap-1 min-h-[44px] ${
                         isJoined
-                          ? 'border-[#d4a853]/30 text-[#d4a853] hover:text-white hover:bg-[#d4a853] hover:border-[#d4a853]'
-                          : 'border-[#1e1e28] text-[#9ca3af] hover:text-white hover:bg-[#d4a853] hover:border-[#d4a853]'
+                          ? 'border-[#8B5CF6]/30 text-[#8B5CF6] hover:text-white hover:bg-[#8B5CF6] hover:border-[#8B5CF6]'
+                          : 'border-[#1e1e28] text-[#9ca3af] hover:text-white hover:bg-[#8B5CF6] hover:border-[#8B5CF6]'
                       }`}
                     >
                       {isJoined ? <UserMinus className="w-3 h-3" strokeWidth={1.5} /> : <UserPlus className="w-3 h-3" strokeWidth={1.5} />}
@@ -355,7 +355,7 @@ export default function CommunitiesPage() {
                   value={newName}
                   onChange={(e) => setNewName(e.target.value)}
                   placeholder="e.g. Horror Film Club"
-                  className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] text-sm min-h-[44px]"
+                  className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6] text-sm min-h-[44px]"
                 />
               </div>
               <div>
@@ -365,7 +365,7 @@ export default function CommunitiesPage() {
                   onChange={(e) => setNewDescription(e.target.value)}
                   placeholder="What's your community about?"
                   rows={3}
-                  className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] text-sm resize-none"
+                  className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6] text-sm resize-none"
                 />
               </div>
               <div>
@@ -377,7 +377,7 @@ export default function CommunitiesPage() {
                       onClick={() => setNewType(type)}
                       className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors min-h-[44px] ${
                         newType === type
-                          ? 'bg-[#d4a853] text-white'
+                          ? 'bg-[#8B5CF6] text-white'
                           : 'bg-[#050507] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
                       }`}
                     >
@@ -398,7 +398,7 @@ export default function CommunitiesPage() {
               <Button
                 onClick={handleCreateCommunity}
                 disabled={!newName.trim() || !newDescription.trim()}
-                className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2"
+                className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white gap-2"
               >
                 <Sparkles className="w-4 h-4" strokeWidth={1.5} /> Create Community
               </Button>

@@ -108,7 +108,7 @@ export default function SmartRecommendations({ userGenres, maxItems = 6 }: Smart
 
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
-                    <Link href={`/community/${rec.communityId}`} className="text-sm font-semibold text-white group-hover:text-[#d4a853] transition-colors truncate">
+                    <Link href={`/community/${rec.communityId}`} className="text-sm font-semibold text-white group-hover:text-[#8B5CF6] transition-colors truncate">
                       {rec.communityName}
                     </Link>
                     <span className="flex items-center gap-1 text-[10px] text-[#6b7280]">
@@ -118,7 +118,7 @@ export default function SmartRecommendations({ userGenres, maxItems = 6 }: Smart
                   <p className="text-xs text-[#9ca3af] mb-2 leading-relaxed">{rec.reason}</p>
                   <div className="flex items-center gap-1.5 flex-wrap">
                     {rec.tags.map((tag) => (
-                      <span key={tag} className="text-[10px] bg-[#d4a853]/10 text-[#d4a853] px-2 py-0.5 rounded-full border border-[#d4a853]/20">
+                      <span key={tag} className="text-[10px] bg-[#8B5CF6]/10 text-[#8B5CF6] px-2 py-0.5 rounded-full border border-[#8B5CF6]/20">
                         {tag}
                       </span>
                     ))}
@@ -129,7 +129,7 @@ export default function SmartRecommendations({ userGenres, maxItems = 6 }: Smart
                 <Button
                   onClick={() => handleQuickJoin(rec.communityId)}
                   size="sm"
-                  className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-1 min-h-[36px] flex-shrink-0"
+                  className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white gap-1 min-h-[36px] flex-shrink-0"
                 >
                   <UserPlus className="w-3.5 h-3.5" strokeWidth={1.5} /> Join
                 </Button>
@@ -147,16 +147,16 @@ export default function SmartRecommendations({ userGenres, maxItems = 6 }: Smart
         {joined.map((rec) => (
           <div key={rec.communityId} className="p-4 hover:bg-[#050507]/50 transition-colors group opacity-70">
             <div className="flex items-center gap-3">
-              <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-[#d4a853]/10 border border-[#d4a853]/20 flex items-center justify-center">
-                <CheckCircle2 className="w-4 h-4 text-[#d4a853]" strokeWidth={1.5} />
+              <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 flex items-center justify-center">
+                <CheckCircle2 className="w-4 h-4 text-[#8B5CF6]" strokeWidth={1.5} />
               </div>
               <div className="flex-1 min-w-0">
-                <Link href={`/community/${rec.communityId}`} className="text-sm font-semibold text-[#d4a853] group-hover:text-white transition-colors truncate">
+                <Link href={`/community/${rec.communityId}`} className="text-sm font-semibold text-[#8B5CF6] group-hover:text-white transition-colors truncate">
                   {rec.communityName}
                 </Link>
                 <p className="text-[10px] text-[#6b7280]">Already a member</p>
               </div>
-              <ChevronRight className="w-4 h-4 text-[#6b7280] group-hover:text-[#d4a853] transition-colors" strokeWidth={1.5} />
+              <ChevronRight className="w-4 h-4 text-[#6b7280] group-hover:text-[#8B5CF6] transition-colors" strokeWidth={1.5} />
             </div>
           </div>
         ))}
@@ -164,7 +164,7 @@ export default function SmartRecommendations({ userGenres, maxItems = 6 }: Smart
 
       {/* Footer */}
       <div className="p-4 border-t border-[#1e1e28]/50 text-center">
-        <Link href="/communities" className="text-xs text-[#d4a853] hover:underline flex items-center justify-center gap-1">
+        <Link href="/communities" className="text-xs text-[#8B5CF6] hover:underline flex items-center justify-center gap-1">
           Browse all communities <ChevronRight className="w-3 h-3" strokeWidth={1.5} />
         </Link>
       </div>

@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/lib/auth";
 import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+import ConditionalFooter from "@/components/layout/ConditionalFooter";
 import CookieBanner from "@/components/layout/CookieBanner";
 import NativeScrollReveal from "@/components/layout/NativeScrollReveal";
 import NotificationPanel from "@/components/community/NotificationPanel";
@@ -30,7 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#050507] text-white h-full overflow-hidden`}>
         {/* Subtle ambient glow */}
         <div className="fixed inset-0 pointer-events-none z-0">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#d4a853]/[0.03] rounded-full blur-[120px]" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#8B5CF6]/[0.03] rounded-full blur-[120px]" />
         </div>
         <AuthProvider>
           <NativeScrollReveal>
@@ -40,7 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {/* Scrollable content area — footer lives INSIDE this scroll container */}
               <main className="flex-1 overflow-y-auto">
                 {children}
-                <Footer />
+                <ConditionalFooter />
               </main>
               <CookieBanner />
               <NotificationPanel />

@@ -176,10 +176,10 @@ export default function CommunityWatchlist({ communityId, isMember }: CommunityW
 
         {/* Weekly Pick Highlight */}
         {weeklyPick && (
-          <div className="mb-5 bg-gradient-to-r from-purple-500/10 to-[#d4a853]/10 border border-purple-500/20 rounded-lg p-4">
+          <div className="mb-5 bg-gradient-to-r from-purple-500/10 to-[#8B5CF6]/10 border border-purple-500/20 rounded-lg p-4">
             <div className="flex items-center gap-2 mb-3">
-              <Crown className="w-4 h-4 text-[#d4a853]" strokeWidth={1.5} />
-              <span className="text-xs font-bold text-[#d4a853] uppercase tracking-wider">This Week&apos;s Pick</span>
+              <Crown className="w-4 h-4 text-[#8B5CF6]" strokeWidth={1.5} />
+              <span className="text-xs font-bold text-[#8B5CF6] uppercase tracking-wider">This Week&apos;s Pick</span>
             </div>
             <Link href={`/movie/${weeklyPick.movieSlug}`} className="flex items-center gap-3 group">
               <div className="w-12 h-18 rounded overflow-hidden flex-shrink-0 bg-[#1e1e28]">
@@ -193,7 +193,7 @@ export default function CommunityWatchlist({ communityId, isMember }: CommunityW
                 )}
               </div>
               <div>
-                <h4 className="text-base font-semibold text-white group-hover:text-[#d4a853] transition-colors">{weeklyPick.movieTitle}</h4>
+                <h4 className="text-base font-semibold text-white group-hover:text-[#8B5CF6] transition-colors">{weeklyPick.movieTitle}</h4>
                 <p className="text-xs text-[#6b7280]">{weeklyPick.votes} vote{weeklyPick.votes !== 1 ? 's' : ''} · Nominated by {weeklyPick.addedBy}</p>
               </div>
             </Link>
@@ -245,7 +245,7 @@ export default function CommunityWatchlist({ communityId, isMember }: CommunityW
 
                   {/* Info */}
                   <div className="flex-1 min-w-0">
-                    <Link href={`/movie/${item.movieSlug}`} className="text-sm font-medium text-white hover:text-[#d4a853] transition-colors truncate block">
+                    <Link href={`/movie/${item.movieSlug}`} className="text-sm font-medium text-white hover:text-[#8B5CF6] transition-colors truncate block">
                       {item.movieTitle}
                     </Link>
                     <p className="text-[10px] text-[#6b7280]">Added by {item.addedBy}</p>

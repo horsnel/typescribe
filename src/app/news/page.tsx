@@ -199,11 +199,10 @@ export default function NewsPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
           <Button
             onClick={handleBack}
-            variant="outline"
             size="sm"
-            className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45] mb-6 gap-2"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-bold mb-6 gap-2 min-h-[44px]"
           >
-            <ArrowLeft className="w-4 h-4" strokeWidth={1.5} /> Back to News
+            <ArrowLeft className="w-4 h-4" strokeWidth={2} /> Back
           </Button>
 
           {selectedArticle.loading ? (
@@ -231,8 +230,8 @@ export default function NewsPage() {
               <Newspaper className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" strokeWidth={1.5} />
               <p className="text-[#9ca3af] mb-1">Could not load full article</p>
               <p className="text-sm text-[#6b7280] mb-4">{selectedArticle.error}</p>
-              <Button onClick={handleBack} variant="outline" className="border-[#1e1e28] text-[#9ca3af] hover:text-white">
-                <ArrowLeft className="w-4 h-4 mr-2" strokeWidth={1.5} /> Back to News
+              <Button onClick={handleBack} className="bg-blue-600 hover:bg-blue-700 text-white font-bold">
+                <ArrowLeft className="w-4 h-4 mr-2" strokeWidth={2} /> Back
               </Button>
             </div>
           ) : selectedArticle.data ? (
@@ -268,7 +267,7 @@ export default function NewsPage() {
                     href={selectedArticle.data.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-sm text-[#d4a853] hover:underline"
+                    className="inline-flex items-center gap-2 text-sm text-[#8B5CF6] hover:underline"
                   >
                     Read original article <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={1.5} />
                   </a>
@@ -278,9 +277,9 @@ export default function NewsPage() {
               {/* Comment Section */}
               <div className="mt-10 pt-8 border-t border-[#1e1e28]">
                 <div className="flex items-center gap-3 mb-6">
-                  <MessageCircle className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
+                  <MessageCircle className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
                   <h2 className="text-lg font-bold text-white">Comments</h2>
-                  <span className="px-2 py-0.5 bg-[#d4a853] text-white text-xs font-bold rounded-full">{commentCount}</span>
+                  <span className="px-2 py-0.5 bg-[#8B5CF6] text-white text-xs font-bold rounded-full">{commentCount}</span>
                 </div>
 
                 {/* Comment Input */}
@@ -290,13 +289,13 @@ export default function NewsPage() {
                     onChange={(e) => setCommentText(e.target.value)}
                     placeholder="Share your thoughts on this article..."
                     rows={3}
-                    className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] resize-none text-sm"
+                    className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6] resize-none text-sm"
                   />
                   <div className="flex justify-end mt-3">
                     <Button
                       onClick={handleAddComment}
                       disabled={!commentText.trim() || commentSubmitting}
-                      className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white gap-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <Send className="w-3.5 h-3.5" strokeWidth={1.5} />
                       {commentSubmitting ? 'Posting...' : 'Post Comment'}
@@ -310,7 +309,7 @@ export default function NewsPage() {
                     {comments.map((comment) => (
                       <div key={comment.id} className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4">
                         <div className="flex items-center gap-3 mb-2">
-                          <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#d4a853] to-[#b8922e] flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">
+                          <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#7C3AED] flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">
                             {comment.author.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)}
                           </div>
                           <span className="text-sm font-medium text-white">{comment.author}</span>
@@ -339,7 +338,7 @@ export default function NewsPage() {
     <div className="min-h-screen bg-[#050507] pt-20 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
         <div className="flex items-center gap-3 mb-2">
-          <Newspaper className="w-7 h-7 text-[#d4a853]" strokeWidth={1.5} />
+          <Newspaper className="w-7 h-7 text-[#8B5CF6]" strokeWidth={1.5} />
           <h1 className="text-3xl lg:text-4xl font-extrabold text-white">Movie News</h1>
         </div>
         <p className="text-[#6b7280] mb-2">The latest stories from the world of cinema — industry insights, festival coverage, and cultural analysis.</p>
@@ -355,7 +354,7 @@ export default function NewsPage() {
               onClick={() => { setCategoryFilter(cat); setVisibleCount(9); }}
               className={`px-4 py-2 rounded-full text-xs font-medium whitespace-nowrap transition-colors ${
                 categoryFilter === cat
-                  ? 'bg-[#d4a853] text-white'
+                  ? 'bg-[#8B5CF6] text-white'
                   : 'bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
               }`}
             >
@@ -407,12 +406,12 @@ export default function NewsPage() {
                   </div>
                   <div className="p-6 lg:p-8 flex flex-col justify-center">
                     <div className="flex items-center gap-2 mb-3">
-                      <span className="text-[10px] font-semibold uppercase tracking-wider bg-[#d4a853] text-white px-2.5 py-1 rounded">Featured</span>
+                      <span className="text-[10px] font-semibold uppercase tracking-wider bg-[#8B5CF6] text-white px-2.5 py-1 rounded">Featured</span>
                       <span className="text-xs text-[#6b7280]">{featured.source} · {featured.date}</span>
                     </div>
-                    <h2 className="text-xl lg:text-2xl font-bold text-white mb-3 group-hover:text-[#d4a853] transition-colors leading-snug">{featured.title}</h2>
+                    <h2 className="text-xl lg:text-2xl font-bold text-white mb-3 group-hover:text-[#8B5CF6] transition-colors leading-snug">{featured.title}</h2>
                     <p className="text-sm text-[#9ca3af] leading-relaxed mb-4">{featured.excerpt}</p>
-                    <span className="inline-flex items-center gap-1 text-sm text-[#d4a853] font-medium group-hover:underline">Read Full Story <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={1.5} /></span>
+                    <span className="inline-flex items-center gap-1 text-sm text-[#8B5CF6] font-medium group-hover:underline">Read Full Story <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={1.5} /></span>
                   </div>
                 </div>
               </button>
@@ -447,11 +446,11 @@ export default function NewsPage() {
                               </>
                             )}
                           </div>
-                          <h3 className="text-sm font-semibold text-white mb-2 line-clamp-2 group-hover:text-[#d4a853] transition-colors leading-snug">{item.title}</h3>
+                          <h3 className="text-sm font-semibold text-white mb-2 line-clamp-2 group-hover:text-[#8B5CF6] transition-colors leading-snug">{item.title}</h3>
                           <p className="text-xs text-[#9ca3af] line-clamp-2 mb-3 leading-relaxed">{item.excerpt}</p>
                           <div className="flex items-center justify-between">
                             <span className="text-xs text-[#6b7280]">Read more</span>
-                            <ArrowUpRight className="w-3.5 h-3.5 text-[#6b7280] group-hover:text-[#d4a853]" strokeWidth={1.5} />
+                            <ArrowUpRight className="w-3.5 h-3.5 text-[#6b7280] group-hover:text-[#8B5CF6]" strokeWidth={1.5} />
                           </div>
                         </div>
                       </button>

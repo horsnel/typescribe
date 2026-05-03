@@ -107,7 +107,7 @@ export default function TrailerModal({
           {/* Loading state */}
           {!videoReady && (
             <div className="absolute inset-0 flex items-center justify-center z-10">
-              <Loader2 className="w-8 h-8 text-[#d4a853] animate-spin" strokeWidth={1.5} />
+              <Loader2 className="w-8 h-8 text-[#8B5CF6] animate-spin" strokeWidth={1.5} />
             </div>
           )}
 

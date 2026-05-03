@@ -59,7 +59,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           <h2 className="text-2xl font-bold text-white">Please sign in</h2>
           <p className="text-[#9ca3af]">You need to be logged in to access the dashboard.</p>
           <Link href="/login">
-            <Button className="bg-[#d4a853] hover:bg-[#b8922e] text-white">Sign In</Button>
+            <Button className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white">Sign In</Button>
           </Link>
         </div>
       </div>
@@ -83,7 +83,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     <div className="flex flex-col h-full">
       {/* Logo */}
       <div className="p-4 flex items-center gap-3">
-        <div className="w-8 h-8 bg-[#d4a853] rounded-lg flex items-center justify-center flex-shrink-0">
+        <div className="w-8 h-8 bg-[#8B5CF6] rounded-lg flex items-center justify-center flex-shrink-0">
           <Film className="w-4 h-4 text-white" strokeWidth={1.5} />
         </div>
         {!collapsed && (
@@ -119,7 +119,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 href={link.href}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-sm font-medium ${
                   active
-                    ? 'bg-[#d4a853]/15 text-[#d4a853]'
+                    ? 'bg-[#8B5CF6]/15 text-[#8B5CF6]'
                     : 'text-[#9ca3af] hover:text-white hover:bg-[#111118]'
                 }`}
               >
@@ -144,7 +144,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               href={link.href}
               className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-sm font-medium ${
                 active
-                  ? 'bg-[#d4a853]/15 text-[#d4a853]'
+                  ? 'bg-[#8B5CF6]/15 text-[#8B5CF6]'
                   : 'text-[#9ca3af] hover:text-white hover:bg-[#111118]'
               }`}
             >
@@ -162,7 +162,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <div className={`flex items-center gap-3 ${collapsed ? 'justify-center' : ''}`}>
           <Avatar className="w-9 h-9 flex-shrink-0 border border-[#1e1e28]">
             <AvatarImage src={user?.avatar} />
-            <AvatarFallback className="bg-[#d4a853]/20 text-[#d4a853] text-xs font-bold">
+            <AvatarFallback className="bg-[#8B5CF6]/20 text-[#8B5CF6] text-xs font-bold">
               {user?.display_name ? getInitials(user.display_name) : 'U'}
             </AvatarFallback>
           </Avatar>
@@ -213,7 +213,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           <aside className="fixed left-0 top-0 bottom-0 w-72 bg-[#050507] border-r border-[#1e1e28] z-50 safe-bottom">
             <div className="flex items-center justify-between p-4 border-b border-[#1e1e28]">
               <div className="flex items-center gap-2">
-                <div className="w-7 h-7 bg-[#d4a853] rounded-lg flex items-center justify-center">
+                <div className="w-7 h-7 bg-[#8B5CF6] rounded-lg flex items-center justify-center">
                   <Film className="w-3.5 h-3.5 text-white" strokeWidth={1.5} />
                 </div>
                 <span className="text-white font-bold">Typescribe</span>
@@ -235,7 +235,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <Menu className="w-5 h-5" strokeWidth={1.5} />
           </Button>
           <div className="flex items-center gap-2 flex-1 min-w-0">
-            <div className="w-7 h-7 bg-[#d4a853] rounded-lg flex items-center justify-center flex-shrink-0">
+            <div className="w-7 h-7 bg-[#8B5CF6] rounded-lg flex items-center justify-center flex-shrink-0">
               <Film className="w-3.5 h-3.5 text-white" strokeWidth={1.5} />
             </div>
             <span className="text-white font-bold truncate">Dashboard</span>

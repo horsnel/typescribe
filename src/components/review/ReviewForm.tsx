@@ -68,10 +68,10 @@ export default function ReviewForm({ movieId, onSubmit, onCancel }: ReviewFormPr
         <div className="flex items-center gap-1">
           {Array.from({ length: 10 }, (_, i) => (
             <button key={i + 1} type="button" onClick={() => { setRating(i + 1); setErrors((prev) => ({ ...prev, rating: undefined })); }} onMouseEnter={() => setHoverRating(i + 1)} onMouseLeave={() => setHoverRating(0)} className="p-0.5 transition-transform hover:scale-110">
-              <Star className={`w-6 h-6 transition-colors ${i + 1 <= displayRating ? 'text-[#f5c518] fill-[#f5c518]' : 'text-[#2a2a35]'}`} strokeWidth={1.5} />
+              <Star className={`w-6 h-6 transition-colors ${i + 1 <= displayRating ? 'text-[#8B5CF6] fill-[#8B5CF6]' : 'text-[#2a2a35]'}`} strokeWidth={1.5} />
             </button>
           ))}
-          {displayRating > 0 && <span className="ml-2 text-lg font-bold text-[#f5c518]">{displayRating}/10</span>}
+          {displayRating > 0 && <span className="ml-2 text-lg font-bold text-[#8B5CF6]">{displayRating}/10</span>}
         </div>
         {errors.rating && <p className="text-xs text-red-400 mt-1">{errors.rating}</p>}
         {displayRating > 0 && (displayRating === 1 || displayRating === 10) && (
@@ -84,7 +84,7 @@ export default function ReviewForm({ movieId, onSubmit, onCancel }: ReviewFormPr
 
       <div className="mb-4">
         <label className="text-sm font-medium text-white mb-2 block">Your Review</label>
-        <textarea rows={5} value={text} onChange={(e) => handleTextChange(e.target.value)} placeholder="Share your thoughts about this movie..." className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] resize-none text-sm" maxLength={MAX_CHARS} />
+        <textarea rows={5} value={text} onChange={(e) => handleTextChange(e.target.value)} placeholder="Share your thoughts about this movie..." className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6] resize-none text-sm" maxLength={MAX_CHARS} />
         <div className="flex items-center justify-between mt-1">
           {errors.text ? <p className="text-xs text-red-400">{errors.text}</p> : <span />}
           <p className={`text-xs ${text.length > MAX_CHARS * 0.9 ? 'text-red-400' : 'text-[#6b7280]'}`}>{text.length}/{MAX_CHARS}</p>
@@ -118,7 +118,7 @@ export default function ReviewForm({ movieId, onSubmit, onCancel }: ReviewFormPr
       )}
 
       <div className="flex items-center gap-3">
-        <Button type="submit" disabled={!isValid} className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2 disabled:opacity-50 disabled:cursor-not-allowed"><Send className="w-4 h-4" strokeWidth={1.5} />Submit Review</Button>
+        <Button type="submit" disabled={!isValid} className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white gap-2 disabled:opacity-50 disabled:cursor-not-allowed"><Send className="w-4 h-4" strokeWidth={1.5} />Submit Review</Button>
         {onCancel && <Button type="button" variant="outline" onClick={onCancel} className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:bg-[#111118] gap-2"><X className="w-4 h-4" strokeWidth={1.5} />Cancel</Button>}
       </div>
     </form>

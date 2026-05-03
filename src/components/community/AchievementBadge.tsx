@@ -56,7 +56,7 @@ const CATEGORY_COLORS: Record<string, { bg: string; text: string; border: string
   contribution: { bg: 'bg-blue-500/10', text: 'text-blue-400', border: 'border-blue-500/20' },
   social: { bg: 'bg-purple-500/10', text: 'text-purple-400', border: 'border-purple-500/20' },
   streak: { bg: 'bg-orange-500/10', text: 'text-orange-400', border: 'border-orange-500/20' },
-  special: { bg: 'bg-[#d4a853]/10', text: 'text-[#d4a853]', border: 'border-[#d4a853]/20' },
+  special: { bg: 'bg-[#8B5CF6]/10', text: 'text-[#8B5CF6]', border: 'border-[#8B5CF6]/20' },
 };
 
 const TIER_LABELS: Record<string, string> = {
@@ -69,7 +69,7 @@ const TIER_LABELS: Record<string, string> = {
 
 const TIER_COLORS: Record<string, string> = {
   Platinum: 'from-purple-400 to-purple-600',
-  Gold: 'from-[#d4a853] to-[#b8922e]',
+  Gold: 'from-[#8B5CF6] to-[#7C3AED]',
   Silver: 'from-gray-300 to-gray-500',
   Bronze: 'from-orange-400 to-orange-600',
   Newcomer: 'from-gray-500 to-gray-700',
@@ -127,8 +127,8 @@ export default function AchievementBadge({ userId, communityId, compact = false 
       <div className="p-5 border-b border-[#1e1e28]/50">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#d4a853]/20 to-purple-500/20 border border-[#d4a853]/30 flex items-center justify-center">
-              <Trophy className="w-6 h-6 text-[#d4a853]" strokeWidth={1.5} />
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#8B5CF6]/20 to-purple-500/20 border border-[#8B5CF6]/30 flex items-center justify-center">
+              <Trophy className="w-6 h-6 text-[#8B5CF6]" strokeWidth={1.5} />
             </div>
             <div>
               <h3 className="text-lg font-bold text-white">Achievements</h3>
@@ -215,7 +215,7 @@ export default function AchievementBadge({ userId, communityId, compact = false 
               variant="ghost"
               size="sm"
               onClick={() => setShowAll(!showAll)}
-              className="text-xs text-[#6b7280] hover:text-[#d4a853] gap-1 min-h-[36px]"
+              className="text-xs text-[#6b7280] hover:text-[#8B5CF6] gap-1 min-h-[36px]"
             >
               {showAll ? 'Show Less' : `Show All (${ACHIEVEMENT_DEFINITIONS.length})`}
               <ChevronRight className={`w-3 h-3 transition-transform ${showAll ? 'rotate-90' : ''}`} strokeWidth={1.5} />

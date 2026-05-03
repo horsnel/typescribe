@@ -50,8 +50,8 @@ export default function UpcomingMoviesSection() {
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-[#d4a853]/10 border border-[#d4a853]/20 flex items-center justify-center">
-              <Calendar className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
+            <div className="w-10 h-10 rounded-lg bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 flex items-center justify-center">
+              <Calendar className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
             </div>
             <div>
               <h2 className="text-xl lg:text-2xl font-bold text-white">Upcoming Movies & Series</h2>
@@ -59,7 +59,7 @@ export default function UpcomingMoviesSection() {
             </div>
           </div>
           <Link href="/upcoming">
-            <Button variant="ghost" className="text-[#9ca3af] hover:text-[#d4a853] gap-1 text-sm">
+            <Button variant="ghost" className="text-[#9ca3af] hover:text-[#8B5CF6] gap-1 text-sm">
               View All <ChevronRight className="w-4 h-4" strokeWidth={1.5} />
             </Button>
           </Link>
@@ -68,7 +68,7 @@ export default function UpcomingMoviesSection() {
         {/* Content */}
         {loading ? (
           <div className="flex items-center justify-center py-12">
-            <div className="w-6 h-6 border-2 border-[#d4a853]/30 border-t-[#d4a853] rounded-full animate-spin" />
+            <div className="w-6 h-6 border-2 border-[#8B5CF6]/30 border-t-[#8B5CF6] rounded-full animate-spin" />
           </div>
         ) : (
           <div ref={scrollRef} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-5">
@@ -79,7 +79,7 @@ export default function UpcomingMoviesSection() {
                 <Link
                   key={`${item.id}-${idx}`}
                   href={isSeries ? `/series/${item.slug || item.id}` : `/movie/${item.slug || item.id}`}
-                  className="group bg-[#0c0c10] border border-[#1e1e28] rounded-xl overflow-hidden hover:border-[#d4a853]/30 transition-all"
+                  className="group bg-[#0c0c10] border border-[#1e1e28] rounded-xl overflow-hidden hover:border-[#8B5CF6]/30 transition-all"
                 >
                   <div className="aspect-[2/3] relative overflow-hidden bg-[#111118]">
                     <img
@@ -93,11 +93,11 @@ export default function UpcomingMoviesSection() {
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c10] via-transparent to-transparent" />
                     {/* Upcoming badge */}
                     <div className="absolute top-2 left-2 flex flex-col gap-1">
-                      <span className="text-[9px] font-bold bg-[#d4a853] text-white px-1.5 py-0.5 rounded-full shadow-lg uppercase">
+                      <span className="text-[9px] font-bold bg-[#8B5CF6] text-white px-1.5 py-0.5 rounded-full shadow-lg uppercase">
                         {isSeries ? 'Series' : 'Upcoming'}
                       </span>
                       {releaseInfo.countdown && (
-                        <span className="text-[9px] font-medium bg-black/80 text-[#d4a853] px-1.5 py-0.5 rounded-full backdrop-blur-sm">
+                        <span className="text-[9px] font-medium bg-black/80 text-[#8B5CF6] px-1.5 py-0.5 rounded-full backdrop-blur-sm">
                           {releaseInfo.countdown}
                         </span>
                       )}
@@ -111,13 +111,13 @@ export default function UpcomingMoviesSection() {
                     {/* Rating */}
                     {item.vote_average > 0 && (
                       <div className="absolute bottom-2 right-2 flex items-center gap-0.5 bg-black/70 rounded-full px-1.5 py-0.5 backdrop-blur-sm">
-                        <Star className="w-3 h-3 fill-[#f5c518] text-[#f5c518]" strokeWidth={0} />
+                        <Star className="w-3 h-3 fill-[#8B5CF6] text-[#8B5CF6]" strokeWidth={0} />
                         <span className="text-[10px] font-semibold text-white">{item.vote_average.toFixed(1)}</span>
                       </div>
                     )}
                   </div>
                   <div className="p-3">
-                    <h3 className="text-sm font-semibold text-white group-hover:text-[#d4a853] transition-colors truncate">{item.title}</h3>
+                    <h3 className="text-sm font-semibold text-white group-hover:text-[#8B5CF6] transition-colors truncate">{item.title}</h3>
                     <div className="flex items-center gap-1.5 mt-1">
                       <Calendar className="w-3 h-3 text-[#6b7280] flex-shrink-0" strokeWidth={1.5} />
                       <span className="text-[10px] text-[#6b7280] truncate">{releaseInfo.display}</span>

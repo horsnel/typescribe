@@ -63,7 +63,7 @@ export default function OnboardingPage() {
         {/* Logo */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2 mb-4">
-            <Film className="w-7 h-7 text-[#d4a853]" strokeWidth={1.5} />
+            <Film className="w-7 h-7 text-[#8B5CF6]" strokeWidth={1.5} />
             <span className="text-xl font-extrabold text-white">Typescribe</span>
           </Link>
         </div>
@@ -74,7 +74,7 @@ export default function OnboardingPage() {
             <React.Fragment key={s}>
               <div
                 className={`h-1.5 flex-1 rounded-full transition-colors ${
-                  i <= stepIndex ? 'bg-[#d4a853]' : 'bg-[#2a2a35]'
+                  i <= stepIndex ? 'bg-[#8B5CF6]' : 'bg-[#2a2a35]'
                 }`}
               />
             </React.Fragment>
@@ -94,14 +94,14 @@ export default function OnboardingPage() {
                     onClick={() => toggleGenre(genre.name)}
                     className={`flex items-center gap-3 p-3 rounded-lg border transition-all text-left ${
                       selectedGenres.includes(genre.name)
-                        ? 'border-[#d4a853] bg-[#d4a853]/10 text-white'
+                        ? 'border-[#8B5CF6] bg-[#8B5CF6]/10 text-white'
                         : 'border-[#1e1e28] bg-[#050507] text-[#9ca3af] hover:border-[#3a3a45]'
                     }`}
                   >
                     <div
                       className={`w-5 h-5 rounded border flex items-center justify-center flex-shrink-0 ${
                         selectedGenres.includes(genre.name)
-                          ? 'bg-[#d4a853] border-[#d4a853]'
+                          ? 'bg-[#8B5CF6] border-[#8B5CF6]'
                           : 'border-[#3a3a45]'
                       }`}
                     >
@@ -119,7 +119,7 @@ export default function OnboardingPage() {
               <h2 className="text-xl font-bold text-white mb-2">Set your rating threshold</h2>
               <p className="text-sm text-[#6b7280] mb-6">We&apos;ll highlight movies rated above this score</p>
               <div className="text-center mb-8">
-                <div className="text-5xl font-extrabold text-[#d4a853] mb-2">{minRating.toFixed(1)}</div>
+                <div className="text-5xl font-extrabold text-[#8B5CF6] mb-2">{minRating.toFixed(1)}</div>
                 <p className="text-sm text-[#6b7280]">Minimum rating</p>
               </div>
               <input
@@ -129,7 +129,7 @@ export default function OnboardingPage() {
                 step={0.5}
                 value={minRating}
                 onChange={(e) => setMinRating(parseFloat(e.target.value))}
-                className="w-full accent-[#d4a853] mb-2"
+                className="w-full accent-[#8B5CF6] mb-2"
               />
               <div className="flex justify-between text-xs text-[#6b7280]">
                 <span>1.0</span>
@@ -152,7 +152,7 @@ export default function OnboardingPage() {
                   <button
                     onClick={() => setEmailNotifications(!emailNotifications)}
                     className={`w-11 h-6 rounded-full transition-colors relative ${
-                      emailNotifications ? 'bg-[#d4a853]' : 'bg-[#2a2a35]'
+                      emailNotifications ? 'bg-[#8B5CF6]' : 'bg-[#2a2a35]'
                     }`}
                   >
                     <div
@@ -171,7 +171,7 @@ export default function OnboardingPage() {
                   <button
                     onClick={() => setPublicProfile(!publicProfile)}
                     className={`w-11 h-6 rounded-full transition-colors relative ${
-                      publicProfile ? 'bg-[#d4a853]' : 'bg-[#2a2a35]'
+                      publicProfile ? 'bg-[#8B5CF6]' : 'bg-[#2a2a35]'
                     }`}
                   >
                     <div
@@ -187,8 +187,8 @@ export default function OnboardingPage() {
           {step === 'done' && (
             <>
               <div className="text-center py-6">
-                <div className="w-16 h-16 rounded-full bg-[#d4a853]/20 flex items-center justify-center mx-auto mb-4">
-                  <Check className="w-8 h-8 text-[#d4a853]" strokeWidth={1.5} />
+                <div className="w-16 h-16 rounded-full bg-[#8B5CF6]/20 flex items-center justify-center mx-auto mb-4">
+                  <Check className="w-8 h-8 text-[#8B5CF6]" strokeWidth={1.5} />
                 </div>
                 <h2 className="text-xl font-bold text-white mb-2">You&apos;re all set!</h2>
                 <p className="text-sm text-[#6b7280]">
@@ -205,13 +205,13 @@ export default function OnboardingPage() {
                 <button onClick={handleSkip} className="text-sm text-[#6b7280] hover:text-white transition-colors">
                   Skip
                 </button>
-                <Button onClick={handleNext} className="bg-[#d4a853] hover:bg-[#b8922e] text-white gap-2">
+                <Button onClick={handleNext} className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white gap-2">
                   Continue <ChevronRight className="w-4 h-4" strokeWidth={1.5} />
                 </Button>
               </>
             ) : (
               <div className="w-full">
-                <Button onClick={handleFinish} className="w-full bg-[#d4a853] hover:bg-[#b8922e] text-white">
+                <Button onClick={handleFinish} className="w-full bg-[#8B5CF6] hover:bg-[#7C3AED] text-white">
                   Start Exploring
                 </Button>
               </div>

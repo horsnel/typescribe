@@ -49,7 +49,7 @@ export default function DashboardSidebar({ children }: { children: React.ReactNo
                       href={link.href}
                       className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-colors ${
                         isActive
-                          ? 'bg-[#d4a853] text-white'
+                          ? 'bg-[#8B5CF6] text-white'
                           : 'text-[#9ca3af] hover:text-white hover:bg-[#111118]'
                       }`}
                     >

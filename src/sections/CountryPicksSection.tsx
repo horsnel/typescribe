@@ -46,14 +46,14 @@ function CountrySection({ code, name, label }: CountrySectionProps) {
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <span className="inline-flex items-center justify-center bg-[#d4a853]/10 text-[#d4a853] text-sm font-semibold px-3 py-1 rounded-full border border-[#d4a853]/20">
+            <span className="inline-flex items-center justify-center bg-[#8B5CF6]/10 text-[#8B5CF6] text-sm font-semibold px-3 py-1 rounded-full border border-[#8B5CF6]/20">
               {name}
             </span>
             <h2 className="text-xl sm:text-2xl font-bold text-white">{label}</h2>
           </div>
           <Link
             href={`/browse?country=${code}`}
-            className="flex items-center gap-1 text-sm text-[#d4a853] hover:underline font-medium"
+            className="flex items-center gap-1 text-sm text-[#8B5CF6] hover:underline font-medium"
           >
             View all <ChevronRight className="w-4 h-4" strokeWidth={1.5} />
           </Link>
@@ -61,7 +61,7 @@ function CountrySection({ code, name, label }: CountrySectionProps) {
 
         {loading ? (
           <div className="flex items-center gap-3 py-8">
-            <Loader2 className="w-6 h-6 text-[#d4a853] animate-spin" strokeWidth={1.5} />
+            <Loader2 className="w-6 h-6 text-[#8B5CF6] animate-spin" strokeWidth={1.5} />
             <span className="text-sm text-[#6b7280]">Loading {name} content...</span>
           </div>
         ) : (

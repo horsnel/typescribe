@@ -179,7 +179,7 @@ export default function Navbar() {
             className="flex items-center gap-2 cursor-pointer"
             aria-label="Typescribe Logo — Triple-click for Admin"
           >
-            <Film className="w-6 h-6 text-[#d4a853] group-hover:scale-110 transition-transform" strokeWidth={1.5} />
+            <Film className="w-6 h-6 text-[#8B5CF6] group-hover:scale-110 transition-transform" strokeWidth={1.5} />
             {pathname === '/' && <span className="text-xl font-extrabold text-white tracking-tight">Typescribe</span>}
           </button>
         </div>
@@ -187,14 +187,14 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <Link key={link.label} href={link.href} className={`text-sm font-medium transition-colors duration-200 flex items-center gap-1.5 ${
-              pathname === link.href ? 'text-amber-400' : 'text-[#9ca3af] hover:text-amber-400'} ${
-              'isStream' in link && link.isStream ? 'text-[#d4a853] hover:text-[#e6bc6a]' : ''}`}>
+              pathname === link.href ? 'text-violet-400' : 'text-[#9ca3af] hover:text-violet-400'} ${
+              'isStream' in link && link.isStream ? 'text-[#8B5CF6] hover:text-[#A78BFA]' : ''}`}>
               {'isStream' in link && link.isStream && (
                 <>
-                  <Play className="w-3.5 h-3.5 fill-[#d4a853]" strokeWidth={2} />
+                  <Play className="w-3.5 h-3.5 fill-[#8B5CF6]" strokeWidth={2} />
                   <span className="relative">
                     {link.label}
-                    <span className="absolute -top-1 -right-1.5 w-1 h-1 rounded-full bg-[#d4a853]" />
+                    <span className="absolute -top-1 -right-1.5 w-1 h-1 rounded-full bg-[#8B5CF6]" />
                   </span>
                 </>
               )}
@@ -204,12 +204,12 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-2 z-10">
-          <button onClick={() => setSearchOpen(true)} className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-[#0c0c10] border border-[#1e1e28] rounded-lg text-[#6b7280] hover:text-[#9ca3af] hover:border-[#3a3a45] focus:border-[#d4a853] transition-all text-sm" aria-label="Search">
+          <button onClick={() => setSearchOpen(true)} className="hidden sm:flex items-center gap-2 px-4 py-2 bg-[#0c0c10] border border-[#1e1e28] rounded-full text-[#6b7280] hover:text-[#9ca3af] hover:border-[#3a3a45] focus:border-[#8B5CF6] transition-all text-sm" aria-label="Search">
             <Search className="w-4 h-4" strokeWidth={1.5} />
             <span className="hidden lg:inline">Search...</span>
-            <kbd className="hidden lg:inline px-1.5 py-0.5 bg-[#050507] rounded text-[10px] font-mono border border-[#1e1e28]">⌘K</kbd>
+            <kbd className="hidden lg:inline px-1.5 py-0.5 bg-[#050507] rounded-full text-[10px] font-mono border border-[#1e1e28]">⌘K</kbd>
           </button>
-          <button onClick={() => setSearchOpen(true)} className="sm:hidden p-2 text-[#9ca3af] hover:text-amber-400 transition-colors" aria-label="Search">
+          <button onClick={() => setSearchOpen(true)} className="sm:hidden p-2 text-[#9ca3af] hover:text-violet-400 transition-colors" aria-label="Search">
             <Search className="w-5 h-5" strokeWidth={1.5} />
           </button>
 
@@ -220,12 +220,12 @@ export default function Navbar() {
             <div className="relative" ref={profileMenuRef}>
               <button
                 onClick={toggleProfileMenu}
-                className={`flex items-center transition-all focus:outline-none ${profileMenuOpen ? 'ring-2 ring-[#d4a853]/50 rounded-full' : 'hover:opacity-80 rounded-full'}`}
+                className={`flex items-center transition-all focus:outline-none ${profileMenuOpen ? 'ring-2 ring-[#8B5CF6]/50 rounded-full' : 'hover:opacity-80 rounded-full'}`}
                 aria-label="Open profile menu"
                 aria-expanded={profileMenuOpen}
                 aria-haspopup="true"
               >
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#d4a853] to-[#b8922e] flex items-center justify-center text-white text-xs font-bold overflow-hidden">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#7C3AED] flex items-center justify-center text-white text-xs font-bold overflow-hidden">
                   {user?.avatar ? <img src={user.avatar} alt={user.display_name} className="w-full h-full object-cover" /> : userInitials}
                 </div>
               </button>
@@ -248,7 +248,7 @@ export default function Navbar() {
                         onClick={() => setProfileMenuOpen(false)}
                         className="flex items-center gap-3 px-4 py-2.5 text-sm text-[#9ca3af] hover:text-white hover:bg-[#111118] transition-colors"
                       >
-                        <item.icon className="w-4 h-4 text-[#d4a853]" strokeWidth={1.5} />
+                        <item.icon className="w-4 h-4 text-[#8B5CF6]" strokeWidth={1.5} />
                         {item.label}
                       </Link>
                     ))}
@@ -260,7 +260,7 @@ export default function Navbar() {
                       onClick={() => { logout(); setProfileMenuOpen(false); }}
                       className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-[#9ca3af] hover:text-red-400 hover:bg-[#111118] transition-colors"
                     >
-                      <LogOut className="w-4 h-4 text-[#d4a853]" strokeWidth={1.5} />
+                      <LogOut className="w-4 h-4 text-[#8B5CF6]" strokeWidth={1.5} />
                       Log Out
                     </button>
                   </div>
@@ -273,12 +273,12 @@ export default function Navbar() {
                 <Button variant="outline" className="border-[#1e1e28] bg-transparent text-white hover:bg-[#111118] hover:text-white text-sm font-medium">Sign In</Button>
               </Link>
               <Link href="/signup" className="hidden sm:block">
-                <Button className="bg-[#d4a853] hover:bg-[#b8922e] text-white text-sm font-medium">Sign Up</Button>
+                <Button className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white text-sm font-medium">Sign Up</Button>
               </Link>
             </div>
           )}
 
-          <button className="md:hidden p-2 text-[#9ca3af] hover:text-amber-400 transition-colors" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Menu">
+          <button className="md:hidden p-2 text-[#9ca3af] hover:text-violet-400 transition-colors" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Menu">
             {mobileMenuOpen ? <X className="w-5 h-5" strokeWidth={1.5} /> : <Menu className="w-5 h-5" strokeWidth={1.5} />}
           </button>
         </div>
@@ -289,11 +289,11 @@ export default function Navbar() {
           <div className="flex flex-col gap-4">
             {navLinks.map((link) => (
               <Link key={link.label} href={link.href} onClick={() => setMobileMenuOpen(false)} className={`text-lg font-medium transition-colors flex items-center gap-2 ${
-                pathname === link.href ? 'text-amber-400' : 'text-[#9ca3af] hover:text-amber-400'} ${
-                'isStream' in link && link.isStream ? 'text-[#d4a853] hover:text-[#e6bc6a]' : ''}`}>
-                {'isStream' in link && link.isStream && <Play className="w-4 h-4 fill-[#d4a853]" strokeWidth={2} />}
+                pathname === link.href ? 'text-violet-400' : 'text-[#9ca3af] hover:text-violet-400'} ${
+                'isStream' in link && link.isStream ? 'text-[#8B5CF6] hover:text-[#A78BFA]' : ''}`}>
+                {'isStream' in link && link.isStream && <Play className="w-4 h-4 fill-[#8B5CF6]" strokeWidth={2} />}
                 {link.label}
-                {'isStream' in link && link.isStream && <span className="w-1.5 h-1.5 rounded-full bg-[#d4a853] ml-1" />}
+                {'isStream' in link && link.isStream && <span className="w-1.5 h-1.5 rounded-full bg-[#8B5CF6] ml-1" />}
               </Link>
             ))}
             <div className="border-t border-[#1e1e28] pt-4 mt-2">
@@ -302,14 +302,14 @@ export default function Navbar() {
                   {mobileUserLinks.map((item) => {
                     if ('isPanel' in item && item.isPanel) {
                       return (
-                        <button key={item.label} onClick={() => { openNotificationPanel(); setMobileMenuOpen(false); }} className="flex items-center gap-3 py-2.5 text-[#9ca3af] hover:text-amber-400 transition-colors w-full text-left">
+                        <button key={item.label} onClick={() => { openNotificationPanel(); setMobileMenuOpen(false); }} className="flex items-center gap-3 py-2.5 text-[#9ca3af] hover:text-violet-400 transition-colors w-full text-left">
                           <item.icon className="w-4 h-4" strokeWidth={1.5} />
                           {item.label}
                         </button>
                       );
                     }
                     return (
-                      <Link key={item.label} href={item.href} onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 py-2.5 text-[#9ca3af] hover:text-amber-400 transition-colors">
+                      <Link key={item.label} href={item.href} onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 py-2.5 text-[#9ca3af] hover:text-violet-400 transition-colors">
                         <item.icon className="w-4 h-4" strokeWidth={1.5} />
                         {item.label}
                       </Link>
@@ -322,7 +322,7 @@ export default function Navbar() {
                 </>
               ) : (
                 <div className="flex flex-col gap-3">
-                  <Link href="/login" onClick={() => setMobileMenuOpen(false)}><Button className="w-full bg-[#d4a853] hover:bg-[#b8922e] text-white font-medium">Sign In</Button></Link>
+                  <Link href="/login" onClick={() => setMobileMenuOpen(false)}><Button className="w-full bg-[#8B5CF6] hover:bg-[#7C3AED] text-white font-medium">Sign In</Button></Link>
                   <Link href="/signup" onClick={() => setMobileMenuOpen(false)}><Button variant="outline" className="w-full border-[#1e1e28] text-white hover:bg-[#111118]">Sign Up</Button></Link>
                 </div>
               )}
@@ -338,8 +338,8 @@ export default function Navbar() {
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm">
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-full bg-[#d4a853]/10 flex items-center justify-center">
-                <Lock className="w-5 h-5 text-[#d4a853]" strokeWidth={1.5} />
+              <div className="w-10 h-10 rounded-full bg-[#8B5CF6]/10 flex items-center justify-center">
+                <Lock className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
               </div>
               <div>
                 <h3 className="text-lg font-bold text-white">Admin Access</h3>
@@ -357,14 +357,14 @@ export default function Navbar() {
               onChange={(e) => setAdminPassword(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleAdminLogin()}
               placeholder="Enter admin password"
-              className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#d4a853] mb-4"
+              className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6] mb-4"
               autoFocus
             />
             <div className="flex gap-3">
               <Button
                 onClick={handleAdminLogin}
                 disabled={!adminPassword || adminLoading}
-                className="flex-1 bg-[#d4a853] hover:bg-[#b8922e] text-white disabled:opacity-50"
+                className="flex-1 bg-[#8B5CF6] hover:bg-[#7C3AED] text-white disabled:opacity-50"
               >
                 {adminLoading ? <Loader2 className="w-4 h-4 animate-spin mr-2" strokeWidth={1.5} /> : <Lock className="w-4 h-4 mr-2" strokeWidth={1.5} />}
                 Authenticate

@@ -40,12 +40,12 @@ interface SystemNotification {
 }
 
 const SYSTEM_NOTIFICATIONS: SystemNotification[] = [
-  { id: 's1', type: 'trending', icon: TrendingUp, title: 'Trending Now', message: '"City of Shadows" is trending this week! See what everyone is talking about.', time: '2h ago', color: 'text-[#d4a853]', read: false, link: '/movie/city-of-shadows' },
-  { id: 's2', type: 'review', icon: MessageSquare, title: 'New Review', message: 'Someone just reviewed "Cosmic Drift" — check out their take on the ending.', time: '4h ago', color: 'text-[#f5c518]', read: false, link: '/movie/cosmic-drift' },
+  { id: 's1', type: 'trending', icon: TrendingUp, title: 'Trending Now', message: '"City of Shadows" is trending this week! See what everyone is talking about.', time: '2h ago', color: 'text-[#8B5CF6]', read: false, link: '/movie/city-of-shadows' },
+  { id: 's2', type: 'review', icon: MessageSquare, title: 'New Review', message: 'Someone just reviewed "Cosmic Drift" — check out their take on the ending.', time: '4h ago', color: 'text-[#8B5CF6]', read: false, link: '/movie/cosmic-drift' },
   { id: 's3', type: 'community', icon: Users, title: 'Community Invite', message: 'You\'ve been invited to join "Sci-Fi Nerds" — 3,200 members strong!', time: '6h ago', color: 'text-[#22c55e]', read: false, link: '/community/sci-fi-nerds' },
   { id: 's4', type: 'recommendation', icon: Sparkles, title: 'Pick For You', message: 'Based on your watch history, you might love "The Harvest Home" (8.6 rating).', time: '12h ago', color: 'text-purple-400', read: true, link: '/movie/the-harvest-home' },
   { id: 's5', type: 'system', icon: Shield, title: 'Welcome!', message: 'Welcome to Typescribe! Start by browsing movies and writing reviews.', time: '1d ago', color: 'text-[#3b82f6]', read: true },
-  { id: 's6', type: 'trending', icon: Star, title: 'Top Rated', message: '"The Harvest Home" just entered the Top 10 — currently rated 8.6 by users.', time: '2d ago', color: 'text-[#f5c518]', read: true, link: '/top-rated' },
+  { id: 's6', type: 'trending', icon: Star, title: 'Top Rated', message: '"The Harvest Home" just entered the Top 10 — currently rated 8.6 by users.', time: '2d ago', color: 'text-[#8B5CF6]', read: true, link: '/top-rated' },
 ];
 
 /* ──────────────────────────────────────────────
@@ -175,7 +175,7 @@ export default function NotificationPanel() {
           <div className="flex items-center gap-3">
             <h2 className="text-lg font-bold text-white">Notifications</h2>
             {totalUnread > 0 && (
-              <span className="bg-[#d4a853] text-white text-xs font-bold px-2 py-0.5 rounded-full">
+              <span className="bg-[#8B5CF6] text-white text-xs font-bold px-2 py-0.5 rounded-full">
                 {totalUnread}
               </span>
             )}
@@ -184,7 +184,7 @@ export default function NotificationPanel() {
             {totalUnread > 0 && (
               <button
                 onClick={handleMarkAllRead}
-                className="text-[10px] text-[#d4a853] hover:text-[#b8922e] transition-colors flex items-center gap-1"
+                className="text-[10px] text-[#8B5CF6] hover:text-[#7C3AED] transition-colors flex items-center gap-1"
               >
                 <Check className="w-3 h-3" strokeWidth={1.5} /> Mark all read
               </button>
@@ -204,7 +204,7 @@ export default function NotificationPanel() {
           <button
             onClick={() => setTab('activity')}
             className={`flex-1 py-3 text-xs font-semibold transition-colors ${
-              tab === 'activity' ? 'text-[#d4a853] border-b-2 border-[#d4a853]' : 'text-[#6b7280] hover:text-[#9ca3af]'
+              tab === 'activity' ? 'text-[#8B5CF6] border-b-2 border-[#8B5CF6]' : 'text-[#6b7280] hover:text-[#9ca3af]'
             }`}
           >
             Activity
@@ -212,7 +212,7 @@ export default function NotificationPanel() {
           <button
             onClick={() => setTab('all')}
             className={`flex-1 py-3 text-xs font-semibold transition-colors ${
-              tab === 'all' ? 'text-[#d4a853] border-b-2 border-[#d4a853]' : 'text-[#6b7280] hover:text-[#9ca3af]'
+              tab === 'all' ? 'text-[#8B5CF6] border-b-2 border-[#8B5CF6]' : 'text-[#6b7280] hover:text-[#9ca3af]'
             }`}
           >
             All Notifications
@@ -229,10 +229,10 @@ export default function NotificationPanel() {
                   <div
                     key={activity.id}
                     className={`flex items-start gap-3 px-5 py-3.5 border-b border-[#1e1e28]/30 transition-colors hover:bg-[#050507]/50 ${
-                      !activity.read ? 'bg-[#d4a853]/5' : ''
+                      !activity.read ? 'bg-[#8B5CF6]/5' : ''
                     }`}
                   >
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#d4a853] to-[#b8922e] flex items-center justify-center text-white text-[10px] font-bold overflow-hidden flex-shrink-0">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#7C3AED] flex items-center justify-center text-white text-[10px] font-bold overflow-hidden flex-shrink-0">
                       {activity.actorAvatar ? (
                         <img src={activity.actorAvatar} alt="" className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
                       ) : (
@@ -243,20 +243,20 @@ export default function NotificationPanel() {
                       <p className="text-xs text-[#9ca3af] leading-relaxed">
                         <span className="text-white font-medium">{activity.actorName}</span>{' '}
                         {ACTIVITY_VERBS[activity.type]}{' '}
-                        <Link href={`/community/${activity.communityId}`} onClick={close} className="text-[#d4a853] hover:underline">
+                        <Link href={`/community/${activity.communityId}`} onClick={close} className="text-[#8B5CF6] hover:underline">
                           {activity.communityName}
                         </Link>
                       </p>
                       <span className="text-[10px] text-[#6b7280]">{timeAgo(activity.createdAt)}</span>
                     </div>
-                    {!activity.read && <span className="w-1.5 h-1.5 rounded-full bg-[#d4a853] mt-2 flex-shrink-0" />}
+                    {!activity.read && <span className="w-1.5 h-1.5 rounded-full bg-[#8B5CF6] mt-2 flex-shrink-0" />}
                   </div>
                 ))}
                 <div className="px-5 py-4 text-center border-t border-[#1e1e28]/30">
                   <Link
                     href="/communities"
                     onClick={close}
-                    className="text-xs text-[#d4a853] hover:underline"
+                    className="text-xs text-[#8B5CF6] hover:underline"
                   >
                     View all communities
                   </Link>
@@ -280,7 +280,7 @@ export default function NotificationPanel() {
                     key={notif.id}
                     onClick={() => markAsRead(notif.id)}
                     className={`px-5 py-3.5 border-b border-[#1e1e28]/30 flex items-start gap-3 cursor-pointer transition-colors hover:bg-[#050507]/50 ${
-                      !isRead ? 'bg-[#d4a853]/5' : ''
+                      !isRead ? 'bg-[#8B5CF6]/5' : ''
                     }`}
                   >
                     <div className="w-9 h-9 rounded-full bg-[#111118] flex items-center justify-center flex-shrink-0">
@@ -289,13 +289,13 @@ export default function NotificationPanel() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-0.5">
                         <p className="text-xs font-semibold text-white">{notif.title}</p>
-                        {!isRead && <span className="w-1.5 h-1.5 rounded-full bg-[#d4a853] flex-shrink-0" />}
+                        {!isRead && <span className="w-1.5 h-1.5 rounded-full bg-[#8B5CF6] flex-shrink-0" />}
                       </div>
                       <p className="text-[11px] text-[#9ca3af] leading-relaxed">{notif.message}</p>
                       <div className="flex items-center gap-3 mt-1">
                         <span className="text-[10px] text-[#6b7280]">{notif.time}</span>
                         {notif.link && (
-                          <Link href={notif.link} onClick={close} className="text-[10px] text-[#d4a853] hover:underline">
+                          <Link href={notif.link} onClick={close} className="text-[10px] text-[#8B5CF6] hover:underline">
                             View
                           </Link>
                         )}
@@ -315,10 +315,10 @@ export default function NotificationPanel() {
                     <div
                       key={activity.id}
                       className={`flex items-start gap-3 px-5 py-3 border-b border-[#1e1e28]/30 transition-colors hover:bg-[#050507]/50 ${
-                        !activity.read ? 'bg-[#d4a853]/5' : ''
+                        !activity.read ? 'bg-[#8B5CF6]/5' : ''
                       }`}
                     >
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#d4a853] to-[#b8922e] flex items-center justify-center text-white text-[10px] font-bold overflow-hidden flex-shrink-0">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#7C3AED] flex items-center justify-center text-white text-[10px] font-bold overflow-hidden flex-shrink-0">
                         {activity.actorAvatar ? (
                           <img src={activity.actorAvatar} alt="" className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
                         ) : (
@@ -329,13 +329,13 @@ export default function NotificationPanel() {
                         <p className="text-xs text-[#9ca3af] leading-relaxed">
                           <span className="text-white font-medium">{activity.actorName}</span>{' '}
                           {ACTIVITY_VERBS[activity.type]}{' '}
-                          <Link href={`/community/${activity.communityId}`} onClick={close} className="text-[#d4a853] hover:underline">
+                          <Link href={`/community/${activity.communityId}`} onClick={close} className="text-[#8B5CF6] hover:underline">
                             {activity.communityName}
                           </Link>
                         </p>
                         <span className="text-[10px] text-[#6b7280]">{timeAgo(activity.createdAt)}</span>
                       </div>
-                      {!activity.read && <span className="w-1.5 h-1.5 rounded-full bg-[#d4a853] mt-2 flex-shrink-0" />}
+                      {!activity.read && <span className="w-1.5 h-1.5 rounded-full bg-[#8B5CF6] mt-2 flex-shrink-0" />}
                     </div>
                   ))}
                 </>
@@ -349,7 +349,7 @@ export default function NotificationPanel() {
           <Link
             href="/dashboard/settings/notifications"
             onClick={close}
-            className="text-xs text-[#d4a853] hover:underline flex items-center gap-1"
+            className="text-xs text-[#8B5CF6] hover:underline flex items-center gap-1"
           >
             <Settings className="w-3 h-3" strokeWidth={1.5} /> Preferences
           </Link>

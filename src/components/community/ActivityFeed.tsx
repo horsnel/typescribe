@@ -27,7 +27,7 @@ const ACTIVITY_ICONS: Record<ActivityType, { icon: typeof MessageSquare; color: 
   'new_post': { icon: MessageSquare, color: 'text-blue-400', bgColor: 'bg-blue-500/10 border-blue-500/20' },
   'new_comment': { icon: MessageSquare, color: 'text-purple-400', bgColor: 'bg-purple-500/10 border-purple-500/20' },
   'new_debate': { icon: Swords, color: 'text-green-400', bgColor: 'bg-green-500/10 border-green-500/20' },
-  'new_member': { icon: UserPlus, color: 'text-[#d4a853]', bgColor: 'bg-[#d4a853]/10 border-[#d4a853]/20' },
+  'new_member': { icon: UserPlus, color: 'text-[#8B5CF6]', bgColor: 'bg-[#8B5CF6]/10 border-[#8B5CF6]/20' },
   'weekly_theme': { icon: Sparkles, color: 'text-purple-400', bgColor: 'bg-purple-500/10 border-purple-500/20' },
   'watchlist_vote': { icon: BookmarkPlus, color: 'text-orange-400', bgColor: 'bg-orange-500/10 border-orange-500/20' },
   'like': { icon: Heart, color: 'text-pink-400', bgColor: 'bg-pink-500/10 border-pink-500/20' },
@@ -112,7 +112,7 @@ export default function ActivityFeed({ joinedCommunityIds, communityId, maxItems
               className={`flex items-start gap-3 p-4 transition-colors hover:bg-[#050507]/50 ${!activity.read ? 'bg-purple-500/5' : ''}`}
             >
               {/* Actor avatar */}
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#d4a853] to-[#b8922e] flex items-center justify-center text-white text-[10px] font-bold overflow-hidden flex-shrink-0">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#7C3AED] flex items-center justify-center text-white text-[10px] font-bold overflow-hidden flex-shrink-0">
                 {activity.actorAvatar ? (
                   <img src={activity.actorAvatar} alt={activity.actorName} className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
                 ) : (
@@ -125,7 +125,7 @@ export default function ActivityFeed({ joinedCommunityIds, communityId, maxItems
                 <p className="text-sm text-[#9ca3af] leading-relaxed">
                   <span className="text-white font-medium">{activity.actorName}</span>{' '}
                   {verb}{' '}
-                  <Link href={`/community/${activity.communityId}`} className="text-[#d4a853] hover:underline">{activity.communityName}</Link>
+                  <Link href={`/community/${activity.communityId}`} className="text-[#8B5CF6] hover:underline">{activity.communityName}</Link>
                   {activity.targetTitle && activity.type !== 'new_member' && (
                     <>
                       {' — '}
@@ -159,7 +159,7 @@ export default function ActivityFeed({ joinedCommunityIds, communityId, maxItems
             variant="ghost"
             size="sm"
             onClick={() => setShowAll(!showAll)}
-            className="text-xs text-[#6b7280] hover:text-[#d4a853] gap-1 min-h-[36px]"
+            className="text-xs text-[#6b7280] hover:text-[#8B5CF6] gap-1 min-h-[36px]"
           >
             {showAll ? 'Show Less' : `Show All (${activities.length})`}
           </Button>

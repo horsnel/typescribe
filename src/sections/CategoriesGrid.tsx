@@ -4,14 +4,14 @@ import { genres } from '@/lib/data';
 import { Sword, Laugh, Drama, Ghost, Eye, Rocket, Heart, Film, Sparkles, ChevronRight } from 'lucide-react';
 
 const iconConfig: Record<string, { icon: React.ComponentType<{ className?: string; strokeWidth?: number }>; color: string; bg: string }> = {
-  Sword:  { icon: Sword,  color: 'text-[#d4a853]', bg: 'bg-[#d4a853]/10' },
-  Laugh:  { icon: Laugh,  color: 'text-[#d4a853]', bg: 'bg-[#d4a853]/10' },
-  Drama:  { icon: Drama,  color: 'text-[#d4a853]', bg: 'bg-[#d4a853]/10' },
-  Ghost:  { icon: Ghost,  color: 'text-[#d4a853]', bg: 'bg-[#d4a853]/10' },
-  Eye:    { icon: Eye,    color: 'text-[#d4a853]', bg: 'bg-[#d4a853]/10' },
-  Rocket: { icon: Rocket, color: 'text-[#d4a853]', bg: 'bg-[#d4a853]/10' },
-  Heart:  { icon: Heart,  color: 'text-[#d4a853]', bg: 'bg-[#d4a853]/10' },
-  Film:   { icon: Film,   color: 'text-[#d4a853]', bg: 'bg-[#d4a853]/10' },
+  Sword:  { icon: Sword,  color: 'text-[#8B5CF6]', bg: 'bg-[#8B5CF6]/10' },
+  Laugh:  { icon: Laugh,  color: 'text-[#8B5CF6]', bg: 'bg-[#8B5CF6]/10' },
+  Drama:  { icon: Drama,  color: 'text-[#8B5CF6]', bg: 'bg-[#8B5CF6]/10' },
+  Ghost:  { icon: Ghost,  color: 'text-[#8B5CF6]', bg: 'bg-[#8B5CF6]/10' },
+  Eye:    { icon: Eye,    color: 'text-[#8B5CF6]', bg: 'bg-[#8B5CF6]/10' },
+  Rocket: { icon: Rocket, color: 'text-[#8B5CF6]', bg: 'bg-[#8B5CF6]/10' },
+  Heart:  { icon: Heart,  color: 'text-[#8B5CF6]', bg: 'bg-[#8B5CF6]/10' },
+  Film:   { icon: Film,   color: 'text-[#8B5CF6]', bg: 'bg-[#8B5CF6]/10' },
 };
 
 function GenreCard({ genre }: { genre: { id: string; name: string; icon: string; count: number } }) {
@@ -20,7 +20,7 @@ function GenreCard({ genre }: { genre: { id: string; name: string; icon: string;
   return (
     <Link
       href={`/category/${genre.id}`}
-      className="group relative flex items-center gap-4 p-4 rounded-2xl bg-[#0c0c10] border border-white/[0.06] hover:border-[#d4a853]/30 hover:bg-[#111118] transition-all duration-300 cursor-pointer overflow-hidden"
+      className="group relative flex items-center gap-4 p-4 rounded-2xl bg-[#0c0c10] border border-white/[0.06] hover:border-[#8B5CF6]/30 hover:bg-[#111118] transition-all duration-300 cursor-pointer overflow-hidden"
     >
       {/* Sheen overlay */}
       <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%)' }} />
