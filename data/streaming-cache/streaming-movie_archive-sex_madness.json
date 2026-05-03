@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-sex_madness",
+  "data": {
+    "id": "archive-sex_madness",
+    "title": "Sex Madness",
+    "description": "This is a typical sex exploitation film from the early 1930s - complete with wild parties, sex out of wedlock, lesbianism, etc. A chorus girl's exposure to the \"casting couch\" also exposes her to syphilis. Exploitation filmmakers hoped to capitalize on the taboo subjects of venereal disease, sex before marriage, lesbianism, etc. while skirting the Motion Picture Production Code of 1930 which forbade a film from containing such content. Films like this would tour the United States for years - mos",
+    "year": 1938,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [],
+    "rating": 2.9,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/sex_madness",
+    "backdrop": "https://archive.org/services/img/sex_madness",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/sex_madness",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/sex_madness",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-03T07:58:46.036Z"
+  },
+  "createdAt": 1777795127096,
+  "expiresAt": 1777881527096
+}

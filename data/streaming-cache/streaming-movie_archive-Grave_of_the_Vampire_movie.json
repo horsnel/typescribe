@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-Grave_of_the_Vampire_movie",
+  "data": {
+    "id": "archive-Grave_of_the_Vampire_movie",
+    "title": "Grave of the Vampire",
+    "description": "William Smith tracks down his father, a vampire who raped his mother. The IMDB entry is here . The mpeg2 file has nav-packets, so you can load it into DVDAuthorGUI (a free program) to create a DVD to watch on your television.",
+    "year": 1974,
+    "duration": "1h 29m",
+    "durationSeconds": 5380,
+    "genres": [],
+    "rating": 4,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/Grave_of_the_Vampire_movie",
+    "backdrop": "https://archive.org/services/img/Grave_of_the_Vampire_movie",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/Grave_of_the_Vampire_movie",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/Grave_of_the_Vampire_movie",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-03T07:58:46.662Z"
+  },
+  "createdAt": 1777795127094,
+  "expiresAt": 1777881527094
+}

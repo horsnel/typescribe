@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-BlondeIce1948",
+  "data": {
+    "id": "archive-BlondeIce1948",
+    "title": "Blonde Ice",
+    "description": "A society reporter keeps herself in the headlines by marrying a series of wealthy men. They all die mysteriously afterwards though. Mystic Nights Videos",
+    "year": 0,
+    "duration": "1h 14m",
+    "durationSeconds": 4443,
+    "genres": [],
+    "rating": 4.2,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/BlondeIce1948",
+    "backdrop": "https://archive.org/services/img/BlondeIce1948",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/BlondeIce1948",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/BlondeIce1948",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-03T07:58:47.086Z"
+  },
+  "createdAt": 1777795127093,
+  "expiresAt": 1777881527093
+}

@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-his_girl_friday",
+  "data": {
+    "id": "archive-his_girl_friday",
+    "title": "His Girl Friday",
+    "description": "Hilarious romantic comedy starring Cary Grant and Rosalind Russell. Russell is rough and tumble reporter looking to get out of the news racket by marrying and becoming a house wife after her divorce from newspaper publisher Grant. Just when she is about to leave town with her husband-to-be the still lovesick Grant drafts her to cover one final breaking news sensation. Along with plenty of laughs and fast paced dialog this film provides a witty and cynical look at news business. There is a slight",
+    "year": 1940,
+    "duration": "1h 31m",
+    "durationSeconds": 5504,
+    "genres": [],
+    "rating": 4.3,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/his_girl_friday",
+    "backdrop": "https://archive.org/services/img/his_girl_friday",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/his_girl_friday",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/his_girl_friday",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-03T07:58:46.036Z"
+  },
+  "createdAt": 1777795127093,
+  "expiresAt": 1777881527093
+}

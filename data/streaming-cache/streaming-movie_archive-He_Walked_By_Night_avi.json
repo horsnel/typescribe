@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-He_Walked_By_Night.avi",
+  "data": {
+    "id": "archive-He_Walked_By_Night.avi",
+    "title": "He Walked By Night",
+    "description": "Gripping film noir crime drama about a manhunt for a ruthless killer who plays a deadly cat and mouse game with the police. Starring Richard Basehart, Scott Brady, Whit Bissell, and Jack Webb, this movie was the basis for \"Dragnet\". Watch for Whit Bissell, the unsung but solid bit player who has appeared in hundreds of films and TV shows",
+    "year": 1948,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [],
+    "rating": 4.1,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/He_Walked_By_Night.avi",
+    "backdrop": "https://archive.org/services/img/He_Walked_By_Night.avi",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/He_Walked_By_Night.avi",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/He_Walked_By_Night.avi",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-03T07:58:47.086Z"
+  },
+  "createdAt": 1777795127094,
+  "expiresAt": 1777881527094
+}

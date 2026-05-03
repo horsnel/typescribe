@@ -30,6 +30,10 @@ const TMDB_GENRE_MAP: Record<string, { id: number; name: string }> = {
   'thriller': { id: 53, name: 'Thriller' },
   'war': { id: 10752, name: 'War' },
   'western': { id: 37, name: 'Western' },
+  'bollywood': { id: 0, name: 'Bollywood' },  // Special: uses country filter instead
+  'korean': { id: 0, name: 'K-Drama & K-Movie' },  // Special: uses country filter instead
+  'nollywood': { id: 0, name: 'Nollywood' },  // Special: uses country filter instead
+  'anime-genre': { id: 16, name: 'Anime' },  // Animation genre
 };
 
 // All genres for sidebar
@@ -69,7 +73,20 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
       title: 'original_title.asc',
     };
 
-    const url = `/api/browse?format=movie&genres=${genreInfo.id}&sort=${sortMap[sort]}&page=${currentPage}&minRating=5`;
+    let url: string;
+    if (genreInfo.id === 0) {
+      // Country-based genre
+      const countryMap: Record<string, string> = {
+        'bollywood': 'IN',
+        'korean': 'KR',
+        'nollywood': 'NG',
+      };
+      const countryCode = countryMap[genre];
+      if (!countryCode) { setLoading(false); return; }
+      url = `/api/browse?format=movie&country=${countryCode}&sort=${sortMap[sort]}&page=${currentPage}&minRating=5`;
+    } else {
+      url = `/api/browse?format=movie&genres=${genreInfo.id}&sort=${sortMap[sort]}&page=${currentPage}&minRating=5`;
+    }
 
     fetch(url)
       .then(res => res.ok ? res.json() : null)

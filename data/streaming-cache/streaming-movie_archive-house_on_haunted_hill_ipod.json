@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-house_on_haunted_hill_ipod",
+  "data": {
+    "id": "archive-house_on_haunted_hill_ipod",
+    "title": "House on Haunted Hill",
+    "description": "Frederick Loren has invited five strangers to a party of a lifetime. He is offering each of them $10,000 if they can stay the night in a house.",
+    "year": 1959,
+    "duration": "1h 14m",
+    "durationSeconds": 4483,
+    "genres": [],
+    "rating": 4.3,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/house_on_haunted_hill_ipod",
+    "backdrop": "https://archive.org/services/img/house_on_haunted_hill_ipod",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/house_on_haunted_hill_ipod",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/house_on_haunted_hill_ipod",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-03T07:58:46.036Z"
+  },
+  "createdAt": 1777795127093,
+  "expiresAt": 1777881527093
+}

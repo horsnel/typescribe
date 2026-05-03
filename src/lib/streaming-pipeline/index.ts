@@ -23,6 +23,8 @@ import { getCached, setCached, clearAllCached, getCacheStats } from './cache';
 import { getBlenderMovies } from './sources/blender';
 import { fetchYouTubeFreeMovies, searchYouTubeFreeMovie } from './sources/youtube';
 import { fetchArchiveMovies, searchArchiveMovies } from './sources/internet-archive';
+import { discoverAllCountries, getCountryConfigs } from './sources/tmdb-discover';
+import { fetchYouTubeRegionalMovies, getRegionalConfigs } from './sources/youtube-regional';
 
 // ─── Configuration ───────────────────────────────────────────────────────────
 
@@ -157,6 +159,25 @@ function buildCategories(movies: StreamableMovie[]): StreamingCategory[] {
     },
   ];
 
+  // Country-specific categories from TMDb discovery
+  const countryConfigs = getCountryConfigs();
+  for (const config of countryConfigs) {
+    const countryMovies = movies.filter(m => {
+      // Match by ID prefix (tmdb-kr-*, yt-kr-*) or by country field
+      return m.id.includes(`-${config.code.toLowerCase()}-`) || 
+             m.id.startsWith(`yt-${config.code.toLowerCase()}-`) ||
+             m.country === config.code;
+    });
+    if (countryMovies.length > 0) {
+      categories.push({
+        id: `country-${config.code.toLowerCase()}`,
+        label: config.genreLabel,
+        icon: 'Globe',
+        movieIds: countryMovies.map(m => m.id),
+      });
+    }
+  }
+
   // Filter out categories with no movies
   return categories.filter(c => c.movieIds.length > 0);
 }
@@ -209,6 +230,32 @@ async function fetchAllMovies(): Promise<StreamableMovie[]> {
     }
   } catch (err) {
     errors.push(`YouTube: ${err}`);
+  }
+
+  // 4. TMDb Country Discovery (requires TMDB_API_KEY)
+  try {
+    const tmdbMovies = await discoverAllCountries();
+    for (const movie of tmdbMovies) {
+      if (!seenIds.has(movie.id)) {
+        allMovies.push(movie);
+        seenIds.add(movie.id);
+      }
+    }
+  } catch (err) {
+    errors.push(`TMDbDiscover: ${err}`);
+  }
+
+  // 5. YouTube Regional Movies (requires YOUTUBE_API_KEY)
+  try {
+    const regionalMovies = await fetchYouTubeRegionalMovies();
+    for (const movie of regionalMovies) {
+      if (!seenIds.has(movie.id)) {
+        allMovies.push(movie);
+        seenIds.add(movie.id);
+      }
+    }
+  } catch (err) {
+    errors.push(`YTRegional: ${err}`);
   }
 
   if (errors.length > 0) {
@@ -377,6 +424,8 @@ export function getStreamingPipelineStatus(): {
     blender: boolean;
     internetArchive: boolean;
     youtube: boolean;
+    tmdbDiscover: boolean;
+    youtubeRegional: boolean;
   };
   cache: {
     size: number;
@@ -389,6 +438,8 @@ export function getStreamingPipelineStatus(): {
       blender: true, // Always available (hardcoded)
       internetArchive: true, // Always available (no API key needed)
       youtube: !!(process.env.YOUTUBE_API_KEY || process.env.NEXT_PUBLIC_YOUTUBE_API_KEY),
+      tmdbDiscover: !!process.env.TMDB_API_KEY,
+      youtubeRegional: !!(process.env.YOUTUBE_API_KEY || process.env.NEXT_PUBLIC_YOUTUBE_API_KEY),
     },
     cache: {
       size: stats.size,

@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-Dr.Sex",
+  "data": {
+    "id": "archive-Dr.Sex",
+    "title": "Dr. Sex.",
+    "description": "[1964] Three sex researchers discuss their wildest cases, as told to them by their patients. A \"Nudie Cutie\" exploitation movie . The story is just a reason to look at nude women.",
+    "year": 0,
+    "duration": "1h 2m",
+    "durationSeconds": 3756,
+    "genres": [],
+    "rating": 3.6,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/Dr.Sex",
+    "backdrop": "https://archive.org/services/img/Dr.Sex",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/Dr.Sex",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/Dr.Sex",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-03T07:58:46.036Z"
+  },
+  "createdAt": 1777795127095,
+  "expiresAt": 1777881527095
+}

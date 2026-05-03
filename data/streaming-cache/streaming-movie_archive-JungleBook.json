@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-JungleBook",
+  "data": {
+    "id": "archive-JungleBook",
+    "title": "Jungle Book",
+    "description": "Teenaged Mowgli, who was raised by wolves, appears in a village in India and is adopted by Messua. Mowgli learns human language and some human ways quickly, though keeping jungle ideas. Influential Merchant Buldeo is bigoted against 'beasts' including Mowgli; not so Buldeo's pretty daughter, whom Mowgli takes on a jungle tour where they find a treasure, setting the evil of human greed in motion. Nominated for 4 Oscars. Another 2 wins",
+    "year": 1942,
+    "duration": "1h 48m",
+    "durationSeconds": 6480,
+    "genres": [],
+    "rating": 3.7,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/JungleBook",
+    "backdrop": "https://archive.org/services/img/JungleBook",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/JungleBook",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/JungleBook",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-03T07:58:46.036Z"
+  },
+  "createdAt": 1777795127095,
+  "expiresAt": 1777881527095
+}

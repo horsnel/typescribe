@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-ScarletStreet",
+  "data": {
+    "id": "archive-ScarletStreet",
+    "title": "Scarlet Street",
+    "description": "German director Fritz Lang is best known for the highly influential films from relatively early in his career, especially Metropolis (1927) and M (1931). But he also had a brief Hollywood heyday during the mid 1940s, when he made some of his best films. Scarlet Street has been claimed by film noir. This attribution is understandable. The lighting is dark, with heavy use of shadows. The characters are all shady as well. Kitty is certainly a femme fatale, although hints are dropped that she is an ",
+    "year": 1945,
+    "duration": "1h 43m",
+    "durationSeconds": 6180,
+    "genres": [],
+    "rating": 4.2,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/ScarletStreet",
+    "backdrop": "https://archive.org/services/img/ScarletStreet",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/ScarletStreet",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/ScarletStreet",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-03T07:58:47.086Z"
+  },
+  "createdAt": 1777795127093,
+  "expiresAt": 1777881527093
+}

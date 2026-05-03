@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-CHILD",
+  "data": {
+    "id": "archive-CHILD",
+    "title": "The Child Molester",
+    "description": "Produced by the Highway Safety Foundation in 1964, this shocking film deals with a subject quite taboo for its time. The short serves as a dramatized warning, ending with graphic case studies. Unlike the driver's education films produced by the same company, this film was apparently issued for only a short time before being withdrawn. **CONTENT ADVISORY: Crime scene footage at end will upset some people**",
+    "year": 0,
+    "duration": "19h 31m",
+    "durationSeconds": 70260,
+    "genres": [],
+    "rating": 3.7,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/CHILD",
+    "backdrop": "https://archive.org/services/img/CHILD",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/CHILD",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/CHILD",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-03T07:58:46.662Z"
+  },
+  "createdAt": 1777795127095,
+  "expiresAt": 1777881527095
+}

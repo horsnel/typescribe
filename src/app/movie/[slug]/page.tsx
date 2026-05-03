@@ -777,6 +777,13 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                 >
                   <Play className="w-4 h-4 fill-white" strokeWidth={1.5} /> Watch Trailer
                 </button>
+
+                <Link
+                  href="/stream"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium bg-gradient-to-r from-[#d4a853]/20 to-[#d4a853]/10 border border-[#d4a853]/30 text-[#d4a853] hover:from-[#d4a853]/30 hover:to-[#d4a853]/20 transition-all"
+                >
+                  <MonitorPlay className="w-4 h-4" strokeWidth={1.5} /> Stream Free
+                </Link>
               </div>
             </div>
           </div>

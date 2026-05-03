@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-nazi_concentration_camps",
+  "data": {
+    "id": "archive-nazi_concentration_camps",
+    "title": "Nazi Concentration Camps",
+    "description": "**This film contains extremely graphic scenes of human suffering, please exercise caution when viewing.** Compilation footage of Nazi concentration camps in the immediate aftermath of World War II. The footage was gathered by the US Department of Defense as part of the effort to conduct war crimes trials. This copy was dubbed from a video copy at the National Archives in College Park, Maryland. National Archives Identifiers: ARC: 43452 NAIL: 238.2",
+    "year": 1945,
+    "duration": "51h 56m",
+    "durationSeconds": 186960,
+    "genres": [],
+    "rating": 3.7,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/nazi_concentration_camps",
+    "backdrop": "https://archive.org/services/img/nazi_concentration_camps",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/nazi_concentration_camps",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/nazi_concentration_camps",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-03T07:58:46.036Z"
+  },
+  "createdAt": 1777795127095,
+  "expiresAt": 1777881527095
+}

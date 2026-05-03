@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-BloodyPitOfHorror",
+  "data": {
+    "id": "archive-BloodyPitOfHorror",
+    "title": "Bloody Pit of Horror",
+    "description": "A group of models and cameramen go to a castle to shoot covers for horror novels where they're captured and tortured by the castle's owner, the Crimson Executioner. Find out more about this film on it's IMDB page .",
+    "year": 1965,
+    "duration": "1h 22m",
+    "durationSeconds": 4944,
+    "genres": [],
+    "rating": 3.8,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/BloodyPitOfHorror",
+    "backdrop": "https://archive.org/services/img/BloodyPitOfHorror",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/BloodyPitOfHorror",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/BloodyPitOfHorror",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-03T07:58:46.036Z"
+  },
+  "createdAt": 1777795127094,
+  "expiresAt": 1777881527094
+}

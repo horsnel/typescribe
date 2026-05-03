@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-dressed_to_kill",
+  "data": {
+    "id": "archive-dressed_to_kill",
+    "title": "Dressed To Kill",
+    "description": "Aka 'Sherlock Holmes in Dressed To Kill' - features Basil Rathbone as Sherlock Holmes. You can find more information regarding this film on its IMDb page .",
+    "year": 1946,
+    "duration": "1h 11m",
+    "durationSeconds": 4290,
+    "genres": [],
+    "rating": 4.3,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/dressed_to_kill",
+    "backdrop": "https://archive.org/services/img/dressed_to_kill",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/dressed_to_kill",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/dressed_to_kill",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-03T07:58:46.036Z"
+  },
+  "createdAt": 1777795127093,
+  "expiresAt": 1777881527093
+}

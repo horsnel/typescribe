@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-white_zombie",
+  "data": {
+    "id": "archive-white_zombie",
+    "title": "White Zombie",
+    "description": "You can find more information regarding this film on its IMDb page .",
+    "year": 1932,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [],
+    "rating": 3.8,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/white_zombie",
+    "backdrop": "https://archive.org/services/img/white_zombie",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/white_zombie",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/white_zombie",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-03T07:58:46.662Z"
+  },
+  "createdAt": 1777795127094,
+  "expiresAt": 1777881527094
+}

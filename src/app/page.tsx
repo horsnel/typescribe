@@ -14,7 +14,8 @@ import TopRatedSection from '@/sections/TopRatedSection';
 import CommunityReviews from '@/sections/CommunityReviews';
 import NewsSection from '@/sections/NewsSection';
 import NewsletterCTA from '@/sections/NewsletterCTA';
-import { Sparkles, Clock, Users, Film } from 'lucide-react';
+import NowStreamingSection from '@/sections/NowStreamingSection';
+import { Sparkles, Clock, Users, Film, MonitorPlay } from 'lucide-react';
 import Link from 'next/link';
 
 export default function HomePage() {
@@ -70,6 +71,9 @@ export default function HomePage() {
               <Link href="/browse" className="flex items-center gap-2 px-3 py-2 bg-[#0c0c10] border border-[#1e1e28] rounded-lg text-sm text-[#9ca3af] hover:text-white hover:border-[#3a3a45] transition-colors">
                 <Film className="w-4 h-4 text-amber-400" strokeWidth={1.5} /> Discover New
               </Link>
+              <Link href="/stream" className="flex items-center gap-2 px-3 py-2 bg-[#0c0c10] border border-[#1e1e28] rounded-lg text-sm text-[#9ca3af] hover:text-white hover:border-[#3a3a45] transition-colors">
+                <MonitorPlay className="w-4 h-4 text-[#d4a853]" strokeWidth={1.5} /> Stream Free
+              </Link>
             </div>
           </div>
         </section>
@@ -78,6 +82,7 @@ export default function HomePage() {
       <LocalPicksSection />
       <CountryPicksSection />
       <TrendingCarousel />
+      <NowStreamingSection />
       <UpcomingMoviesSection />
       <MoodBrowsingSection />
       <CategoriesGrid />

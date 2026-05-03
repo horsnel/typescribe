@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-charlie_chaplin_film_fest",
+  "data": {
+    "id": "archive-charlie_chaplin_film_fest",
+    "title": "Charlie Chaplin Festival",
+    "description": "Four Chaplin shorts from 1917: The Adventurer, The Cure, Easy Street and The Immigrant, presented with music and sound effects. You can find more information regarding this film on its IMDb page .",
+    "year": 1938,
+    "duration": "1h 17m",
+    "durationSeconds": 4646,
+    "genres": [],
+    "rating": 4.5,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/charlie_chaplin_film_fest",
+    "backdrop": "https://archive.org/services/img/charlie_chaplin_film_fest",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/charlie_chaplin_film_fest",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/charlie_chaplin_film_fest",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-03T07:58:46.036Z"
+  },
+  "createdAt": 1777795127092,
+  "expiresAt": 1777881527092
+}

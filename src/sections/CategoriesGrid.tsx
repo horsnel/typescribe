@@ -68,6 +68,78 @@ function AnimeCard() {
   );
 }
 
+function BollywoodCard() {
+  return (
+    <Link
+      href="/browse?country=IN"
+      className="group relative flex items-center gap-4 p-4 rounded-2xl bg-[#0c0c10] border border-white/[0.06] hover:border-orange-500/30 hover:bg-[#111118] transition-all duration-300 cursor-pointer overflow-hidden"
+    >
+      <div className="absolute inset-0 bg-gradient-to-br from-orange-500/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+
+      <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-orange-500/10 flex items-center justify-center border border-white/[0.06] group-hover:scale-110 transition-transform duration-300"
+        style={{ boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.08)' }}
+      >
+        <Film className="w-5 h-5 text-orange-400" strokeWidth={1.5} />
+      </div>
+
+      <div className="flex flex-col min-w-0 relative z-10">
+        <span className="text-[#f1f1f4] font-semibold text-sm truncate">Bollywood</span>
+        <span className="text-[#6b7280] text-xs mt-0.5">Discover Indian cinema & series</span>
+      </div>
+
+      <ChevronRight size={16} className="ml-auto text-[#6b7280] opacity-0 group-hover:opacity-100 transition-opacity relative z-10" strokeWidth={1.5} />
+    </Link>
+  );
+}
+
+function KDramaCard() {
+  return (
+    <Link
+      href="/browse?country=KR"
+      className="group relative flex items-center gap-4 p-4 rounded-2xl bg-[#0c0c10] border border-white/[0.06] hover:border-pink-500/30 hover:bg-[#111118] transition-all duration-300 cursor-pointer overflow-hidden"
+    >
+      <div className="absolute inset-0 bg-gradient-to-br from-pink-500/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+
+      <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-pink-500/10 flex items-center justify-center border border-white/[0.06] group-hover:scale-110 transition-transform duration-300"
+        style={{ boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.08)' }}
+      >
+        <Film className="w-5 h-5 text-pink-400" strokeWidth={1.5} />
+      </div>
+
+      <div className="flex flex-col min-w-0 relative z-10">
+        <span className="text-[#f1f1f4] font-semibold text-sm truncate">K-Drama & K-Movie</span>
+        <span className="text-[#6b7280] text-xs mt-0.5">Explore Korean dramas and films</span>
+      </div>
+
+      <ChevronRight size={16} className="ml-auto text-[#6b7280] opacity-0 group-hover:opacity-100 transition-opacity relative z-10" strokeWidth={1.5} />
+    </Link>
+  );
+}
+
+function NollywoodCard() {
+  return (
+    <Link
+      href="/browse?country=NG"
+      className="group relative flex items-center gap-4 p-4 rounded-2xl bg-[#0c0c10] border border-white/[0.06] hover:border-green-500/30 hover:bg-[#111118] transition-all duration-300 cursor-pointer overflow-hidden"
+    >
+      <div className="absolute inset-0 bg-gradient-to-br from-green-500/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+
+      <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-green-500/10 flex items-center justify-center border border-white/[0.06] group-hover:scale-110 transition-transform duration-300"
+        style={{ boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.08)' }}
+      >
+        <Film className="w-5 h-5 text-green-400" strokeWidth={1.5} />
+      </div>
+
+      <div className="flex flex-col min-w-0 relative z-10">
+        <span className="text-[#f1f1f4] font-semibold text-sm truncate">Nollywood</span>
+        <span className="text-[#6b7280] text-xs mt-0.5">Explore Nigerian cinema & series</span>
+      </div>
+
+      <ChevronRight size={16} className="ml-auto text-[#6b7280] opacity-0 group-hover:opacity-100 transition-opacity relative z-10" strokeWidth={1.5} />
+    </Link>
+  );
+}
+
 export default function CategoriesGrid() {
   return (
     <section id="categories" className="py-20 bg-[#050507]">
@@ -76,6 +148,9 @@ export default function CategoriesGrid() {
         <div className="card-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {genres.map((genre) => (<div key={genre.id} className="card-reveal"><GenreCard genre={genre} /></div>))}
           <div className="card-reveal"><AnimeCard /></div>
+          <div className="card-reveal"><BollywoodCard /></div>
+          <div className="card-reveal"><KDramaCard /></div>
+          <div className="card-reveal"><NollywoodCard /></div>
         </div>
       </div>
     </section>

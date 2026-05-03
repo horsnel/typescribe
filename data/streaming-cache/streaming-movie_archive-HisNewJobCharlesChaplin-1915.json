@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-HisNewJobCharlesChaplin-1915",
+  "data": {
+    "id": "archive-HisNewJobCharlesChaplin-1915",
+    "title": "CUKESIM's New Job! ( Charles Chaplin-1915)",
+    "description": "A public domain film from the Internet Archive.",
+    "year": 0,
+    "duration": "20h 33m",
+    "durationSeconds": 73980,
+    "genres": [],
+    "rating": 4.8,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/HisNewJobCharlesChaplin-1915",
+    "backdrop": "https://archive.org/services/img/HisNewJobCharlesChaplin-1915",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/HisNewJobCharlesChaplin-1915",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/HisNewJobCharlesChaplin-1915",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-03T07:58:46.036Z"
+  },
+  "createdAt": 1777795127092,
+  "expiresAt": 1777881527092
+}

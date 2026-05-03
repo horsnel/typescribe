@@ -411,6 +411,10 @@ export const genres: Genre[] = [
   { id: 'sci-fi', name: 'Sci-Fi', icon: 'Rocket', count: 634 },
   { id: 'romance', name: 'Romance', icon: 'Heart', count: 721 },
   { id: 'documentary', name: 'Documentary', icon: 'Film', count: 445 },
+  { id: 'bollywood', name: 'Bollywood', icon: 'Film', count: 2800 },
+  { id: 'korean', name: 'K-Drama & K-Movie', icon: 'Film', count: 1500 },
+  { id: 'nollywood', name: 'Nollywood', icon: 'Film', count: 900 },
+  { id: 'anime-genre', name: 'Anime', icon: 'Film', count: 3200 },
 ];
 
 export const userReviews: UserReview[] = [

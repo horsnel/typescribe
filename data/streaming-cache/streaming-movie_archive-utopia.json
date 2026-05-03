@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-utopia",
+  "data": {
+    "id": "archive-utopia",
+    "title": "Utopia",
+    "description": "Utopia (also known as Atoll K and Robinson Crusoe Land) is last film Laurel and Hardy made together. It was filmed and produced in Europe.",
+    "year": 1951,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [],
+    "rating": 2.8,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/utopia",
+    "backdrop": "https://archive.org/services/img/utopia",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/utopia",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/utopia",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-03T07:58:46.036Z"
+  },
+  "createdAt": 1777795127096,
+  "expiresAt": 1777881527096
+}

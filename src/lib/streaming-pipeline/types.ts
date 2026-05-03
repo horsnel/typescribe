@@ -28,6 +28,7 @@ export interface StreamableMovie {
   subtitles: SubtitleTrack[];
   is4K: boolean;
   isFree: boolean;               // Always true for this pipeline
+  country?: string;              // ISO country code (e.g. "KR", "IN", "NG")
   addedAt: string;               // ISO date when added to catalog
 }
 
@@ -55,7 +56,8 @@ export type StreamSource =
   | 'public-domain'
   | 'tubi'
   | 'crackle'
-  | 'pluto-tv';
+  | 'pluto-tv'
+  | 'tmdb-discover';
 
 // ─── Catalog & Categories ────────────────────────────────────────────────────
 
