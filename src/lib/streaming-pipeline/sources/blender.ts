@@ -1,0 +1,195 @@
+/**
+ * Blender Foundation Open Movies Source
+ *
+ * Hardcoded source for Blender Foundation open movies.
+ * These are always available — no API calls needed.
+ * Includes Big Buck Bunny, Sintel, Tears of Steel, and Elephant's Dream.
+ */
+
+import type { StreamableMovie, AudioLanguage, SubtitleTrack } from '../types';
+
+// ─── Blender Movies ─────────────────────────────────────────────────────────
+
+const BLENDER_MOVIES: StreamableMovie[] = [
+  {
+    id: 'blender-big-buck-bunny',
+    title: 'Big Buck Bunny',
+    description: 'A large and lovable bunny deals with three tiny bullies, led by a flying squirrel, who are determined to squelch his happiness. This hilarious short film from the Blender Foundation showcases stunning animation and character design.',
+    year: 2008,
+    duration: '9m 56s',
+    durationSeconds: 596,
+    genres: ['Animation', 'Comedy', 'Family'],
+    rating: 7.2,
+    quality: '4K',
+    poster: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Big_buck_bunny_poster_big.jpg/800px-Big_buck_bunny_poster_big.jpg',
+    backdrop: 'https://peach.blender.org/wp-content/uploads/bbb-splash.png',
+    source: 'blender-foundation',
+    sourceUrl: 'https://peach.blender.org/',
+    sourceLicense: 'CC BY 3.0',
+    videoUrl: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c0/Big_Buck_Bunny_4K.webm/Big_Buck_Bunny_4K.webm.2160p.vp9.webm',
+    videoType: 'direct',
+    languages: [
+      { code: 'en', label: 'English (Original)', isOriginal: true, isDubbed: false, audioFormat: '5.1 Surround' },
+      { code: 'es', label: 'Spanish (Dubbed)', isOriginal: false, isDubbed: true, audioFormat: 'Stereo' },
+      { code: 'fr', label: 'French (Dubbed)', isOriginal: false, isDubbed: true, audioFormat: 'Stereo' },
+    ],
+    subtitles: [
+      { code: 'en', label: 'English', isDefault: true },
+      { code: 'es', label: 'Spanish', isDefault: false },
+      { code: 'fr', label: 'French', isDefault: false },
+      { code: 'de', label: 'German', isDefault: false },
+      { code: 'ja', label: 'Japanese', isDefault: false },
+      { code: 'zh', label: 'Chinese (Simplified)', isDefault: false },
+    ],
+    is4K: true,
+    isFree: true,
+    addedAt: '2008-04-10T00:00:00Z',
+  },
+  {
+    id: 'blender-sintel',
+    title: 'Sintel',
+    description: 'A lonely young woman, Sintel, helps and befriends a dragon, which she calls Scales. But when Scales is taken from her, she embarks on a dangerous quest to find her friend, unaware of the tragedy that awaits at the end of her journey.',
+    year: 2010,
+    duration: '14m 48s',
+    durationSeconds: 888,
+    genres: ['Animation', 'Fantasy', 'Drama'],
+    rating: 7.5,
+    quality: '4K',
+    poster: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Sintel_poster.jpg/800px-Sintel_poster.jpg',
+    backdrop: 'https://durian.blender.org/wp-content/uploads/2010/06/screenshot-sintel-tunnel.jpg',
+    source: 'blender-foundation',
+    sourceUrl: 'https://durian.blender.org/',
+    sourceLicense: 'CC BY 3.0',
+    videoUrl: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/8/8a/Sintel_Duration_Test.webm/Sintel_Duration_Test.webm.1080p.vp9.webm',
+    videoType: 'direct',
+    languages: [
+      { code: 'en', label: 'English (Original)', isOriginal: true, isDubbed: false, audioFormat: '5.1 Surround' },
+      { code: 'ja', label: 'Japanese (Dubbed)', isOriginal: false, isDubbed: true, audioFormat: 'Stereo' },
+      { code: 'ko', label: 'Korean (Dubbed)', isOriginal: false, isDubbed: true, audioFormat: 'Stereo' },
+    ],
+    subtitles: [
+      { code: 'en', label: 'English', isDefault: true },
+      { code: 'es', label: 'Spanish', isDefault: false },
+      { code: 'fr', label: 'French', isDefault: false },
+      { code: 'de', label: 'German', isDefault: false },
+      { code: 'ja', label: 'Japanese', isDefault: false },
+      { code: 'zh', label: 'Chinese (Simplified)', isDefault: false },
+      { code: 'ko', label: 'Korean', isDefault: false },
+    ],
+    is4K: true,
+    isFree: true,
+    addedAt: '2010-09-27T00:00:00Z',
+  },
+  {
+    id: 'blender-tears-of-steel',
+    title: 'Tears of Steel',
+    description: 'In an apocalyptic future, a group of soldiers and scientists takes refuge in Amsterdam to try to stop an army of robots from destroying the remnants of humanity. A groundbreaking blend of live-action and CGI from the Blender Foundation.',
+    year: 2012,
+    duration: '12m 14s',
+    durationSeconds: 734,
+    genres: ['Sci-Fi', 'Drama', 'Action'],
+    rating: 6.8,
+    quality: '4K',
+    poster: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Tears_of_Steel_poster.jpg/800px-Tears_of_Steel_poster.jpg',
+    backdrop: 'https://mango.blender.org/wp-content/gallery/4k-renders/06_bartos_background.jpg',
+    source: 'blender-foundation',
+    sourceUrl: 'https://mango.blender.org/',
+    sourceLicense: 'CC BY 3.0',
+    videoUrl: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/3/3c/Tears_of_Steel_4K.webm/Tears_of_Steel_4K.webm.1080p.vp9.webm',
+    videoType: 'direct',
+    languages: [
+      { code: 'en', label: 'English (Original)', isOriginal: true, isDubbed: false, audioFormat: '5.1 Surround' },
+      { code: 'de', label: 'German (Dubbed)', isOriginal: false, isDubbed: true, audioFormat: 'Stereo' },
+      { code: 'es', label: 'Spanish (Dubbed)', isOriginal: false, isDubbed: true, audioFormat: 'Stereo' },
+      { code: 'hi', label: 'Hindi (Dubbed)', isOriginal: false, isDubbed: true, audioFormat: 'Stereo' },
+    ],
+    subtitles: [
+      { code: 'en', label: 'English', isDefault: true },
+      { code: 'es', label: 'Spanish', isDefault: false },
+      { code: 'fr', label: 'French', isDefault: false },
+      { code: 'de', label: 'German', isDefault: false },
+      { code: 'ja', label: 'Japanese', isDefault: false },
+      { code: 'zh', label: 'Chinese (Simplified)', isDefault: false },
+      { code: 'ar', label: 'Arabic', isDefault: false },
+      { code: 'hi', label: 'Hindi', isDefault: false },
+    ],
+    is4K: true,
+    isFree: true,
+    addedAt: '2012-09-26T00:00:00Z',
+  },
+  {
+    id: 'blender-elephants-dream',
+    title: "Elephant's Dream",
+    description: "Two strange characters explore a cavernous and seemingly infinite machine. The older one, Proog, acts as a guide and protector while the younger one, Emo, is a skeptical observer who questions Proog's purpose and the reality they inhabit.",
+    year: 2006,
+    duration: '10m 54s',
+    durationSeconds: 654,
+    genres: ['Animation', 'Sci-Fi', 'Drama'],
+    rating: 6.5,
+    quality: '1080p',
+    poster: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Elephants_Dream_s1_proog.jpg/800px-Elephants_Dream_s1_proog.jpg',
+    backdrop: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Elephants_Dream_s3_both.jpg/1280px-Elephants_Dream_s3_both.jpg',
+    source: 'blender-foundation',
+    sourceUrl: 'https://elephantsdream.org/',
+    sourceLicense: 'CC BY 2.5',
+    videoUrl: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/e/e8/Elephants_Dream.ogg/Elephants_Dream.ogg.1080p.webm',
+    videoType: 'direct',
+    languages: [
+      { code: 'en', label: 'English (Original)', isOriginal: true, isDubbed: false, audioFormat: 'Stereo' },
+      { code: 'nl', label: 'Dutch (Dubbed)', isOriginal: false, isDubbed: true, audioFormat: 'Stereo' },
+      { code: 'fr', label: 'French (Dubbed)', isOriginal: false, isDubbed: true, audioFormat: 'Stereo' },
+    ],
+    subtitles: [
+      { code: 'en', label: 'English', isDefault: true },
+      { code: 'es', label: 'Spanish', isDefault: false },
+      { code: 'fr', label: 'French', isDefault: false },
+      { code: 'de', label: 'German', isDefault: false },
+      { code: 'nl', label: 'Dutch', isDefault: false },
+    ],
+    is4K: false,
+    isFree: true,
+    addedAt: '2006-03-24T00:00:00Z',
+  },
+  {
+    id: 'blender-spring',
+    title: 'Spring',
+    description: 'Spring is the story of a shepherd girl and her dog, who discover ancient spirits in the clouds that can change the seasons. A heartwarming tale of courage and the power of nature from the Blender Foundation.',
+    year: 2019,
+    duration: '7m 46s',
+    durationSeconds: 466,
+    genres: ['Animation', 'Fantasy', 'Adventure'],
+    rating: 7.0,
+    quality: '4K',
+    poster: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Spring_-_Blender_Open_Movie.png/800px-Spring_-_Blender_Open_Movie.png',
+    backdrop: 'https://spring.blender.org/wp-content/uploads/2019/04/spring_splash.png',
+    source: 'blender-foundation',
+    sourceUrl: 'https://spring.blender.org/',
+    sourceLicense: 'CC BY 4.0',
+    videoUrl: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/4/4c/Spring_-_Blender_Open_Movie.webm/Spring_-_Blender_Open_Movie.webm.1080p.vp9.webm',
+    videoType: 'direct',
+    languages: [
+      { code: 'en', label: 'English (Original)', isOriginal: true, isDubbed: false, audioFormat: '5.1 Surround' },
+    ],
+    subtitles: [
+      { code: 'en', label: 'English', isDefault: true },
+      { code: 'es', label: 'Spanish', isDefault: false },
+      { code: 'fr', label: 'French', isDefault: false },
+      { code: 'de', label: 'German', isDefault: false },
+      { code: 'ja', label: 'Japanese', isDefault: false },
+      { code: 'zh', label: 'Chinese (Simplified)', isDefault: false },
+    ],
+    is4K: true,
+    isFree: true,
+    addedAt: '2019-04-04T00:00:00Z',
+  },
+];
+
+// ─── Public API ──────────────────────────────────────────────────────────────
+
+/**
+ * Get all Blender Foundation open movies.
+ * These are hardcoded and always available — no API calls needed.
+ */
+export function getBlenderMovies(): StreamableMovie[] {
+  return BLENDER_MOVIES;
+}
