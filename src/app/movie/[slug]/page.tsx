@@ -30,6 +30,7 @@ import type { ReportReason } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import MovieDetailSkeleton from '@/components/skeletons/MovieDetailSkeleton';
 import TrailerModal from '@/components/movie/TrailerModal';
+import { resolveImageUrl, handleImageError, getInitials, PERSON_PLACEHOLDER } from '@/lib/utils';
 
 type CommentTab = 'reviews' | 'discussion';
 
@@ -1013,24 +1014,36 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
             <section className="content-animate">
               <h2 className="text-xl font-bold text-white mb-4">Cast & Crew</h2>
               <div className="flex gap-5 overflow-x-auto pb-3 scrollbar-thin">
-                {movie.cast.map((person) => (
-                  <div key={person.name} className="flex flex-col items-center flex-shrink-0 w-[90px]">
-                    <div className="w-16 h-16 rounded-full overflow-hidden bg-[#0c0c10] border-2 border-[#1e1e28] mb-2">
-                      <img
-                        src={person.profile_path?.startsWith('http') ? person.profile_path : person.profile_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w185${person.profile_path}` : person.profile_path || ''}
-                        alt={person.name}
-                        className="w-full h-full object-cover"
-                        loading="lazy"
-                      />
+                {movie.cast.map((person, idx) => {
+                  const profileSrc = resolveImageUrl(person.profile_path, 'w185');
+                  const initials = getInitials(person.name);
+                  const isPlaceholder = profileSrc === PERSON_PLACEHOLDER || !person.profile_path;
+                  return (
+                    <div key={`${person.name}-${idx}`} className="flex flex-col items-center flex-shrink-0 w-[90px]">
+                      <div className="w-16 h-16 rounded-full overflow-hidden bg-[#0c0c10] border-2 border-[#1e1e28] mb-2">
+                        {isPlaceholder ? (
+                          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#1a1a22] to-[#0c0c10] text-[#6b7280] text-sm font-semibold select-none">
+                            {initials}
+                          </div>
+                        ) : (
+                          <img
+                            src={profileSrc}
+                            alt={person.name}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                            onError={(e) => handleImageError(e, 'person')}
+                          />
+                        )}
+                      </div>
+                      <span className="text-xs font-semibold text-white text-center leading-tight truncate w-full">
+                        {person.name}
+                      </span>
+                      <span className="text-[10px] text-[#6b7280] text-center leading-tight truncate w-full">
+                        {person.character}
+                      </span>
                     </div>
-                    <span className="text-xs font-semibold text-white text-center leading-tight truncate w-full">
-                      {person.name}
-                    </span>
-                    <span className="text-[10px] text-[#6b7280] text-center leading-tight truncate w-full">
-                      {person.character}
-                    </span>
-                  </div>
-                ))}
+                  );
+                })}
                 {/* Director card */}
                 <div className="flex flex-col items-center flex-shrink-0 w-[90px]">
                   <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#d4a853] to-[#b8922e] flex items-center justify-center mb-2 border-2 border-[#d4a853]/30">

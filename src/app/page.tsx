@@ -15,6 +15,7 @@ import CommunityReviews from '@/sections/CommunityReviews';
 import NewsSection from '@/sections/NewsSection';
 import NewsletterCTA from '@/sections/NewsletterCTA';
 import NowStreamingSection from '@/sections/NowStreamingSection';
+import TopChoiceSection from '@/sections/TopChoiceSection';
 import VaultSection from '@/sections/VaultSection';
 import { Sparkles, Clock, Users, Film, MonitorPlay } from 'lucide-react';
 import Link from 'next/link';
@@ -83,6 +84,7 @@ export default function HomePage() {
       <LocalPicksSection />
       <CountryPicksSection />
       <TrendingCarousel />
+      <TopChoiceSection />
       <NowStreamingSection />
       <VaultSection />
       <UpcomingMoviesSection />

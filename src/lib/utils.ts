@@ -15,6 +15,25 @@ export const BACKDROP_PLACEHOLDER = 'data:image/svg+xml,' + encodeURIComponent(
   '<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720"><rect fill="#0c0c10" width="1280" height="720"/></svg>'
 );
 
+/** SVG placeholder for broken/missing person profile images */
+export const PERSON_PLACEHOLDER = 'data:image/svg+xml,' + encodeURIComponent(
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 185 185"><rect fill="#0c0c10" width="185" height="185"/><circle cx="92.5" cy="70" r="30" fill="#1a1a22"/><ellipse cx="92.5" cy="155" rx="50" ry="40" fill="#1a1a22"/></svg>'
+);
+
+/**
+ * Extract initials from a person's name (max 2 chars).
+ * E.g. "Tom Hanks" → "TH", "Oprah" → "OP"
+ */
+export function getInitials(name: string): string {
+  return name
+    .split(' ')
+    .filter(Boolean)
+    .map(w => w[0])
+    .join('')
+    .slice(0, 2)
+    .toUpperCase();
+}
+
 /**
  * Resolve a poster/backdrop path to a full image URL.
  * - Full URLs (http/https) are returned as-is (Jikan, AniList, etc.)
@@ -34,10 +53,14 @@ export function resolveImageUrl(
 /** Standard onError handler for <img> elements — replaces with placeholder */
 export function handleImageError(
   e: React.SyntheticEvent<HTMLImageElement>,
-  type: 'poster' | 'backdrop' = 'poster',
+  type: 'poster' | 'backdrop' | 'person' = 'poster',
 ) {
   const img = e.currentTarget;
   // Prevent infinite loop if the placeholder itself fails
   if (img.src.startsWith('data:image/svg+xml')) return;
-  img.src = type === 'poster' ? POSTER_PLACEHOLDER : BACKDROP_PLACEHOLDER;
+  switch (type) {
+    case 'backdrop': img.src = BACKDROP_PLACEHOLDER; break;
+    case 'person': img.src = PERSON_PLACEHOLDER; break;
+    default: img.src = POSTER_PLACEHOLDER; break;
+  }
 }
