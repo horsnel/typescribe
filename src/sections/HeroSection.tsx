@@ -1,218 +1,571 @@
 'use client';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
-import { ChevronDown, Star, Film, Tv, Wand2 } from 'lucide-react';
-import gsap from 'gsap';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Star, Play, ChevronLeft, ChevronRight, Quote, Swords, TrendingUp, Award } from 'lucide-react';
 import type { Movie } from '@/lib/types';
 
-type HeroFormat = 'movie' | 'tv' | 'anime';
+// ─── Review Quotes ───
+const REVIEW_QUOTES = [
+  { quote: 'A masterclass in atmospheric storytelling. Every frame is a painting.', reviewer: 'Sarah M.', rating: 9 },
+  { quote: 'Keeps you guessing until the very end. I couldn\'t look away.', reviewer: 'David C.', rating: 8 },
+  { quote: 'Simply devastating in its emotional honesty. Cinema at its most profoundly human.', reviewer: 'Marcus R.', rating: 10 },
+  { quote: 'Thrilling and thought-provoking. The best sci-fi film in years.', reviewer: 'Sarah M.', rating: 9 },
+  { quote: 'A sweeping epic that marries political thriller with grand romance.', reviewer: 'David C.', rating: 9 },
+  { quote: 'Relentless, high-octane entertainment that never lets its foot off the gas.', reviewer: 'Marcus R.', rating: 8 },
+];
 
-const formatConfig: Record<HeroFormat, { label: string; cta: string; href: string; accent: string; heading: string }> = {
-  movie: { label: 'Movies', cta: 'Browse Movies', href: '/browse', accent: '#d4a853', heading: 'Favorite Movie' },
-  tv: { label: 'Series', cta: 'Browse Series', href: '/browse?format=tv', accent: '#3b82f6', heading: 'Favorite Series' },
-  anime: { label: 'Anime', cta: 'Browse Anime', href: '/browse?format=anime', accent: '#a855f7', heading: 'Favorite Anime' },
+// ─── Top Reviewers ───
+const TOP_REVIEWERS = [
+  { name: 'Sarah M.', avatar: '/images/avatar-1.jpg', reviews: 47 },
+  { name: 'David C.', avatar: '/images/avatar-2.jpg', reviews: 35 },
+  { name: 'Marcus R.', avatar: '/images/avatar-3.jpg', reviews: 62 },
+  { name: 'Emma S.', avatar: '/images/avatar-1.jpg', reviews: 28 },
+  { name: 'Leo K.', avatar: '/images/avatar-2.jpg', reviews: 41 },
+  { name: 'Nina R.', avatar: '/images/avatar-3.jpg', reviews: 53 },
+  { name: 'Astrid J.', avatar: '/images/avatar-1.jpg', reviews: 19 },
+  { name: 'Carlos M.', avatar: '/images/avatar-2.jpg', reviews: 37 },
+  { name: 'Yuki T.', avatar: '/images/avatar-3.jpg', reviews: 44 },
+  { name: 'Ravi P.', avatar: '/images/avatar-1.jpg', reviews: 31 },
+];
+
+// ─── Battle of the Day ───
+const BATTLES = [
+  { movie1: 'Inception', movie2: 'Interstellar', votes1: 1247, votes2: 1089 },
+  { movie1: 'The Dark Knight', movie2: 'Joker', votes1: 1532, votes2: 1201 },
+  { movie1: 'Parasite', movie2: 'Memories of Murder', votes1: 987, votes2: 845 },
+];
+
+// ─── Slide animation variants ───
+const slideVariants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? 300 : -300,
+    opacity: 0,
+    scale: 1.05,
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+    scale: 1,
+  },
+  exit: (direction: number) => ({
+    x: direction > 0 ? -300 : 300,
+    opacity: 0,
+    scale: 0.95,
+  }),
 };
 
+// ─── Helper: resolve image URL ───
+function resolveImageUrl(path: string | undefined | null, size: 'w300' | 'w780' | 'w1280' | 'original' = 'w1280'): string {
+  if (!path) return '';
+  if (path.startsWith('http')) return path;
+  if (path.startsWith('/')) return `https://image.tmdb.org/t/p/${size}${path}`;
+  return path;
+}
+
+// ─── Helper: get initials for avatar fallback ───
+function getInitials(name: string): string {
+  return name
+    .split(' ')
+    .map((n) => n[0])
+    .join('')
+    .toUpperCase()
+    .slice(0, 2);
+}
+
+// ─── Color palette for reviewer avatars ───
+const AVATAR_COLORS = [
+  'bg-amber-600',
+  'bg-emerald-600',
+  'bg-rose-600',
+  'bg-violet-600',
+  'bg-cyan-600',
+  'bg-orange-600',
+  'bg-pink-600',
+  'bg-teal-600',
+  'bg-indigo-600',
+  'bg-lime-600',
+];
+
 export default function HeroSection() {
-  const [heroFormat, setHeroFormat] = useState<HeroFormat>('movie');
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [direction, setDirection] = useState(1);
+  const [battleVotes, setBattleVotes] = useState(BATTLES[0]);
+  const [battleIndex, setBattleIndex] = useState(0);
+  const [isBattleExpanded, setIsBattleExpanded] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Fetch real trending movies for the poster stack background
-  const [posterMovies, setPosterMovies] = useState<Movie[]>([]);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const touchStartRef = useRef<number>(0);
+  const touchEndRef = useRef<number>(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
+  // ─── Fetch trending movies ───
   useEffect(() => {
     const controller = new AbortController();
     fetch('/api/browse?source=trending', { signal: controller.signal })
-      .then(res => res.ok ? res.json() : null)
-      .then(data => {
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
         if (data?.movies && data.movies.length > 0) {
-          setPosterMovies(data.movies.slice(0, 8));
+          setMovies(data.movies.slice(0, 6));
         }
+        setIsLoading(false);
       })
-      .catch(() => {});
+      .catch(() => {
+        setIsLoading(false);
+      });
     return () => controller.abort();
   }, []);
 
+  // ─── Auto-advance timer ───
+  const resetTimer = useCallback(() => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+    }
+    timerRef.current = setInterval(() => {
+      setDirection(1);
+      setCurrentSlide((prev) => (prev + 1) % Math.max(movies.length, 1));
+    }, 6000);
+  }, [movies.length]);
+
   useEffect(() => {
-    const tl = gsap.timeline({ delay: 0.3 });
-    tl.fromTo('.hero-title', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1, ease: 'power3.out' })
-      .fromTo('.hero-subtitle', { opacity: 0, y: 25 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, '-=0.5')
-      .fromTo('.hero-format-toggle', { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.4')
-      .fromTo('.hero-cta', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.3')
-      .fromTo('.hero-movie-info', { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.3')
-      .fromTo('.scroll-indicator', { opacity: 0 }, { opacity: 1, duration: 0.5 }, '-=0.2');
+    if (movies.length > 0) {
+      resetTimer();
+    }
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [movies.length, resetTimer]);
 
-    // Stagger the poster cards entrance
-    gsap.fromTo(
-      '.poster-card',
-      { opacity: 0, y: 60, scale: 0.85, rotate: () => (Math.random() - 0.5) * 8 },
-      { opacity: 1, y: 0, scale: 1, rotate: (i: number) => (i - 3.5) * 1.8, duration: 0.8, stagger: 0.06, ease: 'power3.out', delay: 0.1 },
-    );
+  // ─── Navigation handlers ───
+  const goToSlide = useCallback(
+    (index: number) => {
+      setDirection(index > currentSlide ? 1 : -1);
+      setCurrentSlide(index);
+      resetTimer();
+    },
+    [currentSlide, resetTimer],
+  );
 
-    return () => { tl.kill(); };
+  const goNext = useCallback(() => {
+    if (movies.length === 0) return;
+    setDirection(1);
+    setCurrentSlide((prev) => (prev + 1) % movies.length);
+    resetTimer();
+  }, [movies.length, resetTimer]);
+
+  const goPrev = useCallback(() => {
+    if (movies.length === 0) return;
+    setDirection(-1);
+    setCurrentSlide((prev) => (prev - 1 + movies.length) % movies.length);
+    resetTimer();
+  }, [movies.length, resetTimer]);
+
+  // ─── Touch handlers ───
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartRef.current = e.touches[0].clientX;
   }, []);
 
-  const cfg = formatConfig[heroFormat];
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    touchEndRef.current = e.touches[0].clientX;
+  }, []);
+
+  const handleTouchEnd = useCallback(() => {
+    const delta = touchStartRef.current - touchEndRef.current;
+    if (Math.abs(delta) > 50) {
+      if (delta > 0) {
+        goNext();
+      } else {
+        goPrev();
+      }
+    }
+    touchStartRef.current = 0;
+    touchEndRef.current = 0;
+  }, [goNext, goPrev]);
+
+  // ─── Battle vote handler ───
+  const handleVote = useCallback(
+    (side: '1' | '2') => {
+      setBattleVotes((prev) => ({
+        ...prev,
+        votes1: side === '1' ? prev.votes1 + 1 : prev.votes1,
+        votes2: side === '2' ? prev.votes2 + 1 : prev.votes2,
+      }));
+    },
+    [],
+  );
+
+  // ─── Keyboard navigation ───
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') goPrev();
+      if (e.key === 'ArrowRight') goNext();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [goNext, goPrev]);
+
+  // ─── Current slide data ───
+  const currentMovie = movies[currentSlide];
+  const currentReview = REVIEW_QUOTES[currentSlide % REVIEW_QUOTES.length];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#050507]">
-      {/* ─── Movie Poster Stack Background ─── */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Deep dark base */}
-        <div className="absolute inset-0 bg-[#050507]" />
-
-        {/* Poster Row — fanned out, overlapping, slightly rotated */}
-        <div className="absolute inset-0 flex items-center justify-center" style={{ perspective: '1200px' }}>
-          <div className="relative flex items-end justify-center" style={{ width: '140%', transform: 'translateY(8%)' }}>
-            {posterMovies.map((movie, idx) => {
-              // Calculate fan positions
-              const centerIdx = (posterMovies.length - 1) / 2;
-              const offset = idx - centerIdx;
-              const rotation = offset * 2.2;
-              const translateX = offset * 115;
-              const translateY = Math.abs(offset) * 12;
-              const zIndex = posterMovies.length - Math.abs(Math.round(offset));
-
-              return (
-                <div
-                  key={movie.id}
-                  className="poster-card absolute"
-                  style={{
-                    transform: `translateX(${translateX}px) translateY(${translateY}px) rotate(${rotation}deg)`,
-                    zIndex,
-                    opacity: 0.55,
-                  }}
-                >
-                  <div
-                    className="w-[140px] sm:w-[160px] md:w-[185px] rounded-xl overflow-hidden shadow-2xl border border-white/10"
-                    style={{ aspectRatio: '2/3' }}
-                  >
-                    <img
-                      src={movie.poster_path?.startsWith('http') ? movie.poster_path : movie.poster_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w342${movie.poster_path}` : movie.poster_path || ''}
-                      alt={movie.title}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                    />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Dim overlay — multiple layers for beautiful dimming effect */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#050507]/60 via-[#050507]/75 to-[#050507]" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050507]/90 via-[#050507]/50 to-[#050507]/90" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050507] via-transparent to-[#050507]/70" />
-
-        {/* Subtle vignette */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: 'radial-gradient(ellipse at center, transparent 30%, rgba(5,5,7,0.7) 100%)',
-          }}
-        />
-
-        {/* Subtle ambient glow behind text area */}
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full"
-          style={{
-            background: 'radial-gradient(ellipse, rgba(212,168,83,0.06) 0%, transparent 70%)',
-          }}
-        />
-      </div>
-
-      {/* ─── Content ─── */}
-      <div ref={containerRef} className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 py-32">
-        <div className="max-w-3xl">
-          <div className="hero-title opacity-0">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight mb-6">
-              Discover Your Next{' '}
-              <span
-                className="inline-block bg-gradient-to-r from-[#d4a853] to-[#f0d78c] bg-clip-text text-transparent"
-                style={{
-                  transition: 'all 0.4s ease',
-                }}
-              >
-                {cfg.heading}
-              </span>
-            </h1>
-          </div>
-
-          <div className="hero-subtitle opacity-0">
-            <p className="text-lg text-[#9ca3af] max-w-xl mb-6 leading-relaxed">
-              AI-powered reviews, real ratings, and community insights
-            </p>
-          </div>
-
-          {/* Format Toggle */}
-          <div className="hero-format-toggle opacity-0 mb-8">
-            <div className="inline-flex items-center border border-[#1e1e28] rounded-xl overflow-hidden bg-[#0c0c10]/60 backdrop-blur-sm">
-              {([
-                { key: 'movie' as HeroFormat, icon: Film, label: 'Movies' },
-                { key: 'tv' as HeroFormat, icon: Tv, label: 'Series' },
-                { key: 'anime' as HeroFormat, icon: Wand2, label: 'Anime' },
-              ]).map(({ key, icon: Icon, label }) => (
-                <button
-                  key={key}
-                  onClick={() => setHeroFormat(key)}
-                  className={`flex items-center gap-2 px-5 py-2.5 text-sm font-medium transition-all duration-200 ${
-                    heroFormat === key
-                      ? 'bg-[#d4a853] text-white'
-                      : 'text-[#9ca3af] hover:text-white hover:bg-[#111118]'
-                  }`}
-                >
-                  <Icon className="w-4 h-4" /> {label}
-                </button>
-              ))}
+    <section className="relative">
+      {/* ═══════════════════════════════════════════════════════════
+          HERO CAROUSEL CONTAINER
+      ═══════════════════════════════════════════════════════════ */}
+      <div
+        ref={carouselRef}
+        className="relative w-full h-[350px] sm:h-[420px] md:h-[480px] lg:h-[500px] overflow-hidden bg-[#050507]"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
+        {/* ─── Loading skeleton ─── */}
+        {isLoading && (
+          <div className="absolute inset-0 bg-[#050507] flex items-center justify-center">
+            <div className="flex flex-col items-center gap-3">
+              <div className="w-10 h-10 border-2 border-[#d4a853]/30 border-t-[#d4a853] rounded-full animate-spin" />
+              <span className="text-sm text-[#9ca3af]">Loading trending movies...</span>
             </div>
           </div>
+        )}
 
-          <div className="hero-cta flex items-center gap-4 opacity-0">
-            <Link
-              href={cfg.href}
-              className="inline-flex items-center justify-center bg-[#d4a853] hover:bg-[#b8922e] text-white font-semibold px-8 py-4 rounded-xl text-base transition-colors duration-200 shadow-lg shadow-[#d4a853]/20"
+        {/* ─── Slides ─── */}
+        {!isLoading && movies.length > 0 && (
+          <AnimatePresence initial={false} custom={direction} mode="wait">
+            <motion.div
+              key={currentSlide}
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+              className="absolute inset-0"
             >
-              {cfg.cta}
-            </Link>
-            <Link
-              href="/top-rated"
-              className="inline-flex items-center justify-center border border-white/30 bg-white/5 backdrop-blur-sm text-white hover:bg-white/10 font-semibold px-8 py-4 rounded-xl text-base transition-colors duration-200"
-            >
-              Top Rated
-            </Link>
-          </div>
-
-          {/* Featured Movie Info Card */}
-          {posterMovies.length > 0 && (
-          <div className="hero-movie-info mt-12">
-            <Link href={`/movie/${posterMovies[0].slug}`} className="flex items-center gap-4 bg-[#0c0c10]/80 backdrop-blur-sm border border-white/[0.06] rounded-xl p-4 max-w-md hover:border-[#d4a853]/30 transition-colors group">
-              <div className="w-12 h-18 flex-shrink-0 rounded-lg overflow-hidden">
-                <img src={posterMovies[0].poster_path?.startsWith('http') ? posterMovies[0].poster_path : posterMovies[0].poster_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w92${posterMovies[0].poster_path}` : posterMovies[0].poster_path || ''} alt={posterMovies[0].title} className="w-full h-full object-cover" />
+              {/* Backdrop image */}
+              <div className="absolute inset-0">
+                <img
+                  src={resolveImageUrl(currentMovie?.backdrop_path || currentMovie?.poster_path, 'w1280')}
+                  alt={currentMovie?.title || 'Movie backdrop'}
+                  className="w-full h-full object-cover object-center"
+                  loading={currentSlide === 0 ? 'eager' : 'lazy'}
+                />
               </div>
-              <div className="min-w-0">
-                <h3 className="text-sm font-bold text-white truncate group-hover:text-[#d4a853] transition-colors">{posterMovies[0].title}</h3>
-                <div className="flex items-center gap-2 mt-1">
-                  <Star className="w-3.5 h-3.5 text-[#f5c518] fill-[#f5c518]" strokeWidth={1.5} />
-                  <span className="text-sm font-semibold text-[#f5c518]">{posterMovies[0].vote_average.toFixed(1)}</span>
-                  {posterMovies[0].release_date && (
-                    <>
-                      <span className="text-[#1e1e28]">·</span>
-                      <span className="text-xs text-[#6b7280]">{posterMovies[0].release_date.split('-')[0]}</span>
-                    </>
-                  )}
+
+              {/* Gradient overlay: transparent top → solid #050507 bottom */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#050507] via-[#050507]/60 to-transparent" />
+              {/* Side vignette for better text readability */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#050507]/70 via-transparent to-[#050507]/40" />
+              {/* Top subtle darkening */}
+              <div className="absolute inset-0 bg-gradient-to-b from-[#050507]/30 to-transparent" />
+
+              {/* ─── Content overlay ─── */}
+              <div className="absolute inset-0 flex items-end">
+                <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 pb-16 md:pb-20">
+                  <div className="max-w-2xl">
+                    {/* Review quote */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: 0.2 }}
+                      className="mb-4"
+                    >
+                      <div className="flex items-start gap-2">
+                        <Quote className="w-5 h-5 text-[#d4a853] flex-shrink-0 mt-0.5" strokeWidth={1.5} />
+                        <p className="text-sm sm:text-base md:text-lg italic text-white/90 leading-relaxed line-clamp-3">
+                          {currentReview.quote}
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-2 mt-2 ml-7">
+                        <span className="text-xs text-[#9ca3af]">— {currentReview.reviewer}</span>
+                        <span className="text-[#9ca3af]/40">·</span>
+                        <div className="flex items-center gap-1">
+                          <Star className="w-3 h-3 text-[#d4a853] fill-[#d4a853]" strokeWidth={0} />
+                          <span className="text-xs font-semibold text-[#d4a853]">{currentReview.rating}/10</span>
+                        </div>
+                      </div>
+                    </motion.div>
+
+                    {/* Movie title & meta */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: 0.3 }}
+                    >
+                      <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-tight tracking-tight mb-2">
+                        {currentMovie?.title}
+                      </h2>
+                      <div className="flex items-center gap-3 mb-5">
+                        {currentMovie?.release_date && (
+                          <span className="text-sm text-[#9ca3af]">
+                            {currentMovie.release_date.split('-')[0]}
+                          </span>
+                        )}
+                        <div className="flex items-center gap-1">
+                          <Star className="w-4 h-4 text-[#f5c518] fill-[#f5c518]" strokeWidth={0} />
+                          <span className="text-sm font-semibold text-[#f5c518]">
+                            {currentMovie?.vote_average?.toFixed(1)}
+                          </span>
+                        </div>
+                        {currentMovie?.genres && currentMovie.genres.length > 0 && (
+                          <>
+                            <span className="text-[#9ca3af]/40">·</span>
+                            <span className="text-sm text-[#9ca3af]">
+                              {currentMovie.genres.slice(0, 3).map((g) => g.name).join(' · ')}
+                            </span>
+                          </>
+                        )}
+                      </div>
+                    </motion.div>
+
+                    {/* Action buttons */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: 0.4 }}
+                      className="flex items-center gap-3"
+                    >
+                      <Link
+                        href={`/movie/${currentMovie?.slug}`}
+                        className="inline-flex items-center justify-center bg-[#d4a853] hover:bg-[#b8922e] text-white font-semibold px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl text-sm transition-colors duration-200 shadow-lg shadow-[#d4a853]/20"
+                      >
+                        Read Full Review
+                      </Link>
+                      {currentMovie?.trailer_youtube_id && (
+                        <a
+                          href={`https://www.youtube.com/watch?v=${currentMovie.trailer_youtube_id}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center justify-center gap-2 border border-white/30 bg-white/5 backdrop-blur-sm text-white hover:bg-white/10 font-semibold px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl text-sm transition-colors duration-200"
+                        >
+                          <Play className="w-4 h-4 fill-white" strokeWidth={0} />
+                          Watch Trailer
+                        </a>
+                      )}
+                      {!currentMovie?.trailer_youtube_id && (
+                        <Link
+                          href={`/movie/${currentMovie?.slug}`}
+                          className="inline-flex items-center justify-center gap-2 border border-white/30 bg-white/5 backdrop-blur-sm text-white hover:bg-white/10 font-semibold px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl text-sm transition-colors duration-200"
+                        >
+                          <Play className="w-4 h-4 fill-white" strokeWidth={0} />
+                          Watch Trailer
+                        </Link>
+                      )}
+                    </motion.div>
+                  </div>
                 </div>
               </div>
-            </Link>
+            </motion.div>
+          </AnimatePresence>
+        )}
+
+        {/* ─── No movies state ─── */}
+        {!isLoading && movies.length === 0 && (
+          <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a12] via-[#050507] to-[#0a0a12] flex items-center justify-center">
+            <div className="text-center max-w-md px-6">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-3">
+                Discover Your Next Favorite Movie
+              </h2>
+              <p className="text-[#9ca3af] mb-6">
+                AI-powered reviews, real ratings, and community insights
+              </p>
+              <Link
+                href="/browse"
+                className="inline-flex items-center justify-center bg-[#d4a853] hover:bg-[#b8922e] text-white font-semibold px-6 py-3 rounded-xl text-sm transition-colors duration-200 shadow-lg shadow-[#d4a853]/20"
+              >
+                Browse Movies
+              </Link>
+            </div>
           </div>
-          )}
-        </div>
+        )}
+
+        {/* ═══════════════════════════════════════════════════════════
+            NAVIGATION ARROWS
+        ═══════════════════════════════════════════════════════════ */}
+        {movies.length > 1 && (
+          <>
+            <button
+              onClick={goPrev}
+              className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center rounded-full bg-black/40 backdrop-blur-sm border border-white/10 text-white hover:bg-black/60 hover:border-white/20 transition-all duration-200"
+              aria-label="Previous slide"
+            >
+              <ChevronLeft className="w-5 h-5" strokeWidth={2} />
+            </button>
+            <button
+              onClick={goNext}
+              className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center rounded-full bg-black/40 backdrop-blur-sm border border-white/10 text-white hover:bg-black/60 hover:border-white/20 transition-all duration-200"
+              aria-label="Next slide"
+            >
+              <ChevronRight className="w-5 h-5" strokeWidth={2} />
+            </button>
+          </>
+        )}
+
+        {/* ═══════════════════════════════════════════════════════════
+            PAGINATION DOTS
+        ═══════════════════════════════════════════════════════════ */}
+        {movies.length > 1 && (
+          <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
+            {movies.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => goToSlide(idx)}
+                className={`transition-all duration-300 rounded-full ${
+                  idx === currentSlide
+                    ? 'w-6 h-2 bg-[#d4a853]'
+                    : 'w-2 h-2 bg-white/40 hover:bg-white/60'
+                }`}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            ))}
+          </div>
+        )}
+
+        {/* ═══════════════════════════════════════════════════════════
+            BATTLE OF THE DAY WIDGET (hidden on mobile)
+        ═══════════════════════════════════════════════════════════ */}
+        {!isLoading && movies.length > 0 && (
+          <div className="hidden md:block absolute bottom-6 right-6 lg:right-12 z-20">
+            {isBattleExpanded ? (
+              <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-4 w-[260px] shadow-2xl">
+                {/* Header */}
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <Swords className="w-4 h-4 text-[#d4a853]" strokeWidth={1.5} />
+                    <span className="text-xs font-bold text-white uppercase tracking-wider">
+                      Battle of the Day
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => setIsBattleExpanded(false)}
+                    className="text-white/40 hover:text-white/70 transition-colors text-xs"
+                    aria-label="Minimize battle widget"
+                  >
+                    ✕
+                  </button>
+                </div>
+
+                {/* Battle options */}
+                <div className="space-y-2">
+                  {/* Option 1 */}
+                  <button
+                    onClick={() => handleVote('1')}
+                    className="w-full flex items-center justify-between px-3 py-2 rounded-lg bg-white/5 hover:bg-[#d4a853]/20 border border-white/5 hover:border-[#d4a853]/30 transition-all duration-200 group"
+                  >
+                    <span className="text-sm font-medium text-white group-hover:text-[#d4a853] transition-colors truncate">
+                      {battleVotes.movie1}
+                    </span>
+                    <span className="text-xs font-bold text-[#d4a853] ml-2 tabular-nums">
+                      {battleVotes.votes1.toLocaleString()}
+                    </span>
+                  </button>
+
+                  {/* VS divider */}
+                  <div className="flex items-center gap-2 px-1">
+                    <div className="flex-1 h-px bg-white/10" />
+                    <span className="text-[10px] font-bold text-[#9ca3af] uppercase tracking-widest">VS</span>
+                    <div className="flex-1 h-px bg-white/10" />
+                  </div>
+
+                  {/* Option 2 */}
+                  <button
+                    onClick={() => handleVote('2')}
+                    className="w-full flex items-center justify-between px-3 py-2 rounded-lg bg-white/5 hover:bg-[#d4a853]/20 border border-white/5 hover:border-[#d4a853]/30 transition-all duration-200 group"
+                  >
+                    <span className="text-sm font-medium text-white group-hover:text-[#d4a853] transition-colors truncate">
+                      {battleVotes.movie2}
+                    </span>
+                    <span className="text-xs font-bold text-[#d4a853] ml-2 tabular-nums">
+                      {battleVotes.votes2.toLocaleString()}
+                    </span>
+                  </button>
+                </div>
+
+                {/* Vote bar */}
+                <div className="mt-3 h-1 bg-white/5 rounded-full overflow-hidden flex">
+                  <div
+                    className="h-full bg-[#d4a853] rounded-l-full transition-all duration-500"
+                    style={{
+                      width: `${(battleVotes.votes1 / (battleVotes.votes1 + battleVotes.votes2)) * 100}%`,
+                    }}
+                  />
+                  <div
+                    className="h-full bg-white/20 rounded-r-full transition-all duration-500"
+                    style={{
+                      width: `${(battleVotes.votes2 / (battleVotes.votes1 + battleVotes.votes2)) * 100}%`,
+                    }}
+                  />
+                </div>
+
+                {/* Total votes */}
+                <div className="flex items-center justify-center gap-1 mt-2">
+                  <TrendingUp className="w-3 h-3 text-[#9ca3af]" strokeWidth={1.5} />
+                  <span className="text-[10px] text-[#9ca3af]">
+                    {(battleVotes.votes1 + battleVotes.votes2).toLocaleString()} votes
+                  </span>
+                </div>
+              </div>
+            ) : (
+              /* Collapsed state - small icon */
+              <button
+                onClick={() => setIsBattleExpanded(true)}
+                className="flex items-center gap-2 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl px-3 py-2.5 shadow-2xl hover:bg-white/10 transition-all duration-200"
+                aria-label="Expand battle widget"
+              >
+                <Swords className="w-4 h-4 text-[#d4a853]" strokeWidth={1.5} />
+                <span className="text-xs font-bold text-white">Battle</span>
+              </button>
+            )}
+          </div>
+        )}
       </div>
 
-      <div className="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 opacity-0 z-20">
-        <a href="#trending" className="block">
-          <ChevronDown className="w-8 h-8 text-[#9ca3af] animate-bounce" strokeWidth={1.5} />
-        </a>
+      {/* ═══════════════════════════════════════════════════════════
+          TOP REVIEWERS ROW
+      ═══════════════════════════════════════════════════════════ */}
+      <div className="bg-[#050507] py-4 border-b border-white/5">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          {/* Section header */}
+          <div className="flex items-center gap-2 mb-3">
+            <Award className="w-4 h-4 text-[#d4a853]" strokeWidth={1.5} />
+            <span className="text-xs font-bold text-white uppercase tracking-wider">
+              Top Reviewers of the Week
+            </span>
+          </div>
+
+          {/* Horizontal scroll row - Instagram Stories style */}
+          <div className="flex items-center gap-4 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+            {TOP_REVIEWERS.map((reviewer, idx) => (
+              <button
+                key={reviewer.name}
+                className="flex flex-col items-center gap-1.5 flex-shrink-0 group"
+                aria-label={`View ${reviewer.name}'s profile`}
+              >
+                {/* Avatar with gradient ring */}
+                <div className="relative">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full p-[2px] bg-gradient-to-br from-[#d4a853] via-[#f0d78c] to-[#d4a853] group-hover:shadow-lg group-hover:shadow-[#d4a853]/20 transition-shadow duration-300">
+                    <div className={`w-full h-full rounded-full ${AVATAR_COLORS[idx % AVATAR_COLORS.length]} flex items-center justify-center border-2 border-[#050507]`}>
+                      <span className="text-sm font-bold text-white">
+                        {getInitials(reviewer.name)}
+                      </span>
+                    </div>
+                  </div>
+                  {/* Review count badge */}
+                  <div className="absolute -bottom-1 -right-1 bg-[#d4a853] text-[10px] font-bold text-white rounded-full w-5 h-5 flex items-center justify-center border-2 border-[#050507]">
+                    {reviewer.reviews}
+                  </div>
+                </div>
+                {/* Name */}
+                <span className="text-[11px] text-[#9ca3af] group-hover:text-white transition-colors truncate max-w-[60px] sm:max-w-[72px]">
+                  {reviewer.name}
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
