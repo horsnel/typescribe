@@ -567,6 +567,20 @@ export default function HeroSection() {
           </div>
         </div>
       </div>
+
+      {/* ═══════════════════════════════════════════════════════════
+          TAGLINE — "Discover Your Next Favourite Movie"
+      ═══════════════════════════════════════════════════════════ */}
+      <div className="bg-[#050507] py-6 border-b border-white/5">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white leading-tight tracking-tight">
+            Discover Your Next <span className="text-[#F4C430]">Favourite</span> Movie
+          </h2>
+          <p className="text-sm text-[#AAAAAA] mt-2">
+            AI-powered reviews, real ratings, and community insights
+          </p>
+        </div>
+      </div>
     </section>
   );
 }
