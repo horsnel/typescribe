@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Search, Menu, X, Film, LogOut, LayoutDashboard, Star, Users, Bookmark, Bell, Settings, User, Lock, Loader2 } from 'lucide-react';
+import { Search, Menu, X, Film, LogOut, LayoutDashboard, Star, Users, Bookmark, Bell, Settings, User, Lock, Loader2, Play } from 'lucide-react';
 import { openNotificationPanel } from '@/components/community/NotificationPanel';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/lib/auth';
@@ -137,6 +137,7 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
+    { label: 'Stream', href: '/stream', isStream: true as const },
     { label: 'Browse', href: '/browse' },
     { label: 'Top Rated', href: '/top-rated' },
     { label: 'Box Office', href: '/box-office' },
@@ -185,9 +186,19 @@ export default function Navbar() {
 
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
-            <Link key={link.label} href={link.href} className={`text-sm font-medium transition-colors duration-200 ${
-              pathname === link.href ? 'text-amber-400' : 'text-[#9ca3af] hover:text-amber-400'}`}>
-              {link.label}
+            <Link key={link.label} href={link.href} className={`text-sm font-medium transition-colors duration-200 flex items-center gap-1.5 ${
+              pathname === link.href ? 'text-amber-400' : 'text-[#9ca3af] hover:text-amber-400'} ${
+              'isStream' in link && link.isStream ? 'text-[#d4a853] hover:text-[#e6bc6a]' : ''}`}>
+              {'isStream' in link && link.isStream && (
+                <>
+                  <Play className="w-3.5 h-3.5 fill-[#d4a853]" strokeWidth={2} />
+                  <span className="relative">
+                    {link.label}
+                    <span className="absolute -top-1 -right-1.5 w-1 h-1 rounded-full bg-[#d4a853]" />
+                  </span>
+                </>
+              )}
+              {!('isStream' in link && link.isStream) && link.label}
             </Link>
           ))}
         </div>
@@ -277,8 +288,13 @@ export default function Navbar() {
         <div className="fixed inset-0 z-40 bg-[#050507]/95 backdrop-blur-md pt-20 px-6 md:hidden overflow-y-auto">
           <div className="flex flex-col gap-4">
             {navLinks.map((link) => (
-              <Link key={link.label} href={link.href} onClick={() => setMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${
-                pathname === link.href ? 'text-amber-400' : 'text-[#9ca3af] hover:text-amber-400'}`}>{link.label}</Link>
+              <Link key={link.label} href={link.href} onClick={() => setMobileMenuOpen(false)} className={`text-lg font-medium transition-colors flex items-center gap-2 ${
+                pathname === link.href ? 'text-amber-400' : 'text-[#9ca3af] hover:text-amber-400'} ${
+                'isStream' in link && link.isStream ? 'text-[#d4a853] hover:text-[#e6bc6a]' : ''}`}>
+                {'isStream' in link && link.isStream && <Play className="w-4 h-4 fill-[#d4a853]" strokeWidth={2} />}
+                {link.label}
+                {'isStream' in link && link.isStream && <span className="w-1.5 h-1.5 rounded-full bg-[#d4a853] ml-1" />}
+              </Link>
             ))}
             <div className="border-t border-[#1e1e28] pt-4 mt-2">
               {isAuthenticated ? (
