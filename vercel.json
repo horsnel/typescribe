@@ -13,7 +13,7 @@
     },
     {
       "path": "/api/cron/streaming-warm",
-      "schedule": "0 */6 * * *"
+      "schedule": "0 0 * * *"
     }
   ]
 }
