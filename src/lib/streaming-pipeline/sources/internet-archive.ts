@@ -4,7 +4,9 @@
  * Fetches public domain movies from the Internet Archive.
  * Uses the Archive.org API (free, no key needed).
  *
- * Only shared import: fetchWithTimeout from resilience utilities.
+ * After searching, fetches metadata for each result to find
+ * the actual video file name, so the videoUrl points to a
+ * playable MP4/WebM file.
  */
 
 import { fetchWithTimeout, safeJsonParse } from '@/lib/pipeline/core/resilience';
@@ -175,9 +177,17 @@ function toStreamableMovie(doc: ArchiveSearchDoc, videoFileName?: string): Strea
   const durationSeconds = parseRuntime(doc.runtime);
   const genres = normalizeGenres(doc.genre);
   const poster = `${ARCHIVE_THUMBNAIL}/${doc.identifier}`;
-  const videoUrl = videoFileName
-    ? `${ARCHIVE_DOWNLOAD}/${doc.identifier}/${encodeURIComponent(videoFileName)}`
-    : `${ARCHIVE_DOWNLOAD}/${doc.identifier}`;
+
+  // Build the video URL with the actual video file name if available
+  let videoUrl: string;
+  if (videoFileName) {
+    // Handle subdirectories in the filename (e.g. "Astro Boy 2003 English/01.mp4")
+    const encodedFile = videoFileName.split('/').map(part => encodeURIComponent(part)).join('/');
+    videoUrl = `${ARCHIVE_DOWNLOAD}/${doc.identifier}/${encodedFile}`;
+  } else {
+    // Without a specific file, link to the archive details page
+    videoUrl = `${ARCHIVE_DOWNLOAD}/${doc.identifier}`;
+  }
 
   const languages: AudioLanguage[] = [
     { code: 'en', label: 'English (Original)', isOriginal: true, isDubbed: false, audioFormat: 'Stereo' },
@@ -204,6 +214,7 @@ function toStreamableMovie(doc: ArchiveSearchDoc, videoFileName?: string): Strea
     sourceLicense: 'Public Domain',
     videoUrl,
     videoType: 'direct',
+    isEmbeddable: true,
     languages,
     subtitles,
     is4K: false,
@@ -212,10 +223,50 @@ function toStreamableMovie(doc: ArchiveSearchDoc, videoFileName?: string): Strea
   };
 }
 
+// ─── Batch detail fetcher ───────────────────────────────────────────────────
+
+/**
+ * Fetch video file details for a batch of archive identifiers.
+ * Returns a map of identifier -> video file name (or null if not found).
+ * Limits concurrency to avoid overwhelming the Archive.org API.
+ */
+async function batchFetchVideoFiles(identifiers: string[]): Promise<Map<string, string | null>> {
+  const result = new Map<string, string | null>();
+
+  // Process in chunks of 5 to avoid overwhelming the API
+  const CHUNK_SIZE = 5;
+  for (let i = 0; i < identifiers.length; i += CHUNK_SIZE) {
+    const chunk = identifiers.slice(i, i + CHUNK_SIZE);
+    const detailPromises = chunk.map(async (identifier) => {
+      try {
+        const res = await fetchWithTimeout(`${ARCHIVE_METADATA}/${identifier}`, undefined, 15_000);
+        if (!res?.ok) {
+          result.set(identifier, null);
+          return;
+        }
+        const data = await safeJsonParse<ArchiveMetadataResponse>(res);
+        if (data?.files) {
+          const videoFile = findBestVideoFile(data.files);
+          result.set(identifier, videoFile);
+        } else {
+          result.set(identifier, null);
+        }
+      } catch {
+        result.set(identifier, null);
+      }
+    });
+
+    await Promise.allSettled(detailPromises);
+  }
+
+  return result;
+}
+
 // ─── Public API ──────────────────────────────────────────────────────────────
 
 /**
  * Fetch movies from the Internet Archive.
+ * Fetches video file details for each result to build proper play URLs.
  */
 export async function fetchArchiveMovies(category?: string): Promise<StreamableMovie[]> {
   const cacheKey = `streaming-archive-movies${category ? `-${category}` : ''}`;
@@ -244,12 +295,21 @@ export async function fetchArchiveMovies(category?: string): Promise<StreamableM
       const data = await safeJsonParse<ArchiveSearchResponse>(res);
       if (!data?.response?.docs?.length) continue;
 
-      for (const doc of data.response.docs) {
-        // Filter for actual movies (> 30 minutes)
+      // Filter for actual movies (> 30 minutes)
+      const validDocs = data.response.docs.filter(doc => {
         const durationSeconds = parseRuntime(doc.runtime);
-        if (durationSeconds > 0 && durationSeconds < 30 * 60) continue;
+        return durationSeconds === 0 || durationSeconds >= 30 * 60;
+      });
 
-        movies.push(toStreamableMovie(doc));
+      if (validDocs.length === 0) continue;
+
+      // Batch fetch video file details for all valid docs
+      const identifiers = validDocs.map(doc => doc.identifier);
+      const videoFileMap = await batchFetchVideoFiles(identifiers);
+
+      for (const doc of validDocs) {
+        const videoFileName = videoFileMap.get(doc.identifier) ?? undefined;
+        movies.push(toStreamableMovie(doc, videoFileName));
       }
     } catch (err) {
       console.warn(`[StreamingPipeline:Archive] Error fetching collection ${collection}:`, err);
@@ -262,6 +322,7 @@ export async function fetchArchiveMovies(category?: string): Promise<StreamableM
 
 /**
  * Search the Internet Archive for movies matching a query.
+ * Also fetches video file details for proper play URLs.
  */
 export async function searchArchiveMovies(query: string): Promise<StreamableMovie[]> {
   const cacheKey = `streaming-archive-search:${query}`;
@@ -283,12 +344,19 @@ export async function searchArchiveMovies(query: string): Promise<StreamableMovi
     const data = await safeJsonParse<ArchiveSearchResponse>(res);
     if (!data?.response?.docs?.length) return [];
 
-    const movies = data.response.docs
-      .filter(doc => {
-        const durationSeconds = parseRuntime(doc.runtime);
-        return durationSeconds === 0 || durationSeconds >= 30 * 60;
-      })
-      .map(doc => toStreamableMovie(doc));
+    const validDocs = data.response.docs.filter(doc => {
+      const durationSeconds = parseRuntime(doc.runtime);
+      return durationSeconds === 0 || durationSeconds >= 30 * 60;
+    });
+
+    // Batch fetch video file details
+    const identifiers = validDocs.map(doc => doc.identifier);
+    const videoFileMap = await batchFetchVideoFiles(identifiers);
+
+    const movies = validDocs.map(doc => {
+      const videoFileName = videoFileMap.get(doc.identifier) ?? undefined;
+      return toStreamableMovie(doc, videoFileName);
+    });
 
     setCached(cacheKey, movies, CACHE_TTL);
     return movies;

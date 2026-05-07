@@ -4,7 +4,8 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { ArrowLeft, Star, Globe, Subtitles, Clock, Calendar, Film, Tag, Volume2, Languages, Loader2, ExternalLink } from 'lucide-react';
-import PremiumVideoPlayer from '@/components/stream/PremiumVideoPlayer';
+import CinemaPlayer from '@/components/stream/CinemaPlayer';
+import type { CinemaMovieData } from '@/components/stream/CinemaPlayer';
 import type { StreamableMovie } from '@/lib/streaming-pipeline/types';
 
 /* ─── Player-compatible movie type ─── */
@@ -22,10 +23,13 @@ interface PlayerMovieData {
   description: string;
   source: string;
   videoUrl: string;
-  videoType?: 'direct' | 'youtube' | 'vimeo' | 'embed';
+  videoType: 'direct' | 'youtube' | 'vimeo' | 'bilibili' | 'hls' | 'embed' | 'linkout';
+  embedUrl?: string;
+  isEmbeddable: boolean;
   sourceUrl?: string;
   languages: string[];
   subtitles: string[];
+  manifestUrl?: string;
 }
 
 /* ─── Convert StreamableMovie to PlayerMovieData ─── */
@@ -45,11 +49,14 @@ function toPlayerMovie(m: StreamableMovie): PlayerMovieData {
     source: `${m.source.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())} · ${m.sourceLicense}`,
     videoUrl: m.videoUrl,
     videoType: m.videoType,
+    embedUrl: m.embedUrl,
+    isEmbeddable: m.isEmbeddable,
     sourceUrl: m.sourceUrl,
     languages: m.languages.map(l =>
       l.isOriginal ? `${l.label}` : l.label
     ),
     subtitles: m.subtitles.map(s => s.label),
+    manifestUrl: m.manifestUrl,
   };
 }
 
@@ -123,7 +130,7 @@ export default function StreamWatchPage() {
     <div className="min-h-screen bg-[#050507]">
       {/* Video Player - Full Width, positioned below fixed navbar */}
       <div className="w-full pt-16">
-        <PremiumVideoPlayer movie={playerMovie} />
+        <CinemaPlayer movie={playerMovie} />
       </div>
 
       {/* Movie Info Section */}
@@ -161,6 +168,14 @@ export default function StreamWatchPage() {
               <div className="flex items-center gap-3 flex-wrap mb-4">
                 <span className={`text-xs font-bold px-2 py-0.5 rounded ${movie.quality === '4K' ? 'bg-[#8B5CF6] text-white' : movie.quality === '1080p' ? 'bg-[#8B5CF6]/70 text-white' : 'bg-white/10 text-white/70'}`}>
                   {movie.quality}
+                </span>
+                {/* Video type badge */}
+                <span className={`text-[10px] font-medium px-2 py-0.5 rounded ${
+                  movie.isEmbeddable
+                    ? 'bg-green-500/10 text-green-400 border border-green-500/20'
+                    : 'bg-yellow-500/10 text-yellow-400 border border-yellow-500/20'
+                }`}>
+                  {movie.isEmbeddable ? '▶ Playable' : '↗ Link-out'}
                 </span>
                 {movie.year > 0 && (
                   <div className="flex items-center gap-1.5 text-sm text-[#9ca3af]">
@@ -300,6 +315,16 @@ export default function StreamWatchPage() {
                       <div className="absolute top-2 left-2">
                         <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${m.quality === '4K' ? 'bg-[#8B5CF6] text-black' : 'bg-white/20 text-white/90 backdrop-blur-sm'}`}>
                           {m.quality}
+                        </span>
+                      </div>
+                      {/* Embeddable/linkout badge */}
+                      <div className="absolute top-2 right-2">
+                        <span className={`text-[8px] font-medium px-1.5 py-0.5 rounded ${
+                          m.isEmbeddable
+                            ? 'bg-green-500/20 text-green-400 backdrop-blur-sm'
+                            : 'bg-yellow-500/20 text-yellow-400 backdrop-blur-sm'
+                        }`}>
+                          {m.isEmbeddable ? '▶' : '↗'}
                         </span>
                       </div>
                       <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover/card:opacity-100 transition-opacity">

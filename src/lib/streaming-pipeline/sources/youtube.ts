@@ -202,6 +202,7 @@ function toStreamableMovie(
     subtitles,
     is4K,
     isFree: true,
+    isEmbeddable: true,
     addedAt: publishedAt,
   };
 }

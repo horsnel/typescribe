@@ -43,6 +43,7 @@ const BLENDER_MOVIES: StreamableMovie[] = [
     ],
     is4K: true,
     isFree: true,
+    isEmbeddable: true,
     addedAt: '2008-04-10T00:00:00Z',
   },
   {
@@ -78,6 +79,7 @@ const BLENDER_MOVIES: StreamableMovie[] = [
     ],
     is4K: true,
     isFree: true,
+    isEmbeddable: true,
     addedAt: '2010-09-27T00:00:00Z',
   },
   {
@@ -115,6 +117,7 @@ const BLENDER_MOVIES: StreamableMovie[] = [
     ],
     is4K: true,
     isFree: true,
+    isEmbeddable: true,
     addedAt: '2012-09-26T00:00:00Z',
   },
   {
@@ -148,6 +151,7 @@ const BLENDER_MOVIES: StreamableMovie[] = [
     ],
     is4K: false,
     isFree: true,
+    isEmbeddable: true,
     addedAt: '2006-03-24T00:00:00Z',
   },
   {
@@ -180,6 +184,7 @@ const BLENDER_MOVIES: StreamableMovie[] = [
     ],
     is4K: true,
     isFree: true,
+    isEmbeddable: true,
     addedAt: '2019-04-04T00:00:00Z',
   },
 ];

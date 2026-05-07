@@ -23,14 +23,47 @@ export interface StreamableMovie {
   sourceUrl: string;             // Link to original source page
   sourceLicense: string;         // e.g. "CC BY 3.0", "Public Domain", "Free to Watch"
   videoUrl: string;              // Direct video stream URL or embed URL
-  videoType: 'direct' | 'youtube' | 'vimeo' | 'embed';
+  videoType: VideoType;
   languages: AudioLanguage[];
   subtitles: SubtitleTrack[];
   is4K: boolean;
   isFree: boolean;               // Always true for this pipeline
   country?: string;              // ISO country code (e.g. "KR", "IN", "NG")
   addedAt: string;               // ISO date when added to catalog
+  /** For sources that support iframe embedding */
+  embedUrl?: string;
+  /** Whether this source allows iframe embedding in third-party sites */
+  isEmbeddable: boolean;
+  /** HSL/DASH manifest URL if available */
+  manifestUrl?: string;
 }
+
+// ─── Video Types ──────────────────────────────────────────────────────────────
+
+export type VideoType =
+  | 'direct'       // MP4/WebM direct URL (Blender, Archive.org)
+  | 'youtube'      // YouTube embed
+  | 'vimeo'        // Vimeo embed
+  | 'bilibili'     // Bilibili embed
+  | 'hls'          // HLS m3u8 stream
+  | 'embed'        // Generic iframe embed
+  | 'linkout';     // Opens in new tab (Tubi, Pluto TV, Crackle, etc.)
+
+// ─── Source Types ─────────────────────────────────────────────────────────────
+
+export type StreamSource =
+  | 'youtube'
+  | 'internet-archive'
+  | 'blender-foundation'
+  | 'public-domain'
+  | 'vimeo-cc'
+  | 'tubi'
+  | 'pluto-tv'
+  | 'crackle'
+  | 'retrocrush'
+  | 'contv'
+  | 'bilibili'
+  | 'indie-animation';
 
 // ─── Supporting Types ────────────────────────────────────────────────────────
 
@@ -48,13 +81,6 @@ export interface SubtitleTrack {
   url?: string;                  // VTT file URL if available
   isDefault: boolean;
 }
-
-export type StreamSource =
-  | 'youtube'
-  | 'internet-archive'
-  | 'blender-foundation'
-  | 'public-domain'
-  | 'vimeo-cc';
 
 // ─── Catalog & Categories ────────────────────────────────────────────────────
 

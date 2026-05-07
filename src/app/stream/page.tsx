@@ -2,14 +2,47 @@
 
 import { useRef, useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Play, Star, ChevronLeft, ChevronRight, Crown, Sparkles, Award, Swords, Palette, Wand2, Info, Search, Loader2 } from 'lucide-react';
+import { Play, Star, ChevronLeft, ChevronRight, Crown, Sparkles, Award, Swords, Palette, Wand2, Info, Search, Loader2, ExternalLink, Tv, Film, Globe } from 'lucide-react';
 import type { StreamableMovie, StreamingCategory } from '@/lib/streaming-pipeline/types';
 
 /* ─── Icon Map ─── */
 
 const CATEGORY_ICONS: Record<string, React.ComponentType<{ className?: string; strokeWidth?: number }>> = {
-  Sparkles, Crown, Award, Swords, Palette, Wand2,
+  Sparkles, Crown, Award, Swords, Palette, Wand2, Tv, Film, Globe, ExternalLink,
 };
+
+/* ─── Source Badge Map ─── */
+
+function getSourceBadge(source: StreamableMovie['source']): { label: string; className: string } {
+  switch (source) {
+    case 'blender-foundation':
+      return { label: 'CC', className: 'bg-[#8B5CF6]/30 text-[#A78BFA]' };
+    case 'internet-archive':
+      return { label: 'IA', className: 'bg-blue-500/20 text-blue-400' };
+    case 'youtube':
+      return { label: 'YT', className: 'bg-red-500/20 text-red-400' };
+    case 'vimeo-cc':
+      return { label: 'Vimeo', className: 'bg-cyan-500/20 text-cyan-400' };
+    case 'public-domain':
+      return { label: 'PD', className: 'bg-amber-500/20 text-amber-400' };
+    case 'tubi':
+      return { label: 'Tubi', className: 'bg-red-600/20 text-red-400' };
+    case 'pluto-tv':
+      return { label: 'Pluto', className: 'bg-indigo-500/20 text-indigo-300' };
+    case 'crackle':
+      return { label: 'Crackle', className: 'bg-orange-500/20 text-orange-400' };
+    case 'retrocrush':
+      return { label: 'Retro', className: 'bg-pink-500/20 text-pink-400' };
+    case 'contv':
+      return { label: 'CONtv', className: 'bg-emerald-500/20 text-emerald-400' };
+    case 'bilibili':
+      return { label: 'Bili', className: 'bg-sky-500/20 text-sky-400' };
+    case 'indie-animation':
+      return { label: 'Indie', className: 'bg-teal-500/20 text-teal-400' };
+    default:
+      return { label: 'Free', className: 'bg-white/10 text-white/70' };
+  }
+}
 
 /* ─── Movie Row Component ─── */
 
@@ -53,75 +86,92 @@ function MovieRow({ title, icon: Icon, movies }: { title: string; icon: React.Co
           onScroll={handleScroll}
           className="flex gap-3 md:gap-4 overflow-x-auto scrollbar-hide px-4 md:px-12 pb-2"
         >
-          {movies.map((movie) => (
-            <Link
-              key={movie.id}
-              href={`/stream/${encodeURIComponent(movie.id)}`}
-              className="flex-shrink-0 w-[160px] md:w-[200px] group/card"
-            >
-              <div className="relative aspect-[2/3] rounded-xl overflow-hidden bg-[#0c0c10] border border-[#1e1e28]/50">
-                <img
-                  src={movie.poster}
-                  alt={movie.title}
-                  className="w-full h-full object-cover transition-all duration-300 group-hover/card:scale-105 group-hover/card:brightness-75"
-                  loading="lazy"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = '/images/poster-1.jpg';
-                  }}
-                />
-                {/* Quality badge */}
-                <div className="absolute top-2 left-2">
-                  <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
-                    movie.quality === '4K'
-                      ? 'bg-[#8B5CF6] text-white'
-                      : movie.quality === '1080p'
-                      ? 'bg-[#8B5CF6]/70 text-white'
-                      : 'bg-white/20 text-white/90 backdrop-blur-sm'
-                  }`}>
-                    {movie.quality}
-                  </span>
-                </div>
-                {/* Source badge */}
-                <div className="absolute top-2 right-2">
-                  <span className="text-[8px] font-medium px-1.5 py-0.5 bg-black/60 backdrop-blur-sm text-white/70 rounded">
-                    {movie.source === 'blender-foundation' ? 'CC' : movie.source === 'internet-archive' ? 'PD' : movie.source === 'youtube' ? 'YT' : movie.source === 'vimeo-cc' ? 'Vimeo' : movie.source === 'public-domain' ? 'PD' : 'Free'}
-                  </span>
-                </div>
-                {/* Rating badge */}
-                {movie.rating > 0 && (
-                  <div className="absolute bottom-2 right-2 flex items-center gap-1 bg-black/60 backdrop-blur-sm text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
-                    <Star className="w-2.5 h-2.5 text-[#8B5CF6] fill-[#8B5CF6]" strokeWidth={1.5} />
-                    {movie.rating}
+          {movies.map((movie) => {
+            const sourceBadge = getSourceBadge(movie.source);
+            return (
+              <Link
+                key={movie.id}
+                href={`/stream/${encodeURIComponent(movie.id)}`}
+                className="flex-shrink-0 w-[160px] md:w-[200px] group/card"
+              >
+                <div className="relative aspect-[2/3] rounded-xl overflow-hidden bg-[#0c0c10] border border-[#1e1e28]/50">
+                  <img
+                    src={movie.poster}
+                    alt={movie.title}
+                    className="w-full h-full object-cover transition-all duration-300 group-hover/card:scale-105 group-hover/card:brightness-75"
+                    loading="lazy"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = '/images/poster-1.jpg';
+                    }}
+                  />
+                  {/* Quality badge */}
+                  <div className="absolute top-2 left-2">
+                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
+                      movie.quality === '4K'
+                        ? 'bg-[#8B5CF6] text-white'
+                        : movie.quality === '1080p'
+                        ? 'bg-[#8B5CF6]/70 text-white'
+                        : 'bg-white/20 text-white/90 backdrop-blur-sm'
+                    }`}>
+                      {movie.quality}
+                    </span>
                   </div>
-                )}
-                {/* Play overlay */}
-                <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover/card:opacity-100 transition-opacity duration-300">
-                  <div className="w-12 h-12 bg-[#8B5CF6]/90 rounded-full flex items-center justify-center shadow-lg">
-                    <Play className="w-5 h-5 text-black fill-black ml-0.5" strokeWidth={2} />
+                  {/* Source badge */}
+                  <div className="absolute top-2 right-2">
+                    <span className={`text-[8px] font-medium px-1.5 py-0.5 rounded ${sourceBadge.className}`}>
+                      {sourceBadge.label}
+                    </span>
+                  </div>
+                  {/* Embeddable/linkout indicator */}
+                  <div className="absolute bottom-2 left-2">
+                    <span className={`text-[7px] font-medium px-1 py-0.5 rounded ${
+                      movie.isEmbeddable
+                        ? 'bg-green-500/30 text-green-400'
+                        : 'bg-yellow-500/30 text-yellow-400'
+                    }`}>
+                      {movie.isEmbeddable ? '▶ Play' : '↗ Link'}
+                    </span>
+                  </div>
+                  {/* Rating badge */}
+                  {movie.rating > 0 && (
+                    <div className="absolute bottom-2 right-2 flex items-center gap-1 bg-black/60 backdrop-blur-sm text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
+                      <Star className="w-2.5 h-2.5 text-[#8B5CF6] fill-[#8B5CF6]" strokeWidth={1.5} />
+                      {movie.rating}
+                    </div>
+                  )}
+                  {/* Play overlay */}
+                  <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover/card:opacity-100 transition-opacity duration-300">
+                    <div className="w-12 h-12 bg-[#8B5CF6]/90 rounded-full flex items-center justify-center shadow-lg">
+                      {movie.isEmbeddable ? (
+                        <Play className="w-5 h-5 text-black fill-black ml-0.5" strokeWidth={2} />
+                      ) : (
+                        <ExternalLink className="w-5 h-5 text-black" strokeWidth={2} />
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="mt-2.5">
-                <h3 className="text-sm font-medium text-[#f1f1f4] truncate group-hover/card:text-[#8B5CF6] transition-colors">
-                  {movie.title}
-                </h3>
-                <div className="flex items-center gap-2 mt-1">
-                  {movie.year > 0 && <span className="text-[11px] text-[#9ca3af]">{movie.year}</span>}
-                  {movie.year > 0 && <span className="text-[#1e1e28]">·</span>}
-                  <span className="text-[11px] text-[#9ca3af]">{movie.duration}</span>
-                </div>
-                {movie.genres.length > 0 && (
-                  <div className="flex gap-1 mt-1 flex-wrap">
-                    {movie.genres.slice(0, 2).map((g) => (
-                      <span key={g} className="text-[9px] text-white/40 bg-white/5 px-1.5 py-0.5 rounded">
-                        {g}
-                      </span>
-                    ))}
+                <div className="mt-2.5">
+                  <h3 className="text-sm font-medium text-[#f1f1f4] truncate group-hover/card:text-[#8B5CF6] transition-colors">
+                    {movie.title}
+                  </h3>
+                  <div className="flex items-center gap-2 mt-1">
+                    {movie.year > 0 && <span className="text-[11px] text-[#9ca3af]">{movie.year}</span>}
+                    {movie.year > 0 && <span className="text-[#1e1e28]">·</span>}
+                    <span className="text-[11px] text-[#9ca3af]">{movie.duration}</span>
                   </div>
-                )}
-              </div>
-            </Link>
-          ))}
+                  {movie.genres.length > 0 && (
+                    <div className="flex gap-1 mt-1 flex-wrap">
+                      {movie.genres.slice(0, 2).map((g) => (
+                        <span key={g} className="text-[9px] text-white/40 bg-white/5 px-1.5 py-0.5 rounded">
+                          {g}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </Link>
+            );
+          })}
         </div>
         {showRight && (
           <button
@@ -252,6 +302,21 @@ export default function StreamPage() {
     );
   }
 
+  // Compute stats
+  const embeddableCount = movies.filter(m => m.isEmbeddable).length;
+  const linkoutCount = movies.filter(m => m.videoType === 'linkout').length;
+  const blenderCount = movies.filter(m => m.source === 'blender-foundation').length;
+  const archiveCount = movies.filter(m => m.source === 'internet-archive' || m.source === 'public-domain').length;
+  const youtubeCount = movies.filter(m => m.source === 'youtube').length;
+  const vimeoCount = movies.filter(m => m.source === 'vimeo-cc').length;
+  const tubiCount = movies.filter(m => m.source === 'tubi').length;
+  const plutoTVCount = movies.filter(m => m.source === 'pluto-tv').length;
+  const crackleCount = movies.filter(m => m.source === 'crackle').length;
+  const retrocrushCount = movies.filter(m => m.source === 'retrocrush').length;
+  const contvCount = movies.filter(m => m.source === 'contv').length;
+  const bilibiliCount = movies.filter(m => m.source === 'bilibili').length;
+  const indieCount = movies.filter(m => m.source === 'indie-animation').length;
+
   return (
     <div className="min-h-screen bg-[#050507]">
       {/* Hero Banner */}
@@ -339,7 +404,7 @@ export default function StreamPage() {
           <div>
             <h2 className="text-xl md:text-2xl font-bold text-white">StreamFlix</h2>
             <p className="text-[#9ca3af] text-xs md:text-sm">
-              {movies.length} Free Legal Movies{movies.some(m => m.is4K) ? ' in Stunning 4K' : ''}
+              {movies.length} Free Legal Movies · {embeddableCount} Playable · {movies.some(m => m.is4K) ? '4K Available' : ''}
             </p>
           </div>
         </div>
@@ -387,13 +452,23 @@ export default function StreamPage() {
 
       {/* Stats footer */}
       <div className="px-4 md:px-12 py-6 border-t border-[#1e1e28]/50">
-        <div className="flex items-center gap-6 text-[10px] text-white/20">
-          <span>{movies.length} movies available</span>
+        <div className="flex items-center gap-4 md:gap-6 text-[10px] text-white/20 flex-wrap">
+          <span className="font-medium text-white/30">{movies.length} movies</span>
           <span>{movies.filter(m => m.is4K).length} in 4K</span>
-          <span>{movies.filter(m => m.source === 'blender-foundation').length} Creative Commons</span>
-          <span>{movies.filter(m => m.source === 'internet-archive' || m.source === 'public-domain').length} Public Domain</span>
-          <span>{movies.filter(m => m.source === 'youtube').length} YouTube</span>
-          <span>{movies.filter(m => m.source === 'vimeo-cc').length} Vimeo</span>
+          <span>{embeddableCount} playable</span>
+          <span>{linkoutCount} link-out</span>
+          <span className="text-white/10">|</span>
+          <span>{blenderCount} Blender CC</span>
+          <span>{archiveCount} Public Domain</span>
+          <span>{youtubeCount} YouTube</span>
+          <span>{vimeoCount} Vimeo</span>
+          <span>{tubiCount} Tubi</span>
+          <span>{plutoTVCount} Pluto TV</span>
+          <span>{crackleCount} Crackle</span>
+          <span>{retrocrushCount} RetroCrush</span>
+          <span>{contvCount} CONtv</span>
+          <span>{bilibiliCount} Bilibili</span>
+          <span>{indieCount} Indie</span>
         </div>
       </div>
 
