@@ -6,7 +6,7 @@ import {
   Play, Pause, Volume2, VolumeX, Volume1,
   Maximize, Minimize, SkipBack, SkipForward,
   Settings, ChevronLeft, Subtitles, Globe,
-  Clock, Gauge, X, Check, ChevronUp, Languages
+  X, Check, ExternalLink
 } from 'lucide-react';
 
 /* ─── Types ─── */
@@ -24,8 +24,10 @@ interface MovieData {
   description: string;
   source: string;
   videoUrl: string;
+  videoType?: 'direct' | 'youtube' | 'vimeo' | 'embed';
   languages: string[];
   subtitles: string[];
+  sourceUrl?: string;
 }
 
 interface PremiumVideoPlayerProps {
@@ -33,47 +35,6 @@ interface PremiumVideoPlayerProps {
 }
 
 /* ─── Constants ─── */
-
-const QUALITY_OPTIONS = [
-  { label: 'Auto', value: 'auto' },
-  { label: '4K (2160p)', value: '2160p' },
-  { label: '1440p', value: '1440p' },
-  { label: '1080p', value: '1080p' },
-  { label: '720p', value: '720p' },
-  { label: '480p', value: '480p' },
-  { label: '360p', value: '360p' },
-];
-
-const SUBTITLE_OPTIONS = [
-  'Off', 'English', 'Spanish', 'French', 'German', 'Japanese',
-  'Chinese (Simplified)', 'Chinese (Traditional)', 'Korean', 'Portuguese', 'Arabic', 'Hindi',
-];
-
-const AUDIO_LANGUAGES = [
-  { label: 'English (Original)', value: 'en-original', isOriginal: true, isDubbed: false },
-  { label: 'English (Dubbed)', value: 'en-dubbed', isOriginal: false, isDubbed: true },
-  { label: 'Spanish', value: 'es', isOriginal: false, isDubbed: true },
-  { label: 'French', value: 'fr', isOriginal: false, isDubbed: true },
-  { label: 'German', value: 'de', isOriginal: false, isDubbed: true },
-  { label: 'Japanese', value: 'ja', isOriginal: false, isDubbed: true },
-  { label: 'Korean', value: 'ko', isOriginal: false, isDubbed: true },
-  { label: 'Chinese (Mandarin)', value: 'zh', isOriginal: false, isDubbed: true },
-  { label: 'Portuguese', value: 'pt', isOriginal: false, isDubbed: true },
-  { label: 'Arabic', value: 'ar', isOriginal: false, isDubbed: true },
-  { label: 'Hindi', value: 'hi', isOriginal: false, isDubbed: true },
-];
-
-const DUB_LANGUAGES = [
-  { label: 'Spanish', value: 'es', flag: '🇪🇸', quality: 'HD', audio: '5.1 Surround' },
-  { label: 'French', value: 'fr', flag: '🇫🇷', quality: 'HD', audio: '5.1 Surround' },
-  { label: 'German', value: 'de', flag: '🇩🇪', quality: 'HD', audio: '5.1 Surround' },
-  { label: 'Japanese', value: 'ja', flag: '🇯🇵', quality: 'HD', audio: 'Stereo' },
-  { label: 'Korean', value: 'ko', flag: '🇰🇷', quality: 'HD', audio: '5.1 Surround' },
-  { label: 'Chinese (Mandarin)', value: 'zh', flag: '🇨🇳', quality: 'HD', audio: 'Stereo' },
-  { label: 'Portuguese', value: 'pt', flag: '🇧🇷', quality: 'HD', audio: '5.1 Surround' },
-  { label: 'Arabic', value: 'ar', flag: '🇸🇦', quality: 'HD', audio: 'Stereo' },
-  { label: 'Hindi', value: 'hi', flag: '🇮🇳', quality: 'HD', audio: '5.1 Surround' },
-];
 
 const SPEED_OPTIONS = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 2];
 
@@ -88,6 +49,16 @@ function formatTime(s: number): string {
   return `${m}:${sec.toString().padStart(2, '0')}`;
 }
 
+/**
+ * Determine the video type from the URL if not explicitly provided.
+ */
+function detectVideoType(url: string): 'direct' | 'youtube' | 'vimeo' | 'embed' {
+  if (url.includes('youtube.com/embed/') || url.includes('youtu.be/')) return 'youtube';
+  if (url.includes('vimeo.com/')) return 'vimeo';
+  if (url.includes('archive.org/') || url.endsWith('.mp4') || url.endsWith('.webm') || url.endsWith('.ogv')) return 'direct';
+  return 'embed';
+}
+
 /* ─── Component ─── */
 
 export default function PremiumVideoPlayer({ movie }: PremiumVideoPlayerProps) {
@@ -95,6 +66,11 @@ export default function PremiumVideoPlayer({ movie }: PremiumVideoPlayerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const controlsTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const progressRef = useRef<HTMLDivElement>(null);
+
+  // Determine video type
+  const videoType = movie.videoType || detectVideoType(movie.videoUrl);
+  const isIframe = videoType === 'youtube' || videoType === 'vimeo' || videoType === 'embed';
+  const isDirect = videoType === 'direct';
 
   // Player state
   const [isPlaying, setIsPlaying] = useState(false);
@@ -111,32 +87,17 @@ export default function PremiumVideoPlayer({ movie }: PremiumVideoPlayerProps) {
   const [cursorVisible, setCursorVisible] = useState(true);
 
   // Menu states
-  const [showQualityMenu, setShowQualityMenu] = useState(false);
-  const [showSubtitleMenu, setShowSubtitleMenu] = useState(false);
-  const [showAudioMenu, setShowAudioMenu] = useState(false);
   const [showSpeedMenu, setShowSpeedMenu] = useState(false);
-  const [showDubPanel, setShowDubPanel] = useState(false);
 
   // Settings
-  const [selectedQuality, setSelectedQuality] = useState('2160p');
-  const [selectedSubtitle, setSelectedSubtitle] = useState('Off');
-  const [selectedAudio, setSelectedAudio] = useState('en-original');
   const [selectedSpeed, setSelectedSpeed] = useState(1);
-  const [selectedDub, setSelectedDub] = useState<string | null>(null);
-
-  // Skip intro
-  const [showSkipIntro, setShowSkipIntro] = useState(true);
 
   // Seek preview
   const [seekPreview, setSeekPreview] = useState<{ time: number; x: number } | null>(null);
 
   // Close all menus
   const closeAllMenus = useCallback(() => {
-    setShowQualityMenu(false);
-    setShowSubtitleMenu(false);
-    setShowAudioMenu(false);
     setShowSpeedMenu(false);
-    setShowDubPanel(false);
   }, []);
 
   // Show controls temporarily
@@ -158,7 +119,7 @@ export default function PremiumVideoPlayer({ movie }: PremiumVideoPlayerProps) {
     showControls();
   }, [showControls]);
 
-  // Fullscreen toggle (defined early so keyboard effect can reference it)
+  // Fullscreen toggle
   const toggleFullscreen = useCallback(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -171,10 +132,10 @@ export default function PremiumVideoPlayer({ movie }: PremiumVideoPlayerProps) {
 
   // Keyboard shortcuts
   useEffect(() => {
+    if (isIframe) return; // No keyboard control for iframe
     const handleKeyDown = (e: KeyboardEvent) => {
       const video = videoRef.current;
       if (!video) return;
-      // Don't capture if user is in an input
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
 
       switch (e.key.toLowerCase()) {
@@ -217,22 +178,15 @@ export default function PremiumVideoPlayer({ movie }: PremiumVideoPlayerProps) {
           toggleFullscreen();
           showControls();
           break;
-        case 's':
-          setShowSubtitleMenu(prev => !prev);
-          showControls();
-          break;
-        case 'l':
-          setShowAudioMenu(prev => !prev);
-          showControls();
-          break;
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [showControls, toggleFullscreen]);
+  }, [showControls, toggleFullscreen, isIframe]);
 
   // Video event handlers
   useEffect(() => {
+    if (isIframe) return;
     const video = videoRef.current;
     if (!video) return;
 
@@ -272,7 +226,7 @@ export default function PremiumVideoPlayer({ movie }: PremiumVideoPlayerProps) {
       video.removeEventListener('pause', onPause);
       video.removeEventListener('error', onError);
     };
-  }, []);
+  }, [isIframe]);
 
   // Fullscreen change detection
   useEffect(() => {
@@ -283,13 +237,17 @@ export default function PremiumVideoPlayer({ movie }: PremiumVideoPlayerProps) {
     return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
   }, []);
 
-  // Auto-play on mount — with safety timeout to break infinite loading
+  // Auto-play on mount for direct videos
   useEffect(() => {
+    if (isIframe) {
+      setIsLoading(false);
+      setIsPlaying(true);
+      return;
+    }
     const video = videoRef.current;
     if (!video) return;
     video.muted = true;
 
-    // Safety: break out of loading state after 8s even if no event fires
     const safetyTimeout = setTimeout(() => {
       setIsLoading(false);
     }, 8000);
@@ -299,23 +257,17 @@ export default function PremiumVideoPlayer({ movie }: PremiumVideoPlayerProps) {
       setIsLoading(false);
       clearTimeout(safetyTimeout);
     }).catch(() => {
-      // Auto-play blocked by browser, user needs to click play
       setIsPlaying(false);
       setIsLoading(false);
       clearTimeout(safetyTimeout);
     });
 
     return () => clearTimeout(safetyTimeout);
-  }, []);
-
-  // Auto-hide skip intro after 30s
-  useEffect(() => {
-    const t = setTimeout(() => setShowSkipIntro(false), 30000);
-    return () => clearTimeout(t);
-  }, []);
+  }, [isIframe]);
 
   // Play/Pause
   const togglePlay = () => {
+    if (isIframe) return; // Can't control iframe playback
     const video = videoRef.current;
     if (!video) return;
     if (video.paused) { video.play(); setIsPlaying(true); }
@@ -360,8 +312,7 @@ export default function PremiumVideoPlayer({ movie }: PremiumVideoPlayerProps) {
   // Speed
   const handleSpeedChange = (speed: number) => {
     const video = videoRef.current;
-    if (!video) return;
-    video.playbackRate = speed;
+    if (video) video.playbackRate = speed;
     setSelectedSpeed(speed);
     setShowSpeedMenu(false);
   };
@@ -369,9 +320,11 @@ export default function PremiumVideoPlayer({ movie }: PremiumVideoPlayerProps) {
   // Volume icon
   const VolumeIcon = isMuted || volume === 0 ? VolumeX : volume < 0.5 ? Volume1 : Volume2;
 
-  // Active audio label
-  const activeAudio = AUDIO_LANGUAGES.find(a => a.value === selectedAudio);
-  const activeDub = DUB_LANGUAGES.find(d => d.value === selectedDub);
+  // Source label for the video type badge
+  const sourceBadge = videoType === 'youtube' ? 'YouTube' :
+    videoType === 'vimeo' ? 'Vimeo' :
+    videoType === 'embed' ? 'External' :
+    videoType === 'direct' ? 'Direct' : 'Video';
 
   return (
     <div
@@ -387,385 +340,264 @@ export default function PremiumVideoPlayer({ movie }: PremiumVideoPlayerProps) {
         }
       }}
     >
-      {/* Video Element */}
-      <video
-        ref={videoRef}
-        src={movie.videoUrl}
-        className="w-full h-full object-contain"
-        playsInline
-        autoPlay
-        muted
-        preload="metadata"
-        onClick={togglePlay}
-        onDoubleClick={toggleFullscreen}
-      />
-
       {/* Cursor style */}
       <style>{`
         .player-cursor-hidden { cursor: none !important; }
         .player-cursor-hidden * { cursor: none !important; }
       `}</style>
 
-      {/* Loading spinner */}
-      {isLoading && (
+      {/* ─── Iframe Player (YouTube / Vimeo / Embed) ─── */}
+      {isIframe && (
+        <iframe
+          src={movie.videoUrl}
+          className="w-full h-full"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+          referrerPolicy="no-referrer-when-downgrade"
+          title={movie.title}
+        />
+      )}
+
+      {/* ─── Direct Video Player ─── */}
+      {isDirect && (
+        <video
+          ref={videoRef}
+          src={movie.videoUrl}
+          className="w-full h-full object-contain"
+          playsInline
+          autoPlay
+          muted
+          preload="metadata"
+          onClick={togglePlay}
+          onDoubleClick={toggleFullscreen}
+        />
+      )}
+
+      {/* Loading spinner (direct video only) */}
+      {isDirect && isLoading && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
           <div className="w-12 h-12 border-[3px] border-[#8B5CF6]/30 border-t-[#8B5CF6] rounded-full animate-spin" />
         </div>
       )}
 
-      {/* Subtitle overlay */}
-      {selectedSubtitle !== 'Off' && (
-        <div className="absolute bottom-20 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
-          <span className="text-white text-lg md:text-xl bg-black/75 px-4 py-2 rounded-lg whitespace-nowrap">
-            Sample subtitle text ({selectedSubtitle})
-          </span>
-        </div>
-      )}
-
       {/* Source credits watermark */}
       <div className="absolute bottom-3 right-4 z-10 pointer-events-none opacity-40">
-        <span className="text-[10px] text-white/70">Source: {movie.source}</span>
+        <span className="text-[10px] text-white/70">Source: {movie.source} · {sourceBadge}</span>
       </div>
 
-      {/* Skip Intro Button */}
-      {showSkipIntro && currentTime < 30 && (
-        <div className="absolute bottom-28 right-6 z-30">
-          <button
-            onClick={() => {
-              const video = videoRef.current;
-              if (video) video.currentTime = Math.min(30, video.duration * 0.05);
-              setShowSkipIntro(false);
-            }}
-            className="px-5 py-2 bg-[#0c0c10]/80 border border-[#1e1e28] text-white text-sm font-medium rounded hover:bg-[#111118] transition-colors backdrop-blur-sm"
-          >
-            Skip Intro
-          </button>
-        </div>
-      )}
+      {/* ─── Controls Overlay (direct video only) ─── */}
+      {isDirect && (
+        <div
+          className={`absolute inset-0 z-20 transition-opacity duration-300 ${controlsVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'} ${!cursorVisible ? 'player-cursor-hidden' : ''}`}
+        >
+          {/* Top gradient */}
+          <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-black/70 to-transparent pointer-events-none" />
 
-      {/* Controls Overlay */}
-      <div
-        className={`absolute inset-0 z-20 transition-opacity duration-300 ${controlsVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'} ${!cursorVisible ? 'player-cursor-hidden' : ''}`}
-      >
-        {/* Top gradient */}
-        <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-black/70 to-transparent pointer-events-none" />
-
-        {/* Top bar */}
-        <div className="absolute top-0 left-0 right-0 flex items-center justify-between px-4 md:px-8 py-4">
-          <div className="flex items-center gap-4">
-            <Link
-              href="/stream"
-              className="flex items-center gap-2 text-white/80 hover:text-white transition-colors"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <ChevronLeft className="w-6 h-6" strokeWidth={1.5} />
-            </Link>
-            <div>
-              <h2 className="text-white text-sm md:text-base font-semibold">{movie.title}</h2>
-              <p className="text-white/50 text-xs">{movie.year} · {movie.duration}</p>
+          {/* Top bar */}
+          <div className="absolute top-0 left-0 right-0 flex items-center justify-between px-4 md:px-8 py-4">
+            <div className="flex items-center gap-4">
+              <Link
+                href="/stream"
+                className="flex items-center gap-2 text-white/80 hover:text-white transition-colors"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <ChevronLeft className="w-6 h-6" strokeWidth={1.5} />
+              </Link>
+              <div>
+                <h2 className="text-white text-sm md:text-base font-semibold">{movie.title}</h2>
+                <p className="text-white/50 text-xs">{movie.year} · {movie.duration}</p>
+              </div>
             </div>
           </div>
 
-          {/* 4K badge when applicable */}
-          {selectedQuality === '2160p' && (
-            <div className="flex items-center gap-2">
-              <span className="px-2 py-0.5 bg-[#8B5CF6] text-white text-[10px] font-bold rounded">4K</span>
-              <span className="hidden sm:inline text-[10px] text-[#8B5CF6] font-medium">Ultra HD</span>
+          {/* Center play/pause button */}
+          {!isPlaying && !isLoading && (
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <button
+                onClick={togglePlay}
+                className="w-16 h-16 md:w-20 md:h-20 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/20 transition-colors pointer-events-auto border border-white/10"
+                aria-label="Play"
+              >
+                <Play className="w-8 h-8 md:w-10 md:h-10 text-white fill-white ml-1" strokeWidth={1.5} />
+              </button>
+            </div>
+          )}
+
+          {/* Bottom gradient */}
+          <div className="absolute bottom-0 left-0 right-0 h-44 bg-gradient-to-t from-black/80 to-transparent pointer-events-none" />
+
+          {/* Bottom controls */}
+          <div className="absolute bottom-0 left-0 right-0 px-4 md:px-8 pb-4">
+            {/* Progress bar */}
+            <div
+              ref={progressRef}
+              className="group/progress relative h-1.5 hover:h-2.5 transition-all duration-150 cursor-pointer mb-3 rounded-full"
+              onClick={handleProgressClick}
+              onMouseMove={handleProgressHover}
+              onMouseLeave={() => setSeekPreview(null)}
+            >
+              <div className="absolute inset-0 bg-white/20 rounded-full" />
+              <div
+                className="absolute top-0 left-0 h-full bg-white/30 rounded-full"
+                style={{ width: duration ? `${(buffered / duration) * 100}%` : '0%' }}
+              />
+              <div
+                className="absolute top-0 left-0 h-full bg-[#8B5CF6] rounded-full"
+                style={{ width: duration ? `${(currentTime / duration) * 100}%` : '0%' }}
+              />
+              <div
+                className="absolute top-1/2 -translate-y-1/2 w-3.5 h-3.5 bg-[#8B5CF6] rounded-full shadow-lg opacity-0 group-hover/progress:opacity-100 transition-opacity"
+                style={{ left: duration ? `calc(${(currentTime / duration) * 100}% - 7px)` : '-7px' }}
+              />
+              {seekPreview && duration > 0 && (
+                <div
+                  className="absolute -top-8 bg-black/90 text-white text-xs px-2 py-1 rounded pointer-events-none"
+                  style={{ left: `${seekPreview.x}px`, transform: 'translateX(-50%)' }}
+                >
+                  {formatTime(seekPreview.time)}
+                </div>
+              )}
+            </div>
+
+            {/* Control buttons row */}
+            <div className="flex items-center justify-between gap-2">
+              {/* Left controls */}
+              <div className="flex items-center gap-2 md:gap-3">
+                <button onClick={togglePlay} className="text-white hover:text-[#8B5CF6] transition-colors" aria-label={isPlaying ? 'Pause' : 'Play'}>
+                  {isPlaying ? <Pause className="w-5 h-5" fill="currentColor" /> : <Play className="w-5 h-5" fill="currentColor" />}
+                </button>
+
+                <button onClick={() => { const v = videoRef.current; if (v) v.currentTime = Math.max(0, v.currentTime - 10); }} className="text-white/80 hover:text-[#8B5CF6] transition-colors hidden sm:block" aria-label="Skip back 10s">
+                  <SkipBack className="w-4 h-4" strokeWidth={1.5} />
+                </button>
+                <button onClick={() => { const v = videoRef.current; if (v) v.currentTime = Math.min(v.duration, v.currentTime + 10); }} className="text-white/80 hover:text-[#8B5CF6] transition-colors hidden sm:block" aria-label="Skip forward 10s">
+                  <SkipForward className="w-4 h-4" strokeWidth={1.5} />
+                </button>
+
+                <div className="flex items-center gap-1 group/vol">
+                  <button onClick={toggleMute} className="text-white/80 hover:text-[#8B5CF6] transition-colors" aria-label={isMuted ? 'Unmute' : 'Mute'}>
+                    <VolumeIcon className="w-5 h-5" strokeWidth={1.5} />
+                  </button>
+                  <div className="w-0 group-hover/vol:w-20 overflow-hidden transition-all duration-200">
+                    <input
+                      type="range"
+                      min={0}
+                      max={1}
+                      step={0.01}
+                      value={isMuted ? 0 : volume}
+                      onChange={(e) => handleVolumeChange(parseFloat(e.target.value))}
+                      className="w-20 h-1 accent-[#8B5CF6] cursor-pointer"
+                      aria-label="Volume"
+                    />
+                  </div>
+                </div>
+
+                <div className="text-white/70 text-xs font-mono hidden sm:block">
+                  {formatTime(currentTime)} / {formatTime(duration)}
+                </div>
+              </div>
+
+              {/* Right controls */}
+              <div className="flex items-center gap-1 md:gap-2">
+                {/* Speed */}
+                <div className="relative">
+                  <button
+                    onClick={() => { closeAllMenus(); setShowSpeedMenu(!showSpeedMenu); }}
+                    className={`text-xs px-1.5 py-0.5 rounded transition-colors ${selectedSpeed !== 1 ? 'text-[#8B5CF6] bg-[#8B5CF6]/10' : 'text-white/80 hover:text-[#8B5CF6]'}`}
+                    aria-label="Playback speed"
+                  >
+                    {selectedSpeed === 1 ? '1x' : `${selectedSpeed}x`}
+                  </button>
+                </div>
+
+                <button onClick={toggleFullscreen} className="text-white/80 hover:text-[#8B5CF6] transition-colors" aria-label={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}>
+                  {isFullscreen ? <Minimize className="w-5 h-5" strokeWidth={1.5} /> : <Maximize className="w-5 h-5" strokeWidth={1.5} />}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Speed Menu */}
+          {showSpeedMenu && (
+            <div className="absolute bottom-24 right-12 md:right-20 bg-[#0c0c10]/95 backdrop-blur-md border border-[#1e1e28] rounded-xl py-2 min-w-[140px] z-30">
+              <div className="px-3 py-1.5 text-xs text-white/50 font-medium border-b border-[#1e1e28]">Speed</div>
+              {SPEED_OPTIONS.map((speed) => (
+                <button
+                  key={speed}
+                  onClick={() => handleSpeedChange(speed)}
+                  className={`flex items-center justify-between w-full px-3 py-2 text-sm transition-colors ${selectedSpeed === speed ? 'text-[#8B5CF6] bg-[#8B5CF6]/10' : 'text-white/80 hover:bg-[#111118]'}`}
+                >
+                  <span>{speed === 1 ? 'Normal' : `${speed}x`}</span>
+                  {selectedSpeed === speed && <Check className="w-4 h-4" strokeWidth={2} />}
+                </button>
+              ))}
             </div>
           )}
         </div>
+      )}
 
-        {/* Center play/pause button */}
-        {!isPlaying && !isLoading && (
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <button
-              onClick={togglePlay}
-              className="w-16 h-16 md:w-20 md:h-20 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/20 transition-colors pointer-events-auto border border-white/10"
-              aria-label="Play"
-            >
-              <Play className="w-8 h-8 md:w-10 md:h-10 text-white fill-white ml-1" strokeWidth={1.5} />
-            </button>
-          </div>
-        )}
+      {/* ─── Iframe Controls Overlay (simplified top bar only) ─── */}
+      {isIframe && (
+        <div
+          className={`absolute inset-0 z-20 transition-opacity duration-300 pointer-events-none ${controlsVisible ? 'opacity-100' : 'opacity-0'}`}
+        >
+          {/* Top gradient */}
+          <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-black/70 to-transparent pointer-events-none" />
 
-        {/* Bottom gradient */}
-        <div className="absolute bottom-0 left-0 right-0 h-44 bg-gradient-to-t from-black/80 to-transparent pointer-events-none" />
-
-        {/* Bottom controls */}
-        <div className="absolute bottom-0 left-0 right-0 px-4 md:px-8 pb-4">
-          {/* Progress bar */}
-          <div
-            ref={progressRef}
-            className="group/progress relative h-1.5 hover:h-2.5 transition-all duration-150 cursor-pointer mb-3 rounded-full"
-            onClick={handleProgressClick}
-            onMouseMove={handleProgressHover}
-            onMouseLeave={() => setSeekPreview(null)}
-          >
-            {/* Background */}
-            <div className="absolute inset-0 bg-white/20 rounded-full" />
-
-            {/* Buffered */}
-            <div
-              className="absolute top-0 left-0 h-full bg-white/30 rounded-full"
-              style={{ width: duration ? `${(buffered / duration) * 100}%` : '0%' }}
-            />
-
-            {/* Progress */}
-            <div
-              className="absolute top-0 left-0 h-full bg-[#8B5CF6] rounded-full"
-              style={{ width: duration ? `${(currentTime / duration) * 100}%` : '0%' }}
-            />
-
-            {/* Thumb */}
-            <div
-              className="absolute top-1/2 -translate-y-1/2 w-3.5 h-3.5 bg-[#8B5CF6] rounded-full shadow-lg opacity-0 group-hover/progress:opacity-100 transition-opacity"
-              style={{ left: duration ? `calc(${(currentTime / duration) * 100}% - 7px)` : '-7px' }}
-            />
-
-            {/* Seek preview tooltip */}
-            {seekPreview && duration > 0 && (
-              <div
-                className="absolute -top-8 bg-black/90 text-white text-xs px-2 py-1 rounded pointer-events-none"
-                style={{ left: `${seekPreview.x}px`, transform: 'translateX(-50%)' }}
+          {/* Top bar */}
+          <div className="absolute top-0 left-0 right-0 flex items-center justify-between px-4 md:px-8 py-4 pointer-events-auto">
+            <div className="flex items-center gap-4">
+              <Link
+                href="/stream"
+                className="flex items-center gap-2 text-white/80 hover:text-white transition-colors"
+                onClick={(e) => e.stopPropagation()}
               >
-                {formatTime(seekPreview.time)}
-              </div>
-            )}
-          </div>
-
-          {/* Control buttons row */}
-          <div className="flex items-center justify-between gap-2">
-            {/* Left controls */}
-            <div className="flex items-center gap-2 md:gap-3">
-              {/* Play/Pause */}
-              <button onClick={togglePlay} className="text-white hover:text-[#8B5CF6] transition-colors" aria-label={isPlaying ? 'Pause' : 'Play'}>
-                {isPlaying ? <Pause className="w-5 h-5" fill="currentColor" /> : <Play className="w-5 h-5" fill="currentColor" />}
-              </button>
-
-              {/* Skip back/forward */}
-              <button onClick={() => { const v = videoRef.current; if (v) v.currentTime = Math.max(0, v.currentTime - 10); }} className="text-white/80 hover:text-[#8B5CF6] transition-colors hidden sm:block" aria-label="Skip back 10s">
-                <SkipBack className="w-4 h-4" strokeWidth={1.5} />
-              </button>
-              <button onClick={() => { const v = videoRef.current; if (v) v.currentTime = Math.min(v.duration, v.currentTime + 10); }} className="text-white/80 hover:text-[#8B5CF6] transition-colors hidden sm:block" aria-label="Skip forward 10s">
-                <SkipForward className="w-4 h-4" strokeWidth={1.5} />
-              </button>
-
-              {/* Volume */}
-              <div className="flex items-center gap-1 group/vol">
-                <button onClick={toggleMute} className="text-white/80 hover:text-[#8B5CF6] transition-colors" aria-label={isMuted ? 'Unmute' : 'Mute'}>
-                  <VolumeIcon className="w-5 h-5" strokeWidth={1.5} />
-                </button>
-                <div className="w-0 group-hover/vol:w-20 overflow-hidden transition-all duration-200">
-                  <input
-                    type="range"
-                    min={0}
-                    max={1}
-                    step={0.01}
-                    value={isMuted ? 0 : volume}
-                    onChange={(e) => handleVolumeChange(parseFloat(e.target.value))}
-                    className="w-20 h-1 accent-[#8B5CF6] cursor-pointer"
-                    aria-label="Volume"
-                  />
-                </div>
-              </div>
-
-              {/* Time */}
-              <div className="text-white/70 text-xs font-mono hidden sm:block">
-                {formatTime(currentTime)} / {formatTime(duration)}
+                <ChevronLeft className="w-6 h-6" strokeWidth={1.5} />
+              </Link>
+              <div>
+                <h2 className="text-white text-sm md:text-base font-semibold">{movie.title}</h2>
+                <p className="text-white/50 text-xs">{movie.year} · {movie.duration}</p>
               </div>
             </div>
-
-            {/* Right controls */}
-            <div className="flex items-center gap-1 md:gap-2">
-              {/* Dub dropdown button */}
-              <div className="relative">
-                <button
-                  onClick={() => { closeAllMenus(); setShowDubPanel(!showDubPanel); }}
-                  className={`flex items-center gap-1 text-xs px-2 py-1 rounded transition-colors ${showDubPanel ? 'text-[#8B5CF6] bg-[#8B5CF6]/10' : 'text-white/80 hover:text-[#8B5CF6]'} ${selectedDub ? 'border border-[#8B5CF6]/30' : ''}`}
-                  aria-label="Dubbed versions"
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] font-medium px-2 py-0.5 bg-white/10 backdrop-blur-sm text-white/70 rounded">
+                {sourceBadge}
+              </span>
+              {movie.sourceUrl && (
+                <a
+                  href={movie.sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/60 hover:text-white transition-colors"
+                  aria-label="Open original source"
                 >
-                  <Languages className="w-4 h-4" strokeWidth={1.5} />
-                  <span>DUB</span>
-                  <ChevronUp className={`w-3 h-3 transition-transform ${showDubPanel ? 'rotate-180' : ''}`} strokeWidth={1.5} />
-                </button>
-              </div>
-
-              {/* Subtitle button */}
-              <button
-                onClick={() => { closeAllMenus(); setShowSubtitleMenu(!showSubtitleMenu); }}
-                className={`transition-colors ${selectedSubtitle !== 'Off' ? 'text-[#8B5CF6]' : 'text-white/80 hover:text-[#8B5CF6]'}`}
-                aria-label="Subtitles"
-              >
-                <Subtitles className="w-5 h-5" strokeWidth={1.5} />
-              </button>
-
-              {/* Audio language button */}
-              <button
-                onClick={() => { closeAllMenus(); setShowAudioMenu(!showAudioMenu); }}
-                className={`transition-colors ${showAudioMenu ? 'text-[#8B5CF6]' : 'text-white/80 hover:text-[#8B5CF6]'}`}
-                aria-label="Audio language"
-              >
-                <Globe className="w-5 h-5" strokeWidth={1.5} />
-              </button>
-
-              {/* Speed */}
-              <div className="relative">
-                <button
-                  onClick={() => { closeAllMenus(); setShowSpeedMenu(!showSpeedMenu); }}
-                  className={`text-xs px-1.5 py-0.5 rounded transition-colors ${selectedSpeed !== 1 ? 'text-[#8B5CF6] bg-[#8B5CF6]/10' : 'text-white/80 hover:text-[#8B5CF6]'}`}
-                  aria-label="Playback speed"
-                >
-                  {selectedSpeed === 1 ? '1x' : `${selectedSpeed}x`}
-                </button>
-              </div>
-
-              {/* Quality */}
-              <div className="relative">
-                <button
-                  onClick={() => { closeAllMenus(); setShowQualityMenu(!showQualityMenu); }}
-                  className="flex items-center gap-1 text-white/80 hover:text-[#8B5CF6] transition-colors"
-                  aria-label="Quality"
-                >
-                  <Settings className="w-5 h-5" strokeWidth={1.5} />
-                  <span className="text-[10px] font-bold text-[#8B5CF6]">{selectedQuality === '2160p' ? '4K' : selectedQuality === 'auto' ? 'Auto' : selectedQuality.replace('p', '')}</span>
-                </button>
-              </div>
-
-              {/* Fullscreen */}
-              <button onClick={toggleFullscreen} className="text-white/80 hover:text-[#8B5CF6] transition-colors" aria-label={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}>
-                {isFullscreen ? <Minimize className="w-5 h-5" strokeWidth={1.5} /> : <Maximize className="w-5 h-5" strokeWidth={1.5} />}
-              </button>
+                  <ExternalLink className="w-4 h-4" strokeWidth={1.5} />
+                </a>
+              )}
             </div>
           </div>
-
-          {/* Active track info */}
-          <div className="flex items-center gap-3 mt-1.5 text-[10px] text-white/40">
-            {selectedSubtitle !== 'Off' && <span>CC: {selectedSubtitle}</span>}
-            {activeAudio && <span>Audio: {activeAudio.label}</span>}
-            {activeDub && <span className="text-[#8B5CF6]/60">Dub: {activeDub.label}</span>}
-          </div>
-        </div>
-
-        {/* ─── Popup Menus ─── */}
-
-        {/* Quality Menu */}
-        {showQualityMenu && (
-          <div className="absolute bottom-24 right-12 md:right-20 bg-[#0c0c10]/95 backdrop-blur-md border border-[#1e1e28] rounded-xl py-2 min-w-[180px] z-30 animate-in fade-in slide-in-from-bottom-2 duration-200">
-            <div className="px-3 py-1.5 text-xs text-white/50 font-medium border-b border-[#1e1e28]">Quality</div>
-            {QUALITY_OPTIONS.map((q) => (
-              <button
-                key={q.value}
-                onClick={() => { setSelectedQuality(q.value); setShowQualityMenu(false); }}
-                className={`flex items-center justify-between w-full px-3 py-2 text-sm transition-colors ${selectedQuality === q.value ? 'text-[#8B5CF6] bg-[#8B5CF6]/10' : 'text-white/80 hover:bg-[#111118]'}`}
-              >
-                <span>{q.label}</span>
-                {selectedQuality === q.value && <Check className="w-4 h-4" strokeWidth={2} />}
-              </button>
-            ))}
-            {selectedQuality === '2160p' && (
-              <div className="mx-3 mt-2 mb-1 p-2 bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 rounded-lg">
-                <p className="text-[10px] text-[#8B5CF6] font-medium">Streaming in 4K Ultra HD</p>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Subtitle Menu */}
-        {showSubtitleMenu && (
-          <div className="absolute bottom-24 right-12 md:right-20 bg-[#0c0c10]/95 backdrop-blur-md border border-[#1e1e28] rounded-xl py-2 min-w-[200px] z-30 max-h-80 overflow-y-auto animate-in fade-in slide-in-from-bottom-2 duration-200 scrollbar-thin">
-            <div className="px-3 py-1.5 text-xs text-white/50 font-medium border-b border-[#1e1e28] sticky top-0 bg-[#0c0c10]">Subtitles</div>
-            {SUBTITLE_OPTIONS.map((sub) => (
-              <button
-                key={sub}
-                onClick={() => { setSelectedSubtitle(sub); setShowSubtitleMenu(false); }}
-                className={`flex items-center justify-between w-full px-3 py-2 text-sm transition-colors ${selectedSubtitle === sub ? 'text-[#8B5CF6] bg-[#8B5CF6]/10' : 'text-white/80 hover:bg-[#111118]'}`}
-              >
-                <span>{sub}</span>
-                {selectedSubtitle === sub && <Check className="w-4 h-4" strokeWidth={2} />}
-              </button>
-            ))}
-          </div>
-        )}
-
-        {/* Audio Language Menu */}
-        {showAudioMenu && (
-          <div className="absolute bottom-24 right-12 md:right-20 bg-[#0c0c10]/95 backdrop-blur-md border border-[#1e1e28] rounded-xl py-2 min-w-[220px] z-30 max-h-80 overflow-y-auto animate-in fade-in slide-in-from-bottom-2 duration-200 scrollbar-thin">
-            <div className="px-3 py-1.5 text-xs text-white/50 font-medium border-b border-[#1e1e28] sticky top-0 bg-[#0c0c10]">Audio Language</div>
-            {AUDIO_LANGUAGES.map((audio) => (
-              <button
-                key={audio.value}
-                onClick={() => { setSelectedAudio(audio.value); setShowAudioMenu(false); }}
-                className={`flex items-center justify-between w-full px-3 py-2 text-sm transition-colors ${selectedAudio === audio.value ? 'text-[#8B5CF6] bg-[#8B5CF6]/10' : 'text-white/80 hover:bg-[#111118]'}`}
-              >
-                <div className="flex items-center gap-2">
-                  <span>{audio.label}</span>
-                  {audio.isOriginal && <span className="text-[9px] px-1.5 py-0.5 bg-[#8B5CF6]/20 text-[#8B5CF6] rounded font-medium">Original</span>}
-                  {audio.isDubbed && <span className="text-[9px] px-1.5 py-0.5 bg-white/10 text-white/50 rounded font-medium">Dubbed</span>}
-                </div>
-                {selectedAudio === audio.value && <Check className="w-4 h-4" strokeWidth={2} />}
-              </button>
-            ))}
-          </div>
-        )}
-
-        {/* Speed Menu */}
-        {showSpeedMenu && (
-          <div className="absolute bottom-24 right-12 md:right-20 bg-[#0c0c10]/95 backdrop-blur-md border border-[#1e1e28] rounded-xl py-2 min-w-[140px] z-30 animate-in fade-in slide-in-from-bottom-2 duration-200">
-            <div className="px-3 py-1.5 text-xs text-white/50 font-medium border-b border-[#1e1e28]">Speed</div>
-            {SPEED_OPTIONS.map((speed) => (
-              <button
-                key={speed}
-                onClick={() => handleSpeedChange(speed)}
-                className={`flex items-center justify-between w-full px-3 py-2 text-sm transition-colors ${selectedSpeed === speed ? 'text-[#8B5CF6] bg-[#8B5CF6]/10' : 'text-white/80 hover:bg-[#111118]'}`}
-              >
-                <span>{speed === 1 ? 'Normal' : `${speed}x`}</span>
-                {selectedSpeed === speed && <Check className="w-4 h-4" strokeWidth={2} />}
-              </button>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* Dub Dropdown Menu */}
-      {showDubPanel && (
-        <div className="absolute bottom-24 right-12 md:right-20 bg-[#0c0c10]/95 backdrop-blur-md border border-[#1e1e28] rounded-xl py-2 min-w-[200px] z-30 max-h-80 overflow-y-auto">
-          <div className="px-3 py-1.5 text-xs text-white/50 font-medium border-b border-[#1e1e28] sticky top-0 bg-[#0c0c10] flex items-center justify-between">
-            <span>Dubbed Versions</span>
-            <button onClick={() => setShowDubPanel(false)} className="w-6 h-6 flex items-center justify-center rounded-full bg-white/10 text-white/60 hover:text-white hover:bg-white/20 transition-colors" aria-label="Close">
-              <X className="w-3.5 h-3.5" strokeWidth={2} />
-            </button>
-          </div>
-          {DUB_LANGUAGES.map((dub) => (
-            <button
-              key={dub.value}
-              onClick={() => { setSelectedDub(dub.value === selectedDub ? null : dub.value); setShowDubPanel(false); }}
-              className={`flex items-center justify-between w-full px-3 py-2 text-sm transition-colors ${selectedDub === dub.value ? 'text-[#8B5CF6] bg-[#8B5CF6]/10' : 'text-white/80 hover:bg-[#111118]'}`}
-            >
-              <div className="flex items-center gap-2">
-                <span>{dub.flag}</span>
-                <span>{dub.label}</span>
-              </div>
-              {selectedDub === dub.value && <Check className="w-4 h-4" strokeWidth={2} />}
-            </button>
-          ))}
         </div>
       )}
 
-      {/* Mini progress bar (always visible) */}
-      <div className="absolute bottom-0 left-0 right-0 h-0.5 z-10 bg-white/10 pointer-events-none">
-        <div
-          className="h-full bg-[#8B5CF6]"
-          style={{ width: duration ? `${(currentTime / duration) * 100}%` : '0%' }}
-        />
-      </div>
-
-      {/* Keyboard shortcuts hint (briefly on mount) */}
-      <div className="absolute bottom-16 left-4 z-10 pointer-events-none opacity-0" id="shortcuts-hint">
-        <div className="text-[10px] text-white/30 space-y-0.5">
-          <p>Space: Play/Pause · ←→: Seek 10s · ↑↓: Volume</p>
-          <p>M: Mute · F: Fullscreen · S: Subtitles · L: Language</p>
+      {/* Mini progress bar (always visible for direct video) */}
+      {isDirect && (
+        <div className="absolute bottom-0 left-0 right-0 h-0.5 z-10 bg-white/10 pointer-events-none">
+          <div
+            className="h-full bg-[#8B5CF6]"
+            style={{ width: duration ? `${(currentTime / duration) * 100}%` : '0%' }}
+          />
         </div>
-      </div>
+      )}
+
+      {/* Keyboard shortcuts hint */}
+      {isDirect && (
+        <div className="absolute bottom-16 left-4 z-10 pointer-events-none opacity-0" id="shortcuts-hint">
+          <div className="text-[10px] text-white/30 space-y-0.5">
+            <p>Space: Play/Pause · ←→: Seek 10s · ↑↓: Volume</p>
+            <p>M: Mute · F: Fullscreen</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

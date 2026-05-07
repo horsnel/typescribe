@@ -54,15 +54,7 @@ export type StreamSource =
   | 'internet-archive'
   | 'blender-foundation'
   | 'public-domain'
-  | 'tubi'
-  | 'crackle'
-  | 'pluto-tv'
-  | 'tmdb-discover'
-  | 'retrocrush'
-  | 'contv'
-  | 'bilibili'
-  | 'vimeo-cc'
-  | 'indie-animation';
+  | 'vimeo-cc';
 
 // ─── Catalog & Categories ────────────────────────────────────────────────────
 

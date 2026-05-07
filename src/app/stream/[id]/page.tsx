@@ -22,6 +22,8 @@ interface PlayerMovieData {
   description: string;
   source: string;
   videoUrl: string;
+  videoType?: 'direct' | 'youtube' | 'vimeo' | 'embed';
+  sourceUrl?: string;
   languages: string[];
   subtitles: string[];
 }
@@ -42,6 +44,8 @@ function toPlayerMovie(m: StreamableMovie): PlayerMovieData {
     description: m.description,
     source: `${m.source.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())} · ${m.sourceLicense}`,
     videoUrl: m.videoUrl,
+    videoType: m.videoType,
+    sourceUrl: m.sourceUrl,
     languages: m.languages.map(l =>
       l.isOriginal ? `${l.label}` : l.label
     ),

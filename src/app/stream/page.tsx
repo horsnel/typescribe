@@ -84,7 +84,7 @@ function MovieRow({ title, icon: Icon, movies }: { title: string; icon: React.Co
                 {/* Source badge */}
                 <div className="absolute top-2 right-2">
                   <span className="text-[8px] font-medium px-1.5 py-0.5 bg-black/60 backdrop-blur-sm text-white/70 rounded">
-                    {movie.source === 'blender-foundation' ? 'CC' : movie.source === 'internet-archive' ? 'PD' : movie.source === 'youtube' ? 'YT' : 'Free'}
+                    {movie.source === 'blender-foundation' ? 'CC' : movie.source === 'internet-archive' ? 'PD' : movie.source === 'youtube' ? 'YT' : movie.source === 'vimeo-cc' ? 'Vimeo' : movie.source === 'public-domain' ? 'PD' : 'Free'}
                   </span>
                 </div>
                 {/* Rating badge */}
@@ -391,7 +391,9 @@ export default function StreamPage() {
           <span>{movies.length} movies available</span>
           <span>{movies.filter(m => m.is4K).length} in 4K</span>
           <span>{movies.filter(m => m.source === 'blender-foundation').length} Creative Commons</span>
-          <span>{movies.filter(m => m.source === 'internet-archive').length} Public Domain</span>
+          <span>{movies.filter(m => m.source === 'internet-archive' || m.source === 'public-domain').length} Public Domain</span>
+          <span>{movies.filter(m => m.source === 'youtube').length} YouTube</span>
+          <span>{movies.filter(m => m.source === 'vimeo-cc').length} Vimeo</span>
         </div>
       </div>
 
