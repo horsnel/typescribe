@@ -57,7 +57,12 @@ export type StreamSource =
   | 'tubi'
   | 'crackle'
   | 'pluto-tv'
-  | 'tmdb-discover';
+  | 'tmdb-discover'
+  | 'retrocrush'
+  | 'contv'
+  | 'bilibili'
+  | 'vimeo-cc'
+  | 'indie-animation';
 
 // ─── Catalog & Categories ────────────────────────────────────────────────────
 

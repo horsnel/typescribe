@@ -25,6 +25,15 @@ import { fetchYouTubeFreeMovies, searchYouTubeFreeMovie } from './sources/youtub
 import { fetchArchiveMovies, searchArchiveMovies } from './sources/internet-archive';
 import { discoverAllCountries, getCountryConfigs } from './sources/tmdb-discover';
 import { fetchYouTubeRegionalMovies, getRegionalConfigs } from './sources/youtube-regional';
+import { fetchTubiMovies, searchTubiMovies } from './sources/tubi';
+import { fetchPlutoTVMovies, searchPlutoTVMovies } from './sources/pluto-tv';
+import { fetchRetroCrushMovies, searchRetroCrushMovies } from './sources/retrocrush';
+import { fetchCrackleMovies, searchCrackleMovies } from './sources/crackle';
+import { fetchContvMovies, searchContvMovies } from './sources/contv';
+import { fetchBilibiliMovies, searchBilibiliMovies, isBilibiliAvailable } from './sources/bilibili';
+import { fetchVimeoCCMovies, searchVimeoCCMovies } from './sources/vimeo';
+import { fetchPublicDomainAnime, searchPublicDomainAnime } from './sources/public-domain-anime';
+import { fetchIndieAnimation, searchIndieAnimation } from './sources/indie-animation';
 
 // ─── Configuration ───────────────────────────────────────────────────────────
 
@@ -157,6 +166,127 @@ function buildCategories(movies: StreamableMovie[]): StreamingCategory[] {
         .slice(0, 10)
         .map(m => m.id),
     },
+    // ─── New Source-Specific Categories ───
+    {
+      id: 'anime-classics',
+      label: 'Classic Anime',
+      icon: 'Swords',
+      movieIds: movies
+        .filter(m =>
+          m.source === 'retrocrush' ||
+          m.source === 'public-domain' && m.genres.some(g => g.toLowerCase().includes('animation'))
+        )
+        .map(m => m.id),
+    },
+    {
+      id: 'tubi-free',
+      label: 'Free on Tubi',
+      icon: 'Tv',
+      movieIds: movies
+        .filter(m => m.source === 'tubi')
+        .map(m => m.id),
+    },
+    {
+      id: 'pluto-tv',
+      label: 'Free on Pluto TV',
+      icon: 'Radio',
+      movieIds: movies
+        .filter(m => m.source === 'pluto-tv')
+        .map(m => m.id),
+    },
+    {
+      id: 'crackle-free',
+      label: 'Free on Crackle',
+      icon: 'Zap',
+      movieIds: movies
+        .filter(m => m.source === 'crackle')
+        .map(m => m.id),
+    },
+    {
+      id: 'grindhouse',
+      label: 'Grindhouse & B-Movies',
+      icon: 'Skull',
+      movieIds: movies
+        .filter(m => m.source === 'contv' || m.source === 'crackle')
+        .map(m => m.id),
+    },
+    {
+      id: 'vimeo-shorts',
+      label: 'Animated Shorts',
+      icon: 'Clapperboard',
+      movieIds: movies
+        .filter(m => m.source === 'vimeo-cc' || m.source === 'indie-animation')
+        .map(m => m.id),
+    },
+    {
+      id: 'public-domain-anime',
+      label: 'Public Domain Anime',
+      icon: 'Scroll',
+      movieIds: movies
+        .filter(m =>
+          m.sourceLicense.toLowerCase().includes('public domain') &&
+          m.genres.some(g => g.toLowerCase().includes('animation'))
+        )
+        .map(m => m.id),
+    },
+    {
+      id: 'bilibili-anime',
+      label: 'Free Anime (Bilibili)',
+      icon: 'Globe',
+      movieIds: movies
+        .filter(m => m.source === 'bilibili')
+        .map(m => m.id),
+    },
+    {
+      id: 'romance',
+      label: 'Romance',
+      icon: 'Heart',
+      movieIds: movies
+        .filter(m => m.genres.some(g => g.toLowerCase().includes('romance')))
+        .map(m => m.id),
+    },
+    {
+      id: 'thriller',
+      label: 'Thriller & Mystery',
+      icon: 'Eye',
+      movieIds: movies
+        .filter(m =>
+          m.genres.some(g =>
+            g.toLowerCase().includes('thriller') ||
+            g.toLowerCase().includes('mystery')
+          )
+        )
+        .map(m => m.id),
+    },
+    {
+      id: 'documentary',
+      label: 'Documentary',
+      icon: 'Camera',
+      movieIds: movies
+        .filter(m => m.genres.some(g => g.toLowerCase().includes('documentary')))
+        .map(m => m.id),
+    },
+    {
+      id: 'war',
+      label: 'War & History',
+      icon: 'Shield',
+      movieIds: movies
+        .filter(m =>
+          m.genres.some(g =>
+            g.toLowerCase().includes('war') ||
+            g.toLowerCase().includes('history')
+          )
+        )
+        .map(m => m.id),
+    },
+    {
+      id: 'all-free-streaming',
+      label: 'All Free Streaming',
+      icon: 'Play',
+      movieIds: movies
+        .sort((a, b) => b.rating - a.rating)
+        .map(m => m.id),
+    },
   ];
 
   // Country-specific categories from TMDb discovery
@@ -256,6 +386,126 @@ async function fetchAllMovies(): Promise<StreamableMovie[]> {
     }
   } catch (err) {
     errors.push(`YTRegional: ${err}`);
+  }
+
+  // 6. Tubi (curated catalog of free movies)
+  try {
+    const tubiMovies = await fetchTubiMovies();
+    for (const movie of tubiMovies) {
+      if (!seenIds.has(movie.id)) {
+        allMovies.push(movie);
+        seenIds.add(movie.id);
+      }
+    }
+  } catch (err) {
+    errors.push(`Tubi: ${err}`);
+  }
+
+  // 7. Pluto TV (curated catalog of free movies)
+  try {
+    const plutoMovies = await fetchPlutoTVMovies();
+    for (const movie of plutoMovies) {
+      if (!seenIds.has(movie.id)) {
+        allMovies.push(movie);
+        seenIds.add(movie.id);
+      }
+    }
+  } catch (err) {
+    errors.push(`PlutoTV: ${err}`);
+  }
+
+  // 8. RetroCrush (classic/vintage anime)
+  try {
+    const retroMovies = await fetchRetroCrushMovies();
+    for (const movie of retroMovies) {
+      if (!seenIds.has(movie.id)) {
+        allMovies.push(movie);
+        seenIds.add(movie.id);
+      }
+    }
+  } catch (err) {
+    errors.push(`RetroCrush: ${err}`);
+  }
+
+  // 9. Crackle (Sony free streaming)
+  try {
+    const crackleMovies = await fetchCrackleMovies();
+    for (const movie of crackleMovies) {
+      if (!seenIds.has(movie.id)) {
+        allMovies.push(movie);
+        seenIds.add(movie.id);
+      }
+    }
+  } catch (err) {
+    errors.push(`Crackle: ${err}`);
+  }
+
+  // 10. CONtv (genre movies - horror, sci-fi, grindhouse)
+  try {
+    const contvMovies = await fetchContvMovies();
+    for (const movie of contvMovies) {
+      if (!seenIds.has(movie.id)) {
+        allMovies.push(movie);
+        seenIds.add(movie.id);
+      }
+    }
+  } catch (err) {
+    errors.push(`CONtv: ${err}`);
+  }
+
+  // 11. Bilibili (region-gated free anime)
+  try {
+    const bilibiliAvailable = await isBilibiliAvailable();
+    if (bilibiliAvailable) {
+      const bilibiliMovies = await fetchBilibiliMovies();
+      for (const movie of bilibiliMovies) {
+        if (!seenIds.has(movie.id)) {
+          allMovies.push(movie);
+          seenIds.add(movie.id);
+        }
+      }
+    }
+  } catch (err) {
+    errors.push(`Bilibili: ${err}`);
+  }
+
+  // 12. Vimeo CC (Creative Commons animated shorts)
+  try {
+    const vimeoMovies = await fetchVimeoCCMovies();
+    for (const movie of vimeoMovies) {
+      if (!seenIds.has(movie.id)) {
+        allMovies.push(movie);
+        seenIds.add(movie.id);
+      }
+    }
+  } catch (err) {
+    errors.push(`VimeoCC: ${err}`);
+  }
+
+  // 13. Public Domain Anime (Astro Boy, Kimba, etc.)
+  try {
+    const pdAnime = await fetchPublicDomainAnime();
+    for (const movie of pdAnime) {
+      if (!seenIds.has(movie.id)) {
+        allMovies.push(movie);
+        seenIds.add(movie.id);
+      }
+    }
+  } catch (err) {
+    errors.push(`PublicDomainAnime: ${err}`);
+  }
+
+  // 14. Indie Animation (short films, student work, festival winners)
+  try {
+    const indieMovies = await fetchIndieAnimation();
+    for (const movie of indieMovies) {
+      if (!seenIds.has(movie.id)) {
+        allMovies.push(movie);
+        seenIds.add(movie.id);
+      }
+    }
+  } catch (err) {
+    errors.push(`IndieAnimation: ${err}`);
   }
 
   if (errors.length > 0) {
@@ -369,6 +619,84 @@ export async function searchStreamingMovies(query: string): Promise<StreamableMo
     console.warn('[StreamingPipeline] Archive search error:', err);
   }
 
+  // 4. Search Tubi
+  try {
+    const tubiResults = await searchTubiMovies(query);
+    for (const movie of tubiResults) {
+      if (!seenIds.has(movie.id)) {
+        results.push(movie);
+        seenIds.add(movie.id);
+      }
+    }
+  } catch (err) {
+    console.warn('[StreamingPipeline] Tubi search error:', err);
+  }
+
+  // 5. Search Pluto TV
+  try {
+    const plutoResults = await searchPlutoTVMovies(query);
+    for (const movie of plutoResults) {
+      if (!seenIds.has(movie.id)) {
+        results.push(movie);
+        seenIds.add(movie.id);
+      }
+    }
+  } catch (err) {
+    console.warn('[StreamingPipeline] Pluto TV search error:', err);
+  }
+
+  // 6. Search RetroCrush
+  try {
+    const retroResults = await searchRetroCrushMovies(query);
+    for (const movie of retroResults) {
+      if (!seenIds.has(movie.id)) {
+        results.push(movie);
+        seenIds.add(movie.id);
+      }
+    }
+  } catch (err) {
+    console.warn('[StreamingPipeline] RetroCrush search error:', err);
+  }
+
+  // 7. Search Crackle
+  try {
+    const crackleResults = await searchCrackleMovies(query);
+    for (const movie of crackleResults) {
+      if (!seenIds.has(movie.id)) {
+        results.push(movie);
+        seenIds.add(movie.id);
+      }
+    }
+  } catch (err) {
+    console.warn('[StreamingPipeline] Crackle search error:', err);
+  }
+
+  // 8. Search Bilibili
+  try {
+    const bilibiliResults = await searchBilibiliMovies(query);
+    for (const movie of bilibiliResults) {
+      if (!seenIds.has(movie.id)) {
+        results.push(movie);
+        seenIds.add(movie.id);
+      }
+    }
+  } catch (err) {
+    console.warn('[StreamingPipeline] Bilibili search error:', err);
+  }
+
+  // 9. Search Public Domain Anime
+  try {
+    const pdAnimeResults = await searchPublicDomainAnime(query);
+    for (const movie of pdAnimeResults) {
+      if (!seenIds.has(movie.id)) {
+        results.push(movie);
+        seenIds.add(movie.id);
+      }
+    }
+  } catch (err) {
+    console.warn('[StreamingPipeline] Public Domain Anime search error:', err);
+  }
+
   // Sort: title matches first, then by rating
   results.sort((a, b) => {
     const aTitle = a.title.toLowerCase().includes(q) ? 0 : 1;
@@ -426,6 +754,15 @@ export function getStreamingPipelineStatus(): {
     youtube: boolean;
     tmdbDiscover: boolean;
     youtubeRegional: boolean;
+    tubi: boolean;
+    plutoTV: boolean;
+    retrocrush: boolean;
+    crackle: boolean;
+    contv: boolean;
+    bilibili: boolean;
+    vimeoCC: boolean;
+    publicDomainAnime: boolean;
+    indieAnimation: boolean;
   };
   cache: {
     size: number;
@@ -440,6 +777,15 @@ export function getStreamingPipelineStatus(): {
       youtube: !!(process.env.YOUTUBE_API_KEY || process.env.NEXT_PUBLIC_YOUTUBE_API_KEY),
       tmdbDiscover: !!process.env.TMDB_API_KEY,
       youtubeRegional: !!(process.env.YOUTUBE_API_KEY || process.env.NEXT_PUBLIC_YOUTUBE_API_KEY),
+      tubi: true, // Curated catalog, always available
+      plutoTV: true, // Curated catalog, always available
+      retrocrush: true, // Curated catalog, always available
+      crackle: true, // Curated catalog, always available
+      contv: true, // Curated catalog, always available
+      bilibili: true, // Curated catalog, geo-check at runtime
+      vimeoCC: true, // Curated catalog, always available
+      publicDomainAnime: true, // Curated catalog, always available
+      indieAnimation: true, // Curated catalog, always available
     },
     cache: {
       size: stats.size,

@@ -163,15 +163,16 @@ function toStreamableMovie(movie: TMDbMovieResult, countryCode: string, countryN
     quality: '1080p',
     poster,
     backdrop,
-    source: isFreeOnPlatform ? 'youtube' : 'public-domain', // Best approximation
+    source: 'tmdb-discover',
     sourceUrl: `https://www.themoviedb.org/movie/${movie.id}`,
-    sourceLicense: isFreeOnPlatform ? 'Free to Watch (Ad-Supported)' : 'Check Availability',
-    videoUrl: '', // No direct stream URL - will link to source
+    sourceLicense: isFreeOnPlatform ? 'Free to Watch (Ad-Supported)' : 'Check Streaming Availability',
+    videoUrl: `https://www.themoviedb.org/movie/${movie.id}/watch`,
     videoType: 'embed',
     languages,
     subtitles,
     is4K: false,
     isFree: isFreeOnPlatform,
+    country: countryCode,
     addedAt: new Date().toISOString(),
   };
 }
