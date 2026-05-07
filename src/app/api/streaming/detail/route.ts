@@ -50,7 +50,19 @@ export async function GET(request: NextRequest) {
 
     let similar: Awaited<ReturnType<typeof getSimilarStreamingMovies>> | undefined = undefined;
     if (includeSimilar) {
-      similar = await getSimilarStreamingMovies(id, similarLimit);
+      try {
+        // Race with a 15-second timeout to prevent blocking the response
+        const similarPromise = getSimilarStreamingMovies(id, similarLimit);
+        const timeoutPromise = new Promise<never>((_, reject) =>
+          setTimeout(() => reject(new Error('Similar movies timeout')), 15000)
+        );
+        similar = await Promise.race([similarPromise, timeoutPromise]);
+      } catch (err) {
+        // Similar movies require full catalog which may timeout on cold starts
+        // Return the movie without similar rather than failing entirely
+        console.warn('[API /streaming/detail] Similar movies fetch failed/timed out, returning movie only:', err);
+        similar = [];
+      }
     }
 
     return NextResponse.json({
