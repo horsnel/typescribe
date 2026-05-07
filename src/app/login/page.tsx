@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 import { Film, Eye, EyeOff, AlertCircle, Github, Chrome, Loader2, KeyRound } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/lib/auth';
@@ -31,11 +32,16 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const success = await login(email, password);
-      if (success) {
-        router.push('/');
-      } else {
+      const result = await signIn('credentials', {
+        email,
+        password,
+        redirect: false,
+      });
+
+      if (result?.error) {
         setError('Invalid email or password');
+      } else if (result?.ok) {
+        router.push('/');
       }
     } catch {
       setError('Something went wrong. Please try again.');
@@ -104,10 +110,16 @@ export default function LoginPage() {
           <>
             {/* Social Login */}
             <div className="space-y-3 mb-6">
-              <button className="w-full flex items-center justify-center gap-3 bg-white text-black font-medium py-2.5 rounded-lg hover:bg-gray-100 transition-colors">
+              <button
+                onClick={() => signIn('google', { callbackUrl: '/' })}
+                className="w-full flex items-center justify-center gap-3 bg-white text-black font-medium py-2.5 rounded-lg hover:bg-gray-100 transition-colors"
+              >
                 <Chrome className="w-5 h-5" strokeWidth={1.5} /> Continue with Google
               </button>
-              <button className="w-full flex items-center justify-center gap-3 bg-[#24292e] text-white font-medium py-2.5 rounded-lg hover:bg-[#2f363d] transition-colors">
+              <button
+                onClick={() => signIn('github', { callbackUrl: '/' })}
+                className="w-full flex items-center justify-center gap-3 bg-[#24292e] text-white font-medium py-2.5 rounded-lg hover:bg-[#2f363d] transition-colors"
+              >
                 <Github className="w-5 h-5" strokeWidth={1.5} /> Continue with GitHub
               </button>
             </div>

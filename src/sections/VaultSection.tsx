@@ -11,7 +11,7 @@ import type { StreamableMovie } from '@/lib/streaming-pipeline/types';
 interface VaultCollection {
   id: string;
   title: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
   movies: StreamableMovie[];
 }
 
@@ -223,7 +223,7 @@ function VaultCollectionRow({
   movies,
 }: {
   title: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
   movies: StreamableMovie[];
 }) {
   const scrollRef = useRef<HTMLDivElement>(null);

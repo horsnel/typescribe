@@ -43,7 +43,7 @@ export async function GET(request: NextRequest) {
     const includeSimilar = searchParams.get('similar') === 'true';
     const similarLimit = parseInt(searchParams.get('limit') || '8', 10);
 
-    let similar = undefined;
+    let similar: Awaited<ReturnType<typeof getSimilarStreamingMovies>> | undefined = undefined;
     if (includeSimilar) {
       similar = await getSimilarStreamingMovies(id, similarLimit);
     }

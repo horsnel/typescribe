@@ -27,12 +27,12 @@ const PER_KEY_MONTHLY_LIMIT = 10_000; // Typical ScrapingAnt plan limit
 // ─── API Keys (round-robin) ───
 
 const SCRAPINGANT_KEYS = [
-  process.env.SCRAPINGANT_KEY_1 || 'c1356ecb0c6b4142ac29754b17c00594',
-  process.env.SCRAPINGANT_KEY_2 || '5115defa25f34c528d660a7cb638bb75',
-  process.env.SCRAPINGANT_KEY_3 || 'cdc461cc121f40ad8d5bd394a7f1192a',
-  process.env.SCRAPINGANT_KEY_4 || '63d8770d7d5747ff81c5bf3c9c84f536',
-  process.env.SCRAPINGANT_KEY_5 || '68f7a95600674e09a4aacb97ddef0b5e',
-].filter(Boolean);
+  process.env.SCRAPINGANT_KEY_1,
+  process.env.SCRAPINGANT_KEY_2,
+  process.env.SCRAPINGANT_KEY_3,
+  process.env.SCRAPINGANT_KEY_4,
+  process.env.SCRAPINGANT_KEY_5,
+].filter((k): k is string => typeof k === 'string' && k.length > 0);
 
 let currentKeyIndex = 0;
 

@@ -7,13 +7,13 @@ import type { StreamableMovie, StreamingCategory } from '@/lib/streaming-pipelin
 
 /* ─── Icon Map ─── */
 
-const CATEGORY_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
+const CATEGORY_ICONS: Record<string, React.ComponentType<{ className?: string; strokeWidth?: number }>> = {
   Sparkles, Crown, Award, Swords, Palette, Wand2,
 };
 
 /* ─── Movie Row Component ─── */
 
-function MovieRow({ title, icon: Icon, movies }: { title: string; icon: React.ComponentType<{ className?: string }>; movies: StreamableMovie[] }) {
+function MovieRow({ title, icon: Icon, movies }: { title: string; icon: React.ComponentType<{ className?: string; strokeWidth?: number }>; movies: StreamableMovie[] }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [showLeft, setShowLeft] = useState(false);
   const [showRight, setShowRight] = useState(true);

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/lib/auth";
+import { AuthWrapper } from "@/components/auth/AuthWrapper";
 import Navbar from "@/components/layout/Navbar";
 import ConditionalFooter from "@/components/layout/ConditionalFooter";
 import CookieBanner from "@/components/layout/CookieBanner";
@@ -32,7 +33,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="fixed inset-0 pointer-events-none z-0">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#8B5CF6]/[0.03] rounded-full blur-[120px]" />
         </div>
-        <AuthProvider>
+        <AuthWrapper>
+          <AuthProvider>
           <NativeScrollReveal>
             {/* App Shell: locked viewport — navbar stays, content scrolls inside */}
             <div className="h-full flex flex-col bg-[#050507]">
@@ -46,7 +48,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <NotificationPanel />
             </div>
           </NativeScrollReveal>
-        </AuthProvider>
+          </AuthProvider>
+        </AuthWrapper>
       </body>
     </html>
   );

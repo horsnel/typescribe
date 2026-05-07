@@ -1,6 +1,7 @@
 'use client';
 
 import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react';
+import { useSession, signOut as nextAuthSignOut } from 'next-auth/react';
 import type { User } from '@/lib/types';
 
 interface AuthContextType {
@@ -21,112 +22,172 @@ export interface SignupData {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const SESSION_KEY = 'typescribe_session';
-const USERS_KEY = 'typescribe_users';
-
-interface StoredUser {
-  id: number;
-  email: string;
-  password: string;
-  display_name: string;
-  avatar: string;
-  bio: string;
-  favorite_genres: string[];
-  min_rating: number;
-  email_notifications: boolean;
-  public_profile: boolean;
-  created_at: string;
-}
-
-function generateId(): number {
-  return Date.now();
-}
-
-function getStoredUsers(): StoredUser[] {
-  try {
-    const data = localStorage.getItem(USERS_KEY);
-    return data ? JSON.parse(data) : [];
-  } catch {
-    return [];
-  }
-}
-
-function saveStoredUsers(users: StoredUser[]): void {
-  localStorage.setItem(USERS_KEY, JSON.stringify(users));
-}
-
-function storedToUser(su: StoredUser): User {
-  return {
-    id: su.id, email: su.email, display_name: su.display_name, avatar: su.avatar,
-    bio: su.bio, favorite_genres: su.favorite_genres, min_rating: su.min_rating,
-    email_notifications: su.email_notifications, public_profile: su.public_profile, created_at: su.created_at,
-  };
-}
-
+/**
+ * AuthProvider — bridges NextAuth sessions with the existing Typescribe User interface.
+ *
+ * How it works:
+ * - NextAuth manages real sessions (JWT, OAuth, etc.)
+ * - This provider reads the NextAuth session and converts it to the existing `User` type
+ * - The login/signup functions call our API routes which use NextAuth internally
+ * - When you connect Supabase later, only the API routes need to change — this provider stays the same
+ */
 export function AuthProvider({ children }: { children: ReactNode }) {
+  const { data: session, status } = useSession();
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
 
+  // Sync NextAuth session → User object
   useEffect(() => {
+    if (status === 'loading') return;
+
+    if (session?.user) {
+      const sessionUser = session.user;
+      // Fetch full user profile from our API
+      fetchUserProfile(sessionUser.email || '', sessionUser.id || '').then((profile) => {
+        if (profile) {
+          setUser(profile);
+        } else {
+          // Fallback: construct user from session data
+          setUser({
+            id: parseInt(sessionUser.id?.replace(/\D/g, '') || '0') || Date.now(),
+            email: sessionUser.email || '',
+            display_name: sessionUser.name || sessionUser.email?.split('@')[0] || 'User',
+            avatar: sessionUser.image || '',
+            bio: '',
+            favorite_genres: [],
+            min_rating: 7.0,
+            email_notifications: true,
+            public_profile: true,
+            created_at: new Date().toISOString(),
+          });
+        }
+        setLoading(false);
+      });
+    } else {
+      // No session — check localStorage for legacy users (migration path)
+      if (!user) {
+        migrateLegacyUser();
+      }
+      setUser(null);
+      setLoading(false);
+    }
+  }, [session, status]);
+
+  // One-time migration from localStorage to NextAuth
+  const migrateLegacyUser = useCallback(() => {
     try {
-      const data = localStorage.getItem(SESSION_KEY);
+      const data = localStorage.getItem('typescribe_session');
       if (data) {
-        const parsed = JSON.parse(data) as StoredUser;
-        setUser(storedToUser(parsed));
+        const parsed = JSON.parse(data);
+        // Legacy user exists in localStorage — we keep them working
+        // They'll need to re-signup through NextAuth for full benefits
+        const legacyUser: User = {
+          id: parsed.id || Date.now(),
+          email: parsed.email || '',
+          display_name: parsed.display_name || '',
+          avatar: parsed.avatar || '',
+          bio: parsed.bio || '',
+          favorite_genres: parsed.favorite_genres || [],
+          min_rating: parsed.min_rating || 7.0,
+          email_notifications: parsed.email_notifications ?? true,
+          public_profile: parsed.public_profile ?? true,
+          created_at: parsed.created_at || new Date().toISOString(),
+        };
+        setUser(legacyUser);
+        setLoading(false);
       }
     } catch { /* ignore */ }
   }, []);
 
+  // Fetch user profile from API
+  const fetchUserProfile = async (email: string, id: string): Promise<User | null> => {
+    try {
+      const res = await fetch(`/api/auth/profile?email=${encodeURIComponent(email)}`);
+      if (res.ok) {
+        return await res.json();
+      }
+    } catch { /* ignore */ }
+    return null;
+  };
+
   const login = useCallback(async (email: string, password: string): Promise<boolean> => {
-    const users = getStoredUsers();
-    const found = users.find((u) => u.email === email);
-    if (!found) return false;
-    if (found.password !== password) return false;
-    const fullUser = storedToUser(found);
-    setUser(fullUser);
-    localStorage.setItem(SESSION_KEY, JSON.stringify(found));
-    return true;
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        console.warn('Login failed:', data.error);
+        return false;
+      }
+
+      // Trigger NextAuth credentials sign-in
+      const { signIn } = await import('next-auth/react');
+      const result = await signIn('credentials', {
+        email,
+        password,
+        redirect: false,
+      });
+
+      return !!result?.ok;
+    } catch (err) {
+      console.error('Login error:', err);
+      return false;
+    }
   }, []);
 
   const signup = useCallback(async (data: SignupData): Promise<boolean> => {
-    const users = getStoredUsers();
-    if (users.some((u) => u.email === data.email)) return false;
-    const newUser: StoredUser = {
-      id: generateId(), email: data.email, password: data.password, display_name: data.display_name,
-      avatar: '', bio: '', favorite_genres: data.favorite_genres || [], min_rating: 7.0,
-      email_notifications: true, public_profile: true, created_at: new Date().toISOString(),
-    };
-    users.push(newUser);
-    saveStoredUsers(users);
-    const fullUser = storedToUser(newUser);
-    setUser(fullUser);
-    localStorage.setItem(SESSION_KEY, JSON.stringify(newUser));
-    return true;
+    try {
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) {
+        const result = await res.json().catch(() => ({}));
+        console.warn('Signup failed:', result.error);
+        return false;
+      }
+
+      // Auto sign-in after registration
+      const { signIn } = await import('next-auth/react');
+      const result = await signIn('credentials', {
+        email: data.email,
+        password: data.password,
+        redirect: false,
+      });
+
+      return !!result?.ok;
+    } catch (err) {
+      console.error('Signup error:', err);
+      return false;
+    }
   }, []);
 
   const logout = useCallback(() => {
+    // Clear legacy localStorage data
+    localStorage.removeItem('typescribe_session');
+    // Sign out from NextAuth
+    nextAuthSignOut({ redirect: false });
     setUser(null);
-    localStorage.removeItem(SESSION_KEY);
   }, []);
 
   const updateProfile = useCallback((updates: Partial<User>) => {
     setUser((prev) => {
       if (!prev) return null;
       const updated = { ...prev, ...updates };
-      const users = getStoredUsers();
-      const idx = users.findIndex((u) => u.id === prev.id);
-      if (idx >= 0) {
-        const storedUpdates: Partial<StoredUser> = {};
-        if (updates.display_name !== undefined) storedUpdates.display_name = updates.display_name;
-        if (updates.avatar !== undefined) storedUpdates.avatar = updates.avatar;
-        if (updates.bio !== undefined) storedUpdates.bio = updates.bio;
-        if (updates.favorite_genres !== undefined) storedUpdates.favorite_genres = updates.favorite_genres;
-        if (updates.min_rating !== undefined) storedUpdates.min_rating = updates.min_rating;
-        if (updates.email_notifications !== undefined) storedUpdates.email_notifications = updates.email_notifications;
-        if (updates.public_profile !== undefined) storedUpdates.public_profile = updates.public_profile;
-        users[idx] = { ...users[idx], ...storedUpdates };
-        saveStoredUsers(users);
-        localStorage.setItem(SESSION_KEY, JSON.stringify(users[idx]));
-      }
+
+      // Also update on the server
+      fetch('/api/auth/profile', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: prev.email, ...updates }),
+      }).catch(() => { /* non-blocking */ });
+
       return updated;
     });
   }, []);
@@ -145,6 +206,8 @@ export function useAuth(): AuthContextType {
   }
   return context;
 }
+
+// ─── Watchlist (still localStorage for now — will migrate to Supabase) ───
 
 interface WatchlistItem { movieId: number; addedDate: string; }
 const WATCHLIST_KEY = 'typescribe_watchlist';

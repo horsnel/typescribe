@@ -207,7 +207,7 @@ export async function discoverMoviesByCountry(countryCode: string, page: number 
     if (!data?.results?.length) return [];
     
     const movies = data.results
-      .filter(m => m.vote_average > 0 && m.poster_path)
+      .filter(m => (m.vote_average ?? 0) > 0 && m.poster_path)
       .slice(0, 20)
       .map(m => toStreamableMovie(m, countryCode, countryName, false));
     
@@ -295,7 +295,7 @@ export async function searchByCountry(countryCode: string, query: string): Promi
     if (!data?.results?.length) return [];
     
     return data.results
-      .filter(m => m.vote_average > 0 && m.poster_path)
+      .filter(m => (m.vote_average ?? 0) > 0 && m.poster_path)
       .slice(0, 10)
       .map(m => toStreamableMovie(m, countryCode, countryName, false));
   } catch (err) {
