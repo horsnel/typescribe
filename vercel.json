@@ -10,6 +10,10 @@
     {
       "path": "/api/cron/prune-cache",
       "schedule": "0 0 * * *"
+    },
+    {
+      "path": "/api/cron/streaming-warm",
+      "schedule": "0 */6 * * *"
     }
   ]
 }

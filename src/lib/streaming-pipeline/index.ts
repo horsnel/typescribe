@@ -541,7 +541,8 @@ export async function getStreamingCatalog(): Promise<StreamingCatalog> {
 
 /**
  * Get a single streaming movie by ID.
- * Tries cache first, then falls back to full catalog fetch.
+ * Tries cache first, then tries fast-path lookup from individual sources,
+ * then falls back to full catalog fetch.
  */
 export async function getStreamingMovie(id: string): Promise<StreamableMovie | null> {
   // Try cache first
@@ -549,9 +550,105 @@ export async function getStreamingMovie(id: string): Promise<StreamableMovie | n
   const cached = getCached<StreamableMovie>(cacheKey);
   if (cached) return cached;
 
-  // If not in cache, fetch the full catalog (which will cache everything)
+  // Fast-path: try to resolve from individual sources based on ID prefix
+  // This avoids needing to fetch the entire catalog for a single movie
+  try {
+    const fastMovie = await resolveMovieFromId(id);
+    if (fastMovie) {
+      setCached(cacheKey, fastMovie, MOVIE_CACHE_TTL);
+      return fastMovie;
+    }
+  } catch (err) {
+    console.warn('[StreamingPipeline] Fast-path lookup failed, falling back to catalog:', err);
+  }
+
+  // If fast-path fails, fetch the full catalog (which will cache everything)
   const catalog = await getStreamingCatalog();
   return catalog.movies.find(m => m.id === id) || null;
+}
+
+/**
+ * Fast-path: resolve a movie from its ID by looking up just the relevant source.
+ * Avoids fetching from ALL sources when we only need one movie.
+ */
+async function resolveMovieFromId(id: string): Promise<StreamableMovie | null> {
+  // Blender movies (hardcoded, instant)
+  if (id.startsWith('blender-')) {
+    const blenderMovies = getBlenderMovies();
+    return blenderMovies.find(m => m.id === id) || null;
+  }
+
+  // Public domain anime (curated, instant)
+  if (id.startsWith('pd-anime-')) {
+    const pdAnime = await fetchPublicDomainAnime();
+    return pdAnime.find(m => m.id === id) || null;
+  }
+
+  // Vimeo CC (curated, instant)
+  if (id.startsWith('vimeo-')) {
+    const vimeoMovies = await fetchVimeoCCMovies();
+    return vimeoMovies.find(m => m.id === id) || null;
+  }
+
+  // Tubi (curated, instant)
+  if (id.startsWith('tubi-')) {
+    const tubiMovies = await fetchTubiMovies();
+    return tubiMovies.find(m => m.id === id) || null;
+  }
+
+  // Pluto TV (curated, instant)
+  if (id.startsWith('pluto-')) {
+    const plutoMovies = await fetchPlutoTVMovies();
+    return plutoMovies.find(m => m.id === id) || null;
+  }
+
+  // Crackle (curated, instant)
+  if (id.startsWith('crackle-')) {
+    const crackleMovies = await fetchCrackleMovies();
+    return crackleMovies.find(m => m.id === id) || null;
+  }
+
+  // RetroCrush (curated, instant)
+  if (id.startsWith('retrocrush-')) {
+    const retroMovies = await fetchRetroCrushMovies();
+    return retroMovies.find(m => m.id === id) || null;
+  }
+
+  // CONtv (curated, instant)
+  if (id.startsWith('contv-')) {
+    const contvMovies = await fetchCONtvMovies();
+    return contvMovies.find(m => m.id === id) || null;
+  }
+
+  // Bilibili (curated, instant)
+  if (id.startsWith('bilibili-')) {
+    const bilibiliMovies = await fetchBilibiliMovies();
+    return bilibiliMovies.find(m => m.id === id) || null;
+  }
+
+  // Indie Animation (curated, instant)
+  if (id.startsWith('indie-')) {
+    const indieMovies = await fetchIndieAnimationMovies();
+    return indieMovies.find(m => m.id === id) || null;
+  }
+
+  // Internet Archive (needs API call but only for this specific movie)
+  if (id.startsWith('archive-')) {
+    const archiveMovies = await fetchArchiveMovies();
+    return archiveMovies.find(m => m.id === id) || null;
+  }
+
+  // YouTube (needs API call)
+  if (id.startsWith('youtube-') || id.startsWith('yt-')) {
+    const ytMovies = await fetchYouTubeFreeMovies();
+    const found = ytMovies.find(m => m.id === id);
+    if (found) return found;
+    // Try regional
+    const regionalMovies = await fetchYouTubeRegionalMovies();
+    return regionalMovies.find(m => m.id === id) || null;
+  }
+
+  return null;
 }
 
 /**

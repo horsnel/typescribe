@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getStreamingMovie, getSimilarStreamingMovies } from '@/lib/streaming-pipeline';
 
+// Vercel serverless function max duration (seconds)
+export const maxDuration = 60;
+
 /**
  * GET /api/streaming/detail?id=movie-id
  *
@@ -19,6 +22,8 @@ import { getStreamingMovie, getSimilarStreamingMovies } from '@/lib/streaming-pi
  *   - archive-{identifier}
  *   - youtube-{videoId}
  */
+export const revalidate = 86400; // Cache for 24 hours at the Next.js level
+
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);

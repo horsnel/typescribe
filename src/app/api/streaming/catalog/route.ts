@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import { getStreamingCatalog, getStreamingPipelineStatus } from '@/lib/streaming-pipeline';
 
+// Vercel serverless function max duration (seconds)
+export const maxDuration = 60;
+
 /**
  * GET /api/streaming/catalog
  *
@@ -11,6 +14,8 @@ import { getStreamingCatalog, getStreamingPipelineStatus } from '@/lib/streaming
  *   ?categories=true — Include category groupings (default: true)
  *   ?moviesOnly=true — Only return the movie list, no categories
  */
+export const revalidate = 21600; // Cache for 6 hours at the Next.js level
+
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
