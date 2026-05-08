@@ -2,7 +2,6 @@
 import { useEffect, useState, useMemo } from 'react';
 import Link from 'next/link';
 import { Star, Trophy, ChevronDown, Grid3X3, List, Crown, Medal, Loader2 } from 'lucide-react';
-import { topRated, movies } from '@/lib/data';
 import MovieCard from '@/components/movie/MovieCard';
 import { Button } from '@/components/ui/button';
 import type { Movie } from '@/lib/types';
@@ -32,20 +31,17 @@ export default function TopRatedPage() {
     fetch('/api/browse?source=top_rated&page=1', { cache: 'no-store' })
       .then(res => res.ok ? res.json() : null)
       .then(data => {
-        if (data?.movies?.length > 0 && data.fromAPI) {
+        if (data?.movies?.length > 0) {
           const ranked: RankedMovie[] = data.movies.map((m: Movie, i: number) => ({
             rank: i + 1,
             movie: m,
             consensus: '',
           }));
           setRankedMovies(ranked);
-          setFromAPI(true);
-        } else {
-          // Fallback to mock data
-          setRankedMovies(topRated);
+          setFromAPI(data.fromAPI || false);
         }
       })
-      .catch(() => setRankedMovies(topRated))
+      .catch(() => setRankedMovies([]))
       .finally(() => setLoading(false));
   }, []);
 

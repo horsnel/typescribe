@@ -6,7 +6,6 @@ import {
   Search, Grid3X3, List, X, SlidersHorizontal, Film, Tv,
   ChevronDown, Globe, Sparkles, Star, TrendingUp, Clock, Loader2, Zap, Wand2,
 } from 'lucide-react';
-import { movies, genres } from '@/lib/data';
 import { COUNTRIES, GENRES, THEMES, SORT_OPTIONS, getCountryLabel } from '@/lib/browse-config';
 import type { MediaFormat, BrowseFilters, Movie } from '@/lib/types';
 import MovieCard from '@/components/movie/MovieCard';
@@ -119,103 +118,20 @@ export default function BrowsePage() {
   const displayedThemes = themeExpanded ? THEMES : THEMES.slice(0, 5);
 
   // ─── Filtering Logic ───
-  // When API is connected (fromAPI=true), the server handles filtering.
-  // When using mock data, we filter client-side.
+  // All filtering is handled server-side via the API.
+  // Client-side only applies text search on top of API results.
 
   const filtered = useMemo(() => {
-    // If API returned data, use it directly (already filtered server-side)
-    if (fromAPI && apiMovies.length > 0) {
-      // Only apply text search client-side on API results
-      if (!query) return apiMovies;
-      const q = query.toLowerCase();
-      return apiMovies.filter(
-        (m) =>
-          m.title.toLowerCase().includes(q) ||
-          m.overview.toLowerCase().includes(q)
-      );
-    }
-
-    // ─── Mock data client-side filtering ───
-    let result = [...movies];
-
-    // Text search
-    if (query) {
-      const q = query.toLowerCase();
-      result = result.filter(
-        (m) =>
-          m.title.toLowerCase().includes(q) ||
-          m.director.toLowerCase().includes(q) ||
-          m.overview.toLowerCase().includes(q)
-      );
-    }
-
-    // Format filter
-    if (filters.format !== 'all') {
-      result = result.filter((m) => m.media_type === filters.format);
-    }
-
-    // Country filter
-    if (filters.country !== 'all') {
-      const countryLangMap: Record<string, string[]> = {
-        KR: ['ko'], NG: ['ig', 'yo', 'ha'], US: ['en'], GB: ['en'],
-        IN: ['hi', 'ta', 'te'], JP: ['ja'], CN: ['zh', 'cmn'],
-        TH: ['th'], ZA: ['en', 'af', 'zu'], TR: ['tr'],
-        MX: ['es'], BR: ['pt'], PH: ['fil', 'tl'], FR: ['fr'],
-      };
-      const langs = countryLangMap[filters.country] || [];
-      if (langs.length > 0) {
-        result = result.filter((m) => langs.includes(m.original_language));
-      }
-    }
-
-    // Genre filter
-    if (filters.genres.length > 0) {
-      result = result.filter((m) =>
-        m.genres.some((g) => filters.genres.includes(g.id))
-      );
-    }
-
-    // Rating filter
-    if (filters.minRating > 0) {
-      result = result.filter((m) => m.vote_average >= filters.minRating);
-    }
-
-    // Year range filter
-    result = result.filter((m) => {
-      const year = parseInt(m.release_date?.split('-')[0] || '0');
-      return year >= filters.yearFrom && year <= filters.yearTo;
-    });
-
-    // Sort
-    switch (filters.sort) {
-      case 'popularity.desc':
-        result.sort((a, b) => b.vote_count - a.vote_count);
-        break;
-      case 'popularity.asc':
-        result.sort((a, b) => a.vote_count - b.vote_count);
-        break;
-      case 'vote_average.desc':
-        result.sort((a, b) => b.vote_average - a.vote_average);
-        break;
-      case 'vote_average.asc':
-        result.sort((a, b) => a.vote_average - b.vote_average);
-        break;
-      case 'primary_release_date.desc':
-        result.sort((a, b) => new Date(b.release_date || 0).getTime() - new Date(a.release_date || 0).getTime());
-        break;
-      case 'primary_release_date.asc':
-        result.sort((a, b) => new Date(a.release_date || 0).getTime() - new Date(b.release_date || 0).getTime());
-        break;
-      case 'title.asc':
-        result.sort((a, b) => a.title.localeCompare(b.title));
-        break;
-      case 'revenue.desc':
-        result.sort((a, b) => b.revenue - a.revenue);
-        break;
-    }
-
-    return result;
-  }, [query, filters, fromAPI, apiMovies]);
+    if (!apiMovies.length) return [];
+    // Only apply text search client-side on API results
+    if (!query) return apiMovies;
+    const q = query.toLowerCase();
+    return apiMovies.filter(
+      (m) =>
+        m.title.toLowerCase().includes(q) ||
+        m.overview.toLowerCase().includes(q)
+    );
+  }, [query, apiMovies]);
 
   // ─── Active Filter Tags ───
 
@@ -620,14 +536,14 @@ export default function BrowsePage() {
             <>
               <Sparkles className="w-4 h-4 text-emerald-400" strokeWidth={1.5} />
               <p className="text-xs text-[#9ca3af]">
-                {totalResults.toLocaleString()} titles available
+                {totalResults.toLocaleString()} titles available via free sources
               </p>
             </>
           ) : (
             <>
               <Sparkles className="w-4 h-4 text-[#8B5CF6]" strokeWidth={1.5} />
               <p className="text-xs text-[#6b7280]">
-                Curated collection · Connect your API keys for real-time data across all genres and regions
+                Loading content from free sources...
               </p>
             </>
           )}

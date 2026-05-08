@@ -256,6 +256,25 @@ export async function browseMovies(filters: {
   let totalPages = 1;
   let totalResults = 0;
 
+  // If TMDb is not configured, use free-tier directly
+  if (!isPipelineConfigured()) {
+    const { freeTierBrowse } = await import('@/lib/pipeline/free-tier');
+    const result = await freeTierBrowse({
+      format: filters.format,
+      genreIds: filters.genreIds,
+      sort: filters.sort,
+      page: filters.page,
+    });
+    return {
+      movies: result.movies,
+      page: result.page,
+      totalPages: result.totalPages,
+      totalResults: result.totalResults,
+      sources: ['AniList', 'Jikan', 'TVMaze'],
+      durationMs: Date.now() - start,
+    };
+  }
+
   // Anime browse: Use TMDb discover with Animation genre (16) + JP origin
   if (isAnime) {
     const animeGenres = filters.genreIds
@@ -367,15 +386,27 @@ export async function searchMovies(query: string, config?: PipelineConfig): Prom
   const start = Date.now();
   const sources: string[] = [];
 
-  const results = await TMDb.searchMulti(query, config?.tmdbApiKey || undefined);
-  if (results) {
-    sources.push('TMDb');
+  // Try TMDb search first
+  if (isPipelineConfigured()) {
+    const results = await TMDb.searchMulti(query, config?.tmdbApiKey || undefined);
+    if (results && results.length > 0) {
+      sources.push('TMDb');
+      return {
+        movies: results,
+        totalResults: results.length,
+        sources,
+        durationMs: Date.now() - start,
+      };
+    }
   }
 
+  // Free-tier fallback search
+  const { freeTierSearch } = await import('@/lib/pipeline/free-tier');
+  const movies = await freeTierSearch(query);
   return {
-    movies: results || [],
-    totalResults: results?.length || 0,
-    sources,
+    movies,
+    totalResults: movies.length,
+    sources: movies.length > 0 ? ['AniList', 'Jikan', 'TVMaze'] : [],
     durationMs: Date.now() - start,
   };
 }
@@ -475,56 +506,124 @@ export async function searchAnime(query: string): Promise<SearchResult> {
 
 export async function getTrending(timeWindow: 'day' | 'week' = 'week'): Promise<BrowseResult> {
   const start = Date.now();
-  const result = await TMDb.getTrending(timeWindow);
 
+  // Try TMDb first
+  if (isPipelineConfigured()) {
+    const result = await TMDb.getTrending(timeWindow);
+    if (result && result.results && result.results.length > 0) {
+      return {
+        movies: result.results,
+        page: result.page,
+        totalPages: result.total_pages,
+        totalResults: result.total_results,
+        sources: ['TMDb'],
+        durationMs: Date.now() - start,
+      };
+    }
+  }
+
+  // Free-tier fallback
+  const { getFreeTierTrending } = await import('@/lib/pipeline/free-tier');
+  const movies = await getFreeTierTrending();
   return {
-    movies: result?.results || [],
-    page: result?.page || 1,
-    totalPages: result?.total_pages || 1,
-    totalResults: result?.total_results || 0,
-    sources: result ? ['TMDb'] : [],
+    movies,
+    page: 1,
+    totalPages: 1,
+    totalResults: movies.length,
+    sources: ['AniList', 'Jikan', 'TVMaze'],
     durationMs: Date.now() - start,
   };
 }
 
 export async function getTopRated(page: number = 1): Promise<BrowseResult> {
   const start = Date.now();
-  const result = await TMDb.getTopRated(page);
 
+  // Try TMDb first
+  if (isPipelineConfigured()) {
+    const result = await TMDb.getTopRated(page);
+    if (result && result.results && result.results.length > 0) {
+      return {
+        movies: result.results,
+        page: result.page,
+        totalPages: result.total_pages,
+        totalResults: result.total_results,
+        sources: ['TMDb'],
+        durationMs: Date.now() - start,
+      };
+    }
+  }
+
+  // Free-tier fallback
+  const { getFreeTierTopRated } = await import('@/lib/pipeline/free-tier');
+  const movies = await getFreeTierTopRated();
   return {
-    movies: result?.results || [],
-    page: result?.page || 1,
-    totalPages: result?.total_pages || 1,
-    totalResults: result?.total_results || 0,
-    sources: result ? ['TMDb'] : [],
+    movies,
+    page: 1,
+    totalPages: 1,
+    totalResults: movies.length,
+    sources: ['AniList', 'Jikan', 'TVMaze'],
     durationMs: Date.now() - start,
   };
 }
 
 export async function getNowPlaying(page: number = 1): Promise<BrowseResult> {
   const start = Date.now();
-  const result = await TMDb.getNowPlaying(page);
 
+  // Try TMDb first
+  if (isPipelineConfigured()) {
+    const result = await TMDb.getNowPlaying(page);
+    if (result && result.results && result.results.length > 0) {
+      return {
+        movies: result.results,
+        page: result.page,
+        totalPages: result.total_pages,
+        totalResults: result.total_results,
+        sources: ['TMDb'],
+        durationMs: Date.now() - start,
+      };
+    }
+  }
+
+  // Free-tier fallback
+  const { getFreeTierNowPlaying } = await import('@/lib/pipeline/free-tier');
+  const movies = await getFreeTierNowPlaying();
   return {
-    movies: result?.results || [],
-    page: result?.page || 1,
-    totalPages: result?.total_pages || 1,
-    totalResults: result?.total_results || 0,
-    sources: result ? ['TMDb'] : [],
+    movies,
+    page: 1,
+    totalPages: 1,
+    totalResults: movies.length,
+    sources: ['AniList', 'Jikan', 'TVMaze'],
     durationMs: Date.now() - start,
   };
 }
 
 export async function getUpcoming(page: number = 1): Promise<BrowseResult> {
   const start = Date.now();
-  const result = await TMDb.getUpcoming(page);
 
+  // Try TMDb first
+  if (isPipelineConfigured()) {
+    const result = await TMDb.getUpcoming(page);
+    if (result && result.results && result.results.length > 0) {
+      return {
+        movies: result.results,
+        page: result.page,
+        totalPages: result.total_pages,
+        totalResults: result.total_results,
+        sources: ['TMDb'],
+        durationMs: Date.now() - start,
+      };
+    }
+  }
+
+  // Free-tier fallback
+  const { getFreeTierUpcoming } = await import('@/lib/pipeline/free-tier');
+  const movies = await getFreeTierUpcoming();
   return {
-    movies: result?.results || [],
-    page: result?.page || 1,
-    totalPages: result?.total_pages || 1,
-    totalResults: result?.total_results || 0,
-    sources: result ? ['TMDb'] : [],
+    movies,
+    page: 1,
+    totalPages: 1,
+    totalResults: movies.length,
+    sources: ['AniList', 'Jikan', 'TVMaze'],
     durationMs: Date.now() - start,
   };
 }
@@ -572,9 +671,19 @@ export async function getMoviesWithFallback(
         result = await getNowPlaying(page);
         break;
     }
-    return { movies: result.movies, fromAPI: true };
+    if (result.movies.length > 0) {
+      return { movies: result.movies, fromAPI: true };
+    }
   }
 
-  const { movies } = await import('@/lib/data');
-  return { movies: movies, fromAPI: false };
+  // Free-tier fallback (no API keys needed)
+  const { getFreeTierTrending, getFreeTierTopRated, getFreeTierNowPlaying } = await import('@/lib/pipeline/free-tier');
+  switch (source) {
+    case 'trending':
+      return { movies: await getFreeTierTrending(), fromAPI: true };
+    case 'top_rated':
+      return { movies: await getFreeTierTopRated(), fromAPI: true };
+    case 'now_playing':
+      return { movies: await getFreeTierNowPlaying(), fromAPI: true };
+  }
 }
