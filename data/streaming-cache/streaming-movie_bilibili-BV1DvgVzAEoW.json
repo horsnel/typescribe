@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1DvgVzAEoW",
+  "data": {
+    "id": "bilibili-BV1DvgVzAEoW",
+    "title": "【中字/熟肉】动画电影《头脑特工队3》这就是青春的荷尔蒙",
+    "description": "-",
+    "year": 2025,
+    "duration": "2h 10m",
+    "durationSeconds": 7804,
+    "genres": [
+      "皮克斯",
+      "电影",
+      "动画电影",
+      "动画",
+      "头脑特工队"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i0.hdslb.com/bfs/archive/0b8a8c245ba7013efe18731e2a21d4d678a0fd77.jpg",
+    "backdrop": "//i0.hdslb.com/bfs/archive/0b8a8c245ba7013efe18731e2a21d4d678a0fd77.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1DvgVzAEoW",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1DvgVzAEoW",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1DvgVzAEoW&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2025-07-21T11:11:55.000Z"
+  },
+  "createdAt": 1778205890103,
+  "expiresAt": 1778292290103
+}

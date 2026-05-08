@@ -47,7 +47,7 @@ export type VideoType =
   | 'bilibili'     // Bilibili embed
   | 'hls'          // HLS m3u8 stream
   | 'embed'        // Generic iframe embed
-  | 'linkout';     // Opens in new tab (Tubi, Pluto TV, Crackle, etc.)
+  | 'linkout';     // Opens in new tab (Tubi, Pluto TV, Plex, etc.)
 
 // ─── Source Types ─────────────────────────────────────────────────────────────
 
@@ -59,11 +59,9 @@ export type StreamSource =
   | 'vimeo-cc'
   | 'tubi'
   | 'pluto-tv'
-  | 'crackle'
-  | 'retrocrush'
-  | 'contv'
   | 'bilibili'
-  | 'indie-animation';
+  | 'plex-free'
+  | 'openflix';
 
 // ─── Supporting Types ────────────────────────────────────────────────────────
 

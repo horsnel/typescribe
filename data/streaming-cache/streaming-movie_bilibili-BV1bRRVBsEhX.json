@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1bRRVBsEhX",
+  "data": {
+    "id": "bilibili-BV1bRRVBsEhX",
+    "title": "灵雀密语（法国动画/上海国际电影节最佳动画）",
+    "description": "本片以乡村考古为背景，讲述少女露西与母亲卡罗琳重返家族故地时，意外揭开一段被岁月掩埋的亲情谜团。露西在两只神秘灵雀的指引下，与好友化身“小侦探”，通过老宅残片、褪色信件与家族旧物，逐步拼凑出曾祖母时代因战乱而断裂的情感纽带。这部别致的定格动画采用手工剪纸方式制作，创作团队用2000个纸偶和826个布景拍摄，堪称完成了一项不可能的工作。片中既有细腻舒缓的情绪铺陈，也不乏快速剪辑的惊险片段。导演安东尼·兰席奥以一段层层递进的冒险旅程为载体，娓娓道来几代人之间的情感牵绊，描绘出一部充满诗意、幽默和温情的动画佳作",
+    "year": 2026,
+    "duration": "1h 13m",
+    "durationSeconds": 4434,
+    "genres": [
+      "法国动画",
+      "温情",
+      "画风",
+      "动画电影",
+      "治愈"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i0.hdslb.com/bfs/archive/6e9bb3cf6b4122ce3ece5704b5984e51b89cf699.jpg",
+    "backdrop": "//i0.hdslb.com/bfs/archive/6e9bb3cf6b4122ce3ece5704b5984e51b89cf699.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1bRRVBsEhX",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1bRRVBsEhX",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1bRRVBsEhX&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-07T05:15:00.000Z"
+  },
+  "createdAt": 1778205890102,
+  "expiresAt": 1778292290102
+}

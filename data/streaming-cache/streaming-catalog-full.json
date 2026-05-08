@@ -85,6 +85,7 @@
         ],
         "is4K": true,
         "isFree": true,
+        "isEmbeddable": true,
         "addedAt": "2010-09-27T00:00:00Z"
       },
       {
@@ -165,6 +166,7 @@
         ],
         "is4K": true,
         "isFree": true,
+        "isEmbeddable": true,
         "addedAt": "2008-04-10T00:00:00Z"
       },
       {
@@ -231,6 +233,7 @@
         ],
         "is4K": true,
         "isFree": true,
+        "isEmbeddable": true,
         "addedAt": "2019-04-04T00:00:00Z"
       },
       {
@@ -328,6 +331,7 @@
         ],
         "is4K": true,
         "isFree": true,
+        "isEmbeddable": true,
         "addedAt": "2012-09-26T00:00:00Z"
       },
       {
@@ -403,25 +407,30 @@
         ],
         "is4K": false,
         "isFree": true,
+        "isEmbeddable": true,
         "addedAt": "2006-03-24T00:00:00Z"
       },
       {
-        "id": "archive-HisNewJobCharlesChaplin-1915",
-        "title": "CUKESIM's New Job! ( Charles Chaplin-1915)",
-        "description": "A public domain film from the Internet Archive.",
+        "id": "vimeo-1084537",
+        "title": "Big Buck Bunny",
+        "description": "Big Buck Bunny tells the story of a giant rabbit with a heart bigger than himself. When one sunny day three rodents rudely harass him, something snaps... and the rabbit ain't no bunny anymore! In the typical cartoon tradition he prepares the nasty rodents a comical revenge.\n\nLicensed under the Creative Commons Attribution license\n\nhttp://www.bigbuckbunny.org",
         "year": 0,
-        "duration": "20h 33m",
-        "durationSeconds": 73980,
-        "genres": [],
-        "rating": 4.8,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/HisNewJobCharlesChaplin-1915",
-        "backdrop": "https://archive.org/services/img/HisNewJobCharlesChaplin-1915",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/HisNewJobCharlesChaplin-1915",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/HisNewJobCharlesChaplin-1915",
-        "videoType": "direct",
+        "duration": "9m",
+        "durationSeconds": 597,
+        "genres": [
+          "Animation",
+          "Comedy"
+        ],
+        "rating": 0,
+        "quality": "1080p",
+        "poster": "https://i.vimeocdn.com/video/20963649-f02817456fc48e7c317ef4c07ba259cd4b40a3649bd8eb50a4418b59ec3f5af5-d_640?region=us",
+        "backdrop": "https://i.vimeocdn.com/video/20963649-f02817456fc48e7c317ef4c07ba259cd4b40a3649bd8eb50a4418b59ec3f5af5-d_640?region=us",
+        "source": "vimeo-cc",
+        "sourceUrl": "https://vimeo.com/1084537",
+        "sourceLicense": "Creative Commons",
+        "videoUrl": "https://player.vimeo.com/video/1084537?autoplay=1&byline=0&portrait=0",
+        "videoType": "vimeo",
+        "isEmbeddable": true,
         "languages": [
           {
             "code": "en",
@@ -440,913 +449,29 @@
         ],
         "is4K": false,
         "isFree": true,
-        "addedAt": "2026-05-07T19:09:54.500Z"
+        "addedAt": "2026-05-08T02:04:39.744Z"
       },
       {
-        "id": "archive-House_On_Haunted_Hill.avi",
-        "title": "The House On Haunted Hill",
-        "description": "Vincent Price gives a stellar performance as the suavely malevolent host of a \"haunted house party\" who offers his guests $10,000 if they can survive a night in the murderous mansion. Watch for the great Elisha Cook Jr,(he played Wilmer in the \"Maltese Falcon\") as the groveling homeowner. The eerie looking home used for the exterior shots is the Ennis Brown house in Los Angeles, designed by Frank Lloyd Wright and built in 1924. It was later used in the films \"Blade Runner\", \"Black Rain\", and \"Ro",
-        "year": 1959,
-        "duration": "Unknown",
-        "durationSeconds": 0,
-        "genres": [],
-        "rating": 4.7,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/House_On_Haunted_Hill.avi",
-        "backdrop": "https://archive.org/services/img/House_On_Haunted_Hill.avi",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/House_On_Haunted_Hill.avi",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/House_On_Haunted_Hill.avi",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.365Z"
-      },
-      {
-        "id": "archive-Sita_Sings_the_Blues",
-        "title": "Sita Sings the Blues",
-        "description": "Sita is a goddess separated from her beloved Lord and husband Rama. Nina is an animator whose husband moves to India, then dumps her by email. Three hilarious shadow puppets narrate both ancient tragedy and modern comedy in this beautifully animated interpretation of the Indian epic Ramayana. Set to the 1920's jazz vocals of Annette Hanshaw, Sita Sings the Blues earns its tagline as \"the Greatest Break-Up Story Ever Told.\"",
-        "year": 2008,
-        "duration": "1h 21m",
-        "durationSeconds": 4891,
-        "genres": [],
-        "rating": 4.6,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/Sita_Sings_the_Blues",
-        "backdrop": "https://archive.org/services/img/Sita_Sings_the_Blues",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/Sita_Sings_the_Blues",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/Sita_Sings_the_Blues",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:54.501Z"
-      },
-      {
-        "id": "archive-DasKabinettdesDoktorCaligariTheCabinetofDrCaligari",
-        "title": "Das Kabinett des Doktor Caligari ( The Cabinet of Dr. Caligari )",
-        "description": "The Cabinet of Dr. Caligari is the first modern Horror Film and it influence a number of contemporary productions. A real classic! PLOT: A man named Francis relates a story about his best friend Alan and his fiancée Jane. Alan takes him to a fair where they meet Dr. Caligari, who exhibits a somnambulist, Cesare, that can predict the future. When Alan asks how long he has to live, Cesare says he has until dawn. The prophecy comes to pass, as Alan is murdered, and Cesare is a prime suspect. Cesare",
-        "year": 1919,
-        "duration": "51m",
-        "durationSeconds": 3060,
-        "genres": [],
-        "rating": 4.6,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/DasKabinettdesDoktorCaligariTheCabinetofDrCaligari",
-        "backdrop": "https://archive.org/services/img/DasKabinettdesDoktorCaligariTheCabinetofDrCaligari",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/DasKabinettdesDoktorCaligariTheCabinetofDrCaligari",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/DasKabinettdesDoktorCaligariTheCabinetofDrCaligari",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.365Z"
-      },
-      {
-        "id": "archive-charlie_chaplin_film_fest",
-        "title": "Charlie Chaplin Festival",
-        "description": "Four Chaplin shorts from 1917: The Adventurer, The Cure, Easy Street and The Immigrant, presented with music and sound effects. You can find more information regarding this film on its IMDb page .",
-        "year": 1938,
-        "duration": "1h 17m",
-        "durationSeconds": 4646,
-        "genres": [],
-        "rating": 4.5,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/charlie_chaplin_film_fest",
-        "backdrop": "https://archive.org/services/img/charlie_chaplin_film_fest",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/charlie_chaplin_film_fest",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/charlie_chaplin_film_fest",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:54.500Z"
-      },
-      {
-        "id": "archive-TheMostDangerousGame",
-        "title": "The Most Dangerous Game",
-        "description": "Ship wrecked Bob Rainsford (Joel McCrea) crawls ashore on a mysterious island and finds his way to a creepy castle inhabited by a Russian Count named Zaroff (Leslie Banks). There he meets the lovely Eve (Fay Wray) and her drunken brother Martin (Robert Armstrong), who were also ship wrecked. It turns out that the \"Game\" of the title is the mad Count hunting down and killing human prey.",
-        "year": 1932,
-        "duration": "1h 3m",
-        "durationSeconds": 3780,
-        "genres": [],
-        "rating": 4.5,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/TheMostDangerousGame",
-        "backdrop": "https://archive.org/services/img/TheMostDangerousGame",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/TheMostDangerousGame",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/TheMostDangerousGame",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.365Z"
-      },
-      {
-        "id": "archive-TheStranger_0",
-        "title": "The Stranger",
-        "description": "Set Connecticut after World War II, The Stranger is a cat and mouse game between Wilson (Edward G. Robinson), a member of the Allied War Crimes Commission and Franz Kindler (Orson Welles), a Nazi who has assumed the false identity of Dr. Charles Rankin. To complete his new intelligentsia disguise, Kindler marries Mary Longstreet, daughter of a Supreme Court justice.",
-        "year": 1946,
-        "duration": "1h 35m",
-        "durationSeconds": 5700,
-        "genres": [],
-        "rating": 4.5,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/TheStranger_0",
-        "backdrop": "https://archive.org/services/img/TheStranger_0",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/TheStranger_0",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/TheStranger_0",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.820Z"
-      },
-      {
-        "id": "archive-impact",
-        "title": "Impact",
-        "description": "\"Wealthy businessman survives attempt by wife to have him killed, makes it look like she succeeded and starts a new life in small town as auto mechanic. Variation on idea elevated to noir importance by The Killers (1946), where victim of femme fatale tries to abandon the city and his past identity.\" - noir expert Spencer Selby",
-        "year": 1949,
-        "duration": "1h 49m",
-        "durationSeconds": 6577,
-        "genres": [],
-        "rating": 4.5,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/impact",
-        "backdrop": "https://archive.org/services/img/impact",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/impact",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/impact",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.820Z"
-      },
-      {
-        "id": "archive-Return_of_the_Kung_Fu_Dragon",
-        "title": "Return of the Kung Fu Dragon",
-        "description": "The complicated story involves the military conquest of a peaceful island-nation by an evil despot and his sorcerer ally. His victory leaves the island's three heroic protectors dead, but, their young children are hidden away to grow to adulthood with different identities, unaware of their heritage, in hope that, in time, they might challenge and defeat the evil ruler. The charming Polly Kuan stars as one of these children who has been adopted by the conquerer himself, initially as an insult to ",
-        "year": 1976,
-        "duration": "Unknown",
-        "durationSeconds": 0,
-        "genres": [],
-        "rating": 4.4,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/Return_of_the_Kung_Fu_Dragon",
-        "backdrop": "https://archive.org/services/img/Return_of_the_Kung_Fu_Dragon",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/Return_of_the_Kung_Fu_Dragon",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/Return_of_the_Kung_Fu_Dragon",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:54.500Z"
-      },
-      {
-        "id": "archive-ThePhantomoftheOpera",
-        "title": "The Phantom of the Opera",
-        "description": "At the Opera of Paris, a mysterious phantom threatens a famous lyric singer, Carlotta and thus forces her to give up her role (Marguerite in Faust) for unknown Christine Daae. Christine meets this phantom (a masked man) in the catacombs, where he lives.",
-        "year": 1925,
-        "duration": "1h 46m",
-        "durationSeconds": 6360,
-        "genres": [],
-        "rating": 4.4,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/ThePhantomoftheOpera",
-        "backdrop": "https://archive.org/services/img/ThePhantomoftheOpera",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/ThePhantomoftheOpera",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/ThePhantomoftheOpera",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.365Z"
-      },
-      {
-        "id": "archive-angel_on_my_shoulder",
-        "title": "Angel on My Shoulder",
-        "description": "You can find more information regarding this film on its IMDb page .",
-        "year": 1946,
-        "duration": "1h 41m",
-        "durationSeconds": 6081,
-        "genres": [],
-        "rating": 4.4,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/angel_on_my_shoulder",
-        "backdrop": "https://archive.org/services/img/angel_on_my_shoulder",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/angel_on_my_shoulder",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/angel_on_my_shoulder",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.365Z"
-      },
-      {
-        "id": "archive-Martha_Ivers_movie",
-        "title": "Strange Love of Martha Ivers",
-        "description": "Top-of-the-line noir melodrama featuring Van Heflin, Barbara Stanwyck, Lizabeth Scott, and Kirk Douglas. Don't miss it. (The video is interlaced in the MPEG2 file. If viewing with VLC, deinterlace with menu-path Video/Deinterlace/Blend.) You can load the mpeg2 file into DVDAuthorGUI (a free program) and create a DVD to watch on your television.",
-        "year": 1946,
-        "duration": "1h 55m",
-        "durationSeconds": 6949,
-        "genres": [],
-        "rating": 4.4,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/Martha_Ivers_movie",
-        "backdrop": "https://archive.org/services/img/Martha_Ivers_movie",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/Martha_Ivers_movie",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/Martha_Ivers_movie",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.820Z"
-      },
-      {
-        "id": "archive-his_girl_friday",
-        "title": "His Girl Friday",
-        "description": "Hilarious romantic comedy starring Cary Grant and Rosalind Russell. Russell is rough and tumble reporter looking to get out of the news racket by marrying and becoming a house wife after her divorce from newspaper publisher Grant. Just when she is about to leave town with her husband-to-be the still lovesick Grant drafts her to cover one final breaking news sensation. Along with plenty of laughs and fast paced dialog this film provides a witty and cynical look at news business. There is a slight",
-        "year": 1940,
-        "duration": "1h 31m",
-        "durationSeconds": 5504,
-        "genres": [],
-        "rating": 4.3,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/his_girl_friday",
-        "backdrop": "https://archive.org/services/img/his_girl_friday",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/his_girl_friday",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/his_girl_friday",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:54.500Z"
-      },
-      {
-        "id": "archive-house_on_haunted_hill_ipod",
-        "title": "House on Haunted Hill",
-        "description": "Frederick Loren has invited five strangers to a party of a lifetime. He is offering each of them $10,000 if they can stay the night in a house.",
-        "year": 1959,
-        "duration": "1h 14m",
-        "durationSeconds": 4483,
-        "genres": [],
-        "rating": 4.3,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/house_on_haunted_hill_ipod",
-        "backdrop": "https://archive.org/services/img/house_on_haunted_hill_ipod",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/house_on_haunted_hill_ipod",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/house_on_haunted_hill_ipod",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:54.500Z"
-      },
-      {
-        "id": "archive-dressed_to_kill",
-        "title": "Dressed To Kill",
-        "description": "Aka 'Sherlock Holmes in Dressed To Kill' - features Basil Rathbone as Sherlock Holmes. You can find more information regarding this film on its IMDb page .",
-        "year": 1946,
-        "duration": "1h 11m",
-        "durationSeconds": 4290,
-        "genres": [],
-        "rating": 4.3,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/dressed_to_kill",
-        "backdrop": "https://archive.org/services/img/dressed_to_kill",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/dressed_to_kill",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/dressed_to_kill",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:54.501Z"
-      },
-      {
-        "id": "archive-lost_world",
-        "title": "The Lost World",
-        "description": "The first film adaptation of Sir Arthur Conan Doyle's classic novel about a land where prehistoric creatures still roam.You can find more information regarding this film on its IMDb page .",
-        "year": 1925,
-        "duration": "Unknown",
-        "durationSeconds": 0,
-        "genres": [],
-        "rating": 4.3,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/lost_world",
-        "backdrop": "https://archive.org/services/img/lost_world",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/lost_world",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/lost_world",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.365Z"
-      },
-      {
-        "id": "archive-CarnivalofSouls",
-        "title": "Carnival of Souls",
-        "description": "Atmospheric 60s B-horror film with a cult following. Mary Henry is enjoying the day by riding around with two friends but everything goes wrong when challenged to a drag race and their car gets forced off of a bridge. The car sinks into the murky depths, and all three women are assumed drowned. Some time later Mary emerges unscathed from the river. She tries to start a new life by becoming a church organist but Mary finds herself haunted by a ghostly figure that instills fear and dread into her.",
-        "year": 1962,
-        "duration": "1h 22m",
-        "durationSeconds": 4979,
-        "genres": [],
-        "rating": 4.3,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/CarnivalofSouls",
-        "backdrop": "https://archive.org/services/img/CarnivalofSouls",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/CarnivalofSouls",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/CarnivalofSouls",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.365Z"
-      },
-      {
-        "id": "archive-They_Made_Me_A_Criminal_1939",
-        "title": "They Made Me a Criminal",
-        "description": "Boxer Johnny Bradfield (John Garfield) knocks out a rival in a postfight brawl. Thinking he committed murder, he flees to an Arizona ranch run by hard-as-nails Goldie (Ann Sheridan) and her feisty mother(May Robson) and staffed by Leo Gorcey and the Dead End Kids. Though Johnny is relentlessly dogged by Detective Monty Phelan (Claude Rains), the Kids convince him to finance their future gas station by training for and winning a high stakes prizefight. But just as things seem to going \"swell\" for",
-        "year": 1939,
-        "duration": "1h 31m",
-        "durationSeconds": 5460,
-        "genres": [],
-        "rating": 4.3,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/They_Made_Me_A_Criminal_1939",
-        "backdrop": "https://archive.org/services/img/They_Made_Me_A_Criminal_1939",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/They_Made_Me_A_Criminal_1939",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/They_Made_Me_A_Criminal_1939",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.820Z"
-      },
-      {
-        "id": "archive-DiaryofaNudist",
-        "title": "Diary of a Nudist",
-        "description": "The Film follows a reporter (Davee Decker) as she infiltrates a nudist colony in the hopes of exposing its immoral ways. However, once there, she finds herself enjoying it a little bit more than she anticipated. This Film was extremely controversial in 1961 today, films like this are considered to be curiosity pieces.",
-        "year": 1961,
-        "duration": "1h 12m",
-        "durationSeconds": 4320,
-        "genres": [],
-        "rating": 4.2,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/DiaryofaNudist",
-        "backdrop": "https://archive.org/services/img/DiaryofaNudist",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/DiaryofaNudist",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/DiaryofaNudist",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:54.501Z"
-      },
-      {
-        "id": "archive-Horror_Hotel",
-        "title": "City of the Dead/Horror Hotel",
-        "description": "College student Nan Barlow visits the village of Whitewood as research for her paper on witchcraft in New England, particularly the case of Elizabeth Selwyn. Her tutor, Professor Alan Driscoll(Lee), recommends the Raven's Inn, run by a Mrs. Newless. Rather unwisely, given the amount of low-hanging fog outside(and against the advice of Mrs. Newless), Nan takes an immediate interest in the basement... You can find more information regarding this film on its IMDb page .",
-        "year": 1960,
-        "duration": "1h 15m",
-        "durationSeconds": 4554,
-        "genres": [],
-        "rating": 4.2,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/Horror_Hotel",
-        "backdrop": "https://archive.org/services/img/Horror_Hotel",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/Horror_Hotel",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/Horror_Hotel",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.365Z"
-      },
-      {
-        "id": "archive-night_of_the_living_dead_dvd",
-        "title": "Night of the Living Dead",
-        "description": "I did some digital tweaking on Night of the Living Dead to make it more watchable and made it into a DVD image that you can burn.",
-        "year": 1968,
-        "duration": "Unknown",
-        "durationSeconds": 0,
-        "genres": [],
-        "rating": 4.2,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/night_of_the_living_dead_dvd",
-        "backdrop": "https://archive.org/services/img/night_of_the_living_dead_dvd",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/night_of_the_living_dead_dvd",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/night_of_the_living_dead_dvd",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.365Z"
-      },
-      {
-        "id": "archive-suddenly",
-        "title": "Suddenly",
-        "description": "\"Three gunmen, who have been hired to assassinate the President, hold a family hostage while waiting for their target. Interesting B film which focuses on psychopathic killer well-portrayed against type by Frank Sinatra.\" - noir expert Spencer Selby | Cast: Frank Sinatra, Sterling Hayden, James Gleason, Nancy Gates. 77 min.",
-        "year": 1954,
-        "duration": "1h 15m",
-        "durationSeconds": 4500,
-        "genres": [],
-        "rating": 4.2,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/suddenly",
-        "backdrop": "https://archive.org/services/img/suddenly",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/suddenly",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/suddenly",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.820Z"
-      },
-      {
-        "id": "archive-ScarletStreet",
-        "title": "Scarlet Street",
-        "description": "German director Fritz Lang is best known for the highly influential films from relatively early in his career, especially Metropolis (1927) and M (1931). But he also had a brief Hollywood heyday during the mid 1940s, when he made some of his best films. Scarlet Street has been claimed by film noir. This attribution is understandable. The lighting is dark, with heavy use of shadows. The characters are all shady as well. Kitty is certainly a femme fatale, although hints are dropped that she is an ",
-        "year": 1945,
-        "duration": "1h 43m",
-        "durationSeconds": 6180,
-        "genres": [],
-        "rating": 4.2,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/ScarletStreet",
-        "backdrop": "https://archive.org/services/img/ScarletStreet",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/ScarletStreet",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/ScarletStreet",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.820Z"
-      },
-      {
-        "id": "archive-Please_Murder_Me_movie",
-        "title": "Please Murder Me",
-        "description": "    How's that for a title? Lawyer Raymond Burr (seeming very much like Perry Mason) brilliantly defends Angela Lansbury, who seems certain to be found guilty of murdering her husband, who was Burr's best friend! Instead of spoiling it for you, I'll just say that a couple of surprises lie ahead for him. It's a wonder this film was allowed to become p.d. Don't miss it. Also appearing are Dick Foran, John Dehner, Lamont Johnson, and Denver Pyle. You can load the mpeg2 file into DVDAuthorGUI (a fre",
-        "year": 1956,
-        "duration": "1h 14m",
-        "durationSeconds": 4481,
-        "genres": [],
-        "rating": 4.2,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/Please_Murder_Me_movie",
-        "backdrop": "https://archive.org/services/img/Please_Murder_Me_movie",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/Please_Murder_Me_movie",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/Please_Murder_Me_movie",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.820Z"
-      },
-      {
-        "id": "archive-Hitch_Hiker",
-        "title": "The Hitch-Hiker",
-        "description": "Edmond O'Brien and Frank Lovejoy pick up a hitch-hiker (William Talman) who turns out to be an insane escaped convict. The mpeg2 file is ready to be loaded into dvdAuthorGUI to create a DVD to watch on your television.",
-        "year": 1953,
-        "duration": "1h 10m",
-        "durationSeconds": 4245,
-        "genres": [],
-        "rating": 4.2,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/Hitch_Hiker",
-        "backdrop": "https://archive.org/services/img/Hitch_Hiker",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/Hitch_Hiker",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/Hitch_Hiker",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.820Z"
-      },
-      {
-        "id": "archive-BlondeIce1948",
-        "title": "Blonde Ice",
-        "description": "A society reporter keeps herself in the headlines by marrying a series of wealthy men. They all die mysteriously afterwards though. Mystic Nights Videos",
+        "id": "vimeo-248323498",
+        "title": "CC Nature Documentary - Short",
+        "description": "A short nature documentary showcasing wildlife under Creative Commons license. Beautiful footage of natural landscapes and animal behavior.",
         "year": 0,
-        "duration": "1h 14m",
-        "durationSeconds": 4443,
-        "genres": [],
-        "rating": 4.2,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/BlondeIce1948",
-        "backdrop": "https://archive.org/services/img/BlondeIce1948",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/BlondeIce1948",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/BlondeIce1948",
-        "videoType": "direct",
+        "duration": "8m",
+        "durationSeconds": 480,
+        "genres": [
+          "Documentary",
+          "Nature"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "",
+        "backdrop": "",
+        "source": "vimeo-cc",
+        "sourceUrl": "https://vimeo.com/248323498",
+        "sourceLicense": "Creative Commons",
+        "videoUrl": "https://player.vimeo.com/video/248323498?autoplay=1&byline=0&portrait=0",
+        "videoType": "vimeo",
+        "isEmbeddable": true,
         "languages": [
           {
             "code": "en",
@@ -1365,1191 +490,1537 @@
         ],
         "is4K": false,
         "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.820Z"
+        "addedAt": "2026-05-08T02:04:39.932Z"
       },
       {
-        "id": "archive-TheGhoul",
-        "title": "The Ghoul",
-        "description": "The Ghoul is a 1933 British Horror film starring Boris Karloff, Cedric Hardwicke, Ernest Thesiger and Ralph Richardson, whose debut film this was. The plot centres around a Professor (Karloff) who is to be buried with an Egyptian jewel in order to attain eternal life. When the jewel is stolen by his servant, the professor rises from the dead to reclaim it. The film, based on the play and novel by Dr. Frank King and Leonard J. Hines, was once considered to be a lost film since the original nitrat",
-        "year": 1933,
-        "duration": "1h 8m",
-        "durationSeconds": 4080,
-        "genres": [],
-        "rating": 4.1,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/TheGhoul",
-        "backdrop": "https://archive.org/services/img/TheGhoul",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/TheGhoul",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/TheGhoul",
-        "videoType": "direct",
+        "id": "bilibili-BV1VHD9BvErm",
+        "title": "一口气看完【名侦探柯南：独眼的残像】日本悬疑动画电影",
+        "description": "",
+        "year": 2026,
+        "duration": "2h 49m",
+        "durationSeconds": 10141,
+        "genres": [
+          "影视剪辑",
+          "犯罪",
+          "悬疑",
+          "剧情",
+          "日剧"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i2.hdslb.com/bfs/archive/69fd65bc01a44828e21762f67093ef3703588872.jpg",
+        "backdrop": "//i2.hdslb.com/bfs/archive/69fd65bc01a44828e21762f67093ef3703588872.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1VHD9BvErm",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1VHD9BvErm",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1VHD9BvErm&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
         "languages": [
           {
-            "code": "en",
-            "label": "English (Original)",
+            "code": "ja",
+            "label": "Japanese (Original)",
             "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
             "isDubbed": false,
             "audioFormat": "Stereo"
           }
         ],
         "subtitles": [
           {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
             "code": "en",
             "label": "English",
-            "isDefault": true
+            "isDefault": false
           }
         ],
         "is4K": false,
         "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.365Z"
+        "addedAt": "2026-04-13T06:30:00.000Z"
       },
       {
-        "id": "archive-Saint_Louis_Bank_Robbery",
-        "title": "The Saint Louis Bank Robbery",
-        "description": "Steve McQueen stars in a gritty, downbeat, and sometimes savage heist movie that features a gang of very psychologically warped men and a story that's based on an actual crime. Warning: this film is devoid of humor, wit, cheerfulness, glamor, and mercy. It's grim to the brim. Some will find that viewing it is an unpleasant experience. This movie is in the public domain. Video-Cellar wrote: The film was originally published without a notice, but most prints currently in circulation are later tele",
-        "year": 1959,
-        "duration": "1h 28m",
-        "durationSeconds": 5327,
-        "genres": [],
-        "rating": 4.1,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/Saint_Louis_Bank_Robbery",
-        "backdrop": "https://archive.org/services/img/Saint_Louis_Bank_Robbery",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/Saint_Louis_Bank_Robbery",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/Saint_Louis_Bank_Robbery",
-        "videoType": "direct",
+        "id": "bilibili-BV1bRRVBsEhX",
+        "title": "灵雀密语（法国动画/上海国际电影节最佳动画）",
+        "description": "本片以乡村考古为背景，讲述少女露西与母亲卡罗琳重返家族故地时，意外揭开一段被岁月掩埋的亲情谜团。露西在两只神秘灵雀的指引下，与好友化身“小侦探”，通过老宅残片、褪色信件与家族旧物，逐步拼凑出曾祖母时代因战乱而断裂的情感纽带。这部别致的定格动画采用手工剪纸方式制作，创作团队用2000个纸偶和826个布景拍摄，堪称完成了一项不可能的工作。片中既有细腻舒缓的情绪铺陈，也不乏快速剪辑的惊险片段。导演安东尼·兰席奥以一段层层递进的冒险旅程为载体，娓娓道来几代人之间的情感牵绊，描绘出一部充满诗意、幽默和温情的动画佳作",
+        "year": 2026,
+        "duration": "1h 13m",
+        "durationSeconds": 4434,
+        "genres": [
+          "法国动画",
+          "温情",
+          "画风",
+          "动画电影",
+          "治愈"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i0.hdslb.com/bfs/archive/6e9bb3cf6b4122ce3ece5704b5984e51b89cf699.jpg",
+        "backdrop": "//i0.hdslb.com/bfs/archive/6e9bb3cf6b4122ce3ece5704b5984e51b89cf699.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1bRRVBsEhX",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1bRRVBsEhX",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1bRRVBsEhX&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
         "languages": [
           {
-            "code": "en",
-            "label": "English (Original)",
+            "code": "ja",
+            "label": "Japanese (Original)",
             "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
             "isDubbed": false,
             "audioFormat": "Stereo"
           }
         ],
         "subtitles": [
           {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
             "code": "en",
             "label": "English",
-            "isDefault": true
+            "isDefault": false
           }
         ],
         "is4K": false,
         "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.820Z"
+        "addedAt": "2026-05-07T05:15:00.000Z"
       },
       {
-        "id": "archive-He_Walked_By_Night.avi",
-        "title": "He Walked By Night",
-        "description": "Gripping film noir crime drama about a manhunt for a ruthless killer who plays a deadly cat and mouse game with the police. Starring Richard Basehart, Scott Brady, Whit Bissell, and Jack Webb, this movie was the basis for \"Dragnet\". Watch for Whit Bissell, the unsung but solid bit player who has appeared in hundreds of films and TV shows",
-        "year": 1948,
-        "duration": "Unknown",
-        "durationSeconds": 0,
-        "genres": [],
-        "rating": 4.1,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/He_Walked_By_Night.avi",
-        "backdrop": "https://archive.org/services/img/He_Walked_By_Night.avi",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/He_Walked_By_Night.avi",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/He_Walked_By_Night.avi",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.820Z"
-      },
-      {
-        "id": "archive-Escape_From_Sobibor.avi",
-        "title": "Escape From Sobibor",
-        "description": "Alan Arkin and Rutger Hauer star in this award winning movie about the successful mass escape of 300 prisoners from the Sobibor Nazi death camp. Fine acting and production values make this film a worthwhile viewing experience.",
-        "year": 1987,
-        "duration": "Unknown",
-        "durationSeconds": 0,
-        "genres": [],
-        "rating": 4,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/Escape_From_Sobibor.avi",
-        "backdrop": "https://archive.org/services/img/Escape_From_Sobibor.avi",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/Escape_From_Sobibor.avi",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/Escape_From_Sobibor.avi",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:54.501Z"
-      },
-      {
-        "id": "archive-Grave_of_the_Vampire_movie",
-        "title": "Grave of the Vampire",
-        "description": "William Smith tracks down his father, a vampire who raped his mother. The IMDB entry is here . The mpeg2 file has nav-packets, so you can load it into DVDAuthorGUI (a free program) to create a DVD to watch on your television.",
-        "year": 1974,
-        "duration": "1h 29m",
-        "durationSeconds": 5380,
-        "genres": [],
-        "rating": 4,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/Grave_of_the_Vampire_movie",
-        "backdrop": "https://archive.org/services/img/Grave_of_the_Vampire_movie",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/Grave_of_the_Vampire_movie",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/Grave_of_the_Vampire_movie",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.365Z"
-      },
-      {
-        "id": "archive-TheRedHouse",
-        "title": "The Red House",
-        "description": "\"Middle-aged farmer goes to extreme lengths to protect the dark secret associated with a deserted house on his property. Murky psychological thriller with resonant settings and an emotive Miklos Rozsa score.\" - noir expert Spencer Selby",
-        "year": 1947,
-        "duration": "Unknown",
-        "durationSeconds": 0,
-        "genres": [],
-        "rating": 4,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/TheRedHouse",
-        "backdrop": "https://archive.org/services/img/TheRedHouse",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/TheRedHouse",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/TheRedHouse",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.820Z"
-      },
-      {
-        "id": "archive-reefer_madness1938",
-        "title": "Reefer Madness",
-        "description": "Considered THE archetypal sensationalized anti-drug movie, but it's really an exploitation film made to capitalize on the hot taboo subject of marijuana use. Like many exploitation films of the time, \"Reefer Madness\" tried to make a quick buck off of a forbidden subject while skirting the Motion Picture Production Code of 1930. The Code forbade the portrayal of immoral acts like drug use. ( The illegal drug traffic must not be portrayed in such a way as to stimulate curiosity concerning the use ",
-        "year": 1938,
-        "duration": "1h 8m",
-        "durationSeconds": 4097,
-        "genres": [],
-        "rating": 3.9,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/reefer_madness1938",
-        "backdrop": "https://archive.org/services/img/reefer_madness1938",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/reefer_madness1938",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/reefer_madness1938",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:54.501Z"
-      },
-      {
-        "id": "archive-20000LeaguesUndertheSea",
-        "title": "20,000 Leagues Under the Sea",
-        "description": "The Universal Film Manufacturing Company was not known in the silent era as premier producer of motion pictures. Yet, in 1916 they produced a film that could not be made effectively without expensive special effects and special photography. The novel had previously been made as short films in 1907 by Georges MÃÂ©liÃÂ¨s and in 1913 by French company ÃÂclair.) Marshalling the expertise underwater experts Ernest and George Williamson, Universal financed the extensive production which would require ",
-        "year": 1916,
-        "duration": "1h 48m",
-        "durationSeconds": 6480,
-        "genres": [],
-        "rating": 3.9,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/20000LeaguesUndertheSea",
-        "backdrop": "https://archive.org/services/img/20000LeaguesUndertheSea",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/20000LeaguesUndertheSea",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/20000LeaguesUndertheSea",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.365Z"
-      },
-      {
-        "id": "archive-Inner_Sanctum_movie",
-        "title": "Inner Sanctum",
-        "description": "An atmospheric film starring Charles Russell and Mary Beth Hughes. Fritz Leiber, Sr. (father of the famous author) has a cameo as a seer or psychic. \"You're very pretty ... when those lips aren't moving.\" The IMDB entry is here. This print seems to be complete and may be of higher quality than the one already in the Archive. You can load the mpeg2 file into DVDAuthorGUI (a free program) and create a DVD to watch on your television.",
-        "year": 1948,
-        "duration": "1h 2m",
-        "durationSeconds": 3720,
-        "genres": [],
-        "rating": 3.9,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/Inner_Sanctum_movie",
-        "backdrop": "https://archive.org/services/img/Inner_Sanctum_movie",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/Inner_Sanctum_movie",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/Inner_Sanctum_movie",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.820Z"
-      },
-      {
-        "id": "archive-BehindGreenLights_high_Q_mp4",
-        "title": "Behind Green Lights",
-        "description": "The action begins when a car occupied by the corpse of a sleazy private detective glides down a hill and winds up in front of a police station. (The title of the film stems from the fact that police stations used to have green lights at the entrance.) Currently (2010-02-23) the movie is rated 7.2 at the IMDB ! Some of the stars are William Gargan, Carole Landis, John Ireland, Charles Russell, and Don Beddoe. Althought this film was already on this site, those who didn't want to download 4 gigaby",
-        "year": 1946,
-        "duration": "Unknown",
-        "durationSeconds": 0,
-        "genres": [],
-        "rating": 3.9,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/BehindGreenLights_high_Q_mp4",
-        "backdrop": "https://archive.org/services/img/BehindGreenLights_high_Q_mp4",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/BehindGreenLights_high_Q_mp4",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/BehindGreenLights_high_Q_mp4",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.820Z"
-      },
-      {
-        "id": "archive-inner_sanctum",
-        "title": "Inner Sanctum",
-        "description": "You can find more information regarding this film on its IMDb page .",
-        "year": 1948,
-        "duration": "Unknown",
-        "durationSeconds": 0,
-        "genres": [],
-        "rating": 3.9,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/inner_sanctum",
-        "backdrop": "https://archive.org/services/img/inner_sanctum",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/inner_sanctum",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/inner_sanctum",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.820Z"
-      },
-      {
-        "id": "archive-BloodyPitOfHorror",
-        "title": "Bloody Pit of Horror",
-        "description": "A group of models and cameramen go to a castle to shoot covers for horror novels where they're captured and tortured by the castle's owner, the Crimson Executioner. Find out more about this film on it's IMDB page .",
-        "year": 1965,
-        "duration": "1h 22m",
-        "durationSeconds": 4944,
-        "genres": [],
-        "rating": 3.8,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/BloodyPitOfHorror",
-        "backdrop": "https://archive.org/services/img/BloodyPitOfHorror",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/BloodyPitOfHorror",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/BloodyPitOfHorror",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:54.501Z"
-      },
-      {
-        "id": "archive-white_zombie",
-        "title": "White Zombie",
-        "description": "You can find more information regarding this film on its IMDb page .",
-        "year": 1932,
-        "duration": "Unknown",
-        "durationSeconds": 0,
-        "genres": [],
-        "rating": 3.8,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/white_zombie",
-        "backdrop": "https://archive.org/services/img/white_zombie",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/white_zombie",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/white_zombie",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.365Z"
-      },
-      {
-        "id": "archive-Quicksand_clear",
-        "title": "Quicksand",
-        "description": "An engrossing suspense film with Mickey Rooney, Peter Lorre, and Jeanne Cagney. Needing money for a date, Rooney borrows $20 from the cash register, starting a chain of events that includes car theft, burglary, and possibly murder. (Yes, that is Jack Elam in the bar scene.) Read more at the IMDB . (The video is interlaced in both the MPEG2 file and the Cinepack. If viewing with VLC, deinterlace with menu-path Video/Deinterlace/Blend.) This is a better copy than the previous versions that were up",
-        "year": 1950,
-        "duration": "1h 18m",
-        "durationSeconds": 4715,
-        "genres": [],
-        "rating": 3.8,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/Quicksand_clear",
-        "backdrop": "https://archive.org/services/img/Quicksand_clear",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/Quicksand_clear",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/Quicksand_clear",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.820Z"
-      },
-      {
-        "id": "archive-JungleBook",
-        "title": "Jungle Book",
-        "description": "Teenaged Mowgli, who was raised by wolves, appears in a village in India and is adopted by Messua. Mowgli learns human language and some human ways quickly, though keeping jungle ideas. Influential Merchant Buldeo is bigoted against 'beasts' including Mowgli; not so Buldeo's pretty daughter, whom Mowgli takes on a jungle tour where they find a treasure, setting the evil of human greed in motion. Nominated for 4 Oscars. Another 2 wins",
-        "year": 1942,
-        "duration": "1h 48m",
-        "durationSeconds": 6480,
-        "genres": [],
-        "rating": 3.7,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/JungleBook",
-        "backdrop": "https://archive.org/services/img/JungleBook",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/JungleBook",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/JungleBook",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:54.500Z"
-      },
-      {
-        "id": "archive-nazi_concentration_camps",
-        "title": "Nazi Concentration Camps",
-        "description": "**This film contains extremely graphic scenes of human suffering, please exercise caution when viewing.** Compilation footage of Nazi concentration camps in the immediate aftermath of World War II. The footage was gathered by the US Department of Defense as part of the effort to conduct war crimes trials. This copy was dubbed from a video copy at the National Archives in College Park, Maryland. National Archives Identifiers: ARC: 43452 NAIL: 238.2",
-        "year": 1945,
-        "duration": "51h 56m",
-        "durationSeconds": 186960,
-        "genres": [],
-        "rating": 3.7,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/nazi_concentration_camps",
-        "backdrop": "https://archive.org/services/img/nazi_concentration_camps",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/nazi_concentration_camps",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/nazi_concentration_camps",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:54.501Z"
-      },
-      {
-        "id": "archive-CHILD",
-        "title": "The Child Molester",
-        "description": "Produced by the Highway Safety Foundation in 1964, this shocking film deals with a subject quite taboo for its time. The short serves as a dramatized warning, ending with graphic case studies. Unlike the driver's education films produced by the same company, this film was apparently issued for only a short time before being withdrawn. **CONTENT ADVISORY: Crime scene footage at end will upset some people**",
-        "year": 0,
-        "duration": "19h 31m",
-        "durationSeconds": 70260,
-        "genres": [],
-        "rating": 3.7,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/CHILD",
-        "backdrop": "https://archive.org/services/img/CHILD",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/CHILD",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/CHILD",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.365Z"
-      },
-      {
-        "id": "archive-Detour",
-        "title": "Detour",
-        "description": "\"Man is involved in two freakish accidents that make him look like a murderer. Poverty row masterwork that is the most precise elucidation of the noir theme of explicit fatalism.\" - noir expert Spencer Selby | Cast: Tom Neal, Ann Savage, Claudia Drake, Edmund MacDonald. | A B-movie, it was shot in six days. The film, budgeted for $89,000 and ended up costing $117,000 to make.",
-        "year": 1945,
-        "duration": "1h 7m",
-        "durationSeconds": 4020,
-        "genres": [],
-        "rating": 3.7,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/Detour",
-        "backdrop": "https://archive.org/services/img/Detour",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/Detour",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/Detour",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.820Z"
-      },
-      {
-        "id": "archive-Dr.Sex",
-        "title": "Dr. Sex.",
-        "description": "[1964] Three sex researchers discuss their wildest cases, as told to them by their patients. A \"Nudie Cutie\" exploitation movie . The story is just a reason to look at nude women.",
-        "year": 0,
-        "duration": "1h 2m",
-        "durationSeconds": 3756,
-        "genres": [],
-        "rating": 3.6,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/Dr.Sex",
-        "backdrop": "https://archive.org/services/img/Dr.Sex",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/Dr.Sex",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/Dr.Sex",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:54.500Z"
-      },
-      {
-        "id": "archive-The_Pied_Piper_of_Hamelin",
-        "title": "The Pied Piper of Hamelin",
-        "description": "Stars Van Johnson, Claude Rains, Jim Backus Tagline: \"Now! a giant color spectacle! from the pages of the immortal classics comes this famous story\" Information regarding this film on its IMDb page . More information on Wikipedia .",
-        "year": 1957,
-        "duration": "1h 29m",
-        "durationSeconds": 5340,
-        "genres": [],
-        "rating": 3.6,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/The_Pied_Piper_of_Hamelin",
-        "backdrop": "https://archive.org/services/img/The_Pied_Piper_of_Hamelin",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/The_Pied_Piper_of_Hamelin",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/The_Pied_Piper_of_Hamelin",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:54.501Z"
-      },
-      {
-        "id": "archive-abraham_lincoln",
-        "title": "Abraham Lincoln",
-        "description": "A biography of the beloved United States president by D. W. Griffith. You can find more information regarding this film on its IMDb page .",
-        "year": 1930,
-        "duration": "1h 24m",
-        "durationSeconds": 5079,
-        "genres": [],
-        "rating": 3.6,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/abraham_lincoln",
-        "backdrop": "https://archive.org/services/img/abraham_lincoln",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/abraham_lincoln",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/abraham_lincoln",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:54.501Z"
-      },
-      {
-        "id": "archive-In_The_Year_2889",
-        "title": "In The Year 2889",
-        "description": "IN THE YEAR 2889 Starring: PAUL PETERSON AND QUINN O'HARE A group of post A-war survivors gathered together in a valley, are menaced by cannibalistic human mutants with telepathic powers.",
-        "year": 1967,
-        "duration": "1h 20m",
-        "durationSeconds": 4800,
-        "genres": [],
-        "rating": 3.6,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/In_The_Year_2889",
-        "backdrop": "https://archive.org/services/img/In_The_Year_2889",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/In_The_Year_2889",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/In_The_Year_2889",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.365Z"
-      },
-      {
-        "id": "archive-TheFastandtheFuriousJohnIreland1954goofyrip",
-        "title": "The Fast And The Furious",
-        "description": "http://imdb.com/title/tt0046969/ A man wrongly imprisoned for murder (John Ireland) breaks out of jail. He wants to clear his name, but with the police pursuing him, he's forced to take a beautiful young woman, driving a fast sports car, hostage and slip into a cross-border sports car race to try to make it to Mexico before the police get him",
-        "year": 1955,
-        "duration": "Unknown",
-        "durationSeconds": 0,
-        "genres": [],
-        "rating": 3.5,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/TheFastandtheFuriousJohnIreland1954goofyrip",
-        "backdrop": "https://archive.org/services/img/TheFastandtheFuriousJohnIreland1954goofyrip",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/TheFastandtheFuriousJohnIreland1954goofyrip",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/TheFastandtheFuriousJohnIreland1954goofyrip",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:54.500Z"
-      },
-      {
-        "id": "archive-Nosferatu_most_complete_version_93_mins.",
-        "title": "Nosferatu, eine Symphonie des Grauens (A Symphony of Horror)",
-        "description": "This is the most complete version available (just over 93 minutes) as this movie was demanded by Bram Stokers widow to be destroyed after winning 2 lawsuits in the mid & late 1920's. Tinted scenes and beautiful quality. I have seen the current version here at archive.org and decided to post this one as it is of much better video quality, although the music is a nit hokey. Enjoy this classic horror with the very creepy Max Schrek as the (IMHO) best vampire ever to waltz across the silver screen. ",
-        "year": 1922,
-        "duration": "1h 33m",
-        "durationSeconds": 5580,
-        "genres": [],
-        "rating": 3.5,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/Nosferatu_most_complete_version_93_mins.",
-        "backdrop": "https://archive.org/services/img/Nosferatu_most_complete_version_93_mins.",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/Nosferatu_most_complete_version_93_mins.",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/Nosferatu_most_complete_version_93_mins.",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.365Z"
-      },
-      {
-        "id": "archive-Kill.or.Cure",
-        "title": "Kill.or.Cure",
-        "description": "classic",
-        "year": 0,
-        "duration": "Unknown",
-        "durationSeconds": 0,
-        "genres": [],
-        "rating": 3.5,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/Kill.or.Cure",
-        "backdrop": "https://archive.org/services/img/Kill.or.Cure",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/Kill.or.Cure",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/Kill.or.Cure",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.820Z"
-      },
-      {
-        "id": "archive-VoyagetothePlanetofPrehistoricWomen",
-        "title": "Voyage to the Planet of Prehistoric Women",
-        "description": "A team of astronauts crashes on the surface of Venus. Accompanied by their robot, they explore the surface and end up destroying the Venusian God. This film is also known as \"The Gill Women\" and \"The Gill Women of Venus\". This film began life as a Soviet-produced work. An American producer then added some new footage and changed the credits to hide the film's Soviet origin. The original film, \"Planeta Bur\", is also known as \"Cosmonauts on Venus\", \"Planet of Storms\", \"Planet of Tempests\", \"Planet",
-        "year": 1967,
-        "duration": "1h 19m",
-        "durationSeconds": 4774,
-        "genres": [],
-        "rating": 3.4,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/VoyagetothePlanetofPrehistoricWomen",
-        "backdrop": "https://archive.org/services/img/VoyagetothePlanetofPrehistoricWomen",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/VoyagetothePlanetofPrehistoricWomen",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/VoyagetothePlanetofPrehistoricWomen",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:54.500Z"
-      },
-      {
-        "id": "archive-TheNakedWitch",
-        "title": "The Naked Witch",
-        "description": "One of Larry Buchanan's first films, so don't expect the polish and complex character interactions of his later work, like \"Mars Needs Women\" or \"Zontar, the Thing from Venus.\"",
-        "year": 0,
-        "duration": "59h 7m",
-        "durationSeconds": 212820,
-        "genres": [],
-        "rating": 3.4,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/TheNakedWitch",
-        "backdrop": "https://archive.org/services/img/TheNakedWitch",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/TheNakedWitch",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/TheNakedWitch",
-        "videoType": "direct",
-        "languages": [
-          {
-            "code": "en",
-            "label": "English (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": true
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.365Z"
-      },
-      {
-        "id": "archive-NakedMassacre1976",
-        "title": "Naked Massacre",
-        "description": "Loosely based on the notorious Richard Speck murders, this is the grim tale of a disturbed Vietnam vet returning home via Belfast, who invades a house shared by eight nurses and proceeds to terrorize and murder them. - IMDB Description",
-        "year": 1976,
+        "id": "bilibili-BV1MhXCBiEAq",
+        "title": "超级马里奥完整版电影全场动画（2026）",
+        "description": "",
+        "year": 2026,
         "duration": "1h 25m",
-        "durationSeconds": 5121,
-        "genres": [],
-        "rating": 3.3,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/NakedMassacre1976",
-        "backdrop": "https://archive.org/services/img/NakedMassacre1976",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/NakedMassacre1976",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/NakedMassacre1976",
-        "videoType": "direct",
+        "durationSeconds": 5129,
+        "genres": [
+          "单机游戏",
+          "游戏视频",
+          "短片",
+          "动漫二创激励计划",
+          "SuperM"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i1.hdslb.com/bfs/archive/6ad810d1911698231aef31dc1a326cbcdf254a8f.jpg",
+        "backdrop": "//i1.hdslb.com/bfs/archive/6ad810d1911698231aef31dc1a326cbcdf254a8f.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1MhXCBiEAq",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1MhXCBiEAq",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1MhXCBiEAq&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
         "languages": [
           {
-            "code": "en",
-            "label": "English (Original)",
+            "code": "ja",
+            "label": "Japanese (Original)",
             "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
             "isDubbed": false,
             "audioFormat": "Stereo"
           }
         ],
         "subtitles": [
           {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
             "code": "en",
             "label": "English",
-            "isDefault": true
+            "isDefault": false
           }
         ],
         "is4K": false,
         "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.365Z"
+        "addedAt": "2026-03-31T14:52:19.000Z"
       },
       {
-        "id": "archive-nightmare_castle",
-        "title": "Nightmare Castle",
-        "description": "You can find more information regarding this film on its IMDb page . This MPEG-4 file has been encoded to work with the Sony PSP. I would be interested to get feedback from anybody viewing this file on a PSP (or other handheld device).",
-        "year": 1965,
-        "duration": "1h 19m",
-        "durationSeconds": 4767,
-        "genres": [],
-        "rating": 3.1,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/nightmare_castle",
-        "backdrop": "https://archive.org/services/img/nightmare_castle",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/nightmare_castle",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/nightmare_castle",
-        "videoType": "direct",
+        "id": "bilibili-BV1fJ6qBiErK",
+        "title": "汪汪队 3D 动画｜小砾重病遇险 阿奇紧急救援！",
+        "description": "&lt;   汪汪队 3D 动画｜小砾重病遇险 阿奇紧急救援！",
+        "year": 2026,
+        "duration": "22m",
+        "durationSeconds": 1326,
+        "genres": [
+          "英语",
+          "阿奇",
+          "记录",
+          "Anime"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i2.hdslb.com/bfs/archive/4ad339bcb755827876c734476742f5a05d344c58.jpg",
+        "backdrop": "//i2.hdslb.com/bfs/archive/4ad339bcb755827876c734476742f5a05d344c58.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1fJ6qBiErK",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1fJ6qBiErK",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1fJ6qBiErK&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
         "languages": [
           {
-            "code": "en",
-            "label": "English (Original)",
+            "code": "ja",
+            "label": "Japanese (Original)",
             "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
             "isDubbed": false,
             "audioFormat": "Stereo"
           }
         ],
         "subtitles": [
           {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
             "code": "en",
             "label": "English",
-            "isDefault": true
+            "isDefault": false
           }
         ],
         "is4K": false,
         "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.820Z"
+        "addedAt": "2026-01-30T21:30:00.000Z"
       },
       {
-        "id": "archive-sex_madness",
-        "title": "Sex Madness",
-        "description": "This is a typical sex exploitation film from the early 1930s - complete with wild parties, sex out of wedlock, lesbianism, etc. A chorus girl's exposure to the \"casting couch\" also exposes her to syphilis. Exploitation filmmakers hoped to capitalize on the taboo subjects of venereal disease, sex before marriage, lesbianism, etc. while skirting the Motion Picture Production Code of 1930 which forbade a film from containing such content. Films like this would tour the United States for years - mos",
-        "year": 1938,
-        "duration": "Unknown",
-        "durationSeconds": 0,
-        "genres": [],
-        "rating": 2.9,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/sex_madness",
-        "backdrop": "https://archive.org/services/img/sex_madness",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/sex_madness",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/sex_madness",
-        "videoType": "direct",
+        "id": "bilibili-BV13sV8zREQG",
+        "title": "4K中英双字 《青春变形记》 台配  完整版",
+        "description": "请素质看剧 不要白嫖 谢谢各位大佬 祝大家看的开心～\n本账号未开通任何激励，大会员每月可领5B币券，想支持up的话可以用这个券给up发电哦感谢大家ღ( ´･ᴗ･` )比心https://account.bilibili.com/account/big/myPackage",
+        "year": 2025,
+        "duration": "2h 40m",
+        "durationSeconds": 9630,
+        "genres": [
+          "4K",
+          "动画",
+          "动漫二创激励计划",
+          "动画电影"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i2.hdslb.com/bfs/archive/17beff12f101e2819e48e3d85cf00176aab95463.jpg",
+        "backdrop": "//i2.hdslb.com/bfs/archive/17beff12f101e2819e48e3d85cf00176aab95463.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV13sV8zREQG",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV13sV8zREQG",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV13sV8zREQG&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
         "languages": [
           {
-            "code": "en",
-            "label": "English (Original)",
+            "code": "ja",
+            "label": "Japanese (Original)",
             "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
             "isDubbed": false,
             "audioFormat": "Stereo"
           }
         ],
         "subtitles": [
           {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
             "code": "en",
             "label": "English",
-            "isDefault": true
+            "isDefault": false
           }
         ],
         "is4K": false,
         "isFree": true,
-        "addedAt": "2026-05-07T19:09:54.500Z"
+        "addedAt": "2025-05-07T08:52:13.000Z"
       },
       {
-        "id": "archive-utopia",
-        "title": "Utopia",
-        "description": "Utopia (also known as Atoll K and Robinson Crusoe Land) is last film Laurel and Hardy made together. It was filmed and produced in Europe.",
-        "year": 1951,
-        "duration": "Unknown",
-        "durationSeconds": 0,
-        "genres": [],
-        "rating": 2.8,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/utopia",
-        "backdrop": "https://archive.org/services/img/utopia",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/utopia",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/utopia",
-        "videoType": "direct",
+        "id": "bilibili-BV1fcdAByEp1",
+        "title": "【电影推荐】死亡不存在 (2025) 法国 / 动画 中文字幕 未删减 戛纳电影节 导演双周单元(提名)",
+        "description": "在一次武装袭击失败后，海伦抛弃了她的同伴，逃进了森林，并遇到了凯瑟琳，一个神秘的另一个自我，一个充满野性且极具诱惑的分身。这个分身将带她来到一个奇幻的山谷，在那里，变形、邪恶的力量以及巨大的动荡很快就会打破原有的秩序。海伦将不得不重新审视自己的选择，以及那些限制着这些选择的道德、政治和人性方面的两难困境。",
+        "year": 2026,
+        "duration": "1h 45m",
+        "durationSeconds": 6352,
+        "genres": [
+          "戛纳电影节",
+          "电影剪辑",
+          "电影推荐",
+          "人性",
+          "法国"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i1.hdslb.com/bfs/archive/a0c4dd59a54889e84f03e96bc80c49dd51ce73f2.jpg",
+        "backdrop": "//i1.hdslb.com/bfs/archive/a0c4dd59a54889e84f03e96bc80c49dd51ce73f2.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1fcdAByEp1",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1fcdAByEp1",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1fcdAByEp1&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
         "languages": [
           {
-            "code": "en",
-            "label": "English (Original)",
+            "code": "ja",
+            "label": "Japanese (Original)",
             "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
             "isDubbed": false,
             "audioFormat": "Stereo"
           }
         ],
         "subtitles": [
           {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
             "code": "en",
             "label": "English",
-            "isDefault": true
+            "isDefault": false
           }
         ],
         "is4K": false,
         "isFree": true,
-        "addedAt": "2026-05-07T19:09:54.501Z"
+        "addedAt": "2026-05-07T07:48:57.000Z"
       },
       {
-        "id": "archive-JailBait",
-        "title": "Jail Bait",
-        "description": "Jail Bait (1954) Directed by Edward D Wood Jr. A Howco Release A vicious criminal uses plastic surgery to escape the police.This movie features Steve Reeves (undubbed). This is the original version of the film released in 1954. This film was registered for copyright (1954 LP3883) and never renewed. It entered the public domain on 1 January 1983.",
-        "year": 1954,
-        "duration": "Unknown",
-        "durationSeconds": 0,
-        "genres": [],
-        "rating": 2.5,
-        "quality": "Unknown",
-        "poster": "https://archive.org/services/img/JailBait",
-        "backdrop": "https://archive.org/services/img/JailBait",
-        "source": "internet-archive",
-        "sourceUrl": "https://archive.org/details/JailBait",
-        "sourceLicense": "Public Domain",
-        "videoUrl": "https://archive.org/download/JailBait",
-        "videoType": "direct",
+        "id": "bilibili-BV1jdhtzqEJ5",
+        "title": "【AI山海经】动画电影，精彩剧情故事4部合集【4K高清重制】",
+        "description": "-",
+        "year": 2025,
+        "duration": "13m",
+        "durationSeconds": 793,
+        "genres": [
+          "AI",
+          "动画种草激励计划",
+          "ai山海经",
+          "tungtungsahur",
+          "ai动画"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i0.hdslb.com/bfs/archive/894b527fc542eb436cdf4fa4147b1695fb4c14aa.jpg",
+        "backdrop": "//i0.hdslb.com/bfs/archive/894b527fc542eb436cdf4fa4147b1695fb4c14aa.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1jdhtzqEJ5",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1jdhtzqEJ5",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1jdhtzqEJ5&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
         "languages": [
           {
-            "code": "en",
-            "label": "English (Original)",
+            "code": "ja",
+            "label": "Japanese (Original)",
             "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
             "isDubbed": false,
             "audioFormat": "Stereo"
           }
         ],
         "subtitles": [
           {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
             "code": "en",
             "label": "English",
-            "isDefault": true
+            "isDefault": false
           }
         ],
         "is4K": false,
         "isFree": true,
-        "addedAt": "2026-05-07T19:09:55.820Z"
+        "addedAt": "2025-08-02T04:54:59.000Z"
+      },
+      {
+        "id": "bilibili-BV1oH8Uz4Evu",
+        "title": "【全36集】国学经典动画《讲给孩子的三十六计》，用动画的方式给孩子们演绎36计，启迪人生智慧",
+        "description": "网络\n【全36集】国学经典动画《讲给孩子的三十六计》，用动画的方式给孩子们演绎36计，启迪人生智慧",
+        "year": 2025,
+        "duration": "4h 49m",
+        "durationSeconds": 17376,
+        "genres": [
+          "动画片",
+          "英语学习",
+          "少儿英语",
+          "英语启蒙",
+          "三十六计"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i2.hdslb.com/bfs/archive/d0b4ebec0a742e019eae3727538116b77d22295b.jpg",
+        "backdrop": "//i2.hdslb.com/bfs/archive/d0b4ebec0a742e019eae3727538116b77d22295b.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1oH8Uz4Evu",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1oH8Uz4Evu",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1oH8Uz4Evu&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2025-07-31T15:23:28.000Z"
+      },
+      {
+        "id": "bilibili-BV1jUm7B8EeN",
+        "title": "2025《光环》完整版大电影",
+        "description": "",
+        "year": 2025,
+        "duration": "1h 41m",
+        "durationSeconds": 6108,
+        "genres": [
+          "YouTube",
+          "光环",
+          "剧情",
+          "完整版",
+          "游戏电影"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i2.hdslb.com/bfs/archive/52d3b20f0a5782215f75d2103e1f4a5f71c4186d.jpg",
+        "backdrop": "//i2.hdslb.com/bfs/archive/52d3b20f0a5782215f75d2103e1f4a5f71c4186d.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1jUm7B8EeN",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1jUm7B8EeN",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1jUm7B8EeN&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2025-12-12T09:52:25.000Z"
+      },
+      {
+        "id": "bilibili-BV143LNzLEsR",
+        "title": "【动画大电影/多厨狂喜/双语字幕】INDIE CROSS 独立角色大联动 1+2[角色出处在视频简介]（BY：MORØ）",
+        "description": "https://youtu.be/q38QckV8NDA\n原视频名：INDIE CROSS - EPISODE 2 // (ANIMATED SERIES)\n原视频作者：MORØ\n该视频不属于本频道 请关注MORØ本人\n\n角色的出处（如果有误请纠正）\nFrisk——Undertale/传说之下\nCuphead——Cuphead/茶杯头\nShovel Knight——Shovel knight\nChester——Shovel knight\nKnight——Hollow Knight/空洞骑士\nBeheade",
+        "year": 2025,
+        "duration": "1h 3m",
+        "durationSeconds": 3799,
+        "genres": [
+          "OneShot",
+          "茶杯头",
+          "Dead Cells",
+          "传说之下",
+          "INDIE CROSS"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i1.hdslb.com/bfs/archive/d91ffdd4040173bc30e9cdf987feff7cb39a1832.jpg",
+        "backdrop": "//i1.hdslb.com/bfs/archive/d91ffdd4040173bc30e9cdf987feff7cb39a1832.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV143LNzLEsR",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV143LNzLEsR",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV143LNzLEsR&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2025-04-20T14:55:08.000Z"
+      },
+      {
+        "id": "bilibili-BV1DvgVzAEoW",
+        "title": "【中字/熟肉】动画电影《头脑特工队3》这就是青春的荷尔蒙",
+        "description": "-",
+        "year": 2025,
+        "duration": "2h 10m",
+        "durationSeconds": 7804,
+        "genres": [
+          "皮克斯",
+          "电影",
+          "动画电影",
+          "动画",
+          "头脑特工队"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i0.hdslb.com/bfs/archive/0b8a8c245ba7013efe18731e2a21d4d678a0fd77.jpg",
+        "backdrop": "//i0.hdslb.com/bfs/archive/0b8a8c245ba7013efe18731e2a21d4d678a0fd77.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1DvgVzAEoW",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1DvgVzAEoW",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1DvgVzAEoW&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2025-07-21T11:11:55.000Z"
+      },
+      {
+        "id": "bilibili-BV1Fp9ZBwE1q",
+        "title": "最新动画影片《奇幻变身大冒险》（国语配音）小兽 × 巨鸟｜互换身体。。。",
+        "description": "描述一只林地小动物（奥斯卡影帝迈克尔·B·乔丹配音）和一只大鸟（朱诺·坦普尔配音）原本在山谷里是水火不容的天敌，却突然互换了身体，只好彼此合作，一边适应着身上陌生的皮毛和羽毛，一边想办法平安度过此生最疯狂的冒险。",
+        "year": 2026,
+        "duration": "3h 7m",
+        "durationSeconds": 11269,
+        "genres": [
+          "中字",
+          "互换身体",
+          "身体",
+          "乔丹",
+          "变身"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i0.hdslb.com/bfs/archive/819431479d843c088355c01fc05dfad4e502fa7e.jpg",
+        "backdrop": "//i0.hdslb.com/bfs/archive/819431479d843c088355c01fc05dfad4e502fa7e.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1Fp9ZBwE1q",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1Fp9ZBwE1q",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1Fp9ZBwE1q&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2026-05-03T04:42:46.000Z"
+      },
+      {
+        "id": "bilibili-BV1c3dFB3Exe",
+        "title": "死亡不存在 (2025)",
+        "description": "在一次武装袭击失败后，海伦抛弃了她的同伴，逃进了森林，并遇到了凯瑟琳，一个神秘的另一个自我，一个充满野性且极具诱惑的分身。这个分身将带她来到一个奇幻的山谷，在那里，变形、邪恶的力量以及巨大的动荡很快就会打破原有的秩序。海伦将不得不重新审视自己的选择，以及那些限制着这些选择的道德、政治和人性方面的两难困境。",
+        "year": 2026,
+        "duration": "1h 54m",
+        "durationSeconds": 6877,
+        "genres": [
+          "动画电影",
+          "死亡不存在",
+          "戛纳国际电影节"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i2.hdslb.com/bfs/archive/5c0e2329e275c51a3ae7d0292053d01a42629f9f.jpg",
+        "backdrop": "//i2.hdslb.com/bfs/archive/5c0e2329e275c51a3ae7d0292053d01a42629f9f.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1c3dFB3Exe",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1c3dFB3Exe",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1c3dFB3Exe&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2026-05-07T07:24:29.000Z"
+      },
+      {
+        "id": "bilibili-BV1cb411k7wg",
+        "title": "[小黄人]最新小黄人短片，你所想看的小黄人这里都有，小黄人动画短片集合",
+        "description": "来源于互联网，整理分享。\n最新最全的小黄人短片番外，\n喜欢请关注点赞支持我一下，\n谢谢！",
+        "year": 2019,
+        "duration": "1h 38m",
+        "durationSeconds": 5887,
+        "genres": [
+          "小黄人",
+          "动漫",
+          "CG",
+          "搞笑",
+          "治愈系"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i2.hdslb.com/bfs/archive/a7931c6ac28a3d3af6600ac5b6392997bb2f710e.jpg",
+        "backdrop": "//i2.hdslb.com/bfs/archive/a7931c6ac28a3d3af6600ac5b6392997bb2f710e.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1cb411k7wg",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1cb411k7wg",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1cb411k7wg&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2019-01-31T09:18:56.000Z"
+      },
+      {
+        "id": "bilibili-BV1e8411Y7oo",
+        "title": "【音乐收藏】Best Anime Song 好听动漫歌曲 Top Anime Song",
+        "description": "如果以上歌曲侵犯版权问题，请立即通知我，我会立刻下架影片，谢谢！\n希望以上的歌曲，您们会喜欢哦！\n素材转自Best Anime Song 好听动漫歌曲 Top Anime Song - YouTube",
+        "year": 2022,
+        "duration": "1h 6m",
+        "durationSeconds": 3962,
+        "genres": [
+          "收藏",
+          "动漫歌曲",
+          "好听",
+          "听歌",
+          "动漫音乐"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i1.hdslb.com/bfs/archive/90809316e1999096fbced18680a68175eb361486.jpg",
+        "backdrop": "//i1.hdslb.com/bfs/archive/90809316e1999096fbced18680a68175eb361486.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1e8411Y7oo",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1e8411Y7oo",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1e8411Y7oo&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2022-11-01T08:48:12.000Z"
+      },
+      {
+        "id": "bilibili-BV16x41147Uv",
+        "title": "01《星际特工》 动画版 生肉 Valerian Anime - Episode 01 [ENGLISH]",
+        "description": "www.youtube.com\n《星际特工》原著漫画 被称为最棒的漫画 影响了《第五元素》《星际大战》《阿凡达》等电影 《星际特工:千星之城》电影版近期正在热映。",
+        "year": 2017,
+        "duration": "24m",
+        "durationSeconds": 1496,
+        "genres": [
+          "动画",
+          "星际特工",
+          "千星之城",
+          "科幻",
+          "动画短片"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i0.hdslb.com/bfs/archive/c9d2faa4116615cb0e7822ff1fa039c189fc1fb3.jpg",
+        "backdrop": "//i0.hdslb.com/bfs/archive/c9d2faa4116615cb0e7822ff1fa039c189fc1fb3.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV16x41147Uv",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV16x41147Uv",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV16x41147Uv&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2017-09-11T09:31:15.000Z"
+      },
+      {
+        "id": "bilibili-BV1jx411s7fJ",
+        "title": "06《星际特工》 动画版 生肉 Valerian Anime - Episode 06 [ENGLISH]",
+        "description": "www.youtube.com \n《星际特工》原著漫画 被称为最棒的漫画 影响了《第五元素》《星际大战》《阿凡达》等电影 《星际特工:千星之城》电影版近期正在热映。",
+        "year": 2017,
+        "duration": "25m",
+        "durationSeconds": 1507,
+        "genres": [
+          "奇幻",
+          "星际特工",
+          "动画短片",
+          "科幻",
+          "正能量"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i0.hdslb.com/bfs/archive/e6b904d477f98e347c586ff0f675d7ddd0fbaa59.jpg",
+        "backdrop": "//i0.hdslb.com/bfs/archive/e6b904d477f98e347c586ff0f675d7ddd0fbaa59.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1jx411s7fJ",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1jx411s7fJ",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1jx411s7fJ&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2017-09-13T11:05:50.000Z"
+      },
+      {
+        "id": "bilibili-BV1924y1n7Ub",
+        "title": "Anime Japanese Movie English Sub  Miyoris Forest  Miyori No Mori",
+        "description": "",
+        "year": 2023,
+        "duration": "1h 47m",
+        "durationSeconds": 6425,
+        "genres": [
+          "漫画",
+          "日漫",
+          "动画",
+          "anime"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i1.hdslb.com/bfs/archive/19ae909a19b5f2184725b5a67f40fce27223fd9b.jpg",
+        "backdrop": "//i1.hdslb.com/bfs/archive/19ae909a19b5f2184725b5a67f40fce27223fd9b.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1924y1n7Ub",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1924y1n7Ub",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1924y1n7Ub&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2023-02-19T19:02:05.000Z"
+      },
+      {
+        "id": "bilibili-BV115RCBPEiA",
+        "title": "Z-ANIME - Z Anime+LTX2.3+代理创建动漫剧集",
+        "description": "这是油管Benji’s AI Playground的视频作品。本人进行整理、翻译和剪辑。\n\nZ-Anime是阿里巴巴Z-Image基础模型的全面优化版本，专为动画、漫画和卡通风格的图像生成而设计。在本视频中，我将Z-Anime与Z-Image Turbo进行直接对比测试，使用Flux2 Klien和绿幕合成构建完整的多角色工作流程，然后使用全新的Prompt Relay Timeline自定义节点将所有内容导入LTX2.3进行动画视频生成。我还展示了如何使用AI代理（LangGraph + OpenCla",
+        "year": 2026,
+        "duration": "15m",
+        "durationSeconds": 939,
+        "genres": [
+          "人工智能",
+          "comfyui",
+          "视频生成",
+          "图像生成",
+          "工作流"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i0.hdslb.com/bfs/archive/f3235f58029c4e4f9c08631ae8acfa3234e5eb55.jpg",
+        "backdrop": "//i0.hdslb.com/bfs/archive/f3235f58029c4e4f9c08631ae8acfa3234e5eb55.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV115RCBPEiA",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV115RCBPEiA",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV115RCBPEiA&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2026-05-06T01:00:00.000Z"
+      },
+      {
+        "id": "bilibili-BV1zJREB9EvF",
+        "title": "Z-Anime-动漫模型",
+        "description": "哈喽 小伙伴们大家加好。我又来了 今天给大家分享的是comfyui Z-Anime-动漫模型，废话不多说 喜欢的小伙伴到下面连接下载 里面有本地客户端 和模型lora以及工作流 持续更新\n注释 分享的模型及lora仅个人使用学习，不可用与商业用途\n这个是Z-Anime-动漫模型及工作流\n链接：https://pan.quark.cn/s/174caea7e054?pwd=S46F\n提取码：S46F\n这个是本地包 已更新到2026.04.05内核0.18.5 持续更新中\n链接：https://pan.qua",
+        "year": 2026,
+        "duration": "5m",
+        "durationSeconds": 309,
+        "genres": [
+          "comfyui",
+          "经验分享",
+          "学习",
+          "模型",
+          "动漫"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i2.hdslb.com/bfs/archive/18e40728a450dd076bbaa503cbda0999b20faa77.jpg",
+        "backdrop": "//i2.hdslb.com/bfs/archive/18e40728a450dd076bbaa503cbda0999b20faa77.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1zJREB9EvF",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1zJREB9EvF",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1zJREB9EvF&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2026-05-02T09:32:05.000Z"
+      },
+      {
+        "id": "bilibili-BV1XzRcYqEEu",
+        "title": "Doraemon New Episode 5-03-2025 - Episode 01 - Doraemon Cartoon - Doraemon In Hi",
+        "description": "Doraemon New Episode 5-03-2025 - Episode 01 - Doraemon Cartoon - Doraemon In Hindi - Doraemon Movie\n\nDoraemon New Episode 05-03-2025 Without Zoom | Doraemon New Episodes In Hindi 2024 | Doraemon Cartoon\n\nAbout This Anime:-\nNobita is a normal fourth",
+        "year": 2025,
+        "duration": "15m",
+        "durationSeconds": 901,
+        "genres": [
+          "Entertainment circle",
+          "Original",
+          "Funny",
+          "Tittle-tattle",
+          "Entertainment"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i1.hdslb.com/bfs/archive/ed11d59917292da407a64074b205b215b84dd3c8.jpg",
+        "backdrop": "//i1.hdslb.com/bfs/archive/ed11d59917292da407a64074b205b215b84dd3c8.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1XzRcYqEEu",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1XzRcYqEEu",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1XzRcYqEEu&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2025-03-05T21:38:18.000Z"
+      },
+      {
+        "id": "bilibili-BV1QAqwBUENi",
+        "title": "z-image-anime-aio动漫模型",
+        "description": "哈喽 小伙伴们大家加好。我又来了 今天给大家分享的是comfyui z-image-anime-aio动漫模型及工作流，废话不多说 喜欢的小伙伴到下面连接下载 里面有本地客户端 和模型lora以及工作流 持续更新\n注释 分享的模型及lora仅个人使用学习，不可用与商业用途\n这个是z-image-anime-aio动漫模型及工作流\n链接：https://pan.quark.cn/s/0b41e4e78a59?pwd=ABuD\n提取码：ABuD\n这个是本地包 持续更新\n我用夸克网盘给你分享了「模型」，点击链接",
+        "year": 2026,
+        "duration": "5m",
+        "durationSeconds": 346,
+        "genres": [
+          "z-image-anime-aio",
+          "comfyui",
+          "学习",
+          "模型",
+          "动漫"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i2.hdslb.com/bfs/archive/bca158779034879f44c1ea7464de989aa0b1f97f.jpg",
+        "backdrop": "//i2.hdslb.com/bfs/archive/bca158779034879f44c1ea7464de989aa0b1f97f.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1QAqwBUENi",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1QAqwBUENi",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1QAqwBUENi&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2026-01-06T11:35:05.000Z"
+      },
+      {
+        "id": "bilibili-BV1yHAgzfEJs",
+        "title": "电视自带的画质增强算法和Anime4K的对比，结论是Anime4K完胜",
+        "description": "",
+        "year": 2026,
+        "duration": "6m",
+        "durationSeconds": 380,
+        "genres": [
+          "算法",
+          "电视",
+          "画质",
+          "Anime"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i2.hdslb.com/bfs/archive/4a2bbaafb92b0a5c5bd4bbd0d11b85f346270355.jpg",
+        "backdrop": "//i2.hdslb.com/bfs/archive/4a2bbaafb92b0a5c5bd4bbd0d11b85f346270355.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1yHAgzfEJs",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1yHAgzfEJs",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1yHAgzfEJs&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2026-03-22T07:29:19.000Z"
+      },
+      {
+        "id": "bilibili-BV1XU2XBpEeh",
+        "title": "Roblox Anime Eternal/动漫永恒，1~34图隐藏boss位置",
+        "description": "-",
+        "year": 2025,
+        "duration": "12m",
+        "durationSeconds": 776,
+        "genres": [
+          "推荐宝藏游戏",
+          "Roblox",
+          "Anime"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i1.hdslb.com/bfs/archive/5aee0380894c6296437f923fe39261e442f0d712.jpg",
+        "backdrop": "//i1.hdslb.com/bfs/archive/5aee0380894c6296437f923fe39261e442f0d712.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1XU2XBpEeh",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1XU2XBpEeh",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1XU2XBpEeh&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2025-12-06T11:28:55.000Z"
+      },
+      {
+        "id": "bilibili-BV1HwRyBwEBH",
+        "title": "Anime Fighting Simluator endless(动漫格斗模拟器无限)咒术版本技能展示",
+        "description": "j",
+        "year": 2026,
+        "duration": "5m",
+        "durationSeconds": 321,
+        "genres": [
+          "动漫",
+          "AFSE",
+          "动漫格斗模拟器无限",
+          "宿傩",
+          "动漫格斗模拟器"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i0.hdslb.com/bfs/archive/9dc048e9b2c0d35ecbf4e22622bb60edfc8e7231.jpg",
+        "backdrop": "//i0.hdslb.com/bfs/archive/9dc048e9b2c0d35ecbf4e22622bb60edfc8e7231.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1HwRyBwEBH",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1HwRyBwEBH",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1HwRyBwEBH&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2026-05-05T05:53:47.000Z"
+      },
+      {
+        "id": "bilibili-BV1Xe411u74U",
+        "title": "三种超分辨率算法对比【Anime4K】【Real-ESRGAN】【waifu2x-ncnn-vulkan】",
+        "description": "崩三这个短片刚好有多种风格动画，正好拿来测试一下几种超分辨率算法的表现\n原片使用——《崩坏3》动画短片「因你而在的故事」",
+        "year": 2022,
+        "duration": "8m",
+        "durationSeconds": 493,
+        "genres": [
+          "崩坏3六周年生日快乐",
+          "机器学习",
+          "崩坏3",
+          "对比",
+          "测试"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i2.hdslb.com/bfs/archive/dd77d7e3a2287aa3bd72363d589e6425634735a1.jpg",
+        "backdrop": "//i2.hdslb.com/bfs/archive/dd77d7e3a2287aa3bd72363d589e6425634735a1.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1Xe411u74U",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1Xe411u74U",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1Xe411u74U&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2022-09-11T07:06:37.000Z"
+      },
+      {
+        "id": "bilibili-BV1k59gBwELZ",
+        "title": "Teogonia.S01 Episode 7 hindi anime cartoon",
+        "description": "Teogonia.S01 Episode 7 hindi",
+        "year": 2026,
+        "duration": "23m",
+        "durationSeconds": 1421,
+        "genres": [
+          "情感",
+          "高能",
+          "可爱",
+          "Anime"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i2.hdslb.com/bfs/archive/0154bbe41409acc1cd3deffaf1383cb19fede5f9.jpg",
+        "backdrop": "//i2.hdslb.com/bfs/archive/0154bbe41409acc1cd3deffaf1383cb19fede5f9.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1k59gBwELZ",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1k59gBwELZ",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1k59gBwELZ&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2026-04-03T15:55:22.000Z"
       }
     ],
     "categories": [
@@ -2563,21 +2034,21 @@
           "blender-spring",
           "blender-tears-of-steel",
           "blender-elephants-dream",
-          "archive-HisNewJobCharlesChaplin-1915",
-          "archive-House_On_Haunted_Hill.avi",
-          "archive-Sita_Sings_the_Blues",
-          "archive-DasKabinettdesDoktorCaligariTheCabinetofDrCaligari",
-          "archive-charlie_chaplin_film_fest",
-          "archive-TheMostDangerousGame",
-          "archive-TheStranger_0",
-          "archive-impact",
-          "archive-Return_of_the_Kung_Fu_Dragon",
-          "archive-ThePhantomoftheOpera",
-          "archive-angel_on_my_shoulder",
-          "archive-Martha_Ivers_movie",
-          "archive-his_girl_friday",
-          "archive-house_on_haunted_hill_ipod",
-          "archive-dressed_to_kill"
+          "vimeo-1084537",
+          "vimeo-248323498",
+          "bilibili-BV1VHD9BvErm",
+          "bilibili-BV1bRRVBsEhX",
+          "bilibili-BV1MhXCBiEAq",
+          "bilibili-BV1fJ6qBiErK",
+          "bilibili-BV13sV8zREQG",
+          "bilibili-BV1fcdAByEp1",
+          "bilibili-BV1jdhtzqEJ5",
+          "bilibili-BV1oH8Uz4Evu",
+          "bilibili-BV1jUm7B8EeN",
+          "bilibili-BV143LNzLEsR",
+          "bilibili-BV1DvgVzAEoW",
+          "bilibili-BV1Fp9ZBwE1q",
+          "bilibili-BV1c3dFB3Exe"
         ]
       },
       {
@@ -2592,6 +2063,79 @@
         ]
       },
       {
+        "id": "watch-here",
+        "label": "Watch Right Here",
+        "icon": "Play",
+        "movieIds": [
+          "blender-sintel",
+          "blender-big-buck-bunny",
+          "blender-spring",
+          "blender-tears-of-steel",
+          "blender-elephants-dream",
+          "vimeo-1084537",
+          "vimeo-248323498",
+          "bilibili-BV1VHD9BvErm",
+          "bilibili-BV1bRRVBsEhX",
+          "bilibili-BV1MhXCBiEAq",
+          "bilibili-BV1fJ6qBiErK",
+          "bilibili-BV13sV8zREQG",
+          "bilibili-BV1fcdAByEp1",
+          "bilibili-BV1jdhtzqEJ5",
+          "bilibili-BV1oH8Uz4Evu",
+          "bilibili-BV1jUm7B8EeN",
+          "bilibili-BV143LNzLEsR",
+          "bilibili-BV1DvgVzAEoW",
+          "bilibili-BV1Fp9ZBwE1q",
+          "bilibili-BV1c3dFB3Exe",
+          "bilibili-BV1cb411k7wg",
+          "bilibili-BV1e8411Y7oo",
+          "bilibili-BV16x41147Uv",
+          "bilibili-BV1jx411s7fJ",
+          "bilibili-BV1924y1n7Ub",
+          "bilibili-BV115RCBPEiA",
+          "bilibili-BV1zJREB9EvF",
+          "bilibili-BV1XzRcYqEEu",
+          "bilibili-BV1QAqwBUENi",
+          "bilibili-BV1yHAgzfEJs"
+        ]
+      },
+      {
+        "id": "anime-all",
+        "label": "Anime Collection",
+        "icon": "Swords",
+        "movieIds": [
+          "blender-sintel",
+          "blender-big-buck-bunny",
+          "blender-spring",
+          "blender-elephants-dream",
+          "vimeo-1084537",
+          "bilibili-BV1fJ6qBiErK",
+          "bilibili-BV1924y1n7Ub",
+          "bilibili-BV1QAqwBUENi",
+          "bilibili-BV1yHAgzfEJs",
+          "bilibili-BV1XU2XBpEeh",
+          "bilibili-BV1k59gBwELZ"
+        ]
+      },
+      {
+        "id": "anime-playable",
+        "label": "Play Anime Now",
+        "icon": "Play",
+        "movieIds": [
+          "blender-sintel",
+          "blender-big-buck-bunny",
+          "blender-spring",
+          "blender-elephants-dream",
+          "vimeo-1084537",
+          "bilibili-BV1fJ6qBiErK",
+          "bilibili-BV1924y1n7Ub",
+          "bilibili-BV1QAqwBUENi",
+          "bilibili-BV1yHAgzfEJs",
+          "bilibili-BV1XU2XBpEeh",
+          "bilibili-BV1k59gBwELZ"
+        ]
+      },
+      {
         "id": "animation",
         "label": "Animation",
         "icon": "Palette",
@@ -2599,7 +2143,8 @@
           "blender-sintel",
           "blender-big-buck-bunny",
           "blender-spring",
-          "blender-elephants-dream"
+          "blender-elephants-dream",
+          "vimeo-1084537"
         ]
       },
       {
@@ -2627,7 +2172,8 @@
         "label": "Comedy",
         "icon": "Smile",
         "movieIds": [
-          "blender-big-buck-bunny"
+          "blender-big-buck-bunny",
+          "vimeo-1084537"
         ]
       },
       {
@@ -2649,71 +2195,6 @@
         ]
       },
       {
-        "id": "public-domain",
-        "label": "Public Domain Classics",
-        "icon": "Film",
-        "movieIds": [
-          "archive-HisNewJobCharlesChaplin-1915",
-          "archive-House_On_Haunted_Hill.avi",
-          "archive-Sita_Sings_the_Blues",
-          "archive-DasKabinettdesDoktorCaligariTheCabinetofDrCaligari",
-          "archive-charlie_chaplin_film_fest",
-          "archive-TheMostDangerousGame",
-          "archive-TheStranger_0",
-          "archive-impact",
-          "archive-Return_of_the_Kung_Fu_Dragon",
-          "archive-ThePhantomoftheOpera",
-          "archive-angel_on_my_shoulder",
-          "archive-Martha_Ivers_movie",
-          "archive-his_girl_friday",
-          "archive-house_on_haunted_hill_ipod",
-          "archive-dressed_to_kill",
-          "archive-lost_world",
-          "archive-CarnivalofSouls",
-          "archive-They_Made_Me_A_Criminal_1939",
-          "archive-DiaryofaNudist",
-          "archive-Horror_Hotel",
-          "archive-night_of_the_living_dead_dvd",
-          "archive-suddenly",
-          "archive-ScarletStreet",
-          "archive-Please_Murder_Me_movie",
-          "archive-Hitch_Hiker",
-          "archive-BlondeIce1948",
-          "archive-TheGhoul",
-          "archive-Saint_Louis_Bank_Robbery",
-          "archive-He_Walked_By_Night.avi",
-          "archive-Escape_From_Sobibor.avi",
-          "archive-Grave_of_the_Vampire_movie",
-          "archive-TheRedHouse",
-          "archive-reefer_madness1938",
-          "archive-20000LeaguesUndertheSea",
-          "archive-Inner_Sanctum_movie",
-          "archive-BehindGreenLights_high_Q_mp4",
-          "archive-inner_sanctum",
-          "archive-BloodyPitOfHorror",
-          "archive-white_zombie",
-          "archive-Quicksand_clear",
-          "archive-JungleBook",
-          "archive-nazi_concentration_camps",
-          "archive-CHILD",
-          "archive-Detour",
-          "archive-Dr.Sex",
-          "archive-The_Pied_Piper_of_Hamelin",
-          "archive-abraham_lincoln",
-          "archive-In_The_Year_2889",
-          "archive-TheFastandtheFuriousJohnIreland1954goofyrip",
-          "archive-Nosferatu_most_complete_version_93_mins.",
-          "archive-Kill.or.Cure",
-          "archive-VoyagetothePlanetofPrehistoricWomen",
-          "archive-TheNakedWitch",
-          "archive-NakedMassacre1976",
-          "archive-nightmare_castle",
-          "archive-sex_madness",
-          "archive-utopia",
-          "archive-JailBait"
-        ]
-      },
-      {
         "id": "cc-licensed",
         "label": "Creative Commons",
         "icon": "Shield",
@@ -2722,7 +2203,9 @@
           "blender-big-buck-bunny",
           "blender-spring",
           "blender-tears-of-steel",
-          "blender-elephants-dream"
+          "blender-elephants-dream",
+          "vimeo-1084537",
+          "vimeo-248323498"
         ]
       },
       {
@@ -2734,10 +2217,114 @@
           "blender-big-buck-bunny",
           "blender-spring"
         ]
+      },
+      {
+        "id": "blender-cc",
+        "label": "Blender Open Movies",
+        "icon": "Film",
+        "movieIds": [
+          "blender-sintel",
+          "blender-big-buck-bunny",
+          "blender-spring",
+          "blender-tears-of-steel",
+          "blender-elephants-dream"
+        ]
+      },
+      {
+        "id": "vimeo-shorts",
+        "label": "Vimeo Animated Shorts",
+        "icon": "Clapperboard",
+        "movieIds": [
+          "vimeo-1084537",
+          "vimeo-248323498"
+        ]
+      },
+      {
+        "id": "bilibili-anime",
+        "label": "Bilibili Anime",
+        "icon": "Tv",
+        "movieIds": [
+          "bilibili-BV1VHD9BvErm",
+          "bilibili-BV1bRRVBsEhX",
+          "bilibili-BV1MhXCBiEAq",
+          "bilibili-BV1fJ6qBiErK",
+          "bilibili-BV13sV8zREQG",
+          "bilibili-BV1fcdAByEp1",
+          "bilibili-BV1jdhtzqEJ5",
+          "bilibili-BV1oH8Uz4Evu",
+          "bilibili-BV1jUm7B8EeN",
+          "bilibili-BV143LNzLEsR",
+          "bilibili-BV1DvgVzAEoW",
+          "bilibili-BV1Fp9ZBwE1q",
+          "bilibili-BV1c3dFB3Exe",
+          "bilibili-BV1cb411k7wg",
+          "bilibili-BV1e8411Y7oo",
+          "bilibili-BV16x41147Uv",
+          "bilibili-BV1jx411s7fJ",
+          "bilibili-BV1924y1n7Ub",
+          "bilibili-BV115RCBPEiA",
+          "bilibili-BV1zJREB9EvF",
+          "bilibili-BV1XzRcYqEEu",
+          "bilibili-BV1QAqwBUENi",
+          "bilibili-BV1yHAgzfEJs",
+          "bilibili-BV1XU2XBpEeh",
+          "bilibili-BV1HwRyBwEBH",
+          "bilibili-BV1Xe411u74U",
+          "bilibili-BV1k59gBwELZ"
+        ]
+      },
+      {
+        "id": "documentary",
+        "label": "Documentary",
+        "icon": "Camera",
+        "movieIds": [
+          "vimeo-248323498"
+        ]
+      },
+      {
+        "id": "all-free-streaming",
+        "label": "All Free Streaming",
+        "icon": "Play",
+        "movieIds": [
+          "blender-sintel",
+          "blender-big-buck-bunny",
+          "blender-spring",
+          "blender-tears-of-steel",
+          "blender-elephants-dream",
+          "vimeo-1084537",
+          "vimeo-248323498",
+          "bilibili-BV1VHD9BvErm",
+          "bilibili-BV1bRRVBsEhX",
+          "bilibili-BV1MhXCBiEAq",
+          "bilibili-BV1fJ6qBiErK",
+          "bilibili-BV13sV8zREQG",
+          "bilibili-BV1fcdAByEp1",
+          "bilibili-BV1jdhtzqEJ5",
+          "bilibili-BV1oH8Uz4Evu",
+          "bilibili-BV1jUm7B8EeN",
+          "bilibili-BV143LNzLEsR",
+          "bilibili-BV1DvgVzAEoW",
+          "bilibili-BV1Fp9ZBwE1q",
+          "bilibili-BV1c3dFB3Exe",
+          "bilibili-BV1cb411k7wg",
+          "bilibili-BV1e8411Y7oo",
+          "bilibili-BV16x41147Uv",
+          "bilibili-BV1jx411s7fJ",
+          "bilibili-BV1924y1n7Ub",
+          "bilibili-BV115RCBPEiA",
+          "bilibili-BV1zJREB9EvF",
+          "bilibili-BV1XzRcYqEEu",
+          "bilibili-BV1QAqwBUENi",
+          "bilibili-BV1yHAgzfEJs",
+          "bilibili-BV1XU2XBpEeh",
+          "bilibili-BV1HwRyBwEBH",
+          "bilibili-BV1Xe411u74U",
+          "bilibili-BV1k59gBwELZ"
+        ]
       }
     ],
-    "lastUpdated": "2026-05-07T19:09:55.825Z"
+    "lastUpdated": "2026-05-08T02:04:50.101Z"
   },
-  "createdAt": 1778180995825,
-  "expiresAt": 1778202595825
+  "createdAt": 1778205890101,
+  "expiresAt": 1778227490101
 }

@@ -23,22 +23,16 @@ function getSourceBadge(source: StreamableMovie['source']): { label: string; cla
       return { label: 'YT', className: 'bg-red-500/20 text-red-400' };
     case 'vimeo-cc':
       return { label: 'Vimeo', className: 'bg-cyan-500/20 text-cyan-400' };
-    case 'public-domain':
-      return { label: 'PD', className: 'bg-amber-500/20 text-amber-400' };
     case 'tubi':
       return { label: 'Tubi', className: 'bg-red-600/20 text-red-400' };
     case 'pluto-tv':
       return { label: 'Pluto', className: 'bg-indigo-500/20 text-indigo-300' };
-    case 'crackle':
-      return { label: 'Crackle', className: 'bg-orange-500/20 text-orange-400' };
-    case 'retrocrush':
-      return { label: 'Retro', className: 'bg-pink-500/20 text-pink-400' };
-    case 'contv':
-      return { label: 'CONtv', className: 'bg-emerald-500/20 text-emerald-400' };
     case 'bilibili':
       return { label: 'Bili', className: 'bg-sky-500/20 text-sky-400' };
-    case 'indie-animation':
-      return { label: 'Indie', className: 'bg-teal-500/20 text-teal-400' };
+    case 'plex-free':
+      return { label: 'Plex', className: 'bg-amber-500/20 text-amber-400' };
+    case 'openflix':
+      return { label: 'Open', className: 'bg-emerald-500/20 text-emerald-400' };
     default:
       return { label: 'Free', className: 'bg-white/10 text-white/70' };
   }
@@ -306,16 +300,15 @@ export default function StreamPage() {
   const embeddableCount = movies.filter(m => m.isEmbeddable).length;
   const linkoutCount = movies.filter(m => m.videoType === 'linkout').length;
   const blenderCount = movies.filter(m => m.source === 'blender-foundation').length;
-  const archiveCount = movies.filter(m => m.source === 'internet-archive' || m.source === 'public-domain').length;
+  const archiveCount = movies.filter(m => m.source === 'internet-archive' || m.source === 'openflix').length;
   const youtubeCount = movies.filter(m => m.source === 'youtube').length;
   const vimeoCount = movies.filter(m => m.source === 'vimeo-cc').length;
   const tubiCount = movies.filter(m => m.source === 'tubi').length;
   const plutoTVCount = movies.filter(m => m.source === 'pluto-tv').length;
-  const crackleCount = movies.filter(m => m.source === 'crackle').length;
-  const retrocrushCount = movies.filter(m => m.source === 'retrocrush').length;
-  const contvCount = movies.filter(m => m.source === 'contv').length;
   const bilibiliCount = movies.filter(m => m.source === 'bilibili').length;
-  const indieCount = movies.filter(m => m.source === 'indie-animation').length;
+  const plexCount = movies.filter(m => m.source === 'plex-free').length;
+  const openflixCount = movies.filter(m => m.source === 'openflix').length;
+  const animeCount = movies.filter(m => m.genres.some(g => g.toLowerCase().includes('anime'))).length;
 
   return (
     <div className="min-h-screen bg-[#050507]">
@@ -454,21 +447,20 @@ export default function StreamPage() {
       <div className="px-4 md:px-12 py-6 border-t border-[#1e1e28]/50">
         <div className="flex items-center gap-4 md:gap-6 text-[10px] text-white/20 flex-wrap">
           <span className="font-medium text-white/30">{movies.length} movies</span>
+          <span>{animeCount} anime</span>
           <span>{movies.filter(m => m.is4K).length} in 4K</span>
           <span>{embeddableCount} playable</span>
           <span>{linkoutCount} link-out</span>
           <span className="text-white/10">|</span>
           <span>{blenderCount} Blender CC</span>
-          <span>{archiveCount} Public Domain</span>
+          <span>{archiveCount} Archive</span>
           <span>{youtubeCount} YouTube</span>
           <span>{vimeoCount} Vimeo</span>
           <span>{tubiCount} Tubi</span>
           <span>{plutoTVCount} Pluto TV</span>
-          <span>{crackleCount} Crackle</span>
-          <span>{retrocrushCount} RetroCrush</span>
-          <span>{contvCount} CONtv</span>
           <span>{bilibiliCount} Bilibili</span>
-          <span>{indieCount} Indie</span>
+          <span>{plexCount} Plex</span>
+          <span>{openflixCount} OpenFlix</span>
         </div>
       </div>
 

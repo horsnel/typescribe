@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV16x41147Uv",
+  "data": {
+    "id": "bilibili-BV16x41147Uv",
+    "title": "01《星际特工》 动画版 生肉 Valerian Anime - Episode 01 [ENGLISH]",
+    "description": "www.youtube.com\n《星际特工》原著漫画 被称为最棒的漫画 影响了《第五元素》《星际大战》《阿凡达》等电影 《星际特工:千星之城》电影版近期正在热映。",
+    "year": 2017,
+    "duration": "24m",
+    "durationSeconds": 1496,
+    "genres": [
+      "动画",
+      "星际特工",
+      "千星之城",
+      "科幻",
+      "动画短片"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i0.hdslb.com/bfs/archive/c9d2faa4116615cb0e7822ff1fa039c189fc1fb3.jpg",
+    "backdrop": "//i0.hdslb.com/bfs/archive/c9d2faa4116615cb0e7822ff1fa039c189fc1fb3.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV16x41147Uv",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV16x41147Uv",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV16x41147Uv&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2017-09-11T09:31:15.000Z"
+  },
+  "createdAt": 1778205890103,
+  "expiresAt": 1778292290103
+}

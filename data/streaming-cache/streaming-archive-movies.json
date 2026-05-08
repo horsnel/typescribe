@@ -18,6 +18,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/HisNewJobCharlesChaplin-1915",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -36,7 +37,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:54.500Z"
+      "addedAt": "2026-05-08T02:04:46.246Z"
     },
     {
       "id": "archive-sex_madness",
@@ -55,6 +56,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/sex_madness",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -73,7 +75,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:54.500Z"
+      "addedAt": "2026-05-08T02:04:46.246Z"
     },
     {
       "id": "archive-charlie_chaplin_film_fest",
@@ -92,6 +94,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/charlie_chaplin_film_fest",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -110,7 +113,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:54.500Z"
+      "addedAt": "2026-05-08T02:04:46.246Z"
     },
     {
       "id": "archive-TheFastandtheFuriousJohnIreland1954goofyrip",
@@ -129,6 +132,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/TheFastandtheFuriousJohnIreland1954goofyrip",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -147,7 +151,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:54.500Z"
+      "addedAt": "2026-05-08T02:04:46.247Z"
     },
     {
       "id": "archive-Dr.Sex",
@@ -166,6 +170,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/Dr.Sex",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -184,7 +189,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:54.500Z"
+      "addedAt": "2026-05-08T02:04:46.247Z"
     },
     {
       "id": "archive-Return_of_the_Kung_Fu_Dragon",
@@ -201,8 +206,9 @@
       "source": "internet-archive",
       "sourceUrl": "https://archive.org/details/Return_of_the_Kung_Fu_Dragon",
       "sourceLicense": "Public Domain",
-      "videoUrl": "https://archive.org/download/Return_of_the_Kung_Fu_Dragon",
+      "videoUrl": "https://archive.org/download/Return_of_the_Kung_Fu_Dragon/Return_of_the_Kung_Fu_Dragon.mp4",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -221,7 +227,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:54.500Z"
+      "addedAt": "2026-05-08T02:04:46.247Z"
     },
     {
       "id": "archive-his_girl_friday",
@@ -240,6 +246,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/his_girl_friday",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -258,7 +265,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:54.500Z"
+      "addedAt": "2026-05-08T02:04:46.247Z"
     },
     {
       "id": "archive-VoyagetothePlanetofPrehistoricWomen",
@@ -277,6 +284,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/VoyagetothePlanetofPrehistoricWomen",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -295,7 +303,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:54.500Z"
+      "addedAt": "2026-05-08T02:04:46.247Z"
     },
     {
       "id": "archive-house_on_haunted_hill_ipod",
@@ -312,8 +320,9 @@
       "source": "internet-archive",
       "sourceUrl": "https://archive.org/details/house_on_haunted_hill_ipod",
       "sourceLicense": "Public Domain",
-      "videoUrl": "https://archive.org/download/house_on_haunted_hill_ipod",
+      "videoUrl": "https://archive.org/download/house_on_haunted_hill_ipod/house_on_haunted_hill.mp4",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -332,7 +341,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:54.500Z"
+      "addedAt": "2026-05-08T02:04:46.247Z"
     },
     {
       "id": "archive-JungleBook",
@@ -351,6 +360,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/JungleBook",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -369,7 +379,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:54.500Z"
+      "addedAt": "2026-05-08T02:04:46.247Z"
     },
     {
       "id": "archive-reefer_madness1938",
@@ -388,6 +398,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/reefer_madness1938",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -406,7 +417,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:54.501Z"
+      "addedAt": "2026-05-08T02:04:46.247Z"
     },
     {
       "id": "archive-Sita_Sings_the_Blues",
@@ -423,8 +434,9 @@
       "source": "internet-archive",
       "sourceUrl": "https://archive.org/details/Sita_Sings_the_Blues",
       "sourceLicense": "Public Domain",
-      "videoUrl": "https://archive.org/download/Sita_Sings_the_Blues",
+      "videoUrl": "https://archive.org/download/Sita_Sings_the_Blues/Sita_Sings_the_Blues_1080p.mp4",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -443,7 +455,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:54.501Z"
+      "addedAt": "2026-05-08T02:04:46.247Z"
     },
     {
       "id": "archive-utopia",
@@ -462,6 +474,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/utopia",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -480,7 +493,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:54.501Z"
+      "addedAt": "2026-05-08T02:04:46.247Z"
     },
     {
       "id": "archive-The_Pied_Piper_of_Hamelin",
@@ -499,6 +512,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/The_Pied_Piper_of_Hamelin",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -517,7 +531,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:54.501Z"
+      "addedAt": "2026-05-08T02:04:46.247Z"
     },
     {
       "id": "archive-Escape_From_Sobibor.avi",
@@ -536,6 +550,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/Escape_From_Sobibor.avi",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -554,7 +569,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:54.501Z"
+      "addedAt": "2026-05-08T02:04:46.247Z"
     },
     {
       "id": "archive-nazi_concentration_camps",
@@ -573,6 +588,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/nazi_concentration_camps",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -591,7 +607,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:54.501Z"
+      "addedAt": "2026-05-08T02:04:46.247Z"
     },
     {
       "id": "archive-BloodyPitOfHorror",
@@ -610,6 +626,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/BloodyPitOfHorror",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -628,7 +645,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:54.501Z"
+      "addedAt": "2026-05-08T02:04:46.247Z"
     },
     {
       "id": "archive-abraham_lincoln",
@@ -647,6 +664,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/abraham_lincoln",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -665,7 +683,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:54.501Z"
+      "addedAt": "2026-05-08T02:04:46.247Z"
     },
     {
       "id": "archive-dressed_to_kill",
@@ -684,6 +702,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/dressed_to_kill",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -702,7 +721,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:54.501Z"
+      "addedAt": "2026-05-08T02:04:46.247Z"
     },
     {
       "id": "archive-DiaryofaNudist",
@@ -721,6 +740,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/DiaryofaNudist",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -739,7 +759,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:54.501Z"
+      "addedAt": "2026-05-08T02:04:46.247Z"
     },
     {
       "id": "archive-house_on_haunted_hill_ipod",
@@ -756,8 +776,9 @@
       "source": "internet-archive",
       "sourceUrl": "https://archive.org/details/house_on_haunted_hill_ipod",
       "sourceLicense": "Public Domain",
-      "videoUrl": "https://archive.org/download/house_on_haunted_hill_ipod",
+      "videoUrl": "https://archive.org/download/house_on_haunted_hill_ipod/house_on_haunted_hill.mp4",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -776,7 +797,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.365Z"
+      "addedAt": "2026-05-08T02:05:00.646Z"
     },
     {
       "id": "archive-BloodyPitOfHorror",
@@ -795,6 +816,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/BloodyPitOfHorror",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -813,7 +835,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.365Z"
+      "addedAt": "2026-05-08T02:05:00.646Z"
     },
     {
       "id": "archive-CHILD",
@@ -830,8 +852,9 @@
       "source": "internet-archive",
       "sourceUrl": "https://archive.org/details/CHILD",
       "sourceLicense": "Public Domain",
-      "videoUrl": "https://archive.org/download/CHILD",
+      "videoUrl": "https://archive.org/download/CHILD/CHILD.mp4",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -850,7 +873,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.365Z"
+      "addedAt": "2026-05-08T02:05:00.646Z"
     },
     {
       "id": "archive-TheNakedWitch",
@@ -867,8 +890,9 @@
       "source": "internet-archive",
       "sourceUrl": "https://archive.org/details/TheNakedWitch",
       "sourceLicense": "Public Domain",
-      "videoUrl": "https://archive.org/download/TheNakedWitch",
+      "videoUrl": "https://archive.org/download/TheNakedWitch/TheNakedWitch1964FullMovieFilmHorror.mp4",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -887,7 +911,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.365Z"
+      "addedAt": "2026-05-08T02:05:00.646Z"
     },
     {
       "id": "archive-ThePhantomoftheOpera",
@@ -906,6 +930,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/ThePhantomoftheOpera",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -924,7 +949,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.365Z"
+      "addedAt": "2026-05-08T02:05:00.646Z"
     },
     {
       "id": "archive-20000LeaguesUndertheSea",
@@ -943,6 +968,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/20000LeaguesUndertheSea",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -961,7 +987,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.365Z"
+      "addedAt": "2026-05-08T02:05:00.646Z"
     },
     {
       "id": "archive-House_On_Haunted_Hill.avi",
@@ -980,6 +1006,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/House_On_Haunted_Hill.avi",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -998,7 +1025,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.365Z"
+      "addedAt": "2026-05-08T02:05:00.646Z"
     },
     {
       "id": "archive-lost_world",
@@ -1017,6 +1044,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/lost_world",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -1035,7 +1063,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.365Z"
+      "addedAt": "2026-05-08T02:05:00.646Z"
     },
     {
       "id": "archive-Grave_of_the_Vampire_movie",
@@ -1054,6 +1082,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/Grave_of_the_Vampire_movie",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -1072,7 +1101,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.365Z"
+      "addedAt": "2026-05-08T02:05:00.646Z"
     },
     {
       "id": "archive-DasKabinettdesDoktorCaligariTheCabinetofDrCaligari",
@@ -1091,6 +1120,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/DasKabinettdesDoktorCaligariTheCabinetofDrCaligari",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -1109,7 +1139,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.365Z"
+      "addedAt": "2026-05-08T02:05:00.646Z"
     },
     {
       "id": "archive-CarnivalofSouls",
@@ -1128,6 +1158,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/CarnivalofSouls",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -1146,7 +1177,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.365Z"
+      "addedAt": "2026-05-08T02:05:00.646Z"
     },
     {
       "id": "archive-Nosferatu_most_complete_version_93_mins.",
@@ -1165,6 +1196,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/Nosferatu_most_complete_version_93_mins.",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -1183,7 +1215,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.365Z"
+      "addedAt": "2026-05-08T02:05:00.646Z"
     },
     {
       "id": "archive-TheGhoul",
@@ -1202,6 +1234,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/TheGhoul",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -1220,7 +1253,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.365Z"
+      "addedAt": "2026-05-08T02:05:00.646Z"
     },
     {
       "id": "archive-NakedMassacre1976",
@@ -1239,6 +1272,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/NakedMassacre1976",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -1257,7 +1291,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.365Z"
+      "addedAt": "2026-05-08T02:05:00.646Z"
     },
     {
       "id": "archive-angel_on_my_shoulder",
@@ -1276,6 +1310,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/angel_on_my_shoulder",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -1294,7 +1329,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.365Z"
+      "addedAt": "2026-05-08T02:05:00.646Z"
     },
     {
       "id": "archive-Horror_Hotel",
@@ -1313,6 +1348,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/Horror_Hotel",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -1331,7 +1367,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.365Z"
+      "addedAt": "2026-05-08T02:05:00.646Z"
     },
     {
       "id": "archive-white_zombie",
@@ -1350,6 +1386,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/white_zombie",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -1368,7 +1405,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.365Z"
+      "addedAt": "2026-05-08T02:05:00.646Z"
     },
     {
       "id": "archive-In_The_Year_2889",
@@ -1387,6 +1424,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/In_The_Year_2889",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -1405,7 +1443,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.365Z"
+      "addedAt": "2026-05-08T02:05:00.646Z"
     },
     {
       "id": "archive-TheMostDangerousGame",
@@ -1424,6 +1462,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/TheMostDangerousGame",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -1442,7 +1481,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.365Z"
+      "addedAt": "2026-05-08T02:05:00.646Z"
     },
     {
       "id": "archive-night_of_the_living_dead_dvd",
@@ -1461,6 +1500,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/night_of_the_living_dead_dvd",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -1479,7 +1519,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.365Z"
+      "addedAt": "2026-05-08T02:05:00.646Z"
     },
     {
       "id": "archive-suddenly",
@@ -1498,6 +1538,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/suddenly",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -1516,7 +1557,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.820Z"
+      "addedAt": "2026-05-08T02:05:13.098Z"
     },
     {
       "id": "archive-TheStranger_0",
@@ -1535,6 +1576,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/TheStranger_0",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -1553,7 +1595,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.820Z"
+      "addedAt": "2026-05-08T02:05:13.098Z"
     },
     {
       "id": "archive-ScarletStreet",
@@ -1572,6 +1614,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/ScarletStreet",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -1590,7 +1633,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.820Z"
+      "addedAt": "2026-05-08T02:05:13.098Z"
     },
     {
       "id": "archive-impact",
@@ -1609,6 +1652,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/impact",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -1627,7 +1671,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.820Z"
+      "addedAt": "2026-05-08T02:05:13.098Z"
     },
     {
       "id": "archive-Quicksand_clear",
@@ -1646,6 +1690,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/Quicksand_clear",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -1664,7 +1709,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.820Z"
+      "addedAt": "2026-05-08T02:05:13.098Z"
     },
     {
       "id": "archive-Inner_Sanctum_movie",
@@ -1683,6 +1728,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/Inner_Sanctum_movie",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -1701,7 +1747,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.820Z"
+      "addedAt": "2026-05-08T02:05:13.098Z"
     },
     {
       "id": "archive-Detour",
@@ -1720,6 +1766,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/Detour",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -1738,7 +1785,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.820Z"
+      "addedAt": "2026-05-08T02:05:13.098Z"
     },
     {
       "id": "archive-JailBait",
@@ -1755,8 +1802,9 @@
       "source": "internet-archive",
       "sourceUrl": "https://archive.org/details/JailBait",
       "sourceLicense": "Public Domain",
-      "videoUrl": "https://archive.org/download/JailBait",
+      "videoUrl": "https://archive.org/download/JailBait/JailBait.mp4",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -1775,7 +1823,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.820Z"
+      "addedAt": "2026-05-08T02:05:13.098Z"
     },
     {
       "id": "archive-Martha_Ivers_movie",
@@ -1794,6 +1842,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/Martha_Ivers_movie",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -1812,7 +1861,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.820Z"
+      "addedAt": "2026-05-08T02:05:13.098Z"
     },
     {
       "id": "archive-Please_Murder_Me_movie",
@@ -1831,6 +1880,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/Please_Murder_Me_movie",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -1849,7 +1899,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.820Z"
+      "addedAt": "2026-05-08T02:05:13.098Z"
     },
     {
       "id": "archive-Saint_Louis_Bank_Robbery",
@@ -1868,6 +1918,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/Saint_Louis_Bank_Robbery",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -1886,7 +1937,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.820Z"
+      "addedAt": "2026-05-08T02:05:13.098Z"
     },
     {
       "id": "archive-Hitch_Hiker",
@@ -1905,6 +1956,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/Hitch_Hiker",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -1923,7 +1975,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.820Z"
+      "addedAt": "2026-05-08T02:05:13.098Z"
     },
     {
       "id": "archive-They_Made_Me_A_Criminal_1939",
@@ -1942,6 +1994,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/They_Made_Me_A_Criminal_1939",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -1960,7 +2013,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.820Z"
+      "addedAt": "2026-05-08T02:05:13.098Z"
     },
     {
       "id": "archive-BehindGreenLights_high_Q_mp4",
@@ -1979,6 +2032,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/BehindGreenLights_high_Q_mp4",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -1997,7 +2051,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.820Z"
+      "addedAt": "2026-05-08T02:05:13.098Z"
     },
     {
       "id": "archive-nightmare_castle",
@@ -2014,8 +2068,9 @@
       "source": "internet-archive",
       "sourceUrl": "https://archive.org/details/nightmare_castle",
       "sourceLicense": "Public Domain",
-      "videoUrl": "https://archive.org/download/nightmare_castle",
+      "videoUrl": "https://archive.org/download/nightmare_castle/M4V10002.MP4",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -2034,7 +2089,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.820Z"
+      "addedAt": "2026-05-08T02:05:13.098Z"
     },
     {
       "id": "archive-He_Walked_By_Night.avi",
@@ -2053,6 +2108,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/He_Walked_By_Night.avi",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -2071,7 +2127,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.820Z"
+      "addedAt": "2026-05-08T02:05:13.098Z"
     },
     {
       "id": "archive-TheRedHouse",
@@ -2090,6 +2146,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/TheRedHouse",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -2108,7 +2165,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.820Z"
+      "addedAt": "2026-05-08T02:05:13.098Z"
     },
     {
       "id": "archive-Kill.or.Cure",
@@ -2125,8 +2182,9 @@
       "source": "internet-archive",
       "sourceUrl": "https://archive.org/details/Kill.or.Cure",
       "sourceLicense": "Public Domain",
-      "videoUrl": "https://archive.org/download/Kill.or.Cure",
+      "videoUrl": "https://archive.org/download/Kill.or.Cure/Bachelor.Flat.62.mp4",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -2145,7 +2203,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.820Z"
+      "addedAt": "2026-05-08T02:05:13.098Z"
     },
     {
       "id": "archive-inner_sanctum",
@@ -2164,6 +2222,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/inner_sanctum",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -2182,7 +2241,7 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.820Z"
+      "addedAt": "2026-05-08T02:05:13.098Z"
     },
     {
       "id": "archive-BlondeIce1948",
@@ -2201,6 +2260,7 @@
       "sourceLicense": "Public Domain",
       "videoUrl": "https://archive.org/download/BlondeIce1948",
       "videoType": "direct",
+      "isEmbeddable": true,
       "languages": [
         {
           "code": "en",
@@ -2219,9 +2279,9 @@
       ],
       "is4K": false,
       "isFree": true,
-      "addedAt": "2026-05-07T19:09:55.820Z"
+      "addedAt": "2026-05-08T02:05:13.098Z"
     }
   ],
-  "createdAt": 1778180995820,
-  "expiresAt": 1778224195820
+  "createdAt": 1778205913098,
+  "expiresAt": 1778249113098
 }

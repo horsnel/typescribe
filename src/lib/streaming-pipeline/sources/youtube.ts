@@ -425,3 +425,99 @@ export async function getYouTubeMovieDetails(videoId: string): Promise<Streamabl
 export function getFreeMovieChannelNames(): string[] {
   return Object.keys(FREE_MOVIE_CHANNELS);
 }
+
+/**
+ * Fetch anime-specific content from YouTube.
+ * Searches for free full anime episodes and movies.
+ */
+export async function fetchYouTubeAnime(): Promise<StreamableMovie[]> {
+  const cacheKey = 'streaming-youtube-anime';
+  const cached = getCached<StreamableMovie[]>(cacheKey);
+  if (cached) return cached;
+
+  const apiKey = getApiKey();
+  if (!apiKey) {
+    console.warn('[StreamingPipeline:YouTube] No API key configured for anime search');
+    return [];
+  }
+
+  const animeQueries = [
+    'anime full movie english',
+    'anime movie free',
+    'free anime episode english dub',
+    'studio ghibli full movie',
+  ];
+
+  const movies: StreamableMovie[] = [];
+  const seenIds = new Set<string>();
+
+  for (const query of animeQueries) {
+    try {
+      const qs = new URLSearchParams({
+        key: apiKey,
+        part: 'snippet',
+        q: query,
+        type: 'video',
+        videoCategoryId: '1', // Film & Animation
+        maxResults: '10',
+        videoDuration: 'long', // > 20 minutes
+        videoEmbeddable: 'true',
+      }).toString();
+
+      const res = await fetchWithTimeout(`${BASE_URL}/search?${qs}`, undefined, 10_000);
+      if (!res?.ok) continue;
+
+      const data = await safeJsonParse<YouTubeSearchResponse>(res);
+      if (!data?.items?.length) continue;
+
+      const videoIds = data.items
+        .filter(item => item.id.kind === 'youtube#video' && item.id.videoId)
+        .map(item => item.id.videoId!)
+        .join(',');
+
+      if (!videoIds) continue;
+
+      const detailQs = new URLSearchParams({
+        key: apiKey,
+        part: 'snippet,contentDetails',
+        id: videoIds,
+      }).toString();
+
+      const detailRes = await fetchWithTimeout(`${BASE_URL}/videos?${detailQs}`, undefined, 10_000);
+      if (!detailRes?.ok) continue;
+
+      const detailData = await safeJsonParse<YouTubeVideoResponse>(detailRes);
+      if (!detailData?.items?.length) continue;
+
+      for (const video of detailData.items) {
+        const durationSeconds = parseIsoDuration(video.contentDetails?.duration || '');
+        if (durationSeconds < 15 * 60) continue; // Skip short clips for anime
+
+        if (seenIds.has(video.id)) continue;
+        seenIds.add(video.id);
+
+        const movie = toStreamableMovie(
+          video.id,
+          video.snippet.title,
+          video.snippet.description,
+          video.snippet.channelTitle,
+          video.snippet.publishedAt,
+          data.items.find(i => i.id.videoId === video.id)?.snippet.thumbnails ?? {},
+          durationSeconds,
+        );
+
+        // Ensure Anime genre tag
+        if (!movie.genres.some(g => g.toLowerCase().includes('anime') || g.toLowerCase().includes('animation'))) {
+          movie.genres.push('Anime');
+        }
+
+        movies.push(movie);
+      }
+    } catch (err) {
+      console.warn(`[StreamingPipeline:YouTube] Anime search error for "${query}":`, err);
+    }
+  }
+
+  setCached(cacheKey, movies, CACHE_TTL);
+  return movies;
+}

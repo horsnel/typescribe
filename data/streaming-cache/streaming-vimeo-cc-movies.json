@@ -1,0 +1,89 @@
+{
+  "key": "streaming-vimeo-cc-movies",
+  "data": [
+    {
+      "id": "vimeo-1084537",
+      "title": "Big Buck Bunny",
+      "description": "Big Buck Bunny tells the story of a giant rabbit with a heart bigger than himself. When one sunny day three rodents rudely harass him, something snaps... and the rabbit ain't no bunny anymore! In the typical cartoon tradition he prepares the nasty rodents a comical revenge.\n\nLicensed under the Creative Commons Attribution license\n\nhttp://www.bigbuckbunny.org",
+      "year": 0,
+      "duration": "9m",
+      "durationSeconds": 597,
+      "genres": [
+        "Animation",
+        "Comedy"
+      ],
+      "rating": 0,
+      "quality": "1080p",
+      "poster": "https://i.vimeocdn.com/video/20963649-f02817456fc48e7c317ef4c07ba259cd4b40a3649bd8eb50a4418b59ec3f5af5-d_640?region=us",
+      "backdrop": "https://i.vimeocdn.com/video/20963649-f02817456fc48e7c317ef4c07ba259cd4b40a3649bd8eb50a4418b59ec3f5af5-d_640?region=us",
+      "source": "vimeo-cc",
+      "sourceUrl": "https://vimeo.com/1084537",
+      "sourceLicense": "Creative Commons",
+      "videoUrl": "https://player.vimeo.com/video/1084537?autoplay=1&byline=0&portrait=0",
+      "videoType": "vimeo",
+      "isEmbeddable": true,
+      "languages": [
+        {
+          "code": "en",
+          "label": "English (Original)",
+          "isOriginal": true,
+          "isDubbed": false,
+          "audioFormat": "Stereo"
+        }
+      ],
+      "subtitles": [
+        {
+          "code": "en",
+          "label": "English",
+          "isDefault": true
+        }
+      ],
+      "is4K": false,
+      "isFree": true,
+      "addedAt": "2026-05-08T02:04:39.744Z"
+    },
+    {
+      "id": "vimeo-248323498",
+      "title": "CC Nature Documentary - Short",
+      "description": "A short nature documentary showcasing wildlife under Creative Commons license. Beautiful footage of natural landscapes and animal behavior.",
+      "year": 0,
+      "duration": "8m",
+      "durationSeconds": 480,
+      "genres": [
+        "Documentary",
+        "Nature"
+      ],
+      "rating": 0,
+      "quality": "720p",
+      "poster": "",
+      "backdrop": "",
+      "source": "vimeo-cc",
+      "sourceUrl": "https://vimeo.com/248323498",
+      "sourceLicense": "Creative Commons",
+      "videoUrl": "https://player.vimeo.com/video/248323498?autoplay=1&byline=0&portrait=0",
+      "videoType": "vimeo",
+      "isEmbeddable": true,
+      "languages": [
+        {
+          "code": "en",
+          "label": "English (Original)",
+          "isOriginal": true,
+          "isDubbed": false,
+          "audioFormat": "Stereo"
+        }
+      ],
+      "subtitles": [
+        {
+          "code": "en",
+          "label": "English",
+          "isDefault": true
+        }
+      ],
+      "is4K": false,
+      "isFree": true,
+      "addedAt": "2026-05-08T02:04:39.932Z"
+    }
+  ],
+  "createdAt": 1778205879932,
+  "expiresAt": 1778249079932
+}

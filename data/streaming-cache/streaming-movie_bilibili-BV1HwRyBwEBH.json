@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1HwRyBwEBH",
+  "data": {
+    "id": "bilibili-BV1HwRyBwEBH",
+    "title": "Anime Fighting Simluator endless(动漫格斗模拟器无限)咒术版本技能展示",
+    "description": "j",
+    "year": 2026,
+    "duration": "5m",
+    "durationSeconds": 321,
+    "genres": [
+      "动漫",
+      "AFSE",
+      "动漫格斗模拟器无限",
+      "宿傩",
+      "动漫格斗模拟器"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i0.hdslb.com/bfs/archive/9dc048e9b2c0d35ecbf4e22622bb60edfc8e7231.jpg",
+    "backdrop": "//i0.hdslb.com/bfs/archive/9dc048e9b2c0d35ecbf4e22622bb60edfc8e7231.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1HwRyBwEBH",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1HwRyBwEBH",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1HwRyBwEBH&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-05T05:53:47.000Z"
+  },
+  "createdAt": 1778205890104,
+  "expiresAt": 1778292290104
+}

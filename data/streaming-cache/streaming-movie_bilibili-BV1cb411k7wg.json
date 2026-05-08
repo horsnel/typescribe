@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1cb411k7wg",
+  "data": {
+    "id": "bilibili-BV1cb411k7wg",
+    "title": "[小黄人]最新小黄人短片，你所想看的小黄人这里都有，小黄人动画短片集合",
+    "description": "来源于互联网，整理分享。\n最新最全的小黄人短片番外，\n喜欢请关注点赞支持我一下，\n谢谢！",
+    "year": 2019,
+    "duration": "1h 38m",
+    "durationSeconds": 5887,
+    "genres": [
+      "小黄人",
+      "动漫",
+      "CG",
+      "搞笑",
+      "治愈系"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i2.hdslb.com/bfs/archive/a7931c6ac28a3d3af6600ac5b6392997bb2f710e.jpg",
+    "backdrop": "//i2.hdslb.com/bfs/archive/a7931c6ac28a3d3af6600ac5b6392997bb2f710e.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1cb411k7wg",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1cb411k7wg",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1cb411k7wg&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2019-01-31T09:18:56.000Z"
+  },
+  "createdAt": 1778205890103,
+  "expiresAt": 1778292290103
+}

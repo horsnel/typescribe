@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1Fp9ZBwE1q",
+  "data": {
+    "id": "bilibili-BV1Fp9ZBwE1q",
+    "title": "最新动画影片《奇幻变身大冒险》（国语配音）小兽 × 巨鸟｜互换身体。。。",
+    "description": "描述一只林地小动物（奥斯卡影帝迈克尔·B·乔丹配音）和一只大鸟（朱诺·坦普尔配音）原本在山谷里是水火不容的天敌，却突然互换了身体，只好彼此合作，一边适应着身上陌生的皮毛和羽毛，一边想办法平安度过此生最疯狂的冒险。",
+    "year": 2026,
+    "duration": "3h 7m",
+    "durationSeconds": 11269,
+    "genres": [
+      "中字",
+      "互换身体",
+      "身体",
+      "乔丹",
+      "变身"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i0.hdslb.com/bfs/archive/819431479d843c088355c01fc05dfad4e502fa7e.jpg",
+    "backdrop": "//i0.hdslb.com/bfs/archive/819431479d843c088355c01fc05dfad4e502fa7e.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1Fp9ZBwE1q",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1Fp9ZBwE1q",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1Fp9ZBwE1q&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-03T04:42:46.000Z"
+  },
+  "createdAt": 1778205890103,
+  "expiresAt": 1778292290103
+}

@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV115RCBPEiA",
+  "data": {
+    "id": "bilibili-BV115RCBPEiA",
+    "title": "Z-ANIME - Z Anime+LTX2.3+代理创建动漫剧集",
+    "description": "这是油管Benji’s AI Playground的视频作品。本人进行整理、翻译和剪辑。\n\nZ-Anime是阿里巴巴Z-Image基础模型的全面优化版本，专为动画、漫画和卡通风格的图像生成而设计。在本视频中，我将Z-Anime与Z-Image Turbo进行直接对比测试，使用Flux2 Klien和绿幕合成构建完整的多角色工作流程，然后使用全新的Prompt Relay Timeline自定义节点将所有内容导入LTX2.3进行动画视频生成。我还展示了如何使用AI代理（LangGraph + OpenCla",
+    "year": 2026,
+    "duration": "15m",
+    "durationSeconds": 939,
+    "genres": [
+      "人工智能",
+      "comfyui",
+      "视频生成",
+      "图像生成",
+      "工作流"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i0.hdslb.com/bfs/archive/f3235f58029c4e4f9c08631ae8acfa3234e5eb55.jpg",
+    "backdrop": "//i0.hdslb.com/bfs/archive/f3235f58029c4e4f9c08631ae8acfa3234e5eb55.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV115RCBPEiA",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV115RCBPEiA",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV115RCBPEiA&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-06T01:00:00.000Z"
+  },
+  "createdAt": 1778205890103,
+  "expiresAt": 1778292290103
+}

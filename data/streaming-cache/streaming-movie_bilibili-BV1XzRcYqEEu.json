@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1XzRcYqEEu",
+  "data": {
+    "id": "bilibili-BV1XzRcYqEEu",
+    "title": "Doraemon New Episode 5-03-2025 - Episode 01 - Doraemon Cartoon - Doraemon In Hi",
+    "description": "Doraemon New Episode 5-03-2025 - Episode 01 - Doraemon Cartoon - Doraemon In Hindi - Doraemon Movie\n\nDoraemon New Episode 05-03-2025 Without Zoom | Doraemon New Episodes In Hindi 2024 | Doraemon Cartoon\n\nAbout This Anime:-\nNobita is a normal fourth",
+    "year": 2025,
+    "duration": "15m",
+    "durationSeconds": 901,
+    "genres": [
+      "Entertainment circle",
+      "Original",
+      "Funny",
+      "Tittle-tattle",
+      "Entertainment"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i1.hdslb.com/bfs/archive/ed11d59917292da407a64074b205b215b84dd3c8.jpg",
+    "backdrop": "//i1.hdslb.com/bfs/archive/ed11d59917292da407a64074b205b215b84dd3c8.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1XzRcYqEEu",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1XzRcYqEEu",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1XzRcYqEEu&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2025-03-05T21:38:18.000Z"
+  },
+  "createdAt": 1778205890103,
+  "expiresAt": 1778292290103
+}

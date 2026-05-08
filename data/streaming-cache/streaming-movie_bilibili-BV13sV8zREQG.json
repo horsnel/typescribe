@@ -1,0 +1,61 @@
+{
+  "key": "streaming-movie:bilibili-BV13sV8zREQG",
+  "data": {
+    "id": "bilibili-BV13sV8zREQG",
+    "title": "4K中英双字 《青春变形记》 台配  完整版",
+    "description": "请素质看剧 不要白嫖 谢谢各位大佬 祝大家看的开心～\n本账号未开通任何激励，大会员每月可领5B币券，想支持up的话可以用这个券给up发电哦感谢大家ღ( ´･ᴗ･` )比心https://account.bilibili.com/account/big/myPackage",
+    "year": 2025,
+    "duration": "2h 40m",
+    "durationSeconds": 9630,
+    "genres": [
+      "4K",
+      "动画",
+      "动漫二创激励计划",
+      "动画电影"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i2.hdslb.com/bfs/archive/17beff12f101e2819e48e3d85cf00176aab95463.jpg",
+    "backdrop": "//i2.hdslb.com/bfs/archive/17beff12f101e2819e48e3d85cf00176aab95463.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV13sV8zREQG",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV13sV8zREQG",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV13sV8zREQG&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2025-05-07T08:52:13.000Z"
+  },
+  "createdAt": 1778205890103,
+  "expiresAt": 1778292290103
+}

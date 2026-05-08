@@ -33,6 +33,14 @@ const COLLECTIONS = [
   'Action_and_Adventure_Films',
   'Romance_Films',
   'Western_Films',
+  'anime',
+  'animationandcartoons',
+];
+
+const ANIME_COLLECTIONS = [
+  'anime',
+  'animationandcartoons',
+  'SciFi_Fantasy',
 ];
 
 // ─── Internal Types ─────────────────────────────────────────────────────────
@@ -402,5 +410,111 @@ export async function getArchiveMovieDetails(identifier: string): Promise<Stream
   } catch (err) {
     console.warn(`[StreamingPipeline:Archive] Error fetching details for ${identifier}:`, err);
     return null;
+  }
+}
+
+/**
+ * Fetch anime/animation from Internet Archive collections.
+ * Searches anime-specific collections for animation content.
+ */
+export async function fetchArchiveAnime(): Promise<StreamableMovie[]> {
+  const cacheKey = 'streaming-archive-anime';
+  const cached = getCached<StreamableMovie[]>(cacheKey);
+  if (cached) return cached;
+
+  const movies: StreamableMovie[] = [];
+
+  for (const collection of ANIME_COLLECTIONS) {
+    try {
+      const params = new URLSearchParams({
+        q: `mediatype:movies AND collection:${collection}`,
+        fl: 'identifier,title,description,year,runtime,genre,avg_rating,downloads',
+        sort: 'downloads desc',
+        rows: '20',
+        output: 'json',
+      }).toString();
+
+      const res = await fetchWithTimeout(`${ARCHIVE_API}?${params}`, undefined, 15_000);
+      if (!res?.ok) continue;
+
+      const data = await safeJsonParse<ArchiveSearchResponse>(res);
+      if (!data?.response?.docs?.length) continue;
+
+      // For anime, accept shorter content (> 10 min for episodes)
+      const validDocs = data.response.docs.filter(doc => {
+        const durationSeconds = parseRuntime(doc.runtime);
+        return durationSeconds === 0 || durationSeconds >= 10 * 60;
+      });
+
+      if (validDocs.length === 0) continue;
+
+      const identifiers = validDocs.map(doc => doc.identifier);
+      const videoFileMap = await batchFetchVideoFiles(identifiers);
+
+      for (const doc of validDocs) {
+        const videoFileName = videoFileMap.get(doc.identifier) ?? undefined;
+        const movie = toStreamableMovie(doc, videoFileName);
+        // Ensure Anime genre tag
+        if (!movie.genres.some(g => g.toLowerCase().includes('anime') || g.toLowerCase().includes('animation'))) {
+          movie.genres.push('Anime');
+        }
+        movies.push(movie);
+      }
+    } catch (err) {
+      console.warn(`[StreamingPipeline:Archive] Error fetching anime collection ${collection}:`, err);
+    }
+  }
+
+  setCached(cacheKey, movies, CACHE_TTL);
+  return movies;
+}
+
+/**
+ * Search Internet Archive for anime matching a query.
+ */
+export async function searchArchiveAnime(query: string): Promise<StreamableMovie[]> {
+  if (!query || query.trim().length < 2) return [];
+
+  const cacheKey = `streaming-archive-anime-search:${query.toLowerCase().trim()}`;
+  const cached = getCached<StreamableMovie[]>(cacheKey);
+  if (cached) return cached;
+
+  try {
+    const params = new URLSearchParams({
+      q: `mediatype:movies AND (title:"${query}" OR genre:anime OR genre:animation)`,
+      fl: 'identifier,title,description,year,runtime,genre,avg_rating,downloads',
+      sort: 'avg_rating desc',
+      rows: '20',
+      output: 'json',
+    }).toString();
+
+    const res = await fetchWithTimeout(`${ARCHIVE_API}?${params}`, undefined, 15_000);
+    if (!res?.ok) return [];
+
+    const data = await safeJsonParse<ArchiveSearchResponse>(res);
+    if (!data?.response?.docs?.length) return [];
+
+    const validDocs = data.response.docs.filter(doc => {
+      const durationSeconds = parseRuntime(doc.runtime);
+      return durationSeconds === 0 || durationSeconds >= 10 * 60;
+    });
+
+    const identifiers = validDocs.map(doc => doc.identifier);
+    const videoFileMap = await batchFetchVideoFiles(identifiers);
+
+    const movies = validDocs.map(doc => {
+      const videoFileName = videoFileMap.get(doc.identifier) ?? undefined;
+      const movie = toStreamableMovie(doc, videoFileName);
+      if (!movie.genres.some(g => g.toLowerCase().includes('anime') || g.toLowerCase().includes('animation'))) {
+        movie.genres.push('Anime');
+      }
+      return movie;
+    });
+
+    setCached(cacheKey, movies, CACHE_TTL);
+    return movies;
+  } catch (err) {
+    console.warn('[StreamingPipeline:Archive] Anime search error:', err);
+    return [];
   }
 }

@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1jdhtzqEJ5",
+  "data": {
+    "id": "bilibili-BV1jdhtzqEJ5",
+    "title": "【AI山海经】动画电影，精彩剧情故事4部合集【4K高清重制】",
+    "description": "-",
+    "year": 2025,
+    "duration": "13m",
+    "durationSeconds": 793,
+    "genres": [
+      "AI",
+      "动画种草激励计划",
+      "ai山海经",
+      "tungtungsahur",
+      "ai动画"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i0.hdslb.com/bfs/archive/894b527fc542eb436cdf4fa4147b1695fb4c14aa.jpg",
+    "backdrop": "//i0.hdslb.com/bfs/archive/894b527fc542eb436cdf4fa4147b1695fb4c14aa.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1jdhtzqEJ5",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1jdhtzqEJ5",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1jdhtzqEJ5&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2025-08-02T04:54:59.000Z"
+  },
+  "createdAt": 1778205890103,
+  "expiresAt": 1778292290103
+}
