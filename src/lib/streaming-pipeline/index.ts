@@ -10,7 +10,7 @@
  * Architecture:
  *   Tier 1 (instant): Blender Foundation + Seed Data → return immediately
  *   Tier 2 (fast, <3s): Internet Archive, YouTube, Vimeo CC, YouTube Regional
- *   Tier 3 (slow, <8s): Tubi, Pluto TV, Bilibili, Plex Free, OpenFlix
+ *   Tier 3 (slow, <5s): Tubi, Pluto TV, Bilibili, Plex Free, OpenFlix, Crunchyroll
  *   → Merge & Deduplicate → Build Categories → Cache → Response
  *
  * Progressive Loading:
@@ -33,14 +33,15 @@ import { fetchPlutoTVMovies, searchPlutoTVMovies } from './sources/pluto-tv';
 import { fetchBilibiliMovies, searchBilibiliMovies } from './sources/bilibili';
 import { fetchPlexFreeMovies, searchPlexFreeMovies } from './sources/plex-free';
 import { fetchOpenflixMovies, searchOpenflixMovies } from './sources/openflix';
+import { fetchCrunchyrollMovies, searchCrunchyrollMovies } from './sources/crunchyroll';
 
 // ─── Configuration ───────────────────────────────────────────────────────────
 
-const CATALOG_CACHE_TTL = 1 * 60 * 60 * 1000; // 1 hour (reduced from 6 hours for fresher data)
+const CATALOG_CACHE_TTL = 30 * 60 * 1000; // 30 minutes (reduced from 1 hour for fresher data)
 const MOVIE_CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours
 const SEARCH_CACHE_TTL = 2 * 60 * 60 * 1000; // 2 hours
-const SOURCE_TIMEOUT = 8_000; // 8 seconds per source
-const TIER2_TIMEOUT = 3_000; // 3 seconds for fast sources
+const SOURCE_TIMEOUT = 5_000; // 5 seconds per source
+const TIER2_TIMEOUT = 2_000; // 2 seconds for fast sources
 
 // ─── Background refresh state ────────────────────────────────────────────────
 
@@ -298,6 +299,14 @@ function buildCategories(movies: StreamableMovie[]): StreamingCategory[] {
         .map(m => m.id),
     },
     {
+      id: 'crunchyroll-anime',
+      label: 'Crunchyroll Anime',
+      icon: 'Tv',
+      movieIds: movies
+        .filter(m => m.source === 'crunchyroll')
+        .map(m => m.id),
+    },
+    {
       id: 'romance',
       label: 'Romance',
       icon: 'Heart',
@@ -442,9 +451,12 @@ async function fetchTier3Movies(): Promise<StreamableMovie[]> {
 
     // OpenFlix (Archive.org based, direct play)
     withTimeout(fetchOpenflixMovies(), SOURCE_TIMEOUT),
+
+    // Crunchyroll (curated anime, linkout)
+    withTimeout(fetchCrunchyrollMovies(), SOURCE_TIMEOUT),
   ]);
 
-  const sourceNames = ['Tubi', 'PlutoTV', 'Bilibili', 'Plex-Free', 'OpenFlix'];
+  const sourceNames = ['Tubi', 'PlutoTV', 'Bilibili', 'Plex-Free', 'OpenFlix', 'Crunchyroll'];
   const allMovies: StreamableMovie[] = [];
   for (let i = 0; i < results.length; i++) {
     const result = results[i];
@@ -691,6 +703,12 @@ async function resolveMovieFromId(id: string): Promise<StreamableMovie | null> {
     return regionalMovies.find(m => m.id === id) || null;
   }
 
+  // Crunchyroll (curated anime)
+  if (id.startsWith('crunchyroll-')) {
+    const crunchyrollMovies = await fetchCrunchyrollMovies();
+    return crunchyrollMovies.find(m => m.id === id) || null;
+  }
+
   return null;
 }
 
@@ -738,6 +756,7 @@ export async function searchStreamingMovies(query: string): Promise<StreamableMo
     searchBilibiliMovies(query),
     searchPlexFreeMovies(query),
     searchOpenflixMovies(query),
+    searchCrunchyrollMovies(query),
   ]);
 
   for (const result of apiSearches) {
@@ -815,6 +834,7 @@ export function getStreamingPipelineStatus(): {
     bilibili: boolean;
     plexFree: boolean;
     openflix: boolean;
+    crunchyroll: boolean;
   };
   cache: {
     size: number;
@@ -837,6 +857,7 @@ export function getStreamingPipelineStatus(): {
       bilibili: true, // Always available (public API)
       plexFree: true, // Always available (public API)
       openflix: true, // Always available (Archive.org based)
+      crunchyroll: true, // Always available (curated anime linkouts)
     },
     cache: {
       size: stats.size,

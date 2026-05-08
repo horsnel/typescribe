@@ -61,7 +61,8 @@ export type StreamSource =
   | 'pluto-tv'
   | 'bilibili'
   | 'plex-free'
-  | 'openflix';
+  | 'openflix'
+  | 'crunchyroll';
 
 // ─── Supporting Types ────────────────────────────────────────────────────────
 

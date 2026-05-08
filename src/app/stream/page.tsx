@@ -33,6 +33,8 @@ function getSourceBadge(source: StreamableMovie['source']): { label: string; cla
       return { label: 'Plex', className: 'bg-amber-500/20 text-amber-400' };
     case 'openflix':
       return { label: 'Open', className: 'bg-emerald-500/20 text-emerald-400' };
+    case 'crunchyroll':
+      return { label: 'CR', className: 'bg-orange-500/20 text-orange-400' };
     default:
       return { label: 'Free', className: 'bg-white/10 text-white/70' };
   }
@@ -230,7 +232,7 @@ export default function StreamPage() {
       try {
         // First fetch — short timeout to get whatever is available quickly
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 5000);
+        const timeoutId = setTimeout(() => controller.abort(), 3000);
 
         const res = await fetch('/api/streaming/catalog', { signal: controller.signal });
         clearTimeout(timeoutId);
@@ -264,13 +266,13 @@ export default function StreamPage() {
 
     let cancelled = false;
     let attempts = 0;
-    const maxAttempts = 6; // Poll up to 6 times (every 5s = 30s max)
+    const maxAttempts = 4; // Poll up to 4 times (every 3s = 12s max)
 
     const pollForFullCatalog = async () => {
       while (attempts < maxAttempts && !cancelled) {
         attempts++;
         try {
-          await new Promise(resolve => setTimeout(resolve, 5000));
+          await new Promise(resolve => setTimeout(resolve, 3000));
 
           const res = await fetch('/api/streaming/catalog');
           if (!res.ok) continue;
@@ -366,7 +368,7 @@ export default function StreamPage() {
     return (
       <div className="min-h-screen bg-[#050507] flex items-center justify-center">
         <div className="text-center">
-          <p className="text-white/60 text-sm mb-4">Failed to load movies. Using fallback data.</p>
+          <p className="text-white/60 text-sm mb-4">Failed to load. Tap Retry.</p>
           <button
             onClick={() => window.location.reload()}
             className="px-4 py-2 bg-[#8B5CF6] text-black rounded-lg text-sm font-medium hover:bg-[#7C3AED] transition-colors"
@@ -390,6 +392,7 @@ export default function StreamPage() {
   const bilibiliCount = movies.filter(m => m.source === 'bilibili').length;
   const plexCount = movies.filter(m => m.source === 'plex-free').length;
   const openflixCount = movies.filter(m => m.source === 'openflix').length;
+  const crunchyrollCount = movies.filter(m => m.source === 'crunchyroll').length;
   const animeCount = movies.filter(m => m.genres.some(g => g.toLowerCase().includes('anime'))).length;
 
   return (
@@ -479,10 +482,10 @@ export default function StreamPage() {
           <div className="flex-1">
             <div className="flex items-center gap-3">
               <h2 className="text-xl md:text-2xl font-bold text-white">StreamFlix</h2>
-              {isSeedData && (
-                <span className="text-[10px] font-medium text-[#8B5CF6] bg-[#8B5CF6]/10 px-2 py-0.5 rounded-full flex items-center gap-1">
+              {backgroundRefreshInProgress && (
+                <span className="text-[10px] font-medium text-white/30 flex items-center gap-1">
                   <Loader2 className="w-3 h-3 animate-spin" strokeWidth={2} />
-                  Loading more...
+                  Refreshing...
                 </span>
               )}
             </div>
@@ -542,12 +545,12 @@ export default function StreamPage() {
         );
       })}
 
-      {/* Loading more indicator when showing seed data */}
-      {isSeedData && (
-        <div className="flex items-center justify-center py-8">
-          <div className="flex items-center gap-2 text-white/40 text-sm">
-            <Loader2 className="w-4 h-4 animate-spin text-[#8B5CF6]" strokeWidth={1.5} />
-            <span>Loading more movies from streaming sources...</span>
+      {/* Subtle bottom loading indicator */}
+      {backgroundRefreshInProgress && (
+        <div className="flex items-center justify-center py-4">
+          <div className="flex items-center gap-2 text-white/20 text-xs">
+            <Loader2 className="w-3 h-3 animate-spin" strokeWidth={2} />
+            <span>Loading more sources...</span>
           </div>
         </div>
       )}
@@ -570,6 +573,7 @@ export default function StreamPage() {
           <span>{bilibiliCount} Bilibili</span>
           <span>{plexCount} Plex</span>
           <span>{openflixCount} OpenFlix</span>
+          <span>{crunchyrollCount} Crunchyroll</span>
         </div>
       </div>
 
