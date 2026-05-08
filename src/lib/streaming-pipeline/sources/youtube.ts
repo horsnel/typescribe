@@ -446,6 +446,13 @@ export async function fetchYouTubeAnime(): Promise<StreamableMovie[]> {
     'anime movie free',
     'free anime episode english dub',
     'studio ghibli full movie',
+    'astro boy full episode',
+    'speed racer full episode',
+    'gundam full episode',
+    'sailor moon full episode',
+    'dragon ball full episode',
+    'voltron full episode',
+    'robotech full episode',
   ];
 
   const movies: StreamableMovie[] = [];

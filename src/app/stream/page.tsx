@@ -1,8 +1,8 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { Play, Star, ChevronLeft, ChevronRight, Crown, Sparkles, Award, Swords, Palette, Wand2, Info, Search, Loader2, ExternalLink, Tv, Film, Globe } from 'lucide-react';
+import { Play, Star, ChevronLeft, ChevronRight, Crown, Sparkles, Award, Swords, Palette, Wand2, Info, Search, Loader2, ExternalLink, Tv, Film, Globe, RefreshCw } from 'lucide-react';
 import type { StreamableMovie, StreamingCategory } from '@/lib/streaming-pipeline/types';
 
 /* ─── Icon Map ─── */
@@ -215,27 +215,109 @@ export default function StreamPage() {
   const [movies, setMovies] = useState<StreamableMovie[]>([]);
   const [categories, setCategories] = useState<StreamingCategory[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [searchResults, setSearchResults] = useState<StreamableMovie[] | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isSeedData, setIsSeedData] = useState(false);
+  const [backgroundRefreshInProgress, setBackgroundRefreshInProgress] = useState(false);
 
-  // Fetch catalog on mount
+  // Progressive loading: fetch catalog, then optionally refresh for more
   useEffect(() => {
+    let cancelled = false;
+
     async function fetchCatalog() {
       try {
-        const res = await fetch('/api/streaming/catalog');
+        // First fetch — short timeout to get whatever is available quickly
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+        const res = await fetch('/api/streaming/catalog', { signal: controller.signal });
+        clearTimeout(timeoutId);
+
         if (!res.ok) throw new Error('Failed to fetch catalog');
         const data = await res.json();
-        setMovies(data.movies || []);
-        setCategories(data.categories || []);
+
+        if (!cancelled) {
+          setMovies(data.movies || []);
+          setCategories(data.categories || []);
+          setIsSeedData(!!data.isSeed);
+          setBackgroundRefreshInProgress(!!data.backgroundRefreshInProgress);
+          setLoading(false);
+        }
       } catch (err: any) {
-        console.error('Failed to load streaming catalog:', err);
-        setError(err.message);
-      } finally {
-        setLoading(false);
+        if (!cancelled) {
+          console.error('Failed to load streaming catalog:', err);
+          setError(err.message);
+          setLoading(false);
+        }
       }
     }
+
     fetchCatalog();
+    return () => { cancelled = true; };
+  }, []);
+
+  // Background refresh: if we got seed data, poll for the full catalog
+  useEffect(() => {
+    if (!isSeedData || loading) return;
+
+    let cancelled = false;
+    let attempts = 0;
+    const maxAttempts = 6; // Poll up to 6 times (every 5s = 30s max)
+
+    const pollForFullCatalog = async () => {
+      while (attempts < maxAttempts && !cancelled) {
+        attempts++;
+        try {
+          await new Promise(resolve => setTimeout(resolve, 5000));
+
+          const res = await fetch('/api/streaming/catalog');
+          if (!res.ok) continue;
+          const data = await res.json();
+
+          if (!cancelled && !data.isSeed && data.movies.length > movies.length) {
+            setMovies(data.movies);
+            setCategories(data.categories || []);
+            setIsSeedData(false);
+            setBackgroundRefreshInProgress(false);
+            break;
+          }
+          if (!cancelled) {
+            setBackgroundRefreshInProgress(!!data.backgroundRefreshInProgress);
+          }
+        } catch {
+          // Continue polling on error
+        }
+      }
+    };
+
+    pollForFullCatalog();
+    return () => { cancelled = true; };
+  }, [isSeedData, loading, movies.length]);
+
+  // Manual refresh handler
+  const handleRefresh = useCallback(async () => {
+    setLoadingMore(true);
+    try {
+      const res = await fetch('/api/streaming/refresh', { method: 'POST' });
+      if (res.ok) {
+        const data = await res.json();
+        // After refresh, re-fetch the catalog
+        const catalogRes = await fetch('/api/streaming/catalog?full=true');
+        if (catalogRes.ok) {
+          const catalogData = await catalogRes.json();
+          setMovies(catalogData.movies || []);
+          setCategories(catalogData.categories || []);
+          setIsSeedData(false);
+          setBackgroundRefreshInProgress(false);
+        }
+      }
+    } catch (err) {
+      console.error('Refresh error:', err);
+    } finally {
+      setLoadingMore(false);
+    }
   }, []);
 
   // Search handler
@@ -394,12 +476,29 @@ export default function StreamPage() {
           <div className="w-10 h-10 rounded-xl bg-[#8B5CF6]/10 flex items-center justify-center">
             <Play className="w-5 h-5 text-[#8B5CF6] fill-[#8B5CF6]" strokeWidth={1.5} />
           </div>
-          <div>
-            <h2 className="text-xl md:text-2xl font-bold text-white">StreamFlix</h2>
+          <div className="flex-1">
+            <div className="flex items-center gap-3">
+              <h2 className="text-xl md:text-2xl font-bold text-white">StreamFlix</h2>
+              {isSeedData && (
+                <span className="text-[10px] font-medium text-[#8B5CF6] bg-[#8B5CF6]/10 px-2 py-0.5 rounded-full flex items-center gap-1">
+                  <Loader2 className="w-3 h-3 animate-spin" strokeWidth={2} />
+                  Loading more...
+                </span>
+              )}
+            </div>
             <p className="text-[#9ca3af] text-xs md:text-sm">
               {movies.length} Free Legal Movies · {embeddableCount} Playable · {movies.some(m => m.is4K) ? '4K Available' : ''}
             </p>
           </div>
+          <button
+            onClick={handleRefresh}
+            disabled={loadingMore}
+            className="flex items-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/10 text-white/70 hover:text-white rounded-lg text-xs font-medium transition-colors border border-white/10 disabled:opacity-50"
+            aria-label="Refresh catalog"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${loadingMore ? 'animate-spin' : ''}`} strokeWidth={1.5} />
+            <span className="hidden sm:inline">Refresh</span>
+          </button>
         </div>
       </div>
 
@@ -442,6 +541,16 @@ export default function StreamPage() {
           />
         );
       })}
+
+      {/* Loading more indicator when showing seed data */}
+      {isSeedData && (
+        <div className="flex items-center justify-center py-8">
+          <div className="flex items-center gap-2 text-white/40 text-sm">
+            <Loader2 className="w-4 h-4 animate-spin text-[#8B5CF6]" strokeWidth={1.5} />
+            <span>Loading more movies from streaming sources...</span>
+          </div>
+        </div>
+      )}
 
       {/* Stats footer */}
       <div className="px-4 md:px-12 py-6 border-t border-[#1e1e28]/50">

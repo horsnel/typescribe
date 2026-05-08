@@ -24,6 +24,15 @@ const SEARCH_QUERIES = [
   'anime episode',
   '动漫',
   'studio ghibli',
+  '日本动漫',
+  '经典动画',
+  'gundam anime',
+  'sailor moon anime',
+  'dragon ball anime',
+  'astro boy anime',
+  'anime english dub',
+  'anime full movie',
+  '机器人动画',
 ];
 
 // ─── Internal Types ─────────────────────────────────────────────────────────

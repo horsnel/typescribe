@@ -27,6 +27,7 @@ const OPENFLIX_COLLECTIONS = [
   'opensource_movies',
   'animationandcartoons',
   'anime',
+  'japaneseclassicanimation',
   'classic_tv',
   'Film_Noir',
   'SciFi_Horror',
@@ -210,11 +211,15 @@ export async function fetchOpenflixMovies(): Promise<StreamableMovie[]> {
 
   for (const collection of OPENFLIX_COLLECTIONS) {
     try {
+      // Use more rows for anime/animation collections for better coverage
+      const isAnimeCollection = ['anime', 'animationandcartoons', 'japaneseclassicanimation'].includes(collection);
+      const rowCount = isAnimeCollection ? '25' : '15';
+
       const params = new URLSearchParams({
         q: `mediatype:movies AND collection:${collection}`,
         fl: 'identifier,title,description,year,runtime,genre,avg_rating,downloads',
         sort: 'downloads desc',
-        rows: '15',
+        rows: rowCount,
         output: 'json',
       }).toString();
 
