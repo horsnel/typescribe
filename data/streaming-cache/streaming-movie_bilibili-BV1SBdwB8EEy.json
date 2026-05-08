@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1SBdwB8EEy",
+  "data": {
+    "id": "bilibili-BV1SBdwB8EEy",
+    "title": "四季代行者前三集深度 解析",
+    "description": "",
+    "year": 2026,
+    "duration": "17m",
+    "durationSeconds": 1025,
+    "genres": [
+      "动画种草激励计划",
+      "必剪创作",
+      "逆天",
+      "美少女",
+      "同人"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i2.hdslb.com/bfs/archive/a4705f9e34db88d91ee137d38dfc56807ad99c9b.jpg",
+    "backdrop": "//i2.hdslb.com/bfs/archive/a4705f9e34db88d91ee137d38dfc56807ad99c9b.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1SBdwB8EEy",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1SBdwB8EEy",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1SBdwB8EEy&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-08T05:00:00.000Z"
+  },
+  "createdAt": 1778217027285,
+  "expiresAt": 1778303427285
+}

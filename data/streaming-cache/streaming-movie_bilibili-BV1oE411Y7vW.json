@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1oE411Y7vW",
+  "data": {
+    "id": "bilibili-BV1oE411Y7vW",
+    "title": "吉卜力工作室组曲 钢琴改编 【Studio Ghibli Medley】 四手连弹 Bella & Lucas",
+    "description": "音乐：钢琴改编 【Studio Ghibli Medley】\n演奏：Bella &amp; Lucas",
+    "year": 2019,
+    "duration": "7m",
+    "durationSeconds": 450,
+    "genres": [
+      "动漫歌曲",
+      "BGM",
+      "bella & lucas",
+      "动漫音乐",
+      "钢琴演奏"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i1.hdslb.com/bfs/archive/8d5683e429e3c58a56e9302df7586be73ad76208.jpg",
+    "backdrop": "//i1.hdslb.com/bfs/archive/8d5683e429e3c58a56e9302df7586be73ad76208.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1oE411Y7vW",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1oE411Y7vW",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1oE411Y7vW&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2019-11-12T05:00:05.000Z"
+  },
+  "createdAt": 1778217027286,
+  "expiresAt": 1778303427286
+}

@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1Yh411m7Ry",
+  "data": {
+    "id": "bilibili-BV1Yh411m7Ry",
+    "title": "零基础入门！计算材料设计Materials Studio教程",
+    "description": "真正从零基础开始学习Materials Studio，对计算机材料设计Materials Studio教程进行具体操作并进行了相关知识扩展。全教程总共10章，预计以周更形式完成。希望本系列教程能让更多的科研工作者开始入门学习模拟计算，为科研事业作出一份贡献。\n学习交流群：215762145\n目标：全面拉低科研模拟计算的入门门槛。\n拜托各位一键三连，感谢大家的支持，争取周更 : )",
+    "year": 2021,
+    "duration": "6h 34m",
+    "durationSeconds": 23641,
+    "genres": [
+      "教程",
+      "经验分享",
+      "材料计算",
+      "科研",
+      "模拟计算"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i0.hdslb.com/bfs/archive/fbe067deddb8679a3c963c57a624e85e488096c4.jpg",
+    "backdrop": "//i0.hdslb.com/bfs/archive/fbe067deddb8679a3c963c57a624e85e488096c4.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1Yh411m7Ry",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1Yh411m7Ry",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1Yh411m7Ry&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2021-05-07T06:34:38.000Z"
+  },
+  "createdAt": 1778217027285,
+  "expiresAt": 1778303427285
+}

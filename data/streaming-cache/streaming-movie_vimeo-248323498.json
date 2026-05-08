@@ -1,0 +1,46 @@
+{
+  "key": "streaming-movie:vimeo-248323498",
+  "data": {
+    "id": "vimeo-248323498",
+    "title": "CC Nature Documentary - Short",
+    "description": "A short nature documentary showcasing wildlife under Creative Commons license. Beautiful footage of natural landscapes and animal behavior.",
+    "year": 0,
+    "duration": "8m",
+    "durationSeconds": 480,
+    "genres": [
+      "Documentary",
+      "Nature"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "",
+    "backdrop": "",
+    "source": "vimeo-cc",
+    "sourceUrl": "https://vimeo.com/248323498",
+    "sourceLicense": "Creative Commons",
+    "videoUrl": "https://player.vimeo.com/video/248323498?autoplay=1&byline=0&portrait=0",
+    "videoType": "vimeo",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-08T05:10:19.617Z"
+  },
+  "createdAt": 1778217027285,
+  "expiresAt": 1778303427285
+}

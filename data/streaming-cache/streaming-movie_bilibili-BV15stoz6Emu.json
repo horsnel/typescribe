@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV15stoz6Emu",
+  "data": {
+    "id": "bilibili-BV15stoz6Emu",
+    "title": "玛莎拉蒂Ghibli，15万能买情绪价值吗？",
+    "description": "曾经被誉为跑车皇后的玛莎拉蒂，现在在国内似乎已经不复往日的辉煌，是因为它本身的原因，还是外界多种造就的？今天咱通过这台Ghibli来好好聊一聊。",
+    "year": 2025,
+    "duration": "8m",
+    "durationSeconds": 513,
+    "genres": [
+      "评测",
+      "豪车",
+      "玛莎拉蒂",
+      "导购",
+      "试驾"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i2.hdslb.com/bfs/archive/a312823780927e9a4e26a7f9e9960bb54c36e770.jpg",
+    "backdrop": "//i2.hdslb.com/bfs/archive/a312823780927e9a4e26a7f9e9960bb54c36e770.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV15stoz6Emu",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV15stoz6Emu",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV15stoz6Emu&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2025-08-13T01:00:00.000Z"
+  },
+  "createdAt": 1778217027286,
+  "expiresAt": 1778303427286
+}

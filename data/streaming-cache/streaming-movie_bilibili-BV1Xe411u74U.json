@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1Xe411u74U",
+  "data": {
+    "id": "bilibili-BV1Xe411u74U",
+    "title": "三种超分辨率算法对比【Anime4K】【Real-ESRGAN】【waifu2x-ncnn-vulkan】",
+    "description": "崩三这个短片刚好有多种风格动画，正好拿来测试一下几种超分辨率算法的表现\n原片使用——《崩坏3》动画短片「因你而在的故事」",
+    "year": 2022,
+    "duration": "8m",
+    "durationSeconds": 493,
+    "genres": [
+      "崩坏3六周年生日快乐",
+      "机器学习",
+      "崩坏3",
+      "对比",
+      "测试"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i2.hdslb.com/bfs/archive/dd77d7e3a2287aa3bd72363d589e6425634735a1.jpg",
+    "backdrop": "//i2.hdslb.com/bfs/archive/dd77d7e3a2287aa3bd72363d589e6425634735a1.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1Xe411u74U",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1Xe411u74U",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1Xe411u74U&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2022-09-11T07:06:37.000Z"
+  },
+  "createdAt": 1778217027285,
+  "expiresAt": 1778303427285
+}

@@ -1,0 +1,72 @@
+{
+  "key": "streaming-movie:blender-spring",
+  "data": {
+    "id": "blender-spring",
+    "title": "Spring",
+    "description": "Spring is the story of a shepherd girl and her dog, who discover ancient spirits in the clouds that can change the seasons. A heartwarming tale of courage and the power of nature from the Blender Foundation.",
+    "year": 2019,
+    "duration": "7m 46s",
+    "durationSeconds": 466,
+    "genres": [
+      "Animation",
+      "Fantasy",
+      "Adventure"
+    ],
+    "rating": 7,
+    "quality": "4K",
+    "poster": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Spring_-_Blender_Open_Movie.png/800px-Spring_-_Blender_Open_Movie.png",
+    "backdrop": "https://spring.blender.org/wp-content/uploads/2019/04/spring_splash.png",
+    "source": "blender-foundation",
+    "sourceUrl": "https://spring.blender.org/",
+    "sourceLicense": "CC BY 4.0",
+    "videoUrl": "https://www.youtube.com/embed/WhWc3b3KhnY?autoplay=1&rel=0",
+    "videoType": "youtube",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "5.1 Surround"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      },
+      {
+        "code": "es",
+        "label": "Spanish",
+        "isDefault": false
+      },
+      {
+        "code": "fr",
+        "label": "French",
+        "isDefault": false
+      },
+      {
+        "code": "de",
+        "label": "German",
+        "isDefault": false
+      },
+      {
+        "code": "ja",
+        "label": "Japanese",
+        "isDefault": false
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Simplified)",
+        "isDefault": false
+      }
+    ],
+    "is4K": true,
+    "isFree": true,
+    "isEmbeddable": true,
+    "addedAt": "2019-04-04T00:00:00Z"
+  },
+  "createdAt": 1778217027284,
+  "expiresAt": 1778303427284
+}

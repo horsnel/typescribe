@@ -1,0 +1,81 @@
+{
+  "key": "streaming-movie:blender-elephants-dream",
+  "data": {
+    "id": "blender-elephants-dream",
+    "title": "Elephant's Dream",
+    "description": "Two strange characters explore a cavernous and seemingly infinite machine. The older one, Proog, acts as a guide and protector while the younger one, Emo, is a skeptical observer who questions Proog's purpose and the reality they inhabit.",
+    "year": 2006,
+    "duration": "10m 54s",
+    "durationSeconds": 654,
+    "genres": [
+      "Animation",
+      "Sci-Fi",
+      "Drama"
+    ],
+    "rating": 6.5,
+    "quality": "1080p",
+    "poster": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Elephants_Dream_s1_proog.jpg/800px-Elephants_Dream_s1_proog.jpg",
+    "backdrop": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Elephants_Dream_s3_both.jpg/1280px-Elephants_Dream_s3_both.jpg",
+    "source": "blender-foundation",
+    "sourceUrl": "https://elephantsdream.org/",
+    "sourceLicense": "CC BY 2.5",
+    "videoUrl": "https://www.youtube.com/embed/TLkA0RELQ1g?autoplay=1&rel=0",
+    "videoType": "youtube",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "nl",
+        "label": "Dutch (Dubbed)",
+        "isOriginal": false,
+        "isDubbed": true,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "fr",
+        "label": "French (Dubbed)",
+        "isOriginal": false,
+        "isDubbed": true,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      },
+      {
+        "code": "es",
+        "label": "Spanish",
+        "isDefault": false
+      },
+      {
+        "code": "fr",
+        "label": "French",
+        "isDefault": false
+      },
+      {
+        "code": "de",
+        "label": "German",
+        "isDefault": false
+      },
+      {
+        "code": "nl",
+        "label": "Dutch",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "isEmbeddable": true,
+    "addedAt": "2006-03-24T00:00:00Z"
+  },
+  "createdAt": 1778217027285,
+  "expiresAt": 1778303427285
+}

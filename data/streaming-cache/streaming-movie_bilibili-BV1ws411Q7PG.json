@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1ws411Q7PG",
+  "data": {
+    "id": "bilibili-BV1ws411Q7PG",
+    "title": "【EF字幕组】 吉卜力工作室 Studio Ghibli Documentary",
+    "description": "youtube.com 一个美帝UP主做的吉卜力工作室大盘点~~~走过路过不要错过~~~~\r\nEF字幕组 做你喜欢的 喜欢你做的\r\n招新群：413712930 粉丝群：205570104",
+    "year": 2016,
+    "duration": "22m",
+    "durationSeconds": 1352,
+    "genres": [
+      "盘点",
+      "吉卜力工作室",
+      "吉卜力",
+      "EF字幕组",
+      "吉卜"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i0.hdslb.com/bfs/archive/17d7680a4733da3de7debae8ff31b75ee1442a80.jpg",
+    "backdrop": "//i0.hdslb.com/bfs/archive/17d7680a4733da3de7debae8ff31b75ee1442a80.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1ws411Q7PG",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1ws411Q7PG",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1ws411Q7PG&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2016-02-23T14:19:09.000Z"
+  },
+  "createdAt": 1778217027286,
+  "expiresAt": 1778303427286
+}

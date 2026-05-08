@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1ZfJAzME8h",
+  "data": {
+    "id": "bilibili-BV1ZfJAzME8h",
+    "title": "Studio Ghibli 吉卜力工作室钢琴曲",
+    "description": "Studio Ghibli 吉卜力工作室钢琴曲",
+    "year": 2025,
+    "duration": "2h 1m",
+    "durationSeconds": 7289,
+    "genres": [
+      "放松",
+      "钢琴曲",
+      "治愈",
+      "纯音乐",
+      "钢琴"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i0.hdslb.com/bfs/archive/536558346ef24231042162e15a7abc38bf18c307.jpg",
+    "backdrop": "//i0.hdslb.com/bfs/archive/536558346ef24231042162e15a7abc38bf18c307.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1ZfJAzME8h",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1ZfJAzME8h",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1ZfJAzME8h&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2025-05-17T09:01:04.000Z"
+  },
+  "createdAt": 1778217027285,
+  "expiresAt": 1778303427285
+}

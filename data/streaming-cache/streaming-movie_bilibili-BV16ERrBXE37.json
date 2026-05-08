@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV16ERrBXE37",
+  "data": {
+    "id": "bilibili-BV16ERrBXE37",
+    "title": "当你的右手变成美少女，这是种怎样的体验？一口气看完动画《美鸟日记》",
+    "description": "当你的右手变成美少女，这是种怎样的体验？一口气看完动画《美鸟日记》",
+    "year": 2026,
+    "duration": "35m",
+    "durationSeconds": 2150,
+    "genres": [
+      "动漫杂谈",
+      "动漫",
+      "动画",
+      "一口气看完",
+      "漫画剪辑"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i0.hdslb.com/bfs/archive/67f4e237cd9b2b7916ce3fe96a6f3ee42919bff1.jpg",
+    "backdrop": "//i0.hdslb.com/bfs/archive/67f4e237cd9b2b7916ce3fe96a6f3ee42919bff1.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV16ERrBXE37",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV16ERrBXE37",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV16ERrBXE37&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-05T04:57:21.000Z"
+  },
+  "createdAt": 1778217027285,
+  "expiresAt": 1778303427285
+}

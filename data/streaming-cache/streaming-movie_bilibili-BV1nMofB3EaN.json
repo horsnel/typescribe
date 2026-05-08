@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1nMofB3EaN",
+  "data": {
+    "id": "bilibili-BV1nMofB3EaN",
+    "title": "▶Z-Anime-漫画模型◆工作流整合◆漫画高清放大流",
+    "description": "Z-Anime-漫画模型◆工作流整合◆漫画高清放大流\n模型+工作流下载：\nhttps://pan.quark.cn/s/51f2f201d9b5",
+    "year": 2026,
+    "duration": "26m",
+    "durationSeconds": 1591,
+    "genres": [
+      "动漫高清放大",
+      "漫画高清放大",
+      "Z-Anime",
+      "comfyui",
+      "漫画模型"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i2.hdslb.com/bfs/archive/6bc3c34c2417c010baa74517d968397a32da722b.jpg",
+    "backdrop": "//i2.hdslb.com/bfs/archive/6bc3c34c2417c010baa74517d968397a32da722b.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1nMofB3EaN",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1nMofB3EaN",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1nMofB3EaN&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-04-26T06:10:12.000Z"
+  },
+  "createdAt": 1778217027285,
+  "expiresAt": 1778303427285
+}

@@ -1,0 +1,60 @@
+{
+  "key": "streaming-movie:bilibili-BV1D2dMBEEmo",
+  "data": {
+    "id": "bilibili-BV1D2dMBEEmo",
+    "title": "虾仁穿越成为丞相，开局就被大臣弹劾（2小时版）#动漫推荐",
+    "description": "",
+    "year": 2026,
+    "duration": "2h 16m",
+    "durationSeconds": 8176,
+    "genres": [
+      "番剧推荐",
+      "动漫杂谈",
+      "穿越"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i0.hdslb.com/bfs/archive/4c0a9a8c9f6f31e12dd54247c7a7d99a39b609cb.jpg",
+    "backdrop": "//i0.hdslb.com/bfs/archive/4c0a9a8c9f6f31e12dd54247c7a7d99a39b609cb.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1D2dMBEEmo",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1D2dMBEEmo",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1D2dMBEEmo&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-08T05:03:10.000Z"
+  },
+  "createdAt": 1778217027285,
+  "expiresAt": 1778303427285
+}

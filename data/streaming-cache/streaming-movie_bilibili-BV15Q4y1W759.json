@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV15Q4y1W759",
+  "data": {
+    "id": "bilibili-BV15Q4y1W759",
+    "title": "【4K演示片】沉浸式游览日本吉卜力公园Ghibli Park",
+    "description": "视频源自油管。\n\n在吉卜力公园里，没有一般主题乐园会出现的大型器械和游乐设施。这里，是一个循着天然的路径、森林，一面感受空气流动、微风轻拂，用你的双脚慢慢发现秘密的所在。\n\n吉卜力公园划分为五大区块⸺「青春之丘」、「吉卜力大仓库」、「Dondoko之森」、「幽灵之里」、「魔女之谷」五大主题区域，将还原《哈尔的移动城堡》、《心之谷》、《龙猫》、《魔法公主》、《魔女宅急便》等五部宫崎骏经典动画场景，影迷不只能走入动画里的虚幻世界大过干瘾，园区内甚至还规画互动区，让影迷能亲自体验传统文化活动。",
+    "year": 2023,
+    "duration": "12m",
+    "durationSeconds": 749,
+    "genres": [
+      "日本旅游",
+      "哈尔的移动城堡",
+      "心之谷",
+      "吉卜力",
+      "魔女宅急便"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i2.hdslb.com/bfs/archive/4987b7c25681ff9ce3b3c44173708aca39d121f2.jpg",
+    "backdrop": "//i2.hdslb.com/bfs/archive/4987b7c25681ff9ce3b3c44173708aca39d121f2.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV15Q4y1W759",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV15Q4y1W759",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV15Q4y1W759&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2023-10-24T13:00:00.000Z"
+  },
+  "createdAt": 1778217027285,
+  "expiresAt": 1778303427285
+}

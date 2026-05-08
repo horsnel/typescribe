@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1bt411t7X9",
+  "data": {
+    "id": "bilibili-BV1bt411t7X9",
+    "title": "【学习BGM】宫崎骏 | 吉卜力 | 大提琴 | 读书 | 学习向 - Studio Ghibli Emotional Melody",
+    "description": "https://youtu.be/3upqzRL0IEc",
+    "year": 2019,
+    "duration": "3h 51m",
+    "durationSeconds": 13889,
+    "genres": [
+      "日本",
+      "学习",
+      "耳机",
+      "音乐",
+      "宫崎骏"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i2.hdslb.com/bfs/archive/563b0467baf5e7c710c71e6083850a5de78ea708.jpg",
+    "backdrop": "//i2.hdslb.com/bfs/archive/563b0467baf5e7c710c71e6083850a5de78ea708.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1bt411t7X9",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1bt411t7X9",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1bt411t7X9&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2019-01-28T02:47:50.000Z"
+  },
+  "createdAt": 1778217027286,
+  "expiresAt": 1778303427286
+}

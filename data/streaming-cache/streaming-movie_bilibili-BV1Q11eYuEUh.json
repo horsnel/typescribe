@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1Q11eYuEUh",
+  "data": {
+    "id": "bilibili-BV1Q11eYuEUh",
+    "title": "最好听的吉卜力钢琴曲 🎈🎈 最佳放鬆音乐 💫💫 Studio Ghibli Relaxing Music【星巴克】適合睡眠、舒眠.靜坐、冥想、放鬆、看書",
+    "description": "最好听的吉卜力钢琴曲 💐【吉卜力音乐馆】🍒🍒天空之城, ,龍貓, 哈爾移動城堡, 千與千尋, 風之谷, 貓之報恩,Kiki的送貨服務\n\n🎹🌟欢迎来到“吉卜力音乐馆”。在这里，您将通过优雅的钢琴键演奏斯图迪奥吉卜力电影音乐，踏上一段宁静之旅。 吉卜力的旋律，伴随着钢琴的音色，邀请您进入柔和的梦境。请随时访问，无论您想要放松还是寻找灵感。🌟🎹\n\n这个频道旨在通过钢琴的美妙旋律传达吉卜力的世界，为听众带来心灵的平静。请享受由钢琴声音编织的温馨时刻。",
+    "year": 2024,
+    "duration": "2h 13m",
+    "durationSeconds": 7990,
+    "genres": [
+      "纯音乐",
+      "钢琴",
+      "BGM",
+      "放松",
+      "轻音乐"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i2.hdslb.com/bfs/archive/ff94b10e4701c20f141ed2b9f08c2917a1a41667.jpg",
+    "backdrop": "//i2.hdslb.com/bfs/archive/ff94b10e4701c20f141ed2b9f08c2917a1a41667.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1Q11eYuEUh",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1Q11eYuEUh",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1Q11eYuEUh&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2024-10-06T06:41:26.000Z"
+  },
+  "createdAt": 1778217027286,
+  "expiresAt": 1778303427286
+}

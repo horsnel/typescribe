@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1bhqLYtEoY",
+  "data": {
+    "id": "bilibili-BV1bhqLYtEoY",
+    "title": "[Add-On]动漫忍术 Add-On-我的世界市场包免费下载-Minecraft Marketplace ANIME JUTSU Add-On",
+    "description": "顶置评论链接下载\n市场包聊天5群:970490605\n(请看清申请要求)\n如果你喜欢该内容，请在市场购买它(以第一时间获取更新内容)，支持原作者，谢谢！",
+    "year": 2024,
+    "duration": "46m",
+    "durationSeconds": 2818,
+    "genres": [
+      "动漫",
+      "像素风",
+      "Minecraft",
+      "演示",
+      "忍者"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i0.hdslb.com/bfs/archive/16e0e1c66ac41beef99b9fc9d221ab8e01da6d18.jpg",
+    "backdrop": "//i0.hdslb.com/bfs/archive/16e0e1c66ac41beef99b9fc9d221ab8e01da6d18.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1bhqLYtEoY",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1bhqLYtEoY",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1bhqLYtEoY&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2024-12-07T13:53:48.000Z"
+  },
+  "createdAt": 1778217027285,
+  "expiresAt": 1778303427285
+}

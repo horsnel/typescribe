@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1zJ4m1V7yQ",
+  "data": {
+    "id": "bilibili-BV1zJ4m1V7yQ",
+    "title": "《Ghibli Studio Medley》完整版",
+    "description": "-",
+    "year": 2024,
+    "duration": "6m",
+    "durationSeconds": 404,
+    "genres": [
+      "演奏挑战赛第八期",
+      "宫崎骏",
+      "日常练琴",
+      "四手联弹",
+      "弹钢琴"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i2.hdslb.com/bfs/archive/139413303201c74998c9ce57f2999d2ab7bdd23a.jpg",
+    "backdrop": "//i2.hdslb.com/bfs/archive/139413303201c74998c9ce57f2999d2ab7bdd23a.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1zJ4m1V7yQ",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1zJ4m1V7yQ",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1zJ4m1V7yQ&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2024-04-06T08:53:14.000Z"
+  },
+  "createdAt": 1778217027286,
+  "expiresAt": 1778303427286
+}

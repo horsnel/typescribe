@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1oFHEzDE6v",
+  "data": {
+    "id": "bilibili-BV1oFHEzDE6v",
+    "title": "Visual Studio Code 开发者指南 2025：从入门到精通",
+    "description": "-",
+    "year": 2025,
+    "duration": "10h 32m",
+    "durationSeconds": 37970,
+    "genres": [
+      "编程",
+      "JavaScript",
+      "Estefania Cassingena Navone",
+      "C#",
+      "指南"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i1.hdslb.com/bfs/archive/81d1abdfc6d60a9c515dbcf75946f9abd5a2a980.jpg",
+    "backdrop": "//i1.hdslb.com/bfs/archive/81d1abdfc6d60a9c515dbcf75946f9abd5a2a980.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1oFHEzDE6v",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1oFHEzDE6v",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1oFHEzDE6v&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2025-10-25T01:55:13.000Z"
+  },
+  "createdAt": 1778217027286,
+  "expiresAt": 1778303427286
+}

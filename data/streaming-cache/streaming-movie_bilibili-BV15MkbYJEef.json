@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV15MkbYJEef",
+  "data": {
+    "id": "bilibili-BV15MkbYJEef",
+    "title": "【Jock Studio】2.0 Demo全角色中翻实况！已完结！记得收藏哦！",
+    "description": "使用的翻译为：LunaTranslator 部分翻译并不准确 还请见谅~",
+    "year": 2024,
+    "duration": "9h 3m",
+    "durationSeconds": 32591,
+    "genres": [
+      "体育生",
+      "剧情",
+      "游戏",
+      "游戏鉴赏家",
+      "体育生工作室"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i1.hdslb.com/bfs/archive/9eafc4fdf473b7373ea8a997a8e0a0211494df52.jpg",
+    "backdrop": "//i1.hdslb.com/bfs/archive/9eafc4fdf473b7373ea8a997a8e0a0211494df52.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV15MkbYJEef",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV15MkbYJEef",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV15MkbYJEef&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2024-12-21T10:15:51.000Z"
+  },
+  "createdAt": 1778217027286,
+  "expiresAt": 1778303427286
+}

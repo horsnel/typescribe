@@ -1,0 +1,61 @@
+{
+  "key": "streaming-movie:bilibili-BV1rW4y1f7dv",
+  "data": {
+    "id": "bilibili-BV1rW4y1f7dv",
+    "title": "【BGM Ghibli Studio】gentle piano ghibli music relieves stress and calms mind温柔的钢",
+    "description": "https://ytb.com/oZxjeW5iZxc\n视频发布日期：20230707  视频原标题：Gentle Piano Ghibli Music Relieves Stress And Calms Mind  🔉  優しいピアノのジブリ音楽はストレスを和らげ、心を落ち着かせます",
+    "year": 2023,
+    "duration": "3h 46m",
+    "durationSeconds": 13577,
+    "genres": [
+      "我叫阿搬",
+      "背景音乐",
+      "BGM",
+      "Anime"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i2.hdslb.com/bfs/archive/a81f6b6cae7baac0ef942d71e93647b6d630fa20.jpg",
+    "backdrop": "//i2.hdslb.com/bfs/archive/a81f6b6cae7baac0ef942d71e93647b6d630fa20.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1rW4y1f7dv",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1rW4y1f7dv",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1rW4y1f7dv&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2023-07-08T03:27:20.000Z"
+  },
+  "createdAt": 1778217027286,
+  "expiresAt": 1778303427286
+}

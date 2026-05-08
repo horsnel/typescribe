@@ -1,0 +1,61 @@
+{
+  "key": "streaming-movie:bilibili-BV1yHAgzfEJs",
+  "data": {
+    "id": "bilibili-BV1yHAgzfEJs",
+    "title": "电视自带的画质增强算法和Anime4K的对比，结论是Anime4K完胜",
+    "description": "",
+    "year": 2026,
+    "duration": "6m",
+    "durationSeconds": 380,
+    "genres": [
+      "算法",
+      "电视",
+      "画质",
+      "Anime"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i2.hdslb.com/bfs/archive/4a2bbaafb92b0a5c5bd4bbd0d11b85f346270355.jpg",
+    "backdrop": "//i2.hdslb.com/bfs/archive/4a2bbaafb92b0a5c5bd4bbd0d11b85f346270355.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1yHAgzfEJs",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1yHAgzfEJs",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1yHAgzfEJs&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-03-22T07:29:19.000Z"
+  },
+  "createdAt": 1778217027285,
+  "expiresAt": 1778303427285
+}

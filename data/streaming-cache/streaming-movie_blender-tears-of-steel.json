@@ -1,0 +1,103 @@
+{
+  "key": "streaming-movie:blender-tears-of-steel",
+  "data": {
+    "id": "blender-tears-of-steel",
+    "title": "Tears of Steel",
+    "description": "In an apocalyptic future, a group of soldiers and scientists takes refuge in Amsterdam to try to stop an army of robots from destroying the remnants of humanity. A groundbreaking blend of live-action and CGI from the Blender Foundation.",
+    "year": 2012,
+    "duration": "12m 14s",
+    "durationSeconds": 734,
+    "genres": [
+      "Sci-Fi",
+      "Drama",
+      "Action"
+    ],
+    "rating": 6.8,
+    "quality": "4K",
+    "poster": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Tears_of_Steel_poster.jpg/800px-Tears_of_Steel_poster.jpg",
+    "backdrop": "https://mango.blender.org/wp-content/gallery/4k-renders/06_bartos_background.jpg",
+    "source": "blender-foundation",
+    "sourceUrl": "https://mango.blender.org/",
+    "sourceLicense": "CC BY 3.0",
+    "videoUrl": "https://www.youtube.com/embed/R6MlUcmOul8?autoplay=1&rel=0",
+    "videoType": "youtube",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "5.1 Surround"
+      },
+      {
+        "code": "de",
+        "label": "German (Dubbed)",
+        "isOriginal": false,
+        "isDubbed": true,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "es",
+        "label": "Spanish (Dubbed)",
+        "isOriginal": false,
+        "isDubbed": true,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "hi",
+        "label": "Hindi (Dubbed)",
+        "isOriginal": false,
+        "isDubbed": true,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      },
+      {
+        "code": "es",
+        "label": "Spanish",
+        "isDefault": false
+      },
+      {
+        "code": "fr",
+        "label": "French",
+        "isDefault": false
+      },
+      {
+        "code": "de",
+        "label": "German",
+        "isDefault": false
+      },
+      {
+        "code": "ja",
+        "label": "Japanese",
+        "isDefault": false
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Simplified)",
+        "isDefault": false
+      },
+      {
+        "code": "ar",
+        "label": "Arabic",
+        "isDefault": false
+      },
+      {
+        "code": "hi",
+        "label": "Hindi",
+        "isDefault": false
+      }
+    ],
+    "is4K": true,
+    "isFree": true,
+    "isEmbeddable": true,
+    "addedAt": "2012-09-26T00:00:00Z"
+  },
+  "createdAt": 1778217027284,
+  "expiresAt": 1778303427284
+}

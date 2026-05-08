@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1551EBRErx",
+  "data": {
+    "id": "bilibili-BV1551EBRErx",
+    "title": "吉卜力动画电影(Studio Ghibli) | 钢琴作品集 Piano Music Collection",
+    "description": "希望在你独自工作、作业、阅读或者休息时，可以陪伴到你。\n\n𝐏𝐥𝐚𝐲𝐥𝐢𝐬𝐭\n-\n00:00 Reprise（ふたたび）\n04:56 One Summer&#x27;s Day（あの夏へ）\n11:13 Always With Me（いつも何度でも）\n16:18 Legend of Ashitaka（アシタカの伝説）\n20:53 Mononoke Hime（もののけ姫）\n24:27 Path of The Wind（風のとおり道）\n30:36 Arrietty&#x27;s Song\n34:11 Ponyo on the Cli",
+    "year": 2025,
+    "duration": "41m",
+    "durationSeconds": 2478,
+    "genres": [
+      "吉卜力电影",
+      "久石让",
+      "音乐合集",
+      "钢琴作品集",
+      "Anime"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i2.hdslb.com/bfs/archive/2c0451095ef98da7cfe2569dc2ad2e331d7bf8ac.jpg",
+    "backdrop": "//i2.hdslb.com/bfs/archive/2c0451095ef98da7cfe2569dc2ad2e331d7bf8ac.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1551EBRErx",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1551EBRErx",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1551EBRErx&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2025-11-04T15:38:35.000Z"
+  },
+  "createdAt": 1778217027285,
+  "expiresAt": 1778303427285
+}

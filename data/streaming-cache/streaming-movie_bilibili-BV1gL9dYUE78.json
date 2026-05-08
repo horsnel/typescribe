@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1gL9dYUE78",
+  "data": {
+    "id": "bilibili-BV1gL9dYUE78",
+    "title": "2025年 Android Studio修仙传(kotlin版)：基础篇",
+    "description": "android studio修仙传：2025基础篇 \n更新预告：2025/12/21 晚8点 更新 欢迎围观\n记得三连+关注可以收到更新通知\nhttps://bitcatmeng.github.io/bitcat-club/\n如需获取VIP完整课程+VIP课程交流群+课程笔记+一对一学习答疑辅导请联系UP 公粽号：写BUG的非凡哥",
+    "year": 2025,
+    "duration": "7h 11m",
+    "durationSeconds": 25862,
+    "genres": [
+      "app开发",
+      "android开发",
+      "安卓开发",
+      "androidstudio",
+      "安卓基础教程"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i1.hdslb.com/bfs/archive/ce3342bfa775dbacae0f10be12d7b4ad6d48c9a5.jpg",
+    "backdrop": "//i1.hdslb.com/bfs/archive/ce3342bfa775dbacae0f10be12d7b4ad6d48c9a5.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1gL9dYUE78",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1gL9dYUE78",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1gL9dYUE78&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2025-03-05T09:21:32.000Z"
+  },
+  "createdAt": 1778217027286,
+  "expiresAt": 1778303427286
+}

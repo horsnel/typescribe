@@ -1,0 +1,60 @@
+{
+  "key": "streaming-movie:bilibili-BV1aAReBDEVb",
+  "data": {
+    "id": "bilibili-BV1aAReBDEVb",
+    "title": "玛莎拉蒂 Ghibli / 改造分享",
+    "description": "",
+    "year": 2026,
+    "duration": "6m",
+    "durationSeconds": 419,
+    "genres": [
+      "生活记录",
+      "记录",
+      "Anime"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i2.hdslb.com/bfs/archive/95bb5b437aacc213e62b276d5e08dd0a646b79b8.jpg",
+    "backdrop": "//i2.hdslb.com/bfs/archive/95bb5b437aacc213e62b276d5e08dd0a646b79b8.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1aAReBDEVb",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1aAReBDEVb",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1aAReBDEVb&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-04T12:00:00.000Z"
+  },
+  "createdAt": 1778217027286,
+  "expiresAt": 1778303427286
+}

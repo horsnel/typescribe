@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV11FduBzEE8",
+  "data": {
+    "id": "bilibili-BV11FduBzEE8",
+    "title": "让男人看出姨妈笑的动画！无论多烦心，看看这个就能好！",
+    "description": "",
+    "year": 2026,
+    "duration": "10m",
+    "durationSeconds": 617,
+    "genres": [
+      "动漫杂谈",
+      "明星剪辑",
+      "娱乐评论",
+      "娱乐",
+      "搞笑"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i1.hdslb.com/bfs/archive/8693cfe8c9fbf0fb99c7e5625c9e3cbfbbcf9c07.jpg",
+    "backdrop": "//i1.hdslb.com/bfs/archive/8693cfe8c9fbf0fb99c7e5625c9e3cbfbbcf9c07.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV11FduBzEE8",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV11FduBzEE8",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV11FduBzEE8&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-08T03:11:22.000Z"
+  },
+  "createdAt": 1778217027285,
+  "expiresAt": 1778303427285
+}
