@@ -8,11 +8,11 @@
     "duration": "22m",
     "durationSeconds": 1352,
     "genres": [
-      "盘点",
-      "吉卜力工作室",
+      "宫崎骏",
+      "吉卜",
       "吉卜力",
-      "EF字幕组",
-      "吉卜"
+      "中英字幕",
+      "吉卜力工作室"
     ],
     "rating": 0,
     "quality": "720p",
@@ -57,6 +57,6 @@
     "isFree": true,
     "addedAt": "2016-02-23T14:19:09.000Z"
   },
-  "createdAt": 1778217027286,
-  "expiresAt": 1778303427286
+  "createdAt": 1778298120573,
+  "expiresAt": 1778384520573
 }

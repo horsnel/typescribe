@@ -8,9 +8,9 @@
     "duration": "6m",
     "durationSeconds": 380,
     "genres": [
-      "算法",
-      "电视",
       "画质",
+      "电视",
+      "算法",
       "Anime"
     ],
     "rating": 0,
@@ -56,6 +56,6 @@
     "isFree": true,
     "addedAt": "2026-03-22T07:29:19.000Z"
   },
-  "createdAt": 1778217027285,
-  "expiresAt": 1778303427285
+  "createdAt": 1778298120569,
+  "expiresAt": 1778384520569
 }

@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1QRdGBbEPf",
+  "data": {
+    "id": "bilibili-BV1QRdGBbEPf",
+    "title": "砂纸的奇怪物理学（为什么你白费力气） | Five Duck Studio",
+    "description": "嘿，朋友，这个视频我花了很大力气，就是想搞明白一件事：现在市面上那些号称能取代3M Cubatron的砂纸，到底是不是真的。\n\n我买了市面上几乎所有号称“挑战者”的砂纸，从7分钱一片的杂牌，到专业级的3M 710，都用同样的方法测了一遍——用德伟砂光机、红橡木、定时器，每片砂纸都折磨35分钟。结果很有意思：3M依然是速度之王，但就像开车太快会吃罚单一样，它留下的V型划痕在最后涂装时特别明显。不过最让我意外的，是那个横扫亚马逊的“性价比之王”——它虽然只卖7分钱一片，但要5片加起来才顶得上1片3M的研磨量，",
+    "year": 2026,
+    "duration": "22m",
+    "durationSeconds": 1329,
+    "genres": [
+      "科学",
+      "科普",
+      "物理",
+      "实验",
+      "自然"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i0.hdslb.com/bfs/archive/4c310de7554723c0d3049d4a811dc562e7305ec7.jpg",
+    "backdrop": "//i0.hdslb.com/bfs/archive/4c310de7554723c0d3049d4a811dc562e7305ec7.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1QRdGBbEPf",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1QRdGBbEPf",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1QRdGBbEPf&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-08T16:00:00.000Z"
+  },
+  "createdAt": 1778298120572,
+  "expiresAt": 1778384520572
+}

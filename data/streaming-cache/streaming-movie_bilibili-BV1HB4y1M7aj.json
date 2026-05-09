@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1HB4y1M7aj",
+  "data": {
+    "id": "bilibili-BV1HB4y1M7aj",
+    "title": "（合集）Friday Night Funkin&#x27; But It&#x27;s Anime RUV VS  BF │ FNF ANIMATION",
+    "description": "https://youtu.be/NkeqZUtYC-8\nhttps://youtu.be/TU3XhXfihHw\nhttps://youtu.be/C2JwKtEzy-Y\nPol",
+    "year": 2021,
+    "duration": "1h 9m",
+    "durationSeconds": 4162,
+    "genres": [
+      "Friday Night Funkin",
+      "音乐游戏",
+      "音游",
+      "FNF",
+      "同人"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i0.hdslb.com/bfs/archive/6323a451a92c78ff1f1c85a80c6c24b65cef7dbb.jpg",
+    "backdrop": "//i0.hdslb.com/bfs/archive/6323a451a92c78ff1f1c85a80c6c24b65cef7dbb.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1HB4y1M7aj",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1HB4y1M7aj",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1HB4y1M7aj&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2021-06-12T06:17:06.000Z"
+  },
+  "createdAt": 1778298120570,
+  "expiresAt": 1778384520570
+}

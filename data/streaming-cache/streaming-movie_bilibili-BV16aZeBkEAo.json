@@ -1,0 +1,61 @@
+{
+  "key": "streaming-movie:bilibili-BV16aZeBkEAo",
+  "data": {
+    "id": "bilibili-BV16aZeBkEAo",
+    "title": "命炸！，命运骰子在脚下炸裂《我一个路人，底牌多亿点很合理吧》",
+    "description": "",
+    "year": 2026,
+    "duration": "15m",
+    "durationSeconds": 915,
+    "genres": [
+      "动漫",
+      "漫剧",
+      "爆款动漫",
+      "短剧种草计划"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i0.hdslb.com/bfs/archive/4eb55ec9933f863ee0a07027e4d5cfc0083038bc.jpg",
+    "backdrop": "//i0.hdslb.com/bfs/archive/4eb55ec9933f863ee0a07027e4d5cfc0083038bc.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV16aZeBkEAo",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV16aZeBkEAo",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV16aZeBkEAo&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-02-19T15:00:00.000Z"
+  },
+  "createdAt": 1778298120571,
+  "expiresAt": 1778384520571
+}

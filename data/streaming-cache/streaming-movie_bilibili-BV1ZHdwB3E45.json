@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1ZHdwB3E45",
+  "data": {
+    "id": "bilibili-BV1ZHdwB3E45",
+    "title": "别再小看本地 AI！Gemma 4 + LM Studio 让你的电脑变成超级离线 AI 工作站，而且完全免费 (手机也能使用喔！)",
+    "description": "🔹 内容纲要\n00:00 下载 LM Studio\n01:37 下载 Gemma 4 AI 模型\n04:15 Gemma 4 能力测试\n07:00 多模态图片 &amp; 音讯分析功能\n08:42 MCP 伺服器连接设定\n12:54 Gemma 程式码编辑能力测试\n\n🔹 网站连结\nCanIRun.ai https://www.canirun.ai/\nLM Studio https://lmstudio.ai/\nBrave Sesarch API https://brave.com/search/api/\nNode",
+    "year": 2026,
+    "duration": "16m",
+    "durationSeconds": 1015,
+    "genres": [
+      "电脑",
+      "手机",
+      "人工智能",
+      "AI",
+      "工作站"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i2.hdslb.com/bfs/archive/27d41ce699fa555836cf71e0c62fcf06e4fca67c.jpg",
+    "backdrop": "//i2.hdslb.com/bfs/archive/27d41ce699fa555836cf71e0c62fcf06e4fca67c.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1ZHdwB3E45",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1ZHdwB3E45",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1ZHdwB3E45&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-07T10:28:56.000Z"
+  },
+  "createdAt": 1778298120573,
+  "expiresAt": 1778384520573
+}

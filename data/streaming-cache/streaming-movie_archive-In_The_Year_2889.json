@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-In_The_Year_2889",
+  "data": {
+    "id": "archive-In_The_Year_2889",
+    "title": "In The Year 2889",
+    "description": "IN THE YEAR 2889 Starring: PAUL PETERSON AND QUINN O'HARE A group of post A-war survivors gathered together in a valley, are menaced by cannibalistic human mutants with telepathic powers.",
+    "year": 1967,
+    "duration": "1h 20m",
+    "durationSeconds": 4800,
+    "genres": [],
+    "rating": 3.6,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/In_The_Year_2889",
+    "backdrop": "https://archive.org/services/img/In_The_Year_2889",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/In_The_Year_2889",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/In_The_Year_2889",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-07T19:09:55.365Z"
+  },
+  "createdAt": 1778180995829,
+  "expiresAt": 1778267395829
+}

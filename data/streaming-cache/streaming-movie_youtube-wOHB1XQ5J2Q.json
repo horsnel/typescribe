@@ -1,0 +1,47 @@
+{
+  "key": "streaming-movie:youtube-wOHB1XQ5J2Q",
+  "data": {
+    "id": "youtube-wOHB1XQ5J2Q",
+    "title": "Charade",
+    "description": "Romance and suspense ensue in Paris as a woman is pursued by several men who want a fortune her murdered husband had stolen. Cary Grant and Audrey Hepburn star in this Stanley Donen classic.",
+    "year": 1963,
+    "duration": "1h 53m",
+    "durationSeconds": 6780,
+    "genres": [
+      "Comedy",
+      "Romance",
+      "Thriller"
+    ],
+    "rating": 7.9,
+    "quality": "720p",
+    "poster": "https://i.ytimg.com/vi/wOHB1XQ5J2Q/hqdefault.jpg",
+    "backdrop": "https://i.ytimg.com/vi/wOHB1XQ5J2Q/maxresdefault.jpg",
+    "source": "youtube",
+    "sourceUrl": "https://www.youtube.com/watch?v=wOHB1XQ5J2Q",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://www.youtube.com/embed/wOHB1XQ5J2Q?autoplay=1&rel=0",
+    "videoType": "youtube",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "1963-12-05T00:00:00Z"
+  },
+  "createdAt": 1778298120568,
+  "expiresAt": 1778384520568
+}

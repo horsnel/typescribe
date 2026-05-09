@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1KW6SBHEUj",
+  "data": {
+    "id": "bilibili-BV1KW6SBHEUj",
+    "title": "【英语播客】48小时沉浸式英语｜影子跟读精听 Easy English Talk （178集）",
+    "description": "英语播客训练\n初级版 BV1MN4dewEQZ\n中级版 BV1p3txezEnP\n高级版 BV12Qt8eoEQ3\n进阶版 BV1NuDKYfEGo",
+    "year": 2026,
+    "duration": "48h 31m",
+    "durationSeconds": 174666,
+    "genres": [
+      "英语",
+      "英语听力",
+      "英语学习",
+      "英语口语",
+      "英语播客"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i2.hdslb.com/bfs/archive/df7c64f5a69eea46fb4bc22a101707ba0f3b3c84.jpg",
+    "backdrop": "//i2.hdslb.com/bfs/archive/df7c64f5a69eea46fb4bc22a101707ba0f3b3c84.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1KW6SBHEUj",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1KW6SBHEUj",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1KW6SBHEUj&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-01-18T10:00:00.000Z"
+  },
+  "createdAt": 1778298120573,
+  "expiresAt": 1778384520573
+}

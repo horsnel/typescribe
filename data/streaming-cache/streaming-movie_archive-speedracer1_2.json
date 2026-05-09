@@ -1,0 +1,55 @@
+{
+  "key": "streaming-movie:archive-speedracer1_2",
+  "data": {
+    "id": "archive-speedracer1_2",
+    "title": "Speed Racer (Classic)",
+    "description": "Classic episodes of Speed Racer (Mach GoGoGo), the iconic anime about a young race car driver. One of the first anime series to achieve widespread popularity in the United States.",
+    "year": 1967,
+    "duration": "24m",
+    "durationSeconds": 1440,
+    "genres": [
+      "Anime",
+      "Animation",
+      "Action",
+      "Adventure"
+    ],
+    "rating": 7.1,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/speedracer1_2",
+    "backdrop": "https://archive.org/services/img/speedracer1_2",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/speedracer1_2",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/speedracer1_2/speedracer1_2_512kb.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "en",
+        "label": "English (Dubbed)",
+        "isOriginal": false,
+        "isDubbed": true,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "1967-04-01T00:00:00Z"
+  },
+  "createdAt": 1778298120568,
+  "expiresAt": 1778384520568
+}

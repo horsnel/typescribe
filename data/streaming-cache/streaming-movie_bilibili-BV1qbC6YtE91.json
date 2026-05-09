@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1qbC6YtE91",
+  "data": {
+    "id": "bilibili-BV1qbC6YtE91",
+    "title": "【全1073集 】English Singsing 英语启蒙必看-零基础儿童词汇 适合2-8岁小朋友的英语学习教材 【英语 英文字幕】",
+    "description": "网络\r\nEnglish Singsing是美国一套专门针对2-10岁的儿童设计的美式英语口语教学视频。\r\n视频动画优美生动，没有中文解释，更多的是精心处理的动画引导。这样孩子才能更好的理解场景，对应语音。语音采用儿童自然说话方式，特别适合儿童学习。",
+    "year": 2024,
+    "duration": "22h 23m",
+    "durationSeconds": 80616,
+    "genres": [
+      "零基础",
+      "英语听力",
+      "英语学习",
+      "英语口语",
+      "少儿英语"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i0.hdslb.com/bfs/archive/8f36a970ac862fa07f176d8a4a981abc01cd5352.png",
+    "backdrop": "//i0.hdslb.com/bfs/archive/8f36a970ac862fa07f176d8a4a981abc01cd5352.png",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1qbC6YtE91",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1qbC6YtE91",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1qbC6YtE91&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2024-12-26T07:58:36.000Z"
+  },
+  "createdAt": 1778298120573,
+  "expiresAt": 1778384520573
+}

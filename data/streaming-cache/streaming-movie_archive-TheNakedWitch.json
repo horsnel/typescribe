@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-TheNakedWitch",
+  "data": {
+    "id": "archive-TheNakedWitch",
+    "title": "The Naked Witch",
+    "description": "One of Larry Buchanan's first films, so don't expect the polish and complex character interactions of his later work, like \"Mars Needs Women\" or \"Zontar, the Thing from Venus.\"",
+    "year": 0,
+    "duration": "59h 7m",
+    "durationSeconds": 212820,
+    "genres": [],
+    "rating": 3.4,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/TheNakedWitch",
+    "backdrop": "https://archive.org/services/img/TheNakedWitch",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/TheNakedWitch",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/TheNakedWitch",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-07T19:09:55.365Z"
+  },
+  "createdAt": 1778180995829,
+  "expiresAt": 1778267395829
+}

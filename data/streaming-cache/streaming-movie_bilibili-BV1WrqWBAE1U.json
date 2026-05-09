@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1WrqWBAE1U",
+  "data": {
+    "id": "bilibili-BV1WrqWBAE1U",
+    "title": "攻壳机动队（未删减补码/1995）",
+    "description": "公元2029年，未来世界是高科技与信息化的世界。人类生活水平的提高伴随着犯罪活动的高科技化，于是，专门镇压高科技犯罪的特殊部队——公安9课成立了。队长草薙素子，作为一位全身“义体化”的女警，带领公安9课不断展开行动。 \n 是次，公安9课帮助公安6课秘密解决了一位程序员外逃他国的麻烦琐事，又卷入传说中的黑客“傀儡师”的犯罪事件。当行动陷入僵局之际，傀儡师竟然不请自来，出现在公安9课！素子与她的战友们，不知不觉地被卷入了一场涉及政府的阴谋之中",
+    "year": 2025,
+    "duration": "1h 54m",
+    "durationSeconds": 6899,
+    "genres": [
+      "经典",
+      "科幻",
+      "攻壳机动队",
+      "动画电影",
+      "押井守"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i1.hdslb.com/bfs/archive/bd2ebec2fbfa51f4559ab2a135badd5b6bdce386.jpg",
+    "backdrop": "//i1.hdslb.com/bfs/archive/bd2ebec2fbfa51f4559ab2a135badd5b6bdce386.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1WrqWBAE1U",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1WrqWBAE1U",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1WrqWBAE1U&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2025-12-16T06:40:00.000Z"
+  },
+  "createdAt": 1778298120570,
+  "expiresAt": 1778384520570
+}

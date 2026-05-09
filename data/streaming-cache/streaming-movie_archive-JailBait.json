@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-JailBait",
+  "data": {
+    "id": "archive-JailBait",
+    "title": "Jail Bait",
+    "description": "Jail Bait (1954) Directed by Edward D Wood Jr. A Howco Release A vicious criminal uses plastic surgery to escape the police.This movie features Steve Reeves (undubbed). This is the original version of the film released in 1954. This film was registered for copyright (1954 LP3883) and never renewed. It entered the public domain on 1 January 1983.",
+    "year": 1954,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [],
+    "rating": 2.5,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/JailBait",
+    "backdrop": "https://archive.org/services/img/JailBait",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/JailBait",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/JailBait",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-07T19:09:55.820Z"
+  },
+  "createdAt": 1778180995830,
+  "expiresAt": 1778267395830
+}

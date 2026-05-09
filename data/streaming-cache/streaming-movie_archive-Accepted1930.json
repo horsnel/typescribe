@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-Accepted1930",
+  "data": {
+    "id": "archive-Accepted1930",
+    "title": "Animal Crackers",
+    "description": "The Marx Brothers' classic comedy about a stolen painting during a society dinner party. Groucho delivers some of his most famous one-liners.",
+    "year": 1930,
+    "duration": "1h 37m",
+    "durationSeconds": 5820,
+    "genres": [
+      "Comedy"
+    ],
+    "rating": 7.4,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/Accepted1930",
+    "backdrop": "https://archive.org/services/img/Accepted1930",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/Accepted1930",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/Accepted1930/Accepted1930_512kb.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "1930-01-01T00:00:00Z"
+  },
+  "createdAt": 1778298120568,
+  "expiresAt": 1778384520568
+}

@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-abraham_lincoln",
+  "data": {
+    "id": "archive-abraham_lincoln",
+    "title": "Abraham Lincoln",
+    "description": "A biography of the beloved United States president by D. W. Griffith. You can find more information regarding this film on its IMDb page .",
+    "year": 1930,
+    "duration": "1h 24m",
+    "durationSeconds": 5079,
+    "genres": [],
+    "rating": 3.6,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/abraham_lincoln",
+    "backdrop": "https://archive.org/services/img/abraham_lincoln",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/abraham_lincoln",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/abraham_lincoln",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-07T19:09:54.501Z"
+  },
+  "createdAt": 1778180995829,
+  "expiresAt": 1778267395829
+}

@@ -62,7 +62,12 @@ export type StreamSource =
   | 'bilibili'
   | 'plex-free'
   | 'openflix'
-  | 'crunchyroll';
+  | 'crunchyroll'
+  | 'contv'
+  | 'crackle'
+  | 'tmdb-discover'
+  | 'retrocrush'
+  | 'indie-animation';
 
 // ─── Supporting Types ────────────────────────────────────────────────────────
 

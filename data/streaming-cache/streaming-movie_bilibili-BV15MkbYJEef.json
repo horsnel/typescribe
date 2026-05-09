@@ -8,11 +8,11 @@
     "duration": "9h 3m",
     "durationSeconds": 32591,
     "genres": [
-      "体育生",
-      "剧情",
       "游戏",
-      "游戏鉴赏家",
-      "体育生工作室"
+      "二次元",
+      "剧情",
+      "体育生",
+      "蔷薇向"
     ],
     "rating": 0,
     "quality": "720p",
@@ -57,6 +57,6 @@
     "isFree": true,
     "addedAt": "2024-12-21T10:15:51.000Z"
   },
-  "createdAt": 1778217027286,
-  "expiresAt": 1778303427286
+  "createdAt": 1778298120573,
+  "expiresAt": 1778384520573
 }

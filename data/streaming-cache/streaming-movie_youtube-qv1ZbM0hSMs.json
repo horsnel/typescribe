@@ -1,0 +1,47 @@
+{
+  "key": "streaming-movie:youtube-qv1ZbM0hSMs",
+  "data": {
+    "id": "youtube-qv1ZbM0hSMs",
+    "title": "D.O.A. (1950)",
+    "description": "A businessman, told he's been fatally poisoned, searches for his own murderer in this classic film noir. A unique thriller told in flashback from the victim's perspective.",
+    "year": 1950,
+    "duration": "1h 23m",
+    "durationSeconds": 4980,
+    "genres": [
+      "Drama",
+      "Thriller",
+      "Film Noir"
+    ],
+    "rating": 7.3,
+    "quality": "480p",
+    "poster": "https://i.ytimg.com/vi/qv1ZbM0hSMs/hqdefault.jpg",
+    "backdrop": "https://i.ytimg.com/vi/qv1ZbM0hSMs/maxresdefault.jpg",
+    "source": "youtube",
+    "sourceUrl": "https://www.youtube.com/watch?v=qv1ZbM0hSMs",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://www.youtube.com/embed/qv1ZbM0hSMs?autoplay=1&rel=0",
+    "videoType": "youtube",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "1950-04-30T00:00:00Z"
+  },
+  "createdAt": 1778298120568,
+  "expiresAt": 1778384520568
+}

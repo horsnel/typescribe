@@ -1,0 +1,58 @@
+{
+  "key": "streaming-movie:bilibili-BV1uW411i7W8",
+  "data": {
+    "id": "bilibili-BV1uW411i7W8",
+    "title": "【Top 10】十大最佳动漫亲吻场景的所有时间！",
+    "description": "https://youtu.be/p6ZH2OTOIJg\n原作者名：Anime Sensei\n原视频标题：Top 10 Best Anime Kiss Scenes Of All Time! Pt.2",
+    "year": 2018,
+    "duration": "10m",
+    "durationSeconds": 602,
+    "genres": [
+      "Anime Sensei"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i0.hdslb.com/bfs/archive/0417251dc902fd8c546c7f98b9447ecf0979f2fe.jpg",
+    "backdrop": "//i0.hdslb.com/bfs/archive/0417251dc902fd8c546c7f98b9447ecf0979f2fe.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1uW411i7W8",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1uW411i7W8",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1uW411i7W8&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2018-01-21T05:42:07.000Z"
+  },
+  "createdAt": 1778298120569,
+  "expiresAt": 1778384520569
+}

@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1Y1PjzhE4Z",
+  "data": {
+    "id": "bilibili-BV1Y1PjzhE4Z",
+    "title": "心跳契，妖王按墙吻我那刻，心跳炸裂成契约《反派女友，个个都是小妖精》",
+    "description": "",
+    "year": 2026,
+    "duration": "11m",
+    "durationSeconds": 669,
+    "genres": [
+      "动态漫",
+      "漫剧",
+      "爆款动漫",
+      "短剧种草计划",
+      "热门漫剧"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i2.hdslb.com/bfs/archive/02d8a9cb5c171f1e9ceff0e9eb734a033c5ad1b3.jpg",
+    "backdrop": "//i2.hdslb.com/bfs/archive/02d8a9cb5c171f1e9ceff0e9eb734a033c5ad1b3.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1Y1PjzhE4Z",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1Y1PjzhE4Z",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1Y1PjzhE4Z&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-03-02T12:00:00.000Z"
+  },
+  "createdAt": 1778298120571,
+  "expiresAt": 1778384520571
+}

@@ -8,11 +8,11 @@
     "duration": "5m",
     "durationSeconds": 309,
     "genres": [
-      "comfyui",
-      "经验分享",
-      "学习",
+      "动漫",
       "模型",
-      "动漫"
+      "学习",
+      "经验分享",
+      "comfyui"
     ],
     "rating": 0,
     "quality": "720p",
@@ -57,6 +57,6 @@
     "isFree": true,
     "addedAt": "2026-05-02T09:32:05.000Z"
   },
-  "createdAt": 1778217027285,
-  "expiresAt": 1778303427285
+  "createdAt": 1778298120570,
+  "expiresAt": 1778384520570
 }

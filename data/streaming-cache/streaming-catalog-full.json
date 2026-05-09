@@ -3,6 +3,751 @@
   "data": {
     "movies": [
       {
+        "id": "crunchyroll-attack-on-titan",
+        "title": "Attack on Titan",
+        "description": "In a world where humanity lives within enormous walled cities to protect themselves from Titans, gigantic humanoid creatures, a young boy named Eren vows to destroy them all after a Titan brings about the destruction of his hometown.",
+        "year": 2013,
+        "duration": "24m per ep",
+        "durationSeconds": 1440,
+        "genres": [
+          "Anime",
+          "Action",
+          "Drama",
+          "Dark Fantasy"
+        ],
+        "rating": 9,
+        "quality": "1080p",
+        "poster": "https://img1.ak.crunchyroll.com/i/spire1/40a6e148f0f0d4a2e38c2a8fd8e458ca1643234007_full.jpg",
+        "backdrop": "https://img1.ak.crunchyroll.com/i/spire1/40a6e148f0f0d4a2e38c2a8fd8e458ca1643234007_full.jpg",
+        "source": "crunchyroll",
+        "sourceUrl": "https://www.crunchyroll.com/series/GY8VEQ95Y/attack-on-titan",
+        "sourceLicense": "Free with Ads",
+        "videoUrl": "https://www.crunchyroll.com/series/GY8VEQ95Y/attack-on-titan",
+        "videoType": "linkout",
+        "isEmbeddable": false,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "5.1 Surround"
+          },
+          {
+            "code": "en",
+            "label": "English (Dubbed)",
+            "isOriginal": false,
+            "isDubbed": true,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": true
+          },
+          {
+            "code": "es",
+            "label": "Spanish",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2013-04-07T00:00:00Z"
+      },
+      {
+        "id": "crunchyroll-death-note",
+        "title": "Death Note",
+        "description": "A high school student discovers a supernatural notebook that allows him to kill anyone whose name he writes in it. He begins a crusade against criminals, but a genius detective pursues him.",
+        "year": 2006,
+        "duration": "24m per ep",
+        "durationSeconds": 1440,
+        "genres": [
+          "Anime",
+          "Thriller",
+          "Mystery",
+          "Supernatural"
+        ],
+        "rating": 9,
+        "quality": "1080p",
+        "poster": "https://img1.ak.crunchyroll.com/i/spire4/65c5c5e2c4c0f26e5e4a5a4a5a5a5a5a5a5a5a5a_full.jpg",
+        "backdrop": "https://img1.ak.crunchyroll.com/i/spire4/65c5c5e2c4c0f26e5e4a5a4a5a5a5a5a5a5a5a5a_full.jpg",
+        "source": "crunchyroll",
+        "sourceUrl": "https://www.crunchyroll.com/series/GY5P48XEY/death-note",
+        "sourceLicense": "Free with Ads",
+        "videoUrl": "https://www.crunchyroll.com/series/GY5P48XEY/death-note",
+        "videoType": "linkout",
+        "isEmbeddable": false,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "en",
+            "label": "English (Dubbed)",
+            "isOriginal": false,
+            "isDubbed": true,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": true
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2006-10-04T00:00:00Z"
+      },
+      {
+        "id": "crunchyroll-demon-slayer",
+        "title": "Demon Slayer",
+        "description": "After his family is slaughtered by demons and his sister is turned into one, Tanjiro Kamado embarks on a journey to become a demon slayer and find a cure for his sister. Stunning animation by ufotable.",
+        "year": 2019,
+        "duration": "24m per ep",
+        "durationSeconds": 1440,
+        "genres": [
+          "Anime",
+          "Action",
+          "Fantasy",
+          "Supernatural"
+        ],
+        "rating": 8.9,
+        "quality": "1080p",
+        "poster": "https://img1.ak.crunchyroll.com/i/spire1/3c5f39e2c4c0f26e5e4a5a4a5a5a5a5a5a5a5a5a_full.jpg",
+        "backdrop": "https://img1.ak.crunchyroll.com/i/spire1/3c5f39e2c4c0f26e5e4a5a4a5a5a5a5a5a5a5a5a_full.jpg",
+        "source": "crunchyroll",
+        "sourceUrl": "https://www.crunchyroll.com/series/GY5P48XEY/demon-slayer-kimetsu-no-yaiba",
+        "sourceLicense": "Free with Ads",
+        "videoUrl": "https://www.crunchyroll.com/series/GY5P48XEY/demon-slayer-kimetsu-no-yaiba",
+        "videoType": "linkout",
+        "isEmbeddable": false,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "5.1 Surround"
+          },
+          {
+            "code": "en",
+            "label": "English (Dubbed)",
+            "isOriginal": false,
+            "isDubbed": true,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": true
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2019-04-06T00:00:00Z"
+      },
+      {
+        "id": "crunchyroll-one-piece",
+        "title": "One Piece",
+        "description": "Monkey D. Luffy sets off on an adventure to find the fabled treasure One Piece and become the King of the Pirates. The longest-running anime series with over 1000 episodes.",
+        "year": 1999,
+        "duration": "24m per ep",
+        "durationSeconds": 1440,
+        "genres": [
+          "Anime",
+          "Action",
+          "Adventure",
+          "Comedy"
+        ],
+        "rating": 8.7,
+        "quality": "1080p",
+        "poster": "https://img1.ak.crunchyroll.com/i/spire4/3c4dd78da0f7e9167a0c6d0b4520a3ae1643234082_full.jpg",
+        "backdrop": "https://img1.ak.crunchyroll.com/i/spire4/3c4dd78da0f7e9167a0c6d0b4520a3ae1643234082_full.jpg",
+        "source": "crunchyroll",
+        "sourceUrl": "https://www.crunchyroll.com/series/GRMH648VR/one-piece",
+        "sourceLicense": "Free with Ads",
+        "videoUrl": "https://www.crunchyroll.com/series/GRMH648VR/one-piece",
+        "videoType": "linkout",
+        "isEmbeddable": false,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "en",
+            "label": "English (Dubbed)",
+            "isOriginal": false,
+            "isDubbed": true,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": true
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "1999-10-20T00:00:00Z"
+      },
+      {
+        "id": "crunchyroll-jujutsu-kaisen",
+        "title": "Jujutsu Kaisen",
+        "description": "A boy swallows a cursed talisman and becomes host to a powerful curse. He enrolls in a school of sorcerers to locate and consume the remaining fingers of the curse, allowing himself to be exorcised along with it.",
+        "year": 2020,
+        "duration": "24m per ep",
+        "durationSeconds": 1440,
+        "genres": [
+          "Anime",
+          "Action",
+          "Supernatural",
+          "Dark Fantasy"
+        ],
+        "rating": 8.7,
+        "quality": "1080p",
+        "poster": "https://img1.ak.crunchyroll.com/i/spire2/45c5c5e2c4c0f26e5e4a5a4a5a5a5a5a5a5a5a5a_full.jpg",
+        "backdrop": "https://img1.ak.crunchyroll.com/i/spire2/45c5c5e2c4c0f26e5e4a5a4a5a5a5a5a5a5a5a5a_full.jpg",
+        "source": "crunchyroll",
+        "sourceUrl": "https://www.crunchyroll.com/series/GY5P48XEY/jujutsu-kaisen",
+        "sourceLicense": "Free with Ads",
+        "videoUrl": "https://www.crunchyroll.com/series/GY5P48XEY/jujutsu-kaisen",
+        "videoType": "linkout",
+        "isEmbeddable": false,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "5.1 Surround"
+          },
+          {
+            "code": "en",
+            "label": "English (Dubbed)",
+            "isOriginal": false,
+            "isDubbed": true,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": true
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2020-10-03T00:00:00Z"
+      },
+      {
+        "id": "crunchyroll-dragon-ball",
+        "title": "Dragon Ball",
+        "description": "The classic anime following Goku's journey from a young boy with a tail to the strongest fighter in the universe. A foundational anime that defined the shonen genre.",
+        "year": 1986,
+        "duration": "24m per ep",
+        "durationSeconds": 1440,
+        "genres": [
+          "Anime",
+          "Action",
+          "Adventure",
+          "Martial Arts"
+        ],
+        "rating": 8.5,
+        "quality": "720p",
+        "poster": "https://img1.ak.crunchyroll.com/i/spire2/e9e97e3eb4b0b3e9a0494f1585117c7b1643234196_full.jpg",
+        "backdrop": "https://img1.ak.crunchyroll.com/i/spire2/e9e97e3eb4b0b3e9a0494f1585117c7b1643234196_full.jpg",
+        "source": "crunchyroll",
+        "sourceUrl": "https://www.crunchyroll.com/series/GY5P48X6R/dragon-ball",
+        "sourceLicense": "Free with Ads",
+        "videoUrl": "https://www.crunchyroll.com/series/GY5P48X6R/dragon-ball",
+        "videoType": "linkout",
+        "isEmbeddable": false,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "en",
+            "label": "English (Dubbed)",
+            "isOriginal": false,
+            "isDubbed": true,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": true
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "1986-02-26T00:00:00Z"
+      },
+      {
+        "id": "crunchyroll-my-hero-academia",
+        "title": "My Hero Academia",
+        "description": "In a world where most people have super powers called \"Quirks\", a boy born without them dreams of becoming a superhero. He is scouted by the world's greatest hero who shares his power with him.",
+        "year": 2016,
+        "duration": "24m per ep",
+        "durationSeconds": 1440,
+        "genres": [
+          "Anime",
+          "Action",
+          "Superhero",
+          "School"
+        ],
+        "rating": 8.4,
+        "quality": "1080p",
+        "poster": "https://img1.ak.crunchyroll.com/i/spire3/55c5c5e2c4c0f26e5e4a5a4a5a5a5a5a5a5a5a5a_full.jpg",
+        "backdrop": "https://img1.ak.crunchyroll.com/i/spire3/55c5c5e2c4c0f26e5e4a5a4a5a5a5a5a5a5a5a5a_full.jpg",
+        "source": "crunchyroll",
+        "sourceUrl": "https://www.crunchyroll.com/series/GY5P48XEY/my-hero-academia",
+        "sourceLicense": "Free with Ads",
+        "videoUrl": "https://www.crunchyroll.com/series/GY5P48XEY/my-hero-academia",
+        "videoType": "linkout",
+        "isEmbeddable": false,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "en",
+            "label": "English (Dubbed)",
+            "isOriginal": false,
+            "isDubbed": true,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": true
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2016-04-03T00:00:00Z"
+      },
+      {
+        "id": "archive-Metropolis_201507",
+        "title": "Metropolis",
+        "description": "In a futuristic city sharply divided between the working class and the city planners, the son of the city's mastermind falls in love with a working class prophet. Fritz Lang's sci-fi masterpiece.",
+        "year": 1927,
+        "duration": "2h 33m",
+        "durationSeconds": 9180,
+        "genres": [
+          "Sci-Fi",
+          "Drama",
+          "Fantasy"
+        ],
+        "rating": 8.3,
+        "quality": "Unknown",
+        "poster": "https://archive.org/services/img/Metropolis_201507",
+        "backdrop": "https://archive.org/services/img/Metropolis_201507",
+        "source": "internet-archive",
+        "sourceUrl": "https://archive.org/details/Metropolis_201507",
+        "sourceLicense": "Public Domain",
+        "videoUrl": "https://archive.org/download/Metropolis_201507/Metropolis_201507_512kb.mp4",
+        "videoType": "direct",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "de",
+            "label": "German (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": true
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "1927-01-10T00:00:00Z"
+      },
+      {
+        "id": "crunchyroll-naruto",
+        "title": "Naruto",
+        "description": "A young ninja strives for greatness while harboring the spirit of a fearsome nine-tailed fox. One of the most iconic anime series ever created, following Naruto Uzumaki's journey from outcast to hero.",
+        "year": 2002,
+        "duration": "24m per ep",
+        "durationSeconds": 1440,
+        "genres": [
+          "Anime",
+          "Action",
+          "Adventure",
+          "Martial Arts"
+        ],
+        "rating": 8.3,
+        "quality": "1080p",
+        "poster": "https://img1.ak.crunchyroll.com/i/spire1/0bd6e09b8d0090c379e5e5d5c6a2265c1652427594_full.jpg",
+        "backdrop": "https://img1.ak.crunchyroll.com/i/spire1/0bd6e09b8d0090c379e5e5d5c6a2265c1652427594_full.jpg",
+        "source": "crunchyroll",
+        "sourceUrl": "https://www.crunchyroll.com/series/GY9P48X6R/naruto",
+        "sourceLicense": "Free with Ads",
+        "videoUrl": "https://www.crunchyroll.com/series/GY9P48X6R/naruto",
+        "videoType": "linkout",
+        "isEmbeddable": false,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "en",
+            "label": "English (Dubbed)",
+            "isOriginal": false,
+            "isDubbed": true,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": true
+          },
+          {
+            "code": "es",
+            "label": "Spanish",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2002-10-03T00:00:00Z"
+      },
+      {
+        "id": "archive-TheGeneral1926",
+        "title": "The General",
+        "description": "When Union spies steal an engineer's beloved locomotive, he pursues it single-handedly and straight through enemy lines. Buster Keaton's masterpiece of silent comedy and action.",
+        "year": 1926,
+        "duration": "1h 7m",
+        "durationSeconds": 4020,
+        "genres": [
+          "Comedy",
+          "Action",
+          "Adventure"
+        ],
+        "rating": 8.2,
+        "quality": "Unknown",
+        "poster": "https://archive.org/services/img/TheGeneral1926",
+        "backdrop": "https://archive.org/services/img/TheGeneral1926",
+        "source": "internet-archive",
+        "sourceUrl": "https://archive.org/details/TheGeneral1926",
+        "sourceLicense": "Public Domain",
+        "videoUrl": "https://archive.org/download/TheGeneral1926/TheGeneral1926_512kb.mp4",
+        "videoType": "direct",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "en",
+            "label": "English (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": true
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "1926-12-31T00:00:00Z"
+      },
+      {
+        "id": "archive-thecabinet00cabi",
+        "title": "The Cabinet of Dr. Caligari",
+        "description": "A man relates the tale of a sleepwalker controlled by the sinister Dr. Caligari who commits murders in a village. A landmark of German Expressionist cinema.",
+        "year": 1920,
+        "duration": "1h 16m",
+        "durationSeconds": 4560,
+        "genres": [
+          "Horror",
+          "Thriller",
+          "Drama"
+        ],
+        "rating": 8.1,
+        "quality": "Unknown",
+        "poster": "https://archive.org/services/img/thecabinet00cabi",
+        "backdrop": "https://archive.org/services/img/thecabinet00cabi",
+        "source": "internet-archive",
+        "sourceUrl": "https://archive.org/details/thecabinet00cabi",
+        "sourceLicense": "Public Domain",
+        "videoUrl": "https://archive.org/download/thecabinet00cabi/thecabinet00cabi_512kb.mp4",
+        "videoType": "direct",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "de",
+            "label": "German (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": true
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "1920-02-26T00:00:00Z"
+      },
+      {
+        "id": "archive-Nosferatu_1920",
+        "title": "Nosferatu",
+        "description": "Vampire Count Orlok expresses interest in a new residence and real estate agent Hutter's wife. F.W. Murnau's unauthorized adaptation of Bram Stoker's Dracula is one of the most influential horror films ever made.",
+        "year": 1922,
+        "duration": "1h 34m",
+        "durationSeconds": 5640,
+        "genres": [
+          "Horror",
+          "Fantasy",
+          "Drama"
+        ],
+        "rating": 7.9,
+        "quality": "Unknown",
+        "poster": "https://archive.org/services/img/Nosferatu_1920",
+        "backdrop": "https://archive.org/services/img/Nosferatu_1920",
+        "source": "internet-archive",
+        "sourceUrl": "https://archive.org/details/Nosferatu_1920",
+        "sourceLicense": "Public Domain",
+        "videoUrl": "https://archive.org/download/Nosferatu_1920/Nosferatu_1920_512kb.mp4",
+        "videoType": "direct",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "de",
+            "label": "German (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": true
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "1922-03-04T00:00:00Z"
+      },
+      {
+        "id": "youtube-KkOCpCbbnOU",
+        "title": "Night of the Living Dead",
+        "description": "A group of people hide from bloodthirsty zombies in a farmhouse. George A. Romero's groundbreaking 1968 horror classic that defined the modern zombie genre. Public domain due to a copyright error.",
+        "year": 1968,
+        "duration": "1h 36m",
+        "durationSeconds": 5760,
+        "genres": [
+          "Horror",
+          "Thriller"
+        ],
+        "rating": 7.9,
+        "quality": "720p",
+        "poster": "https://i.ytimg.com/vi/KkOCpCbbnOU/hqdefault.jpg",
+        "backdrop": "https://i.ytimg.com/vi/KkOCpCbbnOU/maxresdefault.jpg",
+        "source": "youtube",
+        "sourceUrl": "https://www.youtube.com/watch?v=KkOCpCbbnOU",
+        "sourceLicense": "Public Domain",
+        "videoUrl": "https://www.youtube.com/embed/KkOCpCbbnOU?autoplay=1&rel=0",
+        "videoType": "youtube",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "en",
+            "label": "English (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": true
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "1968-10-01T00:00:00Z"
+      },
+      {
+        "id": "youtube-wOHB1XQ5J2Q",
+        "title": "Charade",
+        "description": "Romance and suspense ensue in Paris as a woman is pursued by several men who want a fortune her murdered husband had stolen. Cary Grant and Audrey Hepburn star in this Stanley Donen classic.",
+        "year": 1963,
+        "duration": "1h 53m",
+        "durationSeconds": 6780,
+        "genres": [
+          "Comedy",
+          "Romance",
+          "Thriller"
+        ],
+        "rating": 7.9,
+        "quality": "720p",
+        "poster": "https://i.ytimg.com/vi/wOHB1XQ5J2Q/hqdefault.jpg",
+        "backdrop": "https://i.ytimg.com/vi/wOHB1XQ5J2Q/maxresdefault.jpg",
+        "source": "youtube",
+        "sourceUrl": "https://www.youtube.com/watch?v=wOHB1XQ5J2Q",
+        "sourceLicense": "Public Domain",
+        "videoUrl": "https://www.youtube.com/embed/wOHB1XQ5J2Q?autoplay=1&rel=0",
+        "videoType": "youtube",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "en",
+            "label": "English (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": true
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "1963-12-05T00:00:00Z"
+      },
+      {
+        "id": "youtube-Z5fVhVmME9k",
+        "title": "His Girl Friday",
+        "description": "A newspaper editor uses every trick in the book to keep his ex-wife from remarrying. Cary Grant and Rosalind Russell star in Howard Hawks' rapid-fire comedy classic.",
+        "year": 1940,
+        "duration": "1h 32m",
+        "durationSeconds": 5520,
+        "genres": [
+          "Comedy",
+          "Drama",
+          "Romance"
+        ],
+        "rating": 7.9,
+        "quality": "480p",
+        "poster": "https://i.ytimg.com/vi/Z5fVhVmME9k/hqdefault.jpg",
+        "backdrop": "https://i.ytimg.com/vi/Z5fVhVmME9k/maxresdefault.jpg",
+        "source": "youtube",
+        "sourceUrl": "https://www.youtube.com/watch?v=Z5fVhVmME9k",
+        "sourceLicense": "Public Domain",
+        "videoUrl": "https://www.youtube.com/embed/Z5fVhVmME9k?autoplay=1&rel=0",
+        "videoType": "youtube",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "en",
+            "label": "English (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": true
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "1940-01-18T00:00:00Z"
+      },
+      {
+        "id": "archive-ThePhantomOfTheOpera",
+        "title": "The Phantom of the Opera",
+        "description": "A mad, disfigured composer seeks love with a beautiful young opera singer beneath the Paris Opera House. Lon Chaney's iconic performance in this silent horror classic.",
+        "year": 1925,
+        "duration": "1h 33m",
+        "durationSeconds": 5580,
+        "genres": [
+          "Horror",
+          "Drama",
+          "Thriller"
+        ],
+        "rating": 7.6,
+        "quality": "Unknown",
+        "poster": "https://archive.org/services/img/ThePhantomOfTheOpera",
+        "backdrop": "https://archive.org/services/img/ThePhantomOfTheOpera",
+        "source": "internet-archive",
+        "sourceUrl": "https://archive.org/details/ThePhantomOfTheOpera",
+        "sourceLicense": "Public Domain",
+        "videoUrl": "https://archive.org/download/ThePhantomOfTheOpera/ThePhantomOfTheOpera_512kb.mp4",
+        "videoType": "direct",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "en",
+            "label": "English (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": true
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "1925-01-01T00:00:00Z"
+      },
+      {
         "id": "blender-sintel",
         "title": "Sintel",
         "description": "A lonely young woman, Sintel, helps and befriends a dragon, which she calls Scales. But when Scales is taken from her, she embarks on a dangerous quest to find her friend, unaware of the tragedy that awaits at the end of her journey.",
@@ -89,6 +834,138 @@
         "addedAt": "2010-09-27T00:00:00Z"
       },
       {
+        "id": "archive-Accepted1930",
+        "title": "Animal Crackers",
+        "description": "The Marx Brothers' classic comedy about a stolen painting during a society dinner party. Groucho delivers some of his most famous one-liners.",
+        "year": 1930,
+        "duration": "1h 37m",
+        "durationSeconds": 5820,
+        "genres": [
+          "Comedy"
+        ],
+        "rating": 7.4,
+        "quality": "Unknown",
+        "poster": "https://archive.org/services/img/Accepted1930",
+        "backdrop": "https://archive.org/services/img/Accepted1930",
+        "source": "internet-archive",
+        "sourceUrl": "https://archive.org/details/Accepted1930",
+        "sourceLicense": "Public Domain",
+        "videoUrl": "https://archive.org/download/Accepted1930/Accepted1930_512kb.mp4",
+        "videoType": "direct",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "en",
+            "label": "English (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": true
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "1930-01-01T00:00:00Z"
+      },
+      {
+        "id": "archive-KimbaTheWhiteLion01",
+        "title": "Kimba the White Lion",
+        "description": "Osamu Tezuka's classic anime about a white lion cub who becomes king of the jungle. One of the first Japanese anime series to be broadcast in color.",
+        "year": 1965,
+        "duration": "24m",
+        "durationSeconds": 1440,
+        "genres": [
+          "Anime",
+          "Animation",
+          "Adventure",
+          "Family"
+        ],
+        "rating": 7.3,
+        "quality": "Unknown",
+        "poster": "https://archive.org/services/img/KimbaTheWhiteLion01",
+        "backdrop": "https://archive.org/services/img/KimbaTheWhiteLion01",
+        "source": "internet-archive",
+        "sourceUrl": "https://archive.org/details/KimbaTheWhiteLion01",
+        "sourceLicense": "Public Domain",
+        "videoUrl": "https://archive.org/download/KimbaTheWhiteLion01/KimbaTheWhiteLion01_512kb.mp4",
+        "videoType": "direct",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "en",
+            "label": "English (Dubbed)",
+            "isOriginal": false,
+            "isDubbed": true,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": true
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "1965-10-06T00:00:00Z"
+      },
+      {
+        "id": "youtube-qv1ZbM0hSMs",
+        "title": "D.O.A. (1950)",
+        "description": "A businessman, told he's been fatally poisoned, searches for his own murderer in this classic film noir. A unique thriller told in flashback from the victim's perspective.",
+        "year": 1950,
+        "duration": "1h 23m",
+        "durationSeconds": 4980,
+        "genres": [
+          "Drama",
+          "Thriller",
+          "Film Noir"
+        ],
+        "rating": 7.3,
+        "quality": "480p",
+        "poster": "https://i.ytimg.com/vi/qv1ZbM0hSMs/hqdefault.jpg",
+        "backdrop": "https://i.ytimg.com/vi/qv1ZbM0hSMs/maxresdefault.jpg",
+        "source": "youtube",
+        "sourceUrl": "https://www.youtube.com/watch?v=qv1ZbM0hSMs",
+        "sourceLicense": "Public Domain",
+        "videoUrl": "https://www.youtube.com/embed/qv1ZbM0hSMs?autoplay=1&rel=0",
+        "videoType": "youtube",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "en",
+            "label": "English (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": true
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "1950-04-30T00:00:00Z"
+      },
+      {
         "id": "blender-big-buck-bunny",
         "title": "Big Buck Bunny",
         "description": "A large and lovable bunny deals with three tiny bullies, led by a flying squirrel, who are determined to squelch his happiness. This hilarious short film from the Blender Foundation showcases stunning animation and character design.",
@@ -170,6 +1047,56 @@
         "addedAt": "2008-04-10T00:00:00Z"
       },
       {
+        "id": "archive-speedracer1_2",
+        "title": "Speed Racer (Classic)",
+        "description": "Classic episodes of Speed Racer (Mach GoGoGo), the iconic anime about a young race car driver. One of the first anime series to achieve widespread popularity in the United States.",
+        "year": 1967,
+        "duration": "24m",
+        "durationSeconds": 1440,
+        "genres": [
+          "Anime",
+          "Animation",
+          "Action",
+          "Adventure"
+        ],
+        "rating": 7.1,
+        "quality": "Unknown",
+        "poster": "https://archive.org/services/img/speedracer1_2",
+        "backdrop": "https://archive.org/services/img/speedracer1_2",
+        "source": "internet-archive",
+        "sourceUrl": "https://archive.org/details/speedracer1_2",
+        "sourceLicense": "Public Domain",
+        "videoUrl": "https://archive.org/download/speedracer1_2/speedracer1_2_512kb.mp4",
+        "videoType": "direct",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "en",
+            "label": "English (Dubbed)",
+            "isOriginal": false,
+            "isDubbed": true,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": true
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "1967-04-01T00:00:00Z"
+      },
+      {
         "id": "blender-spring",
         "title": "Spring",
         "description": "Spring is the story of a shepherd girl and her dog, who discover ancient spirits in the clouds that can change the seasons. A heartwarming tale of courage and the power of nature from the Blender Foundation.",
@@ -235,6 +1162,61 @@
         "isFree": true,
         "isEmbeddable": true,
         "addedAt": "2019-04-04T00:00:00Z"
+      },
+      {
+        "id": "archive-pluto_dog_ranger",
+        "title": "Astro Boy (Classic Episodes)",
+        "description": "Classic episodes of Osamu Tezuka's pioneering anime series Astro Boy, one of the first anime series ever produced. A landmark in Japanese animation history.",
+        "year": 1963,
+        "duration": "24m",
+        "durationSeconds": 1440,
+        "genres": [
+          "Anime",
+          "Animation",
+          "Sci-Fi",
+          "Action"
+        ],
+        "rating": 7,
+        "quality": "Unknown",
+        "poster": "https://archive.org/services/img/pluto_dog_ranger",
+        "backdrop": "https://archive.org/services/img/pluto_dog_ranger",
+        "source": "internet-archive",
+        "sourceUrl": "https://archive.org/details/pluto_dog_ranger",
+        "sourceLicense": "Public Domain",
+        "videoUrl": "https://archive.org/download/pluto_dog_ranger/pluto_dog_ranger_512kb.mp4",
+        "videoType": "direct",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "en",
+            "label": "English (Dubbed)",
+            "isOriginal": false,
+            "isDubbed": true,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": true
+          },
+          {
+            "code": "ja",
+            "label": "Japanese",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "1963-01-01T00:00:00Z"
       },
       {
         "id": "blender-tears-of-steel",
@@ -335,6 +1317,57 @@
         "addedAt": "2012-09-26T00:00:00Z"
       },
       {
+        "id": "archive-the-little-mermaid-anime",
+        "title": "The Little Mermaid (Anime)",
+        "description": "A Japanese animated adaptation of Hans Christian Andersen's The Little Mermaid. A classic tale of a mermaid princess who falls in love with a human prince.",
+        "year": 1975,
+        "duration": "1h 8m",
+        "durationSeconds": 4080,
+        "genres": [
+          "Anime",
+          "Animation",
+          "Fantasy",
+          "Romance",
+          "Family"
+        ],
+        "rating": 6.8,
+        "quality": "Unknown",
+        "poster": "https://archive.org/services/img/the-little-mermaid-anime",
+        "backdrop": "https://archive.org/services/img/the-little-mermaid-anime",
+        "source": "internet-archive",
+        "sourceUrl": "https://archive.org/details/the-little-mermaid-anime",
+        "sourceLicense": "Public Domain",
+        "videoUrl": "https://archive.org/download/the-little-mermaid-anime/the-little-mermaid-anime_512kb.mp4",
+        "videoType": "direct",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "en",
+            "label": "English (Dubbed)",
+            "isOriginal": false,
+            "isDubbed": true,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": true
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "1975-01-01T00:00:00Z"
+      },
+      {
         "id": "blender-elephants-dream",
         "title": "Elephant's Dream",
         "description": "Two strange characters explore a cavernous and seemingly infinite machine. The older one, Proog, acts as a guide and protector while the younger one, Emo, is a skeptical observer who questions Proog's purpose and the reality they inhabit.",
@@ -411,6 +1444,47 @@
         "addedAt": "2006-03-24T00:00:00Z"
       },
       {
+        "id": "youtube-gxPRnJZfECY",
+        "title": "Plan 9 from Outer Space",
+        "description": "Aliens resurrect dead humans as zombies and vampires to stop humanity from creating the Solaranite bomb. Ed Wood's infamous sci-fi film, often called the \"worst movie ever made.\"",
+        "year": 1957,
+        "duration": "1h 19m",
+        "durationSeconds": 4740,
+        "genres": [
+          "Sci-Fi",
+          "Horror"
+        ],
+        "rating": 4,
+        "quality": "480p",
+        "poster": "https://i.ytimg.com/vi/gxPRnJZfECY/hqdefault.jpg",
+        "backdrop": "https://i.ytimg.com/vi/gxPRnJZfECY/maxresdefault.jpg",
+        "source": "youtube",
+        "sourceUrl": "https://www.youtube.com/watch?v=gxPRnJZfECY",
+        "sourceLicense": "Public Domain",
+        "videoUrl": "https://www.youtube.com/embed/gxPRnJZfECY?autoplay=1&rel=0",
+        "videoType": "youtube",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "en",
+            "label": "English (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": true
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "1957-01-01T00:00:00Z"
+      },
+      {
         "id": "vimeo-1084537",
         "title": "Big Buck Bunny",
         "description": "Big Buck Bunny tells the story of a giant rabbit with a heart bigger than himself. When one sunny day three rodents rudely harass him, something snaps... and the rabbit ain't no bunny anymore! In the typical cartoon tradition he prepares the nasty rodents a comical revenge.\n\nLicensed under the Creative Commons Attribution license\n\nhttp://www.bigbuckbunny.org",
@@ -449,7 +1523,7 @@
         ],
         "is4K": false,
         "isFree": true,
-        "addedAt": "2026-05-08T05:10:19.616Z"
+        "addedAt": "2026-05-09T03:41:55.866Z"
       },
       {
         "id": "vimeo-248323498",
@@ -490,120 +1564,7 @@
         ],
         "is4K": false,
         "isFree": true,
-        "addedAt": "2026-05-08T05:10:19.617Z"
-      },
-      {
-        "id": "bilibili-BV16x41147Uv",
-        "title": "01《星际特工》 动画版 生肉 Valerian Anime - Episode 01 [ENGLISH]",
-        "description": "www.youtube.com\n《星际特工》原著漫画 被称为最棒的漫画 影响了《第五元素》《星际大战》《阿凡达》等电影 《星际特工:千星之城》电影版近期正在热映。",
-        "year": 2017,
-        "duration": "24m",
-        "durationSeconds": 1496,
-        "genres": [
-          "动画",
-          "星际特工",
-          "千星之城",
-          "科幻",
-          "动画短片"
-        ],
-        "rating": 0,
-        "quality": "720p",
-        "poster": "//i0.hdslb.com/bfs/archive/c9d2faa4116615cb0e7822ff1fa039c189fc1fb3.jpg",
-        "backdrop": "//i0.hdslb.com/bfs/archive/c9d2faa4116615cb0e7822ff1fa039c189fc1fb3.jpg",
-        "source": "bilibili",
-        "sourceUrl": "https://www.bilibili.com/video/BV16x41147Uv",
-        "sourceLicense": "Free to Watch",
-        "videoUrl": "https://www.bilibili.com/video/BV16x41147Uv",
-        "videoType": "bilibili",
-        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV16x41147Uv&autoplay=0&high_quality=1",
-        "isEmbeddable": true,
-        "languages": [
-          {
-            "code": "ja",
-            "label": "Japanese (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          },
-          {
-            "code": "zh",
-            "label": "Chinese (Subtitled)",
-            "isOriginal": false,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "zh",
-            "label": "Chinese",
-            "isDefault": true
-          },
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": false
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2017-09-11T09:31:15.000Z"
-      },
-      {
-        "id": "bilibili-BV1k59gBwELZ",
-        "title": "Teogonia.S01 Episode 7 hindi anime cartoon",
-        "description": "Teogonia.S01 Episode 7 hindi",
-        "year": 2026,
-        "duration": "23m",
-        "durationSeconds": 1421,
-        "genres": [
-          "情感",
-          "高能",
-          "可爱",
-          "Anime"
-        ],
-        "rating": 0,
-        "quality": "720p",
-        "poster": "//i2.hdslb.com/bfs/archive/0154bbe41409acc1cd3deffaf1383cb19fede5f9.jpg",
-        "backdrop": "//i2.hdslb.com/bfs/archive/0154bbe41409acc1cd3deffaf1383cb19fede5f9.jpg",
-        "source": "bilibili",
-        "sourceUrl": "https://www.bilibili.com/video/BV1k59gBwELZ",
-        "sourceLicense": "Free to Watch",
-        "videoUrl": "https://www.bilibili.com/video/BV1k59gBwELZ",
-        "videoType": "bilibili",
-        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1k59gBwELZ&autoplay=0&high_quality=1",
-        "isEmbeddable": true,
-        "languages": [
-          {
-            "code": "ja",
-            "label": "Japanese (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          },
-          {
-            "code": "zh",
-            "label": "Chinese (Subtitled)",
-            "isOriginal": false,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "zh",
-            "label": "Chinese",
-            "isDefault": true
-          },
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": false
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-04-03T15:55:22.000Z"
+        "addedAt": "2026-05-09T03:41:56.039Z"
       },
       {
         "id": "bilibili-BV1924y1n7Ub",
@@ -613,10 +1574,10 @@
         "duration": "1h 47m",
         "durationSeconds": 6425,
         "genres": [
-          "漫画",
-          "日漫",
           "动画",
-          "anime"
+          "anime",
+          "漫画",
+          "日漫"
         ],
         "rating": 0,
         "quality": "720p",
@@ -662,348 +1623,6 @@
         "addedAt": "2023-02-19T19:02:05.000Z"
       },
       {
-        "id": "bilibili-BV1XzRcYqEEu",
-        "title": "Doraemon New Episode 5-03-2025 - Episode 01 - Doraemon Cartoon - Doraemon In Hi",
-        "description": "Doraemon New Episode 5-03-2025 - Episode 01 - Doraemon Cartoon - Doraemon In Hindi - Doraemon Movie\n\nDoraemon New Episode 05-03-2025 Without Zoom | Doraemon New Episodes In Hindi 2024 | Doraemon Cartoon\n\nAbout This Anime:-\nNobita is a normal fourth",
-        "year": 2025,
-        "duration": "15m",
-        "durationSeconds": 901,
-        "genres": [
-          "Entertainment circle",
-          "Original",
-          "Funny",
-          "Tittle-tattle",
-          "Entertainment"
-        ],
-        "rating": 0,
-        "quality": "720p",
-        "poster": "//i1.hdslb.com/bfs/archive/ed11d59917292da407a64074b205b215b84dd3c8.jpg",
-        "backdrop": "//i1.hdslb.com/bfs/archive/ed11d59917292da407a64074b205b215b84dd3c8.jpg",
-        "source": "bilibili",
-        "sourceUrl": "https://www.bilibili.com/video/BV1XzRcYqEEu",
-        "sourceLicense": "Free to Watch",
-        "videoUrl": "https://www.bilibili.com/video/BV1XzRcYqEEu",
-        "videoType": "bilibili",
-        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1XzRcYqEEu&autoplay=0&high_quality=1",
-        "isEmbeddable": true,
-        "languages": [
-          {
-            "code": "ja",
-            "label": "Japanese (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          },
-          {
-            "code": "zh",
-            "label": "Chinese (Subtitled)",
-            "isOriginal": false,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "zh",
-            "label": "Chinese",
-            "isDefault": true
-          },
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": false
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2025-03-05T21:38:18.000Z"
-      },
-      {
-        "id": "bilibili-BV1HwRyBwEBH",
-        "title": "Anime Fighting Simluator endless(动漫格斗模拟器无限)咒术版本技能展示",
-        "description": "j",
-        "year": 2026,
-        "duration": "5m",
-        "durationSeconds": 321,
-        "genres": [
-          "动漫",
-          "AFSE",
-          "动漫格斗模拟器无限",
-          "宿傩",
-          "动漫格斗模拟器"
-        ],
-        "rating": 0,
-        "quality": "720p",
-        "poster": "//i0.hdslb.com/bfs/archive/9dc048e9b2c0d35ecbf4e22622bb60edfc8e7231.jpg",
-        "backdrop": "//i0.hdslb.com/bfs/archive/9dc048e9b2c0d35ecbf4e22622bb60edfc8e7231.jpg",
-        "source": "bilibili",
-        "sourceUrl": "https://www.bilibili.com/video/BV1HwRyBwEBH",
-        "sourceLicense": "Free to Watch",
-        "videoUrl": "https://www.bilibili.com/video/BV1HwRyBwEBH",
-        "videoType": "bilibili",
-        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1HwRyBwEBH&autoplay=0&high_quality=1",
-        "isEmbeddable": true,
-        "languages": [
-          {
-            "code": "ja",
-            "label": "Japanese (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          },
-          {
-            "code": "zh",
-            "label": "Chinese (Subtitled)",
-            "isOriginal": false,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "zh",
-            "label": "Chinese",
-            "isDefault": true
-          },
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": false
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-05T05:53:47.000Z"
-      },
-      {
-        "id": "bilibili-BV1jx411s7fJ",
-        "title": "06《星际特工》 动画版 生肉 Valerian Anime - Episode 06 [ENGLISH]",
-        "description": "www.youtube.com \n《星际特工》原著漫画 被称为最棒的漫画 影响了《第五元素》《星际大战》《阿凡达》等电影 《星际特工:千星之城》电影版近期正在热映。",
-        "year": 2017,
-        "duration": "25m",
-        "durationSeconds": 1507,
-        "genres": [
-          "奇幻",
-          "星际特工",
-          "动画短片",
-          "科幻",
-          "正能量"
-        ],
-        "rating": 0,
-        "quality": "720p",
-        "poster": "//i0.hdslb.com/bfs/archive/e6b904d477f98e347c586ff0f675d7ddd0fbaa59.jpg",
-        "backdrop": "//i0.hdslb.com/bfs/archive/e6b904d477f98e347c586ff0f675d7ddd0fbaa59.jpg",
-        "source": "bilibili",
-        "sourceUrl": "https://www.bilibili.com/video/BV1jx411s7fJ",
-        "sourceLicense": "Free to Watch",
-        "videoUrl": "https://www.bilibili.com/video/BV1jx411s7fJ",
-        "videoType": "bilibili",
-        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1jx411s7fJ&autoplay=0&high_quality=1",
-        "isEmbeddable": true,
-        "languages": [
-          {
-            "code": "ja",
-            "label": "Japanese (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          },
-          {
-            "code": "zh",
-            "label": "Chinese (Subtitled)",
-            "isOriginal": false,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "zh",
-            "label": "Chinese",
-            "isDefault": true
-          },
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": false
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2017-09-13T11:05:50.000Z"
-      },
-      {
-        "id": "bilibili-BV1Xe411u74U",
-        "title": "三种超分辨率算法对比【Anime4K】【Real-ESRGAN】【waifu2x-ncnn-vulkan】",
-        "description": "崩三这个短片刚好有多种风格动画，正好拿来测试一下几种超分辨率算法的表现\n原片使用——《崩坏3》动画短片「因你而在的故事」",
-        "year": 2022,
-        "duration": "8m",
-        "durationSeconds": 493,
-        "genres": [
-          "崩坏3六周年生日快乐",
-          "机器学习",
-          "崩坏3",
-          "对比",
-          "测试"
-        ],
-        "rating": 0,
-        "quality": "720p",
-        "poster": "//i2.hdslb.com/bfs/archive/dd77d7e3a2287aa3bd72363d589e6425634735a1.jpg",
-        "backdrop": "//i2.hdslb.com/bfs/archive/dd77d7e3a2287aa3bd72363d589e6425634735a1.jpg",
-        "source": "bilibili",
-        "sourceUrl": "https://www.bilibili.com/video/BV1Xe411u74U",
-        "sourceLicense": "Free to Watch",
-        "videoUrl": "https://www.bilibili.com/video/BV1Xe411u74U",
-        "videoType": "bilibili",
-        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1Xe411u74U&autoplay=0&high_quality=1",
-        "isEmbeddable": true,
-        "languages": [
-          {
-            "code": "ja",
-            "label": "Japanese (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          },
-          {
-            "code": "zh",
-            "label": "Chinese (Subtitled)",
-            "isOriginal": false,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "zh",
-            "label": "Chinese",
-            "isDefault": true
-          },
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": false
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2022-09-11T07:06:37.000Z"
-      },
-      {
-        "id": "bilibili-BV1zJREB9EvF",
-        "title": "Z-Anime-动漫模型",
-        "description": "哈喽 小伙伴们大家加好。我又来了 今天给大家分享的是comfyui Z-Anime-动漫模型，废话不多说 喜欢的小伙伴到下面连接下载 里面有本地客户端 和模型lora以及工作流 持续更新\n注释 分享的模型及lora仅个人使用学习，不可用与商业用途\n这个是Z-Anime-动漫模型及工作流\n链接：https://pan.quark.cn/s/174caea7e054?pwd=S46F\n提取码：S46F\n这个是本地包 已更新到2026.04.05内核0.18.5 持续更新中\n链接：https://pan.qua",
-        "year": 2026,
-        "duration": "5m",
-        "durationSeconds": 309,
-        "genres": [
-          "comfyui",
-          "经验分享",
-          "学习",
-          "模型",
-          "动漫"
-        ],
-        "rating": 0,
-        "quality": "720p",
-        "poster": "//i2.hdslb.com/bfs/archive/18e40728a450dd076bbaa503cbda0999b20faa77.jpg",
-        "backdrop": "//i2.hdslb.com/bfs/archive/18e40728a450dd076bbaa503cbda0999b20faa77.jpg",
-        "source": "bilibili",
-        "sourceUrl": "https://www.bilibili.com/video/BV1zJREB9EvF",
-        "sourceLicense": "Free to Watch",
-        "videoUrl": "https://www.bilibili.com/video/BV1zJREB9EvF",
-        "videoType": "bilibili",
-        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1zJREB9EvF&autoplay=0&high_quality=1",
-        "isEmbeddable": true,
-        "languages": [
-          {
-            "code": "ja",
-            "label": "Japanese (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          },
-          {
-            "code": "zh",
-            "label": "Chinese (Subtitled)",
-            "isOriginal": false,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "zh",
-            "label": "Chinese",
-            "isDefault": true
-          },
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": false
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-02T09:32:05.000Z"
-      },
-      {
-        "id": "bilibili-BV115RCBPEiA",
-        "title": "Z-ANIME - Z Anime+LTX2.3+代理创建动漫剧集",
-        "description": "这是油管Benji’s AI Playground的视频作品。本人进行整理、翻译和剪辑。\n\nZ-Anime是阿里巴巴Z-Image基础模型的全面优化版本，专为动画、漫画和卡通风格的图像生成而设计。在本视频中，我将Z-Anime与Z-Image Turbo进行直接对比测试，使用Flux2 Klien和绿幕合成构建完整的多角色工作流程，然后使用全新的Prompt Relay Timeline自定义节点将所有内容导入LTX2.3进行动画视频生成。我还展示了如何使用AI代理（LangGraph + OpenCla",
-        "year": 2026,
-        "duration": "15m",
-        "durationSeconds": 939,
-        "genres": [
-          "人工智能",
-          "comfyui",
-          "视频生成",
-          "图像生成",
-          "工作流"
-        ],
-        "rating": 0,
-        "quality": "720p",
-        "poster": "//i0.hdslb.com/bfs/archive/f3235f58029c4e4f9c08631ae8acfa3234e5eb55.jpg",
-        "backdrop": "//i0.hdslb.com/bfs/archive/f3235f58029c4e4f9c08631ae8acfa3234e5eb55.jpg",
-        "source": "bilibili",
-        "sourceUrl": "https://www.bilibili.com/video/BV115RCBPEiA",
-        "sourceLicense": "Free to Watch",
-        "videoUrl": "https://www.bilibili.com/video/BV115RCBPEiA",
-        "videoType": "bilibili",
-        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV115RCBPEiA&autoplay=0&high_quality=1",
-        "isEmbeddable": true,
-        "languages": [
-          {
-            "code": "ja",
-            "label": "Japanese (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          },
-          {
-            "code": "zh",
-            "label": "Chinese (Subtitled)",
-            "isOriginal": false,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "zh",
-            "label": "Chinese",
-            "isDefault": true
-          },
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": false
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2026-05-06T01:00:00.000Z"
-      },
-      {
         "id": "bilibili-BV1yHAgzfEJs",
         "title": "电视自带的画质增强算法和Anime4K的对比，结论是Anime4K完胜",
         "description": "",
@@ -1011,9 +1630,9 @@
         "duration": "6m",
         "durationSeconds": 380,
         "genres": [
-          "算法",
-          "电视",
           "画质",
+          "电视",
+          "算法",
           "Anime"
         ],
         "rating": 0,
@@ -1060,118 +1679,6 @@
         "addedAt": "2026-03-22T07:29:19.000Z"
       },
       {
-        "id": "bilibili-BV1XU2XBpEeh",
-        "title": "Roblox Anime Eternal/动漫永恒，1~34图隐藏boss位置",
-        "description": "-",
-        "year": 2025,
-        "duration": "12m",
-        "durationSeconds": 776,
-        "genres": [
-          "推荐宝藏游戏",
-          "Roblox",
-          "Anime"
-        ],
-        "rating": 0,
-        "quality": "720p",
-        "poster": "//i1.hdslb.com/bfs/archive/5aee0380894c6296437f923fe39261e442f0d712.jpg",
-        "backdrop": "//i1.hdslb.com/bfs/archive/5aee0380894c6296437f923fe39261e442f0d712.jpg",
-        "source": "bilibili",
-        "sourceUrl": "https://www.bilibili.com/video/BV1XU2XBpEeh",
-        "sourceLicense": "Free to Watch",
-        "videoUrl": "https://www.bilibili.com/video/BV1XU2XBpEeh",
-        "videoType": "bilibili",
-        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1XU2XBpEeh&autoplay=0&high_quality=1",
-        "isEmbeddable": true,
-        "languages": [
-          {
-            "code": "ja",
-            "label": "Japanese (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          },
-          {
-            "code": "zh",
-            "label": "Chinese (Subtitled)",
-            "isOriginal": false,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "zh",
-            "label": "Chinese",
-            "isDefault": true
-          },
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": false
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2025-12-06T11:28:55.000Z"
-      },
-      {
-        "id": "bilibili-BV1bhqLYtEoY",
-        "title": "[Add-On]动漫忍术 Add-On-我的世界市场包免费下载-Minecraft Marketplace ANIME JUTSU Add-On",
-        "description": "顶置评论链接下载\n市场包聊天5群:970490605\n(请看清申请要求)\n如果你喜欢该内容，请在市场购买它(以第一时间获取更新内容)，支持原作者，谢谢！",
-        "year": 2024,
-        "duration": "46m",
-        "durationSeconds": 2818,
-        "genres": [
-          "动漫",
-          "像素风",
-          "Minecraft",
-          "演示",
-          "忍者"
-        ],
-        "rating": 0,
-        "quality": "720p",
-        "poster": "//i0.hdslb.com/bfs/archive/16e0e1c66ac41beef99b9fc9d221ab8e01da6d18.jpg",
-        "backdrop": "//i0.hdslb.com/bfs/archive/16e0e1c66ac41beef99b9fc9d221ab8e01da6d18.jpg",
-        "source": "bilibili",
-        "sourceUrl": "https://www.bilibili.com/video/BV1bhqLYtEoY",
-        "sourceLicense": "Free to Watch",
-        "videoUrl": "https://www.bilibili.com/video/BV1bhqLYtEoY",
-        "videoType": "bilibili",
-        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1bhqLYtEoY&autoplay=0&high_quality=1",
-        "isEmbeddable": true,
-        "languages": [
-          {
-            "code": "ja",
-            "label": "Japanese (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          },
-          {
-            "code": "zh",
-            "label": "Chinese (Subtitled)",
-            "isOriginal": false,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "zh",
-            "label": "Chinese",
-            "isDefault": true
-          },
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": false
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2024-12-07T13:53:48.000Z"
-      },
-      {
         "id": "bilibili-BV1nMofB3EaN",
         "title": "▶Z-Anime-漫画模型◆工作流整合◆漫画高清放大流",
         "description": "Z-Anime-漫画模型◆工作流整合◆漫画高清放大流\n模型+工作流下载：\nhttps://pan.quark.cn/s/51f2f201d9b5",
@@ -1179,11 +1686,11 @@
         "duration": "26m",
         "durationSeconds": 1591,
         "genres": [
-          "动漫高清放大",
-          "漫画高清放大",
-          "Z-Anime",
-          "comfyui",
-          "漫画模型"
+          "动漫模型",
+          "工作流",
+          "动漫生成",
+          "漫画模型",
+          "comfyui"
         ],
         "rating": 0,
         "quality": "720p",
@@ -1229,27 +1736,29 @@
         "addedAt": "2026-04-26T06:10:12.000Z"
       },
       {
-        "id": "bilibili-BV1D2dMBEEmo",
-        "title": "虾仁穿越成为丞相，开局就被大臣弹劾（2小时版）#动漫推荐",
-        "description": "",
+        "id": "bilibili-BV114XUBCEdu",
+        "title": "剧场版《魔法科高校的无力生 四叶继承篇》特别场景【AnimeJapan 2026】",
+        "description": "5月8日(金)公開となる、剧场版《魔法科高校的劣等生 四叶继承篇》的特别场次。\n\n豪华阵容的演员们将带来精彩的演讲和《四叶继承篇》最新的消息。\n\n【时间】\n2026年3月29日(日) 12时15分～\n\n【演员】\n中村悠一、早见沙织、斋藤千和、小野大辅、茅野爱衣\n\n【作品概要】\n剧场版《魔法科高校的劣等生 四叶继承篇》\n5.8(Fri) ROADSHOW\n\n▼第1弹特典附带的电影票卡、清晰的海报和清晰的卡片一体型前售票券正在全国各地的放映电影院销售中！\nhttps://mahouka.jp/yotsuba/",
         "year": 2026,
-        "duration": "2h 16m",
-        "durationSeconds": 8176,
+        "duration": "49m",
+        "durationSeconds": 2971,
         "genres": [
-          "番剧推荐",
-          "动漫杂谈",
-          "穿越"
+          "音乐",
+          "游戏",
+          "爱情",
+          "生活",
+          "二次元"
         ],
         "rating": 0,
         "quality": "720p",
-        "poster": "//i0.hdslb.com/bfs/archive/4c0a9a8c9f6f31e12dd54247c7a7d99a39b609cb.jpg",
-        "backdrop": "//i0.hdslb.com/bfs/archive/4c0a9a8c9f6f31e12dd54247c7a7d99a39b609cb.jpg",
+        "poster": "//i2.hdslb.com/bfs/archive/7c3cbba784f49f69d846dd9e1c70dc4b03f502b5.jpg",
+        "backdrop": "//i2.hdslb.com/bfs/archive/7c3cbba784f49f69d846dd9e1c70dc4b03f502b5.jpg",
         "source": "bilibili",
-        "sourceUrl": "https://www.bilibili.com/video/BV1D2dMBEEmo",
+        "sourceUrl": "https://www.bilibili.com/video/BV114XUBCEdu",
         "sourceLicense": "Free to Watch",
-        "videoUrl": "https://www.bilibili.com/video/BV1D2dMBEEmo",
+        "videoUrl": "https://www.bilibili.com/video/BV114XUBCEdu",
         "videoType": "bilibili",
-        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1D2dMBEEmo&autoplay=0&high_quality=1",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV114XUBCEdu&autoplay=0&high_quality=1",
         "isEmbeddable": true,
         "languages": [
           {
@@ -1281,32 +1790,32 @@
         ],
         "is4K": false,
         "isFree": true,
-        "addedAt": "2026-05-08T05:03:10.000Z"
+        "addedAt": "2026-03-29T04:05:24.000Z"
       },
       {
-        "id": "bilibili-BV16ERrBXE37",
-        "title": "当你的右手变成美少女，这是种怎样的体验？一口气看完动画《美鸟日记》",
-        "description": "当你的右手变成美少女，这是种怎样的体验？一口气看完动画《美鸟日记》",
-        "year": 2026,
-        "duration": "35m",
-        "durationSeconds": 2150,
+        "id": "bilibili-BV1Xe411u74U",
+        "title": "三种超分辨率算法对比【Anime4K】【Real-ESRGAN】【waifu2x-ncnn-vulkan】",
+        "description": "崩三这个短片刚好有多种风格动画，正好拿来测试一下几种超分辨率算法的表现\n原片使用——《崩坏3》动画短片「因你而在的故事」",
+        "year": 2022,
+        "duration": "8m",
+        "durationSeconds": 493,
         "genres": [
-          "动漫杂谈",
-          "动漫",
-          "动画",
-          "一口气看完",
-          "漫画剪辑"
+          "崩坏3创作激励计划",
+          "崩坏3六周年生日快乐",
+          "测试",
+          "机器学习",
+          "人工智能"
         ],
         "rating": 0,
         "quality": "720p",
-        "poster": "//i0.hdslb.com/bfs/archive/67f4e237cd9b2b7916ce3fe96a6f3ee42919bff1.jpg",
-        "backdrop": "//i0.hdslb.com/bfs/archive/67f4e237cd9b2b7916ce3fe96a6f3ee42919bff1.jpg",
+        "poster": "//i2.hdslb.com/bfs/archive/dd77d7e3a2287aa3bd72363d589e6425634735a1.jpg",
+        "backdrop": "//i2.hdslb.com/bfs/archive/dd77d7e3a2287aa3bd72363d589e6425634735a1.jpg",
         "source": "bilibili",
-        "sourceUrl": "https://www.bilibili.com/video/BV16ERrBXE37",
+        "sourceUrl": "https://www.bilibili.com/video/BV1Xe411u74U",
         "sourceLicense": "Free to Watch",
-        "videoUrl": "https://www.bilibili.com/video/BV16ERrBXE37",
+        "videoUrl": "https://www.bilibili.com/video/BV1Xe411u74U",
         "videoType": "bilibili",
-        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV16ERrBXE37&autoplay=0&high_quality=1",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1Xe411u74U&autoplay=0&high_quality=1",
         "isEmbeddable": true,
         "languages": [
           {
@@ -1338,32 +1847,82 @@
         ],
         "is4K": false,
         "isFree": true,
-        "addedAt": "2026-05-05T04:57:21.000Z"
+        "addedAt": "2022-09-11T07:06:37.000Z"
       },
       {
-        "id": "bilibili-BV11FduBzEE8",
-        "title": "让男人看出姨妈笑的动画！无论多烦心，看看这个就能好！",
-        "description": "",
+        "id": "bilibili-BV1PJijB3EML",
+        "title": "MOVIE OP",
+        "description": "封面大鹅（划掉）马年行大运👐",
         "year": 2026,
+        "duration": "6m",
+        "durationSeconds": 417,
+        "genres": [
+          "OP",
+          "动漫音乐"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i0.hdslb.com/bfs/archive/db90898af4081c064f8115f9f54f8da3eb842494.jpg",
+        "backdrop": "//i0.hdslb.com/bfs/archive/db90898af4081c064f8115f9f54f8da3eb842494.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1PJijB3EML",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1PJijB3EML",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1PJijB3EML&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2026-01-04T08:18:55.000Z"
+      },
+      {
+        "id": "bilibili-BV1uW411i7W8",
+        "title": "【Top 10】十大最佳动漫亲吻场景的所有时间！",
+        "description": "https://youtu.be/p6ZH2OTOIJg\n原作者名：Anime Sensei\n原视频标题：Top 10 Best Anime Kiss Scenes Of All Time! Pt.2",
+        "year": 2018,
         "duration": "10m",
-        "durationSeconds": 617,
+        "durationSeconds": 602,
         "genres": [
-          "动漫杂谈",
-          "明星剪辑",
-          "娱乐评论",
-          "娱乐",
-          "搞笑"
+          "Anime Sensei"
         ],
         "rating": 0,
         "quality": "720p",
-        "poster": "//i1.hdslb.com/bfs/archive/8693cfe8c9fbf0fb99c7e5625c9e3cbfbbcf9c07.jpg",
-        "backdrop": "//i1.hdslb.com/bfs/archive/8693cfe8c9fbf0fb99c7e5625c9e3cbfbbcf9c07.jpg",
+        "poster": "//i0.hdslb.com/bfs/archive/0417251dc902fd8c546c7f98b9447ecf0979f2fe.jpg",
+        "backdrop": "//i0.hdslb.com/bfs/archive/0417251dc902fd8c546c7f98b9447ecf0979f2fe.jpg",
         "source": "bilibili",
-        "sourceUrl": "https://www.bilibili.com/video/BV11FduBzEE8",
+        "sourceUrl": "https://www.bilibili.com/video/BV1uW411i7W8",
         "sourceLicense": "Free to Watch",
-        "videoUrl": "https://www.bilibili.com/video/BV11FduBzEE8",
+        "videoUrl": "https://www.bilibili.com/video/BV1uW411i7W8",
         "videoType": "bilibili",
-        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV11FduBzEE8&autoplay=0&high_quality=1",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1uW411i7W8&autoplay=0&high_quality=1",
         "isEmbeddable": true,
         "languages": [
           {
@@ -1395,32 +1954,260 @@
         ],
         "is4K": false,
         "isFree": true,
-        "addedAt": "2026-05-08T03:11:22.000Z"
+        "addedAt": "2018-01-21T05:42:07.000Z"
       },
       {
-        "id": "bilibili-BV1SBdwB8EEy",
-        "title": "四季代行者前三集深度 解析",
-        "description": "",
-        "year": 2026,
-        "duration": "17m",
-        "durationSeconds": 1025,
+        "id": "bilibili-BV1QB4y1z7VL",
+        "title": "【4K】【神经网络超分辨率】【Waifu2x】Fate stay night Unlimited Blade Works Movie",
+        "description": "视频源：VCB-Studio HEVC 10 bits 1080P\n源码率：10.5 Mb/s\n\n压制码率（B站）：VBR 2次，目标19Mb/s，最高58Mb/s（大概率会被二压到15Mb/s的码率）\n\n使用Waifu2x逐帧放大，炼丹炼了4天，炼出来1.5TB的数据……\n\n未压缩的原视频预计后续会上传百度云（100GB+）\n\n后续还会整个使用Anime4K超分辨率的做对照实验结果，个人认为Waifu2x的画质表现要远高于Anime4K，但是Anime4K的算法复杂度要低于Waifu2x\n\nP.S.\n-",
+        "year": 2022,
+        "duration": "1h 45m",
+        "durationSeconds": 6340,
         "genres": [
-          "动画种草激励计划",
-          "必剪创作",
-          "逆天",
-          "美少女",
+          "动画嘉年华2022·至燃之夏",
+          "动画加工厂",
+          "4K",
+          "FATE",
+          "卫宫士郎"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i1.hdslb.com/bfs/archive/772825de1abb3c158f8e9e2a81e7f685e700c470.jpg",
+        "backdrop": "//i1.hdslb.com/bfs/archive/772825de1abb3c158f8e9e2a81e7f685e700c470.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1QB4y1z7VL",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1QB4y1z7VL",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1QB4y1z7VL&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2022-08-09T13:53:56.000Z"
+      },
+      {
+        "id": "bilibili-BV1HwRyBwEBH",
+        "title": "Anime Fighting Simluator endless(动漫格斗模拟器无限)咒术版本技能展示",
+        "description": "j",
+        "year": 2026,
+        "duration": "5m",
+        "durationSeconds": 321,
+        "genres": [
+          "动漫",
+          "ROBLOX",
+          "anime",
+          "Roblox",
+          "咒术回战"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i0.hdslb.com/bfs/archive/9dc048e9b2c0d35ecbf4e22622bb60edfc8e7231.jpg",
+        "backdrop": "//i0.hdslb.com/bfs/archive/9dc048e9b2c0d35ecbf4e22622bb60edfc8e7231.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1HwRyBwEBH",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1HwRyBwEBH",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1HwRyBwEBH&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2026-05-05T05:53:47.000Z"
+      },
+      {
+        "id": "bilibili-BV1Bv4y1v72q",
+        "title": "【PCS Anime/官方ED/季③】S3「灼眼的夏娜」【I&#x27;ll Believe】官方ED1曲 剧本级ASMV版 PCS Studio",
+        "description": "&lt; PCS Anime 第0136期 &gt;\n「灼眼的夏娜」S1 官方OP1【緋色の空】剧本级加长版，BV1yB4y1e7mk\n「灼眼的夏娜」S2 官方OP1【JOINT】 剧本级加长版，BV1xd4y1c7Hg\n「灼眼的夏娜」S3 官方ED1【I&#x27;ll believe】剧本级ASMV版，BV1Bv4y1v72q\n\n***本篇ASMV以歌曲结构性和节奏性为主，并非传统意义上的MAD。 Story至上，BGM辅助。因此本期脚本剧情上存在一定的跨越，望见谅***\n***本期MV的受众人群：「夏娜」剧情通关者***",
+        "year": 2023,
+        "duration": "6m",
+        "durationSeconds": 406,
+        "genres": [
+          "MAD",
+          "AMV",
+          "pcsstudio",
+          "MAD.AMV",
+          "灼眼的夏娜"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i2.hdslb.com/bfs/archive/4b9900a555cde7dabb2433634a65e32d74e1d3fe.jpg",
+        "backdrop": "//i2.hdslb.com/bfs/archive/4b9900a555cde7dabb2433634a65e32d74e1d3fe.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1Bv4y1v72q",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1Bv4y1v72q",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1Bv4y1v72q&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2023-01-12T22:00:00.000Z"
+      },
+      {
+        "id": "bilibili-BV1zJREB9EvF",
+        "title": "Z-Anime-动漫模型",
+        "description": "哈喽 小伙伴们大家加好。我又来了 今天给大家分享的是comfyui Z-Anime-动漫模型，废话不多说 喜欢的小伙伴到下面连接下载 里面有本地客户端 和模型lora以及工作流 持续更新\n注释 分享的模型及lora仅个人使用学习，不可用与商业用途\n这个是Z-Anime-动漫模型及工作流\n链接：https://pan.quark.cn/s/174caea7e054?pwd=S46F\n提取码：S46F\n这个是本地包 已更新到2026.04.05内核0.18.5 持续更新中\n链接：https://pan.qua",
+        "year": 2026,
+        "duration": "5m",
+        "durationSeconds": 309,
+        "genres": [
+          "动漫",
+          "模型",
+          "学习",
+          "经验分享",
+          "comfyui"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i2.hdslb.com/bfs/archive/18e40728a450dd076bbaa503cbda0999b20faa77.jpg",
+        "backdrop": "//i2.hdslb.com/bfs/archive/18e40728a450dd076bbaa503cbda0999b20faa77.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1zJREB9EvF",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1zJREB9EvF",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1zJREB9EvF&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2026-05-02T09:32:05.000Z"
+      },
+      {
+        "id": "bilibili-BV1HB4y1M7aj",
+        "title": "（合集）Friday Night Funkin&#x27; But It&#x27;s Anime RUV VS  BF │ FNF ANIMATION",
+        "description": "https://youtu.be/NkeqZUtYC-8\nhttps://youtu.be/TU3XhXfihHw\nhttps://youtu.be/C2JwKtEzy-Y\nPol",
+        "year": 2021,
+        "duration": "1h 9m",
+        "durationSeconds": 4162,
+        "genres": [
+          "Friday Night Funkin",
+          "音乐游戏",
+          "音游",
+          "FNF",
           "同人"
         ],
         "rating": 0,
         "quality": "720p",
-        "poster": "//i2.hdslb.com/bfs/archive/a4705f9e34db88d91ee137d38dfc56807ad99c9b.jpg",
-        "backdrop": "//i2.hdslb.com/bfs/archive/a4705f9e34db88d91ee137d38dfc56807ad99c9b.jpg",
+        "poster": "//i0.hdslb.com/bfs/archive/6323a451a92c78ff1f1c85a80c6c24b65cef7dbb.jpg",
+        "backdrop": "//i0.hdslb.com/bfs/archive/6323a451a92c78ff1f1c85a80c6c24b65cef7dbb.jpg",
         "source": "bilibili",
-        "sourceUrl": "https://www.bilibili.com/video/BV1SBdwB8EEy",
+        "sourceUrl": "https://www.bilibili.com/video/BV1HB4y1M7aj",
         "sourceLicense": "Free to Watch",
-        "videoUrl": "https://www.bilibili.com/video/BV1SBdwB8EEy",
+        "videoUrl": "https://www.bilibili.com/video/BV1HB4y1M7aj",
         "videoType": "bilibili",
-        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1SBdwB8EEy&autoplay=0&high_quality=1",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1HB4y1M7aj&autoplay=0&high_quality=1",
         "isEmbeddable": true,
         "languages": [
           {
@@ -1452,32 +2239,32 @@
         ],
         "is4K": false,
         "isFree": true,
-        "addedAt": "2026-05-08T05:00:00.000Z"
+        "addedAt": "2021-06-12T06:17:06.000Z"
       },
       {
-        "id": "bilibili-BV1ZfJAzME8h",
-        "title": "Studio Ghibli 吉卜力工作室钢琴曲",
-        "description": "Studio Ghibli 吉卜力工作室钢琴曲",
-        "year": 2025,
-        "duration": "2h 1m",
-        "durationSeconds": 7289,
+        "id": "bilibili-BV1QAqwBUENi",
+        "title": "z-image-anime-aio动漫模型",
+        "description": "哈喽 小伙伴们大家加好。我又来了 今天给大家分享的是comfyui z-image-anime-aio动漫模型及工作流，废话不多说 喜欢的小伙伴到下面连接下载 里面有本地客户端 和模型lora以及工作流 持续更新\n注释 分享的模型及lora仅个人使用学习，不可用与商业用途\n这个是z-image-anime-aio动漫模型及工作流\n链接：https://pan.quark.cn/s/0b41e4e78a59?pwd=ABuD\n提取码：ABuD\n这个是本地包 持续更新\n我用夸克网盘给你分享了「模型」，点击链接",
+        "year": 2026,
+        "duration": "5m",
+        "durationSeconds": 346,
         "genres": [
-          "放松",
-          "钢琴曲",
-          "治愈",
-          "纯音乐",
-          "钢琴"
+          "动漫",
+          "模型",
+          "学习",
+          "comfyui",
+          "z-image-anime-aio"
         ],
         "rating": 0,
         "quality": "720p",
-        "poster": "//i0.hdslb.com/bfs/archive/536558346ef24231042162e15a7abc38bf18c307.jpg",
-        "backdrop": "//i0.hdslb.com/bfs/archive/536558346ef24231042162e15a7abc38bf18c307.jpg",
+        "poster": "//i2.hdslb.com/bfs/archive/bca158779034879f44c1ea7464de989aa0b1f97f.jpg",
+        "backdrop": "//i2.hdslb.com/bfs/archive/bca158779034879f44c1ea7464de989aa0b1f97f.jpg",
         "source": "bilibili",
-        "sourceUrl": "https://www.bilibili.com/video/BV1ZfJAzME8h",
+        "sourceUrl": "https://www.bilibili.com/video/BV1QAqwBUENi",
         "sourceLicense": "Free to Watch",
-        "videoUrl": "https://www.bilibili.com/video/BV1ZfJAzME8h",
+        "videoUrl": "https://www.bilibili.com/video/BV1QAqwBUENi",
         "videoType": "bilibili",
-        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1ZfJAzME8h&autoplay=0&high_quality=1",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1QAqwBUENi&autoplay=0&high_quality=1",
         "isEmbeddable": true,
         "languages": [
           {
@@ -1509,32 +2296,259 @@
         ],
         "is4K": false,
         "isFree": true,
-        "addedAt": "2025-05-17T09:01:04.000Z"
+        "addedAt": "2026-01-06T11:35:05.000Z"
       },
       {
-        "id": "bilibili-BV1551EBRErx",
-        "title": "吉卜力动画电影(Studio Ghibli) | 钢琴作品集 Piano Music Collection",
-        "description": "希望在你独自工作、作业、阅读或者休息时，可以陪伴到你。\n\n𝐏𝐥𝐚𝐲𝐥𝐢𝐬𝐭\n-\n00:00 Reprise（ふたたび）\n04:56 One Summer&#x27;s Day（あの夏へ）\n11:13 Always With Me（いつも何度でも）\n16:18 Legend of Ashitaka（アシタカの伝説）\n20:53 Mononoke Hime（もののけ姫）\n24:27 Path of The Wind（風のとおり道）\n30:36 Arrietty&#x27;s Song\n34:11 Ponyo on the Cli",
+        "id": "bilibili-BV1WrqWBAE1U",
+        "title": "攻壳机动队（未删减补码/1995）",
+        "description": "公元2029年，未来世界是高科技与信息化的世界。人类生活水平的提高伴随着犯罪活动的高科技化，于是，专门镇压高科技犯罪的特殊部队——公安9课成立了。队长草薙素子，作为一位全身“义体化”的女警，带领公安9课不断展开行动。 \n 是次，公安9课帮助公安6课秘密解决了一位程序员外逃他国的麻烦琐事，又卷入传说中的黑客“傀儡师”的犯罪事件。当行动陷入僵局之际，傀儡师竟然不请自来，出现在公安9课！素子与她的战友们，不知不觉地被卷入了一场涉及政府的阴谋之中",
         "year": 2025,
-        "duration": "41m",
-        "durationSeconds": 2478,
+        "duration": "1h 54m",
+        "durationSeconds": 6899,
         "genres": [
-          "吉卜力电影",
-          "久石让",
-          "音乐合集",
-          "钢琴作品集",
+          "经典",
+          "科幻",
+          "攻壳机动队",
+          "动画电影",
+          "押井守"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i1.hdslb.com/bfs/archive/bd2ebec2fbfa51f4559ab2a135badd5b6bdce386.jpg",
+        "backdrop": "//i1.hdslb.com/bfs/archive/bd2ebec2fbfa51f4559ab2a135badd5b6bdce386.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1WrqWBAE1U",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1WrqWBAE1U",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1WrqWBAE1U&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2025-12-16T06:40:00.000Z"
+      },
+      {
+        "id": "bilibili-BV1sW411x71r",
+        "title": "【720P/BDRip/剧场版】009 RE：CYBORG 2012【生肉】",
+        "description": "POPGO\n导演: 神山健治\n编剧: 神山健治 / 石之森章太郎\n主演: 玉川砂记子 / 小野大辅 / 斋藤千和 / 大川透 / 丹泽晃之\n类型: 科幻 / 动画\n制片国家/地区: 日本\n语言: 日语\n上映日期: 2012-10-27\n片长: 103分钟",
+        "year": 2018,
+        "duration": "1h 43m",
+        "durationSeconds": 6208,
+        "genres": [
+          "剧场版",
+          "动画",
+          "720P",
+          "日本动画",
+          "经典"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i0.hdslb.com/bfs/archive/5e30a84892052ce4a9937e717187a4d791a5909e.jpg",
+        "backdrop": "//i0.hdslb.com/bfs/archive/5e30a84892052ce4a9937e717187a4d791a5909e.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1sW411x71r",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1sW411x71r",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1sW411x71r&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2018-03-04T02:28:54.000Z"
+      },
+      {
+        "id": "bilibili-BV16x41147Uv",
+        "title": "01《星际特工》 动画版 生肉 Valerian Anime - Episode 01 [ENGLISH]",
+        "description": "www.youtube.com\n《星际特工》原著漫画 被称为最棒的漫画 影响了《第五元素》《星际大战》《阿凡达》等电影 《星际特工:千星之城》电影版近期正在热映。",
+        "year": 2017,
+        "duration": "24m",
+        "durationSeconds": 1496,
+        "genres": [
+          "千星之城",
+          "科幻",
+          "宇宙",
+          "动画",
+          "热血"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i0.hdslb.com/bfs/archive/c9d2faa4116615cb0e7822ff1fa039c189fc1fb3.jpg",
+        "backdrop": "//i0.hdslb.com/bfs/archive/c9d2faa4116615cb0e7822ff1fa039c189fc1fb3.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV16x41147Uv",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV16x41147Uv",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV16x41147Uv&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2017-09-11T09:31:15.000Z"
+      },
+      {
+        "id": "bilibili-BV1e8411Y7oo",
+        "title": "【音乐收藏】Best Anime Song 好听动漫歌曲 Top Anime Song",
+        "description": "如果以上歌曲侵犯版权问题，请立即通知我，我会立刻下架影片，谢谢！\n希望以上的歌曲，您们会喜欢哦！\n素材转自Best Anime Song 好听动漫歌曲 Top Anime Song - YouTube",
+        "year": 2022,
+        "duration": "1h 6m",
+        "durationSeconds": 3962,
+        "genres": [
+          "动漫音乐",
+          "动漫",
+          "歌曲",
+          "音乐",
+          "动漫歌曲"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i1.hdslb.com/bfs/archive/90809316e1999096fbced18680a68175eb361486.jpg",
+        "backdrop": "//i1.hdslb.com/bfs/archive/90809316e1999096fbced18680a68175eb361486.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1e8411Y7oo",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1e8411Y7oo",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1e8411Y7oo&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2022-11-01T08:48:12.000Z"
+      },
+      {
+        "id": "bilibili-BV1k59gBwELZ",
+        "title": "Teogonia.S01 Episode 7 hindi anime cartoon",
+        "description": "Teogonia.S01 Episode 7 hindi",
+        "year": 2026,
+        "duration": "23m",
+        "durationSeconds": 1421,
+        "genres": [
+          "可爱",
+          "高能",
+          "情感",
           "Anime"
         ],
         "rating": 0,
         "quality": "720p",
-        "poster": "//i2.hdslb.com/bfs/archive/2c0451095ef98da7cfe2569dc2ad2e331d7bf8ac.jpg",
-        "backdrop": "//i2.hdslb.com/bfs/archive/2c0451095ef98da7cfe2569dc2ad2e331d7bf8ac.jpg",
+        "poster": "//i2.hdslb.com/bfs/archive/0154bbe41409acc1cd3deffaf1383cb19fede5f9.jpg",
+        "backdrop": "//i2.hdslb.com/bfs/archive/0154bbe41409acc1cd3deffaf1383cb19fede5f9.jpg",
         "source": "bilibili",
-        "sourceUrl": "https://www.bilibili.com/video/BV1551EBRErx",
+        "sourceUrl": "https://www.bilibili.com/video/BV1k59gBwELZ",
         "sourceLicense": "Free to Watch",
-        "videoUrl": "https://www.bilibili.com/video/BV1551EBRErx",
+        "videoUrl": "https://www.bilibili.com/video/BV1k59gBwELZ",
         "videoType": "bilibili",
-        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1551EBRErx&autoplay=0&high_quality=1",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1k59gBwELZ&autoplay=0&high_quality=1",
         "isEmbeddable": true,
         "languages": [
           {
@@ -1566,146 +2580,32 @@
         ],
         "is4K": false,
         "isFree": true,
-        "addedAt": "2025-11-04T15:38:35.000Z"
+        "addedAt": "2026-04-03T15:55:22.000Z"
       },
       {
-        "id": "bilibili-BV15Q4y1W759",
-        "title": "【4K演示片】沉浸式游览日本吉卜力公园Ghibli Park",
-        "description": "视频源自油管。\n\n在吉卜力公园里，没有一般主题乐园会出现的大型器械和游乐设施。这里，是一个循着天然的路径、森林，一面感受空气流动、微风轻拂，用你的双脚慢慢发现秘密的所在。\n\n吉卜力公园划分为五大区块⸺「青春之丘」、「吉卜力大仓库」、「Dondoko之森」、「幽灵之里」、「魔女之谷」五大主题区域，将还原《哈尔的移动城堡》、《心之谷》、《龙猫》、《魔法公主》、《魔女宅急便》等五部宫崎骏经典动画场景，影迷不只能走入动画里的虚幻世界大过干瘾，园区内甚至还规画互动区，让影迷能亲自体验传统文化活动。",
-        "year": 2023,
-        "duration": "12m",
-        "durationSeconds": 749,
-        "genres": [
-          "日本旅游",
-          "哈尔的移动城堡",
-          "心之谷",
-          "吉卜力",
-          "魔女宅急便"
-        ],
-        "rating": 0,
-        "quality": "720p",
-        "poster": "//i2.hdslb.com/bfs/archive/4987b7c25681ff9ce3b3c44173708aca39d121f2.jpg",
-        "backdrop": "//i2.hdslb.com/bfs/archive/4987b7c25681ff9ce3b3c44173708aca39d121f2.jpg",
-        "source": "bilibili",
-        "sourceUrl": "https://www.bilibili.com/video/BV15Q4y1W759",
-        "sourceLicense": "Free to Watch",
-        "videoUrl": "https://www.bilibili.com/video/BV15Q4y1W759",
-        "videoType": "bilibili",
-        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV15Q4y1W759&autoplay=0&high_quality=1",
-        "isEmbeddable": true,
-        "languages": [
-          {
-            "code": "ja",
-            "label": "Japanese (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          },
-          {
-            "code": "zh",
-            "label": "Chinese (Subtitled)",
-            "isOriginal": false,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "zh",
-            "label": "Chinese",
-            "isDefault": true
-          },
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": false
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2023-10-24T13:00:00.000Z"
-      },
-      {
-        "id": "bilibili-BV1Yh411m7Ry",
-        "title": "零基础入门！计算材料设计Materials Studio教程",
-        "description": "真正从零基础开始学习Materials Studio，对计算机材料设计Materials Studio教程进行具体操作并进行了相关知识扩展。全教程总共10章，预计以周更形式完成。希望本系列教程能让更多的科研工作者开始入门学习模拟计算，为科研事业作出一份贡献。\n学习交流群：215762145\n目标：全面拉低科研模拟计算的入门门槛。\n拜托各位一键三连，感谢大家的支持，争取周更 : )",
-        "year": 2021,
-        "duration": "6h 34m",
-        "durationSeconds": 23641,
-        "genres": [
-          "教程",
-          "经验分享",
-          "材料计算",
-          "科研",
-          "模拟计算"
-        ],
-        "rating": 0,
-        "quality": "720p",
-        "poster": "//i0.hdslb.com/bfs/archive/fbe067deddb8679a3c963c57a624e85e488096c4.jpg",
-        "backdrop": "//i0.hdslb.com/bfs/archive/fbe067deddb8679a3c963c57a624e85e488096c4.jpg",
-        "source": "bilibili",
-        "sourceUrl": "https://www.bilibili.com/video/BV1Yh411m7Ry",
-        "sourceLicense": "Free to Watch",
-        "videoUrl": "https://www.bilibili.com/video/BV1Yh411m7Ry",
-        "videoType": "bilibili",
-        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1Yh411m7Ry&autoplay=0&high_quality=1",
-        "isEmbeddable": true,
-        "languages": [
-          {
-            "code": "ja",
-            "label": "Japanese (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          },
-          {
-            "code": "zh",
-            "label": "Chinese (Subtitled)",
-            "isOriginal": false,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "zh",
-            "label": "Chinese",
-            "isDefault": true
-          },
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": false
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2021-05-07T06:34:38.000Z"
-      },
-      {
-        "id": "bilibili-BV1oFHEzDE6v",
-        "title": "Visual Studio Code 开发者指南 2025：从入门到精通",
-        "description": "-",
+        "id": "bilibili-BV1XzRcYqEEu",
+        "title": "Doraemon New Episode 5-03-2025 - Episode 01 - Doraemon Cartoon - Doraemon In Hi",
+        "description": "Doraemon New Episode 5-03-2025 - Episode 01 - Doraemon Cartoon - Doraemon In Hindi - Doraemon Movie\n\nDoraemon New Episode 05-03-2025 Without Zoom | Doraemon New Episodes In Hindi 2024 | Doraemon Cartoon\n\nAbout This Anime:-\nNobita is a normal fourth",
         "year": 2025,
-        "duration": "10h 32m",
-        "durationSeconds": 37970,
+        "duration": "15m",
+        "durationSeconds": 901,
         "genres": [
-          "编程",
-          "JavaScript",
-          "Estefania Cassingena Navone",
-          "C#",
-          "指南"
+          "Funny",
+          "Original",
+          "Entertainment",
+          "Entertainment circle",
+          "Tittle-tattle"
         ],
         "rating": 0,
         "quality": "720p",
-        "poster": "//i1.hdslb.com/bfs/archive/81d1abdfc6d60a9c515dbcf75946f9abd5a2a980.jpg",
-        "backdrop": "//i1.hdslb.com/bfs/archive/81d1abdfc6d60a9c515dbcf75946f9abd5a2a980.jpg",
+        "poster": "//i1.hdslb.com/bfs/archive/ed11d59917292da407a64074b205b215b84dd3c8.jpg",
+        "backdrop": "//i1.hdslb.com/bfs/archive/ed11d59917292da407a64074b205b215b84dd3c8.jpg",
         "source": "bilibili",
-        "sourceUrl": "https://www.bilibili.com/video/BV1oFHEzDE6v",
+        "sourceUrl": "https://www.bilibili.com/video/BV1XzRcYqEEu",
         "sourceLicense": "Free to Watch",
-        "videoUrl": "https://www.bilibili.com/video/BV1oFHEzDE6v",
+        "videoUrl": "https://www.bilibili.com/video/BV1XzRcYqEEu",
         "videoType": "bilibili",
-        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1oFHEzDE6v&autoplay=0&high_quality=1",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1XzRcYqEEu&autoplay=0&high_quality=1",
         "isEmbeddable": true,
         "languages": [
           {
@@ -1737,7 +2637,684 @@
         ],
         "is4K": false,
         "isFree": true,
-        "addedAt": "2025-10-25T01:55:13.000Z"
+        "addedAt": "2025-03-05T21:38:18.000Z"
+      },
+      {
+        "id": "bilibili-BV1pG9gBYEMy",
+        "title": "Teogonia.S01 Episode 9 hindi anime cartoon",
+        "description": "Teogonia.S01 Episode 9 hindi",
+        "year": 2026,
+        "duration": "23m",
+        "durationSeconds": 1421,
+        "genres": [
+          "银魂",
+          "Anime"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i1.hdslb.com/bfs/archive/2a0a56696655ddfac08c7d722e7a136317d35c74.jpg",
+        "backdrop": "//i1.hdslb.com/bfs/archive/2a0a56696655ddfac08c7d722e7a136317d35c74.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1pG9gBYEMy",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1pG9gBYEMy",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1pG9gBYEMy&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2026-04-03T16:01:28.000Z"
+      },
+      {
+        "id": "bilibili-BV1Qh411B7Pg",
+        "title": "Russian Anime Doomer Music (Vol.2)",
+        "description": "“难道你不明白吗？我们像猪一样一起生活，也会像猪一样死去，就是因为我们彼此谁都不是！”",
+        "year": 2021,
+        "duration": "1h 39m",
+        "durationSeconds": 5993,
+        "genres": [
+          "音乐选集",
+          "MV",
+          "俄罗斯",
+          "Doomer",
+          "后朋克"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i2.hdslb.com/bfs/archive/53e447b8351881a1cc1742c535f2b646a77c43ec.jpg",
+        "backdrop": "//i2.hdslb.com/bfs/archive/53e447b8351881a1cc1742c535f2b646a77c43ec.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1Qh411B7Pg",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1Qh411B7Pg",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1Qh411B7Pg&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2021-07-20T04:18:47.000Z"
+      },
+      {
+        "id": "bilibili-BV115RCBPEiA",
+        "title": "Z-ANIME - Z Anime+LTX2.3+代理创建动漫剧集",
+        "description": "这是油管Benji’s AI Playground的视频作品。本人进行整理、翻译和剪辑。\n\nZ-Anime是阿里巴巴Z-Image基础模型的全面优化版本，专为动画、漫画和卡通风格的图像生成而设计。在本视频中，我将Z-Anime与Z-Image Turbo进行直接对比测试，使用Flux2 Klien和绿幕合成构建完整的多角色工作流程，然后使用全新的Prompt Relay Timeline自定义节点将所有内容导入LTX2.3进行动画视频生成。我还展示了如何使用AI代理（LangGraph + OpenCla",
+        "year": 2026,
+        "duration": "15m",
+        "durationSeconds": 939,
+        "genres": [
+          "动漫",
+          "人工智能",
+          "经验分享",
+          "ai",
+          "工作流"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i0.hdslb.com/bfs/archive/f3235f58029c4e4f9c08631ae8acfa3234e5eb55.jpg",
+        "backdrop": "//i0.hdslb.com/bfs/archive/f3235f58029c4e4f9c08631ae8acfa3234e5eb55.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV115RCBPEiA",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV115RCBPEiA",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV115RCBPEiA&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2026-05-06T01:00:00.000Z"
+      },
+      {
+        "id": "bilibili-BV1jx411s7fJ",
+        "title": "06《星际特工》 动画版 生肉 Valerian Anime - Episode 06 [ENGLISH]",
+        "description": "www.youtube.com \n《星际特工》原著漫画 被称为最棒的漫画 影响了《第五元素》《星际大战》《阿凡达》等电影 《星际特工:千星之城》电影版近期正在热映。",
+        "year": 2017,
+        "duration": "25m",
+        "durationSeconds": 1507,
+        "genres": [
+          "奇幻",
+          "动作",
+          "星际特工",
+          "千星之城",
+          "短片"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i0.hdslb.com/bfs/archive/e6b904d477f98e347c586ff0f675d7ddd0fbaa59.jpg",
+        "backdrop": "//i0.hdslb.com/bfs/archive/e6b904d477f98e347c586ff0f675d7ddd0fbaa59.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1jx411s7fJ",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1jx411s7fJ",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1jx411s7fJ&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2017-09-13T11:05:50.000Z"
+      },
+      {
+        "id": "bilibili-BV1iifBBEEjD",
+        "title": "燃爆山河，痛，就一起燃爆山河！《副作用转移 40》",
+        "description": "",
+        "year": 2026,
+        "duration": "11m",
+        "durationSeconds": 701,
+        "genres": [
+          "动漫",
+          "动态漫",
+          "爆款动漫",
+          "短剧种草计划",
+          "热门漫剧"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i0.hdslb.com/bfs/archive/06f2d46dd145c0a4c97a9acaa4f750e75172886a.jpg",
+        "backdrop": "//i0.hdslb.com/bfs/archive/06f2d46dd145c0a4c97a9acaa4f750e75172886a.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1iifBBEEjD",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1iifBBEEjD",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1iifBBEEjD&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2026-02-23T18:00:00.000Z"
+      },
+      {
+        "id": "bilibili-BV1kEZTBiEi4",
+        "title": "神陨因果，因果寄生者，笑时诸神崩塌《超凡进化》",
+        "description": "",
+        "year": 2026,
+        "duration": "13m",
+        "durationSeconds": 782,
+        "genres": [
+          "动态漫",
+          "漫剧",
+          "爆款动漫",
+          "短剧种草计划"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i2.hdslb.com/bfs/archive/e5864c9e919aa8c6672b351054ddf923ccc064dc.jpg",
+        "backdrop": "//i2.hdslb.com/bfs/archive/e5864c9e919aa8c6672b351054ddf923ccc064dc.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1kEZTBiEi4",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1kEZTBiEi4",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1kEZTBiEi4&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2026-02-16T14:00:00.000Z"
+      },
+      {
+        "id": "bilibili-BV1Y1PjzhE4Z",
+        "title": "心跳契，妖王按墙吻我那刻，心跳炸裂成契约《反派女友，个个都是小妖精》",
+        "description": "",
+        "year": 2026,
+        "duration": "11m",
+        "durationSeconds": 669,
+        "genres": [
+          "动态漫",
+          "漫剧",
+          "爆款动漫",
+          "短剧种草计划",
+          "热门漫剧"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i2.hdslb.com/bfs/archive/02d8a9cb5c171f1e9ceff0e9eb734a033c5ad1b3.jpg",
+        "backdrop": "//i2.hdslb.com/bfs/archive/02d8a9cb5c171f1e9ceff0e9eb734a033c5ad1b3.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1Y1PjzhE4Z",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1Y1PjzhE4Z",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1Y1PjzhE4Z&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2026-03-02T12:00:00.000Z"
+      },
+      {
+        "id": "bilibili-BV16aZeBkEAo",
+        "title": "命炸！，命运骰子在脚下炸裂《我一个路人，底牌多亿点很合理吧》",
+        "description": "",
+        "year": 2026,
+        "duration": "15m",
+        "durationSeconds": 915,
+        "genres": [
+          "动漫",
+          "漫剧",
+          "爆款动漫",
+          "短剧种草计划"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i0.hdslb.com/bfs/archive/4eb55ec9933f863ee0a07027e4d5cfc0083038bc.jpg",
+        "backdrop": "//i0.hdslb.com/bfs/archive/4eb55ec9933f863ee0a07027e4d5cfc0083038bc.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV16aZeBkEAo",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV16aZeBkEAo",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV16aZeBkEAo&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2026-02-19T15:00:00.000Z"
+      },
+      {
+        "id": "bilibili-BV1tGcrzJEkj",
+        "title": "华夏锋芒，神兽为刃，我即华夏最后锋芒《神兽遍地，你管这叫动物园》",
+        "description": "",
+        "year": 2026,
+        "duration": "15m",
+        "durationSeconds": 902,
+        "genres": [
+          "动画",
+          "动漫",
+          "二次元",
+          "国产动画",
+          "短剧种草计划"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i2.hdslb.com/bfs/archive/70191b65ec5ebad7b555beb60f4e2073d4576f93.jpg",
+        "backdrop": "//i2.hdslb.com/bfs/archive/70191b65ec5ebad7b555beb60f4e2073d4576f93.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1tGcrzJEkj",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1tGcrzJEkj",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1tGcrzJEkj&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2026-03-12T04:38:01.000Z"
+      },
+      {
+        "id": "bilibili-BV16eFUzWEPA",
+        "title": "他隐居山村却引得群雄叩首，这太好看了《原来我真是世外高人》",
+        "description": "",
+        "year": 2026,
+        "duration": "6m",
+        "durationSeconds": 402,
+        "genres": [
+          "动漫",
+          "二次元",
+          "国产动漫",
+          "短剧种草计划"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i1.hdslb.com/bfs/archive/882950b6e8f1232b1870a98a2f087e9093f7b23f.jpg",
+        "backdrop": "//i1.hdslb.com/bfs/archive/882950b6e8f1232b1870a98a2f087e9093f7b23f.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV16eFUzWEPA",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV16eFUzWEPA",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV16eFUzWEPA&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2026-02-10T05:00:00.000Z"
+      },
+      {
+        "id": "bilibili-BV16UACzJERH",
+        "title": "十凶巅宠，被十凶美人们轮流宠上巅峰《开局召唤兽娘，我御兽是太古十凶》",
+        "description": "",
+        "year": 2026,
+        "duration": "15m",
+        "durationSeconds": 904,
+        "genres": [
+          "二次元",
+          "国产动漫",
+          "爆款动漫",
+          "短剧种草计划",
+          "热门漫剧"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i0.hdslb.com/bfs/archive/80a2f3e8cd16838c15018a7e863676f39c6ad2bb.jpg",
+        "backdrop": "//i0.hdslb.com/bfs/archive/80a2f3e8cd16838c15018a7e863676f39c6ad2bb.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV16UACzJERH",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV16UACzJERH",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV16UACzJERH&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2026-02-26T23:00:00.000Z"
+      },
+      {
+        "id": "bilibili-BV1PEPqz6Eoe",
+        "title": "真名暴击，灵力炸裂却栽在她一句真名《修仙界第一老六，升级全靠嘴》",
+        "description": "",
+        "year": 2026,
+        "duration": "11m",
+        "durationSeconds": 697,
+        "genres": [
+          "动漫",
+          "二次元",
+          "国产动漫",
+          "短剧种草计划"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i2.hdslb.com/bfs/archive/4fbd68df862ada4e97b1cad0101ccbffdfdbbaea.jpg",
+        "backdrop": "//i2.hdslb.com/bfs/archive/4fbd68df862ada4e97b1cad0101ccbffdfdbbaea.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1PEPqz6Eoe",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1PEPqz6Eoe",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1PEPqz6Eoe&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2026-03-04T18:00:00.000Z"
       },
       {
         "id": "bilibili-BV1vh4y1W7bi",
@@ -1793,28 +3370,29 @@
         "addedAt": "2023-04-16T11:51:01.000Z"
       },
       {
-        "id": "bilibili-BV1rW4y1f7dv",
-        "title": "【BGM Ghibli Studio】gentle piano ghibli music relieves stress and calms mind温柔的钢",
-        "description": "https://ytb.com/oZxjeW5iZxc\n视频发布日期：20230707  视频原标题：Gentle Piano Ghibli Music Relieves Stress And Calms Mind  🔉  優しいピアノのジブリ音楽はストレスを和らげ、心を落ち着かせます",
-        "year": 2023,
-        "duration": "3h 46m",
-        "durationSeconds": 13577,
+        "id": "bilibili-BV1ZfJAzME8h",
+        "title": "Studio Ghibli 吉卜力工作室钢琴曲",
+        "description": "Studio Ghibli 吉卜力工作室钢琴曲",
+        "year": 2025,
+        "duration": "2h 1m",
+        "durationSeconds": 7289,
         "genres": [
-          "我叫阿搬",
-          "背景音乐",
-          "BGM",
-          "Anime"
+          "治愈",
+          "钢琴",
+          "纯音乐",
+          "钢琴曲",
+          "轻音乐"
         ],
         "rating": 0,
         "quality": "720p",
-        "poster": "//i2.hdslb.com/bfs/archive/a81f6b6cae7baac0ef942d71e93647b6d630fa20.jpg",
-        "backdrop": "//i2.hdslb.com/bfs/archive/a81f6b6cae7baac0ef942d71e93647b6d630fa20.jpg",
+        "poster": "//i0.hdslb.com/bfs/archive/536558346ef24231042162e15a7abc38bf18c307.jpg",
+        "backdrop": "//i0.hdslb.com/bfs/archive/536558346ef24231042162e15a7abc38bf18c307.jpg",
         "source": "bilibili",
-        "sourceUrl": "https://www.bilibili.com/video/BV1rW4y1f7dv",
+        "sourceUrl": "https://www.bilibili.com/video/BV1ZfJAzME8h",
         "sourceLicense": "Free to Watch",
-        "videoUrl": "https://www.bilibili.com/video/BV1rW4y1f7dv",
+        "videoUrl": "https://www.bilibili.com/video/BV1ZfJAzME8h",
         "videoType": "bilibili",
-        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1rW4y1f7dv&autoplay=0&high_quality=1",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1ZfJAzME8h&autoplay=0&high_quality=1",
         "isEmbeddable": true,
         "languages": [
           {
@@ -1846,7 +3424,349 @@
         ],
         "is4K": false,
         "isFree": true,
-        "addedAt": "2023-07-08T03:27:20.000Z"
+        "addedAt": "2025-05-17T09:01:04.000Z"
+      },
+      {
+        "id": "bilibili-BV1QRdGBbEPf",
+        "title": "砂纸的奇怪物理学（为什么你白费力气） | Five Duck Studio",
+        "description": "嘿，朋友，这个视频我花了很大力气，就是想搞明白一件事：现在市面上那些号称能取代3M Cubatron的砂纸，到底是不是真的。\n\n我买了市面上几乎所有号称“挑战者”的砂纸，从7分钱一片的杂牌，到专业级的3M 710，都用同样的方法测了一遍——用德伟砂光机、红橡木、定时器，每片砂纸都折磨35分钟。结果很有意思：3M依然是速度之王，但就像开车太快会吃罚单一样，它留下的V型划痕在最后涂装时特别明显。不过最让我意外的，是那个横扫亚马逊的“性价比之王”——它虽然只卖7分钱一片，但要5片加起来才顶得上1片3M的研磨量，",
+        "year": 2026,
+        "duration": "22m",
+        "durationSeconds": 1329,
+        "genres": [
+          "科学",
+          "科普",
+          "物理",
+          "实验",
+          "自然"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i0.hdslb.com/bfs/archive/4c310de7554723c0d3049d4a811dc562e7305ec7.jpg",
+        "backdrop": "//i0.hdslb.com/bfs/archive/4c310de7554723c0d3049d4a811dc562e7305ec7.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1QRdGBbEPf",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1QRdGBbEPf",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1QRdGBbEPf&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2026-05-08T16:00:00.000Z"
+      },
+      {
+        "id": "bilibili-BV1ooR2BwEEn",
+        "title": "Ａ−Ｓｔｕｄｉｏ 260508",
+        "description": "",
+        "year": 2026,
+        "duration": "30m",
+        "durationSeconds": 1801,
+        "genres": [
+          "日本",
+          "日本综艺",
+          "N1",
+          "JLPT",
+          "N2"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i2.hdslb.com/bfs/archive/5da428236ca725f1c606a818c458000147f93918.jpg",
+        "backdrop": "//i2.hdslb.com/bfs/archive/5da428236ca725f1c606a818c458000147f93918.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1ooR2BwEEn",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1ooR2BwEEn",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1ooR2BwEEn&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2026-05-08T17:26:16.000Z"
+      },
+      {
+        "id": "bilibili-BV1551EBRErx",
+        "title": "吉卜力动画电影(Studio Ghibli) | 钢琴作品集 Piano Music Collection",
+        "description": "希望在你独自工作、作业、阅读或者休息时，可以陪伴到你。\n\n𝐏𝐥𝐚𝐲𝐥𝐢𝐬𝐭\n-\n00:00 Reprise（ふたたび）\n04:56 One Summer&#x27;s Day（あの夏へ）\n11:13 Always With Me（いつも何度でも）\n16:18 Legend of Ashitaka（アシタカの伝説）\n20:53 Mononoke Hime（もののけ姫）\n24:27 Path of The Wind（風のとおり道）\n30:36 Arrietty&#x27;s Song\n34:11 Ponyo on the Cli",
+        "year": 2025,
+        "duration": "41m",
+        "durationSeconds": 2478,
+        "genres": [
+          "久石让",
+          "吉卜力电影",
+          "音乐合集",
+          "钢琴作品集",
+          "Anime"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i2.hdslb.com/bfs/archive/2c0451095ef98da7cfe2569dc2ad2e331d7bf8ac.jpg",
+        "backdrop": "//i2.hdslb.com/bfs/archive/2c0451095ef98da7cfe2569dc2ad2e331d7bf8ac.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1551EBRErx",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1551EBRErx",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1551EBRErx&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2025-11-04T15:38:35.000Z"
+      },
+      {
+        "id": "bilibili-BV1Yh411m7Ry",
+        "title": "零基础入门！计算材料设计Materials Studio教程",
+        "description": "真正从零基础开始学习Materials Studio，对计算机材料设计Materials Studio教程进行具体操作并进行了相关知识扩展。全教程总共10章，预计以周更形式完成。希望本系列教程能让更多的科研工作者开始入门学习模拟计算，为科研事业作出一份贡献。\n学习交流群：215762145\n目标：全面拉低科研模拟计算的入门门槛。\n拜托各位一键三连，感谢大家的支持，争取周更 : )",
+        "year": 2021,
+        "duration": "6h 34m",
+        "durationSeconds": 23641,
+        "genres": [
+          "学习心得",
+          "经验分享",
+          "教程",
+          "计算材料",
+          "材料计算"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i0.hdslb.com/bfs/archive/fbe067deddb8679a3c963c57a624e85e488096c4.jpg",
+        "backdrop": "//i0.hdslb.com/bfs/archive/fbe067deddb8679a3c963c57a624e85e488096c4.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1Yh411m7Ry",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1Yh411m7Ry",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1Yh411m7Ry&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2021-05-07T06:34:38.000Z"
+      },
+      {
+        "id": "bilibili-BV1gL9dYUE78",
+        "title": "2025年 Android Studio修仙传(kotlin版)：基础篇",
+        "description": "android studio修仙传：2025基础篇 \n更新预告：2025/12/21 晚8点 更新 欢迎围观\n记得三连+关注可以收到更新通知\nhttps://bitcatmeng.github.io/bitcat-club/\n如需获取VIP完整课程+VIP课程交流群+课程笔记+一对一学习答疑辅导请联系UP 公粽号：写BUG的非凡哥",
+        "year": 2025,
+        "duration": "7h 11m",
+        "durationSeconds": 25862,
+        "genres": [
+          "安卓开发",
+          "app开发",
+          "android开发",
+          "安卓基础教程",
+          "androidstudio"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i1.hdslb.com/bfs/archive/ce3342bfa775dbacae0f10be12d7b4ad6d48c9a5.jpg",
+        "backdrop": "//i1.hdslb.com/bfs/archive/ce3342bfa775dbacae0f10be12d7b4ad6d48c9a5.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1gL9dYUE78",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1gL9dYUE78",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1gL9dYUE78&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2025-03-05T09:21:32.000Z"
+      },
+      {
+        "id": "bilibili-BV1Q11eYuEUh",
+        "title": "最好听的吉卜力钢琴曲 🎈🎈 最佳放鬆音乐 💫💫 Studio Ghibli Relaxing Music【星巴克】適合睡眠、舒眠.靜坐、冥想、放鬆、看書",
+        "description": "最好听的吉卜力钢琴曲 💐【吉卜力音乐馆】🍒🍒天空之城, ,龍貓, 哈爾移動城堡, 千與千尋, 風之谷, 貓之報恩,Kiki的送貨服務\n\n🎹🌟欢迎来到“吉卜力音乐馆”。在这里，您将通过优雅的钢琴键演奏斯图迪奥吉卜力电影音乐，踏上一段宁静之旅。 吉卜力的旋律，伴随着钢琴的音色，邀请您进入柔和的梦境。请随时访问，无论您想要放松还是寻找灵感。🌟🎹\n\n这个频道旨在通过钢琴的美妙旋律传达吉卜力的世界，为听众带来心灵的平静。请享受由钢琴声音编织的温馨时刻。",
+        "year": 2024,
+        "duration": "2h 13m",
+        "durationSeconds": 7990,
+        "genres": [
+          "BGM",
+          "治愈",
+          "久石让",
+          "钢琴",
+          "纯音乐"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i2.hdslb.com/bfs/archive/ff94b10e4701c20f141ed2b9f08c2917a1a41667.jpg",
+        "backdrop": "//i2.hdslb.com/bfs/archive/ff94b10e4701c20f141ed2b9f08c2917a1a41667.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1Q11eYuEUh",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1Q11eYuEUh",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1Q11eYuEUh&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2024-10-06T06:41:26.000Z"
       },
       {
         "id": "bilibili-BV1oE411Y7vW",
@@ -1856,10 +3776,10 @@
         "duration": "7m",
         "durationSeconds": 450,
         "genres": [
-          "动漫歌曲",
-          "BGM",
+          "日常",
+          "四手连弹",
           "bella & lucas",
-          "动漫音乐",
+          "KOREA相关",
           "钢琴演奏"
         ],
         "rating": 0,
@@ -1906,200 +3826,28 @@
         "addedAt": "2019-11-12T05:00:05.000Z"
       },
       {
-        "id": "bilibili-BV15stoz6Emu",
-        "title": "玛莎拉蒂Ghibli，15万能买情绪价值吗？",
-        "description": "曾经被誉为跑车皇后的玛莎拉蒂，现在在国内似乎已经不复往日的辉煌，是因为它本身的原因，还是外界多种造就的？今天咱通过这台Ghibli来好好聊一聊。",
-        "year": 2025,
-        "duration": "8m",
-        "durationSeconds": 513,
+        "id": "bilibili-BV1rW4y1f7dv",
+        "title": "【BGM Ghibli Studio】gentle piano ghibli music relieves stress and calms mind温柔的钢",
+        "description": "https://ytb.com/oZxjeW5iZxc\n视频发布日期：20230707  视频原标题：Gentle Piano Ghibli Music Relieves Stress And Calms Mind  🔉  優しいピアノのジブリ音楽はストレスを和らげ、心を落ち着かせます",
+        "year": 2023,
+        "duration": "3h 46m",
+        "durationSeconds": 13577,
         "genres": [
-          "评测",
-          "豪车",
-          "玛莎拉蒂",
-          "导购",
-          "试驾"
-        ],
-        "rating": 0,
-        "quality": "720p",
-        "poster": "//i2.hdslb.com/bfs/archive/a312823780927e9a4e26a7f9e9960bb54c36e770.jpg",
-        "backdrop": "//i2.hdslb.com/bfs/archive/a312823780927e9a4e26a7f9e9960bb54c36e770.jpg",
-        "source": "bilibili",
-        "sourceUrl": "https://www.bilibili.com/video/BV15stoz6Emu",
-        "sourceLicense": "Free to Watch",
-        "videoUrl": "https://www.bilibili.com/video/BV15stoz6Emu",
-        "videoType": "bilibili",
-        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV15stoz6Emu&autoplay=0&high_quality=1",
-        "isEmbeddable": true,
-        "languages": [
-          {
-            "code": "ja",
-            "label": "Japanese (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          },
-          {
-            "code": "zh",
-            "label": "Chinese (Subtitled)",
-            "isOriginal": false,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "zh",
-            "label": "Chinese",
-            "isDefault": true
-          },
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": false
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2025-08-13T01:00:00.000Z"
-      },
-      {
-        "id": "bilibili-BV1gL9dYUE78",
-        "title": "2025年 Android Studio修仙传(kotlin版)：基础篇",
-        "description": "android studio修仙传：2025基础篇 \n更新预告：2025/12/21 晚8点 更新 欢迎围观\n记得三连+关注可以收到更新通知\nhttps://bitcatmeng.github.io/bitcat-club/\n如需获取VIP完整课程+VIP课程交流群+课程笔记+一对一学习答疑辅导请联系UP 公粽号：写BUG的非凡哥",
-        "year": 2025,
-        "duration": "7h 11m",
-        "durationSeconds": 25862,
-        "genres": [
-          "app开发",
-          "android开发",
-          "安卓开发",
-          "androidstudio",
-          "安卓基础教程"
-        ],
-        "rating": 0,
-        "quality": "720p",
-        "poster": "//i1.hdslb.com/bfs/archive/ce3342bfa775dbacae0f10be12d7b4ad6d48c9a5.jpg",
-        "backdrop": "//i1.hdslb.com/bfs/archive/ce3342bfa775dbacae0f10be12d7b4ad6d48c9a5.jpg",
-        "source": "bilibili",
-        "sourceUrl": "https://www.bilibili.com/video/BV1gL9dYUE78",
-        "sourceLicense": "Free to Watch",
-        "videoUrl": "https://www.bilibili.com/video/BV1gL9dYUE78",
-        "videoType": "bilibili",
-        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1gL9dYUE78&autoplay=0&high_quality=1",
-        "isEmbeddable": true,
-        "languages": [
-          {
-            "code": "ja",
-            "label": "Japanese (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          },
-          {
-            "code": "zh",
-            "label": "Chinese (Subtitled)",
-            "isOriginal": false,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "zh",
-            "label": "Chinese",
-            "isDefault": true
-          },
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": false
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2025-03-05T09:21:32.000Z"
-      },
-      {
-        "id": "bilibili-BV1bt411t7X9",
-        "title": "【学习BGM】宫崎骏 | 吉卜力 | 大提琴 | 读书 | 学习向 - Studio Ghibli Emotional Melody",
-        "description": "https://youtu.be/3upqzRL0IEc",
-        "year": 2019,
-        "duration": "3h 51m",
-        "durationSeconds": 13889,
-        "genres": [
-          "日本",
-          "学习",
-          "耳机",
-          "音乐",
-          "宫崎骏"
-        ],
-        "rating": 0,
-        "quality": "720p",
-        "poster": "//i2.hdslb.com/bfs/archive/563b0467baf5e7c710c71e6083850a5de78ea708.jpg",
-        "backdrop": "//i2.hdslb.com/bfs/archive/563b0467baf5e7c710c71e6083850a5de78ea708.jpg",
-        "source": "bilibili",
-        "sourceUrl": "https://www.bilibili.com/video/BV1bt411t7X9",
-        "sourceLicense": "Free to Watch",
-        "videoUrl": "https://www.bilibili.com/video/BV1bt411t7X9",
-        "videoType": "bilibili",
-        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1bt411t7X9&autoplay=0&high_quality=1",
-        "isEmbeddable": true,
-        "languages": [
-          {
-            "code": "ja",
-            "label": "Japanese (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          },
-          {
-            "code": "zh",
-            "label": "Chinese (Subtitled)",
-            "isOriginal": false,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "zh",
-            "label": "Chinese",
-            "isDefault": true
-          },
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": false
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2019-01-28T02:47:50.000Z"
-      },
-      {
-        "id": "bilibili-BV1Q11eYuEUh",
-        "title": "最好听的吉卜力钢琴曲 🎈🎈 最佳放鬆音乐 💫💫 Studio Ghibli Relaxing Music【星巴克】適合睡眠、舒眠.靜坐、冥想、放鬆、看書",
-        "description": "最好听的吉卜力钢琴曲 💐【吉卜力音乐馆】🍒🍒天空之城, ,龍貓, 哈爾移動城堡, 千與千尋, 風之谷, 貓之報恩,Kiki的送貨服務\n\n🎹🌟欢迎来到“吉卜力音乐馆”。在这里，您将通过优雅的钢琴键演奏斯图迪奥吉卜力电影音乐，踏上一段宁静之旅。 吉卜力的旋律，伴随着钢琴的音色，邀请您进入柔和的梦境。请随时访问，无论您想要放松还是寻找灵感。🌟🎹\n\n这个频道旨在通过钢琴的美妙旋律传达吉卜力的世界，为听众带来心灵的平静。请享受由钢琴声音编织的温馨时刻。",
-        "year": 2024,
-        "duration": "2h 13m",
-        "durationSeconds": 7990,
-        "genres": [
-          "纯音乐",
-          "钢琴",
           "BGM",
-          "放松",
-          "轻音乐"
+          "背景音乐",
+          "我叫阿搬",
+          "Anime"
         ],
         "rating": 0,
         "quality": "720p",
-        "poster": "//i2.hdslb.com/bfs/archive/ff94b10e4701c20f141ed2b9f08c2917a1a41667.jpg",
-        "backdrop": "//i2.hdslb.com/bfs/archive/ff94b10e4701c20f141ed2b9f08c2917a1a41667.jpg",
+        "poster": "//i2.hdslb.com/bfs/archive/a81f6b6cae7baac0ef942d71e93647b6d630fa20.jpg",
+        "backdrop": "//i2.hdslb.com/bfs/archive/a81f6b6cae7baac0ef942d71e93647b6d630fa20.jpg",
         "source": "bilibili",
-        "sourceUrl": "https://www.bilibili.com/video/BV1Q11eYuEUh",
+        "sourceUrl": "https://www.bilibili.com/video/BV1rW4y1f7dv",
         "sourceLicense": "Free to Watch",
-        "videoUrl": "https://www.bilibili.com/video/BV1Q11eYuEUh",
+        "videoUrl": "https://www.bilibili.com/video/BV1rW4y1f7dv",
         "videoType": "bilibili",
-        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1Q11eYuEUh&autoplay=0&high_quality=1",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1rW4y1f7dv&autoplay=0&high_quality=1",
         "isEmbeddable": true,
         "languages": [
           {
@@ -2131,121 +3879,7 @@
         ],
         "is4K": false,
         "isFree": true,
-        "addedAt": "2024-10-06T06:41:26.000Z"
-      },
-      {
-        "id": "bilibili-BV1nx411p724",
-        "title": "Studio Ghibli Piano Soundtrack-Full Album",
-        "description": "钢琴曲",
-        "year": 2017,
-        "duration": "51m",
-        "durationSeconds": 3093,
-        "genres": [
-          "循环",
-          "钢琴曲",
-          "音乐选集",
-          "ED",
-          "钢琴"
-        ],
-        "rating": 0,
-        "quality": "720p",
-        "poster": "//i0.hdslb.com/bfs/archive/0faa78c393bd0b208602fc4f09ce248fd769c376.jpg",
-        "backdrop": "//i0.hdslb.com/bfs/archive/0faa78c393bd0b208602fc4f09ce248fd769c376.jpg",
-        "source": "bilibili",
-        "sourceUrl": "https://www.bilibili.com/video/BV1nx411p724",
-        "sourceLicense": "Free to Watch",
-        "videoUrl": "https://www.bilibili.com/video/BV1nx411p724",
-        "videoType": "bilibili",
-        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1nx411p724&autoplay=0&high_quality=1",
-        "isEmbeddable": true,
-        "languages": [
-          {
-            "code": "ja",
-            "label": "Japanese (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          },
-          {
-            "code": "zh",
-            "label": "Chinese (Subtitled)",
-            "isOriginal": false,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "zh",
-            "label": "Chinese",
-            "isDefault": true
-          },
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": false
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2017-08-06T11:24:36.000Z"
-      },
-      {
-        "id": "bilibili-BV1ws411Q7PG",
-        "title": "【EF字幕组】 吉卜力工作室 Studio Ghibli Documentary",
-        "description": "youtube.com 一个美帝UP主做的吉卜力工作室大盘点~~~走过路过不要错过~~~~\r\nEF字幕组 做你喜欢的 喜欢你做的\r\n招新群：413712930 粉丝群：205570104",
-        "year": 2016,
-        "duration": "22m",
-        "durationSeconds": 1352,
-        "genres": [
-          "盘点",
-          "吉卜力工作室",
-          "吉卜力",
-          "EF字幕组",
-          "吉卜"
-        ],
-        "rating": 0,
-        "quality": "720p",
-        "poster": "//i0.hdslb.com/bfs/archive/17d7680a4733da3de7debae8ff31b75ee1442a80.jpg",
-        "backdrop": "//i0.hdslb.com/bfs/archive/17d7680a4733da3de7debae8ff31b75ee1442a80.jpg",
-        "source": "bilibili",
-        "sourceUrl": "https://www.bilibili.com/video/BV1ws411Q7PG",
-        "sourceLicense": "Free to Watch",
-        "videoUrl": "https://www.bilibili.com/video/BV1ws411Q7PG",
-        "videoType": "bilibili",
-        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1ws411Q7PG&autoplay=0&high_quality=1",
-        "isEmbeddable": true,
-        "languages": [
-          {
-            "code": "ja",
-            "label": "Japanese (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          },
-          {
-            "code": "zh",
-            "label": "Chinese (Subtitled)",
-            "isOriginal": false,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "zh",
-            "label": "Chinese",
-            "isDefault": true
-          },
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": false
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2016-02-23T14:19:09.000Z"
+        "addedAt": "2023-07-08T03:27:20.000Z"
       },
       {
         "id": "bilibili-BV1ju4y1E74P",
@@ -2255,11 +3889,11 @@
         "duration": "12m",
         "durationSeconds": 723,
         "genres": [
-          "Surface",
-          "Studio 2",
-          "开箱体验",
+          "微软",
           "开箱",
-          "微软"
+          "开箱体验",
+          "大家测",
+          "Surface"
         ],
         "rating": 0,
         "quality": "720p",
@@ -2305,84 +3939,29 @@
         "addedAt": "2023-10-28T11:15:00.000Z"
       },
       {
-        "id": "bilibili-BV1uX4y1q7Do",
-        "title": "看完练完即精通！Studio one 6录音混音全功能详解，开始跟练吧",
-        "description": "此教程作为正式录音混音教程的补充教程，要知道录音混音的一切开始于精通宿主。所以我们全面的讲解了Studio one这款软件的所有关于录音混音的功能。大家可以跟练学习，无需多久，即可完全掌握此软件。各位加油！",
-        "year": 2023,
-        "duration": "8h 20m",
-        "durationSeconds": 30053,
-        "genres": [
-          "视频教程",
-          "录音",
-          "有声书",
-          "经验分享",
-          "插件"
-        ],
-        "rating": 0,
-        "quality": "720p",
-        "poster": "//i1.hdslb.com/bfs/archive/b89a303421f568a8cd8f34e649f295aa9f831bad.jpg",
-        "backdrop": "//i1.hdslb.com/bfs/archive/b89a303421f568a8cd8f34e649f295aa9f831bad.jpg",
-        "source": "bilibili",
-        "sourceUrl": "https://www.bilibili.com/video/BV1uX4y1q7Do",
-        "sourceLicense": "Free to Watch",
-        "videoUrl": "https://www.bilibili.com/video/BV1uX4y1q7Do",
-        "videoType": "bilibili",
-        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1uX4y1q7Do&autoplay=0&high_quality=1",
-        "isEmbeddable": true,
-        "languages": [
-          {
-            "code": "ja",
-            "label": "Japanese (Original)",
-            "isOriginal": true,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          },
-          {
-            "code": "zh",
-            "label": "Chinese (Subtitled)",
-            "isOriginal": false,
-            "isDubbed": false,
-            "audioFormat": "Stereo"
-          }
-        ],
-        "subtitles": [
-          {
-            "code": "zh",
-            "label": "Chinese",
-            "isDefault": true
-          },
-          {
-            "code": "en",
-            "label": "English",
-            "isDefault": false
-          }
-        ],
-        "is4K": false,
-        "isFree": true,
-        "addedAt": "2023-06-24T09:18:24.000Z"
-      },
-      {
-        "id": "bilibili-BV1aAReBDEVb",
-        "title": "玛莎拉蒂 Ghibli / 改造分享",
-        "description": "",
+        "id": "bilibili-BV1bFdwB4Evu",
+        "title": "FL Studio 零基础嘻哈制作入门课程",
+        "description": "完整中英双语字幕+课件：\nhttps://audioshare.cn/archives/3875",
         "year": 2026,
-        "duration": "6m",
-        "durationSeconds": 419,
+        "duration": "4h 9m",
+        "durationSeconds": 14942,
         "genres": [
-          "生活记录",
-          "记录",
+          "音乐",
+          "教程",
+          "学习",
+          "嘻哈",
           "Anime"
         ],
         "rating": 0,
         "quality": "720p",
-        "poster": "//i2.hdslb.com/bfs/archive/95bb5b437aacc213e62b276d5e08dd0a646b79b8.jpg",
-        "backdrop": "//i2.hdslb.com/bfs/archive/95bb5b437aacc213e62b276d5e08dd0a646b79b8.jpg",
+        "poster": "//i1.hdslb.com/bfs/archive/347c91827ca850e65673c49220521923c2baf379.jpg",
+        "backdrop": "//i1.hdslb.com/bfs/archive/347c91827ca850e65673c49220521923c2baf379.jpg",
         "source": "bilibili",
-        "sourceUrl": "https://www.bilibili.com/video/BV1aAReBDEVb",
+        "sourceUrl": "https://www.bilibili.com/video/BV1bFdwB4Evu",
         "sourceLicense": "Free to Watch",
-        "videoUrl": "https://www.bilibili.com/video/BV1aAReBDEVb",
+        "videoUrl": "https://www.bilibili.com/video/BV1bFdwB4Evu",
         "videoType": "bilibili",
-        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1aAReBDEVb&autoplay=0&high_quality=1",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1bFdwB4Evu&autoplay=0&high_quality=1",
         "isEmbeddable": true,
         "languages": [
           {
@@ -2414,32 +3993,32 @@
         ],
         "is4K": false,
         "isFree": true,
-        "addedAt": "2026-05-04T12:00:00.000Z"
+        "addedAt": "2026-05-07T11:49:21.000Z"
       },
       {
-        "id": "bilibili-BV1zJ4m1V7yQ",
-        "title": "《Ghibli Studio Medley》完整版",
-        "description": "-",
-        "year": 2024,
-        "duration": "6m",
-        "durationSeconds": 404,
+        "id": "bilibili-BV19QR6B3EA9",
+        "title": "cherry studio使用教程-基础",
+        "description": "Cherry Studio使用教程(基础)\nhttps://my.feishu.cn/wiki/Knw0wsSqwiICAFkN08Kcc8T7nub?from=from_copylink",
+        "year": 2026,
+        "duration": "29m",
+        "durationSeconds": 1788,
         "genres": [
-          "演奏挑战赛第八期",
-          "宫崎骏",
-          "日常练琴",
-          "四手联弹",
-          "弹钢琴"
+          "RAG",
+          "智能体",
+          "使用教程",
+          "大模型",
+          "知识库"
         ],
         "rating": 0,
         "quality": "720p",
-        "poster": "//i2.hdslb.com/bfs/archive/139413303201c74998c9ce57f2999d2ab7bdd23a.jpg",
-        "backdrop": "//i2.hdslb.com/bfs/archive/139413303201c74998c9ce57f2999d2ab7bdd23a.jpg",
+        "poster": "//i0.hdslb.com/bfs/archive/c7cea4944ab4f6dd2fedfda9d89aa7a1d3e356c1.jpg",
+        "backdrop": "//i0.hdslb.com/bfs/archive/c7cea4944ab4f6dd2fedfda9d89aa7a1d3e356c1.jpg",
         "source": "bilibili",
-        "sourceUrl": "https://www.bilibili.com/video/BV1zJ4m1V7yQ",
+        "sourceUrl": "https://www.bilibili.com/video/BV19QR6B3EA9",
         "sourceLicense": "Free to Watch",
-        "videoUrl": "https://www.bilibili.com/video/BV1zJ4m1V7yQ",
+        "videoUrl": "https://www.bilibili.com/video/BV19QR6B3EA9",
         "videoType": "bilibili",
-        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1zJ4m1V7yQ&autoplay=0&high_quality=1",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV19QR6B3EA9&autoplay=0&high_quality=1",
         "isEmbeddable": true,
         "languages": [
           {
@@ -2471,7 +4050,121 @@
         ],
         "is4K": false,
         "isFree": true,
-        "addedAt": "2024-04-06T08:53:14.000Z"
+        "addedAt": "2026-05-04T21:26:48.000Z"
+      },
+      {
+        "id": "bilibili-BV1ZHdwB3E45",
+        "title": "别再小看本地 AI！Gemma 4 + LM Studio 让你的电脑变成超级离线 AI 工作站，而且完全免费 (手机也能使用喔！)",
+        "description": "🔹 内容纲要\n00:00 下载 LM Studio\n01:37 下载 Gemma 4 AI 模型\n04:15 Gemma 4 能力测试\n07:00 多模态图片 &amp; 音讯分析功能\n08:42 MCP 伺服器连接设定\n12:54 Gemma 程式码编辑能力测试\n\n🔹 网站连结\nCanIRun.ai https://www.canirun.ai/\nLM Studio https://lmstudio.ai/\nBrave Sesarch API https://brave.com/search/api/\nNode",
+        "year": 2026,
+        "duration": "16m",
+        "durationSeconds": 1015,
+        "genres": [
+          "电脑",
+          "手机",
+          "人工智能",
+          "AI",
+          "工作站"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i2.hdslb.com/bfs/archive/27d41ce699fa555836cf71e0c62fcf06e4fca67c.jpg",
+        "backdrop": "//i2.hdslb.com/bfs/archive/27d41ce699fa555836cf71e0c62fcf06e4fca67c.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1ZHdwB3E45",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1ZHdwB3E45",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1ZHdwB3E45&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2026-05-07T10:28:56.000Z"
+      },
+      {
+        "id": "bilibili-BV1ws411Q7PG",
+        "title": "【EF字幕组】 吉卜力工作室 Studio Ghibli Documentary",
+        "description": "youtube.com 一个美帝UP主做的吉卜力工作室大盘点~~~走过路过不要错过~~~~\r\nEF字幕组 做你喜欢的 喜欢你做的\r\n招新群：413712930 粉丝群：205570104",
+        "year": 2016,
+        "duration": "22m",
+        "durationSeconds": 1352,
+        "genres": [
+          "宫崎骏",
+          "吉卜",
+          "吉卜力",
+          "中英字幕",
+          "吉卜力工作室"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i0.hdslb.com/bfs/archive/17d7680a4733da3de7debae8ff31b75ee1442a80.jpg",
+        "backdrop": "//i0.hdslb.com/bfs/archive/17d7680a4733da3de7debae8ff31b75ee1442a80.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1ws411Q7PG",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1ws411Q7PG",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1ws411Q7PG&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2016-02-23T14:19:09.000Z"
       },
       {
         "id": "bilibili-BV15MkbYJEef",
@@ -2481,11 +4174,11 @@
         "duration": "9h 3m",
         "durationSeconds": 32591,
         "genres": [
-          "体育生",
-          "剧情",
           "游戏",
-          "游戏鉴赏家",
-          "体育生工作室"
+          "二次元",
+          "剧情",
+          "体育生",
+          "蔷薇向"
         ],
         "rating": 0,
         "quality": "720p",
@@ -2529,6 +4222,347 @@
         "is4K": false,
         "isFree": true,
         "addedAt": "2024-12-21T10:15:51.000Z"
+      },
+      {
+        "id": "bilibili-BV1N9YqzmEyH",
+        "title": "Tougen Anki – Ep 01 | Hindi Dubbed | 1080p | RD Studio Fan Dub",
+        "description": "",
+        "year": 2025,
+        "duration": "24m",
+        "durationSeconds": 1450,
+        "genres": [
+          "MAD",
+          "AMV",
+          "动画短片",
+          "补番推荐",
+          "番剧"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i1.hdslb.com/bfs/archive/a156d99e0680add5d6c227e3ef6cd035d8ebe006.jpg",
+        "backdrop": "//i1.hdslb.com/bfs/archive/a156d99e0680add5d6c227e3ef6cd035d8ebe006.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1N9YqzmEyH",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1N9YqzmEyH",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1N9YqzmEyH&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2025-08-16T14:11:56.000Z"
+      },
+      {
+        "id": "bilibili-BV1QxZnYfEPD",
+        "title": "MISTERK - \"CIALLO WORLD\" (Full Album)",
+        "description": "1.ALL EYES ON ME FREESTYLE\n\n2.FANCY\n\n3.PLAYER!\n\n4.ROCKSTAR LIFE\n\n5.金发双马尾\n\n6.COUNTIN&#x27; BANDS UP\n\n7.U BREAK MY HEART&lt;3\n\n8.HEARTACHE\n\n9.CIALLO\n\n10.无所谓\n\n11.虚拟世界没有谎言",
+        "year": 2025,
+        "duration": "25m",
+        "durationSeconds": 1513,
+        "genres": [
+          "专辑",
+          "中文说唱",
+          "嘻哈音乐",
+          "亚文化",
+          "地下说唱"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i0.hdslb.com/bfs/archive/acad770b51ccaa401217208d28bb43bfeac965b6.jpg",
+        "backdrop": "//i0.hdslb.com/bfs/archive/acad770b51ccaa401217208d28bb43bfeac965b6.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1QxZnYfEPD",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1QxZnYfEPD",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1QxZnYfEPD&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2025-03-31T09:07:22.000Z"
+      },
+      {
+        "id": "bilibili-BV1J84y1g7Gh",
+        "title": "为捅腰子而生！万代 ROBOT魂 ANIME 决斗高达 成品高达模型【评头论足】",
+        "description": "大家喜欢视频的话多多点赞关注投币哦~\n《评头论足》主要以第一人称的方式去介绍最新上市的模玩产品，给人以把玩在手中最真实的直观感受，为广大模型爱好者选购模型玩具产品提供方便。合作油箱 pinggaoda@qq.com",
+        "year": 2023,
+        "duration": "8m",
+        "durationSeconds": 510,
+        "genres": [
+          "我的模玩生活·第二期",
+          "手办模玩怎么玩？",
+          "手办模玩",
+          "模型",
+          "模型制作"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i1.hdslb.com/bfs/archive/b5c8a9d2d5eb92f6d016ba534078d9bc56bf906c.jpg",
+        "backdrop": "//i1.hdslb.com/bfs/archive/b5c8a9d2d5eb92f6d016ba534078d9bc56bf906c.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1J84y1g7Gh",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1J84y1g7Gh",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1J84y1g7Gh&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2023-03-26T06:25:53.000Z"
+      },
+      {
+        "id": "bilibili-BV19fPZepEhu",
+        "title": "English with Brittany（外挂英文字幕）（更新至2025/6/2）",
+        "description": "https://www.youtube.com/@EnglishwithBrittany/videos",
+        "year": 2025,
+        "duration": "11h 58m",
+        "durationSeconds": 43114,
+        "genres": [
+          "美式英语",
+          "英语",
+          "英语学习",
+          "Anime"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i2.hdslb.com/bfs/archive/52ef549e6d5486f8fdad69b86a00faf9414bab4c.png",
+        "backdrop": "//i2.hdslb.com/bfs/archive/52ef549e6d5486f8fdad69b86a00faf9414bab4c.png",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV19fPZepEhu",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV19fPZepEhu",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV19fPZepEhu&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2025-02-05T01:00:29.000Z"
+      },
+      {
+        "id": "bilibili-BV1KW6SBHEUj",
+        "title": "【英语播客】48小时沉浸式英语｜影子跟读精听 Easy English Talk （178集）",
+        "description": "英语播客训练\n初级版 BV1MN4dewEQZ\n中级版 BV1p3txezEnP\n高级版 BV12Qt8eoEQ3\n进阶版 BV1NuDKYfEGo",
+        "year": 2026,
+        "duration": "48h 31m",
+        "durationSeconds": 174666,
+        "genres": [
+          "英语",
+          "英语听力",
+          "英语学习",
+          "英语口语",
+          "英语播客"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i2.hdslb.com/bfs/archive/df7c64f5a69eea46fb4bc22a101707ba0f3b3c84.jpg",
+        "backdrop": "//i2.hdslb.com/bfs/archive/df7c64f5a69eea46fb4bc22a101707ba0f3b3c84.jpg",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1KW6SBHEUj",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1KW6SBHEUj",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1KW6SBHEUj&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2026-01-18T10:00:00.000Z"
+      },
+      {
+        "id": "bilibili-BV1qbC6YtE91",
+        "title": "【全1073集 】English Singsing 英语启蒙必看-零基础儿童词汇 适合2-8岁小朋友的英语学习教材 【英语 英文字幕】",
+        "description": "网络\r\nEnglish Singsing是美国一套专门针对2-10岁的儿童设计的美式英语口语教学视频。\r\n视频动画优美生动，没有中文解释，更多的是精心处理的动画引导。这样孩子才能更好的理解场景，对应语音。语音采用儿童自然说话方式，特别适合儿童学习。",
+        "year": 2024,
+        "duration": "22h 23m",
+        "durationSeconds": 80616,
+        "genres": [
+          "零基础",
+          "英语听力",
+          "英语学习",
+          "英语口语",
+          "少儿英语"
+        ],
+        "rating": 0,
+        "quality": "720p",
+        "poster": "//i0.hdslb.com/bfs/archive/8f36a970ac862fa07f176d8a4a981abc01cd5352.png",
+        "backdrop": "//i0.hdslb.com/bfs/archive/8f36a970ac862fa07f176d8a4a981abc01cd5352.png",
+        "source": "bilibili",
+        "sourceUrl": "https://www.bilibili.com/video/BV1qbC6YtE91",
+        "sourceLicense": "Free to Watch",
+        "videoUrl": "https://www.bilibili.com/video/BV1qbC6YtE91",
+        "videoType": "bilibili",
+        "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1qbC6YtE91&autoplay=0&high_quality=1",
+        "isEmbeddable": true,
+        "languages": [
+          {
+            "code": "ja",
+            "label": "Japanese (Original)",
+            "isOriginal": true,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          },
+          {
+            "code": "zh",
+            "label": "Chinese (Subtitled)",
+            "isOriginal": false,
+            "isDubbed": false,
+            "audioFormat": "Stereo"
+          }
+        ],
+        "subtitles": [
+          {
+            "code": "zh",
+            "label": "Chinese",
+            "isDefault": true
+          },
+          {
+            "code": "en",
+            "label": "English",
+            "isDefault": false
+          }
+        ],
+        "is4K": false,
+        "isFree": true,
+        "addedAt": "2024-12-26T07:58:36.000Z"
       }
     ],
     "categories": [
@@ -2537,26 +4571,26 @@
         "label": "Trending Now",
         "icon": "Sparkles",
         "movieIds": [
+          "crunchyroll-attack-on-titan",
+          "crunchyroll-death-note",
+          "crunchyroll-demon-slayer",
+          "crunchyroll-one-piece",
+          "crunchyroll-jujutsu-kaisen",
+          "crunchyroll-dragon-ball",
+          "crunchyroll-my-hero-academia",
+          "archive-Metropolis_201507",
+          "crunchyroll-naruto",
+          "archive-TheGeneral1926",
+          "archive-thecabinet00cabi",
+          "archive-Nosferatu_1920",
+          "youtube-KkOCpCbbnOU",
+          "youtube-wOHB1XQ5J2Q",
+          "youtube-Z5fVhVmME9k",
+          "archive-ThePhantomOfTheOpera",
           "blender-sintel",
-          "blender-big-buck-bunny",
-          "blender-spring",
-          "blender-tears-of-steel",
-          "blender-elephants-dream",
-          "vimeo-1084537",
-          "vimeo-248323498",
-          "bilibili-BV16x41147Uv",
-          "bilibili-BV1k59gBwELZ",
-          "bilibili-BV1924y1n7Ub",
-          "bilibili-BV1XzRcYqEEu",
-          "bilibili-BV1HwRyBwEBH",
-          "bilibili-BV1jx411s7fJ",
-          "bilibili-BV1Xe411u74U",
-          "bilibili-BV1zJREB9EvF",
-          "bilibili-BV115RCBPEiA",
-          "bilibili-BV1yHAgzfEJs",
-          "bilibili-BV1XU2XBpEeh",
-          "bilibili-BV1bhqLYtEoY",
-          "bilibili-BV1nMofB3EaN"
+          "archive-Accepted1930",
+          "archive-KimbaTheWhiteLion01",
+          "youtube-qv1ZbM0hSMs"
         ]
       },
       {
@@ -2575,36 +4609,36 @@
         "label": "Watch Right Here",
         "icon": "Play",
         "movieIds": [
+          "archive-Metropolis_201507",
+          "archive-TheGeneral1926",
+          "archive-thecabinet00cabi",
+          "archive-Nosferatu_1920",
+          "youtube-KkOCpCbbnOU",
+          "youtube-wOHB1XQ5J2Q",
+          "youtube-Z5fVhVmME9k",
+          "archive-ThePhantomOfTheOpera",
           "blender-sintel",
+          "archive-Accepted1930",
+          "archive-KimbaTheWhiteLion01",
+          "youtube-qv1ZbM0hSMs",
           "blender-big-buck-bunny",
+          "archive-speedracer1_2",
           "blender-spring",
+          "archive-pluto_dog_ranger",
           "blender-tears-of-steel",
+          "archive-the-little-mermaid-anime",
           "blender-elephants-dream",
+          "youtube-gxPRnJZfECY",
           "vimeo-1084537",
           "vimeo-248323498",
-          "bilibili-BV16x41147Uv",
-          "bilibili-BV1k59gBwELZ",
           "bilibili-BV1924y1n7Ub",
-          "bilibili-BV1XzRcYqEEu",
-          "bilibili-BV1HwRyBwEBH",
-          "bilibili-BV1jx411s7fJ",
-          "bilibili-BV1Xe411u74U",
-          "bilibili-BV1zJREB9EvF",
-          "bilibili-BV115RCBPEiA",
           "bilibili-BV1yHAgzfEJs",
-          "bilibili-BV1XU2XBpEeh",
-          "bilibili-BV1bhqLYtEoY",
           "bilibili-BV1nMofB3EaN",
-          "bilibili-BV1D2dMBEEmo",
-          "bilibili-BV16ERrBXE37",
-          "bilibili-BV11FduBzEE8",
-          "bilibili-BV1SBdwB8EEy",
-          "bilibili-BV1ZfJAzME8h",
-          "bilibili-BV1551EBRErx",
-          "bilibili-BV15Q4y1W759",
-          "bilibili-BV1Yh411m7Ry",
-          "bilibili-BV1oFHEzDE6v",
-          "bilibili-BV1vh4y1W7bi"
+          "bilibili-BV114XUBCEdu",
+          "bilibili-BV1Xe411u74U",
+          "bilibili-BV1PJijB3EML",
+          "bilibili-BV1uW411i7W8",
+          "bilibili-BV1QB4y1z7VL"
         ]
       },
       {
@@ -2612,19 +4646,34 @@
         "label": "Anime Collection",
         "icon": "Swords",
         "movieIds": [
+          "crunchyroll-attack-on-titan",
+          "crunchyroll-death-note",
+          "crunchyroll-demon-slayer",
+          "crunchyroll-one-piece",
+          "crunchyroll-jujutsu-kaisen",
+          "crunchyroll-dragon-ball",
+          "crunchyroll-my-hero-academia",
+          "crunchyroll-naruto",
           "blender-sintel",
+          "archive-KimbaTheWhiteLion01",
           "blender-big-buck-bunny",
+          "archive-speedracer1_2",
           "blender-spring",
+          "archive-pluto_dog_ranger",
+          "archive-the-little-mermaid-anime",
           "blender-elephants-dream",
           "vimeo-1084537",
-          "bilibili-BV1k59gBwELZ",
           "bilibili-BV1924y1n7Ub",
           "bilibili-BV1yHAgzfEJs",
-          "bilibili-BV1XU2XBpEeh",
-          "bilibili-BV1nMofB3EaN",
+          "bilibili-BV1uW411i7W8",
+          "bilibili-BV1HwRyBwEBH",
+          "bilibili-BV1QAqwBUENi",
+          "bilibili-BV1k59gBwELZ",
+          "bilibili-BV1pG9gBYEMy",
           "bilibili-BV1551EBRErx",
           "bilibili-BV1rW4y1f7dv",
-          "bilibili-BV1aAReBDEVb"
+          "bilibili-BV1bFdwB4Evu",
+          "bilibili-BV19fPZepEhu"
         ]
       },
       {
@@ -2633,18 +4682,25 @@
         "icon": "Play",
         "movieIds": [
           "blender-sintel",
+          "archive-KimbaTheWhiteLion01",
           "blender-big-buck-bunny",
+          "archive-speedracer1_2",
           "blender-spring",
+          "archive-pluto_dog_ranger",
+          "archive-the-little-mermaid-anime",
           "blender-elephants-dream",
           "vimeo-1084537",
-          "bilibili-BV1k59gBwELZ",
           "bilibili-BV1924y1n7Ub",
           "bilibili-BV1yHAgzfEJs",
-          "bilibili-BV1XU2XBpEeh",
-          "bilibili-BV1nMofB3EaN",
+          "bilibili-BV1uW411i7W8",
+          "bilibili-BV1HwRyBwEBH",
+          "bilibili-BV1QAqwBUENi",
+          "bilibili-BV1k59gBwELZ",
+          "bilibili-BV1pG9gBYEMy",
           "bilibili-BV1551EBRErx",
           "bilibili-BV1rW4y1f7dv",
-          "bilibili-BV1aAReBDEVb"
+          "bilibili-BV1bFdwB4Evu",
+          "bilibili-BV19fPZepEhu"
         ]
       },
       {
@@ -2653,8 +4709,12 @@
         "icon": "Palette",
         "movieIds": [
           "blender-sintel",
+          "archive-KimbaTheWhiteLion01",
           "blender-big-buck-bunny",
+          "archive-speedracer1_2",
           "blender-spring",
+          "archive-pluto_dog_ranger",
+          "archive-the-little-mermaid-anime",
           "blender-elephants-dream",
           "vimeo-1084537"
         ]
@@ -2664,10 +4724,18 @@
         "label": "Sci-Fi & Fantasy",
         "icon": "Wand2",
         "movieIds": [
+          "crunchyroll-attack-on-titan",
+          "crunchyroll-demon-slayer",
+          "crunchyroll-jujutsu-kaisen",
+          "archive-Metropolis_201507",
+          "archive-Nosferatu_1920",
           "blender-sintel",
           "blender-spring",
+          "archive-pluto_dog_ranger",
           "blender-tears-of-steel",
-          "blender-elephants-dream"
+          "archive-the-little-mermaid-anime",
+          "blender-elephants-dream",
+          "youtube-gxPRnJZfECY"
         ]
       },
       {
@@ -2675,7 +4743,18 @@
         "label": "Action & Adventure",
         "icon": "Swords",
         "movieIds": [
+          "crunchyroll-attack-on-titan",
+          "crunchyroll-demon-slayer",
+          "crunchyroll-one-piece",
+          "crunchyroll-jujutsu-kaisen",
+          "crunchyroll-dragon-ball",
+          "crunchyroll-my-hero-academia",
+          "crunchyroll-naruto",
+          "archive-TheGeneral1926",
+          "archive-KimbaTheWhiteLion01",
+          "archive-speedracer1_2",
           "blender-spring",
+          "archive-pluto_dog_ranger",
           "blender-tears-of-steel"
         ]
       },
@@ -2684,6 +4763,11 @@
         "label": "Comedy",
         "icon": "Smile",
         "movieIds": [
+          "crunchyroll-one-piece",
+          "archive-TheGeneral1926",
+          "youtube-wOHB1XQ5J2Q",
+          "youtube-Z5fVhVmME9k",
+          "archive-Accepted1930",
           "blender-big-buck-bunny",
           "vimeo-1084537"
         ]
@@ -2693,9 +4777,31 @@
         "label": "Drama",
         "icon": "Theater",
         "movieIds": [
+          "crunchyroll-attack-on-titan",
+          "archive-Metropolis_201507",
+          "archive-thecabinet00cabi",
+          "archive-Nosferatu_1920",
+          "youtube-Z5fVhVmME9k",
+          "archive-ThePhantomOfTheOpera",
           "blender-sintel",
+          "youtube-qv1ZbM0hSMs",
           "blender-tears-of-steel",
           "blender-elephants-dream"
+        ]
+      },
+      {
+        "id": "horror",
+        "label": "Horror & Thriller",
+        "icon": "Skull",
+        "movieIds": [
+          "crunchyroll-death-note",
+          "archive-thecabinet00cabi",
+          "archive-Nosferatu_1920",
+          "youtube-KkOCpCbbnOU",
+          "youtube-wOHB1XQ5J2Q",
+          "archive-ThePhantomOfTheOpera",
+          "youtube-qv1ZbM0hSMs",
+          "youtube-gxPRnJZfECY"
         ]
       },
       {
@@ -2703,7 +4809,31 @@
         "label": "Family & Kids",
         "icon": "Heart",
         "movieIds": [
-          "blender-big-buck-bunny"
+          "archive-KimbaTheWhiteLion01",
+          "blender-big-buck-bunny",
+          "archive-the-little-mermaid-anime"
+        ]
+      },
+      {
+        "id": "public-domain",
+        "label": "Public Domain Classics",
+        "icon": "Film",
+        "movieIds": [
+          "archive-Metropolis_201507",
+          "archive-TheGeneral1926",
+          "archive-thecabinet00cabi",
+          "archive-Nosferatu_1920",
+          "youtube-KkOCpCbbnOU",
+          "youtube-wOHB1XQ5J2Q",
+          "youtube-Z5fVhVmME9k",
+          "archive-ThePhantomOfTheOpera",
+          "archive-Accepted1930",
+          "archive-KimbaTheWhiteLion01",
+          "youtube-qv1ZbM0hSMs",
+          "archive-speedracer1_2",
+          "archive-pluto_dog_ranger",
+          "archive-the-little-mermaid-anime",
+          "youtube-gxPRnJZfECY"
         ]
       },
       {
@@ -2725,9 +4855,16 @@
         "label": "Editor's Picks",
         "icon": "Star",
         "movieIds": [
-          "blender-sintel",
-          "blender-big-buck-bunny",
-          "blender-spring"
+          "crunchyroll-attack-on-titan",
+          "crunchyroll-death-note",
+          "crunchyroll-demon-slayer",
+          "crunchyroll-one-piece",
+          "crunchyroll-jujutsu-kaisen",
+          "crunchyroll-dragon-ball",
+          "crunchyroll-my-hero-academia",
+          "archive-Metropolis_201507",
+          "crunchyroll-naruto",
+          "archive-TheGeneral1926"
         ]
       },
       {
@@ -2743,6 +4880,35 @@
         ]
       },
       {
+        "id": "archive-classics",
+        "label": "Internet Archive Classics",
+        "icon": "Film",
+        "movieIds": [
+          "archive-Metropolis_201507",
+          "archive-TheGeneral1926",
+          "archive-thecabinet00cabi",
+          "archive-Nosferatu_1920",
+          "archive-ThePhantomOfTheOpera",
+          "archive-Accepted1930",
+          "archive-KimbaTheWhiteLion01",
+          "archive-speedracer1_2",
+          "archive-pluto_dog_ranger",
+          "archive-the-little-mermaid-anime"
+        ]
+      },
+      {
+        "id": "youtube-free",
+        "label": "Free on YouTube",
+        "icon": "Tv",
+        "movieIds": [
+          "youtube-KkOCpCbbnOU",
+          "youtube-wOHB1XQ5J2Q",
+          "youtube-Z5fVhVmME9k",
+          "youtube-qv1ZbM0hSMs",
+          "youtube-gxPRnJZfECY"
+        ]
+      },
+      {
         "id": "vimeo-shorts",
         "label": "Vimeo Animated Shorts",
         "icon": "Clapperboard",
@@ -2752,46 +4918,99 @@
         ]
       },
       {
+        "id": "anime-archive",
+        "label": "Classic Anime (Archive.org)",
+        "icon": "Film",
+        "movieIds": [
+          "archive-KimbaTheWhiteLion01",
+          "archive-speedracer1_2",
+          "archive-pluto_dog_ranger",
+          "archive-the-little-mermaid-anime"
+        ]
+      },
+      {
         "id": "bilibili-anime",
         "label": "Bilibili Anime",
         "icon": "Tv",
         "movieIds": [
-          "bilibili-BV16x41147Uv",
-          "bilibili-BV1k59gBwELZ",
           "bilibili-BV1924y1n7Ub",
-          "bilibili-BV1XzRcYqEEu",
-          "bilibili-BV1HwRyBwEBH",
-          "bilibili-BV1jx411s7fJ",
-          "bilibili-BV1Xe411u74U",
-          "bilibili-BV1zJREB9EvF",
-          "bilibili-BV115RCBPEiA",
           "bilibili-BV1yHAgzfEJs",
-          "bilibili-BV1XU2XBpEeh",
-          "bilibili-BV1bhqLYtEoY",
           "bilibili-BV1nMofB3EaN",
-          "bilibili-BV1D2dMBEEmo",
-          "bilibili-BV16ERrBXE37",
-          "bilibili-BV11FduBzEE8",
-          "bilibili-BV1SBdwB8EEy",
-          "bilibili-BV1ZfJAzME8h",
-          "bilibili-BV1551EBRErx",
-          "bilibili-BV15Q4y1W759",
-          "bilibili-BV1Yh411m7Ry",
-          "bilibili-BV1oFHEzDE6v",
+          "bilibili-BV114XUBCEdu",
+          "bilibili-BV1Xe411u74U",
+          "bilibili-BV1PJijB3EML",
+          "bilibili-BV1uW411i7W8",
+          "bilibili-BV1QB4y1z7VL",
+          "bilibili-BV1HwRyBwEBH",
+          "bilibili-BV1Bv4y1v72q",
+          "bilibili-BV1zJREB9EvF",
+          "bilibili-BV1HB4y1M7aj",
+          "bilibili-BV1QAqwBUENi",
+          "bilibili-BV1WrqWBAE1U",
+          "bilibili-BV1sW411x71r",
+          "bilibili-BV16x41147Uv",
+          "bilibili-BV1e8411Y7oo",
+          "bilibili-BV1k59gBwELZ",
+          "bilibili-BV1XzRcYqEEu",
+          "bilibili-BV1pG9gBYEMy",
+          "bilibili-BV1Qh411B7Pg",
+          "bilibili-BV115RCBPEiA",
+          "bilibili-BV1jx411s7fJ",
+          "bilibili-BV1iifBBEEjD",
+          "bilibili-BV1kEZTBiEi4",
+          "bilibili-BV1Y1PjzhE4Z",
+          "bilibili-BV16aZeBkEAo",
+          "bilibili-BV1tGcrzJEkj",
+          "bilibili-BV16eFUzWEPA",
+          "bilibili-BV16UACzJERH",
+          "bilibili-BV1PEPqz6Eoe",
           "bilibili-BV1vh4y1W7bi",
-          "bilibili-BV1rW4y1f7dv",
-          "bilibili-BV1oE411Y7vW",
-          "bilibili-BV15stoz6Emu",
+          "bilibili-BV1ZfJAzME8h",
+          "bilibili-BV1QRdGBbEPf",
+          "bilibili-BV1ooR2BwEEn",
+          "bilibili-BV1551EBRErx",
+          "bilibili-BV1Yh411m7Ry",
           "bilibili-BV1gL9dYUE78",
-          "bilibili-BV1bt411t7X9",
           "bilibili-BV1Q11eYuEUh",
-          "bilibili-BV1nx411p724",
-          "bilibili-BV1ws411Q7PG",
+          "bilibili-BV1oE411Y7vW",
+          "bilibili-BV1rW4y1f7dv",
           "bilibili-BV1ju4y1E74P",
-          "bilibili-BV1uX4y1q7Do",
-          "bilibili-BV1aAReBDEVb",
-          "bilibili-BV1zJ4m1V7yQ",
-          "bilibili-BV15MkbYJEef"
+          "bilibili-BV1bFdwB4Evu",
+          "bilibili-BV19QR6B3EA9",
+          "bilibili-BV1ZHdwB3E45",
+          "bilibili-BV1ws411Q7PG",
+          "bilibili-BV15MkbYJEef",
+          "bilibili-BV1N9YqzmEyH",
+          "bilibili-BV1QxZnYfEPD",
+          "bilibili-BV1J84y1g7Gh",
+          "bilibili-BV19fPZepEhu",
+          "bilibili-BV1KW6SBHEUj",
+          "bilibili-BV1qbC6YtE91"
+        ]
+      },
+      {
+        "id": "crunchyroll-anime",
+        "label": "Crunchyroll Anime",
+        "icon": "Tv",
+        "movieIds": [
+          "crunchyroll-attack-on-titan",
+          "crunchyroll-death-note",
+          "crunchyroll-demon-slayer",
+          "crunchyroll-one-piece",
+          "crunchyroll-jujutsu-kaisen",
+          "crunchyroll-dragon-ball",
+          "crunchyroll-my-hero-academia",
+          "crunchyroll-naruto"
+        ]
+      },
+      {
+        "id": "romance",
+        "label": "Romance",
+        "icon": "Heart",
+        "movieIds": [
+          "youtube-wOHB1XQ5J2Q",
+          "youtube-Z5fVhVmME9k",
+          "archive-the-little-mermaid-anime"
         ]
       },
       {
@@ -2803,58 +5022,113 @@
         ]
       },
       {
+        "id": "linkout-movies",
+        "label": "Watch Free on Streaming Services",
+        "icon": "ExternalLink",
+        "movieIds": [
+          "crunchyroll-attack-on-titan",
+          "crunchyroll-death-note",
+          "crunchyroll-demon-slayer",
+          "crunchyroll-one-piece",
+          "crunchyroll-jujutsu-kaisen",
+          "crunchyroll-dragon-ball",
+          "crunchyroll-my-hero-academia",
+          "crunchyroll-naruto"
+        ]
+      },
+      {
         "id": "all-free-streaming",
         "label": "All Free Streaming",
         "icon": "Play",
         "movieIds": [
+          "crunchyroll-attack-on-titan",
+          "crunchyroll-death-note",
+          "crunchyroll-demon-slayer",
+          "crunchyroll-one-piece",
+          "crunchyroll-jujutsu-kaisen",
+          "crunchyroll-dragon-ball",
+          "crunchyroll-my-hero-academia",
+          "archive-Metropolis_201507",
+          "crunchyroll-naruto",
+          "archive-TheGeneral1926",
+          "archive-thecabinet00cabi",
+          "archive-Nosferatu_1920",
+          "youtube-KkOCpCbbnOU",
+          "youtube-wOHB1XQ5J2Q",
+          "youtube-Z5fVhVmME9k",
+          "archive-ThePhantomOfTheOpera",
           "blender-sintel",
+          "archive-Accepted1930",
+          "archive-KimbaTheWhiteLion01",
+          "youtube-qv1ZbM0hSMs",
           "blender-big-buck-bunny",
+          "archive-speedracer1_2",
           "blender-spring",
+          "archive-pluto_dog_ranger",
           "blender-tears-of-steel",
+          "archive-the-little-mermaid-anime",
           "blender-elephants-dream",
+          "youtube-gxPRnJZfECY",
           "vimeo-1084537",
           "vimeo-248323498",
-          "bilibili-BV16x41147Uv",
-          "bilibili-BV1k59gBwELZ",
           "bilibili-BV1924y1n7Ub",
-          "bilibili-BV1XzRcYqEEu",
-          "bilibili-BV1HwRyBwEBH",
-          "bilibili-BV1jx411s7fJ",
-          "bilibili-BV1Xe411u74U",
-          "bilibili-BV1zJREB9EvF",
-          "bilibili-BV115RCBPEiA",
           "bilibili-BV1yHAgzfEJs",
-          "bilibili-BV1XU2XBpEeh",
-          "bilibili-BV1bhqLYtEoY",
           "bilibili-BV1nMofB3EaN",
-          "bilibili-BV1D2dMBEEmo",
-          "bilibili-BV16ERrBXE37",
-          "bilibili-BV11FduBzEE8",
-          "bilibili-BV1SBdwB8EEy",
-          "bilibili-BV1ZfJAzME8h",
-          "bilibili-BV1551EBRErx",
-          "bilibili-BV15Q4y1W759",
-          "bilibili-BV1Yh411m7Ry",
-          "bilibili-BV1oFHEzDE6v",
+          "bilibili-BV114XUBCEdu",
+          "bilibili-BV1Xe411u74U",
+          "bilibili-BV1PJijB3EML",
+          "bilibili-BV1uW411i7W8",
+          "bilibili-BV1QB4y1z7VL",
+          "bilibili-BV1HwRyBwEBH",
+          "bilibili-BV1Bv4y1v72q",
+          "bilibili-BV1zJREB9EvF",
+          "bilibili-BV1HB4y1M7aj",
+          "bilibili-BV1QAqwBUENi",
+          "bilibili-BV1WrqWBAE1U",
+          "bilibili-BV1sW411x71r",
+          "bilibili-BV16x41147Uv",
+          "bilibili-BV1e8411Y7oo",
+          "bilibili-BV1k59gBwELZ",
+          "bilibili-BV1XzRcYqEEu",
+          "bilibili-BV1pG9gBYEMy",
+          "bilibili-BV1Qh411B7Pg",
+          "bilibili-BV115RCBPEiA",
+          "bilibili-BV1jx411s7fJ",
+          "bilibili-BV1iifBBEEjD",
+          "bilibili-BV1kEZTBiEi4",
+          "bilibili-BV1Y1PjzhE4Z",
+          "bilibili-BV16aZeBkEAo",
+          "bilibili-BV1tGcrzJEkj",
+          "bilibili-BV16eFUzWEPA",
+          "bilibili-BV16UACzJERH",
+          "bilibili-BV1PEPqz6Eoe",
           "bilibili-BV1vh4y1W7bi",
-          "bilibili-BV1rW4y1f7dv",
-          "bilibili-BV1oE411Y7vW",
-          "bilibili-BV15stoz6Emu",
+          "bilibili-BV1ZfJAzME8h",
+          "bilibili-BV1QRdGBbEPf",
+          "bilibili-BV1ooR2BwEEn",
+          "bilibili-BV1551EBRErx",
+          "bilibili-BV1Yh411m7Ry",
           "bilibili-BV1gL9dYUE78",
-          "bilibili-BV1bt411t7X9",
           "bilibili-BV1Q11eYuEUh",
-          "bilibili-BV1nx411p724",
-          "bilibili-BV1ws411Q7PG",
+          "bilibili-BV1oE411Y7vW",
+          "bilibili-BV1rW4y1f7dv",
           "bilibili-BV1ju4y1E74P",
-          "bilibili-BV1uX4y1q7Do",
-          "bilibili-BV1aAReBDEVb",
-          "bilibili-BV1zJ4m1V7yQ",
-          "bilibili-BV15MkbYJEef"
+          "bilibili-BV1bFdwB4Evu",
+          "bilibili-BV19QR6B3EA9",
+          "bilibili-BV1ZHdwB3E45",
+          "bilibili-BV1ws411Q7PG",
+          "bilibili-BV15MkbYJEef",
+          "bilibili-BV1N9YqzmEyH",
+          "bilibili-BV1QxZnYfEPD",
+          "bilibili-BV1J84y1g7Gh",
+          "bilibili-BV19fPZepEhu",
+          "bilibili-BV1KW6SBHEUj",
+          "bilibili-BV1qbC6YtE91"
         ]
       }
     ],
-    "lastUpdated": "2026-05-08T05:10:27.283Z"
+    "lastUpdated": "2026-05-09T03:42:00.558Z"
   },
-  "createdAt": 1778217027283,
-  "expiresAt": 1778238627283
+  "createdAt": 1778298120559,
+  "expiresAt": 1778299920559
 }

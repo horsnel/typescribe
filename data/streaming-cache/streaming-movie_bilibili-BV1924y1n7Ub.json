@@ -8,10 +8,10 @@
     "duration": "1h 47m",
     "durationSeconds": 6425,
     "genres": [
-      "漫画",
-      "日漫",
       "动画",
-      "anime"
+      "anime",
+      "漫画",
+      "日漫"
     ],
     "rating": 0,
     "quality": "720p",
@@ -56,6 +56,6 @@
     "isFree": true,
     "addedAt": "2023-02-19T19:02:05.000Z"
   },
-  "createdAt": 1778217027285,
-  "expiresAt": 1778303427285
+  "createdAt": 1778298120569,
+  "expiresAt": 1778384520569
 }

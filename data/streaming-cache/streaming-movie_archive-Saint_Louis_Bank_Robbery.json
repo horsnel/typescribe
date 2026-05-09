@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-Saint_Louis_Bank_Robbery",
+  "data": {
+    "id": "archive-Saint_Louis_Bank_Robbery",
+    "title": "The Saint Louis Bank Robbery",
+    "description": "Steve McQueen stars in a gritty, downbeat, and sometimes savage heist movie that features a gang of very psychologically warped men and a story that's based on an actual crime. Warning: this film is devoid of humor, wit, cheerfulness, glamor, and mercy. It's grim to the brim. Some will find that viewing it is an unpleasant experience. This movie is in the public domain. Video-Cellar wrote: The film was originally published without a notice, but most prints currently in circulation are later tele",
+    "year": 1959,
+    "duration": "1h 28m",
+    "durationSeconds": 5327,
+    "genres": [],
+    "rating": 4.1,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/Saint_Louis_Bank_Robbery",
+    "backdrop": "https://archive.org/services/img/Saint_Louis_Bank_Robbery",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/Saint_Louis_Bank_Robbery",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/Saint_Louis_Bank_Robbery",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-07T19:09:55.820Z"
+  },
+  "createdAt": 1778180995828,
+  "expiresAt": 1778267395828
+}

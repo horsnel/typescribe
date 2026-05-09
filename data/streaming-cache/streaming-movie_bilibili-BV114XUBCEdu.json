@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV114XUBCEdu",
+  "data": {
+    "id": "bilibili-BV114XUBCEdu",
+    "title": "剧场版《魔法科高校的无力生 四叶继承篇》特别场景【AnimeJapan 2026】",
+    "description": "5月8日(金)公開となる、剧场版《魔法科高校的劣等生 四叶继承篇》的特别场次。\n\n豪华阵容的演员们将带来精彩的演讲和《四叶继承篇》最新的消息。\n\n【时间】\n2026年3月29日(日) 12时15分～\n\n【演员】\n中村悠一、早见沙织、斋藤千和、小野大辅、茅野爱衣\n\n【作品概要】\n剧场版《魔法科高校的劣等生 四叶继承篇》\n5.8(Fri) ROADSHOW\n\n▼第1弹特典附带的电影票卡、清晰的海报和清晰的卡片一体型前售票券正在全国各地的放映电影院销售中！\nhttps://mahouka.jp/yotsuba/",
+    "year": 2026,
+    "duration": "49m",
+    "durationSeconds": 2971,
+    "genres": [
+      "音乐",
+      "游戏",
+      "爱情",
+      "生活",
+      "二次元"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i2.hdslb.com/bfs/archive/7c3cbba784f49f69d846dd9e1c70dc4b03f502b5.jpg",
+    "backdrop": "//i2.hdslb.com/bfs/archive/7c3cbba784f49f69d846dd9e1c70dc4b03f502b5.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV114XUBCEdu",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV114XUBCEdu",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV114XUBCEdu&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-03-29T04:05:24.000Z"
+  },
+  "createdAt": 1778298120569,
+  "expiresAt": 1778384520569
+}

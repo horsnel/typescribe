@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-Kill.or.Cure",
+  "data": {
+    "id": "archive-Kill.or.Cure",
+    "title": "Kill.or.Cure",
+    "description": "classic",
+    "year": 0,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [],
+    "rating": 3.5,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/Kill.or.Cure",
+    "backdrop": "https://archive.org/services/img/Kill.or.Cure",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/Kill.or.Cure",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/Kill.or.Cure",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-07T19:09:55.820Z"
+  },
+  "createdAt": 1778180995829,
+  "expiresAt": 1778267395829
+}

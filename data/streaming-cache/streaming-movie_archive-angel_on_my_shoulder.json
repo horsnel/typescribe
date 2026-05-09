@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-angel_on_my_shoulder",
+  "data": {
+    "id": "archive-angel_on_my_shoulder",
+    "title": "Angel on My Shoulder",
+    "description": "You can find more information regarding this film on its IMDb page .",
+    "year": 1946,
+    "duration": "1h 41m",
+    "durationSeconds": 6081,
+    "genres": [],
+    "rating": 4.4,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/angel_on_my_shoulder",
+    "backdrop": "https://archive.org/services/img/angel_on_my_shoulder",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/angel_on_my_shoulder",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/angel_on_my_shoulder",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-07T19:09:55.365Z"
+  },
+  "createdAt": 1778180995826,
+  "expiresAt": 1778267395826
+}

@@ -1,0 +1,47 @@
+{
+  "key": "streaming-movie:archive-ThePhantomOfTheOpera",
+  "data": {
+    "id": "archive-ThePhantomOfTheOpera",
+    "title": "The Phantom of the Opera",
+    "description": "A mad, disfigured composer seeks love with a beautiful young opera singer beneath the Paris Opera House. Lon Chaney's iconic performance in this silent horror classic.",
+    "year": 1925,
+    "duration": "1h 33m",
+    "durationSeconds": 5580,
+    "genres": [
+      "Horror",
+      "Drama",
+      "Thriller"
+    ],
+    "rating": 7.6,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/ThePhantomOfTheOpera",
+    "backdrop": "https://archive.org/services/img/ThePhantomOfTheOpera",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/ThePhantomOfTheOpera",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/ThePhantomOfTheOpera/ThePhantomOfTheOpera_512kb.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "1925-01-01T00:00:00Z"
+  },
+  "createdAt": 1778298120568,
+  "expiresAt": 1778384520568
+}

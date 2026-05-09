@@ -8,11 +8,11 @@
     "duration": "7h 11m",
     "durationSeconds": 25862,
     "genres": [
+      "安卓开发",
       "app开发",
       "android开发",
-      "安卓开发",
-      "androidstudio",
-      "安卓基础教程"
+      "安卓基础教程",
+      "androidstudio"
     ],
     "rating": 0,
     "quality": "720p",
@@ -57,6 +57,6 @@
     "isFree": true,
     "addedAt": "2025-03-05T09:21:32.000Z"
   },
-  "createdAt": 1778217027286,
-  "expiresAt": 1778303427286
+  "createdAt": 1778298120572,
+  "expiresAt": 1778384520572
 }

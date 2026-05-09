@@ -1,0 +1,55 @@
+{
+  "key": "streaming-movie:crunchyroll-demon-slayer",
+  "data": {
+    "id": "crunchyroll-demon-slayer",
+    "title": "Demon Slayer",
+    "description": "After his family is slaughtered by demons and his sister is turned into one, Tanjiro Kamado embarks on a journey to become a demon slayer and find a cure for his sister. Stunning animation by ufotable.",
+    "year": 2019,
+    "duration": "24m per ep",
+    "durationSeconds": 1440,
+    "genres": [
+      "Anime",
+      "Action",
+      "Fantasy",
+      "Supernatural"
+    ],
+    "rating": 8.9,
+    "quality": "1080p",
+    "poster": "https://img1.ak.crunchyroll.com/i/spire1/3c5f39e2c4c0f26e5e4a5a4a5a5a5a5a5a5a5a5a_full.jpg",
+    "backdrop": "https://img1.ak.crunchyroll.com/i/spire1/3c5f39e2c4c0f26e5e4a5a4a5a5a5a5a5a5a5a5a_full.jpg",
+    "source": "crunchyroll",
+    "sourceUrl": "https://www.crunchyroll.com/series/GY5P48XEY/demon-slayer-kimetsu-no-yaiba",
+    "sourceLicense": "Free with Ads",
+    "videoUrl": "https://www.crunchyroll.com/series/GY5P48XEY/demon-slayer-kimetsu-no-yaiba",
+    "videoType": "linkout",
+    "isEmbeddable": false,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "5.1 Surround"
+      },
+      {
+        "code": "en",
+        "label": "English (Dubbed)",
+        "isOriginal": false,
+        "isDubbed": true,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2019-04-06T00:00:00Z"
+  },
+  "createdAt": 1778298120567,
+  "expiresAt": 1778384520567
+}

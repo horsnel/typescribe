@@ -5,7 +5,7 @@ import { Globe, ChevronRight, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { detectLocation, getCurrentLocation, setCountryOverride, COUNTRY_NAMES, AVAILABLE_COUNTRIES, getSuggestionReason } from '@/lib/geolocation';
 import MovieCard from '@/components/movie/MovieCard';
-import { movies } from '@/lib/data';
+// No longer importing mock data from @/lib/data
 import type { Movie } from '@/lib/types';
 
 interface LocationData {
@@ -18,7 +18,7 @@ export default function LocalPicksSection() {
   const [location, setLocation] = useState<LocationData | null>(null);
   const [detecting, setDetecting] = useState(true);
   const [showCountryPicker, setShowCountryPicker] = useState(false);
-  const [suggestedMovies, setSuggestedMovies] = useState<Movie[]>(movies.slice(0, 6));
+  const [suggestedMovies, setSuggestedMovies] = useState<Movie[]>([]);
   const [loadingMovies, setLoadingMovies] = useState(false);
 
   // Fetch movies from the discover/local API based on the detected country
@@ -31,13 +31,40 @@ export default function LocalPicksSection() {
         if (data.movies && data.movies.length > 0) {
           setSuggestedMovies(data.movies.slice(0, 12));
         } else {
-          setSuggestedMovies(movies.slice(0, 6));
+          // No local movies found — fall back to trending
+          try {
+            const trendRes = await fetch('/api/browse?source=trending');
+            if (trendRes.ok) {
+              const trendData = await trendRes.json();
+              if (trendData.movies?.length > 0) {
+                setSuggestedMovies(trendData.movies.slice(0, 12));
+              }
+            }
+          } catch { /* ignore */ }
         }
       } else {
-        setSuggestedMovies(movies.slice(0, 6));
+        // API error — fall back to trending
+        try {
+          const trendRes = await fetch('/api/browse?source=trending');
+          if (trendRes.ok) {
+            const trendData = await trendRes.json();
+            if (trendData.movies?.length > 0) {
+              setSuggestedMovies(trendData.movies.slice(0, 12));
+            }
+          }
+        } catch { /* ignore */ }
       }
     } catch {
-      setSuggestedMovies(movies.slice(0, 6));
+      // API error — fall back to trending
+      try {
+        const trendRes = await fetch('/api/browse?source=trending');
+        if (trendRes.ok) {
+          const trendData = await trendRes.json();
+          if (trendData.movies?.length > 0) {
+            setSuggestedMovies(trendData.movies.slice(0, 12));
+          }
+        }
+      } catch { /* ignore */ }
     } finally {
       setLoadingMovies(false);
     }

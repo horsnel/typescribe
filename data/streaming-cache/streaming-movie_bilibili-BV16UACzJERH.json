@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV16UACzJERH",
+  "data": {
+    "id": "bilibili-BV16UACzJERH",
+    "title": "十凶巅宠，被十凶美人们轮流宠上巅峰《开局召唤兽娘，我御兽是太古十凶》",
+    "description": "",
+    "year": 2026,
+    "duration": "15m",
+    "durationSeconds": 904,
+    "genres": [
+      "二次元",
+      "国产动漫",
+      "爆款动漫",
+      "短剧种草计划",
+      "热门漫剧"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i0.hdslb.com/bfs/archive/80a2f3e8cd16838c15018a7e863676f39c6ad2bb.jpg",
+    "backdrop": "//i0.hdslb.com/bfs/archive/80a2f3e8cd16838c15018a7e863676f39c6ad2bb.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV16UACzJERH",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV16UACzJERH",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV16UACzJERH&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-02-26T23:00:00.000Z"
+  },
+  "createdAt": 1778298120571,
+  "expiresAt": 1778384520571
+}

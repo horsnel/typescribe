@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-DiaryofaNudist",
+  "data": {
+    "id": "archive-DiaryofaNudist",
+    "title": "Diary of a Nudist",
+    "description": "The Film follows a reporter (Davee Decker) as she infiltrates a nudist colony in the hopes of exposing its immoral ways. However, once there, she finds herself enjoying it a little bit more than she anticipated. This Film was extremely controversial in 1961 today, films like this are considered to be curiosity pieces.",
+    "year": 1961,
+    "duration": "1h 12m",
+    "durationSeconds": 4320,
+    "genres": [],
+    "rating": 4.2,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/DiaryofaNudist",
+    "backdrop": "https://archive.org/services/img/DiaryofaNudist",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/DiaryofaNudist",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/DiaryofaNudist",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-07T19:09:54.501Z"
+  },
+  "createdAt": 1778180995827,
+  "expiresAt": 1778267395827
+}

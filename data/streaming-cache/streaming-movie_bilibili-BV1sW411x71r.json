@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1sW411x71r",
+  "data": {
+    "id": "bilibili-BV1sW411x71r",
+    "title": "【720P/BDRip/剧场版】009 RE：CYBORG 2012【生肉】",
+    "description": "POPGO\n导演: 神山健治\n编剧: 神山健治 / 石之森章太郎\n主演: 玉川砂记子 / 小野大辅 / 斋藤千和 / 大川透 / 丹泽晃之\n类型: 科幻 / 动画\n制片国家/地区: 日本\n语言: 日语\n上映日期: 2012-10-27\n片长: 103分钟",
+    "year": 2018,
+    "duration": "1h 43m",
+    "durationSeconds": 6208,
+    "genres": [
+      "剧场版",
+      "动画",
+      "720P",
+      "日本动画",
+      "经典"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i0.hdslb.com/bfs/archive/5e30a84892052ce4a9937e717187a4d791a5909e.jpg",
+    "backdrop": "//i0.hdslb.com/bfs/archive/5e30a84892052ce4a9937e717187a4d791a5909e.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1sW411x71r",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1sW411x71r",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1sW411x71r&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2018-03-04T02:28:54.000Z"
+  },
+  "createdAt": 1778298120570,
+  "expiresAt": 1778384520570
+}

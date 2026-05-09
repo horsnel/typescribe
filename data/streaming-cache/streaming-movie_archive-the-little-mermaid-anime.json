@@ -1,0 +1,56 @@
+{
+  "key": "streaming-movie:archive-the-little-mermaid-anime",
+  "data": {
+    "id": "archive-the-little-mermaid-anime",
+    "title": "The Little Mermaid (Anime)",
+    "description": "A Japanese animated adaptation of Hans Christian Andersen's The Little Mermaid. A classic tale of a mermaid princess who falls in love with a human prince.",
+    "year": 1975,
+    "duration": "1h 8m",
+    "durationSeconds": 4080,
+    "genres": [
+      "Anime",
+      "Animation",
+      "Fantasy",
+      "Romance",
+      "Family"
+    ],
+    "rating": 6.8,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/the-little-mermaid-anime",
+    "backdrop": "https://archive.org/services/img/the-little-mermaid-anime",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/the-little-mermaid-anime",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/the-little-mermaid-anime/the-little-mermaid-anime_512kb.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "en",
+        "label": "English (Dubbed)",
+        "isOriginal": false,
+        "isDubbed": true,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "1975-01-01T00:00:00Z"
+  },
+  "createdAt": 1778298120568,
+  "expiresAt": 1778384520568
+}

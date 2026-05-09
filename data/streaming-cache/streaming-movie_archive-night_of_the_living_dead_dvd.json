@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-night_of_the_living_dead_dvd",
+  "data": {
+    "id": "archive-night_of_the_living_dead_dvd",
+    "title": "Night of the Living Dead",
+    "description": "I did some digital tweaking on Night of the Living Dead to make it more watchable and made it into a DVD image that you can burn.",
+    "year": 1968,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [],
+    "rating": 4.2,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/night_of_the_living_dead_dvd",
+    "backdrop": "https://archive.org/services/img/night_of_the_living_dead_dvd",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/night_of_the_living_dead_dvd",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/night_of_the_living_dead_dvd",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-07T19:09:55.365Z"
+  },
+  "createdAt": 1778180995827,
+  "expiresAt": 1778267395827
+}

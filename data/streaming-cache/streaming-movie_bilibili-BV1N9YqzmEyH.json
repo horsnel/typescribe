@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1N9YqzmEyH",
+  "data": {
+    "id": "bilibili-BV1N9YqzmEyH",
+    "title": "Tougen Anki – Ep 01 | Hindi Dubbed | 1080p | RD Studio Fan Dub",
+    "description": "",
+    "year": 2025,
+    "duration": "24m",
+    "durationSeconds": 1450,
+    "genres": [
+      "MAD",
+      "AMV",
+      "动画短片",
+      "补番推荐",
+      "番剧"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i1.hdslb.com/bfs/archive/a156d99e0680add5d6c227e3ef6cd035d8ebe006.jpg",
+    "backdrop": "//i1.hdslb.com/bfs/archive/a156d99e0680add5d6c227e3ef6cd035d8ebe006.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1N9YqzmEyH",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1N9YqzmEyH",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1N9YqzmEyH&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2025-08-16T14:11:56.000Z"
+  },
+  "createdAt": 1778298120573,
+  "expiresAt": 1778384520573
+}

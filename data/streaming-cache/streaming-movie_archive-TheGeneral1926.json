@@ -1,0 +1,47 @@
+{
+  "key": "streaming-movie:archive-TheGeneral1926",
+  "data": {
+    "id": "archive-TheGeneral1926",
+    "title": "The General",
+    "description": "When Union spies steal an engineer's beloved locomotive, he pursues it single-handedly and straight through enemy lines. Buster Keaton's masterpiece of silent comedy and action.",
+    "year": 1926,
+    "duration": "1h 7m",
+    "durationSeconds": 4020,
+    "genres": [
+      "Comedy",
+      "Action",
+      "Adventure"
+    ],
+    "rating": 8.2,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/TheGeneral1926",
+    "backdrop": "https://archive.org/services/img/TheGeneral1926",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/TheGeneral1926",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/TheGeneral1926/TheGeneral1926_512kb.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "1926-12-31T00:00:00Z"
+  },
+  "createdAt": 1778298120567,
+  "expiresAt": 1778384520567
+}

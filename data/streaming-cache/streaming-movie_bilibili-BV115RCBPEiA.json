@@ -8,10 +8,10 @@
     "duration": "15m",
     "durationSeconds": 939,
     "genres": [
+      "动漫",
       "人工智能",
-      "comfyui",
-      "视频生成",
-      "图像生成",
+      "经验分享",
+      "ai",
       "工作流"
     ],
     "rating": 0,
@@ -57,6 +57,6 @@
     "isFree": true,
     "addedAt": "2026-05-06T01:00:00.000Z"
   },
-  "createdAt": 1778217027285,
-  "expiresAt": 1778303427285
+  "createdAt": 1778298120571,
+  "expiresAt": 1778384520571
 }

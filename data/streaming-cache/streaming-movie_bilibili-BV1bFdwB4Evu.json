@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1bFdwB4Evu",
+  "data": {
+    "id": "bilibili-BV1bFdwB4Evu",
+    "title": "FL Studio 零基础嘻哈制作入门课程",
+    "description": "完整中英双语字幕+课件：\nhttps://audioshare.cn/archives/3875",
+    "year": 2026,
+    "duration": "4h 9m",
+    "durationSeconds": 14942,
+    "genres": [
+      "音乐",
+      "教程",
+      "学习",
+      "嘻哈",
+      "Anime"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i1.hdslb.com/bfs/archive/347c91827ca850e65673c49220521923c2baf379.jpg",
+    "backdrop": "//i1.hdslb.com/bfs/archive/347c91827ca850e65673c49220521923c2baf379.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1bFdwB4Evu",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1bFdwB4Evu",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1bFdwB4Evu&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-07T11:49:21.000Z"
+  },
+  "createdAt": 1778298120573,
+  "expiresAt": 1778384520573
+}

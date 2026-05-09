@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1Qh411B7Pg",
+  "data": {
+    "id": "bilibili-BV1Qh411B7Pg",
+    "title": "Russian Anime Doomer Music (Vol.2)",
+    "description": "“难道你不明白吗？我们像猪一样一起生活，也会像猪一样死去，就是因为我们彼此谁都不是！”",
+    "year": 2021,
+    "duration": "1h 39m",
+    "durationSeconds": 5993,
+    "genres": [
+      "音乐选集",
+      "MV",
+      "俄罗斯",
+      "Doomer",
+      "后朋克"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i2.hdslb.com/bfs/archive/53e447b8351881a1cc1742c535f2b646a77c43ec.jpg",
+    "backdrop": "//i2.hdslb.com/bfs/archive/53e447b8351881a1cc1742c535f2b646a77c43ec.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1Qh411B7Pg",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1Qh411B7Pg",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1Qh411B7Pg&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2021-07-20T04:18:47.000Z"
+  },
+  "createdAt": 1778298120571,
+  "expiresAt": 1778384520571
+}

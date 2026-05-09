@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-BehindGreenLights_high_Q_mp4",
+  "data": {
+    "id": "archive-BehindGreenLights_high_Q_mp4",
+    "title": "Behind Green Lights",
+    "description": "The action begins when a car occupied by the corpse of a sleazy private detective glides down a hill and winds up in front of a police station. (The title of the film stems from the fact that police stations used to have green lights at the entrance.) Currently (2010-02-23) the movie is rated 7.2 at the IMDB ! Some of the stars are William Gargan, Carole Landis, John Ireland, Charles Russell, and Don Beddoe. Althought this film was already on this site, those who didn't want to download 4 gigaby",
+    "year": 1946,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [],
+    "rating": 3.9,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/BehindGreenLights_high_Q_mp4",
+    "backdrop": "https://archive.org/services/img/BehindGreenLights_high_Q_mp4",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/BehindGreenLights_high_Q_mp4",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/BehindGreenLights_high_Q_mp4",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-07T19:09:55.820Z"
+  },
+  "createdAt": 1778180995828,
+  "expiresAt": 1778267395828
+}

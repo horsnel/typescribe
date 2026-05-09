@@ -1,0 +1,46 @@
+{
+  "key": "streaming-movie:youtube-KkOCpCbbnOU",
+  "data": {
+    "id": "youtube-KkOCpCbbnOU",
+    "title": "Night of the Living Dead",
+    "description": "A group of people hide from bloodthirsty zombies in a farmhouse. George A. Romero's groundbreaking 1968 horror classic that defined the modern zombie genre. Public domain due to a copyright error.",
+    "year": 1968,
+    "duration": "1h 36m",
+    "durationSeconds": 5760,
+    "genres": [
+      "Horror",
+      "Thriller"
+    ],
+    "rating": 7.9,
+    "quality": "720p",
+    "poster": "https://i.ytimg.com/vi/KkOCpCbbnOU/hqdefault.jpg",
+    "backdrop": "https://i.ytimg.com/vi/KkOCpCbbnOU/maxresdefault.jpg",
+    "source": "youtube",
+    "sourceUrl": "https://www.youtube.com/watch?v=KkOCpCbbnOU",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://www.youtube.com/embed/KkOCpCbbnOU?autoplay=1&rel=0",
+    "videoType": "youtube",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "1968-10-01T00:00:00Z"
+  },
+  "createdAt": 1778298120568,
+  "expiresAt": 1778384520568
+}

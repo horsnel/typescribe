@@ -1,0 +1,46 @@
+{
+  "key": "streaming-movie:youtube-gxPRnJZfECY",
+  "data": {
+    "id": "youtube-gxPRnJZfECY",
+    "title": "Plan 9 from Outer Space",
+    "description": "Aliens resurrect dead humans as zombies and vampires to stop humanity from creating the Solaranite bomb. Ed Wood's infamous sci-fi film, often called the \"worst movie ever made.\"",
+    "year": 1957,
+    "duration": "1h 19m",
+    "durationSeconds": 4740,
+    "genres": [
+      "Sci-Fi",
+      "Horror"
+    ],
+    "rating": 4,
+    "quality": "480p",
+    "poster": "https://i.ytimg.com/vi/gxPRnJZfECY/hqdefault.jpg",
+    "backdrop": "https://i.ytimg.com/vi/gxPRnJZfECY/maxresdefault.jpg",
+    "source": "youtube",
+    "sourceUrl": "https://www.youtube.com/watch?v=gxPRnJZfECY",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://www.youtube.com/embed/gxPRnJZfECY?autoplay=1&rel=0",
+    "videoType": "youtube",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "1957-01-01T00:00:00Z"
+  },
+  "createdAt": 1778298120569,
+  "expiresAt": 1778384520569
+}

@@ -1,0 +1,47 @@
+{
+  "key": "streaming-movie:youtube-Z5fVhVmME9k",
+  "data": {
+    "id": "youtube-Z5fVhVmME9k",
+    "title": "His Girl Friday",
+    "description": "A newspaper editor uses every trick in the book to keep his ex-wife from remarrying. Cary Grant and Rosalind Russell star in Howard Hawks' rapid-fire comedy classic.",
+    "year": 1940,
+    "duration": "1h 32m",
+    "durationSeconds": 5520,
+    "genres": [
+      "Comedy",
+      "Drama",
+      "Romance"
+    ],
+    "rating": 7.9,
+    "quality": "480p",
+    "poster": "https://i.ytimg.com/vi/Z5fVhVmME9k/hqdefault.jpg",
+    "backdrop": "https://i.ytimg.com/vi/Z5fVhVmME9k/maxresdefault.jpg",
+    "source": "youtube",
+    "sourceUrl": "https://www.youtube.com/watch?v=Z5fVhVmME9k",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://www.youtube.com/embed/Z5fVhVmME9k?autoplay=1&rel=0",
+    "videoType": "youtube",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "1940-01-18T00:00:00Z"
+  },
+  "createdAt": 1778298120568,
+  "expiresAt": 1778384520568
+}

@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-Quicksand_clear",
+  "data": {
+    "id": "archive-Quicksand_clear",
+    "title": "Quicksand",
+    "description": "An engrossing suspense film with Mickey Rooney, Peter Lorre, and Jeanne Cagney. Needing money for a date, Rooney borrows $20 from the cash register, starting a chain of events that includes car theft, burglary, and possibly murder. (Yes, that is Jack Elam in the bar scene.) Read more at the IMDB . (The video is interlaced in both the MPEG2 file and the Cinepack. If viewing with VLC, deinterlace with menu-path Video/Deinterlace/Blend.) This is a better copy than the previous versions that were up",
+    "year": 1950,
+    "duration": "1h 18m",
+    "durationSeconds": 4715,
+    "genres": [],
+    "rating": 3.8,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/Quicksand_clear",
+    "backdrop": "https://archive.org/services/img/Quicksand_clear",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/Quicksand_clear",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/Quicksand_clear",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-07T19:09:55.820Z"
+  },
+  "createdAt": 1778180995829,
+  "expiresAt": 1778267395829
+}

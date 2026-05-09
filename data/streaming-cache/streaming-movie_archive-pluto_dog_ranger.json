@@ -1,0 +1,60 @@
+{
+  "key": "streaming-movie:archive-pluto_dog_ranger",
+  "data": {
+    "id": "archive-pluto_dog_ranger",
+    "title": "Astro Boy (Classic Episodes)",
+    "description": "Classic episodes of Osamu Tezuka's pioneering anime series Astro Boy, one of the first anime series ever produced. A landmark in Japanese animation history.",
+    "year": 1963,
+    "duration": "24m",
+    "durationSeconds": 1440,
+    "genres": [
+      "Anime",
+      "Animation",
+      "Sci-Fi",
+      "Action"
+    ],
+    "rating": 7,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/pluto_dog_ranger",
+    "backdrop": "https://archive.org/services/img/pluto_dog_ranger",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/pluto_dog_ranger",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/pluto_dog_ranger/pluto_dog_ranger_512kb.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "en",
+        "label": "English (Dubbed)",
+        "isOriginal": false,
+        "isDubbed": true,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      },
+      {
+        "code": "ja",
+        "label": "Japanese",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "1963-01-01T00:00:00Z"
+  },
+  "createdAt": 1778298120568,
+  "expiresAt": 1778384520568
+}

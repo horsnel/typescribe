@@ -8,10 +8,10 @@
     "duration": "7m",
     "durationSeconds": 450,
     "genres": [
-      "动漫歌曲",
-      "BGM",
+      "日常",
+      "四手连弹",
       "bella & lucas",
-      "动漫音乐",
+      "KOREA相关",
       "钢琴演奏"
     ],
     "rating": 0,
@@ -57,6 +57,6 @@
     "isFree": true,
     "addedAt": "2019-11-12T05:00:05.000Z"
   },
-  "createdAt": 1778217027286,
-  "expiresAt": 1778303427286
+  "createdAt": 1778298120572,
+  "expiresAt": 1778384520572
 }

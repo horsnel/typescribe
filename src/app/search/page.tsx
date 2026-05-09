@@ -4,7 +4,7 @@ import { useState, useMemo, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Search as SearchIcon, TrendingUp, Clock, X, Film, MessageSquare, Newspaper, Star, ArrowRight, Loader2 } from 'lucide-react';
 import Link from 'next/link';
-import { movies, userReviews, newsItems, genres } from '@/lib/data';
+import { genres } from '@/lib/data';
 import type { Movie } from '@/lib/types';
 import MovieCard from '@/components/movie/MovieCard';
 
@@ -62,16 +62,15 @@ function SearchContent() {
   };
 
   const q = query.toLowerCase();
-  // Mock data fallback (only used when API is not connected)
-  const mockMovieResults = useMemo(() => q ? movies.filter((m) => m.title.toLowerCase().includes(q) || m.genres.some((g) => g.name.toLowerCase().includes(q)) || m.director.toLowerCase().includes(q) || m.overview.toLowerCase().includes(q) || m.cast.some(c => c.name.toLowerCase().includes(q))) : [], [q]);
-  const movieResults = fromAPI ? apiMovies : mockMovieResults;
-  const reviewResults = useMemo(() => q ? userReviews.filter((r) => r.text.toLowerCase().includes(q) || r.user_name.toLowerCase().includes(q)) : [], [q]);
-  const newsResults = useMemo(() => q ? newsItems.filter((n) => n.title.toLowerCase().includes(q) || n.excerpt.toLowerCase().includes(q)) : [], [q]);
+  // All search results come from the API (free-tier pipeline)
+  const movieResults = apiMovies;
+  const reviewResults: any[] = [];
+  const newsResults: any[] = [];
 
   const totalResults = movieResults.length + reviewResults.length + newsResults.length;
 
-  // Trending searches based on top-rated movie titles
-  const trendingSearches = movies.slice(0, 6).map(m => m.title);
+  // Trending searches — popular anime/movie terms
+  const trendingSearches = ['Attack on Titan', 'Jujutsu Kaisen', 'One Piece', 'Demon Slayer', 'Frieren', 'Solo Leveling'];
 
   const handleSearch = (searchQuery: string) => {
     setQuery(searchQuery);
@@ -203,23 +202,19 @@ function SearchContent() {
             {tab === 'reviews' && (
               reviewResults.length > 0 ? (
                 <div className="space-y-4">
-                  {reviewResults.map((r) => {
-                    const movie = movies.find((m) => m.id === r.movie_id);
-                    return (
-                      <Link key={r.id} href={`/movie/${movie?.slug || ''}`} className="block bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5 hover:border-[#3a3a45] transition-colors">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-sm font-semibold text-white">{r.user_name}</span>
-                          <div className="flex items-center gap-1">
-                            <Star className="w-3.5 h-3.5 text-[#8B5CF6] fill-[#8B5CF6]" strokeWidth={1.5} />
-                            <span className="text-sm font-semibold text-[#8B5CF6]">{r.rating}/10</span>
-                          </div>
+                  {reviewResults.map((r: any) => (
+                    <div key={r.id} className="block bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm font-semibold text-white">{r.user_name}</span>
+                        <div className="flex items-center gap-1">
+                          <Star className="w-3.5 h-3.5 text-[#8B5CF6] fill-[#8B5CF6]" strokeWidth={1.5} />
+                          <span className="text-sm font-semibold text-[#8B5CF6]">{r.rating}/10</span>
                         </div>
-                        {movie && <p className="text-xs text-[#8B5CF6] mb-2">Review of {movie.title}</p>}
-                        <p className="text-sm text-[#9ca3af] line-clamp-3">{r.text}</p>
-                        <p className="text-xs text-[#6b7280] mt-2">{new Date(r.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
-                      </Link>
-                    );
-                  })}
+                      </div>
+                      <p className="text-sm text-[#9ca3af] line-clamp-3">{r.text}</p>
+                      <p className="text-xs text-[#6b7280] mt-2">{new Date(r.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
+                    </div>
+                  ))}
                 </div>
               ) : (
                 <div className="text-center py-16">

@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-TheGhoul",
+  "data": {
+    "id": "archive-TheGhoul",
+    "title": "The Ghoul",
+    "description": "The Ghoul is a 1933 British Horror film starring Boris Karloff, Cedric Hardwicke, Ernest Thesiger and Ralph Richardson, whose debut film this was. The plot centres around a Professor (Karloff) who is to be buried with an Egyptian jewel in order to attain eternal life. When the jewel is stolen by his servant, the professor rises from the dead to reclaim it. The film, based on the play and novel by Dr. Frank King and Leonard J. Hines, was once considered to be a lost film since the original nitrat",
+    "year": 1933,
+    "duration": "1h 8m",
+    "durationSeconds": 4080,
+    "genres": [],
+    "rating": 4.1,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/TheGhoul",
+    "backdrop": "https://archive.org/services/img/TheGhoul",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/TheGhoul",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/TheGhoul",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-07T19:09:55.365Z"
+  },
+  "createdAt": 1778180995828,
+  "expiresAt": 1778267395828
+}

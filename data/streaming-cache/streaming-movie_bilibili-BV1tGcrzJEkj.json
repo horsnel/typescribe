@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1tGcrzJEkj",
+  "data": {
+    "id": "bilibili-BV1tGcrzJEkj",
+    "title": "华夏锋芒，神兽为刃，我即华夏最后锋芒《神兽遍地，你管这叫动物园》",
+    "description": "",
+    "year": 2026,
+    "duration": "15m",
+    "durationSeconds": 902,
+    "genres": [
+      "动画",
+      "动漫",
+      "二次元",
+      "国产动画",
+      "短剧种草计划"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i2.hdslb.com/bfs/archive/70191b65ec5ebad7b555beb60f4e2073d4576f93.jpg",
+    "backdrop": "//i2.hdslb.com/bfs/archive/70191b65ec5ebad7b555beb60f4e2073d4576f93.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1tGcrzJEkj",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1tGcrzJEkj",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1tGcrzJEkj&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-03-12T04:38:01.000Z"
+  },
+  "createdAt": 1778298120571,
+  "expiresAt": 1778384520571
+}

@@ -1,0 +1,61 @@
+{
+  "key": "streaming-movie:bilibili-BV16eFUzWEPA",
+  "data": {
+    "id": "bilibili-BV16eFUzWEPA",
+    "title": "他隐居山村却引得群雄叩首，这太好看了《原来我真是世外高人》",
+    "description": "",
+    "year": 2026,
+    "duration": "6m",
+    "durationSeconds": 402,
+    "genres": [
+      "动漫",
+      "二次元",
+      "国产动漫",
+      "短剧种草计划"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i1.hdslb.com/bfs/archive/882950b6e8f1232b1870a98a2f087e9093f7b23f.jpg",
+    "backdrop": "//i1.hdslb.com/bfs/archive/882950b6e8f1232b1870a98a2f087e9093f7b23f.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV16eFUzWEPA",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV16eFUzWEPA",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV16eFUzWEPA&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-02-10T05:00:00.000Z"
+  },
+  "createdAt": 1778298120571,
+  "expiresAt": 1778384520571
+}

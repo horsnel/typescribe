@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-Sita_Sings_the_Blues",
+  "data": {
+    "id": "archive-Sita_Sings_the_Blues",
+    "title": "Sita Sings the Blues",
+    "description": "Sita is a goddess separated from her beloved Lord and husband Rama. Nina is an animator whose husband moves to India, then dumps her by email. Three hilarious shadow puppets narrate both ancient tragedy and modern comedy in this beautifully animated interpretation of the Indian epic Ramayana. Set to the 1920's jazz vocals of Annette Hanshaw, Sita Sings the Blues earns its tagline as \"the Greatest Break-Up Story Ever Told.\"",
+    "year": 2008,
+    "duration": "1h 21m",
+    "durationSeconds": 4891,
+    "genres": [],
+    "rating": 4.6,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/Sita_Sings_the_Blues",
+    "backdrop": "https://archive.org/services/img/Sita_Sings_the_Blues",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/Sita_Sings_the_Blues",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/Sita_Sings_the_Blues",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-07T19:09:54.501Z"
+  },
+  "createdAt": 1778180995826,
+  "expiresAt": 1778267395826
+}

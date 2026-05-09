@@ -9,10 +9,10 @@
     "durationSeconds": 321,
     "genres": [
       "动漫",
-      "AFSE",
-      "动漫格斗模拟器无限",
-      "宿傩",
-      "动漫格斗模拟器"
+      "ROBLOX",
+      "anime",
+      "Roblox",
+      "咒术回战"
     ],
     "rating": 0,
     "quality": "720p",
@@ -57,6 +57,6 @@
     "isFree": true,
     "addedAt": "2026-05-05T05:53:47.000Z"
   },
-  "createdAt": 1778217027285,
-  "expiresAt": 1778303427285
+  "createdAt": 1778298120570,
+  "expiresAt": 1778384520570
 }

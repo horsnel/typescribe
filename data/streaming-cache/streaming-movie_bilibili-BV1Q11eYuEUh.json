@@ -8,11 +8,11 @@
     "duration": "2h 13m",
     "durationSeconds": 7990,
     "genres": [
-      "纯音乐",
-      "钢琴",
       "BGM",
-      "放松",
-      "轻音乐"
+      "治愈",
+      "久石让",
+      "钢琴",
+      "纯音乐"
     ],
     "rating": 0,
     "quality": "720p",
@@ -57,6 +57,6 @@
     "isFree": true,
     "addedAt": "2024-10-06T06:41:26.000Z"
   },
-  "createdAt": 1778217027286,
-  "expiresAt": 1778303427286
+  "createdAt": 1778298120572,
+  "expiresAt": 1778384520572
 }

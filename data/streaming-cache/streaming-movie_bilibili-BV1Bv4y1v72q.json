@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1Bv4y1v72q",
+  "data": {
+    "id": "bilibili-BV1Bv4y1v72q",
+    "title": "【PCS Anime/官方ED/季③】S3「灼眼的夏娜」【I&#x27;ll Believe】官方ED1曲 剧本级ASMV版 PCS Studio",
+    "description": "&lt; PCS Anime 第0136期 &gt;\n「灼眼的夏娜」S1 官方OP1【緋色の空】剧本级加长版，BV1yB4y1e7mk\n「灼眼的夏娜」S2 官方OP1【JOINT】 剧本级加长版，BV1xd4y1c7Hg\n「灼眼的夏娜」S3 官方ED1【I&#x27;ll believe】剧本级ASMV版，BV1Bv4y1v72q\n\n***本篇ASMV以歌曲结构性和节奏性为主，并非传统意义上的MAD。 Story至上，BGM辅助。因此本期脚本剧情上存在一定的跨越，望见谅***\n***本期MV的受众人群：「夏娜」剧情通关者***",
+    "year": 2023,
+    "duration": "6m",
+    "durationSeconds": 406,
+    "genres": [
+      "MAD",
+      "AMV",
+      "pcsstudio",
+      "MAD.AMV",
+      "灼眼的夏娜"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i2.hdslb.com/bfs/archive/4b9900a555cde7dabb2433634a65e32d74e1d3fe.jpg",
+    "backdrop": "//i2.hdslb.com/bfs/archive/4b9900a555cde7dabb2433634a65e32d74e1d3fe.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1Bv4y1v72q",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1Bv4y1v72q",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1Bv4y1v72q&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2023-01-12T22:00:00.000Z"
+  },
+  "createdAt": 1778298120570,
+  "expiresAt": 1778384520570
+}

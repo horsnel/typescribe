@@ -1,0 +1,61 @@
+{
+  "key": "streaming-movie:bilibili-BV19fPZepEhu",
+  "data": {
+    "id": "bilibili-BV19fPZepEhu",
+    "title": "English with Brittany（外挂英文字幕）（更新至2025/6/2）",
+    "description": "https://www.youtube.com/@EnglishwithBrittany/videos",
+    "year": 2025,
+    "duration": "11h 58m",
+    "durationSeconds": 43114,
+    "genres": [
+      "美式英语",
+      "英语",
+      "英语学习",
+      "Anime"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i2.hdslb.com/bfs/archive/52ef549e6d5486f8fdad69b86a00faf9414bab4c.png",
+    "backdrop": "//i2.hdslb.com/bfs/archive/52ef549e6d5486f8fdad69b86a00faf9414bab4c.png",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV19fPZepEhu",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV19fPZepEhu",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV19fPZepEhu&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2025-02-05T01:00:29.000Z"
+  },
+  "createdAt": 1778298120573,
+  "expiresAt": 1778384520573
+}

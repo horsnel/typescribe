@@ -1,0 +1,47 @@
+{
+  "key": "streaming-movie:archive-thecabinet00cabi",
+  "data": {
+    "id": "archive-thecabinet00cabi",
+    "title": "The Cabinet of Dr. Caligari",
+    "description": "A man relates the tale of a sleepwalker controlled by the sinister Dr. Caligari who commits murders in a village. A landmark of German Expressionist cinema.",
+    "year": 1920,
+    "duration": "1h 16m",
+    "durationSeconds": 4560,
+    "genres": [
+      "Horror",
+      "Thriller",
+      "Drama"
+    ],
+    "rating": 8.1,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/thecabinet00cabi",
+    "backdrop": "https://archive.org/services/img/thecabinet00cabi",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/thecabinet00cabi",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/thecabinet00cabi/thecabinet00cabi_512kb.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "de",
+        "label": "German (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "1920-02-26T00:00:00Z"
+  },
+  "createdAt": 1778298120567,
+  "expiresAt": 1778384520567
+}

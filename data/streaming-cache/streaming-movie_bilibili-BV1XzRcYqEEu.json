@@ -8,11 +8,11 @@
     "duration": "15m",
     "durationSeconds": 901,
     "genres": [
-      "Entertainment circle",
-      "Original",
       "Funny",
-      "Tittle-tattle",
-      "Entertainment"
+      "Original",
+      "Entertainment",
+      "Entertainment circle",
+      "Tittle-tattle"
     ],
     "rating": 0,
     "quality": "720p",
@@ -57,6 +57,6 @@
     "isFree": true,
     "addedAt": "2025-03-05T21:38:18.000Z"
   },
-  "createdAt": 1778217027285,
-  "expiresAt": 1778303427285
+  "createdAt": 1778298120570,
+  "expiresAt": 1778384520570
 }

@@ -1,0 +1,55 @@
+{
+  "key": "streaming-movie:crunchyroll-dragon-ball",
+  "data": {
+    "id": "crunchyroll-dragon-ball",
+    "title": "Dragon Ball",
+    "description": "The classic anime following Goku's journey from a young boy with a tail to the strongest fighter in the universe. A foundational anime that defined the shonen genre.",
+    "year": 1986,
+    "duration": "24m per ep",
+    "durationSeconds": 1440,
+    "genres": [
+      "Anime",
+      "Action",
+      "Adventure",
+      "Martial Arts"
+    ],
+    "rating": 8.5,
+    "quality": "720p",
+    "poster": "https://img1.ak.crunchyroll.com/i/spire2/e9e97e3eb4b0b3e9a0494f1585117c7b1643234196_full.jpg",
+    "backdrop": "https://img1.ak.crunchyroll.com/i/spire2/e9e97e3eb4b0b3e9a0494f1585117c7b1643234196_full.jpg",
+    "source": "crunchyroll",
+    "sourceUrl": "https://www.crunchyroll.com/series/GY5P48X6R/dragon-ball",
+    "sourceLicense": "Free with Ads",
+    "videoUrl": "https://www.crunchyroll.com/series/GY5P48X6R/dragon-ball",
+    "videoType": "linkout",
+    "isEmbeddable": false,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "en",
+        "label": "English (Dubbed)",
+        "isOriginal": false,
+        "isDubbed": true,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "1986-02-26T00:00:00Z"
+  },
+  "createdAt": 1778298120567,
+  "expiresAt": 1778384520567
+}

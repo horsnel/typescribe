@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-DasKabinettdesDoktorCaligariTheCabinetofDrCaligari",
+  "data": {
+    "id": "archive-DasKabinettdesDoktorCaligariTheCabinetofDrCaligari",
+    "title": "Das Kabinett des Doktor Caligari ( The Cabinet of Dr. Caligari )",
+    "description": "The Cabinet of Dr. Caligari is the first modern Horror Film and it influence a number of contemporary productions. A real classic! PLOT: A man named Francis relates a story about his best friend Alan and his fiancée Jane. Alan takes him to a fair where they meet Dr. Caligari, who exhibits a somnambulist, Cesare, that can predict the future. When Alan asks how long he has to live, Cesare says he has until dawn. The prophecy comes to pass, as Alan is murdered, and Cesare is a prime suspect. Cesare",
+    "year": 1919,
+    "duration": "51m",
+    "durationSeconds": 3060,
+    "genres": [],
+    "rating": 4.6,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/DasKabinettdesDoktorCaligariTheCabinetofDrCaligari",
+    "backdrop": "https://archive.org/services/img/DasKabinettdesDoktorCaligariTheCabinetofDrCaligari",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/DasKabinettdesDoktorCaligariTheCabinetofDrCaligari",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/DasKabinettdesDoktorCaligariTheCabinetofDrCaligari",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-07T19:09:55.365Z"
+  },
+  "createdAt": 1778180995826,
+  "expiresAt": 1778267395826
+}

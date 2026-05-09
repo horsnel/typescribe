@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-inner_sanctum",
+  "data": {
+    "id": "archive-inner_sanctum",
+    "title": "Inner Sanctum",
+    "description": "You can find more information regarding this film on its IMDb page .",
+    "year": 1948,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [],
+    "rating": 3.9,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/inner_sanctum",
+    "backdrop": "https://archive.org/services/img/inner_sanctum",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/inner_sanctum",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/inner_sanctum",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-07T19:09:55.820Z"
+  },
+  "createdAt": 1778180995828,
+  "expiresAt": 1778267395828
+}

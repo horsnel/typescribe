@@ -1,0 +1,62 @@
+{
+  "key": "streaming-movie:bilibili-BV1ooR2BwEEn",
+  "data": {
+    "id": "bilibili-BV1ooR2BwEEn",
+    "title": "Ａ−Ｓｔｕｄｉｏ 260508",
+    "description": "",
+    "year": 2026,
+    "duration": "30m",
+    "durationSeconds": 1801,
+    "genres": [
+      "日本",
+      "日本综艺",
+      "N1",
+      "JLPT",
+      "N2"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i2.hdslb.com/bfs/archive/5da428236ca725f1c606a818c458000147f93918.jpg",
+    "backdrop": "//i2.hdslb.com/bfs/archive/5da428236ca725f1c606a818c458000147f93918.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1ooR2BwEEn",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1ooR2BwEEn",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1ooR2BwEEn&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-08T17:26:16.000Z"
+  },
+  "createdAt": 1778298120572,
+  "expiresAt": 1778384520572
+}

@@ -1,0 +1,47 @@
+{
+  "key": "streaming-movie:archive-Metropolis_201507",
+  "data": {
+    "id": "archive-Metropolis_201507",
+    "title": "Metropolis",
+    "description": "In a futuristic city sharply divided between the working class and the city planners, the son of the city's mastermind falls in love with a working class prophet. Fritz Lang's sci-fi masterpiece.",
+    "year": 1927,
+    "duration": "2h 33m",
+    "durationSeconds": 9180,
+    "genres": [
+      "Sci-Fi",
+      "Drama",
+      "Fantasy"
+    ],
+    "rating": 8.3,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/Metropolis_201507",
+    "backdrop": "https://archive.org/services/img/Metropolis_201507",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/Metropolis_201507",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/Metropolis_201507/Metropolis_201507_512kb.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "de",
+        "label": "German (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "1927-01-10T00:00:00Z"
+  },
+  "createdAt": 1778298120567,
+  "expiresAt": 1778384520567
+}

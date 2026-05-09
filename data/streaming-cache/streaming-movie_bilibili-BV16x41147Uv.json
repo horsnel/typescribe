@@ -8,11 +8,11 @@
     "duration": "24m",
     "durationSeconds": 1496,
     "genres": [
-      "动画",
-      "星际特工",
       "千星之城",
       "科幻",
-      "动画短片"
+      "宇宙",
+      "动画",
+      "热血"
     ],
     "rating": 0,
     "quality": "720p",
@@ -57,6 +57,6 @@
     "isFree": true,
     "addedAt": "2017-09-11T09:31:15.000Z"
   },
-  "createdAt": 1778217027285,
-  "expiresAt": 1778303427285
+  "createdAt": 1778298120570,
+  "expiresAt": 1778384520570
 }

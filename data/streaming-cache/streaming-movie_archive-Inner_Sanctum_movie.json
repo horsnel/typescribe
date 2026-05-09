@@ -1,0 +1,42 @@
+{
+  "key": "streaming-movie:archive-Inner_Sanctum_movie",
+  "data": {
+    "id": "archive-Inner_Sanctum_movie",
+    "title": "Inner Sanctum",
+    "description": "An atmospheric film starring Charles Russell and Mary Beth Hughes. Fritz Leiber, Sr. (father of the famous author) has a cameo as a seer or psychic. \"You're very pretty ... when those lips aren't moving.\" The IMDB entry is here. This print seems to be complete and may be of higher quality than the one already in the Archive. You can load the mpeg2 file into DVDAuthorGUI (a free program) and create a DVD to watch on your television.",
+    "year": 1948,
+    "duration": "1h 2m",
+    "durationSeconds": 3720,
+    "genres": [],
+    "rating": 3.9,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/Inner_Sanctum_movie",
+    "backdrop": "https://archive.org/services/img/Inner_Sanctum_movie",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/Inner_Sanctum_movie",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/Inner_Sanctum_movie",
+    "videoType": "direct",
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-07T19:09:55.820Z"
+  },
+  "createdAt": 1778180995828,
+  "expiresAt": 1778267395828
+}

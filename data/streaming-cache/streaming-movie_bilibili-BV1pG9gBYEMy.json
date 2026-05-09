@@ -1,0 +1,59 @@
+{
+  "key": "streaming-movie:bilibili-BV1pG9gBYEMy",
+  "data": {
+    "id": "bilibili-BV1pG9gBYEMy",
+    "title": "Teogonia.S01 Episode 9 hindi anime cartoon",
+    "description": "Teogonia.S01 Episode 9 hindi",
+    "year": 2026,
+    "duration": "23m",
+    "durationSeconds": 1421,
+    "genres": [
+      "银魂",
+      "Anime"
+    ],
+    "rating": 0,
+    "quality": "720p",
+    "poster": "//i1.hdslb.com/bfs/archive/2a0a56696655ddfac08c7d722e7a136317d35c74.jpg",
+    "backdrop": "//i1.hdslb.com/bfs/archive/2a0a56696655ddfac08c7d722e7a136317d35c74.jpg",
+    "source": "bilibili",
+    "sourceUrl": "https://www.bilibili.com/video/BV1pG9gBYEMy",
+    "sourceLicense": "Free to Watch",
+    "videoUrl": "https://www.bilibili.com/video/BV1pG9gBYEMy",
+    "videoType": "bilibili",
+    "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1pG9gBYEMy&autoplay=0&high_quality=1",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "zh",
+        "label": "Chinese (Subtitled)",
+        "isOriginal": false,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "zh",
+        "label": "Chinese",
+        "isDefault": true
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": false
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-04-03T16:01:28.000Z"
+  },
+  "createdAt": 1778298120570,
+  "expiresAt": 1778384520570
+}

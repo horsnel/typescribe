@@ -1,0 +1,55 @@
+{
+  "key": "streaming-movie:crunchyroll-my-hero-academia",
+  "data": {
+    "id": "crunchyroll-my-hero-academia",
+    "title": "My Hero Academia",
+    "description": "In a world where most people have super powers called \"Quirks\", a boy born without them dreams of becoming a superhero. He is scouted by the world's greatest hero who shares his power with him.",
+    "year": 2016,
+    "duration": "24m per ep",
+    "durationSeconds": 1440,
+    "genres": [
+      "Anime",
+      "Action",
+      "Superhero",
+      "School"
+    ],
+    "rating": 8.4,
+    "quality": "1080p",
+    "poster": "https://img1.ak.crunchyroll.com/i/spire3/55c5c5e2c4c0f26e5e4a5a4a5a5a5a5a5a5a5a5a_full.jpg",
+    "backdrop": "https://img1.ak.crunchyroll.com/i/spire3/55c5c5e2c4c0f26e5e4a5a4a5a5a5a5a5a5a5a5a_full.jpg",
+    "source": "crunchyroll",
+    "sourceUrl": "https://www.crunchyroll.com/series/GY5P48XEY/my-hero-academia",
+    "sourceLicense": "Free with Ads",
+    "videoUrl": "https://www.crunchyroll.com/series/GY5P48XEY/my-hero-academia",
+    "videoType": "linkout",
+    "isEmbeddable": false,
+    "languages": [
+      {
+        "code": "ja",
+        "label": "Japanese (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      },
+      {
+        "code": "en",
+        "label": "English (Dubbed)",
+        "isOriginal": false,
+        "isDubbed": true,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2016-04-03T00:00:00Z"
+  },
+  "createdAt": 1778298120567,
+  "expiresAt": 1778384520567
+}
