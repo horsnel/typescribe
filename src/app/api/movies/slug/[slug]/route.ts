@@ -205,6 +205,28 @@ export async function GET(
       }
     }
 
+    // ── Step 6: Free-tier fallback — search AniList, Jikan, TVMaze ──
+    if (titlePart.length >= 2) {
+      console.log(`[API /movies/slug] Trying free-tier search for: "${titlePart}"`);
+      try {
+        const { freeTierSearch } = await import('@/lib/pipeline/free-tier');
+        const results = await freeTierSearch(titlePart);
+        if (results && results.length > 0) {
+          // Find best slug match
+          const match = results.find(m => m.slug === trimmedSlug) || results[0];
+          setCachedMovie(slugCacheKey, match, ['AniList', 'Jikan', 'TVMaze'], 20);
+          return NextResponse.json({
+            movie: match,
+            sources: ['AniList', 'Jikan', 'TVMaze'],
+            completeness: 20,
+            enriched: false,
+          });
+        }
+      } catch (err) {
+        console.warn(`[API /movies/slug] Free-tier search failed for "${titlePart}"`, err);
+      }
+    }
+
     return NextResponse.json(
       { error: `Movie with slug "${trimmedSlug}" not found.` },
       { status: 404 },
