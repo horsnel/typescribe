@@ -57,24 +57,24 @@ export default function HomePage() {
 
       {/* Welcome back banner for returning users */}
       {isReturning && (
-        <section className="py-6 bg-gradient-to-r from-[#8B5CF6]/5 via-[#0a0a0f] to-purple-500/5 border-b border-[#1e1e28]">
+        <section className="py-6 bg-gradient-to-r from-[#D4A853]/5 via-[#0a0a0f] to-[#D4A853]/5 border-b border-[#1e1e28]">
           <div className="max-w-7xl mx-auto px-6 lg:px-12">
             <div className="flex items-center gap-3">
-              <Sparkles className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
+              <Sparkles className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
               <h2 className="text-lg font-semibold text-white">Welcome back, {userName}!</h2>
             </div>
             <div className="flex flex-wrap gap-3 mt-3">
               <Link href="/dashboard/watchlist" className="flex items-center gap-2 px-3 py-2 bg-[#0c0c10] border border-[#1e1e28] rounded-lg text-sm text-[#9ca3af] hover:text-white hover:border-[#3a3a45] transition-colors">
-                <Clock className="w-4 h-4 text-[#8B5CF6]" strokeWidth={1.5} /> Continue Watching
+                <Clock className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} /> Continue Watching
               </Link>
               <Link href="/dashboard/communities" className="flex items-center gap-2 px-3 py-2 bg-[#0c0c10] border border-[#1e1e28] rounded-lg text-sm text-[#9ca3af] hover:text-white hover:border-[#3a3a45] transition-colors">
-                <Users className="w-4 h-4 text-purple-400" strokeWidth={1.5} /> Your Communities
+                <Users className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} /> Your Communities
               </Link>
               <Link href="/browse" className="flex items-center gap-2 px-3 py-2 bg-[#0c0c10] border border-[#1e1e28] rounded-lg text-sm text-[#9ca3af] hover:text-white hover:border-[#3a3a45] transition-colors">
-                <Film className="w-4 h-4 text-violet-400" strokeWidth={1.5} /> Discover New
+                <Film className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} /> Discover New
               </Link>
               <Link href="/stream" className="flex items-center gap-2 px-3 py-2 bg-[#0c0c10] border border-[#1e1e28] rounded-lg text-sm text-[#9ca3af] hover:text-white hover:border-[#3a3a45] transition-colors">
-                <MonitorPlay className="w-4 h-4 text-[#8B5CF6]" strokeWidth={1.5} /> Stream Free
+                <MonitorPlay className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} /> Stream Free
               </Link>
             </div>
           </div>

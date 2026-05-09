@@ -13,8 +13,8 @@ export default function NotFound() {
       <div className="max-w-2xl mx-auto text-center py-16">
         {/* 404 Animation */}
         <div className="mb-8">
-          <div className="text-8xl sm:text-9xl font-extrabold text-[#8B5CF6]/20 mb-4">404</div>
-          <Film className="w-16 h-16 text-[#8B5CF6] mx-auto mb-4" strokeWidth={1.5} />
+          <div className="text-8xl sm:text-9xl font-extrabold text-[#D4A853]/20 mb-4">404</div>
+          <Film className="w-16 h-16 text-[#D4A853] mx-auto mb-4" strokeWidth={1.5} />
         </div>
 
         <h1 className="text-2xl sm:text-3xl font-bold text-white mb-3">Page Not Found</h1>
@@ -27,7 +27,7 @@ export default function NotFound() {
 
         <div className="flex items-center justify-center gap-4 flex-wrap mb-12">
           <Link href="/">
-            <Button className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white gap-2">
+            <Button className="bg-[#D4A853] hover:bg-[#B8922F] text-white gap-2">
               <Home className="w-4 h-4" strokeWidth={1.5} /> Go Home
             </Button>
           </Link>

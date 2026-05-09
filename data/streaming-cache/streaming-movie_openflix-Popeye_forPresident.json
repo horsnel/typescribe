@@ -1,0 +1,43 @@
+{
+  "key": "streaming-movie:openflix-Popeye_forPresident",
+  "data": {
+    "id": "openflix-Popeye_forPresident",
+    "title": "Popeye for President",
+    "description": "Popeye and Bluto are both running for president. They are tied with exactly the same number of votes, but Miss Olive Oyl has yet to cast her ballot. Which candidate will be able to impress her the most and earn her precious vote?",
+    "year": 1956,
+    "duration": "6h 10m",
+    "durationSeconds": 22200,
+    "genres": [],
+    "rating": 4.9,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/Popeye_forPresident",
+    "backdrop": "https://archive.org/services/img/Popeye_forPresident",
+    "source": "openflix",
+    "sourceUrl": "https://archive.org/details/Popeye_forPresident",
+    "sourceLicense": "Public Domain / Open Source",
+    "videoUrl": "https://archive.org/download/Popeye_forPresident",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:11.718Z"
+  },
+  "createdAt": 1778337992633,
+  "expiresAt": 1778424392633
+}

@@ -12,7 +12,7 @@ export default function DisclaimerPage() {
           <span className="text-[#9ca3af]">Disclaimer</span>
         </nav>
         <div className="flex items-center gap-3 mb-2">
-          <AlertTriangle className="w-7 h-7 text-[#8B5CF6]" strokeWidth={1.5} />
+          <AlertTriangle className="w-7 h-7 text-[#D4A853]" strokeWidth={1.5} />
           <h1 className="text-3xl lg:text-4xl font-extrabold text-white">Disclaimer</h1>
         </div>
         <p className="text-sm text-[#6b7280] mb-8">Last updated: April 22, 2026</p>
@@ -55,7 +55,7 @@ export default function DisclaimerPage() {
 
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
             <h2 className="text-lg font-semibold text-white mb-3">8. Contact Us</h2>
-            <p className="text-sm text-[#9ca3af] leading-relaxed">If you have questions about this disclaimer, please reach out at <Link href="/contact" className="text-[#8B5CF6] hover:underline">our contact page</Link> or email legal@typescribe.com.</p>
+            <p className="text-sm text-[#9ca3af] leading-relaxed">If you have questions about this disclaimer, please reach out at <Link href="/contact" className="text-[#D4A853] hover:underline">our contact page</Link> or email legal@typescribe.com.</p>
           </div>
         </div>
 

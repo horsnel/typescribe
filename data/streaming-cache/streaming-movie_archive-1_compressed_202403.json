@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-1.compressed_202403",
+  "data": {
+    "id": "archive-1.compressed_202403",
+    "title": "日本アニメ(ーター)見本市 #１ 龍の歯医者",
+    "description": "「日本アニメ(ーター)見本市」 作品本編の一覧。 # 公開日 タイトル 監督 脚本 備考 1stシーズン 1 2014年 11月7日 龍の歯医者 舞城王太郎 舞城王太郎 アニメーション監督： 鶴巻和哉 キャラクターデザイン： 小坂泰之 アニメーションキャラクターデザイン・作画監督： 亀田祥倫 音楽： 小山嘉嵩 2 2014年 11月14日 HILL CLIMB GIRL 谷東 - 3Dディレクター： 宮城健 キャラクターデザイン： 米山舞 3 2014年 11月21日 ME!ME!ME! 吉崎響 （新人） - 音楽：「ME!ME!ME! feat.  daoko 」  TeddyLoid キャラクターデザイン・作画監督： 井関修一 4 2014年 11月28日 Carnage 本間晃 田中隼人 原案・画コンテ・キャラクターデザイン：本間晃 音楽： 星野純一 5 2014年 12月5日 安彦良和 ・ 板野一郎 原撮集 - - レイアウト・原画・作画修正： 安彦良和 、 板野一郎 構成・編集： 庵野秀明 監修： 氷川竜介 この作品のみ、他の1stシーズン作品より早い2015年3月4日に公開",
+    "year": 0,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 0,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/1.compressed_202403",
+    "backdrop": "https://archive.org/services/img/1.compressed_202403",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/1.compressed_202403",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/1.compressed_202403/JAPAN_ANIMATORS_EXHIBITION_%E3%82%BF%E3%82%A4%E3%83%88%E3%83%AB2.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:22.059Z"
+  },
+  "createdAt": 1778337992647,
+  "expiresAt": 1778424392648
+}

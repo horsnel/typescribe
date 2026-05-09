@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-anpanmanepisodes",
+  "data": {
+    "id": "archive-anpanmanepisodes",
+    "title": "anpanman episodes",
+    "description": "Several episodes of the Anpanman anime, mostly ripped from dvds and vhs",
+    "year": 0,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 4.6,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/anpanmanepisodes",
+    "backdrop": "https://archive.org/services/img/anpanmanepisodes",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/anpanmanepisodes",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/anpanmanepisodes/0082-b%20Anpanman%20and%20Baby%20spray.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:41:59.372Z"
+  },
+  "createdAt": 1778337992635,
+  "expiresAt": 1778424392635
+}

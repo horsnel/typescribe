@@ -82,10 +82,10 @@ export default function TasteMatch({ movie }: TasteMatchProps) {
       <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5">
         <div className="flex items-center gap-2 mb-3">
           <span className="text-sm font-semibold text-white">Taste Match</span>
-          <span className="text-[10px] bg-purple-500/10 text-purple-400 px-2 py-0.5 rounded-full border border-purple-500/20">NEW</span>
+          <span className="text-[10px] bg-[#D4A853]/10 text-[#D4A853] px-2 py-0.5 rounded-full border border-[#D4A853]/20">NEW</span>
         </div>
         <p className="text-xs text-[#6b7280]">Set your favorite genres in settings to see your taste match.</p>
-        <a href="/dashboard/settings" className="text-xs text-purple-400 hover:underline mt-1 inline-block">Update Preferences →</a>
+        <a href="/dashboard/settings" className="text-xs text-[#D4A853] hover:underline mt-1 inline-block">Update Preferences →</a>
       </div>
     );
   }
@@ -104,7 +104,7 @@ export default function TasteMatch({ movie }: TasteMatchProps) {
     <div className={`bg-[#0c0c10] border ${borderColor} rounded-xl p-5 ${bgColor}`}>
       <div className="flex items-center gap-2 mb-3">
         <span className="text-sm font-semibold text-white">Taste Match</span>
-        <span className="text-[10px] bg-purple-500/10 text-purple-400 px-2 py-0.5 rounded-full border border-purple-500/20">NEW</span>
+        <span className="text-[10px] bg-[#D4A853]/10 text-[#D4A853] px-2 py-0.5 rounded-full border border-[#D4A853]/20">NEW</span>
       </div>
       <div className="flex items-center gap-4">
         {/* Circular progress */}
@@ -139,7 +139,7 @@ export default function TasteMatch({ movie }: TasteMatchProps) {
                   key={g.id}
                   className={`text-[10px] px-2 py-0.5 rounded-full border ${
                     isMatch
-                      ? 'border-purple-500/30 text-purple-400 bg-purple-500/10'
+                      ? 'border-[#D4A853]/30 text-[#D4A853] bg-[#D4A853]/10'
                       : 'border-[#1e1e28] text-[#6b7280] bg-[#050507]'
                   }`}
                 >

@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-sex-violence-with-machspeed-2.compressed",
+  "data": {
+    "id": "archive-sex-violence-with-machspeed-2.compressed",
+    "title": "日本アニメ(ーター)見本市 ＃14 Sex & VIOLENCE With MACHSPEED",
+    "description": "Japanese Animation",
+    "year": 0,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 0,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/sex-violence-with-machspeed-2.compressed",
+    "backdrop": "https://archive.org/services/img/sex-violence-with-machspeed-2.compressed",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/sex-violence-with-machspeed-2.compressed",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/sex-violence-with-machspeed-2.compressed/Sex%26VIOLENCE%20with%20MACHSPEED%20(2).compressed.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:22.059Z"
+  },
+  "createdAt": 1778337992647,
+  "expiresAt": 1778424392647
+}

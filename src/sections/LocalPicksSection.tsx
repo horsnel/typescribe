@@ -142,7 +142,7 @@ export default function LocalPicksSection() {
                 {detecting ? 'Detecting your location...' : location ? (
                   <span className="flex items-center gap-2">
                     Local Picks from
-                    <span className="inline-flex items-center justify-center bg-[#8B5CF6]/10 text-[#8B5CF6] text-sm font-semibold px-3 py-1 rounded-full border border-[#8B5CF6]/20">
+                    <span className="inline-flex items-center justify-center bg-[#D4A853]/10 text-[#D4A853] text-sm font-semibold px-3 py-1 rounded-full border border-[#D4A853]/20">
                       {location.countryName}
                     </span>
                   </span>
@@ -157,7 +157,7 @@ export default function LocalPicksSection() {
                   {location.reason} — based on {location.countryName}
                   <button
                     onClick={() => setShowCountryPicker(!showCountryPicker)}
-                    className="ml-2 text-[#8B5CF6] hover:underline inline-flex items-center gap-1"
+                    className="ml-2 text-[#D4A853] hover:underline inline-flex items-center gap-1"
                   >
                     <Globe className="w-3.5 h-3.5" strokeWidth={1.5} /> Change
                   </button>
@@ -165,14 +165,14 @@ export default function LocalPicksSection() {
               ) : (
                 <>
                   Movies trending in your area
-                  <button onClick={() => setShowCountryPicker(!showCountryPicker)} className="ml-2 text-[#8B5CF6] hover:underline inline-flex items-center gap-1">
+                  <button onClick={() => setShowCountryPicker(!showCountryPicker)} className="ml-2 text-[#D4A853] hover:underline inline-flex items-center gap-1">
                     <Globe className="w-3.5 h-3.5" strokeWidth={1.5} /> Pick region
                   </button>
                 </>
               )}
             </p>
           </div>
-          <Link href="/browse" className="text-sm text-[#8B5CF6] hover:underline flex items-center gap-1">
+          <Link href="/browse" className="text-sm text-[#D4A853] hover:underline flex items-center gap-1">
             Browse All <ChevronRight className="w-4 h-4" strokeWidth={1.5} />
           </Link>
         </div>
@@ -187,7 +187,7 @@ export default function LocalPicksSection() {
                   key={code}
                   onClick={() => handleCountryChange(code)}
                   className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
-                    location?.countryCode === code ? 'bg-[#8B5CF6] text-white' : 'bg-[#050507] border border-white/[0.06] text-[#9ca3af] hover:text-white hover:border-[#8B5CF6]/30'
+                    location?.countryCode === code ? 'bg-[#D4A853] text-white' : 'bg-[#050507] border border-white/[0.06] text-[#9ca3af] hover:text-white hover:border-[#D4A853]/30'
                   }`}
                 >
                   {COUNTRY_NAMES[code]}
@@ -200,7 +200,7 @@ export default function LocalPicksSection() {
         {/* Movie Grid */}
         {loadingMovies ? (
           <div className="flex items-center justify-center py-16">
-            <Loader2 className="w-8 h-8 animate-spin text-[#8B5CF6]" strokeWidth={1.5} />
+            <Loader2 className="w-8 h-8 animate-spin text-[#D4A853]" strokeWidth={1.5} />
             <span className="ml-3 text-[#9ca3af]">Loading local picks...</span>
           </div>
         ) : (

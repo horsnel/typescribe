@@ -1,0 +1,43 @@
+{
+  "key": "streaming-movie:openflix-Nosferatu_most_complete_version_93_mins.",
+  "data": {
+    "id": "openflix-Nosferatu_most_complete_version_93_mins.",
+    "title": "Nosferatu, eine Symphonie des Grauens (A Symphony of Horror)",
+    "description": "This is the most complete version available (just over 93 minutes) as this movie was demanded by Bram Stokers widow to be destroyed after winning 2 lawsuits in the mid & late 1920's. Tinted scenes and beautiful quality. I have seen the current version here at archive.org and decided to post this one as it is of much better video quality, although the music is a nit hokey. Enjoy this classic horror with the very creepy Max Schrek as the (IMHO) best vampire ever to waltz across the silver screen. ",
+    "year": 1922,
+    "duration": "1h 33m",
+    "durationSeconds": 5580,
+    "genres": [],
+    "rating": 3.5,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/Nosferatu_most_complete_version_93_mins.",
+    "backdrop": "https://archive.org/services/img/Nosferatu_most_complete_version_93_mins.",
+    "source": "openflix",
+    "sourceUrl": "https://archive.org/details/Nosferatu_most_complete_version_93_mins.",
+    "sourceLicense": "Public Domain / Open Source",
+    "videoUrl": "https://archive.org/download/Nosferatu_most_complete_version_93_mins.",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:42.228Z"
+  },
+  "createdAt": 1778337992646,
+  "expiresAt": 1778424392646
+}

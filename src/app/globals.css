@@ -44,73 +44,91 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
+/* ═══════════════════════════════════════════════════════════
+   Gold Standard Palette — 60-30-10 Rule
+   60% Deep Black (backgrounds)  → #050507
+   30% Charcoal (containers)     → #111118 / #0c0c10
+   10% Amber Gold (accents)      → #D4A853
+   System Blue (back navigation) → #3B82F6
+   ═══════════════════════════════════════════════════════════ */
+
 :root {
   --radius: 0.625rem;
+  /* 60% — Deep Black canvas */
   --background: #050507;
   --foreground: #f1f1f4;
+  /* 30% — Charcoal / Matte surfaces */
   --card: #0c0c10;
   --card-foreground: #f1f1f4;
   --popover: #0c0c10;
   --popover-foreground: #f1f1f4;
-  --primary: #8B5CF6;
-  --primary-foreground: #ffffff;
+  /* 10% — Amber Gold accent */
+  --primary: #D4A853;
+  --primary-foreground: #050507;
   --secondary: #111118;
   --secondary-foreground: #f1f1f4;
   --muted: #111118;
   --muted-foreground: #9ca3af;
-  --accent: #111118;
+  --accent: #1a1a22;
   --accent-foreground: #f1f1f4;
   --destructive: #ef4444;
   --border: #1e1e28;
   --input: #1e1e28;
-  --ring: #8B5CF6;
-  --chart-1: #8B5CF6;
-  --chart-2: #8B5CF6;
+  --ring: #D4A853;
+  /* Charts — Gold family */
+  --chart-1: #D4A853;
+  --chart-2: #E8C97A;
   --chart-3: #22c55e;
   --chart-4: #3b82f6;
-  --chart-5: #a855f7;
+  --chart-5: #B8922F;
+  /* Sidebar — Gold accents on charcoal */
   --sidebar: #050507;
   --sidebar-foreground: #f1f1f4;
-  --sidebar-primary: #8B5CF6;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #111118;
+  --sidebar-primary: #D4A853;
+  --sidebar-primary-foreground: #050507;
+  --sidebar-accent: #1a1a22;
   --sidebar-accent-foreground: #f1f1f4;
   --sidebar-border: #1e1e28;
-  --sidebar-ring: #8B5CF6;
+  --sidebar-ring: #D4A853;
 }
 
 .dark {
+  /* 60% — Deep Black canvas */
   --background: #050507;
   --foreground: #f1f1f4;
+  /* 30% — Charcoal / Matte surfaces */
   --card: #0c0c10;
   --card-foreground: #f1f1f4;
   --popover: #0c0c10;
   --popover-foreground: #f1f1f4;
-  --primary: #8B5CF6;
-  --primary-foreground: #ffffff;
+  /* 10% — Amber Gold accent */
+  --primary: #D4A853;
+  --primary-foreground: #050507;
   --secondary: #111118;
   --secondary-foreground: #f1f1f4;
   --muted: #111118;
   --muted-foreground: #9ca3af;
-  --accent: #111118;
+  --accent: #1a1a22;
   --accent-foreground: #f1f1f4;
   --destructive: #ef4444;
   --border: #1e1e28;
   --input: #1e1e28;
-  --ring: #8B5CF6;
-  --chart-1: #8B5CF6;
-  --chart-2: #8B5CF6;
+  --ring: #D4A853;
+  /* Charts — Gold family */
+  --chart-1: #D4A853;
+  --chart-2: #E8C97A;
   --chart-3: #22c55e;
   --chart-4: #3b82f6;
-  --chart-5: #a855f7;
+  --chart-5: #B8922F;
+  /* Sidebar — Gold accents on charcoal */
   --sidebar: #050507;
   --sidebar-foreground: #f1f1f4;
-  --sidebar-primary: #8B5CF6;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #111118;
+  --sidebar-primary: #D4A853;
+  --sidebar-primary-foreground: #050507;
+  --sidebar-accent: #1a1a22;
   --sidebar-accent-foreground: #f1f1f4;
   --sidebar-border: #1e1e28;
-  --sidebar-ring: #8B5CF6;
+  --sidebar-ring: #D4A853;
 }
 
 @layer base {
@@ -187,7 +205,7 @@
 
 /* Enhanced Focus Indicators */
 *:focus-visible {
-  outline: 2px solid #8B5CF6 !important;
+  outline: 2px solid #D4A853 !important;
   outline-offset: 2px;
   border-radius: 4px;
 }

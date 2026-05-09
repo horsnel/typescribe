@@ -1,0 +1,43 @@
+{
+  "key": "streaming-movie:openflix-uncle-bane-hanime-v1.7",
+  "data": {
+    "id": "openflix-uncle-bane-hanime-v1.7",
+    "title": "Uncle Bane H-Anime Dump v1.7 (Archive.org hates .ogm files edition)",
+    "description": "v1.7 = third time is the charm.... right? but seriously the html5 uploader hates ogm files for some reason thus it broke my upload 2 times already. I have noticed most people aren't aware they also have to download the previous (broken) uploads in order to get the full dump.... https://archive.org/details/uncle-bane-hanime-dump-v1 https://archive.org/details/uncle-bane-hanime-dump-v1.5 Original description of v1: A dump of most original file releases of what most aggregator anime sites use to pu",
+    "year": 0,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [],
+    "rating": 5,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/uncle-bane-hanime-v1.7",
+    "backdrop": "https://archive.org/services/img/uncle-bane-hanime-v1.7",
+    "source": "openflix",
+    "sourceUrl": "https://archive.org/details/uncle-bane-hanime-v1.7",
+    "sourceLicense": "Public Domain / Open Source",
+    "videoUrl": "https://archive.org/download/uncle-bane-hanime-v1.7/Bible%20Black/4.%20Bible%20Black%20Only%20Version/S1%20-%20Imari%20Rape%20Scene.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:20.944Z"
+  },
+  "createdAt": 1778337992633,
+  "expiresAt": 1778424392633
+}

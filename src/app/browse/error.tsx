@@ -6,7 +6,7 @@ export default function BrowseError({ reset }: { error: Error; reset: () => void
       <div className="text-center">
         <h2 className="text-xl font-bold text-white mb-2">Failed to load movies</h2>
         <p className="text-sm text-[#6b7280] mb-6">Our data sources might be temporarily unavailable.</p>
-        <button onClick={reset} className="px-5 py-2.5 rounded-lg bg-[#8B5CF6] text-white font-medium hover:bg-[#7C3AED] transition-colors">
+        <button onClick={reset} className="px-5 py-2.5 rounded-lg bg-[#D4A853] text-white font-medium hover:bg-[#B8922F] transition-colors">
           Try again
         </button>
       </div>

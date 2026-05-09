@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-reboot_20220413",
+  "data": {
+    "id": "archive-reboot_20220413",
+    "title": "日本アニメ(ーター)見本市 ＃EX 機動警察パトレイバー REBOOT",
+    "description": "Japanese Animation",
+    "year": 0,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 0,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/reboot_20220413",
+    "backdrop": "https://archive.org/services/img/reboot_20220413",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/reboot_20220413",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/reboot_20220413/%E3%82%BF%E3%82%A4%E3%83%88%E3%83%AB_1%20(3).compressed.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:22.060Z"
+  },
+  "createdAt": 1778337992648,
+  "expiresAt": 1778424392648
+}

@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-bb_snow_white",
+  "data": {
+    "id": "archive-bb_snow_white",
+    "title": "Betty Boop: Snow White",
+    "description": "Memorable rendition of \"St James Infirmary\" by Cab Calloway",
+    "year": 1933,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 4.5,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/bb_snow_white",
+    "backdrop": "https://archive.org/services/img/bb_snow_white",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/bb_snow_white",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/bb_snow_white",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:09.868Z"
+  },
+  "createdAt": 1778337992637,
+  "expiresAt": 1778424392637
+}

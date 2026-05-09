@@ -20,8 +20,8 @@ interface LeaderboardWidgetProps {
 }
 
 const TIER_STYLES: Record<string, { bg: string; text: string; border: string }> = {
-  Platinum: { bg: 'from-purple-500/15 to-purple-500/5', text: 'text-purple-400', border: 'border-purple-500/30' },
-  Gold: { bg: 'from-[#8B5CF6]/15 to-[#8B5CF6]/5', text: 'text-[#8B5CF6]', border: 'border-[#8B5CF6]/30' },
+  Platinum: { bg: 'from-[#D4A853]/15 to-[#D4A853]/5', text: 'text-[#D4A853]', border: 'border-[#D4A853]/30' },
+  Gold: { bg: 'from-[#D4A853]/15 to-[#D4A853]/5', text: 'text-[#D4A853]', border: 'border-[#D4A853]/30' },
   Silver: { bg: 'from-gray-400/15 to-gray-400/5', text: 'text-gray-300', border: 'border-gray-400/30' },
   Bronze: { bg: 'from-orange-400/15 to-orange-400/5', text: 'text-orange-400', border: 'border-orange-400/30' },
   Newcomer: { bg: 'from-[#1e1e28] to-[#0c0c10]', text: 'text-[#6b7280]', border: 'border-[#1e1e28]' },
@@ -31,8 +31,8 @@ const TIER_STYLES: Record<string, { bg: string; text: string; border: string }> 
 function GoldMedal({ className = 'w-6 h-6' }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="12" cy="12" r="10" fill="#8B5CF6" stroke="#7C3AED" strokeWidth="1.5" />
-      <circle cx="12" cy="12" r="6.5" fill="#8B5CF6" stroke="#8B5CF6" strokeWidth="0.5" />
+      <circle cx="12" cy="12" r="10" fill="#D4A853" stroke="#B8922F" strokeWidth="1.5" />
+      <circle cx="12" cy="12" r="6.5" fill="#D4A853" stroke="#D4A853" strokeWidth="0.5" />
       <path d="M12 7L13.5 10.5L17 11L14.5 13.5L15.25 17L12 15.25L8.75 17L9.5 13.5L7 11L10.5 10.5L12 7Z" fill="#fff8dc" />
     </svg>
   );
@@ -77,7 +77,7 @@ export default function LeaderboardWidget({ communityId, communityName }: Leader
         <button
           onClick={() => setActiveView('leaderboard')}
           className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium transition-colors min-h-[44px] ${
-            activeView === 'leaderboard' ? 'bg-[#8B5CF6] text-white' : 'text-[#6b7280] hover:text-white'
+            activeView === 'leaderboard' ? 'bg-[#D4A853] text-white' : 'text-[#6b7280] hover:text-white'
           }`}
         >
           <Trophy className="w-4 h-4" strokeWidth={1.5} /> Leaderboard
@@ -85,7 +85,7 @@ export default function LeaderboardWidget({ communityId, communityName }: Leader
         <button
           onClick={() => setActiveView('stats')}
           className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium transition-colors min-h-[44px] ${
-            activeView === 'stats' ? 'bg-[#8B5CF6] text-white' : 'text-[#6b7280] hover:text-white'
+            activeView === 'stats' ? 'bg-[#D4A853] text-white' : 'text-[#6b7280] hover:text-white'
           }`}
         >
           <BarChart3 className="w-4 h-4" strokeWidth={1.5} /> Stats
@@ -98,8 +98,8 @@ export default function LeaderboardWidget({ communityId, communityName }: Leader
           {/* Header */}
           <div className="p-5 border-b border-[#1e1e28]/50">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 flex items-center justify-center">
-                <Trophy className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
+              <div className="w-10 h-10 rounded-lg bg-[#D4A853]/10 border border-[#D4A853]/20 flex items-center justify-center">
+                <Trophy className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
               </div>
               <div>
                 <h3 className="text-lg font-bold text-white">Top Contributors</h3>
@@ -110,7 +110,7 @@ export default function LeaderboardWidget({ communityId, communityName }: Leader
 
           {/* Top 3 podium */}
           {leaderboard.length >= 3 && (
-            <div className="p-5 bg-gradient-to-b from-[#8B5CF6]/5 to-transparent">
+            <div className="p-5 bg-gradient-to-b from-[#D4A853]/5 to-transparent">
               <div className="grid grid-cols-3 gap-3">
                 {/* 2nd place */}
                 <div className="text-center pt-6">
@@ -125,14 +125,14 @@ export default function LeaderboardWidget({ communityId, communityName }: Leader
                 </div>
                 {/* 1st place */}
                 <div className="text-center">
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#7C3AED] mx-auto mb-2 flex items-center justify-center text-white text-base font-bold overflow-hidden border-2 border-[#8B5CF6]/50 shadow-lg shadow-[#8B5CF6]/20">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#D4A853] to-[#B8922F] mx-auto mb-2 flex items-center justify-center text-white text-base font-bold overflow-hidden border-2 border-[#D4A853]/50 shadow-lg shadow-[#D4A853]/20">
                     {leaderboard[0].avatar ? (
                       <img src={leaderboard[0].avatar} alt="" className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
                     ) : leaderboard[0].userName[0]}
                   </div>
                   <GoldMedal className="w-8 h-8" />
-                  <p className="text-sm font-bold text-[#8B5CF6] mt-1 truncate">{leaderboard[0].userName}</p>
-                  <p className="text-[10px] text-[#8B5CF6]">{leaderboard[0].totalScore} pts</p>
+                  <p className="text-sm font-bold text-[#D4A853] mt-1 truncate">{leaderboard[0].userName}</p>
+                  <p className="text-[10px] text-[#D4A853]">{leaderboard[0].totalScore} pts</p>
                   <span className={`inline-block text-[9px] px-2 py-0.5 rounded-full border mt-1 ${TIER_STYLES[leaderboard[0].tier].border} ${TIER_STYLES[leaderboard[0].tier].text} bg-gradient-to-r ${TIER_STYLES[leaderboard[0].tier].bg}`}>
                     {leaderboard[0].tier}
                   </span>
@@ -171,7 +171,7 @@ export default function LeaderboardWidget({ communityId, communityName }: Leader
                   </div>
 
                   {/* Avatar */}
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#7C3AED] flex items-center justify-center text-white text-[10px] font-bold overflow-hidden flex-shrink-0">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#D4A853] to-[#B8922F] flex items-center justify-center text-white text-[10px] font-bold overflow-hidden flex-shrink-0">
                     {entry.avatar ? (
                       <img src={entry.avatar} alt="" className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
                     ) : entry.userName[0]?.toUpperCase() || '?'}
@@ -180,7 +180,7 @@ export default function LeaderboardWidget({ communityId, communityName }: Leader
                   {/* Name & stats */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <Link href={`/profile/${entry.userId}`} className="text-sm font-semibold text-white hover:text-[#8B5CF6] transition-colors truncate">
+                      <Link href={`/profile/${entry.userId}`} className="text-sm font-semibold text-white hover:text-[#D4A853] transition-colors truncate">
                         {entry.userName}
                       </Link>
                       <span className={`text-[9px] px-1.5 py-0.5 rounded-full border ${style.border} ${style.text} bg-gradient-to-r ${style.bg}`}>
@@ -225,7 +225,7 @@ export default function LeaderboardWidget({ communityId, communityName }: Leader
           <div className="p-5">
             <div className="grid grid-cols-2 gap-3 mb-5">
               <div className="bg-[#050507] border border-[#1e1e28] rounded-lg p-4 text-center">
-                <Users className="w-5 h-5 text-[#8B5CF6] mx-auto mb-1" strokeWidth={1.5} />
+                <Users className="w-5 h-5 text-[#D4A853] mx-auto mb-1" strokeWidth={1.5} />
                 <p className="text-xl font-bold text-white">{stats.totalMembers.toLocaleString()}</p>
                 <p className="text-[10px] text-[#6b7280]">Total Members</p>
               </div>
@@ -284,9 +284,9 @@ export default function LeaderboardWidget({ communityId, communityName }: Leader
 
               {/* Top genre */}
               <div className="flex items-center gap-2 mt-3">
-                <Crown className="w-3.5 h-3.5 text-[#8B5CF6]" strokeWidth={1.5} />
+                <Crown className="w-3.5 h-3.5 text-[#D4A853]" strokeWidth={1.5} />
                 <span className="text-xs text-[#9ca3af]">Top Genre: </span>
-                <span className="text-xs font-semibold text-[#8B5CF6]">{stats.topGenre}</span>
+                <span className="text-xs font-semibold text-[#D4A853]">{stats.topGenre}</span>
               </div>
             </div>
           </div>

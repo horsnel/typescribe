@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-Popeye_Nearlyweds",
+  "data": {
+    "id": "archive-Popeye_Nearlyweds",
+    "title": "Popeye the Sailor: Nearlyweds",
+    "description": "Popeye and Olive have finally decided to get married. But that doesn't mean that Bluto is through trying to stop them. You can find more information regarding this film on its IMDb page .",
+    "year": 1956,
+    "duration": "6h 14m",
+    "durationSeconds": 22440,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 4,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/Popeye_Nearlyweds",
+    "backdrop": "https://archive.org/services/img/Popeye_Nearlyweds",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/Popeye_Nearlyweds",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/Popeye_Nearlyweds",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:09.868Z"
+  },
+  "createdAt": 1778337992643,
+  "expiresAt": 1778424392643
+}

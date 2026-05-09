@@ -1,0 +1,43 @@
+{
+  "key": "streaming-movie:openflix-theloneranger_201705",
+  "data": {
+    "id": "openflix-theloneranger_201705",
+    "title": "The Lone Ranger TV Show",
+    "description": "Public domain episodes of the classic TV series. ",
+    "year": 1949,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [],
+    "rating": 5,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/theloneranger_201705",
+    "backdrop": "https://archive.org/services/img/theloneranger_201705",
+    "source": "openflix",
+    "sourceUrl": "https://archive.org/details/theloneranger_201705",
+    "sourceLicense": "Public Domain / Open Source",
+    "videoUrl": "https://archive.org/download/theloneranger_201705/s01e01_EntertheLoneRanger.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:32.263Z"
+  },
+  "createdAt": 1778337992633,
+  "expiresAt": 1778424392633
+}

@@ -1,0 +1,43 @@
+{
+  "key": "streaming-movie:openflix-BEASTARS-DUBBED-EPISODES",
+  "data": {
+    "id": "openflix-BEASTARS-DUBBED-EPISODES",
+    "title": "Beastars - Season 1, All English Dubbed Episodes",
+    "description": "I was, originally, going to upload all these individually, but in the end decided to just lump them all together. \"Beastars\" (Alt. BEASTARS) is property of Itagaki Paru, Studio Orange, Akita Shoten, Netflix, and Fuji TV. I claim to own nothing. 2016/2019 Studio Orange, Ltd...",
+    "year": 2019,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [],
+    "rating": 4.7,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/BEASTARS-DUBBED-EPISODES",
+    "backdrop": "https://archive.org/services/img/BEASTARS-DUBBED-EPISODES",
+    "source": "openflix",
+    "sourceUrl": "https://archive.org/details/BEASTARS-DUBBED-EPISODES",
+    "sourceLicense": "Public Domain / Open Source",
+    "videoUrl": "https://archive.org/download/BEASTARS-DUBBED-EPISODES/BEASTARS%20-%20Episode%20001%20-%20English%20Dub.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:20.944Z"
+  },
+  "createdAt": 1778337992635,
+  "expiresAt": 1778424392635
+}

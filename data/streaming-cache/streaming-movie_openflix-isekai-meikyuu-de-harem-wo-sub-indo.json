@@ -1,0 +1,43 @@
+{
+  "key": "streaming-movie:openflix-isekai-meikyuu-de-harem-wo-sub-indo",
+  "data": {
+    "id": "openflix-isekai-meikyuu-de-harem-wo-sub-indo",
+    "title": "Isekai Meikyuu de Harem Wo (Sub Indo - Uncensored)",
+    "description": "Isekai Meikyuu de Harem Wo (Sub Indo)",
+    "year": 2023,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [],
+    "rating": 5,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/isekai-meikyuu-de-harem-wo-sub-indo",
+    "backdrop": "https://archive.org/services/img/isekai-meikyuu-de-harem-wo-sub-indo",
+    "source": "openflix",
+    "sourceUrl": "https://archive.org/details/isekai-meikyuu-de-harem-wo-sub-indo",
+    "sourceLicense": "Public Domain / Open Source",
+    "videoUrl": "https://archive.org/download/isekai-meikyuu-de-harem-wo-sub-indo/Isekai%20Meikyuu%20de%20Harem%20Wo%20(Sub%20Indo)/Otakudesu.watch_IsekaiH--01_720p.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:20.944Z"
+  },
+  "createdAt": 1778337992632,
+  "expiresAt": 1778424392632
+}

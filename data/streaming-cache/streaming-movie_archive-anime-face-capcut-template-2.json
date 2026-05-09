@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-anime-face-capcut-template-2",
+  "data": {
+    "id": "archive-anime-face-capcut-template-2",
+    "title": "anime-face-capcut-template-2",
+    "description": "anime face capcut template",
+    "year": 0,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 4,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/anime-face-capcut-template-2",
+    "backdrop": "https://archive.org/services/img/anime-face-capcut-template-2",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/anime-face-capcut-template-2",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/anime-face-capcut-template-2/anime-face-capcut-template-1.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:14.036Z"
+  },
+  "createdAt": 1778337992643,
+  "expiresAt": 1778424392643
+}

@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-anpanman-episodes-601-present",
+  "data": {
+    "id": "archive-anpanman-episodes-601-present",
+    "title": "Anpanman Episodes (601-Present)",
+    "description": "Here's some episodes of the preschool anime Anpanman, which is based on Takashi Yanase's works that ran from 1988 to present. I've obtained some of these episodes from either ripped directly from DVDs, recorded airings or saved from other sources. These were originally dumped from Dailymotion for anybody to watch who wants to see them outside of Japan in case you can't watch that platform in your country. You can download the episodes whatever format you like, but it is recommended to download t",
+    "year": 2023,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 4.6,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/anpanman-episodes-601-present",
+    "backdrop": "https://archive.org/services/img/anpanman-episodes-601-present",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/anpanman-episodes-601-present",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/anpanman-episodes-601-present",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:41:59.372Z"
+  },
+  "createdAt": 1778337992635,
+  "expiresAt": 1778424392635
+}

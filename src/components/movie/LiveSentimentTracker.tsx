@@ -68,11 +68,11 @@ export default function LiveSentimentTracker({ movieTitle, movieId, isNowPlaying
       <div className="bg-[#050507] border border-[#1e1e28] rounded-lg p-3 mb-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <TrendingUp className="w-4 h-4 text-violet-400" strokeWidth={1.5} />
+            <TrendingUp className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
             <span className="text-xs text-[#9ca3af]">Opening Night Score</span>
           </div>
           <div className="flex items-center gap-1">
-            <span className={`text-2xl font-bold ${openingScore >= 70 ? 'text-emerald-400' : openingScore >= 50 ? 'text-violet-400' : 'text-red-400'}`}>
+            <span className={`text-2xl font-bold ${openingScore >= 70 ? 'text-emerald-400' : openingScore >= 50 ? 'text-[#D4A853]' : 'text-red-400'}`}>
               {openingScore}
             </span>
             <span className="text-xs text-[#6b7280]">/100</span>
@@ -91,12 +91,12 @@ export default function LiveSentimentTracker({ movieTitle, movieId, isNowPlaying
           <span className="text-xs font-bold text-emerald-400 w-8 text-right">{positive}%</span>
         </div>
         <div className="flex items-center gap-2">
-          <Meh className="w-3.5 h-3.5 text-violet-400 flex-shrink-0" strokeWidth={1.5} />
+          <Meh className="w-3.5 h-3.5 text-[#D4A853] flex-shrink-0" strokeWidth={1.5} />
           <span className="text-[10px] text-[#6b7280] w-14">Mixed</span>
           <div className="flex-1 h-2 bg-[#111118] rounded-full overflow-hidden">
-            <div className="h-full bg-violet-400 rounded-full transition-all duration-700" style={{ width: `${mixed}%` }} />
+            <div className="h-full bg-[#D4A853] rounded-full transition-all duration-700" style={{ width: `${mixed}%` }} />
           </div>
-          <span className="text-xs font-bold text-violet-400 w-8 text-right">{mixed}%</span>
+          <span className="text-xs font-bold text-[#D4A853] w-8 text-right">{mixed}%</span>
         </div>
         <div className="flex items-center gap-2">
           <Frown className="w-3.5 h-3.5 text-red-400 flex-shrink-0" strokeWidth={1.5} />
@@ -110,9 +110,9 @@ export default function LiveSentimentTracker({ movieTitle, movieId, isNowPlaying
 
       {/* Talking About Counter */}
       <div className="flex items-center gap-2 pt-2 border-t border-[#1e1e28]">
-        <Users className="w-3.5 h-3.5 text-purple-400" strokeWidth={1.5} />
+        <Users className="w-3.5 h-3.5 text-[#D4A853]" strokeWidth={1.5} />
         <p className="text-[10px] text-[#6b7280]">
-          <span className="text-purple-400 font-bold">{talkingAbout.toLocaleString()}</span> people are talking about this right now
+          <span className="text-[#D4A853] font-bold">{talkingAbout.toLocaleString()}</span> people are talking about this right now
         </p>
       </div>
     </div>

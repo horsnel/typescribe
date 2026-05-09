@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-the_big_bad_wolf",
+  "data": {
+    "id": "archive-the_big_bad_wolf",
+    "title": "The Big Bad Wolf",
+    "description": "Little Boy Blue and Scarecrow sing and dance, Little Bo Peep and her sheep join in. Black Sheep cries \"wolf\", which causes problems when a real wolf shows up. Animation by U. B. Iwerks.",
+    "year": 0,
+    "duration": "7h",
+    "durationSeconds": 25200,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 3.9,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/the_big_bad_wolf",
+    "backdrop": "https://archive.org/services/img/the_big_bad_wolf",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/the_big_bad_wolf",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/the_big_bad_wolf",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:09.868Z"
+  },
+  "createdAt": 1778337992643,
+  "expiresAt": 1778424392643
+}

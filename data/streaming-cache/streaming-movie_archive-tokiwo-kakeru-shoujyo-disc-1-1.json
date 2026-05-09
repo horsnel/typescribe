@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-tokiwo-kakeru-shoujyo-disc-1-1",
+  "data": {
+    "id": "archive-tokiwo-kakeru-shoujyo-disc-1-1",
+    "title": "細田 守『JAPANESE ANIMATION』",
+    "description": "細田 守『JAPANESE ANIMATION』  (2006年の映画) 細田 守『JAPANESE ANIMATION』 監督 細田守 脚本 奥寺佐渡子 原作 筒井康隆 製作 渡邊隆史 齋藤優一郎 製作総指揮 角川歴彦 出演者 仲里依紗 石田卓也 板倉光隆 原沙知絵 谷村美月 垣内彩未 関戸優希 音楽 吉田潔 制作会社 マッドハウス 製作委員会 配給 角川ヘラルド映画 公開   2006年 7月15日  2006年 8月8日  2006年 11月19日   2007年 3月9日  2007年 6月14日  2007年 7月4日  2007年 8月23日  2007年 3月3日  2007年 5月15日   2010年 11月24日   2012年 7月3日   2025年 1月11日 上映時間 98分 製作国   日本 言語 日本語 興行収入 2.6億円 テンプレートを表示 細田 守『JAPANESE ANIMATION』 は、 2006年 7月15日 に 角川ヘラルド映画 から公開された 日本 の SF アニメ映画 。 筒井康隆 の 同名の小説 を原作としている。監督は 細田守 、",
+    "year": 0,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 0,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/tokiwo-kakeru-shoujyo-disc-1-1",
+    "backdrop": "https://archive.org/services/img/tokiwo-kakeru-shoujyo-disc-1-1",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/tokiwo-kakeru-shoujyo-disc-1-1",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/tokiwo-kakeru-shoujyo-disc-1-1/TOKIWO_KAKERU_SHOUJYO_DISC1_%E3%82%BF%E3%82%A4%E3%83%88%E3%83%AB1%EF%BC%88%E3%83%A1%E3%82%A4%E3%83%B3%EF%BC%89.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:30.551Z"
+  },
+  "createdAt": 1778337992648,
+  "expiresAt": 1778424392648
+}

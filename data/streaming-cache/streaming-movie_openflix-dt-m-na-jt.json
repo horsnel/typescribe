@@ -1,0 +1,43 @@
+{
+  "key": "streaming-movie:openflix-dt-m-na-jt",
+  "data": {
+    "id": "openflix-dt-m-na-jt",
+    "title": "Dt M Na JT",
+    "description": "G",
+    "year": 0,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [],
+    "rating": 0,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/dt-m-na-jt",
+    "backdrop": "https://archive.org/services/img/dt-m-na-jt",
+    "source": "openflix",
+    "sourceUrl": "https://archive.org/details/dt-m-na-jt",
+    "sourceLicense": "Public Domain / Open Source",
+    "videoUrl": "https://archive.org/download/dt-m-na-jt",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:41:59.870Z"
+  },
+  "createdAt": 1778337992654,
+  "expiresAt": 1778424392654
+}

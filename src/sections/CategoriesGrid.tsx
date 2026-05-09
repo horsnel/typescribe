@@ -4,14 +4,14 @@ import { genres } from '@/lib/data';
 import { Sword, Laugh, Drama, Ghost, Eye, Rocket, Heart, Film, Sparkles, ChevronRight } from 'lucide-react';
 
 const iconConfig: Record<string, { icon: React.ComponentType<{ className?: string; strokeWidth?: number }>; color: string; bg: string }> = {
-  Sword:  { icon: Sword,  color: 'text-[#8B5CF6]', bg: 'bg-[#8B5CF6]/10' },
-  Laugh:  { icon: Laugh,  color: 'text-[#8B5CF6]', bg: 'bg-[#8B5CF6]/10' },
-  Drama:  { icon: Drama,  color: 'text-[#8B5CF6]', bg: 'bg-[#8B5CF6]/10' },
-  Ghost:  { icon: Ghost,  color: 'text-[#8B5CF6]', bg: 'bg-[#8B5CF6]/10' },
-  Eye:    { icon: Eye,    color: 'text-[#8B5CF6]', bg: 'bg-[#8B5CF6]/10' },
-  Rocket: { icon: Rocket, color: 'text-[#8B5CF6]', bg: 'bg-[#8B5CF6]/10' },
-  Heart:  { icon: Heart,  color: 'text-[#8B5CF6]', bg: 'bg-[#8B5CF6]/10' },
-  Film:   { icon: Film,   color: 'text-[#8B5CF6]', bg: 'bg-[#8B5CF6]/10' },
+  Sword:  { icon: Sword,  color: 'text-[#D4A853]', bg: 'bg-[#D4A853]/10' },
+  Laugh:  { icon: Laugh,  color: 'text-[#D4A853]', bg: 'bg-[#D4A853]/10' },
+  Drama:  { icon: Drama,  color: 'text-[#D4A853]', bg: 'bg-[#D4A853]/10' },
+  Ghost:  { icon: Ghost,  color: 'text-[#D4A853]', bg: 'bg-[#D4A853]/10' },
+  Eye:    { icon: Eye,    color: 'text-[#D4A853]', bg: 'bg-[#D4A853]/10' },
+  Rocket: { icon: Rocket, color: 'text-[#D4A853]', bg: 'bg-[#D4A853]/10' },
+  Heart:  { icon: Heart,  color: 'text-[#D4A853]', bg: 'bg-[#D4A853]/10' },
+  Film:   { icon: Film,   color: 'text-[#D4A853]', bg: 'bg-[#D4A853]/10' },
 };
 
 function GenreCard({ genre }: { genre: { id: string; name: string; icon: string; count: number } }) {
@@ -20,7 +20,7 @@ function GenreCard({ genre }: { genre: { id: string; name: string; icon: string;
   return (
     <Link
       href={`/category/${genre.id}`}
-      className="group relative flex items-center gap-4 p-4 rounded-2xl bg-[#0c0c10] border border-white/[0.06] hover:border-[#8B5CF6]/30 hover:bg-[#111118] transition-all duration-300 cursor-pointer overflow-hidden"
+      className="group relative flex items-center gap-4 p-4 rounded-2xl bg-[#0c0c10] border border-white/[0.06] hover:border-[#D4A853]/30 hover:bg-[#111118] transition-all duration-300 cursor-pointer overflow-hidden"
     >
       {/* Sheen overlay */}
       <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%)' }} />
@@ -48,14 +48,14 @@ function AnimeCard() {
   return (
     <Link
       href="/browse?format=anime"
-      className="group relative flex items-center gap-4 p-4 rounded-2xl bg-[#0c0c10] border border-white/[0.06] hover:border-purple-500/30 hover:bg-[#111118] transition-all duration-300 cursor-pointer overflow-hidden"
+      className="group relative flex items-center gap-4 p-4 rounded-2xl bg-[#0c0c10] border border-white/[0.06] hover:border-[#D4A853]/30 hover:bg-[#111118] transition-all duration-300 cursor-pointer overflow-hidden"
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#D4A853]/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
 
-      <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-purple-500/10 flex items-center justify-center border border-white/[0.06] group-hover:scale-110 transition-transform duration-300"
+      <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-[#D4A853]/10 flex items-center justify-center border border-white/[0.06] group-hover:scale-110 transition-transform duration-300"
         style={{ boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.08)' }}
       >
-        <Sparkles className="w-5 h-5 text-purple-400" strokeWidth={1.5} />
+        <Sparkles className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
       </div>
 
       <div className="flex flex-col min-w-0 relative z-10">

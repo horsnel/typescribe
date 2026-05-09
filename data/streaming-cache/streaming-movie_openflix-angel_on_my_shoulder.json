@@ -1,0 +1,43 @@
+{
+  "key": "streaming-movie:openflix-angel_on_my_shoulder",
+  "data": {
+    "id": "openflix-angel_on_my_shoulder",
+    "title": "Angel on My Shoulder",
+    "description": "You can find more information regarding this film on its IMDb page .",
+    "year": 1946,
+    "duration": "1h 41m",
+    "durationSeconds": 6081,
+    "genres": [],
+    "rating": 4.4,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/angel_on_my_shoulder",
+    "backdrop": "https://archive.org/services/img/angel_on_my_shoulder",
+    "source": "openflix",
+    "sourceUrl": "https://archive.org/details/angel_on_my_shoulder",
+    "sourceLicense": "Public Domain / Open Source",
+    "videoUrl": "https://archive.org/download/angel_on_my_shoulder",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:42.228Z"
+  },
+  "createdAt": 1778337992639,
+  "expiresAt": 1778424392639
+}

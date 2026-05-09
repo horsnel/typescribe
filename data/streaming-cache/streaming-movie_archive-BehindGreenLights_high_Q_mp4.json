@@ -17,6 +17,7 @@
     "sourceLicense": "Public Domain",
     "videoUrl": "https://archive.org/download/BehindGreenLights_high_Q_mp4",
     "videoType": "direct",
+    "isEmbeddable": true,
     "languages": [
       {
         "code": "en",
@@ -35,8 +36,8 @@
     ],
     "is4K": false,
     "isFree": true,
-    "addedAt": "2026-05-07T19:09:55.820Z"
+    "addedAt": "2026-05-09T03:42:11.391Z"
   },
-  "createdAt": 1778180995828,
-  "expiresAt": 1778267395828
+  "createdAt": 1778337992643,
+  "expiresAt": 1778424392643
 }

@@ -4,13 +4,13 @@ interface RatingBadgeProps { movie: Movie; variant?: 'tmdb' | 'imdb' | 'rt' | 'm
 
 function TMDbBadge({ score }: { score: number }) {
   return (
-    <div className="inline-flex items-center gap-1.5 bg-[#8B5CF6]/10 px-3 py-1.5 rounded-lg">
-      <svg className="w-5 h-5 text-[#8B5CF6]" viewBox="0 0 24 24" fill="currentColor">
+    <div className="inline-flex items-center gap-1.5 bg-[#D4A853]/10 px-3 py-1.5 rounded-lg">
+      <svg className="w-5 h-5 text-[#D4A853]" viewBox="0 0 24 24" fill="currentColor">
         <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" strokeWidth="2" />
         <text x="12" y="16" textAnchor="middle" fontSize="10" fill="currentColor" fontWeight="bold">T</text>
       </svg>
-      <span className="text-sm font-semibold text-[#8B5CF6]">{score.toFixed(1)}</span>
-      <span className="text-[10px] text-[#8B5CF6] opacity-70">TMDb</span>
+      <span className="text-sm font-semibold text-[#D4A853]">{score.toFixed(1)}</span>
+      <span className="text-[10px] text-[#D4A853] opacity-70">TMDb</span>
     </div>
   );
 }
@@ -20,9 +20,9 @@ function IMDbBadge({ score }: { score: string }) {
   const num = parseFloat(score);
   if (isNaN(num)) return null;
   return (
-    <div className="inline-flex items-center gap-1.5 bg-[#8B5CF6]/10 px-3 py-1.5 rounded-lg">
-      <span className="text-sm font-black text-[#8B5CF6]" style={{ fontFamily: 'monospace' }}>IMDb</span>
-      <span className="text-sm font-semibold text-[#8B5CF6]">{num.toFixed(1)}</span>
+    <div className="inline-flex items-center gap-1.5 bg-[#D4A853]/10 px-3 py-1.5 rounded-lg">
+      <span className="text-sm font-black text-[#D4A853]" style={{ fontFamily: 'monospace' }}>IMDb</span>
+      <span className="text-sm font-semibold text-[#D4A853]">{num.toFixed(1)}</span>
     </div>
   );
 }

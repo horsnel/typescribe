@@ -96,8 +96,8 @@ export default function CommunityWatchlist({ communityId, isMember }: CommunityW
       <div className="p-5 border-b border-[#1e1e28]/50">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">
-              <BookmarkPlus className="w-5 h-5 text-purple-400" strokeWidth={1.5} />
+            <div className="w-10 h-10 rounded-lg bg-[#D4A853]/10 border border-[#D4A853]/20 flex items-center justify-center">
+              <BookmarkPlus className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
             </div>
             <div>
               <h3 className="text-lg font-bold text-white">Watchlist</h3>
@@ -108,7 +108,7 @@ export default function CommunityWatchlist({ communityId, isMember }: CommunityW
             <Button
               onClick={() => setShowAddForm(!showAddForm)}
               size="sm"
-              className="bg-purple-600 hover:bg-purple-700 text-white gap-2 min-h-[44px]"
+              className="bg-[#D4A853] hover:bg-[#B8922F] text-white gap-2 min-h-[44px]"
             >
               <Plus className="w-4 h-4" strokeWidth={1.5} /> Add Movie
             </Button>
@@ -119,7 +119,7 @@ export default function CommunityWatchlist({ communityId, isMember }: CommunityW
       <div className="p-5">
         {/* Add Movie Form */}
         {showAddForm && (
-          <div className="mb-5 bg-[#050507] border border-purple-500/20 rounded-lg p-4">
+          <div className="mb-5 bg-[#050507] border border-[#D4A853]/20 rounded-lg p-4">
             <div className="flex items-center justify-between mb-3">
               <h4 className="text-sm font-semibold text-white">Add a movie</h4>
               <button onClick={() => { setShowAddForm(false); setSearchQuery(''); setSearchResults([]); }} className="text-[#6b7280] hover:text-white min-w-[44px] min-h-[44px] flex items-center justify-center">
@@ -133,7 +133,7 @@ export default function CommunityWatchlist({ communityId, isMember }: CommunityW
                 value={searchQuery}
                 onChange={(e) => handleSearch(e.target.value)}
                 placeholder="Search for a movie..."
-                className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-lg pl-10 pr-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-purple-500 text-sm min-h-[44px]"
+                className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-lg pl-10 pr-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853] text-sm min-h-[44px]"
               />
             </div>
             {searchLoading && (
@@ -176,10 +176,10 @@ export default function CommunityWatchlist({ communityId, isMember }: CommunityW
 
         {/* Weekly Pick Highlight */}
         {weeklyPick && (
-          <div className="mb-5 bg-gradient-to-r from-purple-500/10 to-[#8B5CF6]/10 border border-purple-500/20 rounded-lg p-4">
+          <div className="mb-5 bg-gradient-to-r from-[#D4A853]/10 to-[#D4A853]/10 border border-[#D4A853]/20 rounded-lg p-4">
             <div className="flex items-center gap-2 mb-3">
-              <Crown className="w-4 h-4 text-[#8B5CF6]" strokeWidth={1.5} />
-              <span className="text-xs font-bold text-[#8B5CF6] uppercase tracking-wider">This Week&apos;s Pick</span>
+              <Crown className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
+              <span className="text-xs font-bold text-[#D4A853] uppercase tracking-wider">This Week&apos;s Pick</span>
             </div>
             <Link href={`/movie/${weeklyPick.movieSlug}`} className="flex items-center gap-3 group">
               <div className="w-12 h-18 rounded overflow-hidden flex-shrink-0 bg-[#1e1e28]">
@@ -193,7 +193,7 @@ export default function CommunityWatchlist({ communityId, isMember }: CommunityW
                 )}
               </div>
               <div>
-                <h4 className="text-base font-semibold text-white group-hover:text-[#8B5CF6] transition-colors">{weeklyPick.movieTitle}</h4>
+                <h4 className="text-base font-semibold text-white group-hover:text-[#D4A853] transition-colors">{weeklyPick.movieTitle}</h4>
                 <p className="text-xs text-[#6b7280]">{weeklyPick.votes} vote{weeklyPick.votes !== 1 ? 's' : ''} · Nominated by {weeklyPick.addedBy}</p>
               </div>
             </Link>
@@ -210,7 +210,7 @@ export default function CommunityWatchlist({ communityId, isMember }: CommunityW
                 <div
                   key={item.id}
                   className={`flex items-center gap-3 p-3 rounded-lg transition-all ${
-                    isTopPick ? 'bg-purple-500/5 border border-purple-500/15' : 'bg-[#050507] border border-[#1e1e28]/50 hover:border-[#2a2a35]'
+                    isTopPick ? 'bg-[#D4A853]/5 border border-[#D4A853]/15' : 'bg-[#050507] border border-[#1e1e28]/50 hover:border-[#2a2a35]'
                   }`}
                 >
                   {/* Vote Column */}
@@ -219,12 +219,12 @@ export default function CommunityWatchlist({ communityId, isMember }: CommunityW
                       onClick={() => handleVote(item.id)}
                       disabled={!isAuthenticated || !isMember}
                       className={`transition-colors min-w-[28px] min-h-[28px] flex items-center justify-center rounded ${
-                        voted ? 'text-purple-400' : 'text-[#6b7280] hover:text-purple-400'
+                        voted ? 'text-[#D4A853]' : 'text-[#6b7280] hover:text-[#D4A853]'
                       } ${!isAuthenticated || !isMember ? 'opacity-30 cursor-not-allowed' : 'cursor-pointer'}`}
                     >
                       <ChevronUp className="w-5 h-5" fill={voted ? 'currentColor' : 'none'} strokeWidth={1.5} />
                     </button>
-                    <span className={`text-xs font-bold ${isTopPick ? 'text-purple-400' : voted ? 'text-purple-400' : 'text-[#9ca3af]'}`}>
+                    <span className={`text-xs font-bold ${isTopPick ? 'text-[#D4A853]' : voted ? 'text-[#D4A853]' : 'text-[#9ca3af]'}`}>
                       {item.votes}
                     </span>
                   </div>
@@ -245,7 +245,7 @@ export default function CommunityWatchlist({ communityId, isMember }: CommunityW
 
                   {/* Info */}
                   <div className="flex-1 min-w-0">
-                    <Link href={`/movie/${item.movieSlug}`} className="text-sm font-medium text-white hover:text-[#8B5CF6] transition-colors truncate block">
+                    <Link href={`/movie/${item.movieSlug}`} className="text-sm font-medium text-white hover:text-[#D4A853] transition-colors truncate block">
                       {item.movieTitle}
                     </Link>
                     <p className="text-[10px] text-[#6b7280]">Added by {item.addedBy}</p>

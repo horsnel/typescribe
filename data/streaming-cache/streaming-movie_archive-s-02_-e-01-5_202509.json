@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-s-02.-e-01-5_202509",
+  "data": {
+    "id": "archive-s-02.-e-01-5_202509",
+    "title": "Japanese Animation (01)",
+    "description": "Japanese Animation",
+    "year": 0,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 0,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/s-02.-e-01-5_202509",
+    "backdrop": "https://archive.org/services/img/s-02.-e-01-5_202509",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/s-02.-e-01-5_202509",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/s-02.-e-01-5_202509/%5BS02.E01%5D%20-%20%20(1).mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:30.551Z"
+  },
+  "createdAt": 1778337992649,
+  "expiresAt": 1778424392649
+}

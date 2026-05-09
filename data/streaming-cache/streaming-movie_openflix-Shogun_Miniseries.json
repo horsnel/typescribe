@@ -1,0 +1,43 @@
+{
+  "key": "streaming-movie:openflix-Shogun_Miniseries",
+  "data": {
+    "id": "openflix-Shogun_Miniseries",
+    "title": "Shōgun (miniseries)",
+    "description": "Shōgun is an American television miniseries based on the 1975 novel of the same name by James Clavell, who also was the executive producer of the miniseries. It was first broadcast in the United States on NBC over five nights between September 15 and September 19, 1980. To date, it is the only American television production to be filmed on location entirely in Japan, with additional sound stage filming also taking place in Japan at the Toho studio. The miniseries is loosely based on the adventur",
+    "year": 1980,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [],
+    "rating": 4.7,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/Shogun_Miniseries",
+    "backdrop": "https://archive.org/services/img/Shogun_Miniseries",
+    "source": "openflix",
+    "sourceUrl": "https://archive.org/details/Shogun_Miniseries",
+    "sourceLicense": "Public Domain / Open Source",
+    "videoUrl": "https://archive.org/download/Shogun_Miniseries",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:32.263Z"
+  },
+  "createdAt": 1778337992635,
+  "expiresAt": 1778424392635
+}

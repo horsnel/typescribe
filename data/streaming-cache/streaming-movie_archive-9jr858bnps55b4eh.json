@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-9jr858bnps55b4eh",
+  "data": {
+    "id": "archive-9jr858bnps55b4eh",
+    "title": "9jr858bnps55b4eh",
+    "description": "9jr858bnps55b4eh",
+    "year": 0,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 0,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/9jr858bnps55b4eh",
+    "backdrop": "https://archive.org/services/img/9jr858bnps55b4eh",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/9jr858bnps55b4eh",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/9jr858bnps55b4eh/Otakudesu.is_TEIS--16_720p.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:41:59.372Z"
+  },
+  "createdAt": 1778337992647,
+  "expiresAt": 1778424392647
+}

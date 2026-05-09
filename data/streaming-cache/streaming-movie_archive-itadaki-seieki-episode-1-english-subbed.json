@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-itadaki-seieki-episode-1-english-subbed",
+  "data": {
+    "id": "archive-itadaki-seieki-episode-1-english-subbed",
+    "title": "Itadaki! Seieki Episode 1 English Subbed",
+    "description": "I didn't know this would get this many views LMAO",
+    "year": 0,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 4.5,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/itadaki-seieki-episode-1-english-subbed",
+    "backdrop": "https://archive.org/services/img/itadaki-seieki-episode-1-english-subbed",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/itadaki-seieki-episode-1-english-subbed",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/itadaki-seieki-episode-1-english-subbed/Itadaki!%20Seieki%20Episode%201%20English%20Subbed.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:41:59.372Z"
+  },
+  "createdAt": 1778337992637,
+  "expiresAt": 1778424392637
+}

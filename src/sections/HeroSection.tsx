@@ -78,7 +78,7 @@ const AVATAR_COLORS = [
   'bg-amber-600',
   'bg-emerald-600',
   'bg-rose-600',
-  'bg-violet-600',
+  'bg-[#D4A853]',
   'bg-cyan-600',
   'bg-orange-600',
   'bg-pink-600',
@@ -226,7 +226,7 @@ export default function HeroSection() {
         {isLoading && (
           <div className="absolute inset-0 bg-[#050507] flex items-center justify-center">
             <div className="flex flex-col items-center gap-3">
-              <div className="w-10 h-10 border-2 border-[#8B5CF6]/30 border-t-[#8B5CF6] rounded-full animate-spin" />
+              <div className="w-10 h-10 border-2 border-[#D4A853]/30 border-t-[#D4A853] rounded-full animate-spin" />
               <span className="text-sm text-[#9ca3af]">Loading trending movies...</span>
             </div>
           </div>
@@ -274,7 +274,7 @@ export default function HeroSection() {
                       className="mb-4"
                     >
                       <div className="flex items-start gap-2">
-                        <Quote className="w-5 h-5 text-[#8B5CF6] flex-shrink-0 mt-0.5" strokeWidth={1.5} />
+                        <Quote className="w-5 h-5 text-[#D4A853] flex-shrink-0 mt-0.5" strokeWidth={1.5} />
                         <p className="text-sm sm:text-base md:text-lg italic text-white/90 leading-relaxed line-clamp-3">
                           {currentReview.quote}
                         </p>
@@ -283,8 +283,8 @@ export default function HeroSection() {
                         <span className="text-xs text-[#9ca3af]">— {currentReview.reviewer}</span>
                         <span className="text-[#9ca3af]/40">·</span>
                         <div className="flex items-center gap-1">
-                          <Star className="w-3 h-3 text-[#8B5CF6] fill-[#8B5CF6]" strokeWidth={0} />
-                          <span className="text-xs font-semibold text-[#8B5CF6]">{currentReview.rating}/10</span>
+                          <Star className="w-3 h-3 text-[#D4A853] fill-[#D4A853]" strokeWidth={0} />
+                          <span className="text-xs font-semibold text-[#D4A853]">{currentReview.rating}/10</span>
                         </div>
                       </div>
                     </motion.div>
@@ -305,8 +305,8 @@ export default function HeroSection() {
                           </span>
                         )}
                         <div className="flex items-center gap-1">
-                          <Star className="w-4 h-4 text-[#8B5CF6] fill-[#8B5CF6]" strokeWidth={0} />
-                          <span className="text-sm font-semibold text-[#8B5CF6]">
+                          <Star className="w-4 h-4 text-[#D4A853] fill-[#D4A853]" strokeWidth={0} />
+                          <span className="text-sm font-semibold text-[#D4A853]">
                             {currentMovie?.vote_average?.toFixed(1)}
                           </span>
                         </div>
@@ -330,7 +330,7 @@ export default function HeroSection() {
                     >
                       <Link
                         href={`/movie/${currentMovie?.slug}`}
-                        className="inline-flex items-center justify-center bg-[#8B5CF6] hover:bg-[#7C3AED] text-white font-semibold px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl text-sm transition-colors duration-200 shadow-lg shadow-[#8B5CF6]/20"
+                        className="inline-flex items-center justify-center bg-[#D4A853] hover:bg-[#B8922F] text-white font-semibold px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl text-sm transition-colors duration-200 shadow-lg shadow-[#D4A853]/20"
                       >
                         Read Full Review
                       </Link>
@@ -374,7 +374,7 @@ export default function HeroSection() {
               </p>
               <Link
                 href="/browse"
-                className="inline-flex items-center justify-center bg-[#8B5CF6] hover:bg-[#7C3AED] text-white font-semibold px-6 py-3 rounded-xl text-sm transition-colors duration-200 shadow-lg shadow-[#8B5CF6]/20"
+                className="inline-flex items-center justify-center bg-[#D4A853] hover:bg-[#B8922F] text-white font-semibold px-6 py-3 rounded-xl text-sm transition-colors duration-200 shadow-lg shadow-[#D4A853]/20"
               >
                 Browse Movies
               </Link>
@@ -415,7 +415,7 @@ export default function HeroSection() {
                 onClick={() => goToSlide(idx)}
                 className={`transition-all duration-300 rounded-full ${
                   idx === currentSlide
-                    ? 'w-6 h-2 bg-[#8B5CF6]'
+                    ? 'w-6 h-2 bg-[#D4A853]'
                     : 'w-2 h-2 bg-white/40 hover:bg-white/60'
                 }`}
                 aria-label={`Go to slide ${idx + 1}`}
@@ -434,7 +434,7 @@ export default function HeroSection() {
                 {/* Header */}
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
-                    <Swords className="w-4 h-4 text-[#8B5CF6]" strokeWidth={1.5} />
+                    <Swords className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
                     <span className="text-xs font-bold text-white uppercase tracking-wider">
                       Battle of the Day
                     </span>
@@ -453,12 +453,12 @@ export default function HeroSection() {
                   {/* Option 1 */}
                   <button
                     onClick={() => handleVote('1')}
-                    className="w-full flex items-center justify-between px-3 py-2 rounded-lg bg-white/5 hover:bg-[#8B5CF6]/20 border border-white/5 hover:border-[#8B5CF6]/30 transition-all duration-200 group"
+                    className="w-full flex items-center justify-between px-3 py-2 rounded-lg bg-white/5 hover:bg-[#D4A853]/20 border border-white/5 hover:border-[#D4A853]/30 transition-all duration-200 group"
                   >
-                    <span className="text-sm font-medium text-white group-hover:text-[#8B5CF6] transition-colors truncate">
+                    <span className="text-sm font-medium text-white group-hover:text-[#D4A853] transition-colors truncate">
                       {battleVotes.movie1}
                     </span>
-                    <span className="text-xs font-bold text-[#8B5CF6] ml-2 tabular-nums">
+                    <span className="text-xs font-bold text-[#D4A853] ml-2 tabular-nums">
                       {battleVotes.votes1.toLocaleString()}
                     </span>
                   </button>
@@ -473,12 +473,12 @@ export default function HeroSection() {
                   {/* Option 2 */}
                   <button
                     onClick={() => handleVote('2')}
-                    className="w-full flex items-center justify-between px-3 py-2 rounded-lg bg-white/5 hover:bg-[#8B5CF6]/20 border border-white/5 hover:border-[#8B5CF6]/30 transition-all duration-200 group"
+                    className="w-full flex items-center justify-between px-3 py-2 rounded-lg bg-white/5 hover:bg-[#D4A853]/20 border border-white/5 hover:border-[#D4A853]/30 transition-all duration-200 group"
                   >
-                    <span className="text-sm font-medium text-white group-hover:text-[#8B5CF6] transition-colors truncate">
+                    <span className="text-sm font-medium text-white group-hover:text-[#D4A853] transition-colors truncate">
                       {battleVotes.movie2}
                     </span>
-                    <span className="text-xs font-bold text-[#8B5CF6] ml-2 tabular-nums">
+                    <span className="text-xs font-bold text-[#D4A853] ml-2 tabular-nums">
                       {battleVotes.votes2.toLocaleString()}
                     </span>
                   </button>
@@ -487,7 +487,7 @@ export default function HeroSection() {
                 {/* Vote bar */}
                 <div className="mt-3 h-1 bg-white/5 rounded-full overflow-hidden flex">
                   <div
-                    className="h-full bg-[#8B5CF6] rounded-l-full transition-all duration-500"
+                    className="h-full bg-[#D4A853] rounded-l-full transition-all duration-500"
                     style={{
                       width: `${(battleVotes.votes1 / (battleVotes.votes1 + battleVotes.votes2)) * 100}%`,
                     }}
@@ -515,7 +515,7 @@ export default function HeroSection() {
                 className="flex items-center gap-2 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl px-3 py-2.5 shadow-2xl hover:bg-white/10 transition-all duration-200"
                 aria-label="Expand battle widget"
               >
-                <Swords className="w-4 h-4 text-[#8B5CF6]" strokeWidth={1.5} />
+                <Swords className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
                 <span className="text-xs font-bold text-white">Battle</span>
               </button>
             )}
@@ -530,7 +530,7 @@ export default function HeroSection() {
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           {/* Section header */}
           <div className="flex items-center gap-2 mb-3">
-            <Award className="w-4 h-4 text-[#8B5CF6]" strokeWidth={1.5} />
+            <Award className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
             <span className="text-xs font-bold text-white uppercase tracking-wider">
               Top Reviewers of the Week
             </span>
@@ -546,7 +546,7 @@ export default function HeroSection() {
               >
                 {/* Avatar with gradient ring */}
                 <div className="relative">
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full p-[2px] bg-gradient-to-br from-[#8B5CF6] via-[#C4B5FD] to-[#8B5CF6] group-hover:shadow-lg group-hover:shadow-[#8B5CF6]/20 transition-shadow duration-300">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full p-[2px] bg-gradient-to-br from-[#D4A853] via-[#C4B5FD] to-[#D4A853] group-hover:shadow-lg group-hover:shadow-[#D4A853]/20 transition-shadow duration-300">
                     <div className={`w-full h-full rounded-full ${AVATAR_COLORS[idx % AVATAR_COLORS.length]} flex items-center justify-center border-2 border-[#050507]`}>
                       <span className="text-sm font-bold text-white">
                         {getInitials(reviewer.name)}
@@ -554,7 +554,7 @@ export default function HeroSection() {
                     </div>
                   </div>
                   {/* Review count badge */}
-                  <div className="absolute -bottom-1 -right-1 bg-[#8B5CF6] text-[10px] font-bold text-white rounded-full w-5 h-5 flex items-center justify-center border-2 border-[#050507]">
+                  <div className="absolute -bottom-1 -right-1 bg-[#D4A853] text-[10px] font-bold text-white rounded-full w-5 h-5 flex items-center justify-center border-2 border-[#050507]">
                     {reviewer.reviews}
                   </div>
                 </div>
@@ -574,7 +574,7 @@ export default function HeroSection() {
       <div className="bg-[#050507] py-6 border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white leading-tight tracking-tight">
-            Discover Your Next <span className="text-[#8B5CF6]">Favourite</span> Movie
+            Discover Your Next <span className="text-[#D4A853]">Favourite</span> Movie
           </h2>
           <p className="text-sm text-[#AAAAAA] mt-2">
             AI-powered reviews, real ratings, and community insights

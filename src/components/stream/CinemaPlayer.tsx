@@ -153,10 +153,10 @@ function LinkOutCard({ movie }: { movie: CinemaMovieData }) {
       <div className="relative z-10 max-w-2xl mx-auto px-6 text-center">
         {/* Quality & Source badge */}
         <div className="flex items-center justify-center gap-3 mb-6">
-          <span className={`text-xs font-bold px-2.5 py-1 rounded ${movie.quality === '4K' ? 'bg-[#8B5CF6] text-white' : 'bg-white/10 text-white/70'}`}>
+          <span className={`text-xs font-bold px-2.5 py-1 rounded ${movie.quality === '4K' ? 'bg-[#D4A853] text-white' : 'bg-white/10 text-white/70'}`}>
             {movie.quality}
           </span>
-          <span className="text-xs font-medium px-2.5 py-1 bg-[#8B5CF6]/10 text-[#8B5CF6] rounded border border-[#8B5CF6]/20">
+          <span className="text-xs font-medium px-2.5 py-1 bg-[#D4A853]/10 text-[#D4A853] rounded border border-[#D4A853]/20">
             {sourceName}
           </span>
         </div>
@@ -192,7 +192,7 @@ function LinkOutCard({ movie }: { movie: CinemaMovieData }) {
           href={movie.videoUrl || movie.sourceUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-3 px-8 py-4 bg-[#8B5CF6] hover:bg-[#7C3AED] text-white font-bold rounded-xl transition-all duration-200 shadow-lg shadow-[#8B5CF6]/30 hover:shadow-[#8B5CF6]/50 hover:scale-105 text-base"
+          className="inline-flex items-center gap-3 px-8 py-4 bg-[#D4A853] hover:bg-[#B8922F] text-white font-bold rounded-xl transition-all duration-200 shadow-lg shadow-[#D4A853]/30 hover:shadow-[#D4A853]/50 hover:scale-105 text-base"
         >
           <ExternalLink className="w-5 h-5" strokeWidth={2} />
           Watch on {sourceName}
@@ -205,7 +205,7 @@ function LinkOutCard({ movie }: { movie: CinemaMovieData }) {
         {/* Back link */}
         <Link
           href="/stream"
-          className="inline-flex items-center gap-2 text-white/40 hover:text-[#8B5CF6] transition-colors mt-8 text-sm"
+          className="inline-flex items-center gap-2 text-white/40 hover:text-[#D4A853] transition-colors mt-8 text-sm"
         >
           <ChevronLeft className="w-4 h-4" strokeWidth={1.5} />
           Back to Streaming
@@ -692,7 +692,7 @@ export default function CinemaPlayer({ movie }: CinemaPlayerProps) {
       {/* Loading spinner (direct/HLS video only) */}
       {(isDirect || isHLS) && isLoading && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-          <div className="w-14 h-14 border-[3px] border-[#8B5CF6]/30 border-t-[#8B5CF6] rounded-full animate-spin" />
+          <div className="w-14 h-14 border-[3px] border-[#D4A853]/30 border-t-[#D4A853] rounded-full animate-spin" />
         </div>
       )}
 
@@ -728,7 +728,7 @@ export default function CinemaPlayer({ movie }: CinemaPlayerProps) {
                 <h2 className="text-white text-sm md:text-base font-semibold line-clamp-1">{movie.title}</h2>
                 <div className="flex items-center gap-2">
                   <p className="text-white/50 text-xs">{movie.year} · {movie.duration}</p>
-                  <span className="text-[9px] font-medium px-1.5 py-0.5 bg-[#8B5CF6]/20 text-[#8B5CF6] rounded border border-[#8B5CF6]/20">
+                  <span className="text-[9px] font-medium px-1.5 py-0.5 bg-[#D4A853]/20 text-[#D4A853] rounded border border-[#D4A853]/20">
                     {sourceBadge}
                   </span>
                 </div>
@@ -757,10 +757,10 @@ export default function CinemaPlayer({ movie }: CinemaPlayerProps) {
             <div className="absolute inset-0 flex items-center justify-center">
               <button
                 onClick={togglePlay}
-                className="w-20 h-20 md:w-24 md:h-24 bg-[#8B5CF6]/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-[#8B5CF6]/30 transition-all duration-200 border border-[#8B5CF6]/20 hover:scale-110 group"
+                className="w-20 h-20 md:w-24 md:h-24 bg-[#D4A853]/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-[#D4A853]/30 transition-all duration-200 border border-[#D4A853]/20 hover:scale-110 group"
                 aria-label="Play"
               >
-                <Play className="w-10 h-10 md:w-12 md:h-12 text-[#8B5CF6] fill-[#8B5CF6] ml-1 group-hover:text-white group-hover:fill-white transition-colors" strokeWidth={1.5} />
+                <Play className="w-10 h-10 md:w-12 md:h-12 text-[#D4A853] fill-[#D4A853] ml-1 group-hover:text-white group-hover:fill-white transition-colors" strokeWidth={1.5} />
               </button>
             </div>
           )}
@@ -786,12 +786,12 @@ export default function CinemaPlayer({ movie }: CinemaPlayerProps) {
               />
               {/* Play progress */}
               <div
-                className="absolute top-0 left-0 h-full bg-[#8B5CF6] rounded-full transition-[width] duration-100"
+                className="absolute top-0 left-0 h-full bg-[#D4A853] rounded-full transition-[width] duration-100"
                 style={{ width: duration ? `${(currentTime / duration) * 100}%` : '0%' }}
               />
               {/* Progress dot */}
               <div
-                className="absolute top-1/2 -translate-y-1/2 w-3.5 h-3.5 bg-[#8B5CF6] rounded-full shadow-lg shadow-[#8B5CF6]/40 opacity-0 group-hover/progress:opacity-100 transition-opacity"
+                className="absolute top-1/2 -translate-y-1/2 w-3.5 h-3.5 bg-[#D4A853] rounded-full shadow-lg shadow-[#D4A853]/40 opacity-0 group-hover/progress:opacity-100 transition-opacity"
                 style={{ left: duration ? `calc(${(currentTime / duration) * 100}% - 7px)` : '-7px' }}
               />
               {/* Seek preview tooltip */}
@@ -810,22 +810,22 @@ export default function CinemaPlayer({ movie }: CinemaPlayerProps) {
               {/* Left controls */}
               <div className="flex items-center gap-1 md:gap-2">
                 {/* Play/Pause */}
-                <button onClick={togglePlay} className="text-white hover:text-[#8B5CF6] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label={isPlaying ? 'Pause' : 'Play'}>
+                <button onClick={togglePlay} className="text-white hover:text-[#D4A853] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label={isPlaying ? 'Pause' : 'Play'}>
                   {isPlaying ? <Pause className="w-5 h-5" fill="currentColor" /> : <Play className="w-5 h-5" fill="currentColor" />}
                 </button>
 
                 {/* Skip Back */}
-                <button onClick={() => skip(-10)} className="text-white/80 hover:text-[#8B5CF6] transition-colors hidden sm:flex min-h-[44px] min-w-[44px] items-center justify-center" aria-label="Skip back 10s">
+                <button onClick={() => skip(-10)} className="text-white/80 hover:text-[#D4A853] transition-colors hidden sm:flex min-h-[44px] min-w-[44px] items-center justify-center" aria-label="Skip back 10s">
                   <SkipBack className="w-4 h-4" strokeWidth={1.5} />
                 </button>
                 {/* Skip Forward */}
-                <button onClick={() => skip(10)} className="text-white/80 hover:text-[#8B5CF6] transition-colors hidden sm:flex min-h-[44px] min-w-[44px] items-center justify-center" aria-label="Skip forward 10s">
+                <button onClick={() => skip(10)} className="text-white/80 hover:text-[#D4A853] transition-colors hidden sm:flex min-h-[44px] min-w-[44px] items-center justify-center" aria-label="Skip forward 10s">
                   <SkipForward className="w-4 h-4" strokeWidth={1.5} />
                 </button>
 
                 {/* Volume */}
                 <div className="flex items-center gap-1 group/vol">
-                  <button onClick={toggleMute} className="text-white/80 hover:text-[#8B5CF6] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label={isMuted ? 'Unmute' : 'Mute'}>
+                  <button onClick={toggleMute} className="text-white/80 hover:text-[#D4A853] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label={isMuted ? 'Unmute' : 'Mute'}>
                     <VolumeIcon className="w-5 h-5" strokeWidth={1.5} />
                   </button>
                   <div className="w-0 group-hover/vol:w-20 overflow-hidden transition-all duration-200">
@@ -836,7 +836,7 @@ export default function CinemaPlayer({ movie }: CinemaPlayerProps) {
                       step={0.01}
                       value={isMuted ? 0 : volume}
                       onChange={(e) => handleVolumeChange(parseFloat(e.target.value))}
-                      className="w-20 h-1 accent-[#8B5CF6] cursor-pointer"
+                      className="w-20 h-1 accent-[#D4A853] cursor-pointer"
                       aria-label="Volume"
                     />
                   </div>
@@ -855,7 +855,7 @@ export default function CinemaPlayer({ movie }: CinemaPlayerProps) {
                   <div className="relative">
                     <button
                       onClick={() => { closeAllMenus(); setShowQualityMenu(!showQualityMenu); }}
-                      className="text-[10px] px-1.5 py-0.5 rounded transition-colors text-white/70 hover:text-[#8B5CF6] hover:bg-[#8B5CF6]/10 min-h-[32px] flex items-center"
+                      className="text-[10px] px-1.5 py-0.5 rounded transition-colors text-white/70 hover:text-[#D4A853] hover:bg-[#D4A853]/10 min-h-[32px] flex items-center"
                       aria-label="Quality"
                     >
                       {currentQualityLabel}
@@ -871,7 +871,7 @@ export default function CinemaPlayer({ movie }: CinemaPlayerProps) {
                           <button
                             key={opt.value}
                             onClick={() => handleQualityChange(opt.value)}
-                            className={`flex items-center justify-between w-full px-3 py-2 text-sm transition-colors ${selectedQuality === opt.value ? 'text-[#8B5CF6] bg-[#8B5CF6]/10' : 'text-white/80 hover:bg-[#111118]'}`}
+                            className={`flex items-center justify-between w-full px-3 py-2 text-sm transition-colors ${selectedQuality === opt.value ? 'text-[#D4A853] bg-[#D4A853]/10' : 'text-white/80 hover:bg-[#111118]'}`}
                           >
                             <span>{opt.label}</span>
                             {selectedQuality === opt.value && <Check className="w-4 h-4" strokeWidth={2} />}
@@ -886,7 +886,7 @@ export default function CinemaPlayer({ movie }: CinemaPlayerProps) {
                 <div className="relative">
                   <button
                     onClick={() => { closeAllMenus(); setShowSpeedMenu(!showSpeedMenu); }}
-                    className={`text-[11px] px-1.5 py-0.5 rounded transition-colors min-h-[32px] flex items-center ${selectedSpeed !== 1 ? 'text-[#8B5CF6] bg-[#8B5CF6]/10' : 'text-white/70 hover:text-[#8B5CF6]'}`}
+                    className={`text-[11px] px-1.5 py-0.5 rounded transition-colors min-h-[32px] flex items-center ${selectedSpeed !== 1 ? 'text-[#D4A853] bg-[#D4A853]/10' : 'text-white/70 hover:text-[#D4A853]'}`}
                     aria-label="Playback speed"
                   >
                     {selectedSpeed === 1 ? '1x' : `${selectedSpeed}x`}
@@ -899,7 +899,7 @@ export default function CinemaPlayer({ movie }: CinemaPlayerProps) {
                         <button
                           key={speed}
                           onClick={() => handleSpeedChange(speed)}
-                          className={`flex items-center justify-between w-full px-3 py-2 text-sm transition-colors ${selectedSpeed === speed ? 'text-[#8B5CF6] bg-[#8B5CF6]/10' : 'text-white/80 hover:bg-[#111118]'}`}
+                          className={`flex items-center justify-between w-full px-3 py-2 text-sm transition-colors ${selectedSpeed === speed ? 'text-[#D4A853] bg-[#D4A853]/10' : 'text-white/80 hover:bg-[#111118]'}`}
                         >
                           <span>{speed === 1 ? 'Normal' : `${speed}x`}</span>
                           {selectedSpeed === speed && <Check className="w-4 h-4" strokeWidth={2} />}
@@ -910,12 +910,12 @@ export default function CinemaPlayer({ movie }: CinemaPlayerProps) {
                 </div>
 
                 {/* PiP */}
-                <button onClick={togglePiP} className="text-white/70 hover:text-[#8B5CF6] transition-colors min-h-[32px] min-w-[32px] flex items-center justify-center" aria-label="Picture in Picture">
+                <button onClick={togglePiP} className="text-white/70 hover:text-[#D4A853] transition-colors min-h-[32px] min-w-[32px] flex items-center justify-center" aria-label="Picture in Picture">
                   <PictureInPicture2 className="w-4 h-4" strokeWidth={1.5} />
                 </button>
 
                 {/* Fullscreen */}
-                <button onClick={toggleFullscreen} className="text-white/80 hover:text-[#8B5CF6] transition-colors min-h-[32px] min-w-[32px] flex items-center justify-center" aria-label={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}>
+                <button onClick={toggleFullscreen} className="text-white/80 hover:text-[#D4A853] transition-colors min-h-[32px] min-w-[32px] flex items-center justify-center" aria-label={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}>
                   {isFullscreen ? <Minimize className="w-5 h-5" strokeWidth={1.5} /> : <Maximize className="w-5 h-5" strokeWidth={1.5} />}
                 </button>
               </div>
@@ -946,7 +946,7 @@ export default function CinemaPlayer({ movie }: CinemaPlayerProps) {
                 <h2 className="text-white text-sm md:text-base font-semibold line-clamp-1">{movie.title}</h2>
                 <div className="flex items-center gap-2">
                   <p className="text-white/50 text-xs">{movie.year} · {movie.duration}</p>
-                  <span className="text-[9px] font-medium px-1.5 py-0.5 bg-[#8B5CF6]/20 text-[#8B5CF6] rounded border border-[#8B5CF6]/20">
+                  <span className="text-[9px] font-medium px-1.5 py-0.5 bg-[#D4A853]/20 text-[#D4A853] rounded border border-[#D4A853]/20">
                     {sourceBadge}
                   </span>
                 </div>
@@ -976,7 +976,7 @@ export default function CinemaPlayer({ movie }: CinemaPlayerProps) {
       {(isDirect || isHLS) && !controlsVisible && (
         <div className="absolute bottom-0 left-0 right-0 h-0.5 z-10 bg-white/10 pointer-events-none">
           <div
-            className="h-full bg-[#8B5CF6]"
+            className="h-full bg-[#D4A853]"
             style={{ width: duration ? `${(currentTime / duration) * 100}%` : '0%' }}
           />
         </div>

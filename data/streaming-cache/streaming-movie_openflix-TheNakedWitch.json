@@ -1,0 +1,43 @@
+{
+  "key": "streaming-movie:openflix-TheNakedWitch",
+  "data": {
+    "id": "openflix-TheNakedWitch",
+    "title": "The Naked Witch",
+    "description": "One of Larry Buchanan's first films, so don't expect the polish and complex character interactions of his later work, like \"Mars Needs Women\" or \"Zontar, the Thing from Venus.\"",
+    "year": 0,
+    "duration": "59h 7m",
+    "durationSeconds": 212820,
+    "genres": [],
+    "rating": 3.4,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/TheNakedWitch",
+    "backdrop": "https://archive.org/services/img/TheNakedWitch",
+    "source": "openflix",
+    "sourceUrl": "https://archive.org/details/TheNakedWitch",
+    "sourceLicense": "Public Domain / Open Source",
+    "videoUrl": "https://archive.org/download/TheNakedWitch/TheNakedWitch1964FullMovieFilmHorror.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:42.228Z"
+  },
+  "createdAt": 1778337992646,
+  "expiresAt": 1778424392646
+}

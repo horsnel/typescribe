@@ -376,7 +376,7 @@ export default function PremiumVideoPlayer({ movie }: PremiumVideoPlayerProps) {
       {/* Loading spinner (direct video only) */}
       {isDirect && isLoading && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-          <div className="w-12 h-12 border-[3px] border-[#8B5CF6]/30 border-t-[#8B5CF6] rounded-full animate-spin" />
+          <div className="w-12 h-12 border-[3px] border-[#D4A853]/30 border-t-[#D4A853] rounded-full animate-spin" />
         </div>
       )}
 
@@ -442,11 +442,11 @@ export default function PremiumVideoPlayer({ movie }: PremiumVideoPlayerProps) {
                 style={{ width: duration ? `${(buffered / duration) * 100}%` : '0%' }}
               />
               <div
-                className="absolute top-0 left-0 h-full bg-[#8B5CF6] rounded-full"
+                className="absolute top-0 left-0 h-full bg-[#D4A853] rounded-full"
                 style={{ width: duration ? `${(currentTime / duration) * 100}%` : '0%' }}
               />
               <div
-                className="absolute top-1/2 -translate-y-1/2 w-3.5 h-3.5 bg-[#8B5CF6] rounded-full shadow-lg opacity-0 group-hover/progress:opacity-100 transition-opacity"
+                className="absolute top-1/2 -translate-y-1/2 w-3.5 h-3.5 bg-[#D4A853] rounded-full shadow-lg opacity-0 group-hover/progress:opacity-100 transition-opacity"
                 style={{ left: duration ? `calc(${(currentTime / duration) * 100}% - 7px)` : '-7px' }}
               />
               {seekPreview && duration > 0 && (
@@ -463,19 +463,19 @@ export default function PremiumVideoPlayer({ movie }: PremiumVideoPlayerProps) {
             <div className="flex items-center justify-between gap-2">
               {/* Left controls */}
               <div className="flex items-center gap-2 md:gap-3">
-                <button onClick={togglePlay} className="text-white hover:text-[#8B5CF6] transition-colors" aria-label={isPlaying ? 'Pause' : 'Play'}>
+                <button onClick={togglePlay} className="text-white hover:text-[#D4A853] transition-colors" aria-label={isPlaying ? 'Pause' : 'Play'}>
                   {isPlaying ? <Pause className="w-5 h-5" fill="currentColor" /> : <Play className="w-5 h-5" fill="currentColor" />}
                 </button>
 
-                <button onClick={() => { const v = videoRef.current; if (v) v.currentTime = Math.max(0, v.currentTime - 10); }} className="text-white/80 hover:text-[#8B5CF6] transition-colors hidden sm:block" aria-label="Skip back 10s">
+                <button onClick={() => { const v = videoRef.current; if (v) v.currentTime = Math.max(0, v.currentTime - 10); }} className="text-white/80 hover:text-[#D4A853] transition-colors hidden sm:block" aria-label="Skip back 10s">
                   <SkipBack className="w-4 h-4" strokeWidth={1.5} />
                 </button>
-                <button onClick={() => { const v = videoRef.current; if (v) v.currentTime = Math.min(v.duration, v.currentTime + 10); }} className="text-white/80 hover:text-[#8B5CF6] transition-colors hidden sm:block" aria-label="Skip forward 10s">
+                <button onClick={() => { const v = videoRef.current; if (v) v.currentTime = Math.min(v.duration, v.currentTime + 10); }} className="text-white/80 hover:text-[#D4A853] transition-colors hidden sm:block" aria-label="Skip forward 10s">
                   <SkipForward className="w-4 h-4" strokeWidth={1.5} />
                 </button>
 
                 <div className="flex items-center gap-1 group/vol">
-                  <button onClick={toggleMute} className="text-white/80 hover:text-[#8B5CF6] transition-colors" aria-label={isMuted ? 'Unmute' : 'Mute'}>
+                  <button onClick={toggleMute} className="text-white/80 hover:text-[#D4A853] transition-colors" aria-label={isMuted ? 'Unmute' : 'Mute'}>
                     <VolumeIcon className="w-5 h-5" strokeWidth={1.5} />
                   </button>
                   <div className="w-0 group-hover/vol:w-20 overflow-hidden transition-all duration-200">
@@ -486,7 +486,7 @@ export default function PremiumVideoPlayer({ movie }: PremiumVideoPlayerProps) {
                       step={0.01}
                       value={isMuted ? 0 : volume}
                       onChange={(e) => handleVolumeChange(parseFloat(e.target.value))}
-                      className="w-20 h-1 accent-[#8B5CF6] cursor-pointer"
+                      className="w-20 h-1 accent-[#D4A853] cursor-pointer"
                       aria-label="Volume"
                     />
                   </div>
@@ -503,14 +503,14 @@ export default function PremiumVideoPlayer({ movie }: PremiumVideoPlayerProps) {
                 <div className="relative">
                   <button
                     onClick={() => { closeAllMenus(); setShowSpeedMenu(!showSpeedMenu); }}
-                    className={`text-xs px-1.5 py-0.5 rounded transition-colors ${selectedSpeed !== 1 ? 'text-[#8B5CF6] bg-[#8B5CF6]/10' : 'text-white/80 hover:text-[#8B5CF6]'}`}
+                    className={`text-xs px-1.5 py-0.5 rounded transition-colors ${selectedSpeed !== 1 ? 'text-[#D4A853] bg-[#D4A853]/10' : 'text-white/80 hover:text-[#D4A853]'}`}
                     aria-label="Playback speed"
                   >
                     {selectedSpeed === 1 ? '1x' : `${selectedSpeed}x`}
                   </button>
                 </div>
 
-                <button onClick={toggleFullscreen} className="text-white/80 hover:text-[#8B5CF6] transition-colors" aria-label={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}>
+                <button onClick={toggleFullscreen} className="text-white/80 hover:text-[#D4A853] transition-colors" aria-label={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}>
                   {isFullscreen ? <Minimize className="w-5 h-5" strokeWidth={1.5} /> : <Maximize className="w-5 h-5" strokeWidth={1.5} />}
                 </button>
               </div>
@@ -525,7 +525,7 @@ export default function PremiumVideoPlayer({ movie }: PremiumVideoPlayerProps) {
                 <button
                   key={speed}
                   onClick={() => handleSpeedChange(speed)}
-                  className={`flex items-center justify-between w-full px-3 py-2 text-sm transition-colors ${selectedSpeed === speed ? 'text-[#8B5CF6] bg-[#8B5CF6]/10' : 'text-white/80 hover:bg-[#111118]'}`}
+                  className={`flex items-center justify-between w-full px-3 py-2 text-sm transition-colors ${selectedSpeed === speed ? 'text-[#D4A853] bg-[#D4A853]/10' : 'text-white/80 hover:bg-[#111118]'}`}
                 >
                   <span>{speed === 1 ? 'Normal' : `${speed}x`}</span>
                   {selectedSpeed === speed && <Check className="w-4 h-4" strokeWidth={2} />}
@@ -583,7 +583,7 @@ export default function PremiumVideoPlayer({ movie }: PremiumVideoPlayerProps) {
       {isDirect && (
         <div className="absolute bottom-0 left-0 right-0 h-0.5 z-10 bg-white/10 pointer-events-none">
           <div
-            className="h-full bg-[#8B5CF6]"
+            className="h-full bg-[#D4A853]"
             style={{ width: duration ? `${(currentTime / duration) * 100}%` : '0%' }}
           />
         </div>

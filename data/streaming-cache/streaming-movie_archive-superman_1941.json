@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-superman_1941",
+  "data": {
+    "id": "archive-superman_1941",
+    "title": "Superman",
+    "description": "You can find more information regarding this film on its IMDb page .",
+    "year": 1941,
+    "duration": "10h 20m",
+    "durationSeconds": 37200,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 4.6,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/superman_1941",
+    "backdrop": "https://archive.org/services/img/superman_1941",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/superman_1941",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/superman_1941",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:09.868Z"
+  },
+  "createdAt": 1778337992635,
+  "expiresAt": 1778424392635
+}

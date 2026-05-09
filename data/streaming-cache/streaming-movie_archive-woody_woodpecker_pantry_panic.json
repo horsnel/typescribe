@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-woody_woodpecker_pantry_panic",
+  "data": {
+    "id": "archive-woody_woodpecker_pantry_panic",
+    "title": "Woody Woodpecker in Pantry Panic",
+    "description": "Weatherby Groundhog predicts a cold winter and advises all the birds to fly south. But Woody Woodpecker decides to stay, and nearly starves. Animation by Alex Lovy and Lester Kline, story by Ben Hardaway and L.E. Elliott, music by Darrell Calker.",
+    "year": 1941,
+    "duration": "7h",
+    "durationSeconds": 25200,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 4.4,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/woody_woodpecker_pantry_panic",
+    "backdrop": "https://archive.org/services/img/woody_woodpecker_pantry_panic",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/woody_woodpecker_pantry_panic",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/woody_woodpecker_pantry_panic",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:09.868Z"
+  },
+  "createdAt": 1778337992638,
+  "expiresAt": 1778424392638
+}

@@ -74,7 +74,7 @@ export default function ProfilePage() {
       <div className="min-h-screen bg-[#050507] flex items-center justify-center">
         <div className="text-center">
           <p className="text-[#9ca3af] mb-4">Please sign in to view your profile</p>
-          <Link href="/login" className="text-[#8B5CF6] hover:underline">Sign In</Link>
+          <Link href="/login" className="text-[#D4A853] hover:underline">Sign In</Link>
         </div>
       </div>
     );
@@ -150,7 +150,7 @@ export default function ProfilePage() {
         <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-6 pt-4">
           {/* Avatar */}
           <div className="relative group flex-shrink-0">
-            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#7C3AED] flex items-center justify-center text-white text-3xl font-bold overflow-hidden ring-4 ring-[#8B5CF6]/20">
+            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-br from-[#D4A853] to-[#B8922F] flex items-center justify-center text-white text-3xl font-bold overflow-hidden ring-4 ring-[#D4A853]/20">
               {user.avatar ? (
                 <img src={user.avatar} alt={user.display_name} className="w-full h-full object-cover" />
               ) : (
@@ -161,7 +161,7 @@ export default function ProfilePage() {
               <Dialog open={avatarDialogOpen} onOpenChange={setAvatarDialogOpen}>
                 <DialogTrigger asChild>
                   <button
-                    className="absolute bottom-1 right-1 w-9 h-9 bg-[#0c0c10] border border-[#1e1e28] rounded-full flex items-center justify-center text-[#9ca3af] hover:text-white hover:border-[#8B5CF6] transition-all shadow-lg min-w-[44px] min-h-[44px]"
+                    className="absolute bottom-1 right-1 w-9 h-9 bg-[#0c0c10] border border-[#1e1e28] rounded-full flex items-center justify-center text-[#9ca3af] hover:text-white hover:border-[#D4A853] transition-all shadow-lg min-w-[44px] min-h-[44px]"
                     aria-label="Change avatar"
                   >
                     <Camera className="w-4 h-4" strokeWidth={1.5} />
@@ -177,7 +177,7 @@ export default function ProfilePage() {
                         key={av.id}
                         onClick={() => handleAvatarSelect(av.url)}
                         className={`relative rounded-xl p-1 transition-all hover:scale-105 ${
-                          user.avatar === av.url ? 'ring-2 ring-[#8B5CF6] bg-[#8B5CF6]/10' : 'bg-[#050507] border border-[#1e1e28] hover:border-[#3a3a45]'
+                          user.avatar === av.url ? 'ring-2 ring-[#D4A853] bg-[#D4A853]/10' : 'bg-[#050507] border border-[#1e1e28] hover:border-[#3a3a45]'
                         }`}
                       >
                         <img src={av.url} alt={av.label} className="w-full aspect-square rounded-lg" />
@@ -200,9 +200,9 @@ export default function ProfilePage() {
             {/* Favorite Genres */}
             {user.favorite_genres && user.favorite_genres.length > 0 && (
               <div className="flex items-center gap-2 mb-3 flex-wrap justify-center sm:justify-start">
-                <Film className="w-3.5 h-3.5 text-[#8B5CF6]" strokeWidth={1.5} />
+                <Film className="w-3.5 h-3.5 text-[#D4A853]" strokeWidth={1.5} />
                 {user.favorite_genres.slice(0, 4).map((genre) => (
-                  <span key={genre} className="text-xs text-[#8B5CF6] bg-[#8B5CF6]/10 px-2 py-0.5 rounded-full">{genre}</span>
+                  <span key={genre} className="text-xs text-[#D4A853] bg-[#D4A853]/10 px-2 py-0.5 rounded-full">{genre}</span>
                 ))}
               </div>
             )}
@@ -213,7 +213,7 @@ export default function ProfilePage() {
                 <>
                   <Button
                     onClick={handleEditOpen}
-                    className="bg-[#0c0c10] border border-[#8B5CF6]/30 text-[#8B5CF6] hover:bg-[#8B5CF6] hover:text-white hover:border-[#8B5CF6] gap-2 min-h-[44px]"
+                    className="bg-[#0c0c10] border border-[#D4A853]/30 text-[#D4A853] hover:bg-[#D4A853] hover:text-white hover:border-[#D4A853] gap-2 min-h-[44px]"
                     variant="outline"
                   >
                     <Edit3 className="w-4 h-4" strokeWidth={1.5} /> Edit Profile
@@ -232,8 +232,8 @@ export default function ProfilePage() {
                   <Button
                     onClick={handleFollowToggle}
                     className={followState
-                      ? 'bg-[#0c0c10] border border-[#8B5CF6] text-[#8B5CF6] hover:bg-[#8B5CF6] hover:text-white gap-2 min-h-[44px]'
-                      : 'bg-[#8B5CF6] hover:bg-[#7C3AED] text-white gap-2 min-h-[44px]'
+                      ? 'bg-[#0c0c10] border border-[#D4A853] text-[#D4A853] hover:bg-[#D4A853] hover:text-white gap-2 min-h-[44px]'
+                      : 'bg-[#D4A853] hover:bg-[#B8922F] text-white gap-2 min-h-[44px]'
                     }
                     variant={followState ? 'outline' : 'default'}
                   >
@@ -272,7 +272,7 @@ export default function ProfilePage() {
           <button
             onClick={() => setActiveTab('posts')}
             className={`pb-3 px-4 text-sm font-medium transition-colors flex items-center gap-2 min-h-[44px] ${
-              activeTab === 'posts' ? 'text-white border-b-2 border-[#8B5CF6]' : 'text-[#6b7280] hover:text-[#9ca3af]'
+              activeTab === 'posts' ? 'text-white border-b-2 border-[#D4A853]' : 'text-[#6b7280] hover:text-[#9ca3af]'
             }`}
           >
             <Grid3x3 className="w-4 h-4" strokeWidth={1.5} /> Posts
@@ -280,7 +280,7 @@ export default function ProfilePage() {
           <button
             onClick={() => setActiveTab('reviews')}
             className={`pb-3 px-4 text-sm font-medium transition-colors flex items-center gap-2 min-h-[44px] ${
-              activeTab === 'reviews' ? 'text-white border-b-2 border-[#8B5CF6]' : 'text-[#6b7280] hover:text-[#9ca3af]'
+              activeTab === 'reviews' ? 'text-white border-b-2 border-[#D4A853]' : 'text-[#6b7280] hover:text-[#9ca3af]'
             }`}
           >
             <Star className="w-4 h-4" strokeWidth={1.5} /> Reviews
@@ -288,7 +288,7 @@ export default function ProfilePage() {
           <button
             onClick={() => setActiveTab('watchlist')}
             className={`pb-3 px-4 text-sm font-medium transition-colors flex items-center gap-2 min-h-[44px] ${
-              activeTab === 'watchlist' ? 'text-white border-b-2 border-[#8B5CF6]' : 'text-[#6b7280] hover:text-[#9ca3af]'
+              activeTab === 'watchlist' ? 'text-white border-b-2 border-[#D4A853]' : 'text-[#6b7280] hover:text-[#9ca3af]'
             }`}
           >
             <Bookmark className="w-4 h-4" strokeWidth={1.5} /> Watchlist
@@ -303,18 +303,18 @@ export default function ProfilePage() {
                 key={post.id}
                 className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5 hover:border-[#2a2a35] transition-all group"
               >
-                <h3 className="text-base font-semibold text-white group-hover:text-[#8B5CF6] transition-colors mb-1">
+                <h3 className="text-base font-semibold text-white group-hover:text-[#D4A853] transition-colors mb-1">
                   {post.title}
                 </h3>
                 <p className="text-sm text-[#9ca3af] leading-relaxed mb-3">{post.content}</p>
                 {/* Interaction bar with bold 2.5px icons */}
                 <div className="h-px bg-[#1e1e28] my-3" />
                 <div className="flex items-center gap-2">
-                  <button className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm text-[#6b7280] hover:text-[#8B5CF6] transition-all min-w-[44px] min-h-[44px] justify-center hover:bg-[#111118]">
+                  <button className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm text-[#6b7280] hover:text-[#D4A853] transition-all min-w-[44px] min-h-[44px] justify-center hover:bg-[#111118]">
                     <Heart className="w-[18px] h-[18px]" strokeWidth={1.5} />
                     <span className="text-xs font-medium">{post.likes}</span>
                   </button>
-                  <button className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm text-[#6b7280] hover:text-[#8B5CF6] transition-all min-w-[44px] min-h-[44px] justify-center hover:bg-[#111118]">
+                  <button className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm text-[#6b7280] hover:text-[#D4A853] transition-all min-w-[44px] min-h-[44px] justify-center hover:bg-[#111118]">
                     <MessageSquare className="w-[18px] h-[18px]" strokeWidth={1.5} />
                     <span className="text-xs font-medium">{post.comments}</span>
                   </button>
@@ -354,11 +354,11 @@ export default function ProfilePage() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
-                          <span className="text-sm font-semibold text-white group-hover:text-[#8B5CF6] transition-colors">
+                          <span className="text-sm font-semibold text-white group-hover:text-[#D4A853] transition-colors">
                             {movie?.title || 'Unknown Movie'}
                           </span>
                           {/* Rating Badge */}
-                          <span className="text-xs font-bold text-[#8B5CF6] bg-[#8B5CF6]/10 px-1.5 py-0.5 rounded">
+                          <span className="text-xs font-bold text-[#D4A853] bg-[#D4A853]/10 px-1.5 py-0.5 rounded">
                             {review.rating}/10
                           </span>
                         </div>
@@ -393,7 +393,7 @@ export default function ProfilePage() {
                         <span className="text-xs text-[#6b7280] w-6 text-right">{rating}</span>
                         <div className="flex-1 h-4 bg-[#050507] rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-[#8B5CF6] rounded-full transition-all"
+                            className="h-full bg-[#D4A853] rounded-full transition-all"
                             style={{ width: `${(count / maxBucket) * 100}%` }}
                           />
                         </div>
@@ -412,7 +412,7 @@ export default function ProfilePage() {
                           <span className="text-sm text-[#9ca3af] w-24">{name}</span>
                           <div className="flex-1 h-4 bg-[#050507] rounded-full overflow-hidden">
                             <div
-                              className="h-full bg-[#8B5CF6]/70 rounded-full transition-all"
+                              className="h-full bg-[#D4A853]/70 rounded-full transition-all"
                               style={{ width: `${(count / (topGenres[0]?.[1] || 1)) * 100}%` }}
                             />
                           </div>
@@ -434,7 +434,7 @@ export default function ProfilePage() {
           <div className="text-center py-12">
             <ListVideo className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" strokeWidth={1.5} />
             <p className="text-[#9ca3af] mb-1">{watchlistCount} movies in watchlist</p>
-            <Link href="/watchlist" className="text-sm text-[#8B5CF6] hover:underline">View full watchlist</Link>
+            <Link href="/watchlist" className="text-sm text-[#D4A853] hover:underline">View full watchlist</Link>
           </div>
         )}
       </div>
@@ -448,7 +448,7 @@ export default function ProfilePage() {
           <div className="space-y-4 py-4">
             {/* Avatar in edit modal */}
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#7C3AED] flex items-center justify-center text-white text-xl font-bold overflow-hidden flex-shrink-0">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#D4A853] to-[#B8922F] flex items-center justify-center text-white text-xl font-bold overflow-hidden flex-shrink-0">
                 {editAvatarUrl ? (
                   <img src={editAvatarUrl} alt="Preview" className="w-full h-full object-cover" />
                 ) : (
@@ -474,7 +474,7 @@ export default function ProfilePage() {
                           setAvatarDialogOpen(false);
                         }}
                         className={`relative rounded-xl p-1 transition-all hover:scale-105 ${
-                          editAvatarUrl === av.url ? 'ring-2 ring-[#8B5CF6] bg-[#8B5CF6]/10' : 'bg-[#050507] border border-[#1e1e28] hover:border-[#3a3a45]'
+                          editAvatarUrl === av.url ? 'ring-2 ring-[#D4A853] bg-[#D4A853]/10' : 'bg-[#050507] border border-[#1e1e28] hover:border-[#3a3a45]'
                         }`}
                       >
                         <img src={av.url} alt={av.label} className="w-full aspect-square rounded-lg" />
@@ -493,7 +493,7 @@ export default function ProfilePage() {
                 type="text"
                 value={editName}
                 onChange={(e) => setEditName(e.target.value)}
-                className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6] min-h-[44px]"
+                className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853] min-h-[44px]"
                 placeholder="Your display name"
               />
             </div>
@@ -505,7 +505,7 @@ export default function ProfilePage() {
                 rows={3}
                 value={editBio}
                 onChange={(e) => setEditBio(e.target.value)}
-                className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6] resize-none"
+                className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853] resize-none"
                 placeholder="Tell us about yourself..."
               />
             </div>
@@ -521,7 +521,7 @@ export default function ProfilePage() {
             </Button>
             <Button
               onClick={handleEditSave}
-              className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white gap-2 min-h-[44px]"
+              className="bg-[#D4A853] hover:bg-[#B8922F] text-white gap-2 min-h-[44px]"
             >
               <Pencil className="w-4 h-4" strokeWidth={1.5} /> Save Changes
             </Button>

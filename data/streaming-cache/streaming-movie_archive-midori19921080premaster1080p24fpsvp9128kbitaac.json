@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-midori19921080premaster1080p24fpsvp9128kbitaac",
+  "data": {
+    "id": "archive-midori19921080premaster1080p24fpsvp9128kbitaac",
+    "title": "Midori ( 1992) 1080p Remaster ( 1080p 24fps VP 9 128kbit AAC)",
+    "description": " A Japanese anime about circus performers and a young protagonist whom find themselves entrapped in a magician's world. A wonderful tale of illusion and how this world makes them so vulnerable to forgetting.",
+    "year": 1992,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 3.8,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/midori19921080premaster1080p24fpsvp9128kbitaac",
+    "backdrop": "https://archive.org/services/img/midori19921080premaster1080p24fpsvp9128kbitaac",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/midori19921080premaster1080p24fpsvp9128kbitaac",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/midori19921080premaster1080p24fpsvp9128kbitaac",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:41:59.372Z"
+  },
+  "createdAt": 1778337992644,
+  "expiresAt": 1778424392644
+}

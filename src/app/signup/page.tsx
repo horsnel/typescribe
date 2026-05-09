@@ -104,7 +104,7 @@ export default function SignupPage() {
         {/* Logo */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2 mb-6">
-            <Film className="w-8 h-8 text-[#8B5CF6]" strokeWidth={1.5} />
+            <Film className="w-8 h-8 text-[#D4A853]" strokeWidth={1.5} />
             <span className="text-2xl font-extrabold text-white">Typescribe</span>
           </Link>
           <h1 className="text-2xl font-bold text-white mb-2">Create your account</h1>
@@ -150,7 +150,7 @@ export default function SignupPage() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6]"
+              className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853]"
               placeholder="Your name"
             />
           </div>
@@ -162,7 +162,7 @@ export default function SignupPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6]"
+              className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853]"
               placeholder="you@example.com"
             />
           </div>
@@ -175,7 +175,7 @@ export default function SignupPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 pr-10 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6]"
+                className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 pr-10 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853]"
                 placeholder="At least 6 characters"
               />
               <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6b7280] hover:text-white">
@@ -202,7 +202,7 @@ export default function SignupPage() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
-              className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6]"
+              className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853]"
               placeholder="Repeat your password"
             />
             {confirmPassword && password && (
@@ -217,7 +217,7 @@ export default function SignupPage() {
               type="checkbox"
               checked={agreedToTerms}
               onChange={(e) => setAgreedToTerms(e.target.checked)}
-              className="mt-0.5 rounded border-[#1e1e28] bg-[#050507] text-[#8B5CF6] focus:ring-[#8B5CF6]"
+              className="mt-0.5 rounded border-[#1e1e28] bg-[#050507] text-[#D4A853] focus:ring-[#D4A853]"
             />
             <span className="text-xs text-[#6b7280]">
               I agree to the{' '}
@@ -229,14 +229,14 @@ export default function SignupPage() {
           <Button
             type="submit"
             disabled={loading || !agreedToTerms}
-            className="w-full bg-[#8B5CF6] hover:bg-[#7C3AED] text-white font-medium disabled:opacity-50"
+            className="w-full bg-[#D4A853] hover:bg-[#B8922F] text-white font-medium disabled:opacity-50"
           >
             {loading ? <Loader2 className="w-5 h-5 animate-spin mx-auto" strokeWidth={1.5} /> : 'Sign Up'}
           </Button>
 
           <p className="text-center text-sm text-[#6b7280]">
             Already have an account?{' '}
-            <Link href="/login" className="text-[#8B5CF6] hover:underline">Sign In</Link>
+            <Link href="/login" className="text-[#D4A853] hover:underline">Sign In</Link>
           </p>
         </form>
       </div>

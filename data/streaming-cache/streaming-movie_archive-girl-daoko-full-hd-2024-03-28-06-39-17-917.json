@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-girl-daoko-full-hd-2024-03-28-06-39-17-917",
+  "data": {
+    "id": "archive-girl-daoko-full-hd-2024-03-28-06-39-17-917",
+    "title": "日本アニメ(ーター)見本市 # 31「GIRL」",
+    "description": "Japanese Animation",
+    "year": 0,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 0,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/girl-daoko-full-hd-2024-03-28-06-39-17-917",
+    "backdrop": "https://archive.org/services/img/girl-daoko-full-hd-2024-03-28-06-39-17-917",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/girl-daoko-full-hd-2024-03-28-06-39-17-917",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/girl-daoko-full-hd-2024-03-28-06-39-17-917/JAPAN_ANIMATORS_EXHIBITION_%E3%82%BF%E3%82%A4%E3%83%88%E3%83%AB31%20GIRL.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:22.059Z"
+  },
+  "createdAt": 1778337992648,
+  "expiresAt": 1778424392648
+}

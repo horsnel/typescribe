@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-serial-experiments-lain-english",
+  "data": {
+    "id": "archive-serial-experiments-lain-english",
+    "title": "Serial Experiments Lain English Dubbed",
+    "description": "All 13 Serial Experiments Lain episodes English dubbed in order. Download the Matroska (.mkv) files for the best quality. \"Lain Iwakura, an awkward and introverted fourteen-year-old, is one of the many girls from her school to receive a disturbing email from her classmate Chisa Yomoda—the very same Chisa who recently committed suicide. Lain has neither the desire nor the experience to handle even basic technology; yet, when the technophobe opens the email, it leads her straight into the Wired, a",
+    "year": 1998,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 4.8,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/serial-experiments-lain-english",
+    "backdrop": "https://archive.org/services/img/serial-experiments-lain-english",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/serial-experiments-lain-english",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/serial-experiments-lain-english/MP4%20(Lowest%20Quality)/Layer-01-Serial-Experiments-Lain.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:41:59.372Z"
+  },
+  "createdAt": 1778337992634,
+  "expiresAt": 1778424392634
+}

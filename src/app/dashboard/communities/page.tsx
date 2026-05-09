@@ -48,14 +48,14 @@ export default function DashboardCommunitiesPage() {
   const joinedCommunities = ALL_COMMUNITIES.filter(c => joinedIds.includes(c.id));
 
   if (!isAuthenticated) {
-    return <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center"><p className="text-[#9ca3af]">Please sign in to view your communities.</p><Link href="/login" className="text-[#8B5CF6] hover:underline text-sm">Sign In</Link></div>;
+    return <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center"><p className="text-[#9ca3af]">Please sign in to view your communities.</p><Link href="/login" className="text-[#D4A853] hover:underline text-sm">Sign In</Link></div>;
   }
 
   return (
     <>
       <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
         <h1 className="text-2xl font-bold text-white">My Communities</h1>
-        <Link href="/communities"><Button className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white gap-2 min-h-[44px]"><Plus className="w-4 h-4" strokeWidth={1.5} />Discover Communities</Button></Link>
+        <Link href="/communities"><Button className="bg-[#D4A853] hover:bg-[#B8922F] text-white gap-2 min-h-[44px]"><Plus className="w-4 h-4" strokeWidth={1.5} />Discover Communities</Button></Link>
       </div>
 
       {/* Stats */}
@@ -73,7 +73,7 @@ export default function DashboardCommunitiesPage() {
           <p className="text-xs text-[#6b7280]">Upcoming Clubs</p>
         </div>
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 text-center">
-          <p className="text-2xl font-bold text-[#8B5CF6]">{joinedIds.length > 0 ? 'Active' : 'New'}</p>
+          <p className="text-2xl font-bold text-[#D4A853]">{joinedIds.length > 0 ? 'Active' : 'New'}</p>
           <p className="text-xs text-[#6b7280]">Status</p>
         </div>
       </div>
@@ -82,7 +82,7 @@ export default function DashboardCommunitiesPage() {
       {upcomingClubs.length > 0 && (
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-3">
-            <Video className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
+            <Video className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
             <h2 className="text-lg font-semibold text-white">Upcoming Watch Parties</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -90,14 +90,14 @@ export default function DashboardCommunitiesPage() {
               <Link
                 key={club.id}
                 href={`/community/${club.communityId}`}
-                className="bg-[#0c0c10] border border-[#8B5CF6]/20 rounded-xl p-4 hover:border-[#8B5CF6]/40 transition-all group"
+                className="bg-[#0c0c10] border border-[#D4A853]/20 rounded-xl p-4 hover:border-[#D4A853]/40 transition-all group"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 flex items-center justify-center flex-shrink-0">
-                    <Film className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
+                  <div className="w-10 h-10 rounded-lg bg-[#D4A853]/10 border border-[#D4A853]/20 flex items-center justify-center flex-shrink-0">
+                    <Film className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h4 className="text-sm font-semibold text-white group-hover:text-[#8B5CF6] transition-colors truncate">{club.movieTitle}</h4>
+                    <h4 className="text-sm font-semibold text-white group-hover:text-[#D4A853] transition-colors truncate">{club.movieTitle}</h4>
                     <p className="text-[10px] text-[#6b7280]">{new Date(club.scheduledDate).toLocaleDateString()} · {club.attendees.length} attending</p>
                   </div>
                 </div>
@@ -113,7 +113,7 @@ export default function DashboardCommunitiesPage() {
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-4 py-3 text-sm font-medium transition-colors border-b-2 min-h-[44px] whitespace-nowrap ${activeTab === tab ? 'text-white border-[#8B5CF6]' : 'text-[#6b7280] border-transparent hover:text-white'}`}
+            className={`px-4 py-3 text-sm font-medium transition-colors border-b-2 min-h-[44px] whitespace-nowrap ${activeTab === tab ? 'text-white border-[#D4A853]' : 'text-[#6b7280] border-transparent hover:text-white'}`}
           >
             {tab === 'joined' ? `Joined (${joinedIds.length})` : tab === 'achievements' ? 'Badges' : tab === 'leaderboard' ? 'Leaderboard' : 'Discover'}
           </button>
@@ -127,20 +127,20 @@ export default function DashboardCommunitiesPage() {
             <Users className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" strokeWidth={1.5} />
             <h2 className="text-xl font-bold text-white mb-2">No communities joined yet</h2>
             <p className="text-[#9ca3af] mb-6">Join communities to discuss movies with like-minded fans.</p>
-            <button onClick={() => setActiveTab('discover')} className="text-[#8B5CF6] hover:underline text-sm">Discover Communities</button>
+            <button onClick={() => setActiveTab('discover')} className="text-[#D4A853] hover:underline text-sm">Discover Communities</button>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {joinedCommunities.map((community) => (
-              <div key={community.id} className="bg-[#0c0c10] border border-[#8B5CF6]/30 rounded-xl p-5 hover:border-[#8B5CF6]/50 transition-colors">
+              <div key={community.id} className="bg-[#0c0c10] border border-[#D4A853]/30 rounded-xl p-5 hover:border-[#D4A853]/50 transition-colors">
                 <div className="flex items-start justify-between mb-3">
                   <div>
-                    <Link href={`/community/${community.id}`} className="text-base font-semibold text-white hover:text-[#8B5CF6] transition-colors">
+                    <Link href={`/community/${community.id}`} className="text-base font-semibold text-white hover:text-[#D4A853] transition-colors">
                       {community.name}
                     </Link>
-                    <span className="text-xs text-[#8B5CF6] bg-[#8B5CF6]/10 px-2 py-0.5 rounded-full ml-2">{community.type}</span>
+                    <span className="text-xs text-[#D4A853] bg-[#D4A853]/10 px-2 py-0.5 rounded-full ml-2">{community.type}</span>
                   </div>
-                  <Button size="sm" onClick={() => toggleJoin(community.id)} variant="outline" className="border-[#8B5CF6]/30 text-[#8B5CF6] hover:bg-[#8B5CF6]/10 text-xs gap-1 min-h-[44px]">
+                  <Button size="sm" onClick={() => toggleJoin(community.id)} variant="outline" className="border-[#D4A853]/30 text-[#D4A853] hover:bg-[#D4A853]/10 text-xs gap-1 min-h-[44px]">
                     <LogOut className="w-3 h-3" strokeWidth={1.5} />Leave
                   </Button>
                 </div>
@@ -191,15 +191,15 @@ export default function DashboardCommunitiesPage() {
           {ALL_COMMUNITIES.map((community) => {
             const isJoined = joinedIds.includes(community.id);
             return (
-              <div key={community.id} className={`bg-[#0c0c10] border rounded-xl p-5 hover:border-[#3a3a45] transition-colors ${isJoined ? 'border-[#8B5CF6]/30' : 'border-[#1e1e28]'}`}>
+              <div key={community.id} className={`bg-[#0c0c10] border rounded-xl p-5 hover:border-[#3a3a45] transition-colors ${isJoined ? 'border-[#D4A853]/30' : 'border-[#1e1e28]'}`}>
                 <div className="flex items-start justify-between mb-3">
                   <div>
-                    <Link href={`/community/${community.id}`} className="text-base font-semibold text-white hover:text-[#8B5CF6] transition-colors">
+                    <Link href={`/community/${community.id}`} className="text-base font-semibold text-white hover:text-[#D4A853] transition-colors">
                       {community.name}
                     </Link>
-                    <span className="text-xs text-[#8B5CF6] bg-[#8B5CF6]/10 px-2 py-0.5 rounded-full ml-2">{community.type}</span>
+                    <span className="text-xs text-[#D4A853] bg-[#D4A853]/10 px-2 py-0.5 rounded-full ml-2">{community.type}</span>
                   </div>
-                  <Button size="sm" onClick={() => toggleJoin(community.id)} variant={isJoined ? 'outline' : 'default'} className={isJoined ? 'border-[#8B5CF6]/30 text-[#8B5CF6] hover:bg-[#8B5CF6]/10 text-xs min-h-[44px]' : 'bg-[#8B5CF6] hover:bg-[#7C3AED] text-white text-xs min-h-[44px]'}>
+                  <Button size="sm" onClick={() => toggleJoin(community.id)} variant={isJoined ? 'outline' : 'default'} className={isJoined ? 'border-[#D4A853]/30 text-[#D4A853] hover:bg-[#D4A853]/10 text-xs min-h-[44px]' : 'bg-[#D4A853] hover:bg-[#B8922F] text-white text-xs min-h-[44px]'}>
                     {isJoined ? 'Joined' : 'Join'}
                   </Button>
                 </div>

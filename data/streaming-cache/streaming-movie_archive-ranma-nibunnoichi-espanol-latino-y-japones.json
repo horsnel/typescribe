@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-ranma-nibunnoichi-espanol-latino-y-japones",
+  "data": {
+    "id": "archive-ranma-nibunnoichi-espanol-latino-y-japones",
+    "title": "Ranma½ (Español Latino y Japonés)",
+    "description": "Ranma Saotome es un joven de 16 años que fue entrenado en las artes marciales desde que era muy pequeño. Como consecuencia de un accidente durante uno de sus entrenamientos, que cayo a una poza encantada, ahora Ranma sufre de una maldición que le obliga convertirse en mujer cada vez que tiene contacto con el agua fría, mientras que el contacto con el agua caliente revierte dicho efecto convirtiéndolo nuevamente en chico. Ranma es comprometido con Akane Tendo, ahora ellos tendran que casarse. Tem",
+    "year": 1993,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 5,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/ranma-nibunnoichi-espanol-latino-y-japones",
+    "backdrop": "https://archive.org/services/img/ranma-nibunnoichi-espanol-latino-y-japones",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/ranma-nibunnoichi-espanol-latino-y-japones",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/ranma-nibunnoichi-espanol-latino-y-japones/Ranma%C2%BD%20%20-%20Episodio%20001%20-%20Espa%C3%B1ol%20Latino.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:41:59.372Z"
+  },
+  "createdAt": 1778337992631,
+  "expiresAt": 1778424392631
+}

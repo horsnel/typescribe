@@ -51,7 +51,7 @@ export default function PublicProfilePage() {
         <div className="max-w-[800px] mx-auto px-4 sm:px-6 py-8 text-center">
           <p className="text-[#9ca3af] mb-4">This is your profile!</p>
           <Link href="/profile">
-            <Button className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white gap-2">
+            <Button className="bg-[#D4A853] hover:bg-[#B8922F] text-white gap-2">
               <Edit3 className="w-4 h-4" strokeWidth={1.5} /> Go to My Profile
             </Button>
           </Link>
@@ -68,7 +68,7 @@ export default function PublicProfilePage() {
           <h2 className="text-xl font-bold text-white mb-2">User not found</h2>
           <p className="text-[#6b7280] mb-6">This profile doesn&apos;t exist or has been removed.</p>
           <Link href="/communities">
-            <Button className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white">Browse Communities</Button>
+            <Button className="bg-[#D4A853] hover:bg-[#B8922F] text-white">Browse Communities</Button>
           </Link>
         </div>
       </div>
@@ -105,7 +105,7 @@ export default function PublicProfilePage() {
     <div className="min-h-screen bg-[#050507] pt-4 pb-16">
       <div className="max-w-[800px] mx-auto px-4 sm:px-6 py-4">
         {/* Back link */}
-        <Link href="/communities" className="inline-flex items-center gap-2 text-sm text-[#6b7280] hover:text-[#8B5CF6] transition-colors mb-4">
+        <Link href="/communities" className="inline-flex items-center gap-2 text-sm text-[#6b7280] hover:text-[#D4A853] transition-colors mb-4">
           <ArrowLeft className="w-4 h-4" strokeWidth={1.5} /> Back
         </Link>
 
@@ -113,7 +113,7 @@ export default function PublicProfilePage() {
         <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-6 pt-4">
           {/* Avatar */}
           <div className="relative group flex-shrink-0">
-            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#7C3AED] flex items-center justify-center text-white text-3xl font-bold overflow-hidden ring-4 ring-[#8B5CF6]/20">
+            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-br from-[#D4A853] to-[#B8922F] flex items-center justify-center text-white text-3xl font-bold overflow-hidden ring-4 ring-[#D4A853]/20">
               {profileUser.avatar ? (
                 <img src={profileUser.avatar} alt={profileUser.display_name} className="w-full h-full object-cover" />
               ) : (
@@ -122,7 +122,7 @@ export default function PublicProfilePage() {
             </div>
             {/* Creator badge */}
             {profileUser.isCreator && (
-              <div className="absolute -bottom-1 -right-1 w-8 h-8 bg-[#8B5CF6] rounded-full flex items-center justify-center shadow-lg border-2 border-[#050507]">
+              <div className="absolute -bottom-1 -right-1 w-8 h-8 bg-[#D4A853] rounded-full flex items-center justify-center shadow-lg border-2 border-[#050507]">
                 <Crown className="w-4 h-4 text-white" strokeWidth={1.5} />
               </div>
             )}
@@ -133,7 +133,7 @@ export default function PublicProfilePage() {
             <div className="flex items-center gap-2 justify-center sm:justify-start mb-1">
               <h1 className="text-2xl font-extrabold text-white">{profileUser.display_name}</h1>
               {profileUser.isCreator && (
-                <span className="text-[10px] text-[#050507] bg-[#8B5CF6] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">Creator</span>
+                <span className="text-[10px] text-[#050507] bg-[#D4A853] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">Creator</span>
               )}
             </div>
             <p className="text-sm text-[#9ca3af] leading-relaxed max-w-md mb-3">{profileUser.bio || 'No bio yet.'}</p>
@@ -141,9 +141,9 @@ export default function PublicProfilePage() {
             {/* Favorite Genres */}
             {profileUser.favorite_genres.length > 0 && (
               <div className="flex items-center gap-2 mb-3 flex-wrap justify-center sm:justify-start">
-                <Film className="w-3.5 h-3.5 text-[#8B5CF6]" strokeWidth={1.5} />
+                <Film className="w-3.5 h-3.5 text-[#D4A853]" strokeWidth={1.5} />
                 {profileUser.favorite_genres.map((genre) => (
-                  <span key={genre} className="text-xs text-[#8B5CF6] bg-[#8B5CF6]/10 px-2 py-0.5 rounded-full">{genre}</span>
+                  <span key={genre} className="text-xs text-[#D4A853] bg-[#D4A853]/10 px-2 py-0.5 rounded-full">{genre}</span>
                 ))}
               </div>
             )}
@@ -151,9 +151,9 @@ export default function PublicProfilePage() {
             {/* Created Communities */}
             {profileUser.createdCommunities.length > 0 && (
               <div className="flex items-center gap-2 mb-3 flex-wrap justify-center sm:justify-start">
-                <Crown className="w-3.5 h-3.5 text-[#8B5CF6]" strokeWidth={1.5} />
+                <Crown className="w-3.5 h-3.5 text-[#D4A853]" strokeWidth={1.5} />
                 {profileUser.createdCommunities.map((cid) => (
-                  <Link key={cid} href={`/community/${cid}`} className="text-xs text-[#8B5CF6] bg-[#8B5CF6]/10 px-2 py-0.5 rounded-full hover:bg-[#8B5CF6]/20 transition-colors">
+                  <Link key={cid} href={`/community/${cid}`} className="text-xs text-[#D4A853] bg-[#D4A853]/10 px-2 py-0.5 rounded-full hover:bg-[#D4A853]/20 transition-colors">
                     {cid.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
                   </Link>
                 ))}
@@ -167,8 +167,8 @@ export default function PublicProfilePage() {
                   <Button
                     onClick={handleFollowToggle}
                     className={followState
-                      ? 'bg-[#0c0c10] border border-[#8B5CF6] text-[#8B5CF6] hover:bg-[#8B5CF6] hover:text-white gap-2 min-h-[44px]'
-                      : 'bg-[#8B5CF6] hover:bg-[#7C3AED] text-white gap-2 min-h-[44px]'
+                      ? 'bg-[#0c0c10] border border-[#D4A853] text-[#D4A853] hover:bg-[#D4A853] hover:text-white gap-2 min-h-[44px]'
+                      : 'bg-[#D4A853] hover:bg-[#B8922F] text-white gap-2 min-h-[44px]'
                     }
                     variant={followState ? 'outline' : 'default'}
                   >
@@ -183,7 +183,7 @@ export default function PublicProfilePage() {
                 </>
               ) : (
                 <Link href="/login">
-                  <Button className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white gap-2 min-h-[44px]">
+                  <Button className="bg-[#D4A853] hover:bg-[#B8922F] text-white gap-2 min-h-[44px]">
                     <Users className="w-4 h-4" strokeWidth={1.5} /> Sign in to Follow
                   </Button>
                 </Link>
@@ -213,7 +213,7 @@ export default function PublicProfilePage() {
           <button
             onClick={() => setActiveTab('posts')}
             className={`pb-3 px-4 text-sm font-medium transition-colors flex items-center gap-2 min-h-[44px] ${
-              activeTab === 'posts' ? 'text-white border-b-2 border-[#8B5CF6]' : 'text-[#6b7280] hover:text-[#9ca3af]'
+              activeTab === 'posts' ? 'text-white border-b-2 border-[#D4A853]' : 'text-[#6b7280] hover:text-[#9ca3af]'
             }`}
           >
             <MessageSquare className="w-4 h-4" strokeWidth={1.5} /> Posts
@@ -221,7 +221,7 @@ export default function PublicProfilePage() {
           <button
             onClick={() => setActiveTab('reviews')}
             className={`pb-3 px-4 text-sm font-medium transition-colors flex items-center gap-2 min-h-[44px] ${
-              activeTab === 'reviews' ? 'text-white border-b-2 border-[#8B5CF6]' : 'text-[#6b7280] hover:text-[#9ca3af]'
+              activeTab === 'reviews' ? 'text-white border-b-2 border-[#D4A853]' : 'text-[#6b7280] hover:text-[#9ca3af]'
             }`}
           >
             <Star className="w-4 h-4" strokeWidth={1.5} /> Reviews
@@ -234,18 +234,18 @@ export default function PublicProfilePage() {
             {mockPosts.map((post) => (
               <div key={post.id} className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5 hover:border-[#2a2a35] transition-all group">
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-[10px] text-[#8B5CF6] bg-[#8B5CF6]/10 px-2 py-0.5 rounded-full">{post.community}</span>
+                  <span className="text-[10px] text-[#D4A853] bg-[#D4A853]/10 px-2 py-0.5 rounded-full">{post.community}</span>
                   <span className="text-[10px] text-[#6b7280]">{post.time}</span>
                 </div>
-                <h3 className="text-base font-semibold text-white group-hover:text-[#8B5CF6] transition-colors mb-1">{post.title}</h3>
+                <h3 className="text-base font-semibold text-white group-hover:text-[#D4A853] transition-colors mb-1">{post.title}</h3>
                 <p className="text-sm text-[#9ca3af] leading-relaxed mb-3">{post.content}</p>
                 <div className="h-px bg-[#1e1e28] my-3" />
                 <div className="flex items-center gap-2">
-                  <button className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm text-[#6b7280] hover:text-[#8B5CF6] transition-all min-w-[44px] min-h-[44px] justify-center hover:bg-[#111118]">
+                  <button className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm text-[#6b7280] hover:text-[#D4A853] transition-all min-w-[44px] min-h-[44px] justify-center hover:bg-[#111118]">
                     <Heart className="w-[18px] h-[18px]" strokeWidth={1.5} />
                     <span className="text-xs font-medium">{post.likes}</span>
                   </button>
-                  <button className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm text-[#6b7280] hover:text-[#8B5CF6] transition-all min-w-[44px] min-h-[44px] justify-center hover:bg-[#111118]">
+                  <button className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm text-[#6b7280] hover:text-[#D4A853] transition-all min-w-[44px] min-h-[44px] justify-center hover:bg-[#111118]">
                     <MessageSquare className="w-[18px] h-[18px]" strokeWidth={1.5} />
                     <span className="text-xs font-medium">{post.comments}</span>
                   </button>

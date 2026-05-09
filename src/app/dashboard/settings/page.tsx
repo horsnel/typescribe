@@ -55,7 +55,7 @@ export default function DashboardSettingsPage() {
     <>
       <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
         <h1 className="text-2xl font-bold text-white">Account Settings</h1>
-        <Button onClick={handleSave} className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white gap-2">
+        <Button onClick={handleSave} className="bg-[#D4A853] hover:bg-[#B8922F] text-white gap-2">
           <Save className="w-4 h-4" strokeWidth={1.5} />
           {saved ? 'Saved!' : 'Save All'}
         </Button>
@@ -72,7 +72,7 @@ export default function DashboardSettingsPage() {
         {/* Profile Info */}
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
           <div className="flex items-center gap-3 mb-4">
-            <User className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
+            <User className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
             <h2 className="text-base font-semibold text-white">Profile Information</h2>
           </div>
           <div className="space-y-4">
@@ -82,7 +82,7 @@ export default function DashboardSettingsPage() {
                 type="text"
                 value={displayName}
                 onChange={e => setDisplayName(e.target.value)}
-                className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-[#8B5CF6]"
+                className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-[#D4A853]"
               />
             </div>
             <div>
@@ -92,7 +92,7 @@ export default function DashboardSettingsPage() {
                 value={bio}
                 onChange={e => setBio(e.target.value.slice(0, 160))}
                 placeholder="Tell others about yourself..."
-                className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6] resize-none"
+                className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853] resize-none"
               />
               <p className="text-xs text-[#6b7280] mt-1">{bio.length}/160</p>
             </div>
@@ -105,7 +105,7 @@ export default function DashboardSettingsPage() {
                     onClick={() => toggleGenre(genre)}
                     className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors border ${
                       favoriteGenres.includes(genre)
-                        ? 'bg-[#8B5CF6] text-white border-[#8B5CF6]'
+                        ? 'bg-[#D4A853] text-white border-[#D4A853]'
                         : 'bg-[#050507] text-[#9ca3af] border-[#1e1e28] hover:border-[#3a3a45] hover:text-white'
                     }`}
                   >
@@ -121,31 +121,31 @@ export default function DashboardSettingsPage() {
         {/* Email */}
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
           <div className="flex items-center gap-3 mb-4">
-            <Mail className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
+            <Mail className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
             <h2 className="text-base font-semibold text-white">Email</h2>
           </div>
-          <input type="email" defaultValue={user?.email || ''} className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-[#8B5CF6] mb-1" disabled />
+          <input type="email" defaultValue={user?.email || ''} className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-[#D4A853] mb-1" disabled />
           <p className="text-xs text-[#6b7280]">Email cannot be changed in this demo.</p>
         </div>
 
         {/* Password */}
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
           <div className="flex items-center gap-3 mb-4">
-            <Lock className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
+            <Lock className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
             <h2 className="text-base font-semibold text-white">Password</h2>
           </div>
           <div className="space-y-3">
-            <input type="password" placeholder="Current password" className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6]" />
-            <input type="password" placeholder="New password" className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6]" />
-            <input type="password" placeholder="Confirm new password" className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6]" />
+            <input type="password" placeholder="Current password" className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853]" />
+            <input type="password" placeholder="New password" className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853]" />
+            <input type="password" placeholder="Confirm new password" className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853]" />
           </div>
-          <Button size="sm" className="mt-3 bg-[#8B5CF6] hover:bg-[#7C3AED] text-white">Change Password</Button>
+          <Button size="sm" className="mt-3 bg-[#D4A853] hover:bg-[#B8922F] text-white">Change Password</Button>
         </div>
 
         {/* Preferences */}
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
           <div className="flex items-center gap-3 mb-4">
-            <Settings className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
+            <Settings className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
             <h2 className="text-base font-semibold text-white">Preferences</h2>
           </div>
           <div className="space-y-4">
@@ -159,7 +159,7 @@ export default function DashboardSettingsPage() {
               </div>
               <button
                 onClick={() => setEmailNotifications(!emailNotifications)}
-                className={`w-12 h-6 rounded-full relative transition-colors flex-shrink-0 ${emailNotifications ? 'bg-[#8B5CF6]' : 'bg-[#2a2a35]'}`}
+                className={`w-12 h-6 rounded-full relative transition-colors flex-shrink-0 ${emailNotifications ? 'bg-[#D4A853]' : 'bg-[#2a2a35]'}`}
               >
                 <span className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${emailNotifications ? 'right-1' : 'left-1'}`} />
               </button>
@@ -174,7 +174,7 @@ export default function DashboardSettingsPage() {
               </div>
               <button
                 onClick={() => setPublicProfile(!publicProfile)}
-                className={`w-12 h-6 rounded-full relative transition-colors flex-shrink-0 ${publicProfile ? 'bg-[#8B5CF6]' : 'bg-[#2a2a35]'}`}
+                className={`w-12 h-6 rounded-full relative transition-colors flex-shrink-0 ${publicProfile ? 'bg-[#D4A853]' : 'bg-[#2a2a35]'}`}
               >
                 <span className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${publicProfile ? 'right-1' : 'left-1'}`} />
               </button>
@@ -184,7 +184,7 @@ export default function DashboardSettingsPage() {
                 <Moon className="w-4 h-4 text-[#9ca3af] flex-shrink-0" strokeWidth={1.5} />
                 <div className="min-w-0"><p className="text-sm text-white">Dark Mode</p><p className="text-xs text-[#6b7280]">Default theme</p></div>
               </div>
-              <button className="w-12 h-6 bg-[#8B5CF6] rounded-full relative flex-shrink-0"><span className="absolute right-1 top-1 w-4 h-4 bg-white rounded-full" /></button>
+              <button className="w-12 h-6 bg-[#D4A853] rounded-full relative flex-shrink-0"><span className="absolute right-1 top-1 w-4 h-4 bg-white rounded-full" /></button>
             </div>
             <div className="flex items-center justify-between gap-3">
               <div className="flex items-center gap-3 min-w-0">

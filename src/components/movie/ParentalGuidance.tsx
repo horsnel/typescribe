@@ -73,7 +73,7 @@ function getSeverityColor(severity: SeverityLevel): string {
     case 'none': return 'bg-[#22c55e]/15 text-[#22c55e] border-[#22c55e]/25';
     case 'mild': return 'bg-[#f59e0b]/15 text-[#f59e0b] border-[#f59e0b]/25';
     case 'moderate': return 'bg-orange-500/15 text-orange-400 border-orange-500/25';
-    case 'severe': return 'bg-[#8B5CF6]/15 text-[#8B5CF6] border-[#8B5CF6]/25';
+    case 'severe': return 'bg-[#D4A853]/15 text-[#D4A853] border-[#D4A853]/25';
   }
 }
 
@@ -82,7 +82,7 @@ function getSeverityDot(severity: SeverityLevel): string {
     case 'none': return 'bg-[#22c55e]';
     case 'mild': return 'bg-[#f59e0b]';
     case 'moderate': return 'bg-orange-400';
-    case 'severe': return 'bg-[#8B5CF6]';
+    case 'severe': return 'bg-[#D4A853]';
   }
 }
 
@@ -325,12 +325,12 @@ export default function ParentalGuidance({ movieTitle, movieId, genres }: Parent
           <div>
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-sm font-semibold text-white flex items-center gap-2">
-                <Clock className="w-4 h-4 text-[#a855f7]" strokeWidth={1.5} />
+                <Clock className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
                 Skip Timestamps
               </h3>
               <button
                 onClick={() => setShowTimestampForm(!showTimestampForm)}
-                className="text-[10px] text-[#a855f7] hover:text-[#a855f7]/80 transition-colors flex items-center gap-1"
+                className="text-[10px] text-[#D4A853] hover:text-[#D4A853]/80 transition-colors flex items-center gap-1"
               >
                 <Plus className="w-3 h-3" strokeWidth={1.5} /> Add
               </button>
@@ -347,7 +347,7 @@ export default function ParentalGuidance({ movieTitle, movieId, genres }: Parent
                       value={newTimestamp.startTime}
                       onChange={(e) => setNewTimestamp({ ...newTimestamp, startTime: e.target.value })}
                       placeholder="12:30"
-                      className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-md py-1.5 px-2.5 text-sm text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#a855f7]"
+                      className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-md py-1.5 px-2.5 text-sm text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853]"
                     />
                   </div>
                   <div>
@@ -357,7 +357,7 @@ export default function ParentalGuidance({ movieTitle, movieId, genres }: Parent
                       value={newTimestamp.endTime}
                       onChange={(e) => setNewTimestamp({ ...newTimestamp, endTime: e.target.value })}
                       placeholder="13:45"
-                      className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-md py-1.5 px-2.5 text-sm text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#a855f7]"
+                      className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-md py-1.5 px-2.5 text-sm text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853]"
                     />
                   </div>
                 </div>
@@ -366,7 +366,7 @@ export default function ParentalGuidance({ movieTitle, movieId, genres }: Parent
                   <select
                     value={newTimestamp.category}
                     onChange={(e) => setNewTimestamp({ ...newTimestamp, category: e.target.value })}
-                    className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-md py-1.5 px-2.5 text-sm text-[#9ca3af] focus:outline-none focus:border-[#a855f7]"
+                    className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-md py-1.5 px-2.5 text-sm text-[#9ca3af] focus:outline-none focus:border-[#D4A853]"
                   >
                     {categoryOptions.map(opt => (
                       <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -380,14 +380,14 @@ export default function ParentalGuidance({ movieTitle, movieId, genres }: Parent
                     value={newTimestamp.description}
                     onChange={(e) => setNewTimestamp({ ...newTimestamp, description: e.target.value })}
                     placeholder="Briefly describe the scene to skip"
-                    className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-md py-1.5 px-2.5 text-sm text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#a855f7]"
+                    className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-md py-1.5 px-2.5 text-sm text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853]"
                   />
                 </div>
                 <div className="flex items-center gap-2">
                   <button
                     onClick={handleAddTimestamp}
                     disabled={!newTimestamp.startTime || !newTimestamp.description}
-                    className="text-xs bg-[#a855f7] hover:bg-[#a855f7]/80 text-white px-3 py-1.5 rounded-md transition-colors disabled:opacity-50"
+                    className="text-xs bg-[#D4A853] hover:bg-[#D4A853]/80 text-white px-3 py-1.5 rounded-md transition-colors disabled:opacity-50"
                   >
                     Add Timestamp
                   </button>
@@ -410,8 +410,8 @@ export default function ParentalGuidance({ movieTitle, movieId, genres }: Parent
                     className="flex items-start gap-3 bg-[#050507] border border-[#1e1e28] rounded-lg p-3 group"
                   >
                     <div className="flex-shrink-0 flex items-center gap-1.5 bg-[#111118] rounded px-2 py-1">
-                      <Clock className="w-3 h-3 text-[#a855f7]" strokeWidth={1.5} />
-                      <span className="text-xs font-mono text-[#a855f7]">
+                      <Clock className="w-3 h-3 text-[#D4A853]" strokeWidth={1.5} />
+                      <span className="text-xs font-mono text-[#D4A853]">
                         {ts.startTime}
                         {ts.endTime !== ts.startTime && ` – ${ts.endTime}`}
                       </span>
@@ -422,7 +422,7 @@ export default function ParentalGuidance({ movieTitle, movieId, genres }: Parent
                     </div>
                     <button
                       onClick={() => handleRemoveTimestamp(ts.id)}
-                      className="opacity-0 group-hover:opacity-100 transition-opacity text-[#6b7280] hover:text-[#8B5CF6]"
+                      className="opacity-0 group-hover:opacity-100 transition-opacity text-[#6b7280] hover:text-[#D4A853]"
                     >
                       <X className="w-3.5 h-3.5" strokeWidth={1.5} />
                     </button>

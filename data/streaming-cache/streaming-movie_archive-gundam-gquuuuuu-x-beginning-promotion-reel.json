@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-gundam-gquuuuuu-x-beginning-promotion-reel",
+  "data": {
+    "id": "archive-gundam-gquuuuuu-x-beginning-promotion-reel",
+    "title": "【Promotion Reel】『Japanese Animation X（XXX） Beginning 』",
+    "description": "Japanese Animation",
+    "year": 0,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 0,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/gundam-gquuuuuu-x-beginning-promotion-reel",
+    "backdrop": "https://archive.org/services/img/gundam-gquuuuuu-x-beginning-promotion-reel",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/gundam-gquuuuuu-x-beginning-promotion-reel",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/gundam-gquuuuuu-x-beginning-promotion-reel/%E3%80%90%E3%83%8D%E3%82%BF%E3%83%90%E3%83%AC%E6%B3%A8%E6%84%8F%E3%80%91%E3%80%8E%E6%A9%9F%E5%8B%95%E6%88%A6%E5%A3%ABGundam%20GQuuuuuuX%EF%BC%88%E3%82%B8%E3%83%BC%E3%82%AF%E3%82%A2%E3%82%AF%E3%82%B9%EF%BC%89-Beginning-%E3%80%8FPromotion%20Reel.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:30.551Z"
+  },
+  "createdAt": 1778337992648,
+  "expiresAt": 1778424392648
+}

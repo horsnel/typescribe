@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-Popeye_Cooking_With_Gags_1954",
+  "data": {
+    "id": "archive-Popeye_Cooking_With_Gags_1954",
+    "title": "Popeye: Cooking With Gags",
+    "description": "From The Public Domain Movie Database: Bluto plays all sorts of gags on Popeye and Olive on April Fool's Day.",
+    "year": 1954,
+    "duration": "6h 33m",
+    "durationSeconds": 23580,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 4.3,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/Popeye_Cooking_With_Gags_1954",
+    "backdrop": "https://archive.org/services/img/Popeye_Cooking_With_Gags_1954",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/Popeye_Cooking_With_Gags_1954",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/Popeye_Cooking_With_Gags_1954",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:09.868Z"
+  },
+  "createdAt": 1778337992640,
+  "expiresAt": 1778424392640
+}

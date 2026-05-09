@@ -44,21 +44,21 @@ export default function DashboardSavedPage() {
   const getColor = (type: string) => {
     switch (type) {
       case 'article': return 'text-[#3b82f6]';
-      case 'review': return 'text-[#8B5CF6]';
+      case 'review': return 'text-[#D4A853]';
       case 'post': return 'text-[#22c55e]';
-      default: return 'text-[#8B5CF6]';
+      default: return 'text-[#D4A853]';
     }
   };
 
   if (!isAuthenticated) {
-    return <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center"><p className="text-[#9ca3af]">Please sign in to view your saved items.</p><Link href="/login" className="text-[#8B5CF6] hover:underline text-sm">Sign In</Link></div>;
+    return <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center"><p className="text-[#9ca3af]">Please sign in to view your saved items.</p><Link href="/login" className="text-[#D4A853] hover:underline text-sm">Sign In</Link></div>;
   }
 
   return (
     <>
       <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
         <h1 className="text-2xl font-bold text-white">Saved & Bookmarks</h1>
-        <Link href="/news" className="text-sm text-[#8B5CF6] hover:underline">Browse News</Link>
+        <Link href="/news" className="text-sm text-[#D4A853] hover:underline">Browse News</Link>
       </div>
 
       {/* Stats */}
@@ -83,8 +83,8 @@ export default function DashboardSavedPage() {
           <h2 className="text-xl font-bold text-white mb-2">No saved items yet</h2>
           <p className="text-[#9ca3af] mb-1">Bookmark reviews, community posts, and news articles to find them here later.</p>
           <div className="flex items-center justify-center gap-4 mt-4">
-            <Link href="/news" className="text-[#8B5CF6] hover:underline text-sm">Browse News</Link>
-            <Link href="/browse" className="text-[#8B5CF6] hover:underline text-sm">Browse Movies</Link>
+            <Link href="/news" className="text-[#D4A853] hover:underline text-sm">Browse News</Link>
+            <Link href="/browse" className="text-[#D4A853] hover:underline text-sm">Browse Movies</Link>
           </div>
         </div>
       ) : (

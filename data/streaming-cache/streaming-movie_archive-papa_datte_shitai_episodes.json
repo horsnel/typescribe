@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-papa_datte_shitai_episodes",
+  "data": {
+    "id": "archive-papa_datte_shitai_episodes",
+    "title": "Papa Datte Shitai Episodes",
+    "description": "Episodes of Papa Datte Shitai Anime",
+    "year": 0,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 5,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/papa_datte_shitai_episodes",
+    "backdrop": "https://archive.org/services/img/papa_datte_shitai_episodes",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/papa_datte_shitai_episodes",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/papa_datte_shitai_episodes/aarinfantasy_papa_datte_shitai_ep01_hd.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:41:59.372Z"
+  },
+  "createdAt": 1778337992631,
+  "expiresAt": 1778424392631
+}

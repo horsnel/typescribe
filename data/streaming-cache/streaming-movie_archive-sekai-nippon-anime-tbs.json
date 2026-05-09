@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-sekai-nippon-anime-tbs",
+  "data": {
+    "id": "archive-sekai-nippon-anime-tbs",
+    "title": "コロンブスのゆで卵「世界を席巻する日本アニメ」",
+    "description": "This is a 1996 episode from the variety show \"コロンブスのゆで卵\" (lit: Columbus' Boiled Eggs) that discusses various anime topics. The first segment is about the popularity of anime in countries outside of Japan, including America, Italy, France, etc. The second section is about Osamu Dezaki and some of the techniques used in animation. The third segment is about Tezuka Productions and the 1960s Astro Boy anime series. I've tagged only the topics that get the most attention, but many different anime are",
+    "year": 1996,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 0,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/sekai-nippon-anime-tbs",
+    "backdrop": "https://archive.org/services/img/sekai-nippon-anime-tbs",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/sekai-nippon-anime-tbs",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/sekai-nippon-anime-tbs/%E3%82%B3%E3%83%AD%E3%83%B3%E3%83%96%E3%82%B9%E3%81%AE%E3%82%86%E3%81%A7%E5%8D%B5%E3%80%8C%E4%B8%96%E7%95%8C%E3%82%92%E5%B8%AD%E5%B7%BB%E3%81%99%E3%82%8B%E6%97%A5%E6%9C%AC%E3%82%A2%E3%83%8B%E3%83%A1%E3%80%8D.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:22.060Z"
+  },
+  "createdAt": 1778337992648,
+  "expiresAt": 1778424392648
+}

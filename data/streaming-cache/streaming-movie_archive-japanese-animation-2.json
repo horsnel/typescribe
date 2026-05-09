@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-japanese-animation-2",
+  "data": {
+    "id": "archive-japanese-animation-2",
+    "title": "Episode 65: Japanese Animation, Part 2",
+    "description": "Akira translator Jo Duffy, animation consultant Robert Fenalon, and artist/writer Martin D.M. King take a second look at Japanese Animation of the day.  Plus, Andrea interview animator Bill Plympton.",
+    "year": 1992,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 0,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/japanese-animation-2",
+    "backdrop": "https://archive.org/services/img/japanese-animation-2",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/japanese-animation-2",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/japanese-animation-2",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:30.551Z"
+  },
+  "createdAt": 1778337992649,
+  "expiresAt": 1778424392649
+}

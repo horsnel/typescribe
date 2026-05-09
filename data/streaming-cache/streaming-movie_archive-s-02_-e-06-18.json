@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-s-02.-e-06-18",
+  "data": {
+    "id": "archive-s-02.-e-06-18",
+    "title": "Japanese Animation",
+    "description": "My Japanese Animation Season-2 [S02.E01] 第13.5話　ヒーローノート [S02.E02] 第14話　そういうことね　お茶子さん [S02.E03] 第15話　うなれ体育祭 [S02.E04] 第16話　みんな個性的でいいね [S02.E05] 第17話　策策策 [S02.E06] 第18話　騎馬戦決着 [S02.E07] 第19話　全てを持って生まれた男の子 [S02.E08] 第20話　勝ち負け [S02.E09] 第21話　奮え！チャレンジャー [S02.E10] 第22話　爆豪VS麗日 [S02.E11] 第23話　轟焦凍：オリジン [S02.E12] 第24話　飯田くんファイト [S02.E13] 第25話　轟VS爆豪 [S02.E14] 第26話　名前をつけてみようの会 [S02.E15] 第27話　怪奇！グラントリノ現る [S02.E16] 第28話　緑谷と死柄木 [S02.E17] 第29話　ヒーロー殺しステインVS雄英生徒 [S02.E18] 第30話　決着 [S02.E19] 第31話　「ヒーロー殺しステイン」その余波 [S0",
+    "year": 0,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 0,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/s-02.-e-06-18",
+    "backdrop": "https://archive.org/services/img/s-02.-e-06-18",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/s-02.-e-06-18",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/s-02.-e-06-18/%5BS02.E01%5D%20%E7%AC%AC13%E8%A9%B1%E3%80%80%E3%83%92%E3%83%BC%E3%83%AD%E3%83%BC%E3%83%8E%E3%83%BC%E3%83%88.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:30.551Z"
+  },
+  "createdAt": 1778337992649,
+  "expiresAt": 1778424392649
+}

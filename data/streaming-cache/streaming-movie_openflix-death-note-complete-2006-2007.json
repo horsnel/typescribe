@@ -1,0 +1,43 @@
+{
+  "key": "streaming-movie:openflix-death-note-complete-2006-2007",
+  "data": {
+    "id": "openflix-death-note-complete-2006-2007",
+    "title": "Death Note Complete (2006 - 2007)",
+    "description": "Plot: An intelligent high school student goes on a secret crusade to eliminate criminals from the world after discovering a notebook capable of killing anyone whose name is written into it. No of Seasons: 1,  No of episodes: 37 Click here to know more about the list of episodes. Audio Language - English",
+    "year": 2006,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [],
+    "rating": 4.5,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/death-note-complete-2006-2007",
+    "backdrop": "https://archive.org/services/img/death-note-complete-2006-2007",
+    "source": "openflix",
+    "sourceUrl": "https://archive.org/details/death-note-complete-2006-2007",
+    "sourceLicense": "Public Domain / Open Source",
+    "videoUrl": "https://archive.org/download/death-note-complete-2006-2007",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:20.944Z"
+  },
+  "createdAt": 1778337992637,
+  "expiresAt": 1778424392637
+}

@@ -43,8 +43,8 @@ export default function CommunityReviews() {
     <section className="py-20 bg-[#050507]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="reveal-section flex items-center justify-between mb-10">
-          <div className="flex items-center gap-3"><MessageSquare className="w-6 h-6 text-[#8B5CF6]" strokeWidth={1.5} /><h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">Community Reviews</h2></div>
-          <Link href="/browse" className="flex items-center gap-1.5 text-sm text-[#9ca3af] hover:text-[#8B5CF6] transition-colors">View All<ArrowRight className="w-4 h-4" strokeWidth={1.5} /></Link>
+          <div className="flex items-center gap-3"><MessageSquare className="w-6 h-6 text-[#D4A853]" strokeWidth={1.5} /><h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">Community Reviews</h2></div>
+          <Link href="/browse" className="flex items-center gap-1.5 text-sm text-[#9ca3af] hover:text-[#D4A853] transition-colors">View All<ArrowRight className="w-4 h-4" strokeWidth={1.5} /></Link>
         </div>
         <div className="card-grid flex flex-col gap-4">
           {reviews.map((review) => (<div key={review.id} className="card-reveal"><ReviewCard review={review} variant="full" showMovieTitle movieSlug={review.movieSlug || ''} /></div>))}

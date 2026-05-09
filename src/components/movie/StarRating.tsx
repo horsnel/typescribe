@@ -12,10 +12,10 @@ export default function StarRating({ rating, size = 'md', showValue = true }: St
       <div className="flex items-center gap-px">
         {Array.from({ length: 5 }, (_, i) => {
           const filled = starRating >= i + 1; const half = !filled && starRating >= i + 0.5;
-          return (<div key={i} className="relative"><Star className={`${s.star} text-[#2a2a35]`} strokeWidth={1.5} />{(filled || half) && <div className="absolute inset-0 overflow-hidden" style={{ width: filled ? '100%' : half ? '50%' : '0%' }}><Star className={`${s.star} text-[#8B5CF6] fill-[#8B5CF6]`} strokeWidth={1.5} /></div>}</div>);
+          return (<div key={i} className="relative"><Star className={`${s.star} text-[#2a2a35]`} strokeWidth={1.5} />{(filled || half) && <div className="absolute inset-0 overflow-hidden" style={{ width: filled ? '100%' : half ? '50%' : '0%' }}><Star className={`${s.star} text-[#D4A853] fill-[#D4A853]`} strokeWidth={1.5} /></div>}</div>);
         })}
       </div>
-      {showValue && <span className={`font-semibold text-[#8B5CF6] ml-1 ${s.text}`}>{rating.toFixed(1)}</span>}
+      {showValue && <span className={`font-semibold text-[#D4A853] ml-1 ${s.text}`}>{rating.toFixed(1)}</span>}
     </div>
   );
 }

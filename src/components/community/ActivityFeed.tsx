@@ -25,10 +25,10 @@ interface ActivityFeedProps {
 
 const ACTIVITY_ICONS: Record<ActivityType, { icon: typeof MessageSquare; color: string; bgColor: string }> = {
   'new_post': { icon: MessageSquare, color: 'text-blue-400', bgColor: 'bg-blue-500/10 border-blue-500/20' },
-  'new_comment': { icon: MessageSquare, color: 'text-purple-400', bgColor: 'bg-purple-500/10 border-purple-500/20' },
+  'new_comment': { icon: MessageSquare, color: 'text-[#D4A853]', bgColor: 'bg-[#D4A853]/10 border-[#D4A853]/20' },
   'new_debate': { icon: Swords, color: 'text-green-400', bgColor: 'bg-green-500/10 border-green-500/20' },
-  'new_member': { icon: UserPlus, color: 'text-[#8B5CF6]', bgColor: 'bg-[#8B5CF6]/10 border-[#8B5CF6]/20' },
-  'weekly_theme': { icon: Sparkles, color: 'text-purple-400', bgColor: 'bg-purple-500/10 border-purple-500/20' },
+  'new_member': { icon: UserPlus, color: 'text-[#D4A853]', bgColor: 'bg-[#D4A853]/10 border-[#D4A853]/20' },
+  'weekly_theme': { icon: Sparkles, color: 'text-[#D4A853]', bgColor: 'bg-[#D4A853]/10 border-[#D4A853]/20' },
   'watchlist_vote': { icon: BookmarkPlus, color: 'text-orange-400', bgColor: 'bg-orange-500/10 border-orange-500/20' },
   'like': { icon: Heart, color: 'text-pink-400', bgColor: 'bg-pink-500/10 border-pink-500/20' },
 };
@@ -80,8 +80,8 @@ export default function ActivityFeed({ joinedCommunityIds, communityId, maxItems
         <div className="p-5 border-b border-[#1e1e28]/50">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">
-                <Bell className="w-5 h-5 text-purple-400" strokeWidth={1.5} />
+              <div className="w-10 h-10 rounded-lg bg-[#D4A853]/10 border border-[#D4A853]/20 flex items-center justify-center">
+                <Bell className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
               </div>
               <div>
                 <h3 className="text-lg font-bold text-white">Activity Feed</h3>
@@ -90,7 +90,7 @@ export default function ActivityFeed({ joinedCommunityIds, communityId, maxItems
             </div>
             {unread > 0 && (
               <div className="flex items-center gap-2">
-                <span className="text-[10px] bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded-full font-semibold">{unread} new</span>
+                <span className="text-[10px] bg-[#D4A853]/20 text-[#D4A853] px-2 py-0.5 rounded-full font-semibold">{unread} new</span>
                 <Button onClick={handleMarkRead} variant="ghost" size="sm" className="text-xs text-[#6b7280] hover:text-white gap-1 min-h-[32px]">
                   <Check className="w-3 h-3" strokeWidth={1.5} /> Mark read
                 </Button>
@@ -109,10 +109,10 @@ export default function ActivityFeed({ joinedCommunityIds, communityId, maxItems
           return (
             <div
               key={activity.id}
-              className={`flex items-start gap-3 p-4 transition-colors hover:bg-[#050507]/50 ${!activity.read ? 'bg-purple-500/5' : ''}`}
+              className={`flex items-start gap-3 p-4 transition-colors hover:bg-[#050507]/50 ${!activity.read ? 'bg-[#D4A853]/5' : ''}`}
             >
               {/* Actor avatar */}
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#7C3AED] flex items-center justify-center text-white text-[10px] font-bold overflow-hidden flex-shrink-0">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#D4A853] to-[#B8922F] flex items-center justify-center text-white text-[10px] font-bold overflow-hidden flex-shrink-0">
                 {activity.actorAvatar ? (
                   <img src={activity.actorAvatar} alt={activity.actorName} className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
                 ) : (
@@ -125,7 +125,7 @@ export default function ActivityFeed({ joinedCommunityIds, communityId, maxItems
                 <p className="text-sm text-[#9ca3af] leading-relaxed">
                   <span className="text-white font-medium">{activity.actorName}</span>{' '}
                   {verb}{' '}
-                  <Link href={`/community/${activity.communityId}`} className="text-[#8B5CF6] hover:underline">{activity.communityName}</Link>
+                  <Link href={`/community/${activity.communityId}`} className="text-[#D4A853] hover:underline">{activity.communityName}</Link>
                   {activity.targetTitle && activity.type !== 'new_member' && (
                     <>
                       {' — '}
@@ -138,7 +138,7 @@ export default function ActivityFeed({ joinedCommunityIds, communityId, maxItems
                     <Clock className="w-3 h-3" strokeWidth={1.5} /> {timeAgo(activity.createdAt)}
                   </span>
                   {!activity.read && (
-                    <span className="w-1.5 h-1.5 rounded-full bg-purple-400" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#E8C97A]" />
                   )}
                 </div>
               </div>
@@ -159,7 +159,7 @@ export default function ActivityFeed({ joinedCommunityIds, communityId, maxItems
             variant="ghost"
             size="sm"
             onClick={() => setShowAll(!showAll)}
-            className="text-xs text-[#6b7280] hover:text-[#8B5CF6] gap-1 min-h-[36px]"
+            className="text-xs text-[#6b7280] hover:text-[#D4A853] gap-1 min-h-[36px]"
           >
             {showAll ? 'Show Less' : `Show All (${activities.length})`}
           </Button>

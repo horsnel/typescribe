@@ -1,0 +1,43 @@
+{
+  "key": "streaming-movie:openflix-UFO.complete",
+  "data": {
+    "id": "openflix-UFO.complete",
+    "title": "UFO. (Complete Series)",
+    "description": "UFO is a 1970 British television science fiction series about an alien invasion of Earth, created by Gerry Anderson and Sylvia Anderson with Reg Hill, and produced by the Andersons Century 21 Productions for ITC Entertainment company.  UFO  was the Andersons' first totally live-action TV series. Despite the assumption of many TV station executives, the series was not aimed at children but was intended for an older audience; many episodes featured adult themes such as adultery, divorce, and drug ",
+    "year": 1969,
+    "duration": "50m",
+    "durationSeconds": 3000,
+    "genres": [],
+    "rating": 4.5,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/UFO.complete",
+    "backdrop": "https://archive.org/services/img/UFO.complete",
+    "source": "openflix",
+    "sourceUrl": "https://archive.org/details/UFO.complete",
+    "sourceLicense": "Public Domain / Open Source",
+    "videoUrl": "https://archive.org/download/UFO.complete",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:32.263Z"
+  },
+  "createdAt": 1778337992638,
+  "expiresAt": 1778424392638
+}

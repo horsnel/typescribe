@@ -1,0 +1,43 @@
+{
+  "key": "streaming-movie:openflix-BettyBoopCartoons",
+  "data": {
+    "id": "openflix-BettyBoopCartoons",
+    "title": "Betty Boop Cartoons",
+    "description": "This collection include 5 previously posted Betty Boop cartoons converted from DivX to QuickTime: Betty Boop: A Song a Day (1936), Betty Boop: Is My Pam Read (1932), Betty Boop: More Pep (1936), Betty Boop's Ker-Choo (1932), Betty Boop: The Candid Candidate (1937).",
+    "year": 0,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [],
+    "rating": 4.7,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/BettyBoopCartoons",
+    "backdrop": "https://archive.org/services/img/BettyBoopCartoons",
+    "source": "openflix",
+    "sourceUrl": "https://archive.org/details/BettyBoopCartoons",
+    "sourceLicense": "Public Domain / Open Source",
+    "videoUrl": "https://archive.org/download/BettyBoopCartoons",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:11.718Z"
+  },
+  "createdAt": 1778337992635,
+  "expiresAt": 1778424392635
+}

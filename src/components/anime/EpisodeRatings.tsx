@@ -40,21 +40,21 @@ function saveRatings(animeId: number, ratings: EpisodeRatingsMap): void {
 
 function getRatingColor(rating: number): string {
   if (rating >= 8) return 'text-[#22c55e]';
-  if (rating >= 6) return 'text-[#8B5CF6]';
+  if (rating >= 6) return 'text-[#D4A853]';
   if (rating >= 4) return 'text-orange-400';
   return 'text-red-400';
 }
 
 function getBarColor(rating: number): string {
   if (rating >= 8) return 'bg-[#22c55e]';
-  if (rating >= 6) return 'bg-[#8B5CF6]';
+  if (rating >= 6) return 'bg-[#D4A853]';
   if (rating >= 4) return 'bg-orange-400';
   return 'bg-red-400';
 }
 
 function getBarBg(rating: number): string {
   if (rating >= 8) return 'bg-[#22c55e]/20';
-  if (rating >= 6) return 'bg-[#8B5CF6]/20';
+  if (rating >= 6) return 'bg-[#D4A853]/20';
   if (rating >= 4) return 'bg-orange-400/20';
   return 'bg-red-400/20';
 }
@@ -139,10 +139,10 @@ export default function EpisodeRatings({ animeId, episodeCount, title }: Episode
         className="w-full flex items-center justify-between p-5 hover:bg-[#111118] transition-colors"
       >
         <div className="flex items-center gap-3">
-          <BarChart3 className="w-5 h-5 text-[#a855f7]" strokeWidth={1.5} />
+          <BarChart3 className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
           <h2 className="text-lg font-bold text-white">Episode Ratings</h2>
           {totalRated > 0 && (
-            <span className="text-xs font-medium bg-[#a855f7]/15 text-[#a855f7] px-2.5 py-0.5 rounded-full border border-[#a855f7]/25">
+            <span className="text-xs font-medium bg-[#D4A853]/15 text-[#D4A853] px-2.5 py-0.5 rounded-full border border-[#D4A853]/25">
               {totalRated} rated
             </span>
           )}
@@ -159,7 +159,7 @@ export default function EpisodeRatings({ animeId, episodeCount, title }: Episode
           {totalRated >= 2 && (
             <div className="bg-[#050507] border border-[#1e1e28] rounded-lg p-4">
               <div className="flex items-center gap-2 mb-3">
-                <Zap className="w-4 h-4 text-[#8B5CF6]" strokeWidth={1.5} />
+                <Zap className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
                 <h3 className="text-sm font-bold text-white">When Does It Get Good?</h3>
               </div>
 
@@ -186,7 +186,7 @@ export default function EpisodeRatings({ animeId, episodeCount, title }: Episode
                         >
                           <div
                             className={`w-full rounded-t-sm transition-all ${
-                              isTurningPoint ? 'bg-[#8B5CF6] ring-1 ring-[#8B5CF6]/50' : getBarColor(rating)
+                              isTurningPoint ? 'bg-[#D4A853] ring-1 ring-[#D4A853]/50' : getBarColor(rating)
                             }`}
                             style={{ height: `${heightPercent}%` }}
                           />
@@ -223,9 +223,9 @@ export default function EpisodeRatings({ animeId, episodeCount, title }: Episode
 
               {/* Turning Point Callout */}
               {turningPoint && (
-                <div className="mt-3 flex items-center gap-2 bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 rounded-lg px-3 py-2">
-                  <TrendingUp className="w-4 h-4 text-[#8B5CF6] flex-shrink-0" strokeWidth={1.5} />
-                  <p className="text-xs text-[#8B5CF6]">
+                <div className="mt-3 flex items-center gap-2 bg-[#D4A853]/10 border border-[#D4A853]/20 rounded-lg px-3 py-2">
+                  <TrendingUp className="w-4 h-4 text-[#D4A853] flex-shrink-0" strokeWidth={1.5} />
+                  <p className="text-xs text-[#D4A853]">
                     <span className="font-bold">Turning point:</span> Episode {turningPoint.episode}
                     <span className="text-[#9ca3af]"> (+{turningPoint.jump} rating jump)</span>
                   </p>
@@ -243,13 +243,13 @@ export default function EpisodeRatings({ animeId, episodeCount, title }: Episode
                 <p className="text-[10px] text-[#6b7280]">Best (Ep {stats.best.episode})</p>
               </div>
               <div className="bg-[#050507] border border-[#1e1e28] rounded-lg p-3 text-center">
-                <BarChart3 className="w-4 h-4 text-[#8B5CF6] mx-auto mb-1" strokeWidth={1.5} />
-                <p className="text-lg font-bold text-[#8B5CF6]">{stats.avg.toFixed(1)}/10</p>
+                <BarChart3 className="w-4 h-4 text-[#D4A853] mx-auto mb-1" strokeWidth={1.5} />
+                <p className="text-lg font-bold text-[#D4A853]">{stats.avg.toFixed(1)}/10</p>
                 <p className="text-[10px] text-[#6b7280]">Average</p>
               </div>
               <div className="bg-[#050507] border border-[#1e1e28] rounded-lg p-3 text-center">
-                <TrendingDown className="w-4 h-4 text-[#8B5CF6] mx-auto mb-1" strokeWidth={1.5} />
-                <p className="text-lg font-bold text-[#8B5CF6]">{stats.worst.rating}/10</p>
+                <TrendingDown className="w-4 h-4 text-[#D4A853] mx-auto mb-1" strokeWidth={1.5} />
+                <p className="text-lg font-bold text-[#D4A853]">{stats.worst.rating}/10</p>
                 <p className="text-[10px] text-[#6b7280]">Worst (Ep {stats.worst.episode})</p>
               </div>
             </div>
@@ -265,7 +265,7 @@ export default function EpisodeRatings({ animeId, episodeCount, title }: Episode
                     setRatings({});
                     saveRatings(animeId, {});
                   }}
-                  className="text-[10px] text-[#6b7280] hover:text-[#8B5CF6] transition-colors"
+                  className="text-[10px] text-[#6b7280] hover:text-[#D4A853] transition-colors"
                 >
                   Clear All
                 </button>
@@ -313,7 +313,7 @@ export default function EpisodeRatings({ animeId, episodeCount, title }: Episode
                           <Star
                             className={`w-3 h-3 ${
                               star <= displayRating
-                                ? 'text-[#8B5CF6] fill-[#8B5CF6]'
+                                ? 'text-[#D4A853] fill-[#D4A853]'
                                 : 'text-[#2a2a35]'
                             }`}
                           strokeWidth={1.5} />
@@ -336,7 +336,7 @@ export default function EpisodeRatings({ animeId, episodeCount, title }: Episode
             {episodeCount > 24 && (
               <button
                 onClick={() => setShowAllEpisodes(!showAllEpisodes)}
-                className="mt-2 w-full py-2 text-xs text-[#a855f7] hover:text-[#a855f7]/80 transition-colors flex items-center justify-center gap-1"
+                className="mt-2 w-full py-2 text-xs text-[#D4A853] hover:text-[#D4A853]/80 transition-colors flex items-center justify-center gap-1"
               >
                 {showAllEpisodes
                   ? <>Show Less <ChevronUp className="w-3 h-3" strokeWidth={1.5} /></>

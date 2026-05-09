@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-Prison-School-",
+  "data": {
+    "id": "archive-Prison-School-",
+    "title": "Prison School Anime Complete Season 1 [Dubbed] [Uncensored] [720p]",
+    "description": "An anime television series adaptation was announced in August 2014. The series was produced by Genco, Egg Firm, Warner Bros. Japan, Kodansha, Showgate, Klockworx, Movic, and J.C. Staff. It was directed by Tsutomu Mizushima, with Michiko Yokote handling series composition and writing the scripts, Junichirō Taniguchi designing the characters and props and Kōtarō Nakagawa composing the music. The anime aired on Tokyo MX, KBS, Sun TV, TV Aichi and BS11 from July to September 2015. The voice actors o",
+    "year": 0,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 5,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/Prison-School-",
+    "backdrop": "https://archive.org/services/img/Prison-School-",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/Prison-School-",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/Prison-School-/Prison%20School%20%5BDubbed%5D%20%5BUncensored%5D%20%5B720p%5D/Episode%2001%20-%20The%20Peep%20Job.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:41:59.372Z"
+  },
+  "createdAt": 1778337992631,
+  "expiresAt": 1778424392631
+}

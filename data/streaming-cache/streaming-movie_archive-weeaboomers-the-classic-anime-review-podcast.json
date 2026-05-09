@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-weeaboomers-the-classic-anime-review-podcast",
+  "data": {
+    "id": "archive-weeaboomers-the-classic-anime-review-podcast",
+    "title": "WeeaBoomers, the Classic Anime Review Podcast",
+    "description": "A podcast series by the Youtube channel GigaBoots, in which the hosts - Dan and Bob Videogames, KZXcellent (who would later leave the group), Kris Wolfheart (formerly known as Mr. Feel), and Dr. Aggro (who would step in to replace KZ) - review various older anime.",
+    "year": 2020,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 0,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/weeaboomers-the-classic-anime-review-podcast",
+    "backdrop": "https://archive.org/services/img/weeaboomers-the-classic-anime-review-podcast",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/weeaboomers-the-classic-anime-review-podcast",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/weeaboomers-the-classic-anime-review-podcast/WeeaBoomers%20%2301%20-%20Project%20A-ko.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:23.406Z"
+  },
+  "createdAt": 1778337992648,
+  "expiresAt": 1778424392648
+}

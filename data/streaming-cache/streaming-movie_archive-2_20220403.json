@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-2_20220403",
+  "data": {
+    "id": "archive-2_20220403",
+    "title": "日本アニメ(ーター)見本市 ＃36 TV版 龍の歯医者「殺戮虫編」",
+    "description": "Japanese Animation",
+    "year": 0,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 0,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/2_20220403",
+    "backdrop": "https://archive.org/services/img/2_20220403",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/2_20220403",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/2_20220403/%E2%91%A1%E7%AB%9C%E3%81%AE%E6%AD%AF%E5%8C%BB%E8%80%85%E3%80%8C%E6%AE%BA%E6%88%AE%E8%99%AB%E7%B7%A8%E3%80%8D%20.compressed.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:22.060Z"
+  },
+  "createdAt": 1778337992648,
+  "expiresAt": 1778424392648
+}

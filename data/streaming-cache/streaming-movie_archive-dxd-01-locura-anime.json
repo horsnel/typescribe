@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-dxd-01-locura-anime",
+  "data": {
+    "id": "archive-dxd-01-locura-anime",
+    "title": "high school dxd tem1",
+    "description": "fdfyguhijokp",
+    "year": 2020,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 3.3,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/dxd-01-locura-anime",
+    "backdrop": "https://archive.org/services/img/dxd-01-locura-anime",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/dxd-01-locura-anime",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/dxd-01-locura-anime",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:41:59.372Z"
+  },
+  "createdAt": 1778337992646,
+  "expiresAt": 1778424392646
+}

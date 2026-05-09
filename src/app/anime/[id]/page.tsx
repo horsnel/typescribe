@@ -127,7 +127,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
     return (
       <div className="min-h-screen bg-[#050507] flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-8 h-8 animate-spin text-[#8B5CF6] mx-auto mb-4" strokeWidth={1.5} />
+          <Loader2 className="w-8 h-8 animate-spin text-[#D4A853] mx-auto mb-4" strokeWidth={1.5} />
           <p className="text-[#9ca3af]">Loading anime data…</p>
         </div>
       </div>
@@ -147,7 +147,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
           </p>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 bg-[#8B5CF6] hover:bg-[#7C3AED] text-white px-6 py-3 rounded-lg font-medium transition-colors"
+            className="inline-flex items-center gap-2 bg-[#D4A853] hover:bg-[#B8922F] text-white px-6 py-3 rounded-lg font-medium transition-colors"
           >
             <ChevronRight className="w-4 h-4" strokeWidth={1.5} /> Back to Home
           </Link>
@@ -176,13 +176,13 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
   // ─── Type badge color mapping ───
   const typeColorMap: Record<string, string> = {
     TV: 'bg-blue-500/20 text-blue-400 border-blue-500/30',
-    Movie: 'bg-purple-500/20 text-purple-400 border-purple-500/30',
-    OVA: 'bg-amber-500/20 text-violet-400 border-amber-500/30',
+    Movie: 'bg-[#D4A853]/20 text-[#D4A853] border-[#D4A853]/30',
+    OVA: 'bg-amber-500/20 text-[#D4A853] border-amber-500/30',
     ONA: 'bg-teal-500/20 text-teal-400 border-teal-500/30',
     Special: 'bg-pink-500/20 text-pink-400 border-pink-500/30',
     Music: 'bg-green-500/20 text-green-400 border-green-500/30',
   };
-  const typeBadgeClass = typeColorMap[anime.type ?? ''] ?? 'bg-[#8B5CF6]/20 text-[#8B5CF6] border-[#8B5CF6]/30';
+  const typeBadgeClass = typeColorMap[anime.type ?? ''] ?? 'bg-[#D4A853]/20 text-[#D4A853] border-[#D4A853]/30';
 
   return (
     <div className="min-h-screen bg-[#050507]">
@@ -242,8 +242,8 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
 
                 {/* Score Badge */}
                 {anime.score !== null && (
-                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold bg-[#8B5CF6]/15 text-[#8B5CF6] px-3 py-1 rounded-full border border-[#8B5CF6]/25">
-                    <Star className="w-3.5 h-3.5 fill-[#8B5CF6]" strokeWidth={1.5} />
+                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold bg-[#D4A853]/15 text-[#D4A853] px-3 py-1 rounded-full border border-[#D4A853]/25">
+                    <Star className="w-3.5 h-3.5 fill-[#D4A853]" strokeWidth={1.5} />
                     {anime.score.toFixed(1)}
                   </span>
                 )}
@@ -312,7 +312,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                 {anime.themes.map((theme) => (
                   <span
                     key={theme}
-                    className="text-xs font-medium text-[#8B5CF6] bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 px-2.5 py-1 rounded-full"
+                    className="text-xs font-medium text-[#D4A853] bg-[#D4A853]/10 border border-[#D4A853]/20 px-2.5 py-1 rounded-full"
                   >
                     {theme}
                   </span>
@@ -324,7 +324,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                 {anime.trailerYoutubeId && (
                   <button
                     onClick={() => setTrailerOpen(true)}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium bg-[#8B5CF6] hover:bg-[#7C3AED] text-white transition-colors"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium bg-[#D4A853] hover:bg-[#B8922F] text-white transition-colors"
                   >
                     <Play className="w-4 h-4 fill-white" strokeWidth={1.5} /> Watch Trailer
                   </button>
@@ -359,7 +359,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
             {/* Synopsis */}
             <section className="content-animate">
               <div className="flex items-center gap-2 mb-4">
-                <Sparkles className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
+                <Sparkles className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
                 <h2 className="text-xl font-bold text-white">Synopsis</h2>
               </div>
               <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
@@ -369,7 +369,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                     {isSynopsisLong && (
                       <button
                         onClick={() => setSynopsisExpanded(!synopsisExpanded)}
-                        className="inline-flex items-center gap-1 text-[#8B5CF6] hover:underline mt-3 text-sm font-medium"
+                        className="inline-flex items-center gap-1 text-[#D4A853] hover:underline mt-3 text-sm font-medium"
                       >
                         {synopsisExpanded ? 'Show Less' : 'Read More'}
                         <ChevronDown
@@ -397,7 +397,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
             {/* Characters */}
             <section className="content-animate">
               <div className="flex items-center gap-2 mb-4">
-                <Users className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
+                <Users className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
                 <h2 className="text-xl font-bold text-white">Characters & Voice Actors</h2>
               </div>
 
@@ -454,7 +454,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
             {recommendations.length > 0 && (
               <section className="content-animate">
                 <div className="flex items-center gap-2 mb-4">
-                  <Heart className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
+                  <Heart className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
                   <h2 className="text-xl font-bold text-white">Recommendations</h2>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
@@ -462,7 +462,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                     <Link
                       key={rec.malId}
                       href={`/anime/${rec.malId}`}
-                      className="group flex flex-col rounded-xl overflow-hidden bg-[#0c0c10] border border-[#1e1e28] hover:border-[#8B5CF6]/40 transition-all hover:shadow-lg hover:shadow-[#8B5CF6]/5"
+                      className="group flex flex-col rounded-xl overflow-hidden bg-[#0c0c10] border border-[#1e1e28] hover:border-[#D4A853]/40 transition-all hover:shadow-lg hover:shadow-[#D4A853]/5"
                     >
                       <div className="relative aspect-[3/4] overflow-hidden">
                         {rec.imageUrl ? (
@@ -481,7 +481,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                         <div className="absolute inset-0 bg-gradient-to-t from-[#12121a] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                       </div>
                       <div className="p-3">
-                        <h4 className="text-xs font-semibold text-white truncate group-hover:text-[#8B5CF6] transition-colors">
+                        <h4 className="text-xs font-semibold text-white truncate group-hover:text-[#D4A853] transition-colors">
                           {rec.title}
                         </h4>
                         {rec.recommendationCount > 0 && (
@@ -502,7 +502,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
             {/* Anime Details Card */}
             <div className="content-animate bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
               <h3 className="text-lg font-bold text-white mb-5 flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
+                <Sparkles className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
                 Anime Details
               </h3>
 
@@ -580,7 +580,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
             {/* External Links Card */}
             <div className="content-animate bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
               <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                <ExternalLink className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
+                <ExternalLink className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
                 External Links
               </h3>
               <div className="space-y-2">
@@ -590,7 +590,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-sm text-[#9ca3af] hover:text-white transition-colors py-2 px-3 rounded-lg hover:bg-[#111118]"
                 >
-                  <Globe className="w-4 h-4 text-[#8B5CF6]" strokeWidth={1.5} />
+                  <Globe className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
                   MyAnimeList Page
                   <ExternalLink className="w-3 h-3 ml-auto text-[#6b7280]" strokeWidth={1.5} />
                 </a>
@@ -601,7 +601,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 text-sm text-[#9ca3af] hover:text-white transition-colors py-2 px-3 rounded-lg hover:bg-[#111118]"
                   >
-                    <Play className="w-4 h-4 text-[#8B5CF6]" strokeWidth={1.5} />
+                    <Play className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
                     YouTube Trailer
                     <ExternalLink className="w-3 h-3 ml-auto text-[#6b7280]" strokeWidth={1.5} />
                   </a>
@@ -613,7 +613,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
             {(anime.studios.length > 0 || anime.producers.length > 0) && (
               <div className="content-animate bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
                 <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                  <Tv className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
+                  <Tv className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
                   Studios & Producers
                 </h3>
                 <div className="space-y-3">
@@ -706,13 +706,13 @@ function CharacterCard({ character }: { character: JikanCharacterResult }) {
 
       {/* Info */}
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-semibold text-white truncate group-hover:text-[#8B5CF6] transition-colors">
+        <p className="text-sm font-semibold text-white truncate group-hover:text-[#D4A853] transition-colors">
           {character.name}
         </p>
         <div className="flex items-center gap-2">
           <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded ${
             character.role === 'Main'
-              ? 'bg-[#8B5CF6]/10 text-[#8B5CF6]'
+              ? 'bg-[#D4A853]/10 text-[#D4A853]'
               : 'bg-[#2a2a35]/50 text-[#6b7280]'
           }`}>
             {character.role}

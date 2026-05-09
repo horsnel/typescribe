@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-please_rp_me_all_episodes",
+  "data": {
+    "id": "archive-please_rp_me_all_episodes",
+    "title": "Please r*p* me! Anime All Episodes",
+    "description": "All the Please r*p* me! anime episodes",
+    "year": 0,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 5,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/please_rp_me_all_episodes",
+    "backdrop": "https://archive.org/services/img/please_rp_me_all_episodes",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/please_rp_me_all_episodes",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/please_rp_me_all_episodes/S1E1.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:14.036Z"
+  },
+  "createdAt": 1778337992631,
+  "expiresAt": 1778424392631
+}

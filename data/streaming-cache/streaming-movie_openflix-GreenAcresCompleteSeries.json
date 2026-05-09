@@ -1,0 +1,43 @@
+{
+  "key": "streaming-movie:openflix-GreenAcresCompleteSeries",
+  "data": {
+    "id": "openflix-GreenAcresCompleteSeries",
+    "title": "Green Acres Complete Series",
+    "description": "Green Acres is an American sitcom starring Eddie Albert and Eva Gabor as a couple who move from New York City to a country farm. Produced by Filmways as a sister show to Petticoat Junction, the series was first broadcast on CBS, from September 15, 1965, to April 27, 1971. Green Acres is about Oliver Wendell Douglas (Eddie Albert), an erudite New York City attorney, acting on his dream to be a farmer, and Lisa Douglas (Eva Gabor), his glamorous Hungarian wife, who is dragged unwillingly from an u",
+    "year": 0,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [],
+    "rating": 4.1,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/GreenAcresCompleteSeries",
+    "backdrop": "https://archive.org/services/img/GreenAcresCompleteSeries",
+    "source": "openflix",
+    "sourceUrl": "https://archive.org/details/GreenAcresCompleteSeries",
+    "sourceLicense": "Public Domain / Open Source",
+    "videoUrl": "https://archive.org/download/GreenAcresCompleteSeries",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:32.263Z"
+  },
+  "createdAt": 1778337992642,
+  "expiresAt": 1778424392642
+}

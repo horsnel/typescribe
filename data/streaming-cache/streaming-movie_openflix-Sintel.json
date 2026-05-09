@@ -1,0 +1,43 @@
+{
+  "key": "streaming-movie:openflix-Sintel",
+  "data": {
+    "id": "openflix-Sintel",
+    "title": "Sintel",
+    "description": "Sintel is an open movie from the Blender Foundation licensed under the Creative Commons Attribution 3.0 license.",
+    "year": 2010,
+    "duration": "14h 48m",
+    "durationSeconds": 53280,
+    "genres": [],
+    "rating": 4.2,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/Sintel",
+    "backdrop": "https://archive.org/services/img/Sintel",
+    "source": "openflix",
+    "sourceUrl": "https://archive.org/details/Sintel",
+    "sourceLicense": "Public Domain / Open Source",
+    "videoUrl": "https://archive.org/download/Sintel/sintel-2048-stereo.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:11.718Z"
+  },
+  "createdAt": 1778337992641,
+  "expiresAt": 1778424392641
+}

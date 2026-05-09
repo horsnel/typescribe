@@ -1,0 +1,43 @@
+{
+  "key": "streaming-movie:openflix-MorePopeyeCartoons",
+  "data": {
+    "id": "openflix-MorePopeyeCartoons",
+    "title": "More Popeye cartoons!",
+    "description": "Wikipedia (not the most reliable source, I know) lists all the Fleischer/Famous Studios Popeye cartoons in the Public Domain, These five haven't been uploaded yet. I checked the later ones with USCO, but I don't have the wherewithal to check the earlier ones. If I'm in error, let me know so I can take the offenders down.",
+    "year": 0,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [],
+    "rating": 5,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/MorePopeyeCartoons",
+    "backdrop": "https://archive.org/services/img/MorePopeyeCartoons",
+    "source": "openflix",
+    "sourceUrl": "https://archive.org/details/MorePopeyeCartoons",
+    "sourceLicense": "Public Domain / Open Source",
+    "videoUrl": "https://archive.org/download/MorePopeyeCartoons",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:11.718Z"
+  },
+  "createdAt": 1778337992632,
+  "expiresAt": 1778424392632
+}

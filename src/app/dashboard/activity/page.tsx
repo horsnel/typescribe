@@ -94,15 +94,15 @@ export default function DashboardActivityPage() {
 
   const getColor = (type: string) => {
     switch (type) {
-      case 'review': return 'text-[#8B5CF6]';
-      case 'watchlist_add': return 'text-[#8B5CF6]';
+      case 'review': return 'text-[#D4A853]';
+      case 'watchlist_add': return 'text-[#D4A853]';
       case 'community_join': return 'text-[#22c55e]';
       default: return 'text-[#3b82f6]';
     }
   };
 
   if (!isAuthenticated) {
-    return <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center"><p className="text-[#9ca3af]">Please sign in to view your activity.</p><Link href="/login" className="text-[#8B5CF6] hover:underline text-sm">Sign In</Link></div>;
+    return <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center"><p className="text-[#9ca3af]">Please sign in to view your activity.</p><Link href="/login" className="text-[#D4A853] hover:underline text-sm">Sign In</Link></div>;
   }
 
   return (
@@ -116,8 +116,8 @@ export default function DashboardActivityPage() {
           <p className="text-[#9ca3af] mb-1">Your personal timeline will show up here.</p>
           <p className="text-sm text-[#6b7280]">Rate movies, write reviews, and join communities to populate your feed.</p>
           <div className="flex items-center justify-center gap-3 mt-6">
-            <Link href="/browse" className="text-[#8B5CF6] hover:underline text-sm">Browse Movies</Link>
-            <Link href="/communities" className="text-[#8B5CF6] hover:underline text-sm">Find Communities</Link>
+            <Link href="/browse" className="text-[#D4A853] hover:underline text-sm">Browse Movies</Link>
+            <Link href="/communities" className="text-[#D4A853] hover:underline text-sm">Find Communities</Link>
           </div>
         </div>
       ) : (
@@ -135,7 +135,7 @@ export default function DashboardActivityPage() {
                   <div className="flex items-center gap-3 mt-1.5">
                     <span className="text-xs text-[#6b7280]">{formatTimeAgo(item.timestamp)}</span>
                     {item.link && (
-                      <Link href={item.link} className="text-xs text-[#8B5CF6] hover:underline">View →</Link>
+                      <Link href={item.link} className="text-xs text-[#D4A853] hover:underline">View →</Link>
                     )}
                   </div>
                 </div>

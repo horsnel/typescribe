@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-popeye_taxi-turvey",
+  "data": {
+    "id": "archive-popeye_taxi-turvey",
+    "title": "Popeye: Taxi-Turvy",
+    "description": "Popeye and Bluto both run a taxi service. Bluto bullies Popeye and gets him to turn over all of his cab fares. Popeye eventually gets the better of Bluto. Animation by Tom Johnson and Frank Endres. Music by Winston Sharples. Produced in 1954.",
+    "year": 1954,
+    "duration": "6h",
+    "durationSeconds": 21600,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 4,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/popeye_taxi-turvey",
+    "backdrop": "https://archive.org/services/img/popeye_taxi-turvey",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/popeye_taxi-turvey",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/popeye_taxi-turvey",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:09.868Z"
+  },
+  "createdAt": 1778337992643,
+  "expiresAt": 1778424392643
+}

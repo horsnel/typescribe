@@ -1,0 +1,43 @@
+{
+  "key": "streaming-movie:openflix-ElephantsDream",
+  "data": {
+    "id": "openflix-ElephantsDream",
+    "title": "Elephants Dream",
+    "description": "From the official website : \"Elephants Dream is the story of two strange characters exploring a capricious and seemingly infinite machine. The elder, Proog, acts as a tour-guide and protector, happily showing off the sights and dangers of the machine to his initially curious but increasingly skeptical protege Emo. As their journey unfolds we discover signs that the machine is not all Proog thinks it is, and his guiding takes on a more desperate aspect. Elephants Dream is the world’s first open m",
+    "year": 2006,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [],
+    "rating": 4.3,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/ElephantsDream",
+    "backdrop": "https://archive.org/services/img/ElephantsDream",
+    "source": "openflix",
+    "sourceUrl": "https://archive.org/details/ElephantsDream",
+    "sourceLicense": "Public Domain / Open Source",
+    "videoUrl": "https://archive.org/download/ElephantsDream",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:11.718Z"
+  },
+  "createdAt": 1778337992640,
+  "expiresAt": 1778424392640
+}

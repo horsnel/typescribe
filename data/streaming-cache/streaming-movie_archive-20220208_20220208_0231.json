@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-20220208_20220208_0231",
+  "data": {
+    "id": "archive-20220208_20220208_0231",
+    "title": "Very Old Japanese Animation Persian Dubbed (Bell and Sebastien) 1973 کارتون قدیمی بل و سپاستین دوبله فارسی ۱۹۷۳",
+    "description": "Old Japanese Anime Persian Dubbed (Bell and Sebastien) 1973کارتون قدیمی بل و سپاستین دوبله فارسی ۱۹۷۳",
+    "year": 1973,
+    "duration": "26m",
+    "durationSeconds": 1560,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 0,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/20220208_20220208_0231",
+    "backdrop": "https://archive.org/services/img/20220208_20220208_0231",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/20220208_20220208_0231",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/20220208_20220208_0231/%DA%A9%D8%A7%D8%B1%D8%AA%D9%88%D9%86%20%D9%82%D8%AF%DB%8C%D9%85%DB%8C%20%D8%A8%D9%84%20%D9%88%20%D8%B3%D8%A8%D8%A7%D8%B3%D8%AA%DB%8C%D9%86.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:30.551Z"
+  },
+  "createdAt": 1778337992649,
+  "expiresAt": 1778424392649
+}

@@ -17,6 +17,7 @@
     "sourceLicense": "Public Domain",
     "videoUrl": "https://archive.org/download/dressed_to_kill",
     "videoType": "direct",
+    "isEmbeddable": true,
     "languages": [
       {
         "code": "en",
@@ -35,8 +36,8 @@
     ],
     "is4K": false,
     "isFree": true,
-    "addedAt": "2026-05-07T19:09:54.501Z"
+    "addedAt": "2026-05-09T03:41:58.062Z"
   },
-  "createdAt": 1778180995827,
-  "expiresAt": 1778267395827
+  "createdAt": 1778337992640,
+  "expiresAt": 1778424392640
 }

@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-anime-face",
+  "data": {
+    "id": "archive-anime-face",
+    "title": "anime-face",
+    "description": "anime-face",
+    "year": 0,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 0,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/anime-face",
+    "backdrop": "https://archive.org/services/img/anime-face",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/anime-face",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/anime-face/1.%207172708048958491906.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:14.036Z"
+  },
+  "createdAt": 1778337992647,
+  "expiresAt": 1778424392647
+}

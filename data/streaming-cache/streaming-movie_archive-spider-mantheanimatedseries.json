@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-spider-mantheanimatedseries",
+  "data": {
+    "id": "archive-spider-mantheanimatedseries",
+    "title": "Spider-Man: The Animated Series (Complete 1994 Series) [1080p AI Upscale]",
+    "description": "This upload comprises all 5 seasons ( 65 episodes ) of the 1994-8 Spider-Man animated series, in uncut form & upscaled quite impressively to full HD resolution. The episodes are in HEVC .MKV format. Many bootleg Blu-Rays can be found on eBay, etc. containing these upscales, which I recommend not purchasing, as no proceeds will go to the creators of the original work or the transformative derivation herein. I have reflected the included .NFO file here, as I did not create or host the original fil",
+    "year": 1994,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 4.7,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/spider-mantheanimatedseries",
+    "backdrop": "https://archive.org/services/img/spider-mantheanimatedseries",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/spider-mantheanimatedseries",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/spider-mantheanimatedseries",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:09.868Z"
+  },
+  "createdAt": 1778337992634,
+  "expiresAt": 1778424392634
+}

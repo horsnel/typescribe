@@ -162,16 +162,16 @@ export default function Footer() {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Your email"
                     required
-                    className="flex-1 bg-[#0c0c10] border border-[#1e1e28] rounded-lg px-3 py-2 text-sm text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6]"
+                    className="flex-1 bg-[#0c0c10] border border-[#1e1e28] rounded-lg px-3 py-2 text-sm text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853]"
                   />
-                  <button type="submit" disabled={loading} className="px-4 py-2 bg-[#8B5CF6] hover:bg-[#7C3AED] text-white text-sm font-medium rounded-lg transition-colors disabled:opacity-60">
+                  <button type="submit" disabled={loading} className="px-4 py-2 bg-[#D4A853] hover:bg-[#B8922F] text-white text-sm font-medium rounded-lg transition-colors disabled:opacity-60">
                     {loading ? <Loader2 className="w-4 h-4 animate-spin" strokeWidth={1.5} /> : <Mail className="w-4 h-4" strokeWidth={1.5} />}
                   </button>
                 </form>
               )}
               <div className="flex gap-3 mb-4">
                 {socialLinks.map((social) => (
-                  <a key={social.label} href={social.href} className="p-2.5 bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#8B5CF6] rounded-lg transition-all" aria-label={social.label}>
+                  <a key={social.label} href={social.href} className="p-2.5 bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#D4A853] rounded-lg transition-all" aria-label={social.label}>
                     <social.icon className="w-4 h-4" />
                   </a>
                 ))}
@@ -182,16 +182,16 @@ export default function Footer() {
           <Separator className="my-10 bg-[#1e1e28]" />
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
-              <Film className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
+              <Film className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
               <span
                 onClick={handleBrandClick}
-                className="text-sm text-[#8B5CF6]/60 font-bold tracking-[0.2em] cursor-pointer select-none hover:text-[#8B5CF6] transition-colors"
+                className="text-sm text-[#D4A853]/60 font-bold tracking-[0.2em] cursor-pointer select-none hover:text-[#D4A853] transition-colors"
               >
                 O.L.H.M.E.S
               </span>
               <span className="text-sm text-[#6b7280]">&copy; 2026 Typescribe. All rights reserved.</span>
             </div>
-            <span className="text-xs text-[#8B5CF6]/60 bg-[#8B5CF6]/5 px-3 py-1.5 rounded-full border border-[#8B5CF6]/10">Powered by AI + Community</span>
+            <span className="text-xs text-[#D4A853]/60 bg-[#D4A853]/5 px-3 py-1.5 rounded-full border border-[#D4A853]/10">Powered by AI + Community</span>
           </div>
         </div>
       </footer>
@@ -201,8 +201,8 @@ export default function Footer() {
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm">
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-full bg-[#8B5CF6]/10 flex items-center justify-center">
-                <Lock className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
+              <div className="w-10 h-10 rounded-full bg-[#D4A853]/10 flex items-center justify-center">
+                <Lock className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
               </div>
               <div>
                 <h3 className="text-lg font-bold text-white">Data Pipeline Access</h3>
@@ -220,14 +220,14 @@ export default function Footer() {
               onChange={(e) => setAdminPassword(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleAdminLogin()}
               placeholder="Enter admin password"
-              className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6] mb-4"
+              className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853] mb-4"
               autoFocus
             />
             <div className="flex gap-3">
               <Button
                 onClick={handleAdminLogin}
                 disabled={!adminPassword || adminLoading}
-                className="flex-1 bg-[#8B5CF6] hover:bg-[#7C3AED] text-white disabled:opacity-50"
+                className="flex-1 bg-[#D4A853] hover:bg-[#B8922F] text-white disabled:opacity-50"
               >
                 {adminLoading ? <Loader2 className="w-4 h-4 animate-spin mr-2" strokeWidth={1.5} /> : <Lock className="w-4 h-4 mr-2" strokeWidth={1.5} />}
                 Authenticate

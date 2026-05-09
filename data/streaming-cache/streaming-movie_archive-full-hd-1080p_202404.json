@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-full-hd-1080p_202404",
+  "data": {
+    "id": "archive-full-hd-1080p_202404",
+    "title": "日本アニメ(ーター)見本市 # 34 旅のロボから",
+    "description": "Japanese Animation",
+    "year": 0,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 0,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/full-hd-1080p_202404",
+    "backdrop": "https://archive.org/services/img/full-hd-1080p_202404",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/full-hd-1080p_202404",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/full-hd-1080p_202404/JAPAN_ANIMATORS_EXHIBITION_%E3%82%BF%E3%82%A4%E3%83%88%E3%83%AB34%20%E6%97%85%E3%81%AE%E3%83%AD%E3%83%9C%E3%81%8B%E3%82%89.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:22.059Z"
+  },
+  "createdAt": 1778337992647,
+  "expiresAt": 1778424392647
+}

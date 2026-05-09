@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-FLIP_FROG-FIDDLESTICKS",
+  "data": {
+    "id": "archive-FLIP_FROG-FIDDLESTICKS",
+    "title": "Flip The Frog - Fiddlesticks",
+    "description": "The following concise, informative description was taken from http://en.wikipedia.org: Flip the Frog was Metro-Goldwyn-Mayer's first sound cartoon. It is about a happy-go-lucky, needy frog, named Flip the Frog. This cartoon was created by Ub Iwerks in 1930. He had drawn a frog and his girlfriend in \"Night'\", one of the last Silly Symphonies short films he drew while working for Walt Disney. After leaving Disney, Ub Iwerks began the Flip cartoon series with the help of Pat Powers. The first carto",
+    "year": 1930,
+    "duration": "6h 12m",
+    "durationSeconds": 22320,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 3.8,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/FLIP_FROG-FIDDLESTICKS",
+    "backdrop": "https://archive.org/services/img/FLIP_FROG-FIDDLESTICKS",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/FLIP_FROG-FIDDLESTICKS",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/FLIP_FROG-FIDDLESTICKS/FLIP_FROG-FIDDLESTICKS_256k.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:09.868Z"
+  },
+  "createdAt": 1778337992644,
+  "expiresAt": 1778424392644
+}

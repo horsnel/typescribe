@@ -101,7 +101,7 @@ export default function StreamWatchPage() {
     return (
       <div className="min-h-screen bg-[#050507] flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-10 h-10 text-[#8B5CF6] animate-spin mx-auto mb-4" strokeWidth={1.5} />
+          <Loader2 className="w-10 h-10 text-[#D4A853] animate-spin mx-auto mb-4" strokeWidth={1.5} />
           <p className="text-white/60 text-sm">Loading movie...</p>
         </div>
       </div>
@@ -115,7 +115,7 @@ export default function StreamWatchPage() {
         <div className="text-center">
           <h1 className="text-2xl font-bold text-white mb-4">Movie Not Found</h1>
           <p className="text-[#9ca3af] mb-6">{error || "The movie you're looking for doesn't exist."}</p>
-          <Link href="/stream" className="text-[#8B5CF6] hover:underline flex items-center gap-2 justify-center">
+          <Link href="/stream" className="text-[#D4A853] hover:underline flex items-center gap-2 justify-center">
             <ArrowLeft className="w-4 h-4" strokeWidth={1.5} />
             Back to Streaming
           </Link>
@@ -139,7 +139,7 @@ export default function StreamWatchPage() {
           {/* Back link */}
           <Link
             href="/stream"
-            className="inline-flex items-center gap-2 text-[#8B5CF6] hover:text-[#A78BFA] transition-colors mb-6 font-bold text-sm min-h-[44px]"
+            className="inline-flex items-center gap-2 text-[#D4A853] hover:text-[#A78BFA] transition-colors mb-6 font-bold text-sm min-h-[44px]"
           >
             <ArrowLeft className="w-4 h-4" strokeWidth={2} />
             <span>Back to Streaming</span>
@@ -166,7 +166,7 @@ export default function StreamWatchPage() {
               <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">{movie.title}</h1>
 
               <div className="flex items-center gap-3 flex-wrap mb-4">
-                <span className={`text-xs font-bold px-2 py-0.5 rounded ${movie.quality === '4K' ? 'bg-[#8B5CF6] text-white' : movie.quality === '1080p' ? 'bg-[#8B5CF6]/70 text-white' : 'bg-white/10 text-white/70'}`}>
+                <span className={`text-xs font-bold px-2 py-0.5 rounded ${movie.quality === '4K' ? 'bg-[#D4A853] text-white' : movie.quality === '1080p' ? 'bg-[#D4A853]/70 text-white' : 'bg-white/10 text-white/70'}`}>
                   {movie.quality}
                 </span>
                 {/* Video type badge */}
@@ -189,7 +189,7 @@ export default function StreamWatchPage() {
                 </div>
                 {movie.rating > 0 && (
                   <div className="flex items-center gap-1.5 text-sm text-[#9ca3af]">
-                    <Star className="w-3.5 h-3.5 text-[#8B5CF6] fill-[#8B5CF6]" strokeWidth={1.5} />
+                    <Star className="w-3.5 h-3.5 text-[#D4A853] fill-[#D4A853]" strokeWidth={1.5} />
                     {movie.rating}/10
                   </div>
                 )}
@@ -225,7 +225,7 @@ export default function StreamWatchPage() {
                     href={movie.sourceUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-[10px] text-[#8B5CF6]/60 hover:text-[#8B5CF6] transition-colors"
+                    className="inline-flex items-center gap-1 text-[10px] text-[#D4A853]/60 hover:text-[#D4A853] transition-colors"
                   >
                     <ExternalLink className="w-3 h-3" strokeWidth={1.5} />
                     View original source
@@ -240,7 +240,7 @@ export default function StreamWatchPage() {
             {/* Available Languages */}
             <div className="p-5 bg-[#0c0c10] border border-[#1e1e28] rounded-xl">
               <div className="flex items-center gap-2 mb-4">
-                <Volume2 className="w-4 h-4 text-[#8B5CF6]" strokeWidth={1.5} />
+                <Volume2 className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
                 <h3 className="text-white font-semibold text-sm">Available Languages</h3>
                 <span className="text-[10px] text-white/30">{movie.languages.length} tracks</span>
               </div>
@@ -253,7 +253,7 @@ export default function StreamWatchPage() {
                     </div>
                     <div className="flex items-center gap-1.5">
                       {lang.isOriginal && (
-                        <span className="text-[9px] px-1.5 py-0.5 bg-[#8B5CF6]/20 text-[#8B5CF6] rounded font-medium">Original</span>
+                        <span className="text-[9px] px-1.5 py-0.5 bg-[#D4A853]/20 text-[#D4A853] rounded font-medium">Original</span>
                       )}
                       {lang.isDubbed && (
                         <span className="text-[9px] px-1.5 py-0.5 bg-white/10 text-white/50 rounded font-medium">Dubbed</span>
@@ -270,7 +270,7 @@ export default function StreamWatchPage() {
             {/* Available Subtitles */}
             <div className="p-5 bg-[#0c0c10] border border-[#1e1e28] rounded-xl">
               <div className="flex items-center gap-2 mb-4">
-                <Subtitles className="w-4 h-4 text-[#8B5CF6]" strokeWidth={1.5} />
+                <Subtitles className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
                 <h3 className="text-white font-semibold text-sm">Available Subtitles</h3>
                 <span className="text-[10px] text-white/30">{movie.subtitles.length} languages</span>
               </div>
@@ -280,8 +280,8 @@ export default function StreamWatchPage() {
                     key={sub.code}
                     className={`text-xs px-3 py-1.5 rounded-full transition-colors cursor-default ${
                       sub.isDefault
-                        ? 'text-[#8B5CF6] bg-[#8B5CF6]/10 border border-[#8B5CF6]/30'
-                        : 'text-[#9ca3af] bg-[#050507] border border-[#1e1e28] hover:border-[#8B5CF6]/30 hover:text-[#f1f1f4]'
+                        ? 'text-[#D4A853] bg-[#D4A853]/10 border border-[#D4A853]/30'
+                        : 'text-[#9ca3af] bg-[#050507] border border-[#1e1e28] hover:border-[#D4A853]/30 hover:text-[#f1f1f4]'
                     }`}
                   >
                     {sub.label}
@@ -296,7 +296,7 @@ export default function StreamWatchPage() {
           {similar.length > 0 && (
             <div className="mt-10">
               <div className="flex items-center gap-2 mb-4">
-                <Languages className="w-4 h-4 text-[#8B5CF6]" strokeWidth={1.5} />
+                <Languages className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
                 <h3 className="text-white font-semibold">More Like This</h3>
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
@@ -313,7 +313,7 @@ export default function StreamWatchPage() {
                         }}
                       />
                       <div className="absolute top-2 left-2">
-                        <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${m.quality === '4K' ? 'bg-[#8B5CF6] text-black' : 'bg-white/20 text-white/90 backdrop-blur-sm'}`}>
+                        <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${m.quality === '4K' ? 'bg-[#D4A853] text-black' : 'bg-white/20 text-white/90 backdrop-blur-sm'}`}>
                           {m.quality}
                         </span>
                       </div>
@@ -328,12 +328,12 @@ export default function StreamWatchPage() {
                         </span>
                       </div>
                       <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover/card:opacity-100 transition-opacity">
-                        <div className="w-10 h-10 bg-[#8B5CF6]/90 rounded-full flex items-center justify-center">
+                        <div className="w-10 h-10 bg-[#D4A853]/90 rounded-full flex items-center justify-center">
                           <svg className="w-4 h-4 text-black fill-black ml-0.5" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" /></svg>
                         </div>
                       </div>
                     </div>
-                    <h4 className="mt-2 text-sm font-medium text-[#f1f1f4] truncate group-hover/card:text-[#8B5CF6] transition-colors">
+                    <h4 className="mt-2 text-sm font-medium text-[#f1f1f4] truncate group-hover/card:text-[#D4A853] transition-colors">
                       {m.title}
                     </h4>
                     <p className="text-[11px] text-[#9ca3af]">

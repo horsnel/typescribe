@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-my-mother-the-animation-ova-sub-espanol",
+  "data": {
+    "id": "archive-my-mother-the-animation-ova-sub-espanol",
+    "title": "My Mother The Animation Ova Sub Español",
+    "description": "Anime",
+    "year": 2003,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 5,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/my-mother-the-animation-ova-sub-espanol",
+    "backdrop": "https://archive.org/services/img/my-mother-the-animation-ova-sub-espanol",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/my-mother-the-animation-ova-sub-espanol",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/my-mother-the-animation-ova-sub-espanol/My%20Mother%20The%20Animation%20Ova%20Sub%20Espa%C3%B1ol.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:41:59.372Z"
+  },
+  "createdAt": 1778337992631,
+  "expiresAt": 1778424392631
+}

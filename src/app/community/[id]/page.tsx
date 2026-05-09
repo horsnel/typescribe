@@ -303,7 +303,7 @@ export default function CommunityDetailPage() {
           <Users className="w-16 h-16 text-[#2a2a35] mx-auto mb-4" strokeWidth={1.5} />
           <h2 className="text-xl font-bold text-white mb-2">Community not found</h2>
           <p className="text-[#6b7280] mb-6">This community doesn&apos;t exist or has been removed.</p>
-          <Link href="/communities"><Button className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white">Browse Communities</Button></Link>
+          <Link href="/communities"><Button className="bg-[#D4A853] hover:bg-[#B8922F] text-white">Browse Communities</Button></Link>
         </div>
       </div>
     );
@@ -326,10 +326,10 @@ export default function CommunityDetailPage() {
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2 flex-wrap">
                   <h1 className="text-2xl lg:text-3xl font-extrabold text-white">{community.name}</h1>
-                  <span className="text-xs text-[#8B5CF6] bg-[#8B5CF6]/10 px-2 py-0.5 rounded-full font-medium">{community.type}</span>
+                  <span className="text-xs text-[#D4A853] bg-[#D4A853]/10 px-2 py-0.5 rounded-full font-medium">{community.type}</span>
                   {/* Creator Badge */}
                   {community.creatorName && (
-                    <Link href={`/profile/${community.creatorId || ''}`} className="flex items-center gap-1 text-xs text-[#8B5CF6] bg-[#8B5CF6]/10 px-2 py-0.5 rounded-full font-medium hover:bg-[#8B5CF6]/20 transition-colors">
+                    <Link href={`/profile/${community.creatorId || ''}`} className="flex items-center gap-1 text-xs text-[#D4A853] bg-[#D4A853]/10 px-2 py-0.5 rounded-full font-medium hover:bg-[#D4A853]/20 transition-colors">
                       <Crown className="w-3 h-3" strokeWidth={1.5} /> {community.creatorName}
                     </Link>
                   )}
@@ -344,22 +344,22 @@ export default function CommunityDetailPage() {
               <div className="flex items-center gap-2 flex-wrap">
                 {/* Share community button */}
                 <Button onClick={onShareCommunity} variant="outline" className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:bg-[#111118] hover:border-[#3a3a45] gap-2 min-h-[44px]">
-                  {shareCopied ? <Check className="w-4 h-4 text-[#8B5CF6]" strokeWidth={1.5} /> : <Share2 className="w-4 h-4" strokeWidth={1.5} />}
+                  {shareCopied ? <Check className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} /> : <Share2 className="w-4 h-4" strokeWidth={1.5} />}
                   {shareCopied ? 'Copied!' : 'Share'}
                 </Button>
                 {/* Manage button for creator */}
                 {isCreator && (
-                  <Button onClick={openManageModal} variant="outline" className="border-[#8B5CF6]/30 text-[#8B5CF6] hover:bg-[#8B5CF6] hover:text-white gap-2 min-h-[44px]">
+                  <Button onClick={openManageModal} variant="outline" className="border-[#D4A853]/30 text-[#D4A853] hover:bg-[#D4A853] hover:text-white gap-2 min-h-[44px]">
                     <Settings2 className="w-4 h-4" strokeWidth={1.5} /> Manage
                   </Button>
                 )}
                 {isAuthenticated ? (
-                  <Button onClick={handleJoinToggle} variant={isJoined ? 'outline' : 'default'} className={isJoined ? 'border-[#8B5CF6] text-[#8B5CF6] hover:text-white hover:bg-[#8B5CF6] hover:border-[#8B5CF6] gap-2 min-h-[44px]' : 'bg-[#8B5CF6] hover:bg-[#7C3AED] text-white gap-2 min-h-[44px]'}>
+                  <Button onClick={handleJoinToggle} variant={isJoined ? 'outline' : 'default'} className={isJoined ? 'border-[#D4A853] text-[#D4A853] hover:text-white hover:bg-[#D4A853] hover:border-[#D4A853] gap-2 min-h-[44px]' : 'bg-[#D4A853] hover:bg-[#B8922F] text-white gap-2 min-h-[44px]'}>
                     {isJoined ? <UserMinus className="w-4 h-4" strokeWidth={1.5} /> : <UserPlus className="w-4 h-4" strokeWidth={1.5} />}
                     {isJoined ? 'Joined' : 'Join Community'}
                   </Button>
                 ) : (
-                  <Link href="/login"><Button className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white gap-2 min-h-[44px]"><UserPlus className="w-4 h-4" strokeWidth={1.5} /> Join Community</Button></Link>
+                  <Link href="/login"><Button className="bg-[#D4A853] hover:bg-[#B8922F] text-white gap-2 min-h-[44px]"><UserPlus className="w-4 h-4" strokeWidth={1.5} /> Join Community</Button></Link>
                 )}
               </div>
             </div>
@@ -370,7 +370,7 @@ export default function CommunityDetailPage() {
         {community.rules && community.rules.length > 0 && (
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5 mb-6">
             <div className="flex items-center gap-2 mb-3">
-              <Shield className="w-4 h-4 text-[#8B5CF6]" strokeWidth={1.5} />
+              <Shield className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
               <h2 className="text-sm font-semibold text-white">Community Rules</h2>
             </div>
             <ol className="space-y-2">
@@ -401,14 +401,14 @@ export default function CommunityDetailPage() {
               onClick={() => setActiveTab(tab.key)}
               className={`flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors border-b-2 min-h-[44px] whitespace-nowrap ${
                 activeTab === tab.key
-                  ? 'text-white border-[#8B5CF6]'
+                  ? 'text-white border-[#D4A853]'
                   : 'text-[#6b7280] border-transparent hover:text-white'
               }`}
             >
               <tab.icon className="w-4 h-4" strokeWidth={1.5} />
               {tab.label}
               {tab.count !== null && tab.count > 0 && (
-                <span className="text-[10px] bg-[#8B5CF6]/10 text-[#8B5CF6] px-1.5 py-0.5 rounded-full">{tab.count}</span>
+                <span className="text-[10px] bg-[#D4A853]/10 text-[#D4A853] px-1.5 py-0.5 rounded-full">{tab.count}</span>
               )}
             </button>
           ))}
@@ -433,28 +433,28 @@ export default function CommunityDetailPage() {
             <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
               <div className="flex items-center gap-2">
                 <div className="flex items-center bg-[#0c0c10] border border-[#1e1e28] rounded-lg overflow-hidden">
-                  <button onClick={() => setSortOrder('newest')} className={`px-3 py-1.5 text-xs font-medium transition-colors ${sortOrder === 'newest' ? 'bg-[#8B5CF6] text-white' : 'text-[#6b7280] hover:text-white'}`}>Newest</button>
-                  <button onClick={() => setSortOrder('popular')} className={`px-3 py-1.5 text-xs font-medium transition-colors ${sortOrder === 'popular' ? 'bg-[#8B5CF6] text-white' : 'text-[#6b7280] hover:text-white'}`}>Popular</button>
+                  <button onClick={() => setSortOrder('newest')} className={`px-3 py-1.5 text-xs font-medium transition-colors ${sortOrder === 'newest' ? 'bg-[#D4A853] text-white' : 'text-[#6b7280] hover:text-white'}`}>Newest</button>
+                  <button onClick={() => setSortOrder('popular')} className={`px-3 py-1.5 text-xs font-medium transition-colors ${sortOrder === 'popular' ? 'bg-[#D4A853] text-white' : 'text-[#6b7280] hover:text-white'}`}>Popular</button>
                 </div>
               </div>
               {isAuthenticated && (
-                <Button onClick={() => setShowNewPost(!showNewPost)} className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white gap-2 min-h-[44px]" size="sm">
+                <Button onClick={() => setShowNewPost(!showNewPost)} className="bg-[#D4A853] hover:bg-[#B8922F] text-white gap-2 min-h-[44px]" size="sm">
                   <Plus className="w-4 h-4" strokeWidth={1.5} /> New Post
                 </Button>
               )}
             </div>
 
             {showNewPost && (
-              <div id="new-post-area" className="bg-[#0c0c10] border border-[#8B5CF6]/30 rounded-xl p-5 mb-6">
+              <div id="new-post-area" className="bg-[#0c0c10] border border-[#D4A853]/30 rounded-xl p-5 mb-6">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-sm font-semibold text-white">Create a new post</h3>
                   <button onClick={() => setShowNewPost(false)} className="text-[#6b7280] hover:text-white min-w-[44px] min-h-[44px] flex items-center justify-center"><X className="w-4 h-4" strokeWidth={1.5} /></button>
                 </div>
                 <div className="space-y-3">
-                  <input type="text" value={newPostTitle} onChange={(e) => setNewPostTitle(e.target.value)} placeholder="Post title" className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6] text-sm" />
-                  <textarea value={newPostContent} onChange={(e) => setNewPostContent(e.target.value)} placeholder="Share your thoughts..." rows={4} className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6] text-sm resize-none" />
+                  <input type="text" value={newPostTitle} onChange={(e) => setNewPostTitle(e.target.value)} placeholder="Post title" className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853] text-sm" />
+                  <textarea value={newPostContent} onChange={(e) => setNewPostContent(e.target.value)} placeholder="Share your thoughts..." rows={4} className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853] text-sm resize-none" />
                   <div className="flex justify-end">
-                    <Button onClick={handleNewPost} disabled={!newPostTitle.trim() || !newPostContent.trim() || isSubmitting} className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white gap-2 min-h-[44px]" size="sm">
+                    <Button onClick={handleNewPost} disabled={!newPostTitle.trim() || !newPostContent.trim() || isSubmitting} className="bg-[#D4A853] hover:bg-[#B8922F] text-white gap-2 min-h-[44px]" size="sm">
                       <Send className="w-4 h-4" strokeWidth={1.5} />{isSubmitting ? 'Posting...' : 'Post'}
                     </Button>
                   </div>
@@ -495,14 +495,14 @@ export default function CommunityDetailPage() {
                     <Link
                       key={debate.id}
                       href={`/movie/${debate.movieSlug}/debates`}
-                      className="block bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5 hover:border-purple-500/30 transition-all group"
+                      className="block bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5 hover:border-[#D4A853]/30 transition-all group"
                     >
                       <div className="flex items-start gap-3 mb-3">
-                        <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center flex-shrink-0">
-                          <Swords className="w-4 h-4 text-purple-400" strokeWidth={1.5} />
+                        <div className="w-8 h-8 rounded-lg bg-[#D4A853]/10 border border-[#D4A853]/20 flex items-center justify-center flex-shrink-0">
+                          <Swords className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h3 className="text-sm font-semibold text-white group-hover:text-purple-400 transition-colors leading-snug mb-1">
+                          <h3 className="text-sm font-semibold text-white group-hover:text-[#D4A853] transition-colors leading-snug mb-1">
                             &ldquo;{debate.proposition}&rdquo;
                           </h3>
                           <div className="flex items-center gap-3 text-xs text-[#6b7280]">
@@ -585,14 +585,14 @@ export default function CommunityDetailPage() {
 
         {/* FAB */}
         {isAuthenticated && isJoined && !showNewPost && activeTab === 'discussions' && (
-          <button onClick={() => setShowNewPost(true)} className="fixed bottom-6 right-6 w-14 h-14 bg-[#8B5CF6] hover:bg-[#7C3AED] text-white rounded-full shadow-lg shadow-[#8B5CF6]/25 flex items-center justify-center transition-all hover:scale-105 z-30 min-w-[44px] min-h-[44px]" aria-label="Create post">
+          <button onClick={() => setShowNewPost(true)} className="fixed bottom-6 right-6 w-14 h-14 bg-[#D4A853] hover:bg-[#B8922F] text-white rounded-full shadow-lg shadow-[#D4A853]/25 flex items-center justify-center transition-all hover:scale-105 z-30 min-w-[44px] min-h-[44px]" aria-label="Create post">
             <Plus className="w-6 h-6" strokeWidth={1.5} />
           </button>
         )}
 
         {/* Back link */}
         <div className="mt-8">
-          <Link href="/communities" className="inline-flex items-center gap-2 text-sm text-[#6b7280] hover:text-[#8B5CF6] transition-colors">
+          <Link href="/communities" className="inline-flex items-center gap-2 text-sm text-[#6b7280] hover:text-[#D4A853] transition-colors">
             <ArrowLeft className="w-4 h-4" strokeWidth={1.5} /> Back to Communities
           </Link>
         </div>
@@ -604,7 +604,7 @@ export default function CommunityDetailPage() {
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-lg font-bold text-white flex items-center gap-2">
-                <Crown className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} /> Manage Community
+                <Crown className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} /> Manage Community
               </h2>
               <button onClick={() => setShowManageModal(false)} className="text-[#6b7280] hover:text-white min-w-[44px] min-h-[44px] flex items-center justify-center"><X className="w-5 h-5" strokeWidth={1.5} /></button>
             </div>
@@ -613,9 +613,9 @@ export default function CommunityDetailPage() {
               {/* Banner Image */}
               <div>
                 <label className="text-sm font-medium text-[#9ca3af] mb-1.5 block flex items-center gap-2">
-                  <ImagePlus className="w-4 h-4 text-[#8B5CF6]" strokeWidth={1.5} /> Background Banner URL
+                  <ImagePlus className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} /> Background Banner URL
                 </label>
-                <input type="text" value={bgUrl} onChange={(e) => setBgUrl(e.target.value)} placeholder="https://example.com/banner.jpg" className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6] text-sm min-h-[44px]" />
+                <input type="text" value={bgUrl} onChange={(e) => setBgUrl(e.target.value)} placeholder="https://example.com/banner.jpg" className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853] text-sm min-h-[44px]" />
                 {bgUrl && (
                   <div className="mt-2 h-20 rounded-lg overflow-hidden border border-[#1e1e28]">
                     <img src={bgUrl} alt="Banner preview" className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
@@ -626,23 +626,23 @@ export default function CommunityDetailPage() {
               {/* Description */}
               <div>
                 <label className="text-sm font-medium text-[#9ca3af] mb-1.5 block flex items-center gap-2">
-                  <Pencil className="w-4 h-4 text-[#8B5CF6]" strokeWidth={1.5} /> Community Description
+                  <Pencil className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} /> Community Description
                 </label>
-                <textarea value={editDesc} onChange={(e) => setEditDesc(e.target.value)} rows={3} className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6] text-sm resize-none" />
+                <textarea value={editDesc} onChange={(e) => setEditDesc(e.target.value)} rows={3} className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853] text-sm resize-none" />
               </div>
 
               {/* Rules */}
               <div>
                 <label className="text-sm font-medium text-[#9ca3af] mb-1.5 block flex items-center gap-2">
-                  <Shield className="w-4 h-4 text-[#8B5CF6]" strokeWidth={1.5} /> Community Rules (one per line)
+                  <Shield className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} /> Community Rules (one per line)
                 </label>
-                <textarea value={editRules} onChange={(e) => setEditRules(e.target.value)} rows={5} className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6] text-sm resize-none" placeholder="Be respectful&#10;Stay on topic&#10;No spam" />
+                <textarea value={editRules} onChange={(e) => setEditRules(e.target.value)} rows={5} className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853] text-sm resize-none" placeholder="Be respectful&#10;Stay on topic&#10;No spam" />
               </div>
             </div>
 
             <div className="flex items-center gap-3 mt-6 justify-end">
               <Button variant="outline" onClick={() => setShowManageModal(false)} className="border-[#1e1e28] text-[#9ca3af] hover:text-white hover:bg-[#111118]">Cancel</Button>
-              <Button onClick={saveManageChanges} className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white gap-2 min-h-[44px]">
+              <Button onClick={saveManageChanges} className="bg-[#D4A853] hover:bg-[#B8922F] text-white gap-2 min-h-[44px]">
                 <Check className="w-4 h-4" strokeWidth={1.5} /> Save Changes
               </Button>
             </div>

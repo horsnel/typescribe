@@ -79,7 +79,7 @@ export default function MovieClubWidget({ communityId, communityName, isMember }
   };
 
   const getStatusColor = (status: MovieClub['status']) => {
-    if (status === 'upcoming') return 'text-[#8B5CF6] bg-[#8B5CF6]/10 border-[#8B5CF6]/20';
+    if (status === 'upcoming') return 'text-[#D4A853] bg-[#D4A853]/10 border-[#D4A853]/20';
     if (status === 'watching') return 'text-green-400 bg-green-500/10 border-green-500/20';
     return 'text-[#6b7280] bg-[#1e1e28] border-[#1e1e28]';
   };
@@ -92,8 +92,8 @@ export default function MovieClubWidget({ communityId, communityName, isMember }
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 flex items-center justify-center">
-            <Video className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
+          <div className="w-10 h-10 rounded-lg bg-[#D4A853]/10 border border-[#D4A853]/20 flex items-center justify-center">
+            <Video className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
           </div>
           <div>
             <h3 className="text-lg font-bold text-white">Movie Clubs</h3>
@@ -104,7 +104,7 @@ export default function MovieClubWidget({ communityId, communityName, isMember }
           <Button
             onClick={() => setShowCreate(!showCreate)}
             size="sm"
-            className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white gap-2 min-h-[44px]"
+            className="bg-[#D4A853] hover:bg-[#B8922F] text-white gap-2 min-h-[44px]"
           >
             <Plus className="w-4 h-4" strokeWidth={1.5} /> Schedule
           </Button>
@@ -113,7 +113,7 @@ export default function MovieClubWidget({ communityId, communityName, isMember }
 
       {/* Create form */}
       {showCreate && (
-        <div className="bg-[#0c0c10] border border-[#8B5CF6]/30 rounded-xl p-5 space-y-3">
+        <div className="bg-[#0c0c10] border border-[#D4A853]/30 rounded-xl p-5 space-y-3">
           <div className="flex items-center justify-between mb-2">
             <h4 className="text-sm font-semibold text-white">Schedule a Movie Club</h4>
             <button onClick={() => setShowCreate(false)} className="text-[#6b7280] hover:text-white min-w-[44px] min-h-[44px] flex items-center justify-center">
@@ -125,27 +125,27 @@ export default function MovieClubWidget({ communityId, communityName, isMember }
             value={newMovie}
             onChange={(e) => setNewMovie(e.target.value)}
             placeholder="Movie title"
-            className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6] text-sm min-h-[44px]"
+            className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853] text-sm min-h-[44px]"
           />
           <input
             type="text"
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
             placeholder="Event name (optional — defaults to movie name)"
-            className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6] text-sm min-h-[44px]"
+            className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853] text-sm min-h-[44px]"
           />
           <div className="grid grid-cols-2 gap-3">
             <input
               type="date"
               value={newDate}
               onChange={(e) => setNewDate(e.target.value)}
-              className="bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-[#8B5CF6] text-sm min-h-[44px]"
+              className="bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-[#D4A853] text-sm min-h-[44px]"
             />
             <input
               type="time"
               value={newTime}
               onChange={(e) => setNewTime(e.target.value)}
-              className="bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-[#8B5CF6] text-sm min-h-[44px]"
+              className="bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-[#D4A853] text-sm min-h-[44px]"
             />
           </div>
           <textarea
@@ -153,12 +153,12 @@ export default function MovieClubWidget({ communityId, communityName, isMember }
             onChange={(e) => setNewPrompt(e.target.value)}
             placeholder="Discussion prompt after the movie (optional)"
             rows={2}
-            className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6] text-sm resize-none"
+            className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853] text-sm resize-none"
           />
           <Button
             onClick={handleCreate}
             disabled={!newMovie.trim() || !newDate}
-            className="w-full bg-[#8B5CF6] hover:bg-[#7C3AED] text-white gap-2 min-h-[44px]"
+            className="w-full bg-[#D4A853] hover:bg-[#B8922F] text-white gap-2 min-h-[44px]"
             size="sm"
           >
             <Calendar className="w-4 h-4" strokeWidth={1.5} /> Schedule Watch Party
@@ -176,14 +176,14 @@ export default function MovieClubWidget({ communityId, communityName, isMember }
             const isToday = new Date().toDateString() === scheduledDate.toDateString();
 
             return (
-              <div key={club.id} className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5 hover:border-[#8B5CF6]/20 transition-all group">
+              <div key={club.id} className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5 hover:border-[#D4A853]/20 transition-all group">
                 <div className="flex items-start gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-lg bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 flex items-center justify-center flex-shrink-0">
-                    <Film className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
+                  <div className="w-10 h-10 rounded-lg bg-[#D4A853]/10 border border-[#D4A853]/20 flex items-center justify-center flex-shrink-0">
+                    <Film className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <h4 className="text-sm font-semibold text-white group-hover:text-[#8B5CF6] transition-colors">
+                      <h4 className="text-sm font-semibold text-white group-hover:text-[#D4A853] transition-colors">
                         {club.name}
                       </h4>
                       <span className={`text-[10px] px-2 py-0.5 rounded-full border ${getStatusColor(club.status)}`}>
@@ -209,7 +209,7 @@ export default function MovieClubWidget({ communityId, communityName, isMember }
                 {club.attendees.length > 0 && (
                   <div className="flex items-center gap-1 mb-3">
                     {club.attendees.slice(0, 8).map((attendee, i) => (
-                      <div key={i} className="w-6 h-6 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#7C3AED] flex items-center justify-center text-white text-[8px] font-bold overflow-hidden border-2 border-[#0c0c10]" style={{ marginLeft: i > 0 ? '-4px' : '0', zIndex: club.attendees.length - i }}>
+                      <div key={i} className="w-6 h-6 rounded-full bg-gradient-to-br from-[#D4A853] to-[#B8922F] flex items-center justify-center text-white text-[8px] font-bold overflow-hidden border-2 border-[#0c0c10]" style={{ marginLeft: i > 0 ? '-4px' : '0', zIndex: club.attendees.length - i }}>
                         {attendee.avatar ? (
                           <img src={attendee.avatar} alt="" className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
                         ) : attendee.userName[0]?.toUpperCase() || '?'}
@@ -225,7 +225,7 @@ export default function MovieClubWidget({ communityId, communityName, isMember }
                 {club.discussionPrompt && (
                   <div className="bg-[#050507] border border-[#1e1e28] rounded-lg p-3 mb-3">
                     <p className="text-xs text-[#9ca3af]">
-                      <MessageSquare className="w-3 h-3 inline mr-1 text-purple-400" strokeWidth={1.5} />
+                      <MessageSquare className="w-3 h-3 inline mr-1 text-[#D4A853]" strokeWidth={1.5} />
                       {club.discussionPrompt}
                     </p>
                   </div>
@@ -238,7 +238,7 @@ export default function MovieClubWidget({ communityId, communityName, isMember }
                       onClick={() => handleLeave(club.id)}
                       variant="outline"
                       size="sm"
-                      className="border-[#8B5CF6]/30 text-[#8B5CF6] hover:bg-[#8B5CF6] hover:text-white gap-2 min-h-[36px] w-full"
+                      className="border-[#D4A853]/30 text-[#D4A853] hover:bg-[#D4A853] hover:text-white gap-2 min-h-[36px] w-full"
                     >
                       <UserMinus className="w-3.5 h-3.5" strokeWidth={1.5} /> Leave Watch Party
                     </Button>
@@ -247,7 +247,7 @@ export default function MovieClubWidget({ communityId, communityName, isMember }
                       onClick={() => handleJoin(club.id)}
                       size="sm"
                       disabled={isFull}
-                      className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white gap-2 min-h-[36px] w-full"
+                      className="bg-[#D4A853] hover:bg-[#B8922F] text-white gap-2 min-h-[36px] w-full"
                     >
                       <UserPlus className="w-3.5 h-3.5" strokeWidth={1.5} /> {isFull ? 'Full' : 'Join Watch Party'}
                     </Button>

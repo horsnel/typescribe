@@ -62,7 +62,7 @@ export default function ContactPage() {
           <div>
             {sent ? (
               <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-10 text-center">
-                <Mail className="w-14 h-14 text-[#8B5CF6] mx-auto mb-4" strokeWidth={1.5} />
+                <Mail className="w-14 h-14 text-[#D4A853] mx-auto mb-4" strokeWidth={1.5} />
                 <h2 className="text-xl font-bold text-white mb-2">Message Sent!</h2>
                 <p className="text-[#9ca3af] mb-1">Thank you for reaching out. We will get back to you as soon as possible.</p>
                 <p className="text-sm text-[#6b7280]">Typical response time: within 24 hours</p>
@@ -74,17 +74,17 @@ export default function ContactPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-medium text-white mb-1.5 block">Name</label>
-                    <input name="name" type="text" required className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6]" placeholder="Your name" />
+                    <input name="name" type="text" required className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853]" placeholder="Your name" />
                   </div>
                   <div>
                     <label className="text-sm font-medium text-white mb-1.5 block">Email</label>
-                    <input name="email" type="email" required className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6]" placeholder="you@example.com" />
+                    <input name="email" type="email" required className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853]" placeholder="you@example.com" />
                   </div>
                 </div>
 
                 <div>
                   <label className="text-sm font-medium text-white mb-1.5 block">Subject</label>
-                  <select name="subject" value={subject} onChange={(e) => setSubject(e.target.value)} className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white focus:outline-none focus:border-[#8B5CF6]">
+                  <select name="subject" value={subject} onChange={(e) => setSubject(e.target.value)} className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white focus:outline-none focus:border-[#D4A853]">
                     <option value="general">General Inquiry</option>
                     <option value="feedback">Feedback & Suggestions</option>
                     <option value="bug">Bug Report</option>
@@ -96,10 +96,10 @@ export default function ContactPage() {
 
                 <div>
                   <label className="text-sm font-medium text-white mb-1.5 block">Message</label>
-                  <textarea name="message" rows={6} required className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6] resize-none" placeholder="Tell us what's on your mind..." />
+                  <textarea name="message" rows={6} required className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853] resize-none" placeholder="Tell us what's on your mind..." />
                 </div>
 
-                <Button type="submit" disabled={loading} className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white gap-2 disabled:opacity-60">
+                <Button type="submit" disabled={loading} className="bg-[#D4A853] hover:bg-[#B8922F] text-white gap-2 disabled:opacity-60">
                   {loading ? <Loader2 className="w-4 h-4 animate-spin" strokeWidth={1.5} /> : <Send className="w-4 h-4" strokeWidth={1.5} />}
                   Send Message
                 </Button>
@@ -113,21 +113,21 @@ export default function ContactPage() {
               <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">Get in Touch</h3>
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
-                  <Mail className="w-5 h-5 text-[#8B5CF6] flex-shrink-0 mt-0.5" strokeWidth={1.5} />
+                  <Mail className="w-5 h-5 text-[#D4A853] flex-shrink-0 mt-0.5" strokeWidth={1.5} />
                   <div>
                     <p className="text-sm text-white font-medium">Email</p>
                     <p className="text-xs text-[#6b7280]">hello@typescribe.com</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <Clock className="w-5 h-5 text-[#8B5CF6] flex-shrink-0 mt-0.5" strokeWidth={1.5} />
+                  <Clock className="w-5 h-5 text-[#D4A853] flex-shrink-0 mt-0.5" strokeWidth={1.5} />
                   <div>
                     <p className="text-sm text-white font-medium">Response Time</p>
                     <p className="text-xs text-[#6b7280]">Usually within 24 hours</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-[#8B5CF6] flex-shrink-0 mt-0.5" strokeWidth={1.5} />
+                  <MapPin className="w-5 h-5 text-[#D4A853] flex-shrink-0 mt-0.5" strokeWidth={1.5} />
                   <div>
                     <p className="text-sm text-white font-medium">Location</p>
                     <p className="text-xs text-[#6b7280]">San Francisco, CA & Remote</p>
@@ -171,7 +171,7 @@ export default function ContactPage() {
                   className="w-full flex items-center justify-between p-5 text-left hover:bg-[#111118] transition-colors"
                 >
                   <span className="text-sm font-medium text-white pr-4">{faq.q}</span>
-                  {openFaq === i ? <ChevronUp className="w-4 h-4 text-[#8B5CF6] flex-shrink-0" strokeWidth={1.5} /> : <ChevronDown className="w-4 h-4 text-[#6b7280] flex-shrink-0" strokeWidth={1.5} />}
+                  {openFaq === i ? <ChevronUp className="w-4 h-4 text-[#D4A853] flex-shrink-0" strokeWidth={1.5} /> : <ChevronDown className="w-4 h-4 text-[#6b7280] flex-shrink-0" strokeWidth={1.5} />}
                 </button>
                 {openFaq === i && (
                   <div className="px-5 pb-5 pt-0">

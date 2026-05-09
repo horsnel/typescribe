@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-popeye_patriotic_popeye",
+  "data": {
+    "id": "archive-popeye_patriotic_popeye",
+    "title": "Patriotic Popeye",
+    "description": "Popeye's nephews want to play with fireworks on July 4th, but Popeye tries to dissuade them. They manage to light some off and get into trouble. Popeye saves the day. Animation by Tom Johnson and Frank Endres. Story by Caryl Meyer. Music by Winston Sharples. Produced in 1957.",
+    "year": 1957,
+    "duration": "6h",
+    "durationSeconds": 21600,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 3.6,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/popeye_patriotic_popeye",
+    "backdrop": "https://archive.org/services/img/popeye_patriotic_popeye",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/popeye_patriotic_popeye",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/popeye_patriotic_popeye",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:09.868Z"
+  },
+  "createdAt": 1778337992645,
+  "expiresAt": 1778424392645
+}

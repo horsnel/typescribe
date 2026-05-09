@@ -335,8 +335,8 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
 
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">
-                <Swords className="w-5 h-5 text-purple-400" strokeWidth={1.5} />
+              <div className="w-10 h-10 rounded-lg bg-[#D4A853]/10 border border-[#D4A853]/20 flex items-center justify-center">
+                <Swords className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
               </div>
               <div>
                 <h1 className="text-2xl sm:text-3xl font-extrabold text-white">
@@ -357,14 +357,14 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
               {isAuthenticated ? (
                 <Button
                   onClick={() => setShowNewDebateForm(!showNewDebateForm)}
-                  className="bg-purple-600 hover:bg-purple-700 text-white gap-2"
+                  className="bg-[#D4A853] hover:bg-[#B8922F] text-white gap-2"
                 >
                   <Plus className="w-4 h-4" strokeWidth={1.5} /> Start a Debate
                 </Button>
               ) : (
                 <Link
                   href="/login"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-purple-600 hover:bg-purple-700 text-white transition-colors"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-[#D4A853] hover:bg-[#B8922F] text-white transition-colors"
                 >
                   <Plus className="w-4 h-4" strokeWidth={1.5} /> Start a Debate
                 </Link>
@@ -378,9 +378,9 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
         {/* New Debate Form */}
         {showNewDebateForm && (
-          <div className="bg-[#0c0c10] border border-purple-500/30 rounded-xl p-6 mb-8">
+          <div className="bg-[#0c0c10] border border-[#D4A853]/30 rounded-xl p-6 mb-8">
             <div className="flex items-center gap-2 mb-4">
-              <Swords className="w-5 h-5 text-purple-400" strokeWidth={1.5} />
+              <Swords className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
               <h3 className="text-lg font-bold text-white">Start a New Debate</h3>
             </div>
             <p className="text-sm text-[#6b7280] mb-4">
@@ -391,13 +391,13 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
               onChange={(e) => setNewProposition(e.target.value)}
               placeholder="e.g., The ending was the perfect conclusion to the story"
               rows={3}
-              className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-3 px-4 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-purple-500 resize-none text-sm mb-4"
+              className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-3 px-4 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853] resize-none text-sm mb-4"
             />
             <div className="flex items-center gap-3">
               <Button
                 onClick={handleCreateDebate}
                 disabled={!newProposition.trim() || submitting}
-                className="bg-purple-600 hover:bg-purple-700 text-white gap-2 disabled:opacity-50"
+                className="bg-[#D4A853] hover:bg-[#B8922F] text-white gap-2 disabled:opacity-50"
               >
                 {submitting ? <Loader2 className="w-4 h-4 animate-spin" strokeWidth={1.5} /> : <Send className="w-4 h-4" strokeWidth={1.5} />}
                 Create Debate
@@ -422,7 +422,7 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
             {isAuthenticated && (
               <Button
                 onClick={() => setShowNewDebateForm(true)}
-                className="bg-purple-600 hover:bg-purple-700 text-white gap-2"
+                className="bg-[#D4A853] hover:bg-[#B8922F] text-white gap-2"
               >
                 <Plus className="w-4 h-4" strokeWidth={1.5} /> Start a Debate
               </Button>
@@ -440,8 +440,8 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
                   {/* Debate Header */}
                   <div className="p-5 border-b border-[#1e1e28]/50">
                     <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <Shield className="w-4 h-4 text-purple-400" strokeWidth={1.5} />
+                      <div className="w-8 h-8 rounded-lg bg-[#D4A853]/10 border border-[#D4A853]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <Shield className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
                       </div>
                       <div className="flex-1 min-w-0">
                         <h3 className="text-base font-bold text-white leading-snug mb-1">

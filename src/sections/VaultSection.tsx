@@ -120,7 +120,7 @@ function getSourceBadge(source: StreamableMovie['source']) {
     case 'blender-foundation':
       return { label: 'CC', classes: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' };
     case 'internet-archive':
-      return { label: 'PD', classes: 'bg-amber-500/20 text-violet-400 border-amber-500/30' };
+      return { label: 'PD', classes: 'bg-amber-500/20 text-[#D4A853] border-amber-500/30' };
     case 'youtube':
       return { label: 'YT', classes: 'bg-red-500/20 text-red-400 border-red-500/30' };
     default:
@@ -162,9 +162,9 @@ function LandscapeCard({ movie }: { movie: StreamableMovie }) {
           <span
             className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
               movie.quality === '4K'
-                ? 'bg-[#8B5CF6] text-white'
+                ? 'bg-[#D4A853] text-white'
                 : movie.quality === '1080p'
-                ? 'bg-[#8B5CF6]/70 text-white'
+                ? 'bg-[#D4A853]/70 text-white'
                 : 'bg-white/20 text-white/80 backdrop-blur-sm'
             }`}
           >
@@ -183,7 +183,7 @@ function LandscapeCard({ movie }: { movie: StreamableMovie }) {
 
         {/* Play overlay */}
         <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover/card:opacity-100 transition-opacity duration-300">
-          <div className="w-12 h-12 bg-[#8B5CF6]/90 rounded-full flex items-center justify-center shadow-lg">
+          <div className="w-12 h-12 bg-[#D4A853]/90 rounded-full flex items-center justify-center shadow-lg">
             <Play className="w-5 h-5 text-black fill-black ml-0.5" strokeWidth={2} />
           </div>
         </div>
@@ -202,7 +202,7 @@ function LandscapeCard({ movie }: { movie: StreamableMovie }) {
                 <span className="text-white/20">&middot;</span>
                 <div className="flex items-center gap-1">
                   <Star
-                    className="w-2.5 h-2.5 text-[#8B5CF6] fill-[#8B5CF6]"
+                    className="w-2.5 h-2.5 text-[#D4A853] fill-[#D4A853]"
                   />
                   <span className="text-[11px] text-white/60">{movie.rating}</span>
                 </div>
@@ -254,7 +254,7 @@ function VaultCollectionRow({
     <section className="mb-8">
       {/* Row header */}
       <div className="flex items-center gap-2 mb-4 px-4 md:px-12">
-        <Icon className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
+        <Icon className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
         <h3 className="text-base md:text-lg font-bold text-white">{title}</h3>
         <span className="text-xs text-white/30 ml-2">
           {movies.length} film{movies.length !== 1 ? 's' : ''}
@@ -387,8 +387,8 @@ export default function VaultSection() {
       {/* Section Header */}
       <div className="px-4 md:px-12 mb-8">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-[#8B5CF6]/10 flex items-center justify-center">
-            <Landmark className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
+          <div className="w-10 h-10 rounded-xl bg-[#D4A853]/10 flex items-center justify-center">
+            <Landmark className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
           </div>
           <div>
             <h2 className="text-xl md:text-2xl font-bold text-white">
@@ -421,7 +421,7 @@ export default function VaultSection() {
             </span>
           </div>
           {movies.some((m) => m.is4K) && (
-            <span className="text-[10px] font-bold px-2 py-0.5 bg-[#8B5CF6]/10 text-[#8B5CF6] border border-[#8B5CF6]/20 rounded-full">
+            <span className="text-[10px] font-bold px-2 py-0.5 bg-[#D4A853]/10 text-[#D4A853] border border-[#D4A853]/20 rounded-full">
               4K Available
             </span>
           )}
@@ -444,7 +444,7 @@ export default function VaultSection() {
           href="/stream"
           className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#0c0c10] border border-[#1e1e28] rounded-xl text-sm text-[#9ca3af] hover:text-white hover:border-[#3a3a45] transition-colors group/cta"
         >
-          <Play className="w-4 h-4 text-[#8B5CF6]" strokeWidth={1.5} />
+          <Play className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
           Explore Full Streaming Library
           <ChevronRight
             className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform"

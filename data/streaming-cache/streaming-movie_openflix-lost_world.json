@@ -1,0 +1,43 @@
+{
+  "key": "streaming-movie:openflix-lost_world",
+  "data": {
+    "id": "openflix-lost_world",
+    "title": "The Lost World",
+    "description": "The first film adaptation of Sir Arthur Conan Doyle's classic novel about a land where prehistoric creatures still roam.You can find more information regarding this film on its IMDb page .",
+    "year": 1925,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [],
+    "rating": 4.3,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/lost_world",
+    "backdrop": "https://archive.org/services/img/lost_world",
+    "source": "openflix",
+    "sourceUrl": "https://archive.org/details/lost_world",
+    "sourceLicense": "Public Domain / Open Source",
+    "videoUrl": "https://archive.org/download/lost_world",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:42.228Z"
+  },
+  "createdAt": 1778337992641,
+  "expiresAt": 1778424392641
+}

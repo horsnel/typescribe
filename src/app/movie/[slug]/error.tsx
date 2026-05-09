@@ -19,8 +19,8 @@ export default function MovieError({
   return (
     <div className="min-h-screen bg-[#050507] flex items-center justify-center px-4">
       <div className="max-w-md w-full text-center">
-        <div className="w-20 h-20 rounded-full bg-[#8B5CF6]/10 border-2 border-[#8B5CF6]/20 flex items-center justify-center mx-auto mb-6">
-          <AlertTriangle className="w-10 h-10 text-[#8B5CF6]" strokeWidth={1.5} />
+        <div className="w-20 h-20 rounded-full bg-[#D4A853]/10 border-2 border-[#D4A853]/20 flex items-center justify-center mx-auto mb-6">
+          <AlertTriangle className="w-10 h-10 text-[#D4A853]" strokeWidth={1.5} />
         </div>
         <h1 className="text-3xl font-extrabold text-white mb-3">Something Went Wrong</h1>
         <p className="text-[#9ca3af] mb-2 leading-relaxed">
@@ -34,7 +34,7 @@ export default function MovieError({
         <div className="flex items-center justify-center gap-3">
           <button
             onClick={reset}
-            className="inline-flex items-center gap-2 bg-[#8B5CF6] hover:bg-[#7C3AED] text-white px-5 py-2.5 rounded-lg font-medium transition-colors"
+            className="inline-flex items-center gap-2 bg-[#D4A853] hover:bg-[#B8922F] text-white px-5 py-2.5 rounded-lg font-medium transition-colors"
           >
             <RefreshCw className="w-4 h-4" strokeWidth={1.5} /> Try Again
           </button>

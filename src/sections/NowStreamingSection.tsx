@@ -27,9 +27,9 @@ function StreamingCard({ movie }: { movie: StreamableMovie }) {
         <div className="absolute top-2 left-2">
           <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
             movie.quality === '4K'
-              ? 'bg-[#8B5CF6] text-white'
+              ? 'bg-[#D4A853] text-white'
               : movie.quality === '1080p'
-              ? 'bg-[#8B5CF6]/70 text-white'
+              ? 'bg-[#D4A853]/70 text-white'
               : 'bg-white/20 text-white/90 backdrop-blur-sm'
           }`}>
             {movie.quality}
@@ -38,19 +38,19 @@ function StreamingCard({ movie }: { movie: StreamableMovie }) {
         {/* Rating badge */}
         {movie.rating > 0 && (
           <div className="absolute bottom-2 right-2 flex items-center gap-1 bg-black/60 backdrop-blur-sm text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
-            <Star className="w-2.5 h-2.5 text-[#8B5CF6] fill-[#8B5CF6]" strokeWidth={1.5} />
+            <Star className="w-2.5 h-2.5 text-[#D4A853] fill-[#D4A853]" strokeWidth={1.5} />
             {movie.rating}
           </div>
         )}
         {/* Play overlay */}
         <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover/card:opacity-100 transition-opacity duration-300">
-          <div className="w-12 h-12 bg-[#8B5CF6]/90 rounded-full flex items-center justify-center shadow-lg">
+          <div className="w-12 h-12 bg-[#D4A853]/90 rounded-full flex items-center justify-center shadow-lg">
             <Play className="w-5 h-5 text-black fill-black ml-0.5" strokeWidth={2} />
           </div>
         </div>
       </div>
       <div className="mt-2.5">
-        <h3 className="text-sm font-medium text-[#f1f1f4] truncate group-hover/card:text-[#8B5CF6] transition-colors">
+        <h3 className="text-sm font-medium text-[#f1f1f4] truncate group-hover/card:text-[#D4A853] transition-colors">
           {movie.title}
         </h3>
         <div className="flex items-center gap-2 mt-1">
@@ -111,14 +111,14 @@ export default function NowStreamingSection() {
       <section className="py-10 md:py-14 bg-[#050507] border-y border-[#1e1e28]/30">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="flex items-center gap-2 mb-6">
-            <MonitorPlay className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
+            <MonitorPlay className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
             <h2 className="text-lg md:text-xl font-bold text-white">Now Streaming</h2>
-            <span className="text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 bg-[#8B5CF6]/10 text-[#8B5CF6] border border-[#8B5CF6]/20 rounded-full ml-2">
+            <span className="text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 bg-[#D4A853]/10 text-[#D4A853] border border-[#D4A853]/20 rounded-full ml-2">
               StreamFlix
             </span>
           </div>
           <div className="flex items-center justify-center py-16">
-            <Loader2 className="w-8 h-8 text-[#8B5CF6] animate-spin" strokeWidth={1.5} />
+            <Loader2 className="w-8 h-8 text-[#D4A853] animate-spin" strokeWidth={1.5} />
           </div>
         </div>
       </section>
@@ -131,9 +131,9 @@ export default function NowStreamingSection() {
       <section className="py-10 md:py-14 bg-[#050507] border-y border-[#1e1e28]/30">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="flex items-center gap-2 mb-6">
-            <MonitorPlay className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
+            <MonitorPlay className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
             <h2 className="text-lg md:text-xl font-bold text-white">Now Streaming</h2>
-            <span className="text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 bg-[#8B5CF6]/10 text-[#8B5CF6] border border-[#8B5CF6]/20 rounded-full ml-2">
+            <span className="text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 bg-[#D4A853]/10 text-[#D4A853] border border-[#D4A853]/20 rounded-full ml-2">
               StreamFlix
             </span>
           </div>
@@ -141,7 +141,7 @@ export default function NowStreamingSection() {
             <p className="text-white/40 text-sm mb-4">Unable to load streaming catalog right now.</p>
             <Link
               href="/stream"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 text-[#8B5CF6] rounded-lg text-sm font-medium hover:bg-[#8B5CF6]/20 transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-[#D4A853]/10 border border-[#D4A853]/20 text-[#D4A853] rounded-lg text-sm font-medium hover:bg-[#D4A853]/20 transition-colors"
             >
               <MonitorPlay className="w-4 h-4" strokeWidth={1.5} />
               Browse StreamFlix
@@ -158,15 +158,15 @@ export default function NowStreamingSection() {
         {/* Section Header */}
         <div className="flex items-center justify-between mb-6 px-6 lg:px-12">
           <div className="flex items-center gap-2">
-            <MonitorPlay className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
+            <MonitorPlay className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
             <h2 className="text-lg md:text-xl font-bold text-white">Now Streaming</h2>
-            <span className="text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 bg-[#8B5CF6]/10 text-[#8B5CF6] border border-[#8B5CF6]/20 rounded-full ml-2">
+            <span className="text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 bg-[#D4A853]/10 text-[#D4A853] border border-[#D4A853]/20 rounded-full ml-2">
               StreamFlix
             </span>
           </div>
           <Link
             href="/stream"
-            className="flex items-center gap-1 text-sm text-[#9ca3af] hover:text-[#8B5CF6] transition-colors group/viewall"
+            className="flex items-center gap-1 text-sm text-[#9ca3af] hover:text-[#D4A853] transition-colors group/viewall"
           >
             View All
             <ArrowRight className="w-4 h-4 group-hover/viewall:translate-x-0.5 transition-transform" strokeWidth={1.5} />

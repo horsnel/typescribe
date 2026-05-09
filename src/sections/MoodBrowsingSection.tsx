@@ -100,7 +100,7 @@ export default function MoodBrowsingSection() {
         {/* Header */}
         <div className="text-center mb-10">
           <h2 className="text-3xl font-bold text-white mb-3">
-            What&apos;s Your <span className="text-[#8B5CF6]">Mood</span>?
+            What&apos;s Your <span className="text-[#D4A853]">Mood</span>?
           </h2>
           <p className="text-[#9ca3af] max-w-xl mx-auto">
             Skip the genres — browse by how you want to feel. Each mood curates the perfect selection for your vibe.
@@ -115,17 +115,17 @@ export default function MoodBrowsingSection() {
               <Link
                 key={mood.id}
                 href={`/browse?genres=${mood.genres.join(',')}&theme=${mood.theme}`}
-                className={`group relative bg-gradient-to-br from-[#8B5CF6]/10 to-[#0c0c10] border border-[#8B5CF6]/20 hover:border-[#8B5CF6]/40 rounded-xl p-5 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-[#8B5CF6]/5 ${
+                className={`group relative bg-gradient-to-br from-[#D4A853]/10 to-[#0c0c10] border border-[#D4A853]/20 hover:border-[#D4A853]/40 rounded-xl p-5 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-[#D4A853]/5 ${
                   hoveredMood === mood.id ? 'scale-[1.02]' : ''
                 }`}
                 onMouseEnter={() => setHoveredMood(mood.id)}
                 onMouseLeave={() => setHoveredMood(null)}
               >
-                {IconComp && <IconComp className="w-7 h-7 text-[#8B5CF6] mb-3" strokeWidth={1.5} />}
+                {IconComp && <IconComp className="w-7 h-7 text-[#D4A853] mb-3" strokeWidth={1.5} />}
                 <h3 className="text-sm font-bold text-white mb-1">{mood.label}</h3>
                 <p className="text-xs text-[#9ca3af] leading-relaxed">{mood.description}</p>
                 <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <span className="text-xs text-[#8B5CF6]">Explore →</span>
+                  <span className="text-xs text-[#D4A853]">Explore →</span>
                 </div>
               </Link>
             );

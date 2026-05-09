@@ -90,7 +90,7 @@ function SearchContent() {
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => { if (e.key === 'Enter' && query.trim()) saveRecentSearch(query.trim()); }}
             placeholder="Search movies, reviews, news, actors, directors..."
-            className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-xl py-3.5 pl-12 pr-10 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6] text-lg"
+            className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-xl py-3.5 pl-12 pr-10 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853] text-lg"
             autoFocus
           />
           {query && (
@@ -124,7 +124,7 @@ function SearchContent() {
             {/* Trending Searches */}
             <div>
               <div className="flex items-center gap-2 mb-3">
-                <TrendingUp className="w-4 h-4 text-[#8B5CF6]" strokeWidth={1.5} />
+                <TrendingUp className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
                 <h3 className="text-sm font-semibold text-[#9ca3af] uppercase tracking-wider">Trending Searches</h3>
               </div>
               <div className="flex flex-wrap gap-2">
@@ -143,7 +143,7 @@ function SearchContent() {
                 {genres.slice(0, 9).map((genre) => (
                   <Link key={genre.id} href={`/category/${genre.id}`} className="flex items-center justify-between bg-[#0c0c10] border border-[#1e1e28] rounded-lg p-3 hover:border-[#3a3a45] transition-colors group">
                     <span className="text-sm text-[#9ca3af] group-hover:text-white transition-colors">{genre.name}</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-[#6b7280] group-hover:text-[#8B5CF6] transition-colors" strokeWidth={1.5} />
+                    <ArrowRight className="w-3.5 h-3.5 text-[#6b7280] group-hover:text-[#D4A853] transition-colors" strokeWidth={1.5} />
                   </Link>
                 ))}
               </div>
@@ -174,7 +174,7 @@ function SearchContent() {
                   key={t}
                   onClick={() => setTab(t)}
                   className={`pb-3 text-sm font-medium transition-colors capitalize flex items-center gap-2 ${
-                    tab === t ? 'text-white border-b-2 border-[#8B5CF6]' : 'text-[#6b7280] hover:text-[#9ca3af]'
+                    tab === t ? 'text-white border-b-2 border-[#D4A853]' : 'text-[#6b7280] hover:text-[#9ca3af]'
                   }`}
                 >
                   {t === 'movies' && <Film className="w-4 h-4" strokeWidth={1.5} />}
@@ -207,8 +207,8 @@ function SearchContent() {
                       <div className="flex items-center justify-between mb-2">
                         <span className="text-sm font-semibold text-white">{r.user_name}</span>
                         <div className="flex items-center gap-1">
-                          <Star className="w-3.5 h-3.5 text-[#8B5CF6] fill-[#8B5CF6]" strokeWidth={1.5} />
-                          <span className="text-sm font-semibold text-[#8B5CF6]">{r.rating}/10</span>
+                          <Star className="w-3.5 h-3.5 text-[#D4A853] fill-[#D4A853]" strokeWidth={1.5} />
+                          <span className="text-sm font-semibold text-[#D4A853]">{r.rating}/10</span>
                         </div>
                       </div>
                       <p className="text-sm text-[#9ca3af] line-clamp-3">{r.text}</p>
@@ -253,7 +253,7 @@ export default function SearchPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-[#050507] flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-[#8B5CF6]" strokeWidth={1.5} />
+        <Loader2 className="w-8 h-8 animate-spin text-[#D4A853]" strokeWidth={1.5} />
       </div>
     }>
       <SearchContent />

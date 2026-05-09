@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-BigBuckBunny_328",
+  "data": {
+    "id": "archive-BigBuckBunny_328",
+    "title": "Big Buck Bunny",
+    "description": "Big Buck Bunny in DivX 720p.",
+    "year": 0,
+    "duration": "9h 56m",
+    "durationSeconds": 35760,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 4.3,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/BigBuckBunny_328",
+    "backdrop": "https://archive.org/services/img/BigBuckBunny_328",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/BigBuckBunny_328",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/BigBuckBunny_328",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:09.868Z"
+  },
+  "createdAt": 1778337992640,
+  "expiresAt": 1778424392640
+}

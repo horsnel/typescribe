@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-youtube-CuzFf5JcJLM",
+  "data": {
+    "id": "archive-youtube-CuzFf5JcJLM",
+    "title": "Ruining a classic anime scene...",
+    "description": "Why tho? 😡🤬😡🤬 Twitch: https://www.twitch.tv/revuwu Patreon: https://www.patreon.com/Revsaysdesu Twitter: https://twitter.com/Rev_says_desu Source: https://www.youtube.com/watch?v=CuzFf5JcJLM Uploader: Rev says desu",
+    "year": 2020,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 0,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/youtube-CuzFf5JcJLM",
+    "backdrop": "https://archive.org/services/img/youtube-CuzFf5JcJLM",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/youtube-CuzFf5JcJLM",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/youtube-CuzFf5JcJLM/CuzFf5JcJLM.webm",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:23.406Z"
+  },
+  "createdAt": 1778337992648,
+  "expiresAt": 1778424392648
+}

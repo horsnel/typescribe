@@ -1,0 +1,43 @@
+{
+  "key": "streaming-movie:openflix-TheStranger_0",
+  "data": {
+    "id": "openflix-TheStranger_0",
+    "title": "The Stranger",
+    "description": "Set Connecticut after World War II, The Stranger is a cat and mouse game between Wilson (Edward G. Robinson), a member of the Allied War Crimes Commission and Franz Kindler (Orson Welles), a Nazi who has assumed the false identity of Dr. Charles Rankin. To complete his new intelligentsia disguise, Kindler marries Mary Longstreet, daughter of a Supreme Court justice.",
+    "year": 1946,
+    "duration": "1h 35m",
+    "durationSeconds": 5700,
+    "genres": [],
+    "rating": 4.5,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/TheStranger_0",
+    "backdrop": "https://archive.org/services/img/TheStranger_0",
+    "source": "openflix",
+    "sourceUrl": "https://archive.org/details/TheStranger_0",
+    "sourceLicense": "Public Domain / Open Source",
+    "videoUrl": "https://archive.org/download/TheStranger_0",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:36.244Z"
+  },
+  "createdAt": 1778337992638,
+  "expiresAt": 1778424392638
+}

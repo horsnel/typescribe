@@ -18,7 +18,7 @@ export default function NotificationBell() {
   return (
     <button
       onClick={openNotificationPanel}
-      className="relative p-2 rounded-lg text-[#8B5CF6] hover:text-[#A78BFA] hover:bg-[#8B5CF6]/10 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
+      className="relative p-2 rounded-lg text-[#D4A853] hover:text-[#A78BFA] hover:bg-[#D4A853]/10 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
       aria-label="Notifications"
     >
       <Bell className="w-5 h-5" strokeWidth={1.5} />

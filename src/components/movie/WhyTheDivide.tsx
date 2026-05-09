@@ -186,14 +186,14 @@ export default function WhyTheDivide({ reviews, genres = [] }: WhyTheDivideProps
       <div className="p-6">
         {/* Heading */}
         <div className="flex items-center gap-3 mb-5">
-          <div className="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">
-            <Scale className="w-5 h-5 text-purple-400" strokeWidth={1.5} />
+          <div className="w-10 h-10 rounded-lg bg-[#D4A853]/10 border border-[#D4A853]/20 flex items-center justify-center">
+            <Scale className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
           </div>
           <div>
             <h3 className="text-lg font-bold text-white">Why the Divide?</h3>
             <p className="text-xs text-[#6b7280]">AI-generated analysis of opposing viewpoints</p>
           </div>
-          <span className="ml-auto text-[10px] bg-purple-500/10 text-purple-400 px-2.5 py-0.5 rounded-full border border-purple-500/20 font-semibold">
+          <span className="ml-auto text-[10px] bg-[#D4A853]/10 text-[#D4A853] px-2.5 py-0.5 rounded-full border border-[#D4A853]/20 font-semibold">
             AI INSIGHT
           </span>
         </div>

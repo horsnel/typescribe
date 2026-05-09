@@ -16,7 +16,7 @@ const CATEGORY_ICONS: Record<string, React.ComponentType<{ className?: string; s
 function getSourceBadge(source: StreamableMovie['source']): { label: string; className: string } {
   switch (source) {
     case 'blender-foundation':
-      return { label: 'CC', className: 'bg-[#8B5CF6]/30 text-[#A78BFA]' };
+      return { label: 'CC', className: 'bg-[#D4A853]/30 text-[#A78BFA]' };
     case 'internet-archive':
       return { label: 'IA', className: 'bg-blue-500/20 text-blue-400' };
     case 'youtube':
@@ -63,7 +63,7 @@ function MovieRow({ title, icon: Icon, movies }: { title: string; icon: React.Co
   return (
     <section className="mb-8 md:mb-12">
       <div className="flex items-center gap-2 mb-4 px-4 md:px-12">
-        <Icon className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
+        <Icon className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
         <h2 className="text-lg md:text-xl font-bold text-white">{title}</h2>
         <span className="text-xs text-white/30 ml-2">{movies.length} titles</span>
       </div>
@@ -104,9 +104,9 @@ function MovieRow({ title, icon: Icon, movies }: { title: string; icon: React.Co
                   <div className="absolute top-2 left-2">
                     <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
                       movie.quality === '4K'
-                        ? 'bg-[#8B5CF6] text-white'
+                        ? 'bg-[#D4A853] text-white'
                         : movie.quality === '1080p'
-                        ? 'bg-[#8B5CF6]/70 text-white'
+                        ? 'bg-[#D4A853]/70 text-white'
                         : 'bg-white/20 text-white/90 backdrop-blur-sm'
                     }`}>
                       {movie.quality}
@@ -131,13 +131,13 @@ function MovieRow({ title, icon: Icon, movies }: { title: string; icon: React.Co
                   {/* Rating badge */}
                   {movie.rating > 0 && (
                     <div className="absolute bottom-2 right-2 flex items-center gap-1 bg-black/60 backdrop-blur-sm text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
-                      <Star className="w-2.5 h-2.5 text-[#8B5CF6] fill-[#8B5CF6]" strokeWidth={1.5} />
+                      <Star className="w-2.5 h-2.5 text-[#D4A853] fill-[#D4A853]" strokeWidth={1.5} />
                       {movie.rating}
                     </div>
                   )}
                   {/* Play overlay */}
                   <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover/card:opacity-100 transition-opacity duration-300">
-                    <div className="w-12 h-12 bg-[#8B5CF6]/90 rounded-full flex items-center justify-center shadow-lg">
+                    <div className="w-12 h-12 bg-[#D4A853]/90 rounded-full flex items-center justify-center shadow-lg">
                       {movie.isEmbeddable ? (
                         <Play className="w-5 h-5 text-black fill-black ml-0.5" strokeWidth={2} />
                       ) : (
@@ -147,7 +147,7 @@ function MovieRow({ title, icon: Icon, movies }: { title: string; icon: React.Co
                   </div>
                 </div>
                 <div className="mt-2.5">
-                  <h3 className="text-sm font-medium text-[#f1f1f4] truncate group-hover/card:text-[#8B5CF6] transition-colors">
+                  <h3 className="text-sm font-medium text-[#f1f1f4] truncate group-hover/card:text-[#D4A853] transition-colors">
                     {movie.title}
                   </h3>
                   <div className="flex items-center gap-2 mt-1">
@@ -204,7 +204,7 @@ function SearchBar({ onSearch }: { onSearch: (query: string) => void }) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search free movies..."
-          className="w-full pl-10 pr-4 py-2.5 bg-[#0c0c10] border border-[#1e1e28] rounded-xl text-white text-sm placeholder:text-white/30 focus:outline-none focus:border-[#8B5CF6]/50 focus:ring-1 focus:ring-[#8B5CF6]/20 transition-colors"
+          className="w-full pl-10 pr-4 py-2.5 bg-[#0c0c10] border border-[#1e1e28] rounded-xl text-white text-sm placeholder:text-white/30 focus:outline-none focus:border-[#D4A853]/50 focus:ring-1 focus:ring-[#D4A853]/20 transition-colors"
         />
       </div>
     </form>
@@ -356,7 +356,7 @@ export default function StreamPage() {
     return (
       <div className="min-h-screen bg-[#050507] flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-10 h-10 text-[#8B5CF6] animate-spin mx-auto mb-4" strokeWidth={1.5} />
+          <Loader2 className="w-10 h-10 text-[#D4A853] animate-spin mx-auto mb-4" strokeWidth={1.5} />
           <p className="text-white/60 text-sm">Loading streaming catalog...</p>
         </div>
       </div>
@@ -371,7 +371,7 @@ export default function StreamPage() {
           <p className="text-white/60 text-sm mb-4">Failed to load. Tap Retry.</p>
           <button
             onClick={() => window.location.reload()}
-            className="px-4 py-2 bg-[#8B5CF6] text-black rounded-lg text-sm font-medium hover:bg-[#7C3AED] transition-colors"
+            className="px-4 py-2 bg-[#D4A853] text-black rounded-lg text-sm font-medium hover:bg-[#B8922F] transition-colors"
           >
             Retry
           </button>
@@ -413,8 +413,8 @@ export default function StreamPage() {
           <div className="absolute bottom-0 left-0 right-0 px-4 md:px-12 pb-12 md:pb-16">
             <div className="max-w-2xl">
               <div className="flex items-center gap-2 mb-4">
-                <span className="text-[#8B5CF6] text-xs font-bold tracking-widest uppercase">StreamFlix</span>
-                <span className="w-1 h-1 rounded-full bg-[#8B5CF6]" />
+                <span className="text-[#D4A853] text-xs font-bold tracking-widest uppercase">StreamFlix</span>
+                <span className="w-1 h-1 rounded-full bg-[#D4A853]" />
                 <span className="text-white/40 text-xs">Free Legal Movies</span>
               </div>
 
@@ -423,7 +423,7 @@ export default function StreamPage() {
               </h1>
 
               <div className="flex items-center gap-3 mb-4 flex-wrap">
-                {featured.is4K && <span className="text-[#8B5CF6] text-sm font-bold">4K Ultra HD</span>}
+                {featured.is4K && <span className="text-[#D4A853] text-sm font-bold">4K Ultra HD</span>}
                 {featured.is4K && <span className="text-white/30">·</span>}
                 {featured.year > 0 && <span className="text-white/70 text-sm">{featured.year}</span>}
                 {featured.year > 0 && <span className="text-white/30">·</span>}
@@ -432,7 +432,7 @@ export default function StreamPage() {
                   <>
                     <span className="text-white/30">·</span>
                     <div className="flex items-center gap-1">
-                      <Star className="w-3.5 h-3.5 text-[#8B5CF6] fill-[#8B5CF6]" strokeWidth={1.5} />
+                      <Star className="w-3.5 h-3.5 text-[#D4A853] fill-[#D4A853]" strokeWidth={1.5} />
                       <span className="text-white/70 text-sm">{featured.rating}</span>
                     </div>
                   </>
@@ -451,7 +451,7 @@ export default function StreamPage() {
               <div className="flex items-center gap-3">
                 <Link
                   href={`/stream/${encodeURIComponent(featured.id)}`}
-                  className="flex items-center gap-2 px-6 py-3 bg-[#8B5CF6] hover:bg-[#7C3AED] text-black font-bold rounded-xl transition-colors shadow-lg shadow-[#8B5CF6]/20"
+                  className="flex items-center gap-2 px-6 py-3 bg-[#D4A853] hover:bg-[#B8922F] text-black font-bold rounded-xl transition-colors shadow-lg shadow-[#D4A853]/20"
                 >
                   <Play className="w-5 h-5 fill-black" strokeWidth={2} />
                   Play Now
@@ -476,8 +476,8 @@ export default function StreamPage() {
       {/* Page Header */}
       <div className="px-4 md:px-12 pt-8 pb-4">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-[#8B5CF6]/10 flex items-center justify-center">
-            <Play className="w-5 h-5 text-[#8B5CF6] fill-[#8B5CF6]" strokeWidth={1.5} />
+          <div className="w-10 h-10 rounded-xl bg-[#D4A853]/10 flex items-center justify-center">
+            <Play className="w-5 h-5 text-[#D4A853] fill-[#D4A853]" strokeWidth={1.5} />
           </div>
           <div className="flex-1">
             <div className="flex items-center gap-3">

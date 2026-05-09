@@ -1,0 +1,43 @@
+{
+  "key": "streaming-movie:openflix-House_On_Haunted_Hill.avi",
+  "data": {
+    "id": "openflix-House_On_Haunted_Hill.avi",
+    "title": "The House On Haunted Hill",
+    "description": "Vincent Price gives a stellar performance as the suavely malevolent host of a \"haunted house party\" who offers his guests $10,000 if they can survive a night in the murderous mansion. Watch for the great Elisha Cook Jr,(he played Wilmer in the \"Maltese Falcon\") as the groveling homeowner. The eerie looking home used for the exterior shots is the Ennis Brown house in Los Angeles, designed by Frank Lloyd Wright and built in 1924. It was later used in the films \"Blade Runner\", \"Black Rain\", and \"Ro",
+    "year": 1959,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [],
+    "rating": 4.7,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/House_On_Haunted_Hill.avi",
+    "backdrop": "https://archive.org/services/img/House_On_Haunted_Hill.avi",
+    "source": "openflix",
+    "sourceUrl": "https://archive.org/details/House_On_Haunted_Hill.avi",
+    "sourceLicense": "Public Domain / Open Source",
+    "videoUrl": "https://archive.org/download/House_On_Haunted_Hill.avi",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:42.228Z"
+  },
+  "createdAt": 1778337992635,
+  "expiresAt": 1778424392635
+}

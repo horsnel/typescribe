@@ -1,0 +1,43 @@
+{
+  "key": "streaming-movie:openflix-ken.-burns.-the.-civil.-war.",
+  "data": {
+    "id": "openflix-ken.-burns.-the.-civil.-war.",
+    "title": "Ken. Burns. The. Civil. War.",
+    "description": "The Civil War is a 1990 American television documentary miniseries created by Ken Burns about the American Civil War. It was first broadcast on PBS on five consecutive nights from September 23 to 28, 1990. Over 39 million viewers tuned in to at least one episode, and viewership averaged more than 14 million viewers each evening, making it the most-watched program ever to air on PBS. It was awarded more than 40 major television and film honors.",
+    "year": 0,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [],
+    "rating": 4.5,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/ken.-burns.-the.-civil.-war.",
+    "backdrop": "https://archive.org/services/img/ken.-burns.-the.-civil.-war.",
+    "source": "openflix",
+    "sourceUrl": "https://archive.org/details/ken.-burns.-the.-civil.-war.",
+    "sourceLicense": "Public Domain / Open Source",
+    "videoUrl": "https://archive.org/download/ken.-burns.-the.-civil.-war.",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:32.263Z"
+  },
+  "createdAt": 1778337992638,
+  "expiresAt": 1778424392638
+}

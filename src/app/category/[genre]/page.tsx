@@ -133,7 +133,7 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
     <div className="min-h-screen bg-[#050507] pt-8 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8">
         {/* Hero Banner */}
-        <div className="relative bg-gradient-to-r from-[#8B5CF6]/20 to-[#8B5CF6]/5 border border-[#8B5CF6]/20 rounded-2xl p-8 mb-8 overflow-hidden">
+        <div className="relative bg-gradient-to-r from-[#D4A853]/20 to-[#D4A853]/5 border border-[#D4A853]/20 rounded-2xl p-8 mb-8 overflow-hidden">
           <div className="absolute right-0 top-0 w-1/2 h-full opacity-10">
             {newestMovie && newestMovie.backdrop_path && (
               <img src={newestMovie.backdrop_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w780${newestMovie.backdrop_path}` : newestMovie.backdrop_path} alt="" className="w-full h-full object-cover" />
@@ -152,8 +152,8 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
               <div className="h-4 w-px bg-white/10" />
               <div className="flex items-center gap-1">
                 <span className="text-xs text-[#6b7280]">Avg Rating</span>
-                <Star className="w-3.5 h-3.5 text-[#8B5CF6] fill-[#8B5CF6] ml-2" strokeWidth={1.5} />
-                <span className="text-sm font-bold text-[#8B5CF6]">{avgRating}</span>
+                <Star className="w-3.5 h-3.5 text-[#D4A853] fill-[#D4A853] ml-2" strokeWidth={1.5} />
+                <span className="text-sm font-bold text-[#D4A853]">{avgRating}</span>
               </div>
               <div className="h-4 w-px bg-white/10" />
               <div>
@@ -185,7 +185,7 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
                     key={value}
                     onClick={() => { setSort(value); setCurrentPage(1); }}
                     className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
-                      sort === value ? 'bg-[#8B5CF6] text-white' : 'bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
+                      sort === value ? 'bg-[#D4A853] text-white' : 'bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
                     }`}
                   >
                     {label}
@@ -193,10 +193,10 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
                 ))}
               </div>
               <div className="flex items-center border border-[#1e1e28] rounded-lg overflow-hidden">
-                <button onClick={() => setView('grid')} className={`p-2 ${view === 'grid' ? 'bg-[#8B5CF6] text-white' : 'text-[#6b7280] hover:text-white'}`}>
+                <button onClick={() => setView('grid')} className={`p-2 ${view === 'grid' ? 'bg-[#D4A853] text-white' : 'text-[#6b7280] hover:text-white'}`}>
                   <Grid3X3 className="w-4 h-4" strokeWidth={1.5} />
                 </button>
-                <button onClick={() => setView('list')} className={`p-2 ${view === 'list' ? 'bg-[#8B5CF6] text-white' : 'text-[#6b7280] hover:text-white'}`}>
+                <button onClick={() => setView('list')} className={`p-2 ${view === 'list' ? 'bg-[#D4A853] text-white' : 'text-[#6b7280] hover:text-white'}`}>
                   <List className="w-4 h-4" strokeWidth={1.5} />
                 </button>
               </div>
@@ -205,7 +205,7 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
             {/* Loading */}
             {loading ? (
               <div className="flex items-center justify-center py-24">
-                <Loader2 className="w-8 h-8 animate-spin text-[#8B5CF6]" strokeWidth={1.5} />
+                <Loader2 className="w-8 h-8 animate-spin text-[#D4A853]" strokeWidth={1.5} />
               </div>
             ) : genreMovies.length > 0 ? (
               <>
@@ -221,9 +221,9 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
                           <img src={movie.poster_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w92${movie.poster_path}` : movie.poster_path} alt={movie.title} className="w-full h-full object-cover" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h3 className="text-sm font-semibold text-white group-hover:text-[#8B5CF6] transition-colors truncate">{movie.title}</h3>
+                          <h3 className="text-sm font-semibold text-white group-hover:text-[#D4A853] transition-colors truncate">{movie.title}</h3>
                           <div className="flex items-center gap-2 mt-1">
-                            <span className="text-xs text-[#8B5CF6] font-medium">★ {movie.vote_average.toFixed(1)}</span>
+                            <span className="text-xs text-[#D4A853] font-medium">★ {movie.vote_average.toFixed(1)}</span>
                             <span className="text-xs text-[#6b7280]">{movie.release_date?.split('-')[0]}</span>
                             {movie.runtime > 0 && <span className="text-xs text-[#6b7280]">{movie.runtime}m</span>}
                           </div>
@@ -258,7 +258,7 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
             ) : (
               <div className="text-center py-24">
                 <p className="text-lg text-[#9ca3af] mb-2">No movies found in this category</p>
-                <Link href="/browse" className="text-[#8B5CF6] hover:underline">Browse all movies</Link>
+                <Link href="/browse" className="text-[#D4A853] hover:underline">Browse all movies</Link>
               </div>
             )}
           </div>
@@ -273,7 +273,7 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
                   {relatedGenres.map((g) => g && (
                     <Link key={g.id} href={`/category/${g.id}`} className="flex items-center justify-between p-2.5 bg-[#050507] border border-[#1e1e28] rounded-lg hover:border-[#3a3a45] transition-colors group">
                       <span className="text-sm text-[#9ca3af] group-hover:text-white transition-colors">{g.name}</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-[#6b7280] group-hover:text-[#8B5CF6] transition-colors" strokeWidth={1.5} />
+                      <ArrowRight className="w-3.5 h-3.5 text-[#6b7280] group-hover:text-[#D4A853] transition-colors" strokeWidth={1.5} />
                     </Link>
                   ))}
                 </div>
@@ -289,7 +289,7 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
                     key={g.id}
                     href={`/category/${g.id}`}
                     className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
-                      g.id === genre ? 'bg-[#8B5CF6] text-white' : 'bg-[#050507] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
+                      g.id === genre ? 'bg-[#D4A853] text-white' : 'bg-[#050507] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
                     }`}
                   >
                     {g.name}

@@ -40,7 +40,7 @@ export default function AboutPage() {
 
         {/* Hero */}
         <div className="mb-16">
-          <h1 className="text-3xl lg:text-5xl font-extrabold text-white mb-4 leading-tight">About <span className="text-[#8B5CF6]">Typescribe</span></h1>
+          <h1 className="text-3xl lg:text-5xl font-extrabold text-white mb-4 leading-tight">About <span className="text-[#D4A853]">Typescribe</span></h1>
           <p className="text-lg text-[#9ca3af] leading-relaxed max-w-3xl">Typescribe is an AI-powered movie review platform that combines cutting-edge artificial intelligence with genuine community insights. Our mission is to help you discover your next favorite movie with reviews that are both intelligent and authentic — because the best film criticism combines the breadth of data with the depth of human experience.</p>
         </div>
 
@@ -48,7 +48,7 @@ export default function AboutPage() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-16">
           {stats.map(({ label, value, icon: Icon }) => (
             <div key={label} className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5 text-center">
-              <Icon className="w-6 h-6 text-[#8B5CF6] mx-auto mb-2" />
+              <Icon className="w-6 h-6 text-[#D4A853] mx-auto mb-2" />
               <div className="text-2xl font-extrabold text-white mb-1">{value}</div>
               <div className="text-xs text-[#6b7280]">{label}</div>
             </div>
@@ -61,7 +61,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {values.map(({ icon: Icon, title, desc }) => (
               <div key={title} className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6 hover:border-[#3a3a45] transition-colors">
-                <Icon className="w-8 h-8 text-[#8B5CF6] mb-3" />
+                <Icon className="w-8 h-8 text-[#D4A853] mb-3" />
                 <h3 className="text-lg font-semibold text-white mb-2">{title}</h3>
                 <p className="text-sm text-[#9ca3af] leading-relaxed">{desc}</p>
               </div>
@@ -80,7 +80,7 @@ export default function AboutPage() {
             ].map(({ step, icon: Icon, title, desc }) => (
               <div key={step} className="relative bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
                 <span className="absolute top-4 right-4 text-4xl font-extrabold text-[#1a1a25]">{step}</span>
-                <Icon className="w-8 h-8 text-[#8B5CF6] mb-4" />
+                <Icon className="w-8 h-8 text-[#D4A853] mb-4" />
                 <h3 className="text-lg font-semibold text-white mb-2">{title}</h3>
                 <p className="text-sm text-[#9ca3af] leading-relaxed">{desc}</p>
               </div>
@@ -96,11 +96,11 @@ export default function AboutPage() {
             <div className="space-y-8">
               {timeline.map(({ year, title, desc }) => (
                 <div key={year} className="relative pl-12">
-                  <div className="absolute left-0 top-1 w-8 h-8 rounded-full bg-[#8B5CF6] flex items-center justify-center">
+                  <div className="absolute left-0 top-1 w-8 h-8 rounded-full bg-[#D4A853] flex items-center justify-center">
                     <Award className="w-4 h-4 text-white" strokeWidth={1.5} />
                   </div>
                   <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5">
-                    <span className="text-xs font-semibold text-[#8B5CF6] uppercase tracking-wider">{year}</span>
+                    <span className="text-xs font-semibold text-[#D4A853] uppercase tracking-wider">{year}</span>
                     <h3 className="text-lg font-semibold text-white mt-1 mb-2">{title}</h3>
                     <p className="text-sm text-[#9ca3af] leading-relaxed">{desc}</p>
                   </div>
@@ -116,11 +116,11 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {team.map(({ name, role, bio }) => (
               <div key={name} className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5 text-center hover:border-[#3a3a45] transition-colors">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#7C3AED] flex items-center justify-center text-white text-xl font-bold mx-auto mb-3">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#D4A853] to-[#B8922F] flex items-center justify-center text-white text-xl font-bold mx-auto mb-3">
                   {name.split(' ').map(n => n[0]).join('')}
                 </div>
                 <h3 className="text-base font-semibold text-white">{name}</h3>
-                <p className="text-xs text-[#8B5CF6] font-medium mb-2">{role}</p>
+                <p className="text-xs text-[#D4A853] font-medium mb-2">{role}</p>
                 <p className="text-xs text-[#9ca3af] leading-relaxed">{bio}</p>
               </div>
             ))}
@@ -128,12 +128,12 @@ export default function AboutPage() {
         </div>
 
         {/* CTA */}
-        <div className="bg-gradient-to-br from-[#8B5CF6]/20 to-[#7C3AED]/10 border border-[#8B5CF6]/20 rounded-2xl p-8 text-center">
-          <Zap className="w-10 h-10 text-[#8B5CF6] mx-auto mb-4" strokeWidth={1.5} />
+        <div className="bg-gradient-to-br from-[#D4A853]/20 to-[#B8922F]/10 border border-[#D4A853]/20 rounded-2xl p-8 text-center">
+          <Zap className="w-10 h-10 text-[#D4A853] mx-auto mb-4" strokeWidth={1.5} />
           <h2 className="text-2xl font-bold text-white mb-3">Ready to Discover Great Movies?</h2>
           <p className="text-[#9ca3af] mb-6 max-w-md mx-auto">Join our community of film lovers and let AI-powered insights guide your next movie night.</p>
           <div className="flex items-center justify-center gap-4 flex-wrap">
-            <Link href="/browse" className="inline-flex items-center justify-center bg-[#8B5CF6] hover:bg-[#7C3AED] text-white font-semibold px-6 py-3 rounded-lg text-sm transition-colors">Browse Movies</Link>
+            <Link href="/browse" className="inline-flex items-center justify-center bg-[#D4A853] hover:bg-[#B8922F] text-white font-semibold px-6 py-3 rounded-lg text-sm transition-colors">Browse Movies</Link>
             <Link href="/signup" className="inline-flex items-center justify-center border border-white/20 bg-transparent text-white hover:bg-white/10 font-semibold px-6 py-3 rounded-lg text-sm transition-colors">Create Account</Link>
           </div>
         </div>

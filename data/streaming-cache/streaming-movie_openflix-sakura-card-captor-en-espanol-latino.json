@@ -1,0 +1,43 @@
+{
+  "key": "streaming-movie:openflix-sakura-card-captor-en-espanol-latino",
+  "data": {
+    "id": "openflix-sakura-card-captor-en-espanol-latino",
+    "title": "Sakura Card Captor en Español Latino",
+    "description": "La historia se centra en Sakura Kinomoto, una pequeña niña que descubre sus extraños poderes mágicos después de haber liberado accidentalmente un conjunto de cartas que se encontraban dentro de un libro. Tras esto Sakura con la ayuda de sus amigos se ve obligada a recolectar y cuidar las cartas Clow para evitar que ocurra una catástrofe en el mundo.",
+    "year": 2008,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [],
+    "rating": 4.9,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/sakura-card-captor-en-espanol-latino",
+    "backdrop": "https://archive.org/services/img/sakura-card-captor-en-espanol-latino",
+    "source": "openflix",
+    "sourceUrl": "https://archive.org/details/sakura-card-captor-en-espanol-latino",
+    "sourceLicense": "Public Domain / Open Source",
+    "videoUrl": "https://archive.org/download/sakura-card-captor-en-espanol-latino/Sakura%20Card%20Captor%20Episodio%2001%20en%20Espa%C3%B1ol%20latino.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:20.944Z"
+  },
+  "createdAt": 1778337992633,
+  "expiresAt": 1778424392633
+}

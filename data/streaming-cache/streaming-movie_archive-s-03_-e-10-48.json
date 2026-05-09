@@ -1,0 +1,45 @@
+{
+  "key": "streaming-movie:archive-s-03.-e-10-48",
+  "data": {
+    "id": "archive-s-03.-e-10-48",
+    "title": "Japanese Animation",
+    "description": "My Japanese Animation Season-3 [S03.E01] 第39話　ゲーム・スタート [S03.E02] 第40話　ワイルド・ワイルド・プッシーキャッツ [S03.E03] 第41話　洸汰くん [S03.E04] 第42話　僕のヒーロー [S03.E05] 第43話　ブチ込む鉄拳!!! [S03.E06] 第44話　がなる風雲急 [S03.E07] 第45話　転転転！ [S03.E08] 第46話　飯田から緑谷へ [S03.E09] 第47話　オール・フォー・ワン [S03.E10] 第48話　平和の象徴 [S03.E11] 第49話　ワン・フォー・オール [S03.E12] 第50話　始まりの終わり　終わりの始まり [S03.E13] 第51話　入れ寮 [S03.E14] 第52話　編め必殺技 [S03.E15] 第53話　THE試験 [S03.E16] 第54話　這い寄る士傑高校 [S03.E17] 第55話　１年Ａ組 [S03.E18] 第56話　ＲＵＳＨ！ [S03.E19] 第57話　救助演習 [S03.E20] 第58話　特別編・愛で地球を救え！ [",
+    "year": 0,
+    "duration": "Unknown",
+    "durationSeconds": 0,
+    "genres": [
+      "Anime"
+    ],
+    "rating": 0,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/s-03.-e-10-48",
+    "backdrop": "https://archive.org/services/img/s-03.-e-10-48",
+    "source": "internet-archive",
+    "sourceUrl": "https://archive.org/details/s-03.-e-10-48",
+    "sourceLicense": "Public Domain",
+    "videoUrl": "https://archive.org/download/s-03.-e-10-48/%5BS03.E01%5D%20%E7%AC%AC39%E8%A9%B1%E3%80%80%E3%82%B2%E3%83%BC%E3%83%A0%E3%83%BB%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%88.mp4",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:30.551Z"
+  },
+  "createdAt": 1778337992648,
+  "expiresAt": 1778424392648
+}

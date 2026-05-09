@@ -79,7 +79,7 @@ function timeAgo(iso: string | null): string {
 function statusColor(status: string): string {
   switch (status) {
     case 'healthy': return 'text-emerald-400';
-    case 'degraded': return 'text-violet-400';
+    case 'degraded': return 'text-[#D4A853]';
     case 'down': case 'critical': return 'text-red-400';
     case 'disabled': return 'text-[#4a4a5a]';
     default: return 'text-[#6b7280]';
@@ -89,7 +89,7 @@ function statusColor(status: string): string {
 function statusDot(status: string): string {
   switch (status) {
     case 'healthy': return 'bg-emerald-400';
-    case 'degraded': return 'bg-violet-400';
+    case 'degraded': return 'bg-[#D4A853]';
     case 'down': case 'critical': return 'bg-red-400';
     default: return 'bg-[#4a4a5a]';
   }
@@ -116,7 +116,7 @@ function tierLabel(tier: string): string {
 function tierBadge(tier: string): string {
   switch (tier) {
     case 'a': return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20';
-    case 'b': return 'bg-amber-500/10 text-violet-400 border-amber-500/20';
+    case 'b': return 'bg-amber-500/10 text-[#D4A853] border-amber-500/20';
     case 'c': return 'bg-red-500/10 text-red-400 border-red-500/20';
     default: return 'bg-[#111118] text-[#6b7280] border-[#1e1e28]';
   }
@@ -279,7 +279,7 @@ export default function AdminDashboardPage() {
   if (checkingAuth) {
     return (
       <div className="min-h-screen bg-[#050507] flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-[#8B5CF6]" strokeWidth={1.5} />
+        <Loader2 className="w-8 h-8 animate-spin text-[#D4A853]" strokeWidth={1.5} />
       </div>
     );
   }
@@ -290,8 +290,8 @@ export default function AdminDashboardPage() {
       <div className="min-h-screen bg-[#050507] flex items-center justify-center px-4">
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-2xl p-8 max-w-md w-full shadow-2xl">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-full bg-[#8B5CF6]/10 flex items-center justify-center">
-              <Lock className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
+            <div className="w-10 h-10 rounded-full bg-[#D4A853]/10 flex items-center justify-center">
+              <Lock className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
             </div>
             <div>
               <h1 className="text-lg font-bold text-white">Admin Access</h1>
@@ -311,7 +311,7 @@ export default function AdminDashboardPage() {
             onChange={(e) => setPassword(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleAuthenticate()}
             placeholder="Enter admin password"
-            className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6] mb-4"
+            className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg px-4 py-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853] mb-4"
             autoFocus
           />
 
@@ -319,7 +319,7 @@ export default function AdminDashboardPage() {
             <Button
               onClick={handleAuthenticate}
               disabled={!password || authLoading}
-              className="flex-1 bg-[#8B5CF6] hover:bg-[#7C3AED] text-white disabled:opacity-50"
+              className="flex-1 bg-[#D4A853] hover:bg-[#B8922F] text-white disabled:opacity-50"
             >
               {authLoading ? (
                 <Loader2 className="w-4 h-4 animate-spin mr-2" strokeWidth={1.5} />
@@ -368,8 +368,8 @@ export default function AdminDashboardPage() {
         <div className="mb-10">
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-[#8B5CF6]/10 rounded-lg border border-[#8B5CF6]/20">
-                <Shield className="w-6 h-6 text-[#8B5CF6]" strokeWidth={1.5} />
+              <div className="p-2 bg-[#D4A853]/10 rounded-lg border border-[#D4A853]/20">
+                <Shield className="w-6 h-6 text-[#D4A853]" strokeWidth={1.5} />
               </div>
               <div>
                 <h1 className="text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
@@ -386,7 +386,7 @@ export default function AdminDashboardPage() {
                   type="checkbox"
                   checked={autoRefresh}
                   onChange={e => setAutoRefresh(e.target.checked)}
-                  className="w-3.5 h-3.5 rounded border-[#1e1e28] bg-[#0c0c10] text-[#8B5CF6] focus:ring-[#8B5CF6]/20"
+                  className="w-3.5 h-3.5 rounded border-[#1e1e28] bg-[#0c0c10] text-[#D4A853] focus:ring-[#D4A853]/20"
                 />
                 Auto-refresh (30s)
               </label>
@@ -432,7 +432,7 @@ export default function AdminDashboardPage() {
                 <div className="flex items-center gap-3">
                   <Activity className={`w-5 h-5 ${
                     healthData.overallStatus === 'healthy' ? 'text-emerald-400' :
-                    healthData.overallStatus === 'degraded' ? 'text-violet-400' : 'text-red-400'
+                    healthData.overallStatus === 'degraded' ? 'text-[#D4A853]' : 'text-red-400'
                   }`} strokeWidth={1.5} />
                   <span className="text-white font-semibold text-lg">
                     Pipeline Health: {healthData.overallStatus.toUpperCase()}
@@ -447,8 +447,8 @@ export default function AdminDashboardPage() {
                     <span className="text-emerald-400">{healthyCount} Healthy</span>
                   </span>
                   <span className="flex items-center gap-1.5 text-xs">
-                    <span className="w-2 h-2 rounded-full bg-violet-400" />
-                    <span className="text-violet-400">{degradedCount} Degraded</span>
+                    <span className="w-2 h-2 rounded-full bg-[#D4A853]" />
+                    <span className="text-[#D4A853]">{degradedCount} Degraded</span>
                   </span>
                   <span className="flex items-center gap-1.5 text-xs">
                     <span className="w-2 h-2 rounded-full bg-red-400" />
@@ -460,7 +460,7 @@ export default function AdminDashboardPage() {
                 <div className="space-y-1.5 mt-3 pt-3 border-t border-white/[0.06]">
                   {healthData.recommendations.slice(0, 5).map((rec, i) => (
                     <div key={i} className="flex items-start gap-2 text-xs">
-                      <AlertTriangle className="w-3.5 h-3.5 text-violet-400 flex-shrink-0 mt-0.5" strokeWidth={1.5} />
+                      <AlertTriangle className="w-3.5 h-3.5 text-[#D4A853] flex-shrink-0 mt-0.5" strokeWidth={1.5} />
                       <span className="text-[#9ca3af]">{rec}</span>
                     </div>
                   ))}
@@ -473,12 +473,12 @@ export default function AdminDashboardPage() {
         {/* ─── Quick Stats Grid ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <BarChart3 className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} /> Pipeline Overview
+            <BarChart3 className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} /> Pipeline Overview
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
             {[
-              { icon: Shield, label: 'Scrapers', value: `${healthyCount}/${healthData?.scrapers.length ?? 16}`, sub: 'Healthy', color: healthyCount >= 14 ? 'text-emerald-400' : healthyCount >= 10 ? 'text-violet-400' : 'text-red-400' },
-              { icon: Cpu, label: 'APIs Configured', value: `${configuredApis}/${totalApis}`, sub: configuredApis >= 3 ? 'Operational' : 'Needs setup', color: configuredApis >= 3 ? 'text-emerald-400' : 'text-violet-400' },
+              { icon: Shield, label: 'Scrapers', value: `${healthyCount}/${healthData?.scrapers.length ?? 16}`, sub: 'Healthy', color: healthyCount >= 14 ? 'text-emerald-400' : healthyCount >= 10 ? 'text-[#D4A853]' : 'text-red-400' },
+              { icon: Cpu, label: 'APIs Configured', value: `${configuredApis}/${totalApis}`, sub: configuredApis >= 3 ? 'Operational' : 'Needs setup', color: configuredApis >= 3 ? 'text-emerald-400' : 'text-[#D4A853]' },
               { icon: Zap, label: 'Total Requests', value: totalScraperRequests.toLocaleString(), sub: 'All scrapers', color: 'text-white' },
               { icon: HardDrive, label: 'Cache Entries', value: (healthData?.cache.totalEntries ?? 0).toLocaleString(), sub: `${((healthData?.cache.hitRate ?? 0) * 100).toFixed(0)}% hit rate`, color: 'text-white' },
               { icon: Key, label: 'ScrapingAnt', value: `${healthData?.scrapingAnt.activeKeys ?? 0}/5`, sub: 'Active keys', color: (healthData?.scrapingAnt.activeKeys ?? 0) >= 3 ? 'text-emerald-400' : 'text-red-400' },
@@ -488,7 +488,7 @@ export default function AdminDashboardPage() {
                 key={stat.label}
                 className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-4"
               >
-                <stat.icon className="w-4 h-4 text-[#8B5CF6] mb-2" />
+                <stat.icon className="w-4 h-4 text-[#D4A853] mb-2" />
                 <p className="text-[#6b7280] text-[10px] mb-1">{stat.label}</p>
                 <p className={`text-lg font-bold ${stat.color}`}>{stat.value}</p>
                 <p className="text-[#4a4a5a] text-[9px] mt-0.5">{stat.sub}</p>
@@ -501,13 +501,13 @@ export default function AdminDashboardPage() {
         <section className="mb-10">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Link href="/admin/data" className="group">
-              <div className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-5 hover:border-[#8B5CF6]/30 transition-all duration-200 h-full">
+              <div className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-5 hover:border-[#D4A853]/30 transition-all duration-200 h-full">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
-                    <Database className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
+                    <Database className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
                     <h3 className="text-white font-semibold">Data Pipeline</h3>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-[#4a4a5a] group-hover:text-[#8B5CF6] group-hover:translate-x-1 transition-all" strokeWidth={1.5} />
+                  <ArrowRight className="w-4 h-4 text-[#4a4a5a] group-hover:text-[#D4A853] group-hover:translate-x-1 transition-all" strokeWidth={1.5} />
                 </div>
                 <p className="text-[#6b7280] text-sm leading-relaxed">
                   Cache management, batch processing, and API key configuration.
@@ -515,13 +515,13 @@ export default function AdminDashboardPage() {
               </div>
             </Link>
             <button onClick={() => { fetchHealthData(); fetchAntStats(); }} className="group text-left">
-              <div className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-5 hover:border-[#8B5CF6]/30 transition-all duration-200 h-full">
+              <div className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-5 hover:border-[#D4A853]/30 transition-all duration-200 h-full">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
-                    <RefreshCw className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
+                    <RefreshCw className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
                     <h3 className="text-white font-semibold">Refresh Health Data</h3>
                   </div>
-                  <Activity className="w-4 h-4 text-[#4a4a5a] group-hover:text-[#8B5CF6] transition-all" strokeWidth={1.5} />
+                  <Activity className="w-4 h-4 text-[#4a4a5a] group-hover:text-[#D4A853] transition-all" strokeWidth={1.5} />
                 </div>
                 <p className="text-[#6b7280] text-sm leading-relaxed">
                   Force refresh all health checks, API statuses, and ScrapingAnt key usage.
@@ -534,13 +534,13 @@ export default function AdminDashboardPage() {
         {/* ─── Scraping Sources (Free-First) ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <Shield className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} /> Scraping Sources
+            <Shield className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} /> Scraping Sources
             <span className="text-xs font-normal text-[#6b7280] ml-1">(Free-First: 6 primary + 7 fallback + 3 premium = 16 sites)</span>
           </h2>
 
           {healthLoading && !healthData ? (
             <div className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-12 text-center">
-              <Loader2 className="w-6 h-6 animate-spin text-[#8B5CF6] mx-auto mb-3" strokeWidth={1.5} />
+              <Loader2 className="w-6 h-6 animate-spin text-[#D4A853] mx-auto mb-3" strokeWidth={1.5} />
               <p className="text-[#6b7280] text-sm">Loading scraper health...</p>
             </div>
           ) : (
@@ -575,7 +575,7 @@ export default function AdminDashboardPage() {
                                   <span className="text-[8px] px-1.5 py-0.5 rounded bg-red-500/10 text-red-400 border border-red-500/20 font-semibold">CIRCUIT OPEN</span>
                                 )}
                                 {scraper.circuitState === 'half_open' && (
-                                  <span className="text-[8px] px-1.5 py-0.5 rounded bg-amber-500/10 text-violet-400 border border-amber-500/20 font-semibold">HALF-OPEN</span>
+                                  <span className="text-[8px] px-1.5 py-0.5 rounded bg-amber-500/10 text-[#D4A853] border border-amber-500/20 font-semibold">HALF-OPEN</span>
                                 )}
                                 {!scraper.enabled && (
                                   <span className="text-[8px] px-1.5 py-0.5 rounded bg-[#111118] text-[#4a4a5a] border border-[#1e1e28]">DISABLED</span>
@@ -652,13 +652,13 @@ export default function AdminDashboardPage() {
         {/* ─── API Health & Usage (30%) ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <Cpu className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} /> API Health &amp; Usage
+            <Cpu className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} /> API Health &amp; Usage
             <span className="text-xs font-normal text-[#6b7280] ml-1">(Free APIs &amp; Paid Fallbacks — {totalApis} sources)</span>
           </h2>
 
           {healthLoading && !healthData ? (
             <div className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-12 text-center">
-              <Loader2 className="w-6 h-6 animate-spin text-[#8B5CF6] mx-auto mb-3" strokeWidth={1.5} />
+              <Loader2 className="w-6 h-6 animate-spin text-[#D4A853] mx-auto mb-3" strokeWidth={1.5} />
               <p className="text-[#6b7280] text-sm">Loading API status...</p>
             </div>
           ) : (
@@ -675,7 +675,7 @@ export default function AdminDashboardPage() {
                     {/* Header */}
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-2">
-                        <Icon className="w-4 h-4 text-[#8B5CF6]" />
+                        <Icon className="w-4 h-4 text-[#D4A853]" />
                         <span className="text-white font-semibold text-sm">{api.key.toUpperCase()}</span>
                       </div>
                       <span className={`inline-flex items-center gap-1 text-[10px] font-medium px-1.5 py-0.5 rounded-full ${
@@ -735,13 +735,13 @@ export default function AdminDashboardPage() {
         {/* ─── ScrapingAnt 5-Key Rotation ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <Key className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} /> ScrapingAnt 5-Key Rotation
+            <Key className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} /> ScrapingAnt 5-Key Rotation
             <span className="text-xs font-normal text-[#6b7280] ml-1">(Round-robin · 10K req/key/month)</span>
           </h2>
           <div className="rounded-xl border border-[#1e1e28] bg-[#0c0c10] backdrop-blur-xl p-6">
             {antLoading ? (
               <div className="flex items-center justify-center py-8">
-                <Loader2 className="w-6 h-6 animate-spin text-[#8B5CF6]" strokeWidth={1.5} />
+                <Loader2 className="w-6 h-6 animate-spin text-[#D4A853]" strokeWidth={1.5} />
                 <span className="ml-3 text-[#6b7280] text-sm">Loading key stats...</span>
               </div>
             ) : antStats ? (
@@ -783,7 +783,7 @@ export default function AdminDashboardPage() {
                       return (
                         <div key={idx} className="flex items-center gap-4 p-3 rounded-lg bg-[#050507] border border-[#1e1e28]">
                           <div className="flex items-center gap-2 min-w-[100px]">
-                            <Key className="w-3.5 h-3.5 text-[#8B5CF6]" strokeWidth={1.5} />
+                            <Key className="w-3.5 h-3.5 text-[#D4A853]" strokeWidth={1.5} />
                             <span className="text-white text-sm font-medium">Key {idx + 1}</span>
                             {configured ? (
                               <CheckCircle className="w-3 h-3 text-emerald-400" strokeWidth={1.5} />
@@ -805,7 +805,7 @@ export default function AdminDashboardPage() {
                             <span className="text-[#9ca3af]">{used.toLocaleString()} / {limit.toLocaleString()}</span>
                             <span className={`inline-flex items-center px-2 py-0.5 rounded-full font-medium text-[10px] ${
                               pct >= 90 ? 'bg-red-500/10 text-red-400 border border-red-500/20'
-                              : pct >= 60 ? 'bg-amber-500/10 text-violet-400 border border-amber-500/20'
+                              : pct >= 60 ? 'bg-amber-500/10 text-[#D4A853] border border-amber-500/20'
                               : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
                             }`}>
                               {remaining.toLocaleString()} left
@@ -854,7 +854,7 @@ export default function AdminDashboardPage() {
         {/* ─── System Health Summary ─── */}
         <section className="mb-10">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <Server className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} /> System Health
+            <Server className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} /> System Health
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[

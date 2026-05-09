@@ -25,7 +25,7 @@ export default function SettingsPage() {
       <div className="min-h-screen bg-[#050507] flex items-center justify-center">
         <div className="text-center">
           <p className="text-[#9ca3af] mb-4">Please sign in to view settings</p>
-          <Link href="/login" className="text-[#8B5CF6] hover:underline">Sign In</Link>
+          <Link href="/login" className="text-[#D4A853] hover:underline">Sign In</Link>
         </div>
       </div>
     );
@@ -66,7 +66,7 @@ export default function SettingsPage() {
   const Toggle = ({ enabled, onChange }: { enabled: boolean; onChange: () => void }) => (
     <button
       onClick={onChange}
-      className={`w-11 h-6 rounded-full transition-colors relative flex-shrink-0 ${enabled ? 'bg-[#8B5CF6]' : 'bg-[#2a2a35]'}`}
+      className={`w-11 h-6 rounded-full transition-colors relative flex-shrink-0 ${enabled ? 'bg-[#D4A853]' : 'bg-[#2a2a35]'}`}
       aria-label="Toggle setting"
     >
       <div className="w-5 h-5 bg-white rounded-full absolute top-0.5 transition-all" style={{ left: enabled ? '22px' : '2px' }} />
@@ -85,7 +85,7 @@ export default function SettingsPage() {
         </nav>
 
         <div className="flex items-center gap-3 mb-8">
-          <SettingsIcon className="w-6 h-6 text-[#8B5CF6]" strokeWidth={1.5} />
+          <SettingsIcon className="w-6 h-6 text-[#D4A853]" strokeWidth={1.5} />
           <h1 className="text-3xl lg:text-4xl font-extrabold text-white">Settings</h1>
         </div>
 
@@ -93,7 +93,7 @@ export default function SettingsPage() {
           {/* Notification Settings */}
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
             <div className="flex items-center gap-2 mb-4">
-              <Bell className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
+              <Bell className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
               <h2 className="text-lg font-semibold text-white">Notifications</h2>
             </div>
             <div className="space-y-4">
@@ -124,7 +124,7 @@ export default function SettingsPage() {
           {/* Privacy Settings */}
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
             <div className="flex items-center gap-2 mb-4">
-              <Eye className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
+              <Eye className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
               <h2 className="text-lg font-semibold text-white">Privacy</h2>
             </div>
             <div className="space-y-4">
@@ -148,7 +148,7 @@ export default function SettingsPage() {
           {/* Preferences */}
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
             <div className="flex items-center gap-2 mb-4">
-              <Palette className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
+              <Palette className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
               <h2 className="text-lg font-semibold text-white">Preferences</h2>
             </div>
             <div className="space-y-4">
@@ -161,7 +161,7 @@ export default function SettingsPage() {
                   <select
                     value={language}
                     onChange={(e) => setLanguage(e.target.value)}
-                    className="bg-[#0c0c10] border border-[#1e1e28] rounded-lg py-1.5 px-3 text-sm text-white focus:outline-none focus:border-[#8B5CF6]"
+                    className="bg-[#0c0c10] border border-[#1e1e28] rounded-lg py-1.5 px-3 text-sm text-white focus:outline-none focus:border-[#D4A853]"
                   >
                     <option value="en">English</option>
                     <option value="es">Español</option>
@@ -186,24 +186,24 @@ export default function SettingsPage() {
           {/* Change Password */}
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
             <div className="flex items-center gap-2 mb-4">
-              <Key className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
+              <Key className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
               <h2 className="text-lg font-semibold text-white">Change Password</h2>
             </div>
             <form onSubmit={handlePasswordChange} className="space-y-4">
               <div>
                 <label className="text-sm font-medium text-white mb-1.5 block">Current Password</label>
-                <input type="password" value={passwordData.current} onChange={(e) => setPasswordData(p => ({ ...p, current: e.target.value }))} required className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6]" placeholder="Enter current password" />
+                <input type="password" value={passwordData.current} onChange={(e) => setPasswordData(p => ({ ...p, current: e.target.value }))} required className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853]" placeholder="Enter current password" />
               </div>
               <div>
                 <label className="text-sm font-medium text-white mb-1.5 block">New Password</label>
-                <input type="password" value={passwordData.newPass} onChange={(e) => setPasswordData(p => ({ ...p, newPass: e.target.value }))} required className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6]" placeholder="At least 6 characters" />
+                <input type="password" value={passwordData.newPass} onChange={(e) => setPasswordData(p => ({ ...p, newPass: e.target.value }))} required className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853]" placeholder="At least 6 characters" />
               </div>
               <div>
                 <label className="text-sm font-medium text-white mb-1.5 block">Confirm New Password</label>
-                <input type="password" value={passwordData.confirm} onChange={(e) => setPasswordData(p => ({ ...p, confirm: e.target.value }))} required className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6]" placeholder="Repeat new password" />
+                <input type="password" value={passwordData.confirm} onChange={(e) => setPasswordData(p => ({ ...p, confirm: e.target.value }))} required className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853]" placeholder="Repeat new password" />
               </div>
               {passwordMsg && <p className={`text-sm ${passwordMsg.includes('success') ? 'text-green-400' : 'text-red-400'}`}>{passwordMsg}</p>}
-              <Button type="submit" disabled={passwordSaving} className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white gap-2">
+              <Button type="submit" disabled={passwordSaving} className="bg-[#D4A853] hover:bg-[#B8922F] text-white gap-2">
                 {passwordSaving ? <Loader2 className="w-4 h-4 animate-spin" strokeWidth={1.5} /> : <Key className="w-4 h-4" strokeWidth={1.5} />} Update Password
               </Button>
             </form>
@@ -211,7 +211,7 @@ export default function SettingsPage() {
 
           {/* Save Button */}
           <div className="flex items-center gap-4">
-            <Button onClick={handleSave} className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white gap-2">
+            <Button onClick={handleSave} className="bg-[#D4A853] hover:bg-[#B8922F] text-white gap-2">
               <Save className="w-4 h-4" strokeWidth={1.5} /> Save Settings
             </Button>
             {saved && <span className="text-sm text-green-400">Settings saved!</span>}
@@ -220,7 +220,7 @@ export default function SettingsPage() {
           {/* Account Section */}
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
             <div className="flex items-center gap-2 mb-4">
-              <Shield className="w-5 h-5 text-[#8B5CF6]" strokeWidth={1.5} />
+              <Shield className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
               <h2 className="text-lg font-semibold text-white">Account</h2>
             </div>
             <div className="space-y-3 text-sm">
@@ -243,7 +243,7 @@ export default function SettingsPage() {
                 <span className="text-white font-mono text-xs">{user.id}</span>
               </div>
               <div className="pt-3 border-t border-[#1e1e28] flex items-center gap-4">
-                <Link href="/profile/edit" className="text-[#8B5CF6] hover:underline text-sm">Edit Profile</Link>
+                <Link href="/profile/edit" className="text-[#D4A853] hover:underline text-sm">Edit Profile</Link>
                 <Link href="/settings" className="text-[#6b7280] hover:text-white text-sm">Export Data</Link>
               </div>
             </div>

@@ -203,7 +203,7 @@ export default function BrowsePage() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search titles, directors..."
-                className="w-full sm:w-64 bg-[#0c0c10] border border-[#1e1e28] rounded-lg py-2.5 pl-10 pr-4 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6] text-sm"
+                className="w-full sm:w-64 bg-[#0c0c10] border border-[#1e1e28] rounded-lg py-2.5 pl-10 pr-4 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853] text-sm"
               />
               {query && (
                 <button onClick={() => setQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6b7280] hover:text-white">
@@ -214,16 +214,16 @@ export default function BrowsePage() {
             <Button
               variant="outline"
               onClick={() => setAdvancedOpen(!advancedOpen)}
-              className={`border-[#1e1e28] bg-transparent text-white hover:bg-[#111118] hover:text-white gap-2 ${advancedOpen ? 'border-[#8B5CF6]' : ''}`}
+              className={`border-[#1e1e28] bg-transparent text-white hover:bg-[#111118] hover:text-white gap-2 ${advancedOpen ? 'border-[#D4A853]' : ''}`}
             >
               <SlidersHorizontal className="w-4 h-4" strokeWidth={1.5} />
               <span className="hidden sm:inline">More</span>
             </Button>
             <div className="hidden sm:flex items-center border border-[#1e1e28] rounded-lg overflow-hidden">
-              <button onClick={() => setView('grid')} className={`p-2 ${view === 'grid' ? 'bg-[#8B5CF6] text-white' : 'text-[#6b7280] hover:text-white'}`}>
+              <button onClick={() => setView('grid')} className={`p-2 ${view === 'grid' ? 'bg-[#D4A853] text-white' : 'text-[#6b7280] hover:text-white'}`}>
                 <Grid3X3 className="w-4 h-4" strokeWidth={1.5} />
               </button>
-              <button onClick={() => setView('list')} className={`p-2 ${view === 'list' ? 'bg-[#8B5CF6] text-white' : 'text-[#6b7280] hover:text-white'}`}>
+              <button onClick={() => setView('list')} className={`p-2 ${view === 'list' ? 'bg-[#D4A853] text-white' : 'text-[#6b7280] hover:text-white'}`}>
                 <List className="w-4 h-4" strokeWidth={1.5} />
               </button>
             </div>
@@ -242,7 +242,7 @@ export default function BrowsePage() {
               <button
                 onClick={() => updateFilter('format', 'all')}
                 className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors ${
-                  filters.format === 'all' ? 'bg-[#8B5CF6] text-white' : 'text-[#6b7280] hover:text-white hover:bg-[#111118]'
+                  filters.format === 'all' ? 'bg-[#D4A853] text-white' : 'text-[#6b7280] hover:text-white hover:bg-[#111118]'
                 }`}
               >
                 <Sparkles className="w-4 h-4" strokeWidth={1.5} /> All
@@ -250,7 +250,7 @@ export default function BrowsePage() {
               <button
                 onClick={() => updateFilter('format', 'movie')}
                 className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors ${
-                  filters.format === 'movie' ? 'bg-[#8B5CF6] text-white' : 'text-[#6b7280] hover:text-white hover:bg-[#111118]'
+                  filters.format === 'movie' ? 'bg-[#D4A853] text-white' : 'text-[#6b7280] hover:text-white hover:bg-[#111118]'
                 }`}
               >
                 <Film className="w-4 h-4" strokeWidth={1.5} /> Movies
@@ -258,7 +258,7 @@ export default function BrowsePage() {
               <button
                 onClick={() => updateFilter('format', 'tv')}
                 className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors ${
-                  filters.format === 'tv' ? 'bg-[#8B5CF6] text-white' : 'text-[#6b7280] hover:text-white hover:bg-[#111118]'
+                  filters.format === 'tv' ? 'bg-[#D4A853] text-white' : 'text-[#6b7280] hover:text-white hover:bg-[#111118]'
                 }`}
               >
                 <Tv className="w-4 h-4" strokeWidth={1.5} /> Series
@@ -266,7 +266,7 @@ export default function BrowsePage() {
               <button
                 onClick={() => updateFilter('format', 'anime')}
                 className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors ${
-                  filters.format === 'anime' ? 'bg-[#8B5CF6] text-white' : 'text-[#6b7280] hover:text-white hover:bg-[#111118]'
+                  filters.format === 'anime' ? 'bg-[#D4A853] text-white' : 'text-[#6b7280] hover:text-white hover:bg-[#111118]'
                 }`}
               >
                 <Wand2 className="w-4 h-4" strokeWidth={1.5} /> Anime
@@ -285,7 +285,7 @@ export default function BrowsePage() {
                     onClick={() => toggleGenre(genre.id)}
                     className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                       filters.genres.includes(genre.id)
-                        ? 'bg-[#8B5CF6] text-white'
+                        ? 'bg-[#D4A853] text-white'
                         : 'bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
                     }`}
                   >
@@ -338,7 +338,7 @@ export default function BrowsePage() {
                       onClick={() => updateFilter('country', 'all')}
                       className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors flex items-center gap-1.5 ${
                         filters.country === 'all'
-                          ? 'bg-[#8B5CF6] text-white'
+                          ? 'bg-[#D4A853] text-white'
                           : 'bg-[#050507] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
                       }`}
                     >
@@ -350,7 +350,7 @@ export default function BrowsePage() {
                         onClick={() => updateFilter('country', filters.country === country.code ? 'all' : country.code)}
                         className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors flex items-center gap-1.5 ${
                           filters.country === country.code
-                            ? 'bg-[#8B5CF6] text-white'
+                            ? 'bg-[#D4A853] text-white'
                             : 'bg-[#050507] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
                         }`}
                       >
@@ -379,7 +379,7 @@ export default function BrowsePage() {
                         onClick={() => toggleGenre(genre.id)}
                         className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                           filters.genres.includes(genre.id)
-                            ? 'bg-[#8B5CF6] text-white'
+                            ? 'bg-[#D4A853] text-white'
                             : 'bg-[#050507] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
                         }`}
                       >
@@ -401,7 +401,7 @@ export default function BrowsePage() {
                 <div>
                   <h4 className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider mb-3">
                     Theme
-                    <span className="ml-1 text-[8px] bg-purple-500/20 text-purple-400 px-1.5 py-0.5 rounded-full">BETA</span>
+                    <span className="ml-1 text-[8px] bg-[#D4A853]/20 text-[#D4A853] px-1.5 py-0.5 rounded-full">BETA</span>
                   </h4>
                   <div className="flex items-center gap-2 flex-wrap">
                     {filters.theme !== null && (
@@ -418,7 +418,7 @@ export default function BrowsePage() {
                         onClick={() => updateFilter('theme', filters.theme === theme.id ? null : theme.id)}
                         className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                           filters.theme === theme.id
-                            ? 'bg-purple-600 text-white'
+                            ? 'bg-[#D4A853] text-white'
                             : 'bg-[#050507] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
                         }`}
                       >
@@ -442,7 +442,7 @@ export default function BrowsePage() {
                   <select
                     value={filters.sort}
                     onChange={(e) => updateFilter('sort', e.target.value)}
-                    className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2 px-3 text-sm text-[#9ca3af] focus:outline-none focus:border-[#8B5CF6]"
+                    className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2 px-3 text-sm text-[#9ca3af] focus:outline-none focus:border-[#D4A853]"
                   >
                     {SORT_OPTIONS.map((opt) => (
                       <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -456,7 +456,7 @@ export default function BrowsePage() {
                   <select
                     value={filters.minRating}
                     onChange={(e) => updateFilter('minRating', parseFloat(e.target.value))}
-                    className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2 px-3 text-sm text-[#9ca3af] focus:outline-none focus:border-[#8B5CF6]"
+                    className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2 px-3 text-sm text-[#9ca3af] focus:outline-none focus:border-[#D4A853]"
                   >
                     <option value={0}>Any</option>
                     <option value={5}>5+</option>
@@ -474,7 +474,7 @@ export default function BrowsePage() {
                     <select
                       value={filters.yearFrom}
                       onChange={(e) => updateFilter('yearFrom', parseInt(e.target.value))}
-                      className="flex-1 bg-[#050507] border border-[#1e1e28] rounded-lg py-2 px-3 text-sm text-[#9ca3af] focus:outline-none focus:border-[#8B5CF6]"
+                      className="flex-1 bg-[#050507] border border-[#1e1e28] rounded-lg py-2 px-3 text-sm text-[#9ca3af] focus:outline-none focus:border-[#D4A853]"
                     >
                       {[1990, 2000, 2005, 2010, 2015, 2020, 2022, 2023, 2024, 2025, 2026].map((y) => (
                         <option key={y} value={y}>{y}</option>
@@ -484,7 +484,7 @@ export default function BrowsePage() {
                     <select
                       value={filters.yearTo}
                       onChange={(e) => updateFilter('yearTo', parseInt(e.target.value))}
-                      className="flex-1 bg-[#050507] border border-[#1e1e28] rounded-lg py-2 px-3 text-sm text-[#9ca3af] focus:outline-none focus:border-[#8B5CF6]"
+                      className="flex-1 bg-[#050507] border border-[#1e1e28] rounded-lg py-2 px-3 text-sm text-[#9ca3af] focus:outline-none focus:border-[#D4A853]"
                     >
                       {[2026, 2025, 2024, 2023, 2022, 2020, 2015, 2010, 2000, 1990].map((y) => (
                         <option key={y} value={y}>{y}</option>
@@ -501,7 +501,7 @@ export default function BrowsePage() {
                 </button>
                 <Button
                   onClick={() => setAdvancedOpen(false)}
-                  className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white"
+                  className="bg-[#D4A853] hover:bg-[#B8922F] text-white"
                 >
                   Apply Filters
                 </Button>
@@ -518,7 +518,7 @@ export default function BrowsePage() {
               <button
                 key={i}
                 onClick={tag.onRemove}
-                className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-[#8B5CF6]/10 text-[#8B5CF6] border border-[#8B5CF6]/20 hover:bg-[#8B5CF6]/20 transition-colors"
+                className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-[#D4A853]/10 text-[#D4A853] border border-[#D4A853]/20 hover:bg-[#D4A853]/20 transition-colors"
               >
                 {tag.label}
                 <X className="w-3 h-3" strokeWidth={1.5} />
@@ -541,7 +541,7 @@ export default function BrowsePage() {
             </>
           ) : (
             <>
-              <Sparkles className="w-4 h-4 text-[#8B5CF6]" strokeWidth={1.5} />
+              <Sparkles className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
               <p className="text-xs text-[#6b7280]">
                 Loading content from free sources...
               </p>
@@ -552,7 +552,7 @@ export default function BrowsePage() {
         {/* ─── Loading State ─── */}
         {isLoading && (
           <div className="flex items-center justify-center py-12">
-            <Loader2 className="w-8 h-8 text-[#8B5CF6] animate-spin" strokeWidth={1.5} />
+            <Loader2 className="w-8 h-8 text-[#D4A853] animate-spin" strokeWidth={1.5} />
             <span className="ml-3 text-[#6b7280]">Loading...</span>
           </div>
         )}
@@ -579,11 +579,11 @@ export default function BrowsePage() {
                     <img src={resolveImageUrl(movie.poster_path, 'w500')} alt={movie.title} className="w-full h-full object-cover" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-sm font-semibold text-white group-hover:text-[#8B5CF6] transition-colors truncate">
+                    <h3 className="text-sm font-semibold text-white group-hover:text-[#D4A853] transition-colors truncate">
                       {movie.title}
                     </h3>
                     <div className="flex items-center gap-2 mt-1">
-                      <span className="text-xs text-[#8B5CF6] font-medium flex items-center gap-0.5"><Star className="w-3 h-3 fill-[#8B5CF6]" strokeWidth={1.5} /> {movie.vote_average.toFixed(1)}</span>
+                      <span className="text-xs text-[#D4A853] font-medium flex items-center gap-0.5"><Star className="w-3 h-3 fill-[#D4A853]" strokeWidth={1.5} /> {movie.vote_average.toFixed(1)}</span>
                       <span className="text-xs text-[#6b7280]">{movie.release_date?.split('-')[0] || ''}</span>
                       <span className="text-xs text-[#6b7280]">{movie.runtime}m</span>
                     </div>
@@ -611,7 +611,7 @@ export default function BrowsePage() {
             <Film className="w-16 h-16 text-[#2a2a35] mx-auto mb-4" strokeWidth={1.5} />
             <p className="text-lg text-[#9ca3af] mb-2">No titles match your filters</p>
             <p className="text-sm text-[#6b7280] mb-4">Try adjusting your country, genre, or format selection.</p>
-            <button onClick={clearAll} className="text-[#8B5CF6] hover:underline font-medium">Clear all filters</button>
+            <button onClick={clearAll} className="text-[#D4A853] hover:underline font-medium">Clear all filters</button>
           </div>
         ) : null}
 
@@ -619,8 +619,8 @@ export default function BrowsePage() {
         {filters.country !== 'all' && (
           <div className="mt-10 bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
             <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center flex-shrink-0">
-                <Globe className="w-5 h-5 text-purple-400" strokeWidth={1.5} />
+              <div className="w-10 h-10 rounded-full bg-[#D4A853]/10 flex items-center justify-center flex-shrink-0">
+                <Globe className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
               </div>
               <div>
                 <h3 className="text-white font-semibold mb-1">

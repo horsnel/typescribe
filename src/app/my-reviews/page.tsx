@@ -45,7 +45,7 @@ export default function MyReviewsPage() {
       <div className="min-h-screen bg-[#050507] flex items-center justify-center">
         <div className="text-center">
           <p className="text-[#9ca3af] mb-4">Please sign in to view your reviews</p>
-          <Link href="/login" className="text-[#8B5CF6] hover:underline">Sign In</Link>
+          <Link href="/login" className="text-[#D4A853] hover:underline">Sign In</Link>
         </div>
       </div>
     );
@@ -125,7 +125,7 @@ export default function MyReviewsPage() {
         </nav>
 
         <div className="flex items-center gap-3 mb-4">
-          <MessageSquare className="w-6 h-6 text-[#8B5CF6]" strokeWidth={1.5} />
+          <MessageSquare className="w-6 h-6 text-[#D4A853]" strokeWidth={1.5} />
           <h1 className="text-3xl lg:text-4xl font-extrabold text-white">My Reviews</h1>
         </div>
 
@@ -133,13 +133,13 @@ export default function MyReviewsPage() {
         {allReviews.length > 0 && (
           <div className="grid grid-cols-3 gap-4 mb-8">
             <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 text-center">
-              <MessageSquare className="w-5 h-5 text-[#8B5CF6] mx-auto mb-1" strokeWidth={1.5} />
+              <MessageSquare className="w-5 h-5 text-[#D4A853] mx-auto mb-1" strokeWidth={1.5} />
               <div className="text-xl font-bold text-white">{allReviews.length}</div>
               <div className="text-xs text-[#6b7280]">Reviews</div>
             </div>
             <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 text-center">
-              <Star className="w-5 h-5 text-[#8B5CF6] mx-auto mb-1" strokeWidth={1.5} />
-              <div className="text-xl font-bold text-[#8B5CF6]">{avgRating}</div>
+              <Star className="w-5 h-5 text-[#D4A853] mx-auto mb-1" strokeWidth={1.5} />
+              <div className="text-xl font-bold text-[#D4A853]">{avgRating}</div>
               <div className="text-xs text-[#6b7280]">Avg Rating</div>
             </div>
             <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 text-center">
@@ -160,7 +160,7 @@ export default function MyReviewsPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search your reviews..."
-                className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-lg py-2 pl-10 pr-4 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6] text-sm"
+                className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-lg py-2 pl-10 pr-4 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853] text-sm"
               />
             </div>
             <div className="flex gap-2">
@@ -174,7 +174,7 @@ export default function MyReviewsPage() {
                   key={value}
                   onClick={() => setSort(value)}
                   className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
-                    sort === value ? 'bg-[#8B5CF6] text-white' : 'bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
+                    sort === value ? 'bg-[#D4A853] text-white' : 'bg-[#0c0c10] border border-[#1e1e28] text-[#9ca3af] hover:text-white hover:border-[#3a3a45]'
                   }`}
                 >
                   {label}
@@ -204,7 +204,7 @@ export default function MyReviewsPage() {
                       <div className="flex items-center justify-between mb-2">
                         <div>
                           <Link href={movie ? `/movie/${movie.slug}` : '#'}>
-                            <h3 className="text-sm font-semibold text-white hover:text-[#8B5CF6] transition-colors">
+                            <h3 className="text-sm font-semibold text-white hover:text-[#D4A853] transition-colors">
                               {movie?.title || 'Unknown Movie'}
                             </h3>
                           </Link>
@@ -213,8 +213,8 @@ export default function MyReviewsPage() {
                           </p>
                         </div>
                         <div className="flex items-center gap-1">
-                          <Star className="w-4 h-4 text-[#8B5CF6] fill-[#8B5CF6]" strokeWidth={1.5} />
-                          <span className="text-sm font-semibold text-[#8B5CF6]">{review.rating}/10</span>
+                          <Star className="w-4 h-4 text-[#D4A853] fill-[#D4A853]" strokeWidth={1.5} />
+                          <span className="text-sm font-semibold text-[#D4A853]">{review.rating}/10</span>
                         </div>
                       </div>
 
@@ -225,20 +225,20 @@ export default function MyReviewsPage() {
                             <div className="flex items-center gap-1">
                               {Array.from({ length: 10 }, (_, i) => (
                                 <button key={i + 1} type="button" onClick={() => setEditRating(i + 1)} className="p-0.5">
-                                  <Star className={`w-5 h-5 transition-colors ${i + 1 <= editRating ? 'text-[#8B5CF6] fill-[#8B5CF6]' : 'text-[#2a2a35]'}`} strokeWidth={1.5} />
+                                  <Star className={`w-5 h-5 transition-colors ${i + 1 <= editRating ? 'text-[#D4A853] fill-[#D4A853]' : 'text-[#2a2a35]'}`} strokeWidth={1.5} />
                                 </button>
                               ))}
-                              <span className="ml-2 text-sm font-bold text-[#8B5CF6]">{editRating}/10</span>
+                              <span className="ml-2 text-sm font-bold text-[#D4A853]">{editRating}/10</span>
                             </div>
                           </div>
                           <textarea
                             value={editText}
                             onChange={(e) => setEditText(e.target.value)}
                             rows={4}
-                            className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#8B5CF6] resize-none text-sm"
+                            className="w-full bg-[#050507] border border-[#1e1e28] rounded-lg py-2.5 px-3 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853] resize-none text-sm"
                           />
                           <div className="flex items-center gap-3">
-                            <Button onClick={() => handleEditSave(review.id)} className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white text-sm gap-2">
+                            <Button onClick={() => handleEditSave(review.id)} className="bg-[#D4A853] hover:bg-[#B8922F] text-white text-sm gap-2">
                               Save Changes
                             </Button>
                             <Button variant="outline" onClick={() => setEditingReviewId(null)} className="border-[#1e1e28] text-[#9ca3af] hover:text-white text-sm">
@@ -280,7 +280,7 @@ export default function MyReviewsPage() {
             <MessageSquare className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" strokeWidth={1.5} />
             <p className="text-lg text-[#9ca3af] mb-2">{searchQuery ? 'No reviews match your search' : 'No reviews yet'}</p>
             <p className="text-sm text-[#6b7280] mb-4">{searchQuery ? 'Try a different search term' : 'Share your thoughts about movies you\'ve watched'}</p>
-            {!searchQuery && <Link href="/browse" className="text-[#8B5CF6] hover:underline">Browse Movies</Link>}
+            {!searchQuery && <Link href="/browse" className="text-[#D4A853] hover:underline">Browse Movies</Link>}
           </div>
         )}
       </div>

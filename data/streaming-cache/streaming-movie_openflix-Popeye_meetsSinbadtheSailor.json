@@ -1,0 +1,43 @@
+{
+  "key": "streaming-movie:openflix-Popeye_meetsSinbadtheSailor",
+  "data": {
+    "id": "openflix-Popeye_meetsSinbadtheSailor",
+    "title": "Popeye the Sailor meets Sinbad the Sailor",
+    "description": "The classic tale of Sinbad the Sailor, adapted for Popeye and Olive. Featuring memorable appearances by Wimpy, Olive, and the singing two-headed monster. You can find more information regarding this film on its IMDb page . More information is available from the Wikipedia article here .",
+    "year": 1936,
+    "duration": "16h 6m",
+    "durationSeconds": 57960,
+    "genres": [],
+    "rating": 5,
+    "quality": "Unknown",
+    "poster": "https://archive.org/services/img/Popeye_meetsSinbadtheSailor",
+    "backdrop": "https://archive.org/services/img/Popeye_meetsSinbadtheSailor",
+    "source": "openflix",
+    "sourceUrl": "https://archive.org/details/Popeye_meetsSinbadtheSailor",
+    "sourceLicense": "Public Domain / Open Source",
+    "videoUrl": "https://archive.org/download/Popeye_meetsSinbadtheSailor",
+    "videoType": "direct",
+    "isEmbeddable": true,
+    "languages": [
+      {
+        "code": "en",
+        "label": "English (Original)",
+        "isOriginal": true,
+        "isDubbed": false,
+        "audioFormat": "Stereo"
+      }
+    ],
+    "subtitles": [
+      {
+        "code": "en",
+        "label": "English",
+        "isDefault": true
+      }
+    ],
+    "is4K": false,
+    "isFree": true,
+    "addedAt": "2026-05-09T03:42:11.718Z"
+  },
+  "createdAt": 1778337992632,
+  "expiresAt": 1778424392632
+}
