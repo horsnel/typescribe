@@ -46,8 +46,6 @@ export default function UpcomingPage() {
       case 'all': yearTo = now.getFullYear() + 5; break;
     }
 
-    const formatDate = (d: Date) => d.toISOString().split('T')[0];
-
     let url: string;
     if (mediaType === 'movie') {
       url = `/api/browse?sort=${sortMap[sort]}&yearFrom=${yearFrom}&yearTo=${yearTo}&page=1&source=upcoming`;
@@ -61,7 +59,7 @@ export default function UpcomingPage() {
       .then(res => res.ok ? res.json() : null)
       .then(data => {
         if (data?.movies?.length > 0) {
-          // Filter to only show unreleased (future release dates)
+          // Strictly filter to only show unreleased (future release dates)
           const today = new Date();
           today.setHours(0, 0, 0, 0);
           const upcoming = data.movies.filter((m: Movie) => {
@@ -69,7 +67,8 @@ export default function UpcomingPage() {
             const releaseDate = new Date(m.release_date);
             return releaseDate >= today;
           });
-          setApiMovies(upcoming.length > 0 ? upcoming : data.movies);
+          // Only show truly upcoming movies — never fall back to already-released ones
+          setApiMovies(upcoming);
         } else {
           setApiMovies([]);
         }
