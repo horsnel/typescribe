@@ -1018,9 +1018,10 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                   const profileSrc = resolveImageUrl(person.profile_path, 'w185');
                   const initials = getInitials(person.name);
                   const isPlaceholder = profileSrc === PERSON_PLACEHOLDER || !person.profile_path;
-                  return (
-                    <div key={`${person.name}-${idx}`} className="flex flex-col items-center flex-shrink-0 w-[90px]">
-                      <div className="w-16 h-16 rounded-full overflow-hidden bg-[#0c0c10] border-2 border-[#1e1e28] mb-2">
+                  const personLink = person.tmdb_id ? `/person/${person.tmdb_id}` : null;
+                  const inner = (
+                    <>
+                      <div className="w-16 h-16 rounded-full overflow-hidden bg-[#0c0c10] border-2 border-[#1e1e28] mb-2 group-hover:border-[#D4A853]/50 transition-colors">
                         {isPlaceholder ? (
                           <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#1a1a22] to-[#0c0c10] text-[#6b7280] text-sm font-semibold select-none">
                             {initials}
@@ -1029,31 +1030,99 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                           <img
                             src={profileSrc}
                             alt={person.name}
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform"
                             loading="lazy"
                             onError={(e) => handleImageError(e, 'person')}
                           />
                         )}
                       </div>
-                      <span className="text-xs font-semibold text-white text-center leading-tight truncate w-full">
+                      <span className="text-xs font-semibold text-white text-center leading-tight truncate w-full group-hover:text-[#D4A853] transition-colors">
                         {person.name}
                       </span>
                       <span className="text-[10px] text-[#6b7280] text-center leading-tight truncate w-full">
                         {person.character}
                       </span>
+                    </>
+                  );
+                  return personLink ? (
+                    <Link key={`${person.name}-${idx}`} href={personLink} className="flex flex-col items-center flex-shrink-0 w-[90px] group cursor-pointer">
+                      {inner}
+                    </Link>
+                  ) : (
+                    <div key={`${person.name}-${idx}`} className="flex flex-col items-center flex-shrink-0 w-[90px]">
+                      {inner}
                     </div>
                   );
                 })}
-                {/* Director card */}
-                <div className="flex flex-col items-center flex-shrink-0 w-[90px]">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#D4A853] to-[#B8922F] flex items-center justify-center mb-2 border-2 border-[#D4A853]/30">
-                    <Film className="w-6 h-6 text-white" strokeWidth={1.5} />
-                  </div>
-                  <span className="text-xs font-semibold text-white text-center leading-tight truncate w-full">
-                    {movie.director}
-                  </span>
-                  <span className="text-[10px] text-[#6b7280] text-center">Director</span>
-                </div>
+                {/* Crew cards (director, writer, producer, etc.) */}
+                {movie.crew?.filter((c) => c.name !== movie.director || c.job !== 'Director').slice(0, 0).map(() => null)}
+                {(() => {
+                  // Build unique crew list, director first
+                  const crewList: Array<{ tmdb_id: number; name: string; job: string; profile_path: string }> = [];
+                  // Add director first (from the dedicated director field)
+                  if (movie.director) {
+                    const directorCrew = movie.crew?.find((c) => c.job === 'Director');
+                    crewList.push({
+                      tmdb_id: directorCrew?.tmdb_id ?? 0,
+                      name: movie.director,
+                      job: 'Director',
+                      profile_path: directorCrew?.profile_path ?? '',
+                    });
+                  }
+                  // Add other key crew
+                  movie.crew?.filter((c) => c.job !== 'Director').forEach((c) => {
+                    if (!crewList.find((e) => e.tmdb_id === c.tmdb_id)) {
+                      crewList.push(c);
+                    }
+                  });
+                  return crewList.map((person, idx) => {
+                    const profileSrc = resolveImageUrl(person.profile_path, 'w185');
+                    const initials = getInitials(person.name);
+                    const isPlaceholder = profileSrc === PERSON_PLACEHOLDER || !person.profile_path;
+                    const isDirector = person.job === 'Director';
+                    const personLink = person.tmdb_id ? `/person/${person.tmdb_id}` : null;
+                    const inner = (
+                      <>
+                        <div className={`w-16 h-16 rounded-full overflow-hidden mb-2 border-2 transition-colors ${
+                          isDirector
+                            ? 'bg-gradient-to-br from-[#D4A853] to-[#B8922F] flex items-center justify-center border-[#D4A853]/30 group-hover:border-[#D4A853]'
+                            : 'bg-[#0c0c10] border-[#1e1e28] group-hover:border-[#D4A853]/50'
+                        }`}>
+                          {isPlaceholder && !isDirector ? (
+                            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#1a1a22] to-[#0c0c10] text-[#6b7280] text-sm font-semibold select-none">
+                              {initials}
+                            </div>
+                          ) : isDirector && isPlaceholder ? (
+                            <Film className="w-6 h-6 text-white" strokeWidth={1.5} />
+                          ) : (
+                            <img
+                              src={profileSrc}
+                              alt={person.name}
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform"
+                              loading="lazy"
+                              onError={(e) => handleImageError(e, 'person')}
+                            />
+                          )}
+                        </div>
+                        <span className={`text-xs font-semibold text-center leading-tight truncate w-full transition-colors ${
+                          isDirector ? 'text-[#D4A853]' : 'text-white group-hover:text-[#D4A853]'
+                        }`}>
+                          {person.name}
+                        </span>
+                        <span className="text-[10px] text-[#6b7280] text-center">{person.job}</span>
+                      </>
+                    );
+                    return personLink ? (
+                      <Link key={`crew-${person.name}-${idx}`} href={personLink} className="flex flex-col items-center flex-shrink-0 w-[90px] group cursor-pointer">
+                        {inner}
+                      </Link>
+                    ) : (
+                      <div key={`crew-${person.name}-${idx}`} className="flex flex-col items-center flex-shrink-0 w-[90px]">
+                        {inner}
+                      </div>
+                    );
+                  });
+                })()}
               </div>
             </section>
 
@@ -1435,7 +1504,15 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                   <Film className="w-4 h-4 text-[#6b7280] flex-shrink-0" strokeWidth={1.5} />
                   <div>
                     <span className="text-xs text-[#6b7280]">Director</span>
-                    <p className="text-sm text-white">{movie.director}</p>
+                    {(() => {
+                      const directorCrew = movie.crew?.find((c) => c.job === 'Director');
+                      const directorLink = directorCrew?.tmdb_id ? `/person/${directorCrew.tmdb_id}` : null;
+                      return directorLink ? (
+                        <Link href={directorLink} className="text-sm text-white hover:text-[#D4A853] transition-colors">{movie.director}</Link>
+                      ) : (
+                        <p className="text-sm text-white">{movie.director}</p>
+                      );
+                    })()}
                   </div>
                 </div>
 

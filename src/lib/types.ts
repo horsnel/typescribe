@@ -21,7 +21,8 @@ export interface Movie {
   news_headlines: Array<{ title: string; url: string; source: string; date: string }>;
   ai_review: string;
   director: string;
-  cast: Array<{ name: string; character: string; profile_path: string }>;
+  cast: Array<{ tmdb_id: number; name: string; character: string; profile_path: string }>;
+  crew?: Array<{ tmdb_id: number; name: string; job: string; department: string; profile_path: string }>;
   tagline: string;
   budget: number;
   revenue: number;
@@ -223,4 +224,59 @@ export interface BrowseFilters {
   minRating: number;
   yearFrom: number;
   yearTo: number;
+}
+
+// ─── Person / Cast / Crew Types ──────────────────────────────────────────────
+
+export interface Person {
+  id: number;                    // TMDb person ID
+  name: string;
+  also_known_as: string[];
+  biography: string;
+  birthday: string | null;
+  deathday: string | null;
+  age: number | null;
+  place_of_birth: string | null;
+  profile_path: string;
+  homepage: string | null;
+  known_for_department: string;  // e.g. "Acting", "Directing"
+  gender: 0 | 1 | 2 | 3;       // 0=unknown, 1=female, 2=male, 3=non-binary
+  imdb_id: string | null;
+  popularity: number;
+}
+
+export interface PersonCredit {
+  id: number;                    // TMDb movie/show ID
+  title: string;                 // Movie title or TV show name
+  original_title: string;
+  poster_path: string;
+  release_date: string;          // Movie release date or TV first air date
+  vote_average: number;
+  vote_count: number;
+  overview: string;
+  media_type: 'movie' | 'tv';
+  character?: string;            // For cast credits
+  job?: string;                  // For crew credits
+  department?: string;           // For crew credits
+  genres: Array<{ id: number; name: string }>;
+  slug: string;
+}
+
+export interface PersonCredits {
+  cast: PersonCredit[];
+  crew: PersonCredit[];
+}
+
+export interface PersonSearchResult {
+  id: number;
+  name: string;
+  profile_path: string;
+  known_for_department: string;
+  known_for: Array<{
+    id: number;
+    title: string;
+    media_type: string;
+    poster_path: string;
+    release_date: string;
+  }>;
 }

@@ -2,13 +2,15 @@
 import { Suspense } from 'react';
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { Search as SearchIcon, TrendingUp, Clock, X, Film, MessageSquare, Newspaper, Star, ArrowRight, Loader2 } from 'lucide-react';
+import { Search as SearchIcon, TrendingUp, Clock, X, Film, MessageSquare, Newspaper, Star, ArrowRight, Loader2, User } from 'lucide-react';
 import Link from 'next/link';
 import { genres } from '@/lib/data';
-import type { Movie } from '@/lib/types';
+import type { Movie, PersonSearchResult } from '@/lib/types';
 import MovieCard from '@/components/movie/MovieCard';
 
-type Tab = 'movies' | 'reviews' | 'news';
+import { resolveImageUrl, handleImageError } from '@/lib/utils';
+
+type Tab = 'movies' | 'people' | 'reviews' | 'news';
 
 function SearchContent() {
   const searchParams = useSearchParams();
@@ -19,6 +21,7 @@ function SearchContent() {
 
   // API integration
   const [apiMovies, setApiMovies] = useState<Movie[]>([]);
+  const [apiPeople, setApiPeople] = useState<PersonSearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [fromAPI, setFromAPI] = useState(false);
 
@@ -39,15 +42,22 @@ function SearchContent() {
 
   // Debounced API search
   useEffect(() => {
-    if (!query.trim()) { setApiMovies([]); setFromAPI(false); return; }
+    if (!query.trim()) { setApiMovies([]); setApiPeople([]); setFromAPI(false); return; }
     const timer = setTimeout(async () => {
       setIsSearching(true);
       try {
-        const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`, { cache: 'no-store' });
-        if (res.ok) {
-          const data = await res.json();
+        const [movieRes, peopleRes] = await Promise.all([
+          fetch(`/api/search?q=${encodeURIComponent(query)}`, { cache: 'no-store' }),
+          fetch(`/api/people/search?q=${encodeURIComponent(query)}`, { cache: 'no-store' }),
+        ]);
+        if (movieRes.ok) {
+          const data = await movieRes.json();
           setApiMovies(data.movies || []);
           setFromAPI(data.fromAPI || false);
+        }
+        if (peopleRes.ok) {
+          const data = await peopleRes.json();
+          setApiPeople(data.results || []);
         }
       } catch { setFromAPI(false); }
       finally { setIsSearching(false); }
@@ -67,7 +77,7 @@ function SearchContent() {
   const reviewResults: any[] = [];
   const newsResults: any[] = [];
 
-  const totalResults = movieResults.length + reviewResults.length + newsResults.length;
+  const totalResults = movieResults.length + apiPeople.length + reviewResults.length + newsResults.length;
 
   // Trending searches — popular anime/movie terms
   const trendingSearches = ['Attack on Titan', 'Jujutsu Kaisen', 'One Piece', 'Demon Slayer', 'Frieren', 'Solo Leveling'];
@@ -169,7 +179,7 @@ function SearchContent() {
             </div>
 
             <div className="flex gap-4 mb-6 border-b border-[#1e1e28]">
-              {(['movies', 'reviews', 'news'] as Tab[]).map((t) => (
+              {(['movies', 'people', 'reviews', 'news'] as Tab[]).map((t) => (
                 <button
                   key={t}
                   onClick={() => setTab(t)}
@@ -178,9 +188,10 @@ function SearchContent() {
                   }`}
                 >
                   {t === 'movies' && <Film className="w-4 h-4" strokeWidth={1.5} />}
+                  {t === 'people' && <User className="w-4 h-4" strokeWidth={1.5} />}
                   {t === 'reviews' && <MessageSquare className="w-4 h-4" strokeWidth={1.5} />}
                   {t === 'news' && <Newspaper className="w-4 h-4" strokeWidth={1.5} />}
-                  {t} ({t === 'movies' ? movieResults.length : t === 'reviews' ? reviewResults.length : newsResults.length})
+                  {t} ({t === 'movies' ? movieResults.length : t === 'people' ? apiPeople.length : t === 'reviews' ? reviewResults.length : newsResults.length})
                 </button>
               ))}
             </div>
@@ -195,6 +206,51 @@ function SearchContent() {
                   <Film className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" strokeWidth={1.5} />
                   <p className="text-[#9ca3af] mb-1">No movies found</p>
                   <p className="text-sm text-[#6b7280]">Try a different search term or browse by genre</p>
+                </div>
+              )
+            )}
+
+            {tab === 'people' && (
+              apiPeople.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {apiPeople.map((person) => (
+                    <Link
+                      key={person.id}
+                      href={`/person/${person.id}`}
+                      className="flex items-center gap-4 bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 hover:border-[#3a3a45] transition-colors group"
+                    >
+                      <div className="w-16 h-16 rounded-full overflow-hidden bg-[#050507] border-2 border-[#1e1e28] flex-shrink-0 group-hover:border-[#D4A853]/50 transition-colors">
+                        {person.profile_path ? (
+                          <img
+                            src={person.profile_path}
+                            alt={person.name}
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform"
+                            loading="lazy"
+                            onError={(e) => handleImageError(e, 'person')}
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#1a1a22] to-[#0c0c10]">
+                            <User className="w-6 h-6 text-[#6b7280]" strokeWidth={1.5} />
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-sm font-semibold text-white group-hover:text-[#D4A853] transition-colors truncate">{person.name}</h3>
+                        <span className="text-xs text-[#D4A853] font-medium">{person.known_for_department}</span>
+                        {person.known_for.length > 0 && (
+                          <p className="text-[10px] text-[#6b7280] mt-1 truncate">
+                            Known for: {person.known_for.map((kf) => kf.title).filter(Boolean).join(', ')}
+                          </p>
+                        )}
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-16">
+                  <User className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" strokeWidth={1.5} />
+                  <p className="text-[#9ca3af] mb-1">No people found</p>
+                  <p className="text-sm text-[#6b7280]">Try searching for an actor or director</p>
                 </div>
               )
             )}

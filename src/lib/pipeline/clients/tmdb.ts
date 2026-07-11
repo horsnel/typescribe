@@ -248,13 +248,25 @@ function transformMovieDetail(raw: TmdbMovieResponse): Movie {
   const director =
     raw.credits?.crew?.find((c) => c.job === 'Director')?.name ?? '';
 
-  // Top 10 cast
+  // Top 15 cast (with person TMDb ID for linking to biography page)
   const cast = (raw.credits?.cast ?? [])
     .sort((a, b) => a.order - b.order)
-    .slice(0, 10)
+    .slice(0, 15)
     .map((c) => ({
+      tmdb_id: c.id,
       name: c.name,
       character: c.character,
+      profile_path: tmdbImageUrl(c.profile_path, 'w185'),
+    }));
+
+  // Key crew members (director, writer, producer, etc.)
+  const crew = (raw.credits?.crew ?? [])
+    .filter((c) => ['Director', 'Writer', 'Screenplay', 'Producer', 'Executive Producer', 'Creator', 'Showrunner'].includes(c.job))
+    .map((c) => ({
+      tmdb_id: c.id,
+      name: c.name,
+      job: c.job,
+      department: c.department,
       profile_path: tmdbImageUrl(c.profile_path, 'w185'),
     }));
 
@@ -292,6 +304,7 @@ function transformMovieDetail(raw: TmdbMovieResponse): Movie {
     ai_review: '',
     director,
     cast,
+    crew,
     tagline: raw.tagline ?? '',
     budget: raw.budget ?? 0,
     revenue: raw.revenue ?? 0,
@@ -351,15 +364,42 @@ function transformTvDetail(raw: TmdbTvResponse): Movie {
     raw.credits?.crew?.find((c) => c.job === 'Director')?.name ??
     '';
 
-  // Top 10 cast
+  // Top 15 cast (with person TMDb ID for linking to biography page)
   const cast = (raw.credits?.cast ?? [])
     .sort((a, b) => a.order - b.order)
-    .slice(0, 10)
+    .slice(0, 15)
     .map((c) => ({
+      tmdb_id: c.id,
       name: c.name,
       character: c.character,
       profile_path: tmdbImageUrl(c.profile_path, 'w185'),
     }));
+
+  // Key crew members
+  const crew = (raw.credits?.crew ?? [])
+    .filter((c) => ['Director', 'Writer', 'Screenplay', 'Producer', 'Executive Producer', 'Creator', 'Showrunner'].includes(c.job))
+    .map((c) => ({
+      tmdb_id: c.id,
+      name: c.name,
+      job: c.job,
+      department: c.department,
+      profile_path: tmdbImageUrl(c.profile_path, 'w185'),
+    }));
+
+  // Also add creators (for TV shows)
+  if (raw.created_by?.length) {
+    raw.created_by.forEach((cb) => {
+      if (!crew.find((c) => c.tmdb_id === cb.id)) {
+        crew.push({
+          tmdb_id: cb.id,
+          name: cb.name,
+          job: 'Creator',
+          department: 'Creator',
+          profile_path: tmdbImageUrl(cb.profile_path, 'w185'),
+        });
+      }
+    });
+  }
 
   // YouTube trailer
   const trailer = raw.videos?.results?.find(
@@ -392,6 +432,7 @@ function transformTvDetail(raw: TmdbTvResponse): Movie {
     ai_review: '',
     director,
     cast,
+    crew,
     tagline: raw.tagline ?? '',
     budget: raw.budget ?? 0,
     revenue: raw.revenue ?? 0,
@@ -1046,6 +1087,203 @@ export async function getSimilarTv(
     console.error(`[TMDb] Failed to transform similar TV for ${tmdbId}`, err);
     return null;
   }
+}
+
+// ─── Person / People API ────────────────────────────────────────────────────
+
+/**
+ * GET `/person/{id}`
+ *
+ * Returns detailed biography info for a person.
+ */
+export async function getPersonDetails(
+  personId: number,
+  apiKeyOverride?: string,
+): Promise<import('@/lib/types').Person | null> {
+  const raw = await tmdbFetch<TmdbPersonResponse>(
+    `/person/${personId}`,
+    {},
+    CACHE_TTL_DETAILS,
+    apiKeyOverride,
+  );
+  if (!raw) return null;
+
+  const age = raw.deathday && raw.birthday
+    ? Math.floor((new Date(raw.deathday).getTime() - new Date(raw.birthday).getTime()) / (365.25 * 24 * 60 * 60 * 1000))
+    : raw.birthday
+    ? Math.floor((Date.now() - new Date(raw.birthday).getTime()) / (365.25 * 24 * 60 * 60 * 1000))
+    : null;
+
+  return {
+    id: raw.id,
+    name: raw.name,
+    also_known_as: raw.also_known_as ?? [],
+    biography: raw.biography ?? '',
+    birthday: raw.birthday ?? null,
+    deathday: raw.deathday ?? null,
+    age,
+    place_of_birth: raw.place_of_birth ?? null,
+    profile_path: tmdbImageUrl(raw.profile_path, 'w500'),
+    homepage: raw.homepage ?? null,
+    known_for_department: raw.known_for_department ?? '',
+    gender: (raw.gender ?? 0) as 0 | 1 | 2 | 3,
+    imdb_id: raw.imdb_id ?? null,
+    popularity: raw.popularity ?? 0,
+  };
+}
+
+/**
+ * GET `/person/{id}/combined_credits`
+ *
+ * Returns all movie and TV credits for a person.
+ */
+export async function getPersonCredits(
+  personId: number,
+  apiKeyOverride?: string,
+): Promise<import('@/lib/types').PersonCredits | null> {
+  const raw = await tmdbFetch<TmdbPersonCreditsResponse>(
+    `/person/${personId}/combined_credits`,
+    {},
+    CACHE_TTL_DETAILS,
+    apiKeyOverride,
+  );
+  if (!raw) return null;
+
+  const transformCredit = (item: TmdbCreditItem, type: 'cast' | 'crew'): import('@/lib/types').PersonCredit => {
+    const title = item.title || item.name || 'Unknown';
+    const releaseDate = item.release_date || item.first_air_date || '';
+    return {
+      id: item.id,
+      title,
+      original_title: item.original_title || item.original_name || title,
+      poster_path: tmdbImageUrl(item.poster_path, 'w500'),
+      release_date: releaseDate,
+      vote_average: item.vote_average ?? 0,
+      vote_count: item.vote_count ?? 0,
+      overview: item.overview ?? '',
+      media_type: (item.media_type as 'movie' | 'tv') || type === 'cast' ? 'movie' : 'movie',
+      character: type === 'cast' ? item.character : undefined,
+      job: type === 'crew' ? item.job : undefined,
+      department: type === 'crew' ? item.department : undefined,
+      genres: item.genre_ids?.map((gid) => ({ id: gid, name: '' })) ?? [],
+      slug: slugify(title, item.id),
+    };
+  };
+
+  const cast = (raw.cast ?? [])
+    .filter((c) => c.poster_path && (c.release_date || c.first_air_date))
+    .sort((a, b) => {
+      const dateA = a.release_date || a.first_air_date || '';
+      const dateB = b.release_date || b.first_air_date || '';
+      return dateB.localeCompare(dateA);
+    })
+    .map((c) => transformCredit(c, 'cast'));
+
+  const crew = (raw.crew ?? [])
+    .filter((c) => c.poster_path && (c.release_date || c.first_air_date))
+    .sort((a, b) => {
+      const dateA = a.release_date || a.first_air_date || '';
+      const dateB = b.release_date || b.first_air_date || '';
+      return dateB.localeCompare(dateA);
+    })
+    .map((c) => transformCredit(c, 'crew'));
+
+  return { cast, crew };
+}
+
+/**
+ * GET `/search/person`
+ *
+ * Search for people by name.
+ */
+export async function searchPeople(
+  query: string,
+  page: number = 1,
+  apiKeyOverride?: string,
+): Promise<PaginatedResult<import('@/lib/types').PersonSearchResult> | null> {
+  const data = await tmdbFetch<PaginatedResult<TmdbPersonSearchItem>>(
+    '/search/person',
+    { query, page },
+    CACHE_TTL_LISTS,
+    apiKeyOverride,
+  );
+  if (!data) return null;
+
+  return {
+    ...data,
+    results: (data.results ?? []).map((p) => ({
+      id: p.id,
+      name: p.name,
+      profile_path: tmdbImageUrl(p.profile_path, 'w185'),
+      known_for_department: p.known_for_department ?? '',
+      known_for: (p.known_for ?? []).map((kf) => ({
+        id: kf.id,
+        title: kf.title || kf.name || '',
+        media_type: kf.media_type ?? 'movie',
+        poster_path: tmdbImageUrl(kf.poster_path, 'w185'),
+        release_date: kf.release_date || kf.first_air_date || '',
+      })),
+    })),
+  };
+}
+
+// ─── TMDb Person Response Types ────────────────────────────────────────────
+
+interface TmdbPersonResponse {
+  id: number;
+  name: string;
+  also_known_as: string[];
+  biography: string;
+  birthday: string | null;
+  deathday: string | null;
+  place_of_birth: string | null;
+  profile_path: string | null;
+  homepage: string | null;
+  known_for_department: string;
+  gender: number;
+  imdb_id: string | null;
+  popularity: number;
+}
+
+interface TmdbCreditItem {
+  id: number;
+  title?: string;
+  name?: string;
+  original_title?: string;
+  original_name?: string;
+  poster_path: string | null;
+  release_date?: string;
+  first_air_date?: string;
+  vote_average: number;
+  vote_count: number;
+  overview: string;
+  media_type: string;
+  character?: string;
+  job?: string;
+  department?: string;
+  genre_ids?: number[];
+}
+
+interface TmdbPersonCreditsResponse {
+  id: number;
+  cast: TmdbCreditItem[];
+  crew: TmdbCreditItem[];
+}
+
+interface TmdbPersonSearchItem {
+  id: number;
+  name: string;
+  profile_path: string | null;
+  known_for_department: string;
+  known_for: Array<{
+    id: number;
+    title?: string;
+    name?: string;
+    media_type: string;
+    poster_path: string | null;
+    release_date?: string;
+    first_air_date?: string;
+  }>;
 }
 
 // ─── Re-export PaginatedResult for consumers ─────────────────────────────────
