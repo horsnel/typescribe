@@ -1,13 +1,9 @@
 'use client';
 import Link from 'next/link';
-import { Film, Home, Search, ArrowLeft } from 'lucide-react';
+import { Film, Home, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { movies } from '@/lib/data';
-import MovieCard from '@/components/movie/MovieCard';
 
 export default function NotFound() {
-  const suggestions = movies.slice(0, 4);
-
   return (
     <div className="min-h-screen bg-[#050507] flex items-center justify-center px-4">
       <div className="max-w-2xl mx-auto text-center py-16">
@@ -25,7 +21,7 @@ export default function NotFound() {
           Try searching for what you need, or head back to the main page.
         </p>
 
-        <div className="flex items-center justify-center gap-4 flex-wrap mb-12">
+        <div className="flex items-center justify-center gap-4 flex-wrap">
           <Link href="/">
             <Button className="bg-[#D4A853] hover:bg-[#B8922F] text-white gap-2">
               <Home className="w-4 h-4" strokeWidth={1.5} /> Go Home
@@ -41,16 +37,6 @@ export default function NotFound() {
               <Film className="w-4 h-4" strokeWidth={1.5} /> Browse
             </Button>
           </Link>
-        </div>
-
-        {/* Suggested Movies */}
-        <div>
-          <h2 className="text-lg font-semibold text-white mb-4">While you&apos;re here, check out these movies</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            {suggestions.map((movie) => (
-              <MovieCard key={movie.id} movie={movie} />
-            ))}
-          </div>
         </div>
       </div>
     </div>
