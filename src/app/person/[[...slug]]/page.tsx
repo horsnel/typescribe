@@ -7,20 +7,33 @@ import {
   Calendar, MapPin, Globe, Star, Film, Tv, Sparkles,
   ArrowLeft, Loader2, ExternalLink, User, Award,
   ChevronDown, Clapperboard, PenSquare, Popcorn, Wand2,
+  Users, Link2,
 } from 'lucide-react';
 import MovieCard from '@/components/movie/MovieCard';
 import { Button } from '@/components/ui/button';
 import type { Person, PersonCredits, PersonCredit } from '@/lib/types';
-import { resolveImageUrl, handleImageError, personIdFromSlug, personSlug } from '@/lib/utils';
+import { resolveImageUrl, handleImageError, personIdFromSlug, personSlug, getInitials, PERSON_PLACEHOLDER } from '@/lib/utils';
 
 type CreditTab = 'acting' | 'directing' | 'writing' | 'producing' | 'all';
 
-interface AnimeStaffEntry {
-  animeTitle: string;
-  animeImageUrl: string | null;
-  role: string;
-  malAnimeId: number;
-  malPersonId: number;
+interface RelatedPerson {
+  id: number;
+  name: string;
+  profile_path: string;
+  known_for_department: string;
+  shared_credits: number;
+  shared_movies: string[];
+}
+
+interface JikanCrossRef {
+  malId: number;
+  name: string;
+  imageUrl: string | null;
+  about: string | null;
+  favourites: number;
+  malUrl: string | null;
+  birthday: string | null;
+  matchConfidence: 'high' | 'medium';
 }
 
 export default function PersonPage() {
@@ -35,9 +48,13 @@ export default function PersonPage() {
   const [creditTab, setCreditTab] = useState<CreditTab>('acting');
   const [mediaFilter, setMediaFilter] = useState<'all' | 'movie' | 'tv'>('all');
 
-  // Anime staff data from Jikan
-  const [animeStaff, setAnimeStaff] = useState<AnimeStaffEntry[]>([]);
-  const [animeStaffLoading, setAnimeStaffLoading] = useState(false);
+  // Related people (People Also Viewed)
+  const [relatedPeople, setRelatedPeople] = useState<RelatedPerson[]>([]);
+  const [relatedLoading, setRelatedLoading] = useState(false);
+
+  // Jikan cross-reference
+  const [jikanRef, setJikanRef] = useState<JikanCrossRef | null>(null);
+  const [jikanLoading, setJikanLoading] = useState(false);
 
   useEffect(() => {
     document.querySelector('main')?.scrollTo({ top: 0 });
@@ -53,55 +70,42 @@ export default function PersonPage() {
         if (data?.person) {
           setPerson(data.person);
           setCredits(data.credits ?? { cast: [], crew: [] });
-
-          // Try to find anime credits and fetch Jikan staff data
-          const tvCredits = (data.credits?.cast ?? []).filter((c: PersonCredit) => c.media_type === 'tv');
-          if (tvCredits.length > 0) {
-            // Person has TV credits — search Jikan for their anime roles
-            searchJikanPerson(data.person.name);
-          }
         }
       })
       .catch(() => {})
       .finally(() => setLoading(false));
+
+    // Fetch related people
+    setRelatedLoading(true);
+    fetch(`/api/people/${personId}/related`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data?.results) setRelatedPeople(data.results);
+      })
+      .catch(() => {})
+      .finally(() => setRelatedLoading(false));
+
+    // Fetch Jikan cross-reference
+    setJikanLoading(true);
+    fetch(`/api/people/${personId}/jikan`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data?.jikanPerson && data.jikanPerson.malId) {
+          setJikanRef({
+            malId: data.jikanPerson.malId,
+            name: data.jikanPerson.name ?? '',
+            imageUrl: data.jikanPerson.imageUrl ?? null,
+            about: data.jikanPerson.about ?? null,
+            favourites: data.jikanPerson.favourites ?? 0,
+            malUrl: data.jikanPerson.malUrl ?? null,
+            birthday: data.jikanPerson.birthday ?? null,
+            matchConfidence: data.matchConfidence ?? 'medium',
+          });
+        }
+      })
+      .catch(() => {})
+      .finally(() => setJikanLoading(false));
   }, [personId]);
-
-  const searchJikanPerson = async (name: string) => {
-    setAnimeStaffLoading(true);
-    try {
-      // Search for the person on Jikan
-      const searchRes = await fetch(`/api/anime/people/search?q=${encodeURIComponent(name)}`);
-      if (!searchRes.ok) return;
-      const searchData = await searchRes.json();
-      const results = searchData.results ?? [];
-
-      if (results.length === 0) return;
-
-      // Get details for the top match
-      const topMatch = results[0];
-      const detailsRes = await fetch(`/api/anime/people/${topMatch.malId}`);
-      if (!detailsRes.ok) return;
-      const detailsData = await detailsRes.json();
-
-      // If the person has anime roles from Jikan, show them
-      // We'll add these as supplementary data
-      // For now, just store the search results as anime staff indicator
-      if (results.length > 0 && topMatch.favourites > 0) {
-        // Mark that this person has anime presence
-        setAnimeStaff([{ 
-          animeTitle: '', 
-          animeImageUrl: null, 
-          role: '', 
-          malAnimeId: 0, 
-          malPersonId: topMatch.malId 
-        }]);
-      }
-    } catch {
-      // Silently fail — anime section just won't show
-    } finally {
-      setAnimeStaffLoading(false);
-    }
-  };
 
   if (loading) {
     return (
@@ -130,11 +134,9 @@ export default function PersonPage() {
   const crewByDepartment = credits.crew.reduce<Record<string, PersonCredit[]>>((acc, c) => {
     const dept = c.department || 'Other';
     if (!acc[dept]) acc[dept] = [];
-    // Avoid duplicates (same movie appearing multiple times)
     if (!acc[dept].find((existing) => existing.id === c.id)) {
       acc[dept].push(c);
     } else {
-      // Merge jobs into the existing entry
       const existing = acc[dept].find((e) => e.id === c.id);
       if (existing && c.job && existing.job && !existing.job.includes(c.job)) {
         existing.job = `${existing.job}, ${c.job}`;
@@ -147,9 +149,8 @@ export default function PersonPage() {
   const writing = crewByDepartment['Writing'] ?? [];
   const producing = crewByDepartment['Production'] ?? [];
 
-  // Check for anime credits (TV credits that might be anime)
+  // TV credits (potential anime)
   const tvCredits = credits.cast.filter((c) => c.media_type === 'tv');
-  const hasAnimePresence = animeStaff.length > 0 || tvCredits.length > 0;
 
   const getFilteredCredits = (): PersonCredit[] => {
     let list: PersonCredit[] = [];
@@ -165,7 +166,6 @@ export default function PersonPage() {
       list = list.filter((c) => c.media_type === mediaFilter);
     }
 
-    // Deduplicate by ID
     const seen = new Set<number>();
     return list.filter((c) => {
       if (seen.has(c.id)) return false;
@@ -176,7 +176,6 @@ export default function PersonPage() {
 
   const filteredCredits = getFilteredCredits();
 
-  // Group by year
   const creditsByYear = filteredCredits.reduce<Record<string, PersonCredit[]>>((acc, c) => {
     const year = c.release_date ? new Date(c.release_date).getFullYear().toString() : 'TBA';
     if (!acc[year]) acc[year] = [];
@@ -302,86 +301,96 @@ export default function PersonPage() {
           </div>
         </div>
 
-        {/* Anime Staff Section */}
-        {hasAnimePresence && animeStaff.length > 0 && animeStaff[0].malPersonId > 0 && (
+        {/* External Profiles (Jikan Cross-Reference) */}
+        {(jikanRef || jikanLoading) && (
+          <section className="mb-10">
+            <div className="flex items-center gap-3 mb-4">
+              <Link2 className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
+              <h2 className="text-lg font-bold text-white">External Profiles</h2>
+            </div>
+
+            {jikanLoading ? (
+              <div className="flex items-center gap-2 text-sm text-[#6b7280]">
+                <Loader2 className="w-4 h-4 animate-spin" strokeWidth={1.5} /> Searching anime databases...
+              </div>
+            ) : jikanRef ? (
+              <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5">
+                <div className="flex items-start gap-4">
+                  {/* MAL Profile Image */}
+                  {jikanRef.imageUrl && (
+                    <div className="w-14 h-14 rounded-full overflow-hidden bg-[#050507] border-2 border-[#1e1e28] flex-shrink-0">
+                      <img src={jikanRef.imageUrl} alt={jikanRef.name} className="w-full h-full object-cover" onError={(e) => handleImageError(e, 'person')} />
+                    </div>
+                  )}
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-sm font-semibold text-white">{jikanRef.name}</span>
+                      <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded ${
+                        jikanRef.matchConfidence === 'high' ? 'bg-green-500/20 text-green-400' : 'bg-yellow-500/20 text-yellow-400'
+                      }`}>
+                        {jikanRef.matchConfidence === 'high' ? 'Verified Match' : 'Possible Match'}
+                      </span>
+                      <Wand2 className="w-3 h-3 text-[#D4A853]" strokeWidth={1.5} />
+                      <span className="text-[9px] text-[#6b7280]">MyAnimeList</span>
+                    </div>
+                    {jikanRef.favourites > 0 && (
+                      <p className="text-xs text-[#9ca3af] mb-2">
+                        <Star className="w-3 h-3 inline text-[#D4A853] fill-[#D4A853]" strokeWidth={0} /> {jikanRef.favourites.toLocaleString()} favourites on MAL
+                      </p>
+                    )}
+                    {jikanRef.about && (
+                      <p className="text-xs text-[#6b7280] line-clamp-2 mb-3">
+                        {jikanRef.about.replace(/<[^>]*>/g, '').slice(0, 150)}
+                      </p>
+                    )}
+                    <div className="flex gap-3">
+                      {jikanRef.malUrl && (
+                        <a href={jikanRef.malUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#1a1a22] border border-[#2a2a35] rounded-lg text-xs text-white hover:border-[#D4A853]/50 hover:text-[#D4A853] transition-colors">
+                          <Wand2 className="w-3 h-3" strokeWidth={1.5} /> MAL Profile
+                          <ExternalLink className="w-2.5 h-2.5" strokeWidth={1.5} />
+                        </a>
+                      )}
+                      <a href={`https://myanimelist.net/people/${jikanRef.malId}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#1a1a22] border border-[#2a2a35] rounded-lg text-xs text-white hover:border-[#D4A853]/50 hover:text-[#D4A853] transition-colors">
+                        <Film className="w-3 h-3" strokeWidth={1.5} /> Anime Credits
+                        <ExternalLink className="w-2.5 h-2.5" strokeWidth={1.5} />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : null}
+          </section>
+        )}
+
+        {/* Anime Credits (when Jikan match found or TV credits exist) */}
+        {jikanRef && tvCredits.length > 0 && (
           <section className="mb-10">
             <div className="flex items-center gap-3 mb-4">
               <Wand2 className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
-              <h2 className="text-lg font-bold text-white">Anime Credits</h2>
-              <span className="text-xs text-[#6b7280]">via MyAnimeList</span>
+              <h2 className="text-lg font-bold text-white">Anime & TV Credits</h2>
             </div>
-            <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-full bg-[#D4A853]/10 flex items-center justify-center">
-                  <Wand2 className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-white">This person has anime industry credits</p>
-                  <p className="text-xs text-[#6b7280]">View their full anime filmography on MyAnimeList</p>
-                </div>
-              </div>
-              <a
-                href={`https://myanimelist.net/people/${animeStaff[0].malPersonId}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-[#1a1a22] border border-[#2a2a35] rounded-lg text-sm text-white hover:border-[#D4A853]/50 hover:text-[#D4A853] transition-colors"
-              >
-                <Wand2 className="w-4 h-4" strokeWidth={1.5} />
-                View on MyAnimeList
-                <ExternalLink className="w-3 h-3" strokeWidth={1.5} />
-              </a>
-            </div>
-
-            {/* Show TV credits that may be anime */}
-            {tvCredits.length > 0 && (
-              <div className="mt-6">
-                <h3 className="text-sm font-semibold text-[#9ca3af] mb-3">TV Series Credits (may include anime)</h3>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                  {tvCredits.slice(0, 10).map((credit) => (
-                    <Link
-                      key={`${credit.id}-${credit.character || credit.job}`}
-                      href={`/movie/${credit.slug}`}
-                      className="group"
-                    >
-                      <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl overflow-hidden hover:border-[#3a3a45] transition-colors">
-                        <div className="aspect-[2/3] relative overflow-hidden bg-[#050507]">
-                          {credit.poster_path ? (
-                            <img
-                              src={credit.poster_path}
-                              alt={credit.title}
-                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                              loading="lazy"
-                              onError={(e) => handleImageError(e, 'poster')}
-                            />
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center">
-                              <Tv className="w-8 h-8 text-[#2a2a35]" strokeWidth={1} />
-                            </div>
-                          )}
-                          {/* TV badge */}
-                          <div className="absolute top-2 right-2">
-                            <span className="text-[8px] font-bold px-1.5 py-0.5 rounded bg-blue-500/80 text-white">
-                              TV
-                            </span>
-                          </div>
-                          {/* Role badge */}
-                          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-2 pt-6">
-                            <span className="text-[9px] font-medium text-[#D4A853] block truncate">
-                              {credit.character || credit.job || 'TV'}
-                            </span>
-                          </div>
-                        </div>
-                        <div className="p-2">
-                          <h4 className="text-xs font-semibold text-white truncate group-hover:text-[#D4A853] transition-colors">
-                            {credit.title}
-                          </h4>
-                        </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+              {tvCredits.slice(0, 10).map((credit) => (
+                <Link key={`${credit.id}-${credit.character || credit.job}`} href={`/movie/${credit.slug}`} className="group">
+                  <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl overflow-hidden hover:border-[#3a3a45] transition-colors">
+                    <div className="aspect-[2/3] relative overflow-hidden bg-[#050507]">
+                      {credit.poster_path ? (
+                        <img src={credit.poster_path} alt={credit.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" onError={(e) => handleImageError(e, 'poster')} />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center"><Tv className="w-8 h-8 text-[#2a2a35]" strokeWidth={1} /></div>
+                      )}
+                      <div className="absolute top-2 right-2"><span className="text-[8px] font-bold px-1.5 py-0.5 rounded bg-blue-500/80 text-white">TV</span></div>
+                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-2 pt-6">
+                        <span className="text-[9px] font-medium text-[#D4A853] block truncate">{credit.character || credit.job || 'TV'}</span>
                       </div>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
+                    </div>
+                    <div className="p-2">
+                      <h4 className="text-xs font-semibold text-white truncate group-hover:text-[#D4A853] transition-colors">{credit.title}</h4>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </section>
         )}
 
@@ -390,7 +399,6 @@ export default function PersonPage() {
           <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
             <h2 className="text-xl font-bold text-white">Filmography</h2>
             <div className="flex items-center gap-2">
-              {/* Media type filter */}
               {(['all', 'movie', 'tv'] as const).map((type) => (
                 <button
                   key={type}
@@ -410,7 +418,6 @@ export default function PersonPage() {
             </div>
           </div>
 
-          {/* Credit Tabs */}
           <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
             {tabConfig.map(({ key, label, icon, count }) => (
               <button
@@ -431,7 +438,6 @@ export default function PersonPage() {
             ))}
           </div>
 
-          {/* Credits List */}
           {filteredCredits.length > 0 ? (
             <div className="space-y-6">
               {sortedYears.map((year) => (
@@ -443,47 +449,27 @@ export default function PersonPage() {
                   </h3>
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                     {creditsByYear[year].map((credit) => (
-                      <Link
-                        key={`${credit.id}-${credit.character || credit.job}`}
-                        href={`/movie/${credit.slug}`}
-                        className="group"
-                      >
+                      <Link key={`${credit.id}-${credit.character || credit.job}`} href={`/movie/${credit.slug}`} className="group">
                         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl overflow-hidden hover:border-[#3a3a45] transition-colors">
                           <div className="aspect-[2/3] relative overflow-hidden bg-[#050507]">
                             {credit.poster_path ? (
-                              <img
-                                src={credit.poster_path}
-                                alt={credit.title}
-                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                loading="lazy"
-                                onError={(e) => handleImageError(e, 'poster')}
-                              />
+                              <img src={credit.poster_path} alt={credit.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" onError={(e) => handleImageError(e, 'poster')} />
                             ) : (
-                              <div className="w-full h-full flex items-center justify-center">
-                                <Film className="w-8 h-8 text-[#2a2a35]" strokeWidth={1} />
-                              </div>
+                              <div className="w-full h-full flex items-center justify-center"><Film className="w-8 h-8 text-[#2a2a35]" strokeWidth={1} /></div>
                             )}
-                            {/* Role badge */}
                             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-2 pt-6">
-                              <span className="text-[9px] font-medium text-[#D4A853] block truncate">
-                                {credit.character || credit.job || credit.media_type.toUpperCase()}
-                              </span>
+                              <span className="text-[9px] font-medium text-[#D4A853] block truncate">{credit.character || credit.job || credit.media_type.toUpperCase()}</span>
                             </div>
-                            {/* Media type indicator */}
                             <div className="absolute top-2 right-2">
                               <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded ${
-                                credit.media_type === 'tv'
-                                  ? 'bg-blue-500/80 text-white'
-                                  : 'bg-[#D4A853]/80 text-white'
+                                credit.media_type === 'tv' ? 'bg-blue-500/80 text-white' : 'bg-[#D4A853]/80 text-white'
                               }`}>
                                 {credit.media_type === 'tv' ? 'TV' : 'FILM'}
                               </span>
                             </div>
                           </div>
                           <div className="p-2">
-                            <h4 className="text-xs font-semibold text-white truncate group-hover:text-[#D4A853] transition-colors">
-                              {credit.title}
-                            </h4>
+                            <h4 className="text-xs font-semibold text-white truncate group-hover:text-[#D4A853] transition-colors">{credit.title}</h4>
                             <div className="flex items-center gap-1 mt-0.5">
                               {credit.vote_average > 0 && (
                                 <span className="text-[10px] text-[#D4A853] flex items-center gap-0.5">
@@ -508,6 +494,65 @@ export default function PersonPage() {
             </div>
           )}
         </section>
+
+        {/* People Also Viewed */}
+        {relatedPeople.length > 0 && (
+          <section className="mt-12">
+            <div className="flex items-center gap-3 mb-6">
+              <Users className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
+              <h2 className="text-lg font-bold text-white">People Also Viewed</h2>
+              <span className="text-xs text-[#6b7280]">Frequent collaborators</span>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              {relatedPeople.map((rp) => {
+                const rpProfileSrc = resolveImageUrl(rp.profile_path, 'w185');
+                const rpIsPlaceholder = !rp.profile_path || rpProfileSrc === PERSON_PLACEHOLDER;
+                const rpInitials = getInitials(rp.name);
+
+                return (
+                  <Link
+                    key={rp.id}
+                    href={`/person/${personSlug(rp.name, rp.id)}`}
+                    className="group bg-[#0c0c10] border border-[#1e1e28] rounded-xl overflow-hidden hover:border-[#3a3a45] transition-all"
+                  >
+                    <div className="aspect-square relative overflow-hidden bg-[#050507]">
+                      {rpIsPlaceholder ? (
+                        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#1a1a22] to-[#0c0c10]">
+                          <span className="text-2xl font-bold text-[#6b7280]">{rpInitials}</span>
+                        </div>
+                      ) : (
+                        <img src={rpProfileSrc} alt={rp.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" loading="lazy" onError={(e) => handleImageError(e, 'person')} />
+                      )}
+                      {/* Shared credits badge */}
+                      <div className="absolute top-2 right-2">
+                        <span className="text-[8px] font-bold px-1.5 py-0.5 rounded-full bg-[#D4A853] text-white">
+                          {rp.shared_credits} {rp.shared_credits === 1 ? 'credit' : 'credits'}
+                        </span>
+                      </div>
+                      {/* Department badge */}
+                      <div className="absolute top-2 left-2">
+                        <span className="text-[8px] font-medium px-1.5 py-0.5 rounded-full bg-black/70 text-white">
+                          {rp.known_for_department}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="p-2.5">
+                      <h4 className="text-xs font-semibold text-white truncate group-hover:text-[#D4A853] transition-colors">{rp.name}</h4>
+                      <p className="text-[9px] text-[#6b7280] truncate mt-0.5">
+                        {rp.shared_movies.slice(0, 2).join(', ')}
+                      </p>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          </section>
+        )}
+        {relatedLoading && (
+          <div className="mt-8 flex items-center gap-2 text-sm text-[#6b7280]">
+            <Loader2 className="w-4 h-4 animate-spin" strokeWidth={1.5} /> Finding related people...
+          </div>
+        )}
       </div>
     </div>
   );

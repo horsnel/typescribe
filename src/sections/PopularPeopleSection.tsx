@@ -99,7 +99,7 @@ export default function PopularPeopleSection() {
               </button>
             </div>
             <Link
-              href="/search?q=&tab=people"
+              href="/people"
               className="flex items-center gap-1.5 text-sm text-[#9ca3af] hover:text-[#D4A853] transition-colors"
             >
               View All <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
