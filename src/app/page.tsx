@@ -9,6 +9,7 @@ import MoodBrowsingSection from '@/sections/MoodBrowsingSection';
 import UpcomingMoviesSection from '@/sections/UpcomingMoviesSection';
 import CategoriesGrid from '@/sections/CategoriesGrid';
 import TrendingAnimeSection from '@/sections/TrendingAnimeSection';
+import PopularPeopleSection from '@/sections/PopularPeopleSection';
 import LatestReviews from '@/sections/LatestReviews';
 import TopRatedSection from '@/sections/TopRatedSection';
 import CommunityReviews from '@/sections/CommunityReviews';
@@ -91,6 +92,7 @@ export default function HomePage() {
       <MoodBrowsingSection />
       <CategoriesGrid />
       <TrendingAnimeSection />
+      <PopularPeopleSection />
       <LatestReviews />
       <TopRatedSection />
       <CommunityReviews />

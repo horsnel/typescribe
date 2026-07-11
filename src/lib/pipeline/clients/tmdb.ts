@@ -1227,6 +1227,36 @@ export async function searchPeople(
   };
 }
 
+export async function getPopularPeople(
+  page: number = 1,
+  apiKeyOverride?: string,
+): Promise<PaginatedResult<import('@/lib/types').PersonSearchResult> | null> {
+  const data = await tmdbFetch<PaginatedResult<TmdbPersonSearchItem>>(
+    '/person/popular',
+    { page },
+    CACHE_TTL_LISTS,
+    apiKeyOverride,
+  );
+  if (!data) return null;
+
+  return {
+    ...data,
+    results: (data.results ?? []).map((p) => ({
+      id: p.id,
+      name: p.name,
+      profile_path: tmdbImageUrl(p.profile_path, 'w185'),
+      known_for_department: p.known_for_department ?? '',
+      known_for: (p.known_for ?? []).map((kf) => ({
+        id: kf.id,
+        title: kf.title || kf.name || '',
+        media_type: kf.media_type ?? 'movie',
+        poster_path: tmdbImageUrl(kf.poster_path, 'w185'),
+        release_date: kf.release_date || kf.first_air_date || '',
+      })),
+    })),
+  };
+}
+
 // ─── TMDb Person Response Types ────────────────────────────────────────────
 
 interface TmdbPersonResponse {

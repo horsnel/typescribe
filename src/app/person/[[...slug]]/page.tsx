@@ -6,18 +6,27 @@ import { useParams } from 'next/navigation';
 import {
   Calendar, MapPin, Globe, Star, Film, Tv, Sparkles,
   ArrowLeft, Loader2, ExternalLink, User, Award,
-  ChevronDown, Clapperboard, PenSquare, Popcorn,
+  ChevronDown, Clapperboard, PenSquare, Popcorn, Wand2,
 } from 'lucide-react';
 import MovieCard from '@/components/movie/MovieCard';
 import { Button } from '@/components/ui/button';
 import type { Person, PersonCredits, PersonCredit } from '@/lib/types';
-import { resolveImageUrl, handleImageError } from '@/lib/utils';
+import { resolveImageUrl, handleImageError, personIdFromSlug, personSlug } from '@/lib/utils';
 
 type CreditTab = 'acting' | 'directing' | 'writing' | 'producing' | 'all';
 
+interface AnimeStaffEntry {
+  animeTitle: string;
+  animeImageUrl: string | null;
+  role: string;
+  malAnimeId: number;
+  malPersonId: number;
+}
+
 export default function PersonPage() {
   const params = useParams();
-  const personId = params?.id as string;
+  const slug = (params?.slug as string[] | undefined)?.[0] || '';
+  const personId = personIdFromSlug(slug).toString() || slug;
 
   const [person, setPerson] = useState<Person | null>(null);
   const [credits, setCredits] = useState<PersonCredits>({ cast: [], crew: [] });
@@ -25,6 +34,10 @@ export default function PersonPage() {
   const [bioExpanded, setBioExpanded] = useState(false);
   const [creditTab, setCreditTab] = useState<CreditTab>('acting');
   const [mediaFilter, setMediaFilter] = useState<'all' | 'movie' | 'tv'>('all');
+
+  // Anime staff data from Jikan
+  const [animeStaff, setAnimeStaff] = useState<AnimeStaffEntry[]>([]);
+  const [animeStaffLoading, setAnimeStaffLoading] = useState(false);
 
   useEffect(() => {
     document.querySelector('main')?.scrollTo({ top: 0 });
@@ -40,11 +53,55 @@ export default function PersonPage() {
         if (data?.person) {
           setPerson(data.person);
           setCredits(data.credits ?? { cast: [], crew: [] });
+
+          // Try to find anime credits and fetch Jikan staff data
+          const tvCredits = (data.credits?.cast ?? []).filter((c: PersonCredit) => c.media_type === 'tv');
+          if (tvCredits.length > 0) {
+            // Person has TV credits — search Jikan for their anime roles
+            searchJikanPerson(data.person.name);
+          }
         }
       })
       .catch(() => {})
       .finally(() => setLoading(false));
   }, [personId]);
+
+  const searchJikanPerson = async (name: string) => {
+    setAnimeStaffLoading(true);
+    try {
+      // Search for the person on Jikan
+      const searchRes = await fetch(`/api/anime/people/search?q=${encodeURIComponent(name)}`);
+      if (!searchRes.ok) return;
+      const searchData = await searchRes.json();
+      const results = searchData.results ?? [];
+
+      if (results.length === 0) return;
+
+      // Get details for the top match
+      const topMatch = results[0];
+      const detailsRes = await fetch(`/api/anime/people/${topMatch.malId}`);
+      if (!detailsRes.ok) return;
+      const detailsData = await detailsRes.json();
+
+      // If the person has anime roles from Jikan, show them
+      // We'll add these as supplementary data
+      // For now, just store the search results as anime staff indicator
+      if (results.length > 0 && topMatch.favourites > 0) {
+        // Mark that this person has anime presence
+        setAnimeStaff([{ 
+          animeTitle: '', 
+          animeImageUrl: null, 
+          role: '', 
+          malAnimeId: 0, 
+          malPersonId: topMatch.malId 
+        }]);
+      }
+    } catch {
+      // Silently fail — anime section just won't show
+    } finally {
+      setAnimeStaffLoading(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -89,6 +146,10 @@ export default function PersonPage() {
   const directing = crewByDepartment['Directing'] ?? [];
   const writing = crewByDepartment['Writing'] ?? [];
   const producing = crewByDepartment['Production'] ?? [];
+
+  // Check for anime credits (TV credits that might be anime)
+  const tvCredits = credits.cast.filter((c) => c.media_type === 'tv');
+  const hasAnimePresence = animeStaff.length > 0 || tvCredits.length > 0;
 
   const getFilteredCredits = (): PersonCredit[] => {
     let list: PersonCredit[] = [];
@@ -240,6 +301,89 @@ export default function PersonPage() {
             )}
           </div>
         </div>
+
+        {/* Anime Staff Section */}
+        {hasAnimePresence && animeStaff.length > 0 && animeStaff[0].malPersonId > 0 && (
+          <section className="mb-10">
+            <div className="flex items-center gap-3 mb-4">
+              <Wand2 className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
+              <h2 className="text-lg font-bold text-white">Anime Credits</h2>
+              <span className="text-xs text-[#6b7280]">via MyAnimeList</span>
+            </div>
+            <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 rounded-full bg-[#D4A853]/10 flex items-center justify-center">
+                  <Wand2 className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-white">This person has anime industry credits</p>
+                  <p className="text-xs text-[#6b7280]">View their full anime filmography on MyAnimeList</p>
+                </div>
+              </div>
+              <a
+                href={`https://myanimelist.net/people/${animeStaff[0].malPersonId}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-[#1a1a22] border border-[#2a2a35] rounded-lg text-sm text-white hover:border-[#D4A853]/50 hover:text-[#D4A853] transition-colors"
+              >
+                <Wand2 className="w-4 h-4" strokeWidth={1.5} />
+                View on MyAnimeList
+                <ExternalLink className="w-3 h-3" strokeWidth={1.5} />
+              </a>
+            </div>
+
+            {/* Show TV credits that may be anime */}
+            {tvCredits.length > 0 && (
+              <div className="mt-6">
+                <h3 className="text-sm font-semibold text-[#9ca3af] mb-3">TV Series Credits (may include anime)</h3>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                  {tvCredits.slice(0, 10).map((credit) => (
+                    <Link
+                      key={`${credit.id}-${credit.character || credit.job}`}
+                      href={`/movie/${credit.slug}`}
+                      className="group"
+                    >
+                      <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl overflow-hidden hover:border-[#3a3a45] transition-colors">
+                        <div className="aspect-[2/3] relative overflow-hidden bg-[#050507]">
+                          {credit.poster_path ? (
+                            <img
+                              src={credit.poster_path}
+                              alt={credit.title}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                              loading="lazy"
+                              onError={(e) => handleImageError(e, 'poster')}
+                            />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center">
+                              <Tv className="w-8 h-8 text-[#2a2a35]" strokeWidth={1} />
+                            </div>
+                          )}
+                          {/* TV badge */}
+                          <div className="absolute top-2 right-2">
+                            <span className="text-[8px] font-bold px-1.5 py-0.5 rounded bg-blue-500/80 text-white">
+                              TV
+                            </span>
+                          </div>
+                          {/* Role badge */}
+                          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-2 pt-6">
+                            <span className="text-[9px] font-medium text-[#D4A853] block truncate">
+                              {credit.character || credit.job || 'TV'}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="p-2">
+                          <h4 className="text-xs font-semibold text-white truncate group-hover:text-[#D4A853] transition-colors">
+                            {credit.title}
+                          </h4>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+          </section>
+        )}
 
         {/* Credits Section */}
         <section>

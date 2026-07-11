@@ -30,7 +30,7 @@ import type { ReportReason } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import MovieDetailSkeleton from '@/components/skeletons/MovieDetailSkeleton';
 import TrailerModal from '@/components/movie/TrailerModal';
-import { resolveImageUrl, handleImageError, getInitials, PERSON_PLACEHOLDER } from '@/lib/utils';
+import { resolveImageUrl, handleImageError, getInitials, PERSON_PLACEHOLDER, personSlug } from '@/lib/utils';
 
 type CommentTab = 'reviews' | 'discussion';
 
@@ -1018,7 +1018,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                   const profileSrc = resolveImageUrl(person.profile_path, 'w185');
                   const initials = getInitials(person.name);
                   const isPlaceholder = profileSrc === PERSON_PLACEHOLDER || !person.profile_path;
-                  const personLink = person.tmdb_id ? `/person/${person.tmdb_id}` : null;
+                  const personLink = person.tmdb_id ? `/person/${personSlug(person.name, person.tmdb_id)}` : null;
                   const inner = (
                     <>
                       <div className="w-16 h-16 rounded-full overflow-hidden bg-[#0c0c10] border-2 border-[#1e1e28] mb-2 group-hover:border-[#D4A853]/50 transition-colors">
@@ -1080,7 +1080,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                     const initials = getInitials(person.name);
                     const isPlaceholder = profileSrc === PERSON_PLACEHOLDER || !person.profile_path;
                     const isDirector = person.job === 'Director';
-                    const personLink = person.tmdb_id ? `/person/${person.tmdb_id}` : null;
+                    const personLink = person.tmdb_id ? `/person/${personSlug(person.name, person.tmdb_id)}` : null;
                     const inner = (
                       <>
                         <div className={`w-16 h-16 rounded-full overflow-hidden mb-2 border-2 transition-colors ${
@@ -1506,7 +1506,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                     <span className="text-xs text-[#6b7280]">Director</span>
                     {(() => {
                       const directorCrew = movie.crew?.find((c) => c.job === 'Director');
-                      const directorLink = directorCrew?.tmdb_id ? `/person/${directorCrew.tmdb_id}` : null;
+                      const directorLink = directorCrew?.tmdb_id ? `/person/${personSlug(directorCrew.name, directorCrew.tmdb_id)}` : null;
                       return directorLink ? (
                         <Link href={directorLink} className="text-sm text-white hover:text-[#D4A853] transition-colors">{movie.director}</Link>
                       ) : (

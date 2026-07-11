@@ -8,7 +8,7 @@ import { genres } from '@/lib/data';
 import type { Movie, PersonSearchResult } from '@/lib/types';
 import MovieCard from '@/components/movie/MovieCard';
 
-import { resolveImageUrl, handleImageError } from '@/lib/utils';
+import { resolveImageUrl, handleImageError, personSlug } from '@/lib/utils';
 
 type Tab = 'movies' | 'people' | 'reviews' | 'news';
 
@@ -216,7 +216,7 @@ function SearchContent() {
                   {apiPeople.map((person) => (
                     <Link
                       key={person.id}
-                      href={`/person/${person.id}`}
+                      href={`/person/${personSlug(person.name, person.id)}`}
                       className="flex items-center gap-4 bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 hover:border-[#3a3a45] transition-colors group"
                     >
                       <div className="w-16 h-16 rounded-full overflow-hidden bg-[#050507] border-2 border-[#1e1e28] flex-shrink-0 group-hover:border-[#D4A853]/50 transition-colors">

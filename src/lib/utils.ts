@@ -50,6 +50,27 @@ export function resolveImageUrl(
   return path;
 }
 
+/**
+ * Create a URL-friendly slug from a person's name + ID.
+ * E.g. "Brad Pitt", 287 → "287-brad-pitt"
+ * The ID comes first so Next.js [id] route can extract it easily.
+ */
+export function personSlug(name: string, id: number): string {
+  const namePart = name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+  return namePart ? `${id}-${namePart}` : `${id}`;
+}
+
+/**
+ * Extract the numeric person ID from a slug like "287-brad-pitt" or "287".
+ */
+export function personIdFromSlug(slug: string): number {
+  const num = parseInt(slug.split('-')[0], 10);
+  return isNaN(num) ? 0 : num;
+}
+
 /** Standard onError handler for <img> elements — replaces with placeholder */
 export function handleImageError(
   e: React.SyntheticEvent<HTMLImageElement>,

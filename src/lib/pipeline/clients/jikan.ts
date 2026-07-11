@@ -396,3 +396,191 @@ export async function getAnimeReviews(
   }
   return (data as any).data;
 }
+
+// ─── Person / Staff Types ────────────────────────────────────────────────────
+
+export interface JikanStaffMember {
+  malId: number;
+  name: string;
+  nameJapanese: string | null;
+  role: string;
+  type: 'staff' | 'voice_actor';
+  personUrl: string | null;
+  imageUrl: string | null;
+  positions: string[];
+}
+
+export interface JikanVoiceActor {
+  malId: number;
+  name: string;
+  nameJapanese: string | null;
+  language: string;
+  personUrl: string | null;
+  imageUrl: string | null;
+  character: {
+    malId: number;
+    name: string;
+    imageUrl: string | null;
+  };
+}
+
+export interface JikanAnimeStaff {
+  staff: JikanStaffMember[];
+  voiceActors: JikanVoiceActor[];
+}
+
+export interface JikanPerson {
+  malId: number;
+  name: string;
+  nameJapanese: string | null;
+  about: string | null;
+  imageUrl: string | null;
+  birthday: string | null;
+  favourites: number;
+  websiteUrl: string | null;
+  malUrl: string | null;
+  alternateNames: string[];
+  givenName: string | null;
+  familyName: string | null;
+}
+
+export interface JikanPersonSearchResult {
+  malId: number;
+  name: string;
+  imageUrl: string | null;
+  about: string | null;
+  favourites: number;
+}
+
+// ─── Person / Staff API ──────────────────────────────────────────────────────
+
+/**
+ * Get staff (directors, producers, etc.) for an anime by MAL ID.
+ */
+export async function getAnimeStaff(malId: number): Promise<JikanStaffMember[]> {
+  const cacheKey = `/anime/${malId}/staff`;
+  const startTime = Date.now();
+
+  const data = await jikanFetch<{ data: any[] }>(`/anime/${malId}/staff`);
+
+  if (!data || !Array.isArray((data as any)?.data)) {
+    warn(`No staff for MAL anime ${malId}`);
+    return [];
+  }
+
+  const staff = ((data as any).data ?? []).map((s: any) => ({
+    malId: s.person?.mal_id ?? 0,
+    name: s.person?.name ?? 'Unknown',
+    nameJapanese: s.person?.given_name ?? null,
+    role: s.positions?.[0] ?? 'Staff',
+    type: 'staff' as const,
+    personUrl: s.person?.url ?? null,
+    imageUrl: s.person?.images?.jpg?.image_url ?? null,
+    positions: s.positions ?? [],
+  }));
+
+  log(`Staff for MAL ${malId} → ${staff.length} member(s) (${Date.now() - startTime}ms)`);
+  return staff;
+}
+
+/**
+ * Get voice actors for an anime by MAL ID.
+ */
+export async function getAnimeVoiceActors(malId: number): Promise<JikanVoiceActor[]> {
+  const startTime = Date.now();
+
+  const characters = await getAnimeCharacters(malId);
+
+  const voiceActors: JikanVoiceActor[] = [];
+  for (const char of characters) {
+    for (const va of char.voiceActors) {
+      voiceActors.push({
+        malId: va.malId,
+        name: va.name,
+        nameJapanese: null,
+        language: va.language,
+        personUrl: null,
+        imageUrl: va.imageUrl,
+        character: {
+          malId: char.malId,
+          name: char.name,
+          imageUrl: char.imageUrl,
+        },
+      });
+    }
+  }
+
+  log(`VAs for MAL ${malId} → ${voiceActors.length} voice actor(s) (${Date.now() - startTime}ms)`);
+  return voiceActors;
+}
+
+/**
+ * Get full staff + voice actors for an anime by MAL ID.
+ */
+export async function getAnimeFullStaff(malId: number): Promise<JikanAnimeStaff> {
+  const [staff, voiceActors] = await Promise.all([
+    getAnimeStaff(malId),
+    getAnimeVoiceActors(malId),
+  ]);
+  return { staff, voiceActors };
+}
+
+/**
+ * Get person details by MAL person ID.
+ */
+export async function getPersonDetails(malId: number): Promise<JikanPerson | null> {
+  const startTime = Date.now();
+
+  const data = await jikanFetch<any>(`/people/${malId}/full`);
+
+  if (!data) {
+    warn(`No person for MAL ID ${malId}`);
+    return null;
+  }
+
+  const person: JikanPerson = {
+    malId: data.mal_id ?? malId,
+    name: data.name ?? 'Unknown',
+    nameJapanese: data.name_japanese ?? null,
+    about: data.about ?? null,
+    imageUrl: data.images?.jpg?.image_url ?? null,
+    birthday: data.birthday ?? null,
+    favourites: data.favorites ?? 0,
+    websiteUrl: data.website_url ?? null,
+    malUrl: data.url ?? null,
+    alternateNames: data.alternate_names ?? [],
+    givenName: data.given_name ?? null,
+    familyName: data.family_name ?? null,
+  };
+
+  log(`Person MAL ${malId} → "${person.name}" (${Date.now() - startTime}ms)`);
+  return person;
+}
+
+/**
+ * Search for people on MAL by name.
+ */
+export async function searchPeople(query: string, page: number = 1): Promise<JikanPersonSearchResult[]> {
+  const startTime = Date.now();
+
+  const data = await jikanFetch<{ data: any[] }>(
+    '/people',
+    { q: query, page, limit: 25, order_by: 'favorites', sort: 'desc' },
+  );
+
+  if (!data || !Array.isArray((data as any)?.data)) {
+    warn(`No people search results for "${query}"`);
+    return [];
+  }
+
+  const people = ((data as any).data ?? []).map((p: any) => ({
+    malId: p.mal_id ?? 0,
+    name: p.name ?? 'Unknown',
+    imageUrl: p.images?.jpg?.image_url ?? null,
+    about: p.about ?? null,
+    favourites: p.favorites ?? 0,
+  }));
+
+  log(`People search "${query}" → ${people.length} result(s) (${Date.now() - startTime}ms)`);
+  return people;
+}
