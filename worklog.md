@@ -63,3 +63,32 @@ Stage Summary:
 - All pages working: /, /stream, /upcoming, /search, /browse, /top-rated, /new-releases, /news, /about
 - GitHub Actions workflow succeeding
 - Duplicate Vercel project cleaned up
+
+---
+Task ID: 6
+Agent: main
+Task: Add Person biography pages with clickable cast/crew avatars
+
+Work Log:
+- Extended Movie.cast type to include tmdb_id for linking
+- Added Movie.crew array type with tmdb_id, job, department, profile_path
+- Added Person, PersonCredit, PersonCredits, PersonSearchResult types
+- Updated TMDB movie transform: cast now includes tmdb_id, increased from 10 to 15
+- Added crew extraction: Director, Writer, Screenplay, Producer, Exec Producer, Creator, Showrunner
+- Updated TMDB TV transform: same cast/crew changes + creator handling
+- Added 3 new TMDB API functions: getPersonDetails, getPersonCredits, searchPeople
+- Created /api/people/[id] route — fetches person details + combined credits in parallel
+- Created /api/people/search route — searches people by name via TMDb
+- Built /person/[id] biography page with: profile photo, bio, birthday, place of birth, IMDb link
+- Filmography grouped by year, tabs for Acting/Directing/Writing/Producing
+- Made cast avatars clickable on movie detail page (Link to /person/[id])
+- Made crew cards (director, writer, producer) clickable with gold hover effect
+- Made director name in movie sidebar clickable
+- Added People tab to search page with person search results
+- Build passes, pushed to GitHub, Vercel auto-deployed
+
+Stage Summary:
+- Person biography pages fully functional (tested Brad Pitt: 146 cast + 82 crew credits)
+- People search working (tested "Christopher Nolan": 5 results)
+- All cast/crew avatars are now clickable links
+- 7 files changed, 914 insertions, 31 deletions
