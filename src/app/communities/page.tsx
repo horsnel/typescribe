@@ -31,20 +31,10 @@ interface Community {
   posts: number;
 }
 
-const ALL_COMMUNITIES: Community[] = [
-  { name: 'Horror Fans', members: 1240, description: 'For lovers of horror and thriller films. Discuss the scariest movies and share recommendations.', id: 'horror-fans', type: 'Genre', posts: 340 },
-  { name: 'K-Drama Club', members: 3420, description: 'Korean drama discussions, episode reviews, and recommendations for all K-drama fans.', id: 'k-drama-club', type: 'Country', posts: 890 },
-  { name: 'Nollywood Watchers', members: 890, description: 'Celebrating Nigerian cinema, Nollywood classics, and the new wave of African filmmaking.', id: 'nollywood-watchers', type: 'Country', posts: 210 },
-  { name: 'Christopher Nolan Fans', members: 2100, description: 'Deep dives into Nolan\'s filmography, filmmaking techniques, and upcoming projects.', id: 'nolan-fans', type: 'Creator', posts: 560 },
-  { name: 'Anime Explorers', members: 5600, description: 'Anime recommendations, seasonal discussions, and reviews from casual to hardcore fans.', id: 'anime-explorers', type: 'Theme', posts: 1200 },
-  { name: 'Classic Cinema', members: 780, description: 'Pre-1970s cinema appreciation, restoration news, and deep cuts from the golden age.', id: 'classic-cinema', type: 'Theme', posts: 180 },
-  { name: 'Sci-Fi Universe', members: 2800, description: 'From Blade Runner to Dune — exploring science fiction in film and television.', id: 'scifi-universe', type: 'Genre', posts: 670 },
-  { name: 'Indie Film Lovers', members: 950, description: 'Independent cinema, film festival coverage, and hidden gem recommendations.', id: 'indie-film-lovers', type: 'Theme', posts: 290 },
-  { name: 'Bollywood Beats', members: 1650, description: 'Bollywood movie discussions, music, and the latest releases from Indian cinema.', id: 'bollywood-beats', type: 'Country', posts: 420 },
-  { name: 'Documentary Circle', members: 620, description: 'True crime, nature, social issues — documentary fans unite.', id: 'documentary-circle', type: 'Genre', posts: 150 },
-  { name: 'Romance Readers & Watchers', members: 1100, description: 'For those who love a good love story — books and films alike.', id: 'romance-fans', type: 'Genre', posts: 310 },
-  { name: 'A24 Appreciation', members: 3400, description: 'Everything A24 — from Moonlight to Everything Everywhere All at Once.', id: 'a24-appreciation', type: 'Creator', posts: 890 },
-];
+// `ALL_COMMUNITIES` was a hardcoded mock list — replaced with a live fetch
+// from /api/communities (Supabase-backed). The empty initial array is
+// populated by useEffect below.
+const ALL_COMMUNITIES: Community[] = [];
 
 const TYPE_FILTERS = ['All', 'Genre', 'Country', 'Theme', 'Creator'];
 
@@ -71,6 +61,7 @@ export default function CommunitiesPage() {
   const [typeFilter, setTypeFilter] = useState('All');
   const [joinedIds, setJoinedIds] = useState<string[]>([]);
   const [createdCommunities, setCreatedCommunities] = useState<Community[]>([]);
+  const [fetchedCommunities, setFetchedCommunities] = useState<Community[]>([]);
   const [showCreateDialog, setShowCreateDialog] = useState(false);
   const [newName, setNewName] = useState('');
   const [newDescription, setNewDescription] = useState('');
@@ -78,14 +69,27 @@ export default function CommunitiesPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate brief loading state to show skeleton
-    const timer = setTimeout(() => setIsLoading(false), 600);
+    const controller = new AbortController();
     setJoinedIds(getJoinedCommunities());
     setCreatedCommunities(getCreatedCommunities());
-    return () => clearTimeout(timer);
+    // Fetch real communities from Supabase via the API
+    fetch('/api/communities', { signal: controller.signal })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data?.communities && Array.isArray(data.communities)) {
+          setFetchedCommunities(data.communities);
+          // Cache for getSmartRecommendations() to use without re-fetching
+          try {
+            localStorage.setItem('typescribe_cached_communities', JSON.stringify(data.communities));
+          } catch { /* ignore quota errors */ }
+        }
+      })
+      .catch(() => { /* non-critical */ })
+      .finally(() => setIsLoading(false));
+    return () => controller.abort();
   }, []);
 
-  const allCommunities = [...createdCommunities, ...ALL_COMMUNITIES];
+  const allCommunities = [...createdCommunities, ...fetchedCommunities];
 
   const filtered = allCommunities.filter(c => {
     const matchesSearch = !search || c.name.toLowerCase().includes(search.toLowerCase()) || c.description.toLowerCase().includes(search.toLowerCase());

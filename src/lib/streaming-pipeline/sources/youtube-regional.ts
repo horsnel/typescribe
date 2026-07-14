@@ -257,7 +257,7 @@ function toStreamableMovie(
  */
 export async function fetchYouTubeRegionalMovies(regionCode?: string): Promise<StreamableMovie[]> {
   const cacheKey = `streaming-yt-regional${regionCode ? `-${regionCode}` : ''}`;
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
   
   const apiKey = getApiKey();
@@ -336,7 +336,7 @@ export async function fetchYouTubeRegionalMovies(regionCode?: string): Promise<S
     }
   }
   
-  setCached(cacheKey, allMovies, CACHE_TTL);
+  await setCached(cacheKey, allMovies, CACHE_TTL);
   return allMovies;
 }
 

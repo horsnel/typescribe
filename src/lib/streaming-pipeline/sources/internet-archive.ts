@@ -288,7 +288,7 @@ async function batchFetchVideoFiles(identifiers: string[]): Promise<Map<string, 
  */
 export async function fetchArchiveMovies(category?: string): Promise<StreamableMovie[]> {
   const cacheKey = `streaming-archive-movies${category ? `-${category}` : ''}`;
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
 
   const movies: StreamableMovie[] = [];
@@ -334,7 +334,7 @@ export async function fetchArchiveMovies(category?: string): Promise<StreamableM
     }
   }
 
-  setCached(cacheKey, movies, CACHE_TTL);
+  await setCached(cacheKey, movies, CACHE_TTL);
   return movies;
 }
 
@@ -344,7 +344,7 @@ export async function fetchArchiveMovies(category?: string): Promise<StreamableM
  */
 export async function searchArchiveMovies(query: string): Promise<StreamableMovie[]> {
   const cacheKey = `streaming-archive-search:${query}`;
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
 
   try {
@@ -376,7 +376,7 @@ export async function searchArchiveMovies(query: string): Promise<StreamableMovi
       return toStreamableMovie(doc, videoFileName);
     });
 
-    setCached(cacheKey, movies, CACHE_TTL);
+    await setCached(cacheKey, movies, CACHE_TTL);
     return movies;
   } catch (err) {
     console.warn('[StreamingPipeline:Archive] Search error:', err);
@@ -390,7 +390,7 @@ export async function searchArchiveMovies(query: string): Promise<StreamableMovi
  */
 export async function getArchiveMovieDetails(identifier: string): Promise<StreamableMovie | null> {
   const cacheKey = `streaming-archive-detail:${identifier}`;
-  const cached = getCached<StreamableMovie>(cacheKey);
+  const cached = await getCached<StreamableMovie>(cacheKey);
   if (cached) return cached;
 
   try {
@@ -415,7 +415,7 @@ export async function getArchiveMovieDetails(identifier: string): Promise<Stream
     };
 
     const movie = toStreamableMovie(doc, videoFileName ?? undefined);
-    setCached(cacheKey, movie, CACHE_TTL);
+    await setCached(cacheKey, movie, CACHE_TTL);
     return movie;
   } catch (err) {
     console.warn(`[StreamingPipeline:Archive] Error fetching details for ${identifier}:`, err);
@@ -429,7 +429,7 @@ export async function getArchiveMovieDetails(identifier: string): Promise<Stream
  */
 export async function fetchArchiveAnime(): Promise<StreamableMovie[]> {
   const cacheKey = 'streaming-archive-anime';
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
 
   const movies: StreamableMovie[] = [];
@@ -517,7 +517,7 @@ export async function fetchArchiveAnime(): Promise<StreamableMovie[]> {
     }
   }
 
-  setCached(cacheKey, movies, CACHE_TTL);
+  await setCached(cacheKey, movies, CACHE_TTL);
   return movies;
 }
 
@@ -528,7 +528,7 @@ export async function searchArchiveAnime(query: string): Promise<StreamableMovie
   if (!query || query.trim().length < 2) return [];
 
   const cacheKey = `streaming-archive-anime-search:${query.toLowerCase().trim()}`;
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
 
   try {
@@ -563,7 +563,7 @@ export async function searchArchiveAnime(query: string): Promise<StreamableMovie
       return movie;
     });
 
-    setCached(cacheKey, movies, CACHE_TTL);
+    await setCached(cacheKey, movies, CACHE_TTL);
     return movies;
   } catch (err) {
     console.warn('[StreamingPipeline:Archive] Anime search error:', err);

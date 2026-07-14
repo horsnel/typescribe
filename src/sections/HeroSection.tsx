@@ -2,39 +2,16 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Star, Play, ChevronLeft, ChevronRight, Quote, Swords, TrendingUp, Award } from 'lucide-react';
+import { Star, Play, ChevronLeft, ChevronRight, Award } from 'lucide-react';
 import type { Movie } from '@/lib/types';
 
-// ─── Review Quotes ───
-const REVIEW_QUOTES = [
-  { quote: 'A masterclass in atmospheric storytelling. Every frame is a painting.', reviewer: 'Sarah M.', rating: 9 },
-  { quote: 'Keeps you guessing until the very end. I couldn\'t look away.', reviewer: 'David C.', rating: 8 },
-  { quote: 'Simply devastating in its emotional honesty. Cinema at its most profoundly human.', reviewer: 'Marcus R.', rating: 10 },
-  { quote: 'Thrilling and thought-provoking. The best sci-fi film in years.', reviewer: 'Sarah M.', rating: 9 },
-  { quote: 'A sweeping epic that marries political thriller with grand romance.', reviewer: 'David C.', rating: 9 },
-  { quote: 'Relentless, high-octane entertainment that never lets its foot off the gas.', reviewer: 'Marcus R.', rating: 8 },
-];
-
-// ─── Top Reviewers ───
-const TOP_REVIEWERS = [
-  { name: 'Sarah M.', avatar: '/images/avatar-1.jpg', reviews: 47 },
-  { name: 'David C.', avatar: '/images/avatar-2.jpg', reviews: 35 },
-  { name: 'Marcus R.', avatar: '/images/avatar-3.jpg', reviews: 62 },
-  { name: 'Emma S.', avatar: '/images/avatar-1.jpg', reviews: 28 },
-  { name: 'Leo K.', avatar: '/images/avatar-2.jpg', reviews: 41 },
-  { name: 'Nina R.', avatar: '/images/avatar-3.jpg', reviews: 53 },
-  { name: 'Astrid J.', avatar: '/images/avatar-1.jpg', reviews: 19 },
-  { name: 'Carlos M.', avatar: '/images/avatar-2.jpg', reviews: 37 },
-  { name: 'Yuki T.', avatar: '/images/avatar-3.jpg', reviews: 44 },
-  { name: 'Ravi P.', avatar: '/images/avatar-1.jpg', reviews: 31 },
-];
-
-// ─── Battle of the Day ───
-const BATTLES = [
-  { movie1: 'Inception', movie2: 'Interstellar', votes1: 1247, votes2: 1089 },
-  { movie1: 'The Dark Knight', movie2: 'Joker', votes1: 1532, votes2: 1201 },
-  { movie1: 'Parasite', movie2: 'Memories of Murder', votes1: 987, votes2: 845 },
-];
+// ─── Top Reviewers (fetched from /api/communities/leaderboard) ───
+interface TopReviewer {
+  user_id: string;
+  display_name: string;
+  avatar_url: string | null;
+  review_count: number;
+}
 
 // ─── Slide animation variants ───
 const slideVariants = {
@@ -89,11 +66,9 @@ const AVATAR_COLORS = [
 
 export default function HeroSection() {
   const [movies, setMovies] = useState<Movie[]>([]);
+  const [topReviewers, setTopReviewers] = useState<TopReviewer[]>([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(1);
-  const [battleVotes, setBattleVotes] = useState(BATTLES[0]);
-  const [battleIndex, setBattleIndex] = useState(0);
-  const [isBattleExpanded, setIsBattleExpanded] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
 
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -115,6 +90,22 @@ export default function HeroSection() {
       .catch(() => {
         setIsLoading(false);
       });
+    return () => controller.abort();
+  }, []);
+
+  // ─── Fetch top reviewers (real leaderboard data) ───
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch('/api/communities/leaderboard?limit=10', { signal: controller.signal })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data?.leaderboard && Array.isArray(data.leaderboard)) {
+          setTopReviewers(data.leaderboard.slice(0, 10));
+        } else if (Array.isArray(data)) {
+          setTopReviewers(data.slice(0, 10));
+        }
+      })
+      .catch(() => { /* leaderboard is non-critical */ });
     return () => controller.abort();
   }, []);
 
@@ -184,18 +175,6 @@ export default function HeroSection() {
     touchEndRef.current = 0;
   }, [goNext, goPrev]);
 
-  // ─── Battle vote handler ───
-  const handleVote = useCallback(
-    (side: '1' | '2') => {
-      setBattleVotes((prev) => ({
-        ...prev,
-        votes1: side === '1' ? prev.votes1 + 1 : prev.votes1,
-        votes2: side === '2' ? prev.votes2 + 1 : prev.votes2,
-      }));
-    },
-    [],
-  );
-
   // ─── Keyboard navigation ───
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -208,7 +187,6 @@ export default function HeroSection() {
 
   // ─── Current slide data ───
   const currentMovie = movies[currentSlide];
-  const currentReview = REVIEW_QUOTES[currentSlide % REVIEW_QUOTES.length];
 
   return (
     <section className="relative">
@@ -266,29 +244,6 @@ export default function HeroSection() {
               <div className="absolute inset-0 flex items-end">
                 <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 pb-16 md:pb-20">
                   <div className="max-w-2xl">
-                    {/* Review quote */}
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.4, delay: 0.2 }}
-                      className="mb-4"
-                    >
-                      <div className="flex items-start gap-2">
-                        <Quote className="w-5 h-5 text-[#D4A853] flex-shrink-0 mt-0.5" strokeWidth={1.5} />
-                        <p className="text-sm sm:text-base md:text-lg italic text-white/90 leading-relaxed line-clamp-3">
-                          {currentReview.quote}
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 mt-2 ml-7">
-                        <span className="text-xs text-[#9ca3af]">— {currentReview.reviewer}</span>
-                        <span className="text-[#9ca3af]/40">·</span>
-                        <div className="flex items-center gap-1">
-                          <Star className="w-3 h-3 text-[#D4A853] fill-[#D4A853]" strokeWidth={0} />
-                          <span className="text-xs font-semibold text-[#D4A853]">{currentReview.rating}/10</span>
-                        </div>
-                      </div>
-                    </motion.div>
-
                     {/* Movie title & meta */}
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
@@ -423,150 +378,64 @@ export default function HeroSection() {
             ))}
           </div>
         )}
-
-        {/* ═══════════════════════════════════════════════════════════
-            BATTLE OF THE DAY WIDGET (hidden on mobile)
-        ═══════════════════════════════════════════════════════════ */}
-        {!isLoading && movies.length > 0 && (
-          <div className="hidden md:block absolute bottom-6 right-6 lg:right-12 z-20">
-            {isBattleExpanded ? (
-              <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-4 w-[260px] shadow-2xl">
-                {/* Header */}
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-2">
-                    <Swords className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
-                    <span className="text-xs font-bold text-white uppercase tracking-wider">
-                      Battle of the Day
-                    </span>
-                  </div>
-                  <button
-                    onClick={() => setIsBattleExpanded(false)}
-                    className="text-white/40 hover:text-white/70 transition-colors text-xs"
-                    aria-label="Minimize battle widget"
-                  >
-                    ✕
-                  </button>
-                </div>
-
-                {/* Battle options */}
-                <div className="space-y-2">
-                  {/* Option 1 */}
-                  <button
-                    onClick={() => handleVote('1')}
-                    className="w-full flex items-center justify-between px-3 py-2 rounded-lg bg-white/5 hover:bg-[#D4A853]/20 border border-white/5 hover:border-[#D4A853]/30 transition-all duration-200 group"
-                  >
-                    <span className="text-sm font-medium text-white group-hover:text-[#D4A853] transition-colors truncate">
-                      {battleVotes.movie1}
-                    </span>
-                    <span className="text-xs font-bold text-[#D4A853] ml-2 tabular-nums">
-                      {battleVotes.votes1.toLocaleString()}
-                    </span>
-                  </button>
-
-                  {/* VS divider */}
-                  <div className="flex items-center gap-2 px-1">
-                    <div className="flex-1 h-px bg-white/10" />
-                    <span className="text-[10px] font-bold text-[#9ca3af] uppercase tracking-widest">VS</span>
-                    <div className="flex-1 h-px bg-white/10" />
-                  </div>
-
-                  {/* Option 2 */}
-                  <button
-                    onClick={() => handleVote('2')}
-                    className="w-full flex items-center justify-between px-3 py-2 rounded-lg bg-white/5 hover:bg-[#D4A853]/20 border border-white/5 hover:border-[#D4A853]/30 transition-all duration-200 group"
-                  >
-                    <span className="text-sm font-medium text-white group-hover:text-[#D4A853] transition-colors truncate">
-                      {battleVotes.movie2}
-                    </span>
-                    <span className="text-xs font-bold text-[#D4A853] ml-2 tabular-nums">
-                      {battleVotes.votes2.toLocaleString()}
-                    </span>
-                  </button>
-                </div>
-
-                {/* Vote bar */}
-                <div className="mt-3 h-1 bg-white/5 rounded-full overflow-hidden flex">
-                  <div
-                    className="h-full bg-[#D4A853] rounded-l-full transition-all duration-500"
-                    style={{
-                      width: `${(battleVotes.votes1 / (battleVotes.votes1 + battleVotes.votes2)) * 100}%`,
-                    }}
-                  />
-                  <div
-                    className="h-full bg-white/20 rounded-r-full transition-all duration-500"
-                    style={{
-                      width: `${(battleVotes.votes2 / (battleVotes.votes1 + battleVotes.votes2)) * 100}%`,
-                    }}
-                  />
-                </div>
-
-                {/* Total votes */}
-                <div className="flex items-center justify-center gap-1 mt-2">
-                  <TrendingUp className="w-3 h-3 text-[#9ca3af]" strokeWidth={1.5} />
-                  <span className="text-[10px] text-[#9ca3af]">
-                    {(battleVotes.votes1 + battleVotes.votes2).toLocaleString()} votes
-                  </span>
-                </div>
-              </div>
-            ) : (
-              /* Collapsed state - small icon */
-              <button
-                onClick={() => setIsBattleExpanded(true)}
-                className="flex items-center gap-2 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl px-3 py-2.5 shadow-2xl hover:bg-white/10 transition-all duration-200"
-                aria-label="Expand battle widget"
-              >
-                <Swords className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
-                <span className="text-xs font-bold text-white">Battle</span>
-              </button>
-            )}
-          </div>
-        )}
       </div>
 
       {/* ═══════════════════════════════════════════════════════════
-          TOP REVIEWERS ROW
+          TOP REVIEWERS ROW (real data from /api/communities/leaderboard)
       ═══════════════════════════════════════════════════════════ */}
-      <div className="bg-[#050507] py-4 border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          {/* Section header */}
-          <div className="flex items-center gap-2 mb-3">
-            <Award className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
-            <span className="text-xs font-bold text-white uppercase tracking-wider">
-              Top Reviewers of the Week
-            </span>
-          </div>
+      {topReviewers.length > 0 && (
+        <div className="bg-[#050507] py-4 border-b border-white/5">
+          <div className="max-w-7xl mx-auto px-6 lg:px-12">
+            {/* Section header */}
+            <div className="flex items-center gap-2 mb-3">
+              <Award className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
+              <span className="text-xs font-bold text-white uppercase tracking-wider">
+                Top Reviewers of the Week
+              </span>
+            </div>
 
-          {/* Horizontal scroll row - Instagram Stories style */}
-          <div className="flex items-center gap-4 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
-            {TOP_REVIEWERS.map((reviewer, idx) => (
-              <button
-                key={reviewer.name}
-                className="flex flex-col items-center gap-1.5 flex-shrink-0 group"
-                aria-label={`View ${reviewer.name}'s profile`}
-              >
-                {/* Avatar with gradient ring */}
-                <div className="relative">
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full p-[2px] bg-gradient-to-br from-[#D4A853] via-[#C4B5FD] to-[#D4A853] group-hover:shadow-lg group-hover:shadow-[#D4A853]/20 transition-shadow duration-300">
-                    <div className={`w-full h-full rounded-full ${AVATAR_COLORS[idx % AVATAR_COLORS.length]} flex items-center justify-center border-2 border-[#050507]`}>
-                      <span className="text-sm font-bold text-white">
-                        {getInitials(reviewer.name)}
-                      </span>
+            {/* Horizontal scroll row - Instagram Stories style */}
+            <div className="flex items-center gap-4 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+              {topReviewers.map((reviewer, idx) => (
+                <button
+                  key={reviewer.user_id || idx}
+                  className="flex flex-col items-center gap-1.5 flex-shrink-0 group"
+                  aria-label={`View ${reviewer.display_name}'s profile`}
+                >
+                  {/* Avatar with gradient ring */}
+                  <div className="relative">
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full p-[2px] bg-gradient-to-br from-[#D4A853] via-[#C4B5FD] to-[#D4A853] group-hover:shadow-lg group-hover:shadow-[#D4A853]/20 transition-shadow duration-300">
+                      <div className={`w-full h-full rounded-full ${AVATAR_COLORS[idx % AVATAR_COLORS.length]} flex items-center justify-center border-2 border-[#050507] overflow-hidden`}>
+                        {reviewer.avatar_url ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            src={reviewer.avatar_url}
+                            alt={reviewer.display_name}
+                            className="w-full h-full object-cover"
+                            onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
+                          />
+                        ) : (
+                          <span className="text-sm font-bold text-white">
+                            {getInitials(reviewer.display_name || '?')}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    {/* Review count badge */}
+                    <div className="absolute -bottom-1 -right-1 bg-[#D4A853] text-[10px] font-bold text-white rounded-full w-5 h-5 flex items-center justify-center border-2 border-[#050507]">
+                      {reviewer.review_count}
                     </div>
                   </div>
-                  {/* Review count badge */}
-                  <div className="absolute -bottom-1 -right-1 bg-[#D4A853] text-[10px] font-bold text-white rounded-full w-5 h-5 flex items-center justify-center border-2 border-[#050507]">
-                    {reviewer.reviews}
-                  </div>
-                </div>
-                {/* Name */}
-                <span className="text-[11px] text-[#9ca3af] group-hover:text-white transition-colors truncate max-w-[60px] sm:max-w-[72px]">
-                  {reviewer.name}
-                </span>
-              </button>
-            ))}
+                  {/* Name */}
+                  <span className="text-[11px] text-[#9ca3af] group-hover:text-white transition-colors truncate max-w-[60px] sm:max-w-[72px]">
+                    {reviewer.display_name}
+                  </span>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* ═══════════════════════════════════════════════════════════
           TAGLINE — "Discover Your Next Favourite Movie"

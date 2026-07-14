@@ -14,20 +14,18 @@ import {
   type MovieClub,
 } from '@/lib/community-storage';
 
-const ALL_COMMUNITIES = [
-  { id: 'horror-fans', name: 'Horror Fans', members: 1240, description: 'For lovers of horror and thriller films', type: 'Genre' },
-  { id: 'k-drama-club', name: 'K-Drama Club', members: 3420, description: 'Korean drama discussions and recommendations', type: 'Country' },
-  { id: 'nollywood-watchers', name: 'Nollywood Watchers', members: 890, description: 'Celebrating Nigerian cinema and Nollywood', type: 'Country' },
-  { id: 'nolan-fans', name: 'Christopher Nolan Fans', members: 2100, description: 'Everything about Nolan films and filmmaking', type: 'Creator' },
-  { id: 'anime-explorers', name: 'Anime Explorers', members: 5600, description: 'Anime recommendations, reviews, and discussions', type: 'Theme' },
-  { id: 'classic-cinema', name: 'Classic Cinema', members: 780, description: 'Pre-1970s cinema appreciation and discussion', type: 'Theme' },
-  { id: 'sci-fi-nerds', name: 'Sci-Fi Nerds', members: 3200, description: 'Exploring the final frontier of cinema', type: 'Genre' },
-  { id: 'indie-films', name: 'Indie Film Lovers', members: 1560, description: 'Independent and art-house cinema discussions', type: 'Theme' },
-];
+interface DashboardCommunity {
+  id: string;
+  name: string;
+  members: number;
+  description: string;
+  type: string;
+}
 
 export default function DashboardCommunitiesPage() {
   const { user, isAuthenticated } = useAuth();
   const [joinedIds, setJoinedIds] = useState<string[]>([]);
+  const [allCommunities, setAllCommunities] = useState<DashboardCommunity[]>([]);
   const [activeTab, setActiveTab] = useState<'joined' | 'discover' | 'achievements' | 'leaderboard'>('joined');
   const [upcomingClubs, setUpcomingClubs] = useState<MovieClub[]>([]);
 
@@ -35,6 +33,21 @@ export default function DashboardCommunitiesPage() {
     const ids = getJoinedCommunityIds();
     setJoinedIds(ids);
     setUpcomingClubs(getUpcomingMovieClubs(ids));
+    // Fetch real communities from Supabase
+    fetch('/api/communities')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data?.communities && Array.isArray(data.communities)) {
+          setAllCommunities(data.communities.map((c: any) => ({
+            id: c.id,
+            name: c.name,
+            members: c.members ?? 0,
+            description: c.description ?? '',
+            type: c.type ?? 'Theme',
+          })));
+        }
+      })
+      .catch(() => { /* non-critical */ });
   }, []);
 
   const toggleJoin = (id: string) => {
@@ -45,7 +58,7 @@ export default function DashboardCommunitiesPage() {
     saveJoinedCommunityIds(updated);
   };
 
-  const joinedCommunities = ALL_COMMUNITIES.filter(c => joinedIds.includes(c.id));
+  const joinedCommunities = allCommunities.filter(c => joinedIds.includes(c.id));
 
   if (!isAuthenticated) {
     return <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center"><p className="text-[#9ca3af]">Please sign in to view your communities.</p><Link href="/login" className="text-[#D4A853] hover:underline text-sm">Sign In</Link></div>;
@@ -175,7 +188,7 @@ export default function DashboardCommunitiesPage() {
       {activeTab === 'leaderboard' && (
         <div>
           {joinedIds.length > 0 ? (
-            <LeaderboardWidget communityId={joinedIds[0]} communityName={ALL_COMMUNITIES.find(c => c.id === joinedIds[0])?.name || ''} />
+            <LeaderboardWidget communityId={joinedIds[0]} communityName={allCommunities.find(c => c.id === joinedIds[0])?.name || ''} />
           ) : (
             <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-12 text-center">
               <Star className="w-12 h-12 text-[#2a2a35] mx-auto mb-4" strokeWidth={1.5} />
@@ -188,7 +201,7 @@ export default function DashboardCommunitiesPage() {
 
       {activeTab === 'discover' && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {ALL_COMMUNITIES.map((community) => {
+          {allCommunities.map((community) => {
             const isJoined = joinedIds.includes(community.id);
             return (
               <div key={community.id} className={`bg-[#0c0c10] border rounded-xl p-5 hover:border-[#3a3a45] transition-colors ${isJoined ? 'border-[#D4A853]/30' : 'border-[#1e1e28]'}`}>

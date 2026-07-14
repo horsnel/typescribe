@@ -86,7 +86,7 @@ export default function StreamPage() {
           <h1 className="text-4xl md:text-5xl font-extrabold mb-3">Watch Now</h1>
           <p className="text-[#9ca3af] text-base md:text-lg max-w-2xl">
             {movies.length > 0
-              ? `${movies.length} movies and shows from 14+ free streaming sources. No subscription required.`
+              ? 'Stream movies and shows from 14+ free streaming sources. No subscription required.'
               : 'Loading the catalog from 14+ streaming sources…'}
           </p>
         </div>

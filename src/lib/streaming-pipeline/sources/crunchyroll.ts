@@ -241,11 +241,11 @@ const CURATED_ANIME: StreamableMovie[] = [
 
 export async function fetchCrunchyrollMovies(): Promise<StreamableMovie[]> {
   const cacheKey = 'streaming-crunchyroll-movies';
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
 
   const movies = [...CURATED_ANIME];
-  setCached(cacheKey, movies, CACHE_TTL);
+  await setCached(cacheKey, movies, CACHE_TTL);
   return movies;
 }
 

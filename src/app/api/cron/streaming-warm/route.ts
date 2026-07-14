@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
 
   // 1. Clear stale streaming cache
   try {
-    const cleared = clearStreamingCache();
+    const cleared = await clearStreamingCache();
     results.push(`Cleared ${cleared} streaming cache entries`);
   } catch (err: any) {
     errors.push(`Cache clear failed: ${err.message}`);

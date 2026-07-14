@@ -210,12 +210,12 @@ function toStreamableMovie(anime: CuratedPDAnime): StreamableMovie {
 
 export async function fetchPublicDomainAnime(): Promise<StreamableMovie[]> {
   const cacheKey = 'streaming-pd-anime-movies';
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
 
   try {
     const movies = PD_ANIME_CATALOG.map(toStreamableMovie);
-    setCached(cacheKey, movies, CACHE_TTL);
+    await setCached(cacheKey, movies, CACHE_TTL);
     return movies;
   } catch (err) {
     console.warn('[StreamingPipeline:PublicDomainAnime] Error fetching movies:', err);
@@ -225,7 +225,7 @@ export async function fetchPublicDomainAnime(): Promise<StreamableMovie[]> {
 
 export async function searchPublicDomainAnime(query: string): Promise<StreamableMovie[]> {
   const cacheKey = `streaming-pd-anime-search:${query}`;
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
 
   try {
@@ -237,7 +237,7 @@ export async function searchPublicDomainAnime(query: string): Promise<Streamable
       })
       .map(toStreamableMovie);
 
-    setCached(cacheKey, results, CACHE_TTL);
+    await setCached(cacheKey, results, CACHE_TTL);
     return results;
   } catch (err) {
     console.warn('[StreamingPipeline:PublicDomainAnime] Search error:', err);

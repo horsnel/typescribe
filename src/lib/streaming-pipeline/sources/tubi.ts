@@ -114,7 +114,7 @@ function toStreamableMovie(video: TubiVideoResult): StreamableMovie {
  */
 export async function fetchTubiMovies(): Promise<StreamableMovie[]> {
   const cacheKey = 'streaming-tubi-movies';
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
 
   const movies: StreamableMovie[] = [];
@@ -155,7 +155,7 @@ export async function fetchTubiMovies(): Promise<StreamableMovie[]> {
     }
   }
 
-  setCached(cacheKey, movies, CACHE_TTL);
+  await setCached(cacheKey, movies, CACHE_TTL);
   return movies;
 }
 
@@ -166,7 +166,7 @@ export async function searchTubiMovies(query: string): Promise<StreamableMovie[]
   if (!query || query.trim().length < 2) return [];
 
   const cacheKey = `streaming-tubi-search:${query.toLowerCase().trim()}`;
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
 
   try {
@@ -199,7 +199,7 @@ export async function searchTubiMovies(query: string): Promise<StreamableMovie[]
       }
     }
 
-    setCached(cacheKey, movies, CACHE_TTL);
+    await setCached(cacheKey, movies, CACHE_TTL);
     return movies;
   } catch (err) {
     console.warn('[StreamingPipeline:Tubi] Search error:', err);

@@ -254,12 +254,12 @@ function toStreamableMovie(entry: IndieAnimationEntry): StreamableMovie {
  */
 export async function fetchIndieAnimationMovies(): Promise<StreamableMovie[]> {
   const cacheKey = 'streaming-indie-animation-movies';
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
 
   try {
     const movies = INDIE_ANIMATION_CATALOG.map(toStreamableMovie);
-    setCached(cacheKey, movies, CACHE_TTL);
+    await setCached(cacheKey, movies, CACHE_TTL);
     return movies;
   } catch (err) {
     console.warn('[StreamingPipeline:IndieAnimation] Error fetching movies:', err);
@@ -272,7 +272,7 @@ export async function fetchIndieAnimationMovies(): Promise<StreamableMovie[]> {
  */
 export async function searchIndieAnimationMovies(query: string): Promise<StreamableMovie[]> {
   const cacheKey = `streaming-indie-animation-search:${query}`;
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
 
   try {
@@ -284,7 +284,7 @@ export async function searchIndieAnimationMovies(query: string): Promise<Streama
       })
       .map(toStreamableMovie);
 
-    setCached(cacheKey, results, CACHE_TTL);
+    await setCached(cacheKey, results, CACHE_TTL);
     return results;
   } catch (err) {
     console.warn('[StreamingPipeline:IndieAnimation] Search error:', err);

@@ -496,7 +496,7 @@ async function fetchAllMovies(): Promise<StreamableMovie[]> {
  */
 export async function getStreamingCatalogFast(): Promise<StreamingCatalog> {
   const cacheKey = 'streaming-catalog-fast';
-  const cached = getCached<StreamingCatalog>(cacheKey);
+  const cached = await getCached<StreamingCatalog>(cacheKey);
   if (cached) return cached;
 
   const tier1 = fetchTier1Movies();
@@ -510,11 +510,11 @@ export async function getStreamingCatalogFast(): Promise<StreamingCatalog> {
     lastUpdated: new Date().toISOString(),
   };
 
-  setCached(cacheKey, catalog, CATALOG_CACHE_TTL);
+  await setCached(cacheKey, catalog, CATALOG_CACHE_TTL);
 
-  // Also cache individual movies
+  // Also cache individual movies (fire-and-forget)
   for (const movie of movies) {
-    setCached(`streaming-movie:${movie.id}`, movie, MOVIE_CACHE_TTL);
+    void setCached(`streaming-movie:${movie.id}`, movie, MOVIE_CACHE_TTL);
   }
 
   return catalog;
@@ -527,7 +527,7 @@ export async function getStreamingCatalogFast(): Promise<StreamingCatalog> {
  */
 export async function getStreamingCatalogFull(): Promise<StreamingCatalog> {
   const cacheKey = 'streaming-catalog-full';
-  const cached = getCached<StreamingCatalog>(cacheKey);
+  const cached = await getCached<StreamingCatalog>(cacheKey);
   if (cached) return cached;
 
   const movies = await fetchAllMovies();
@@ -539,14 +539,14 @@ export async function getStreamingCatalogFull(): Promise<StreamingCatalog> {
     lastUpdated: new Date().toISOString(),
   };
 
-  setCached(cacheKey, catalog, CATALOG_CACHE_TTL);
+  await setCached(cacheKey, catalog, CATALOG_CACHE_TTL);
 
   // Also update the fast cache with the full data
-  setCached('streaming-catalog-fast', catalog, CATALOG_CACHE_TTL);
+  await setCached('streaming-catalog-fast', catalog, CATALOG_CACHE_TTL);
 
   // Cache individual movies for fast lookups
   for (const movie of movies) {
-    setCached(`streaming-movie:${movie.id}`, movie, MOVIE_CACHE_TTL);
+    void setCached(`streaming-movie:${movie.id}`, movie, MOVIE_CACHE_TTL);
   }
 
   return catalog;
@@ -564,12 +564,12 @@ export async function getStreamingCatalogFull(): Promise<StreamingCatalog> {
 export async function getStreamingCatalog(): Promise<StreamingCatalog> {
   // Try full cache first
   const fullCacheKey = 'streaming-catalog-full';
-  const cached = getCached<StreamingCatalog>(fullCacheKey);
+  const cached = await getCached<StreamingCatalog>(fullCacheKey);
   if (cached) return cached;
 
   // Try fast cache
   const fastCacheKey = 'streaming-catalog-fast';
-  const fastCached = getCached<StreamingCatalog>(fastCacheKey);
+  const fastCached = await getCached<StreamingCatalog>(fastCacheKey);
   if (fastCached) return fastCached;
 
   // No cache — return seed data immediately and trigger background refresh
@@ -617,7 +617,7 @@ function triggerBackgroundRefresh(): void {
 export async function getStreamingMovie(id: string): Promise<StreamableMovie | null> {
   // Try cache first
   const cacheKey = `streaming-movie:${id}`;
-  const cached = getCached<StreamableMovie>(cacheKey);
+  const cached = await getCached<StreamableMovie>(cacheKey);
   if (cached) return cached;
 
   // Check seed data
@@ -629,7 +629,7 @@ export async function getStreamingMovie(id: string): Promise<StreamableMovie | n
   try {
     const fastMovie = await resolveMovieFromId(id);
     if (fastMovie) {
-      setCached(cacheKey, fastMovie, MOVIE_CACHE_TTL);
+      await setCached(cacheKey, fastMovie, MOVIE_CACHE_TTL);
       return fastMovie;
     }
   } catch (err) {
@@ -720,7 +720,7 @@ export async function searchStreamingMovies(query: string): Promise<StreamableMo
   if (!query || query.trim().length < 2) return [];
 
   const cacheKey = `streaming-search:${query.toLowerCase().trim()}`;
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
 
   const q = query.toLowerCase().trim();
@@ -778,7 +778,7 @@ export async function searchStreamingMovies(query: string): Promise<StreamableMo
     return b.rating - a.rating;
   });
 
-  setCached(cacheKey, results, SEARCH_CACHE_TTL);
+  await setCached(cacheKey, results, SEARCH_CACHE_TTL);
   return results;
 }
 
@@ -870,8 +870,8 @@ export function getStreamingPipelineStatus(): {
 /**
  * Clear all streaming pipeline cache.
  */
-export function clearStreamingCache(): number {
-  return clearAllCached();
+export async function clearStreamingCache(): Promise<number> {
+  return await clearAllCached();
 }
 
 /**
@@ -879,6 +879,6 @@ export function clearStreamingCache(): number {
  * Uses the full fetch (all tiers).
  */
 export async function refreshStreamingCatalog(): Promise<StreamingCatalog> {
-  clearAllCached();
+  await clearAllCached();
   return getStreamingCatalogFull();
 }

@@ -203,7 +203,7 @@ function toStreamableMovie(
  */
 export async function fetchBilibiliMovies(): Promise<StreamableMovie[]> {
   const cacheKey = 'streaming-bilibili-movies';
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
 
   const movies: StreamableMovie[] = [];
@@ -250,7 +250,7 @@ export async function fetchBilibiliMovies(): Promise<StreamableMovie[]> {
     }
   }
 
-  setCached(cacheKey, movies, CACHE_TTL);
+  await setCached(cacheKey, movies, CACHE_TTL);
   return movies;
 }
 
@@ -261,7 +261,7 @@ export async function searchBilibiliMovies(query: string): Promise<StreamableMov
   if (!query || query.trim().length < 2) return [];
 
   const cacheKey = `streaming-bilibili-search:${query.toLowerCase().trim()}`;
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
 
   try {
@@ -291,7 +291,7 @@ export async function searchBilibiliMovies(query: string): Promise<StreamableMov
         item.pubdate ?? 0,
       ));
 
-    setCached(cacheKey, movies, CACHE_TTL);
+    await setCached(cacheKey, movies, CACHE_TTL);
     return movies;
   } catch (err) {
     console.warn('[StreamingPipeline:Bilibili] Search error:', err);

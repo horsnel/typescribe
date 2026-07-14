@@ -123,7 +123,7 @@ function toStreamableMovie(
  */
 export async function fetchVimeoCCMovies(): Promise<StreamableMovie[]> {
   const cacheKey = 'streaming-vimeo-cc-movies';
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
 
   const movies: StreamableMovie[] = [];
@@ -165,7 +165,7 @@ export async function fetchVimeoCCMovies(): Promise<StreamableMovie[]> {
     }
   }
 
-  setCached(cacheKey, movies, CACHE_TTL);
+  await setCached(cacheKey, movies, CACHE_TTL);
   return movies;
 }
 
@@ -177,7 +177,7 @@ export async function searchVimeoCCMovies(query: string): Promise<StreamableMovi
   if (!query || query.trim().length < 2) return [];
 
   const cacheKey = `streaming-vimeo-cc-search:${query.toLowerCase().trim()}`;
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
 
   // Fetch all and filter locally
@@ -189,6 +189,6 @@ export async function searchVimeoCCMovies(query: string): Promise<StreamableMovi
     m.genres.some(g => g.toLowerCase().includes(q))
   );
 
-  setCached(cacheKey, results, CACHE_TTL);
+  await setCached(cacheKey, results, CACHE_TTL);
   return results;
 }

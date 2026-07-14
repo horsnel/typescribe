@@ -74,7 +74,7 @@ export default function TopRatedPage() {
               <Trophy className="w-8 h-8 text-[#D4A853]" strokeWidth={1.5} />
               <h1 className="text-3xl lg:text-4xl font-extrabold text-white">Top Rated Movies</h1>
             </div>
-            <p className="text-[#6b7280]">{filtered.length} movies ranked by overall rating</p>
+            <p className="text-[#6b7280]">Top-rated films across free sources, ranked by overall rating</p>
           </div>
           <div className="flex items-center gap-3">
             <div className="hidden sm:flex items-center border border-[#1e1e28] rounded-lg overflow-hidden">

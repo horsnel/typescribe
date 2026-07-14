@@ -171,7 +171,7 @@ export interface Genre {
   id: string;
   name: string;
   icon: string;
-  count: number;
+  count?: number;
 }
 
 export interface NewsItem {

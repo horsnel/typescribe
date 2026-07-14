@@ -14,7 +14,7 @@ const iconConfig: Record<string, { icon: React.ComponentType<{ className?: strin
   Film:   { icon: Film,   color: 'text-[#D4A853]', bg: 'bg-[#D4A853]/10' },
 };
 
-function GenreCard({ genre }: { genre: { id: string; name: string; icon: string; count: number } }) {
+function GenreCard({ genre }: { genre: { id: string; name: string; icon: string; count?: number } }) {
   const config = iconConfig[genre.icon] || iconConfig.Film;
   const IconComp = config.icon;
   return (
@@ -35,7 +35,7 @@ function GenreCard({ genre }: { genre: { id: string; name: string; icon: string;
       {/* Text */}
       <div className="flex flex-col min-w-0 relative z-10">
         <span className="text-[#f1f1f4] font-semibold text-sm truncate">{genre.name}</span>
-        <span className="text-[#6b7280] text-xs mt-0.5">{genre.count.toLocaleString()} movies</span>
+        <span className="text-[#6b7280] text-xs mt-0.5">Explore {genre.name.toLowerCase()} titles</span>
       </div>
 
       {/* Hover arrow */}

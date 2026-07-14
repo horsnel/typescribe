@@ -87,7 +87,7 @@ async function searchTmdb(title: string, year?: number): Promise<TmdbSearchResul
   if (!apiKey) return null;
 
   const cacheKey = `streaming-tmdb-search:${title}${year ? `-${year}` : ''}`;
-  const cached = getCached<TmdbSearchResult>(cacheKey);
+  const cached = await getCached<TmdbSearchResult>(cacheKey);
   if (cached) return cached;
 
   try {
@@ -105,7 +105,7 @@ async function searchTmdb(title: string, year?: number): Promise<TmdbSearchResul
     if (!data?.results?.length) return null;
 
     const bestMatch = data.results[0];
-    setCached(cacheKey, bestMatch, CACHE_TTL);
+    await setCached(cacheKey, bestMatch, CACHE_TTL);
     return bestMatch;
   } catch (err) {
     console.warn(`[StreamingPipeline:TMDB] Search error for "${title}":`, err);

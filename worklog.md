@@ -125,3 +125,57 @@ Stage Summary:
 - 2 local commits pushed to origin/main
 - Code is ready to deploy to Vercel
 - Production TODO before deploy: rotate Supabase service-role key (was in chat history), set ADMIN_PASSWORD + ADMIN_EMAILS + GEMINI_API_KEY env vars in Vercel, run /api/vibe-search/seed once to populate embeddings
+
+---
+Task ID: 5
+Agent: main
+Task: UI cleanup + dashboard reviews/diary + Supabase trigger + streaming cache migration
+
+Work Log:
+- Fixed vibe search broken images: updated `match_movies` SQL function to return `poster_path, overview, genres, release_date` (was only returning `movie_id, movie_title, similarity`). Migration: `scripts/migrate_match_movies_full.sql.py`. Also fixed vibe page link to use proper slug format (`<title>-<id>`) instead of just `movie_id`, added poster fallback for missing posters.
+- Made SearchOverlay (homepage search bar) pill-shaped: input row uses `rounded-full` (matches /vibe, /browse, /search bars), results dropdown uses `rounded-3xl`.
+- Removed all mock data:
+  - HeroSection.tsx: removed REVIEW_QUOTES, TOP_REVIEWERS, BATTLES arrays. Top Reviewers now fetched from new `/api/communities/leaderboard` endpoint. Battle of the Day widget removed entirely.
+  - lib/data.ts: removed hardcoded `count` field from genres, kept empty `movies/userReviews/newsItems/topRated` arrays as backwards-compat shims.
+  - CategoriesGrid.tsx: removed `{genre.count} movies` display, replaced with "Explore {genre} titles".
+  - api/communities/route.ts: removed MOCK_COMMUNITIES + MOCK_POSTS, replaced with Supabase-backed queries against `communities` and `posts` tables.
+  - community-storage.ts: removed 10-user mock seed (FilmBuff42, HorrorHound, etc.), getSmartRecommendations now reads from `typescribe_cached_communities` localStorage populated by the communities page.
+  - communities/page.tsx + dashboard/communities/page.tsx: removed local ALL_COMMUNITIES arrays, fetch from /api/communities.
+  - movie/[slug]/debates/page.tsx: removed generateMockDebates fallback — debates now start empty.
+  - api/anime/trending/route.ts: removed hardcoded `vote_count: 100000`, replaced with `a.members ?? 0`. Removed the entire mock anime fallback (Attack on Titan, Jujutsu Kaisen, etc.) — now returns empty list with proper empty-state.
+- Removed results/sources count displays from all pages:
+  - browse/page.tsx: removed "{N} titles found" + "titles available via free sources" indicator
+  - search/page.tsx: removed "{N} results for"
+  - category/[genre]/page.tsx: removed "{N} movies in this category" + "Total Movies" stat
+  - new-releases, upcoming, top-rated, stream, vibe, people pages: removed count-based copy
+- Dashboard UI for writing reviews + diary entries:
+  - Created `POST /api/reviews` and `POST /api/diary` route handlers using getCurrentProfile() + createReview/logDiary from db.ts.
+  - Created `GET /api/reviews` (movie-specific or user's own) and `GET /api/diary` (user's own).
+  - Created new `ReviewComposer` component with movie picker (debounced search via /api/search), 1-10 rating, headline, body, spoiler toggle. Works both with presetMovie (movie page) and standalone (dashboard).
+  - Created new `DiaryEntryForm` component with movie picker, watched_on date, rating, rewatch toggle, location, notes.
+  - Updated dashboard/reviews/page.tsx to fetch from /api/reviews + added "Write a Review" button that opens the composer inline.
+  - Created new dashboard/diary/page.tsx with "Log a Watch" button, stats grid, and month-grouped diary entries.
+  - Added "Watch Diary" link to dashboard sidebar (Calendar icon).
+- Supabase trigger for auto-enriching genres/release_year on insert:
+  - Migration: `scripts/migrate_genres_year_trigger.py`
+  - Created `lookup_movie_genres_year(integer)` helper function that queries `movie_embeddings` by movie_id and returns (genres, release_year parsed from release_date).
+  - Created `enrich_review_genres_year()` and `enrich_diary_genres_year()` BEFORE INSERT/UPDATE trigger functions.
+  - Attached triggers to `reviews` and `watch_diary` tables.
+  - Verified: `SELECT lookup_movie_genres_year(27205)` returns `(['Action', 'Science Fiction', 'Thriller'], 2010)` for Inception.
+- Streaming-pipeline cache migrated to Supabase pattern:
+  - Migration: `scripts/migrate_streaming_cache.py` — created `streaming_cache` table (mirrors `pipeline_cache` schema) with RLS enabled (anon SELECT, writes via service role).
+  - Updated `src/lib/streaming-pipeline/cache.ts` to 3-tier architecture: memory → Supabase → file. All public functions are now async.
+  - Updated all callers: `src/lib/streaming-pipeline/index.ts`, `src/app/api/streaming/catalog/route.ts`, `src/app/api/cron/streaming-warm/route.ts`, and 17 source files under `src/lib/streaming-pipeline/sources/` (patched in bulk via `scripts/patch_cache_calls_async.py`).
+- TypeScript compiles clean. ESLint passes on all new files (pre-existing React Compiler warnings on other files unchanged).
+
+Stage Summary:
+- 9 distinct user-facing + infrastructure improvements shipped in one batch:
+  1. Vibe search shows real movie posters (was broken — RPC function returned no poster_path)
+  2. Homepage search bar matches the pill-shaped design system
+  3. All mock data removed (HeroSection quotes/reviewers/battles, communities, debates, anime fallback, vote_count)
+  4. Results/sources count displays removed across 7 pages
+  5. Dashboard now has working "Write a Review" + "Log a Watch" UI backed by Supabase
+  6. New `/api/reviews` and `/api/diary` POST endpoints
+  7. New `/api/communities/leaderboard` endpoint (real review-count leaderboard)
+  8. Auto-enrichment trigger ensures new reviews/diary entries get genres + release_year even if the client doesn't pass them
+  9. Streaming-pipeline cache survives Vercel cold starts via new Supabase `streaming_cache` table

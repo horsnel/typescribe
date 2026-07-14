@@ -155,7 +155,7 @@ export default function UpcomingPage() {
               </div>
               <h1 className="text-3xl lg:text-4xl font-extrabold text-white">Upcoming</h1>
             </div>
-            <p className="text-[#6b7280]">{filtered.length} movies & series yet to be released</p>
+            <p className="text-[#6b7280]">Movies &amp; series coming soon to theaters and streaming</p>
           </div>
           <div className="flex items-center gap-3">
             <Button

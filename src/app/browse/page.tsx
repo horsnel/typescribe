@@ -191,8 +191,7 @@ export default function BrowsePage() {
           <div>
             <h1 className="text-3xl lg:text-4xl font-extrabold text-white mb-1">Discover</h1>
             <p className="text-[#6b7280]">
-              {filtered.length} title{filtered.length !== 1 ? 's' : ''} found
-              {filters.country !== 'all' && ` · ${getCountryLabel(filters.country, filters.format === 'tv' ? 'tv' : 'movie')}`}
+              {filters.country !== 'all' ? `Curated ${getCountryLabel(filters.country, filters.format === 'tv' ? 'tv' : 'movie')} cinema` : 'Browse trending titles across free sources'}
             </p>
           </div>
           <div className="flex items-center gap-3">
@@ -529,25 +528,6 @@ export default function BrowsePage() {
             </button>
           </div>
         )}
-
-        {/* ─── Data Freshness Indicator ─── */}
-        <div className="mb-6 flex items-center gap-2 bg-[#0c0c10] border border-[#1e1e28] rounded-lg px-4 py-2.5">
-          {fromAPI ? (
-            <>
-              <Sparkles className="w-4 h-4 text-emerald-400" strokeWidth={1.5} />
-              <p className="text-xs text-[#9ca3af]">
-                {totalResults.toLocaleString()} titles available via free sources
-              </p>
-            </>
-          ) : (
-            <>
-              <Sparkles className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
-              <p className="text-xs text-[#6b7280]">
-                Loading content from free sources...
-              </p>
-            </>
-          )}
-        </div>
 
         {/* ─── Loading State ─── */}
         {isLoading && (

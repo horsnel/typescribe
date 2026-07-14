@@ -208,58 +208,15 @@ export async function GET() {
       }
     }
 
-    // If all APIs fail, provide mock anime data with VERIFIED working image URLs
-    // NOTE: MAL CDN URLs can break over time; AniList CDN is more stable.
+    // If all upstream anime APIs (AniList, Jikan, MAL) are unavailable,
+    // return an empty list rather than fake mock entries. The UI shows
+    // a "No trending anime available right now" empty state.
     if (movies.length === 0) {
-      sources.push('Mock');
-      const mockAnime = [
-        { title: 'Attack on Titan: The Final Season', score: 9.0, year: 2024, genres: ['Action', 'Drama', 'Fantasy'], image: 'https://cdn.myanimelist.net/images/anime/1000/110531.jpg', studio: 'MAPPA', season: 'Winter 2024' },
-        { title: 'Jujutsu Kaisen Season 2', score: 8.7, year: 2023, genres: ['Action', 'Supernatural'], image: 'https://cdn.myanimelist.net/images/anime/1792/138022.jpg', studio: 'MAPPA', season: 'Summer 2023' },
-        { title: 'Demon Slayer: Hashira Training', score: 8.5, year: 2024, genres: ['Action', 'Fantasy'], image: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx166240-PBV7zukIHW7V.png', studio: 'Ufotable', season: 'Spring 2024' },
-        { title: 'Spy x Family Season 2', score: 8.4, year: 2023, genres: ['Action', 'Comedy'], image: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/b158927-lfO85WVguYgc.png', studio: 'WIT Studio', season: 'Fall 2023' },
-        { title: 'Frieren: Beyond Journey\'s End', score: 9.1, year: 2023, genres: ['Adventure', 'Fantasy', 'Drama'], image: 'https://cdn.myanimelist.net/images/anime/1015/138006.jpg', studio: 'Madhouse', season: 'Fall 2023' },
-        { title: 'Solo Leveling', score: 8.3, year: 2024, genres: ['Action', 'Fantasy'], image: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx151807-it355ZgzquUd.png', studio: 'A-1 Pictures', season: 'Winter 2024' },
-        { title: 'Chainsaw Man', score: 8.5, year: 2022, genres: ['Action', 'Horror'], image: 'https://cdn.myanimelist.net/images/anime/1806/126216.jpg', studio: 'MAPPA', season: 'Fall 2022' },
-        { title: 'One Punch Man', score: 8.0, year: 2015, genres: ['Action', 'Comedy'], image: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx21087-B5DHjqZ3kW4b.jpg', studio: 'Madhouse', season: 'Fall 2015' },
-      ];
-      for (const a of mockAnime) {
-        const id = a.title.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
-        movies.push({
-          id,
-          tmdb_id: 0,
-          slug: a.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
-          title: a.title,
-          original_title: '',
-          overview: `A ${a.genres.join('/')} anime by ${a.studio}. ${a.season} season.`,
-          release_date: `${a.year}-01-01`,
-          poster_path: a.image,
-          backdrop_path: '',
-          genres: a.genres.map((g: string, i: number) => ({ id: -(i + 1), name: g })),
-          runtime: 24,
-          vote_average: a.score / 10,
-          vote_count: 100000,
-          imdb_rating: '',
-          rotten_tomatoes: '',
-          metascore: '',
-          trailer_youtube_id: '',
-          news_headlines: [],
-          ai_review: '',
-          director: '',
-          cast: [],
-          tagline: '',
-          budget: 0,
-          revenue: 0,
-          original_language: 'ja',
-          origin_country: 'JP',
-          media_type: 'anime' as const,
-          production_companies: [a.studio],
-          status: 'Released',
-          created_at: new Date().toISOString(),
-          is_anime: true,
-          anime_studios: [a.studio],
-          anime_season: a.season,
-        });
-      }
+      return NextResponse.json({
+        movies: [],
+        sources,
+        totalResults: 0,
+      });
     }
 
     // Final safety net: filter out any entries with no poster image

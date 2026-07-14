@@ -106,7 +106,7 @@ function toStreamableMovie(item: PlexMediaItem): StreamableMovie {
  */
 export async function fetchPlexFreeMovies(): Promise<StreamableMovie[]> {
   const cacheKey = 'streaming-plex-free-movies';
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
 
   const movies: StreamableMovie[] = [];
@@ -151,7 +151,7 @@ export async function fetchPlexFreeMovies(): Promise<StreamableMovie[]> {
     }
   }
 
-  setCached(cacheKey, movies, CACHE_TTL);
+  await setCached(cacheKey, movies, CACHE_TTL);
   return movies;
 }
 
@@ -162,7 +162,7 @@ export async function searchPlexFreeMovies(query: string): Promise<StreamableMov
   if (!query || query.trim().length < 2) return [];
 
   const cacheKey = `streaming-plex-free-search:${query.toLowerCase().trim()}`;
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
 
   try {
@@ -186,7 +186,7 @@ export async function searchPlexFreeMovies(query: string): Promise<StreamableMov
       .filter(item => !item.leafCount) // Skip shows
       .map(item => toStreamableMovie(item));
 
-    setCached(cacheKey, movies, CACHE_TTL);
+    await setCached(cacheKey, movies, CACHE_TTL);
     return movies;
   } catch (err) {
     console.warn('[StreamingPipeline:PlexFree] Search error:', err);

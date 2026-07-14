@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Search, X, Film, MessageSquare, Newspaper, Loader2 } from 'lucide-react';
-import { movies, userReviews, newsItems } from '@/lib/data';
 
 interface SearchOverlayProps { isOpen: boolean; onClose: () => void; }
 interface SearchResult { type: 'movie' | 'review' | 'news'; id: number; title: string; subtitle: string; image?: string; slug?: string; url?: string; }
@@ -22,54 +21,26 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
     return () => clearTimeout(timer);
   }, [query]);
 
-  // Search both local mock data AND the API
+  // Live API search — no local mock data
   useEffect(() => {
     if (!debouncedQuery.trim()) { setResults([]); setSelectedIndex(-1); return; }
 
-    const q = debouncedQuery.toLowerCase();
-
-    // Local mock results (instant)
-    const movieResults: SearchResult[] = movies.filter((m) =>
-      m.title.toLowerCase().includes(q) || m.genres.some((g) => g.name.toLowerCase().includes(q)) || m.director.toLowerCase().includes(q)
-    ).slice(0, 5).map((m) => ({
-      type: 'movie' as const, id: m.id, title: m.title,
-      subtitle: `${m.release_date.split('-')[0]} · ${m.genres.map((g) => g.name).join(', ')}`,
-      image: m.poster_path, slug: m.slug,
-    }));
-
-    const reviewResults: SearchResult[] = userReviews.filter((r) =>
-      r.text.toLowerCase().includes(q) || r.user_name.toLowerCase().includes(q)
-    ).slice(0, 3).map((r) => {
-      const movie = movies.find((m) => m.id === r.movie_id);
-      return { type: 'review' as const, id: r.id, title: r.user_name, subtitle: `Review of ${movie?.title || 'Unknown'} · ${r.rating}/10`, image: r.user_avatar, slug: movie?.slug };
-    });
-
-    const newsResults: SearchResult[] = newsItems.filter((n) =>
-      n.title.toLowerCase().includes(q) || n.excerpt.toLowerCase().includes(q)
-    ).slice(0, 3).map((n) => ({ type: 'news' as const, id: n.id, title: n.title, subtitle: `${n.source} · ${n.date}`, image: n.image, url: n.url }));
-
-    const localResults = [...movieResults, ...reviewResults, ...newsResults];
-    setResults(localResults);
+    setResults([]);
     setSelectedIndex(-1);
-
-    // Also search the API for more results
     setIsSearching(true);
     fetch(`/api/search?q=${encodeURIComponent(debouncedQuery)}`)
       .then(res => res.ok ? res.json() : null)
       .then(data => {
         if (data?.results?.length) {
-          const apiResults: SearchResult[] = data.results.slice(0, 8).map((m: any) => ({
+          const apiResults: SearchResult[] = data.results.slice(0, 12).map((m: any) => ({
             type: 'movie' as const,
             id: m.id || m.tmdb_id,
             title: m.title,
-            subtitle: `${m.release_date?.split('-')[0] || ''} · ${(m.genres || []).map((g: any) => g.name || g).join(', ')}`,
+            subtitle: `${m.release_date?.split('-')[0] || ''} · ${(m.genres || []).map((g: any) => g.name || g).join(', ')}`.trim().replace(/^·\s|·\s$/g, ''),
             image: m.poster_path ? (m.poster_path.startsWith('http') ? m.poster_path : `https://image.tmdb.org/t/p/w92${m.poster_path}`) : undefined,
             slug: m.slug,
           }));
-          // Merge: prioritize API results, remove duplicates
-          const existingTitles = new Set(localResults.map(r => r.title.toLowerCase()));
-          const newApiResults = apiResults.filter(r => !existingTitles.has(r.title.toLowerCase()));
-          setResults([...localResults, ...newApiResults]);
+          setResults(apiResults);
         }
       })
       .catch(() => {})
@@ -124,19 +95,22 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
   return (
     <div className="fixed inset-0 z-[60] bg-[#050507]/90 backdrop-blur-md flex items-start justify-center pt-24 px-4">
       <div className="w-full max-w-2xl">
-        <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-2xl shadow-2xl overflow-hidden">
-          <div className="flex items-center gap-3 px-5 py-4 border-b border-[#1e1e28]">
-            <Search className="w-5 h-5 text-[#D4A853] flex-shrink-0" strokeWidth={1.5} />
-            <input ref={inputRef} type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search movies, anime, reviews, news..." className="flex-1 bg-transparent text-white placeholder:text-[#6b7280] focus:outline-none text-lg rounded-full" />
-            {isSearching && <Loader2 className="w-4 h-4 animate-spin text-[#D4A853]" strokeWidth={1.5} />}
-            {query && !isSearching && (
-              <button onClick={() => setQuery('')} className="p-1.5 text-[#6b7280] hover:text-white hover:bg-white/10 rounded-full transition-colors" aria-label="Clear search">
-                <X className="w-4 h-4" strokeWidth={2} />
-              </button>
-            )}
-            <button onClick={onClose} className="p-1.5 text-[#6b7280] hover:text-white hover:bg-white/10 rounded-full transition-colors" aria-label="Close search"><X className="w-5 h-5" strokeWidth={1.5} /></button>
-          </div>
-          {debouncedQuery && (
+        {/* ─── Pill-shaped search input (matches /vibe, /browse, /search bars) ─── */}
+        <div className="flex items-center gap-3 px-5 py-3 bg-[#0c0c10] border border-[#1e1e28] rounded-full shadow-2xl focus-within:border-[#D4A853]/50 transition-colors">
+          <Search className="w-5 h-5 text-[#D4A853] flex-shrink-0" strokeWidth={1.5} />
+          <input ref={inputRef} type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search movies, anime, reviews, news..." className="flex-1 bg-transparent text-white placeholder:text-[#6b7280] focus:outline-none text-lg" />
+          {isSearching && <Loader2 className="w-4 h-4 animate-spin text-[#D4A853]" strokeWidth={1.5} />}
+          {query && !isSearching && (
+            <button onClick={() => setQuery('')} className="p-1.5 text-[#6b7280] hover:text-white hover:bg-white/10 rounded-full transition-colors" aria-label="Clear search">
+              <X className="w-4 h-4" strokeWidth={2} />
+            </button>
+          )}
+          <button onClick={onClose} className="p-1.5 text-[#6b7280] hover:text-white hover:bg-white/10 rounded-full transition-colors" aria-label="Close search"><X className="w-5 h-5" strokeWidth={1.5} /></button>
+        </div>
+
+        {/* ─── Results dropdown (separate panel below the pill) ─── */}
+        {debouncedQuery && (
+          <div className="mt-2 bg-[#0c0c10] border border-[#1e1e28] rounded-3xl shadow-2xl overflow-hidden">
             <div className="max-h-96 overflow-y-auto">
               {results.length === 0 && !isSearching ? (
                 <div className="px-5 py-10 text-center"><p className="text-[#9ca3af]">No results for &ldquo;{debouncedQuery}&rdquo;</p><p className="text-xs text-[#6b7280] mt-1">Try a different search term</p></div>
@@ -191,8 +165,8 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                 </div>
               </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

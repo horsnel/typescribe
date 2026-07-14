@@ -184,7 +184,7 @@ function toStreamableMovie(movie: TMDbMovieResult, countryCode: string, countryN
  */
 export async function discoverMoviesByCountry(countryCode: string, page: number = 1): Promise<StreamableMovie[]> {
   const cacheKey = `streaming-tmdb-country-${countryCode}-${page}`;
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
   
   const apiKey = getApiKey();
@@ -213,7 +213,7 @@ export async function discoverMoviesByCountry(countryCode: string, page: number 
       .slice(0, 20)
       .map(m => toStreamableMovie(m, countryCode, countryName, false));
     
-    setCached(cacheKey, movies, CACHE_TTL);
+    await setCached(cacheKey, movies, CACHE_TTL);
     return movies;
   } catch (err) {
     console.warn(`[StreamingPipeline:TMDbDiscover] Error discovering ${countryCode} movies:`, err);
@@ -227,7 +227,7 @@ export async function discoverMoviesByCountry(countryCode: string, page: number 
  */
 export async function discoverAllCountries(): Promise<StreamableMovie[]> {
   const cacheKey = 'streaming-tmdb-all-countries';
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
   
   const allMovies: StreamableMovie[] = [];
@@ -261,7 +261,7 @@ export async function discoverAllCountries(): Promise<StreamableMovie[]> {
     console.warn('[StreamingPipeline:TMDbDiscover] Country discovery errors:', errors.join('; '));
   }
   
-  setCached(cacheKey, allMovies, CACHE_TTL);
+  await setCached(cacheKey, allMovies, CACHE_TTL);
   return allMovies;
 }
 

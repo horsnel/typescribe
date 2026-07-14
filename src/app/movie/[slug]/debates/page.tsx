@@ -37,84 +37,11 @@ interface DebatesData {
   debates: Debate[];
 }
 
-// ─── Mock data generator ───
-function generateMockDebates(movieSlug: string, movieTitle: string): Debate[] {
-  const mockDebates: Debate[] = [
-    {
-      id: 1,
-      movieSlug,
-      proposition: `The ending of ${movieTitle} was perfect`,
-      author: 'FilmBuff42',
-      createdAt: new Date(Date.now() - 86400000 * 3).toISOString(),
-      arguments: [
-        {
-          id: 101, side: 'defending', author: 'CinemaLover',
-          text: 'The ending perfectly encapsulated the themes of the entire film. It was earned, emotional, and left you thinking long after the credits rolled.',
-          upvotes: 14, downvotes: 3, createdAt: new Date(Date.now() - 86400000 * 2).toISOString(), userVoted: null,
-        },
-        {
-          id: 102, side: 'challenging', author: 'CriticalEye',
-          text: 'The ending felt rushed and unearned. After all that buildup, it resolved things too neatly and undermined the complexity of the story.',
-          upvotes: 11, downvotes: 5, createdAt: new Date(Date.now() - 86400000 * 2).toISOString(), userVoted: null,
-        },
-        {
-          id: 103, side: 'defending', author: 'MovieNerd99',
-          text: 'People who disliked the ending missed the subtle foreshadowing throughout. Go back and watch the first act again — it was always heading here.',
-          upvotes: 8, downvotes: 2, createdAt: new Date(Date.now() - 86400000).toISOString(), userVoted: null,
-        },
-      ],
-    },
-    {
-      id: 2,
-      movieSlug,
-      proposition: `${movieTitle} is the director's best work`,
-      author: 'DirectorFan',
-      createdAt: new Date(Date.now() - 86400000 * 5).toISOString(),
-      arguments: [
-        {
-          id: 201, side: 'defending', author: 'ArtHouseFan',
-          text: 'The visual storytelling alone puts this above everything else in their filmography. Every shot is meticulously composed and serves the narrative.',
-          upvotes: 9, downvotes: 1, createdAt: new Date(Date.now() - 86400000 * 4).toISOString(), userVoted: null,
-        },
-        {
-          id: 202, side: 'challenging', author: 'ClassicFilmLover',
-          text: 'Their earlier films had more raw energy and creative risk-taking. This feels like a polished, safer version of their signature style.',
-          upvotes: 7, downvotes: 3, createdAt: new Date(Date.now() - 86400000 * 3).toISOString(), userVoted: null,
-        },
-      ],
-    },
-    {
-      id: 3,
-      movieSlug,
-      proposition: `The lead performance in ${movieTitle} is overrated`,
-      author: 'ActingCritic',
-      createdAt: new Date(Date.now() - 86400000 * 7).toISOString(),
-      arguments: [
-        {
-          id: 301, side: 'challenging', author: 'PerformanceBuff',
-          text: 'The subtlety of the performance is what makes it great. It is not showy or Oscar-bait — it is genuinely lived-in and authentic.',
-          upvotes: 16, downvotes: 4, createdAt: new Date(Date.now() - 86400000 * 6).toISOString(), userVoted: null,
-        },
-        {
-          id: 302, side: 'defending', author: 'SkepticalViewer',
-          text: 'People confuse stoic silence with depth. There were moments that called for more emotional range and we got the same expression throughout.',
-          upvotes: 12, downvotes: 6, createdAt: new Date(Date.now() - 86400000 * 5).toISOString(), userVoted: null,
-        },
-        {
-          id: 303, side: 'challenging', author: 'TheatreGeek',
-          text: 'Watch the scene where they break down in the third act. That level of emotional vulnerability is incredibly hard to pull off convincingly.',
-          upvotes: 10, downvotes: 2, createdAt: new Date(Date.now() - 86400000 * 4).toISOString(), userVoted: null,
-        },
-        {
-          id: 304, side: 'defending', author: 'HonestReviewer',
-          text: 'The supporting cast carried every scene they were in. The lead was adequate but not the standout everyone claims.',
-          upvotes: 6, downvotes: 3, createdAt: new Date(Date.now() - 86400000 * 3).toISOString(), userVoted: null,
-        },
-      ],
-    },
-  ];
-  return mockDebates;
-}
+// Note: previously this file generated fake mock debates (FilmBuff42,
+// CinemaLover, CriticalEye, etc.) when no real debates existed in
+// localStorage. That code was removed because it produced misleading
+// fake activity on every movie page. Debates now start empty — users
+// see a "no debates yet" empty state until they create their own.
 
 // ─── Time ago helper ───
 function timeAgo(dateStr: string): string {
@@ -162,7 +89,7 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
       .catch(() => setMovie(getMovieBySlug(slug)));
   }, [slug]);
 
-  // Load debates from localStorage
+  // Load debates from localStorage (real user-created debates only — no mock fallback)
   useEffect(() => {
     try {
       const data = localStorage.getItem('typescribe_debates');
@@ -171,36 +98,12 @@ export default function DebatesPage({ params }: { params: Promise<{ slug: string
         const movieDebates = parsed.debates.filter(d => d.movieSlug === slug);
         setDebates(movieDebates);
       } else {
-        // Generate mock debates if none exist
-        const movieTitle = movie?.title || slug.replace(/-/g, ' ');
-        const mockDebates = generateMockDebates(slug, movieTitle);
-        setDebates(mockDebates);
-        saveDebates(mockDebates);
-
-        // Auto-link mock debates to relevant communities
-        if (movie?.genres) {
-          const relevantCommunityIds = getCommunitiesForGenres(movie.genres);
-          for (const debate of mockDebates) {
-            for (const communityId of relevantCommunityIds) {
-              addDebateToCommunity({
-                communityId,
-                movieSlug: slug,
-                movieTitle,
-                proposition: debate.proposition,
-                author: debate.author,
-                defending: debate.arguments.filter(a => a.side === 'defending').length,
-                challenging: debate.arguments.filter(a => a.side === 'challenging').length,
-                createdAt: debate.createdAt,
-              });
-            }
-          }
-        }
+        // No debates yet — start empty. Users see the empty state and can
+        // create their own.
+        setDebates([]);
       }
     } catch {
-      const movieTitle = movie?.title || slug.replace(/-/g, ' ');
-      const mockDebates = generateMockDebates(slug, movieTitle);
-      setDebates(mockDebates);
-      saveDebates(mockDebates);
+      setDebates([]);
     }
   }, [slug, movie]);
 

@@ -224,29 +224,25 @@ export interface MockUser {
   createdCommunities: string[];
 }
 
+// NOTE: Previously this module seeded a `typescribe_mock_users` localStorage
+// key with 10 fake users (FilmBuff42, HorrorHound, CinePhreak, etc.) with
+// hardcoded review counts and bios. That mock seed was removed because it
+// produced fake activity all over the site (community creators, post authors,
+// leaderboard entries). Real user data should come from /api/communities/
+// leaderboard and /api/profile/[id] instead.
+//
+// The helpers below are kept as no-op stubs because some legacy components
+// still import them. They always return empty arrays / undefined so callers
+// fall through to API-backed paths.
 const MOCK_USERS_DB_KEY = 'typescribe_mock_users';
 
 export function getMockUsers(): MockUser[] {
   try {
+    // If a user previously saved mock users locally, keep returning them so
+    // their UI doesn't break — but never seed new defaults.
     const data = localStorage.getItem(MOCK_USERS_DB_KEY);
-    if (data) return JSON.parse(data);
-  } catch { /* ignore */ }
-
-  // Initialize with default mock users
-  const defaults: MockUser[] = [
-    { id: 201, display_name: 'FilmBuff42', avatar: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Felix', bio: 'Horror aficionado and indie film lover. Always hunting for the next great scare.', favorite_genres: ['Horror', 'Thriller', 'Indie'], created_at: '2024-01-15T00:00:00Z', reviewCount: 47, isCreator: true, createdCommunities: ['horror-fans'] },
-    { id: 202, display_name: 'HorrorHound', avatar: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Buster', bio: 'If it goes bump in the night, I want to watch it. Horror director specialist.', favorite_genres: ['Horror', 'Mystery'], created_at: '2024-03-10T00:00:00Z', reviewCount: 23, isCreator: false, createdCommunities: [] },
-    { id: 203, display_name: 'CinePhreak', avatar: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Duke', bio: 'Film history nerd. Pre-70s cinema is my playground.', favorite_genres: ['Classic', 'Drama'], created_at: '2024-05-22T00:00:00Z', reviewCount: 31, isCreator: false, createdCommunities: [] },
-    { id: 204, display_name: 'DramaQueen', avatar: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Aneka', bio: 'K-drama addict since 2019. My watchlist is never empty.', favorite_genres: ['Drama', 'Romance'], created_at: '2024-02-14T00:00:00Z', reviewCount: 56, isCreator: true, createdCommunities: ['k-drama-club'] },
-    { id: 205, display_name: 'SeoulSister', avatar: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Luna', bio: 'Plot-driven drama enthusiast. No patience for filler episodes.', favorite_genres: ['Drama', 'Action'], created_at: '2024-04-08T00:00:00Z', reviewCount: 19, isCreator: false, createdCommunities: [] },
-    { id: 206, display_name: 'OtakuPrime', avatar: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Jasper', bio: 'Seasonal anime tracker. Currently watching 14 shows simultaneously.', favorite_genres: ['Anime', 'Sci-Fi'], created_at: '2023-11-01T00:00:00Z', reviewCount: 89, isCreator: true, createdCommunities: ['anime-explorers'] },
-    { id: 207, display_name: 'MangaFan99', avatar: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Midnight', bio: 'Read the manga first, watch the anime second. Always.', favorite_genres: ['Anime', 'Fantasy'], created_at: '2024-06-20T00:00:00Z', reviewCount: 34, isCreator: false, createdCommunities: [] },
-    { id: 208, display_name: 'Nolanite', avatar: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Shadow', bio: 'Christopher Nolan is the GOAT. The Prestige > Inception. Fight me.', favorite_genres: ['Sci-Fi', 'Thriller'], created_at: '2024-01-05T00:00:00Z', reviewCount: 42, isCreator: true, createdCommunities: ['nolan-fans'] },
-    { id: 209, display_name: 'SpaceNerd', avatar: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Simba', bio: 'Space operas and hard sci-fi are my bread and butter.', favorite_genres: ['Sci-Fi', 'Adventure'], created_at: '2024-02-14T00:00:00Z', reviewCount: 28, isCreator: false, createdCommunities: [] },
-    { id: 210, display_name: 'IndieLover', avatar: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Zoe', bio: 'A24 is a lifestyle. Moonlight changed my life.', favorite_genres: ['Indie', 'Drama'], created_at: '2024-01-15T00:00:00Z', reviewCount: 67, isCreator: true, createdCommunities: ['a24-appreciation'] },
-  ];
-  localStorage.setItem(MOCK_USERS_DB_KEY, JSON.stringify(defaults));
-  return defaults;
+    return data ? JSON.parse(data) : [];
+  } catch { return []; }
 }
 
 export function getMockUserById(id: number): MockUser | undefined {
@@ -1382,41 +1378,52 @@ export interface CommunityRecommendation {
 }
 
 export function getSmartRecommendations(userGenres: string[], joinedCommunityIds: string[]): CommunityRecommendation[] {
-  const allCommunities = [
-    { id: 'horror-fans', name: 'Horror Fans', genres: ['Horror', 'Thriller', 'Mystery'], members: 1240, type: 'Genre' },
-    { id: 'k-drama-club', name: 'K-Drama Club', genres: ['Drama', 'Romance'], members: 3420, type: 'Country' },
-    { id: 'nollywood-watchers', name: 'Nollywood Watchers', genres: ['Drama', 'Action', 'Comedy'], members: 890, type: 'Country' },
-    { id: 'nolan-fans', name: 'Christopher Nolan Fans', genres: ['Sci-Fi', 'Thriller', 'Mystery'], members: 2100, type: 'Creator' },
-    { id: 'anime-explorers', name: 'Anime Explorers', genres: ['Animation', 'Fantasy', 'Action'], members: 5600, type: 'Theme' },
-    { id: 'classic-cinema', name: 'Classic Cinema', genres: ['Drama', 'History', 'Romance'], members: 780, type: 'Theme' },
-    { id: 'scifi-universe', name: 'Sci-Fi Universe', genres: ['Science Fiction', 'Adventure', 'Fantasy'], members: 2800, type: 'Genre' },
-    { id: 'indie-film-lovers', name: 'Indie Film Lovers', genres: ['Drama', 'Comedy', 'Romance'], members: 950, type: 'Theme' },
-    { id: 'bollywood-beats', name: 'Bollywood Beats', genres: ['Romance', 'Music', 'Drama'], members: 1650, type: 'Country' },
-    { id: 'documentary-circle', name: 'Documentary Circle', genres: ['Documentary', 'History'], members: 620, type: 'Genre' },
-    { id: 'romance-fans', name: 'Romance Readers & Watchers', genres: ['Romance', 'Drama', 'Comedy'], members: 1100, type: 'Genre' },
-    { id: 'a24-appreciation', name: 'A24 Appreciation', genres: ['Drama', 'Horror', 'Indie'], members: 3400, type: 'Creator' },
-  ];
-  
+  // Previously this function had a hardcoded list of 12 fake communities
+  // (Horror Fans 1240 members, K-Drama Club 3420 members, etc.). The list
+  // was removed because it returned fake community data even when the
+  // Supabase `communities` table was empty.
+  //
+  // The recommendation algorithm is preserved, but it now operates on
+  // whatever communities the caller passes in via the cached localStorage
+  // `typescribe_cached_communities` key (populated by /api/communities
+  // callers). If no cached list exists, it returns [] — UI shows nothing
+  // rather than fake recommendations.
+  const allCommunities: Array<{ id: string; name: string; genres: string[]; members: number; type: string }> = (() => {
+    try {
+      const data = localStorage.getItem('typescribe_cached_communities');
+      if (!data) return [];
+      const parsed = JSON.parse(data);
+      if (!Array.isArray(parsed)) return [];
+      return parsed.map((c: any) => ({
+        id: c.id,
+        name: c.name,
+        genres: Array.isArray(c.primary_genres) ? c.primary_genres : (Array.isArray(c.genres) ? c.genres : []),
+        members: c.members ?? 0,
+        type: c.type ?? 'Theme',
+      }));
+    } catch { return []; }
+  })();
+
   const recommendations: CommunityRecommendation[] = [];
   const normalizedUserGenres = userGenres.map(g => g.toLowerCase());
-  
+
   for (const community of allCommunities) {
     const isJoined = joinedCommunityIds.includes(community.id);
     const normalizedCommGenres = community.genres.map(g => g.toLowerCase());
-    
+
     // Calculate match score
     const genreOverlap = community.genres.filter(g => normalizedUserGenres.includes(g.toLowerCase()));
     const overlapScore = genreOverlap.length / Math.max(1, new Set([...normalizedUserGenres, ...normalizedCommGenres]).size);
-    
+
     // Bonus: communities you haven't joined yet get a discovery bonus
     const discoveryBonus = isJoined ? 0 : 15;
     // Bonus: larger active communities
     const activityBonus = Math.min(10, community.members / 500);
     // Penalty: already joined
     const joinedPenalty = isJoined ? -30 : 0;
-    
+
     const matchScore = Math.max(5, Math.min(100, Math.round(overlapScore * 70 + discoveryBonus + activityBonus + joinedPenalty)));
-    
+
     // Generate reason
     let reason: string;
     if (genreOverlap.length >= 2) {
@@ -1428,7 +1435,7 @@ export function getSmartRecommendations(userGenres: string[], joinedCommunityIds
     } else {
       reason = `Step outside your comfort zone — discover something new.`;
     }
-    
+
     recommendations.push({
       communityId: community.id,
       communityName: community.name,

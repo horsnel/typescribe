@@ -112,7 +112,7 @@ function toStreamableMovie(item: PlutoTVItem): StreamableMovie {
  */
 export async function fetchPlutoTVMovies(): Promise<StreamableMovie[]> {
   const cacheKey = 'streaming-plutotv-movies';
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
 
   const movies: StreamableMovie[] = [];
@@ -190,7 +190,7 @@ export async function fetchPlutoTVMovies(): Promise<StreamableMovie[]> {
     console.warn('[StreamingPipeline:PlutoTV] Anime search error:', err);
   }
 
-  setCached(cacheKey, movies, CACHE_TTL);
+  await setCached(cacheKey, movies, CACHE_TTL);
   return movies;
 }
 
@@ -201,7 +201,7 @@ export async function searchPlutoTVMovies(query: string): Promise<StreamableMovi
   if (!query || query.trim().length < 2) return [];
 
   const cacheKey = `streaming-plutotv-search:${query.toLowerCase().trim()}`;
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
 
   try {
@@ -222,7 +222,7 @@ export async function searchPlutoTVMovies(query: string): Promise<StreamableMovi
       .filter(item => !item.episodeNumber && !item.seasonNumber)
       .map(item => toStreamableMovie(item));
 
-    setCached(cacheKey, movies, CACHE_TTL);
+    await setCached(cacheKey, movies, CACHE_TTL);
     return movies;
   } catch (err) {
     console.warn('[StreamingPipeline:PlutoTV] Search error:', err);

@@ -215,7 +215,7 @@ function toStreamableMovie(
  */
 export async function fetchYouTubeFreeMovies(category?: string): Promise<StreamableMovie[]> {
   const cacheKey = `streaming-youtube-movies${category ? `-${category}` : ''}`;
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
 
   const apiKey = getApiKey();
@@ -294,7 +294,7 @@ export async function fetchYouTubeFreeMovies(category?: string): Promise<Streama
     }
   }
 
-  setCached(cacheKey, movies, CACHE_TTL);
+  await setCached(cacheKey, movies, CACHE_TTL);
   return movies;
 }
 
@@ -303,7 +303,7 @@ export async function fetchYouTubeFreeMovies(category?: string): Promise<Streama
  */
 export async function searchYouTubeFreeMovie(query: string): Promise<StreamableMovie[]> {
   const cacheKey = `streaming-youtube-search:${query}`;
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
 
   const apiKey = getApiKey();
@@ -366,7 +366,7 @@ export async function searchYouTubeFreeMovie(query: string): Promise<StreamableM
         );
       });
 
-    setCached(cacheKey, movies, CACHE_TTL);
+    await setCached(cacheKey, movies, CACHE_TTL);
     return movies;
   } catch (err) {
     console.warn('[StreamingPipeline:YouTube] Search error:', err);
@@ -379,7 +379,7 @@ export async function searchYouTubeFreeMovie(query: string): Promise<StreamableM
  */
 export async function getYouTubeMovieDetails(videoId: string): Promise<StreamableMovie | null> {
   const cacheKey = `streaming-youtube-video:${videoId}`;
-  const cached = getCached<StreamableMovie>(cacheKey);
+  const cached = await getCached<StreamableMovie>(cacheKey);
   if (cached) return cached;
 
   const apiKey = getApiKey();
@@ -411,7 +411,7 @@ export async function getYouTubeMovieDetails(videoId: string): Promise<Streamabl
       durationSeconds,
     );
 
-    setCached(cacheKey, movie, CACHE_TTL);
+    await setCached(cacheKey, movie, CACHE_TTL);
     return movie;
   } catch (err) {
     console.warn('[StreamingPipeline:YouTube] Video detail error:', err);
@@ -432,7 +432,7 @@ export function getFreeMovieChannelNames(): string[] {
  */
 export async function fetchYouTubeAnime(): Promise<StreamableMovie[]> {
   const cacheKey = 'streaming-youtube-anime';
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
 
   const apiKey = getApiKey();
@@ -525,6 +525,6 @@ export async function fetchYouTubeAnime(): Promise<StreamableMovie[]> {
     }
   }
 
-  setCached(cacheKey, movies, CACHE_TTL);
+  await setCached(cacheKey, movies, CACHE_TTL);
   return movies;
 }

@@ -24,12 +24,14 @@ import {
   LogOut,
   Home,
   Film,
+  Calendar,
 } from 'lucide-react';
 import { openNotificationPanel } from '@/components/community/NotificationPanel';
 
 const sidebarLinks = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/dashboard/reviews', label: 'My Reviews', icon: PenSquare },
+  { href: '/dashboard/diary', label: 'Watch Diary', icon: Calendar },
   { href: '/dashboard/communities', label: 'My Communities', icon: Users },
   { href: '/dashboard/watchlist', label: 'Watchlist', icon: Bookmark },
   { href: '#notifications', label: 'Notifications', icon: Bell, isPanel: true as const },

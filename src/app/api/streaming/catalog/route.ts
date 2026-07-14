@@ -82,7 +82,7 @@ export async function GET(request: Request) {
     }
 
     // Determine if what we're returning is seed data
-    const fullCache = getCached<StreamingCatalog>('streaming-catalog-full');
+    const fullCache = await getCached<StreamingCatalog>('streaming-catalog-full');
     const isSeed = !fullCache;
 
     return NextResponse.json({

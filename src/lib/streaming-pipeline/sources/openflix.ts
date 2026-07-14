@@ -204,7 +204,7 @@ async function batchFetchVideoFiles(identifiers: string[]): Promise<Map<string, 
  */
 export async function fetchOpenflixMovies(): Promise<StreamableMovie[]> {
   const cacheKey = 'streaming-openflix-movies';
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
 
   const movies: StreamableMovie[] = [];
@@ -249,7 +249,7 @@ export async function fetchOpenflixMovies(): Promise<StreamableMovie[]> {
     }
   }
 
-  setCached(cacheKey, movies, CACHE_TTL);
+  await setCached(cacheKey, movies, CACHE_TTL);
   return movies;
 }
 
@@ -260,7 +260,7 @@ export async function searchOpenflixMovies(query: string): Promise<StreamableMov
   if (!query || query.trim().length < 2) return [];
 
   const cacheKey = `streaming-openflix-search:${query.toLowerCase().trim()}`;
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
 
   try {
@@ -291,7 +291,7 @@ export async function searchOpenflixMovies(query: string): Promise<StreamableMov
       return toStreamableMovie(doc, videoFileName);
     });
 
-    setCached(cacheKey, movies, CACHE_TTL);
+    await setCached(cacheKey, movies, CACHE_TTL);
     return movies;
   } catch (err) {
     console.warn('[StreamingPipeline:OpenFlix] Search error:', err);

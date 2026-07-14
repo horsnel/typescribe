@@ -114,7 +114,7 @@ export default function NewReleasesPage() {
             <div className="flex items-center gap-3 mb-2">
               <h1 className="text-3xl lg:text-4xl font-extrabold text-white">New Releases</h1>
             </div>
-            <p className="text-[#6b7280]">{filtered.length} movies released {timeLabels[timeFilter].toLowerCase()}</p>
+            <p className="text-[#6b7280]">Fresh releases from the {timeLabels[timeFilter].toLowerCase()}</p>
           </div>
           <div className="flex items-center gap-3">
             <Button

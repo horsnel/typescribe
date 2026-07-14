@@ -103,8 +103,8 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
 
   // Stats
   const avgRating = genreMovies.length > 0
-    ? (genreMovies.reduce((sum, m) => sum + m.vote_average, 0) / genreMovies.length).toFixed(1)
-    : '0';
+    ? Number((genreMovies.reduce((sum, m) => sum + m.vote_average, 0) / genreMovies.length).toFixed(1))
+    : 0;
   const newestMovie = genreMovies.length > 0
     ? [...genreMovies].sort((a, b) => new Date(b.release_date).getTime() - new Date(a.release_date).getTime())[0]
     : null;
@@ -141,30 +141,35 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
           </div>
           <div className="relative z-10">
             <h1 className="text-3xl lg:text-4xl font-extrabold text-white mb-2">{displayName} Movies</h1>
-            <p className="text-[#9ca3af] mb-6">{totalResults.toLocaleString()} movies in this category</p>
+            <p className="text-[#9ca3af] mb-6">Explore {displayName.toLowerCase()} titles from across free sources</p>
 
-            {/* Stats Row - horizontal inline */}
+            {/* Stats Row - horizontal inline (no fake counts; only show real derived stats when available) */}
             <div className="flex items-center gap-6 flex-wrap">
-              <div>
-                <span className="text-xs text-[#6b7280]">Total Movies</span>
-                <span className="text-sm font-bold text-white ml-2">{totalResults.toLocaleString()}</span>
-              </div>
-              <div className="h-4 w-px bg-white/10" />
-              <div className="flex items-center gap-1">
-                <span className="text-xs text-[#6b7280]">Avg Rating</span>
-                <Star className="w-3.5 h-3.5 text-[#D4A853] fill-[#D4A853] ml-2" strokeWidth={1.5} />
-                <span className="text-sm font-bold text-[#D4A853]">{avgRating}</span>
-              </div>
-              <div className="h-4 w-px bg-white/10" />
-              <div>
-                <span className="text-xs text-[#6b7280]">Highest rated</span>
-                <span className="text-sm font-bold text-white ml-2">{highestRated?.title || 'N/A'}</span>
-              </div>
-              <div className="h-4 w-px bg-white/10" />
-              <div>
-                <span className="text-xs text-[#6b7280]">Newest</span>
-                <span className="text-sm font-bold text-white ml-2">{newestMovie?.title || 'N/A'}</span>
-              </div>
+              {avgRating > 0 && (
+                <>
+                  <div className="flex items-center gap-1">
+                    <span className="text-xs text-[#6b7280]">Avg Rating</span>
+                    <Star className="w-3.5 h-3.5 text-[#D4A853] fill-[#D4A853] ml-2" strokeWidth={1.5} />
+                    <span className="text-sm font-bold text-[#D4A853]">{avgRating}</span>
+                  </div>
+                  <div className="h-4 w-px bg-white/10" />
+                </>
+              )}
+              {highestRated?.title && (
+                <>
+                  <div>
+                    <span className="text-xs text-[#6b7280]">Highest rated</span>
+                    <span className="text-sm font-bold text-white ml-2">{highestRated.title}</span>
+                  </div>
+                  <div className="h-4 w-px bg-white/10" />
+                </>
+              )}
+              {newestMovie?.title && (
+                <div>
+                  <span className="text-xs text-[#6b7280]">Newest</span>
+                  <span className="text-sm font-bold text-white ml-2">{newestMovie.title}</span>
+                </div>
+              )}
             </div>
           </div>
         </div>

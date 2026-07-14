@@ -202,12 +202,12 @@ function toStreamableMovie(entry: CrackleEntry): StreamableMovie {
  */
 export async function fetchCrackleMovies(): Promise<StreamableMovie[]> {
   const cacheKey = 'streaming-crackle-movies';
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
 
   try {
     const movies = CRACKLE_CATALOG.map(toStreamableMovie);
-    setCached(cacheKey, movies, CACHE_TTL);
+    await setCached(cacheKey, movies, CACHE_TTL);
     return movies;
   } catch (err) {
     console.warn('[StreamingPipeline:Crackle] Error fetching movies:', err);
@@ -220,7 +220,7 @@ export async function fetchCrackleMovies(): Promise<StreamableMovie[]> {
  */
 export async function searchCrackleMovies(query: string): Promise<StreamableMovie[]> {
   const cacheKey = `streaming-crackle-search:${query}`;
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
 
   try {
@@ -232,7 +232,7 @@ export async function searchCrackleMovies(query: string): Promise<StreamableMovi
       })
       .map(toStreamableMovie);
 
-    setCached(cacheKey, results, CACHE_TTL);
+    await setCached(cacheKey, results, CACHE_TTL);
     return results;
   } catch (err) {
     console.warn('[StreamingPipeline:Crackle] Search error:', err);

@@ -178,12 +178,12 @@ function toStreamableMovie(entry: CONtvEntry): StreamableMovie {
  */
 export async function fetchCONtvMovies(): Promise<StreamableMovie[]> {
   const cacheKey = 'streaming-contv-movies';
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
 
   try {
     const movies = CONTV_CATALOG.map(toStreamableMovie);
-    setCached(cacheKey, movies, CACHE_TTL);
+    await setCached(cacheKey, movies, CACHE_TTL);
     return movies;
   } catch (err) {
     console.warn('[StreamingPipeline:CONtv] Error fetching movies:', err);
@@ -196,7 +196,7 @@ export async function fetchCONtvMovies(): Promise<StreamableMovie[]> {
  */
 export async function searchCONtvMovies(query: string): Promise<StreamableMovie[]> {
   const cacheKey = `streaming-contv-search:${query}`;
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
 
   try {
@@ -208,7 +208,7 @@ export async function searchCONtvMovies(query: string): Promise<StreamableMovie[
       })
       .map(toStreamableMovie);
 
-    setCached(cacheKey, results, CACHE_TTL);
+    await setCached(cacheKey, results, CACHE_TTL);
     return results;
   } catch (err) {
     console.warn('[StreamingPipeline:CONtv] Search error:', err);

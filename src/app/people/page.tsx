@@ -178,20 +178,13 @@ function PeopleContent() {
           </div>
         </div>
 
-        {/* Results count */}
+        {/* Status indicator (no count shown to user) */}
         <div className="flex items-center justify-between mb-6">
-          <p className="text-sm text-[#6b7280]">
-            {loading ? (
-              <span className="flex items-center gap-2">
-                <Loader2 className="w-3.5 h-3.5 animate-spin" strokeWidth={1.5} /> Loading...
-              </span>
-            ) : (
-              <>
-                {people.length} {searchQuery ? 'search' : 'popular'} {people.length === 1 ? 'person' : 'people'}
-                {department !== 'all' && <span> in {department}</span>}
-              </>
-            )}
-          </p>
+          {loading && (
+            <p className="text-sm text-[#6b7280] flex items-center gap-2">
+              <Loader2 className="w-3.5 h-3.5 animate-spin" strokeWidth={1.5} /> Loading...
+            </p>
+          )}
           {!searchQuery && department === 'all' && (
             <span className="text-xs text-[#6b7280]">Page {page} of {totalPages}</span>
           )}

@@ -203,12 +203,12 @@ function toStreamableMovie(entry: RetroCrushEntry): StreamableMovie {
  */
 export async function fetchRetroCrushMovies(): Promise<StreamableMovie[]> {
   const cacheKey = 'streaming-retrocrush-movies';
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
 
   try {
     const movies = RETROCRUSH_CATALOG.map(toStreamableMovie);
-    setCached(cacheKey, movies, CACHE_TTL);
+    await setCached(cacheKey, movies, CACHE_TTL);
     return movies;
   } catch (err) {
     console.warn('[StreamingPipeline:RetroCrush] Error fetching movies:', err);
@@ -221,7 +221,7 @@ export async function fetchRetroCrushMovies(): Promise<StreamableMovie[]> {
  */
 export async function searchRetroCrushMovies(query: string): Promise<StreamableMovie[]> {
   const cacheKey = `streaming-retrocrush-search:${query}`;
-  const cached = getCached<StreamableMovie[]>(cacheKey);
+  const cached = await getCached<StreamableMovie[]>(cacheKey);
   if (cached) return cached;
 
   try {
@@ -233,7 +233,7 @@ export async function searchRetroCrushMovies(query: string): Promise<StreamableM
       })
       .map(toStreamableMovie);
 
-    setCached(cacheKey, results, CACHE_TTL);
+    await setCached(cacheKey, results, CACHE_TTL);
     return results;
   } catch (err) {
     console.warn('[StreamingPipeline:RetroCrush] Search error:', err);

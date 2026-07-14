@@ -164,19 +164,11 @@ function SearchContent() {
         {/* Results */}
         {q && (
           <>
-            <div className="flex items-center justify-between mb-4">
-              <p className="text-sm text-[#6b7280]">
-                {isSearching ? (
-                  <span className="flex items-center gap-2">
-                    <Loader2 className="w-3.5 h-3.5 animate-spin" strokeWidth={1.5} /> Searching...
-                  </span>
-                ) : (
-                  <>
-                    {totalResults} results for &ldquo;{query}&rdquo;
-                  </>
-                )}
-              </p>
-            </div>
+            {isSearching && (
+              <div className="flex items-center gap-2 mb-4 text-sm text-[#6b7280]">
+                <Loader2 className="w-3.5 h-3.5 animate-spin" strokeWidth={1.5} /> Searching for &ldquo;{query}&rdquo;...
+              </div>
+            )}
 
             <div className="flex gap-4 mb-6 border-b border-[#1e1e28]">
               {(['movies', 'people', 'reviews', 'news'] as Tab[]).map((t) => (
