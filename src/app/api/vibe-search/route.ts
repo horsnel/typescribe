@@ -15,7 +15,7 @@ async function embed(text: string): Promise<number[] | null> {
   if (!key) return null;
   try {
     const genAI = new GoogleGenerativeAI(key);
-    const model = genAI.getGenerativeModel({ model: 'embedding-001' });
+    const model = genAI.getGenerativeModel({ model: 'text-embedding-004' });
     const r = await model.embedContent(text);
     return r.embedding.values;
   } catch (e) {

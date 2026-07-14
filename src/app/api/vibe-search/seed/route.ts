@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'GEMINI_API_KEY not configured' }, { status: 500 });
   }
   const genAI = new GoogleGenerativeAI(key);
-  const model = genAI.getGenerativeModel({ model: 'embedding-001' });
+  const model = genAI.getGenerativeModel({ model: 'text-embedding-004' });
 
   const body = await req.json().catch(() => ({}));
   const movies = body.movies ?? POOL;
