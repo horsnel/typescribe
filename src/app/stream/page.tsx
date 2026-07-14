@@ -102,7 +102,7 @@ export default function StreamPage() {
               value={query}
               onChange={e => setQuery(e.target.value)}
               placeholder="Search titles, genres…"
-              className="w-full pl-10 pr-4 py-2.5 bg-[#0c0c10] border border-[#1e1e28] rounded-lg text-sm text-white placeholder:text-[#5b5b6b] focus:outline-none focus:border-[#D4A853]/50"
+              className="w-full pl-10 pr-4 py-2.5 bg-[#0c0c10] border border-[#1e1e28] rounded-full text-sm text-white placeholder:text-[#5b5b6b] focus:outline-none focus:border-[#D4A853]/50"
             />
           </div>
           <select

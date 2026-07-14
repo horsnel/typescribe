@@ -203,7 +203,7 @@ export default function BrowsePage() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search titles, directors..."
-                className="w-full sm:w-64 bg-[#0c0c10] border border-[#1e1e28] rounded-lg py-2.5 pl-10 pr-4 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853] text-sm"
+                className="w-full sm:w-64 bg-[#0c0c10] border border-[#1e1e28] rounded-full py-2.5 pl-10 pr-4 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853] text-sm"
               />
               {query && (
                 <button onClick={() => setQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6b7280] hover:text-white">

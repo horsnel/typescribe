@@ -64,12 +64,12 @@ export default function VibePage() {
             onChange={e => setQ(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && search()}
             placeholder="e.g. a slow-burn neo-noir with rain-soaked streets"
-            className="flex-1 px-4 py-3 bg-[#0c0c10] border border-[#1e1e28] rounded-lg text-sm text-white placeholder:text-[#5b5b6b] focus:outline-none focus:border-[#D4A853]/50"
+            className="flex-1 px-5 py-3 bg-[#0c0c10] border border-[#1e1e28] rounded-full text-sm text-white placeholder:text-[#5b5b6b] focus:outline-none focus:border-[#D4A853]/50"
           />
           <button
             onClick={search}
             disabled={loading}
-            className="px-5 py-3 bg-[#D4A853] text-black font-bold rounded-lg hover:bg-[#B8922F] transition flex items-center gap-2 disabled:opacity-30"
+            className="px-5 py-3 bg-[#D4A853] text-black font-bold rounded-full hover:bg-[#B8922F] transition flex items-center gap-2 disabled:opacity-30"
           >
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />}
             Search

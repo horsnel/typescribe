@@ -251,7 +251,7 @@ export default function CommunitiesPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search communities..."
-              className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-lg pl-10 pr-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853] min-h-[44px]"
+              className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-full pl-10 pr-4 py-2.5 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853] min-h-[44px]"
             />
           </div>
           <div className="flex items-center gap-2 overflow-x-auto pb-1">

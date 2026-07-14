@@ -155,7 +155,7 @@ function PeopleContent() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search actors, directors, producers..."
-              className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-lg py-2.5 pl-11 pr-4 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853] text-sm"
+              className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-full py-2.5 pl-11 pr-4 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853] text-sm"
             />
           </form>
 

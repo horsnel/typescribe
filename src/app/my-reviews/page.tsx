@@ -160,7 +160,7 @@ export default function MyReviewsPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search your reviews..."
-                className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-lg py-2 pl-10 pr-4 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853] text-sm"
+                className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-full py-2 pl-10 pr-4 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853] text-sm"
               />
             </div>
             <div className="flex gap-2">

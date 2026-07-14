@@ -100,7 +100,7 @@ function SearchContent() {
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => { if (e.key === 'Enter' && query.trim()) saveRecentSearch(query.trim()); }}
             placeholder="Search movies, reviews, news, actors, directors..."
-            className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-xl py-3.5 pl-12 pr-10 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853] text-lg"
+            className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-full py-3.5 pl-12 pr-10 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853] text-lg"
             autoFocus
           />
           {query && (

@@ -7,7 +7,7 @@ import { getPipelineHealthReport } from '@/lib/pipeline/core/health-monitor';
  */
 export async function GET() {
   try {
-    const report = getPipelineHealthReport();
+    const report = await getPipelineHealthReport();
     return NextResponse.json(report);
   } catch (error: any) {
     return NextResponse.json(
