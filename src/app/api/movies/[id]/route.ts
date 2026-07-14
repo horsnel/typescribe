@@ -32,7 +32,7 @@ export async function GET(
 
     // ── Check cache first ──
     const cacheKey = `tmdb:${tmdbId}`;
-    const cached = getCachedMovie(cacheKey);
+    const cached = await getCachedMovie(cacheKey);
 
     if (cached) {
       console.log(`[API /movies] Cache hit for tmdb:${tmdbId}`);
@@ -53,15 +53,15 @@ export async function GET(
 
     if (movie) {
       // Cache the TMDb result
-      setCachedMovie(cacheKey, movie, ['TMDb'], 30);
-      setCachedMovie(`slug:${movie.slug}`, movie, ['TMDb'], 30);
+      await setCachedMovie(cacheKey, movie, ['TMDb'], 30);
+      await setCachedMovie(`slug:${movie.slug}`, movie, ['TMDb'], 30);
 
       // Run full pipeline in background (fire-and-forget)
       const mediaType = movie.media_type as 'movie' | 'tv' | undefined;
-      getMovie(tmdbId, mediaType ? { mediaType } : {}).then(result => {
+      getMovie(tmdbId, mediaType ? { mediaType } : {}).then(async result => {
         if (result.completeness > 0 && result.movie.title) {
-          setCachedMovie(cacheKey, result.movie, result.sources, result.completeness);
-          setCachedMovie(`slug:${result.movie.slug}`, result.movie, result.sources, result.completeness);
+          await setCachedMovie(cacheKey, result.movie, result.sources, result.completeness);
+          await setCachedMovie(`slug:${result.movie.slug}`, result.movie, result.sources, result.completeness);
         }
       }).catch(() => {});
 

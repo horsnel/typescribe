@@ -12,8 +12,8 @@ import { invalidateCachedMovie } from '@/lib/pipeline/cache';
  */
 export async function GET() {
   try {
-    const stats = getCacheStats();
-    const cachedMovies = getAllCachedMovies();
+    const stats = await getCacheStats();
+    const cachedMovies = await getAllCachedMovies();
 
     return NextResponse.json({
       success: true,
@@ -38,8 +38,8 @@ export async function DELETE(request: NextRequest) {
     const key = searchParams.get('key');
 
     if (key) {
-      const removed = invalidateCachedMovie(key);
-      const stats = getCacheStats();
+      const removed = await invalidateCachedMovie(key);
+      const stats = await getCacheStats();
 
       return NextResponse.json({
         success: removed,
@@ -49,8 +49,8 @@ export async function DELETE(request: NextRequest) {
       });
     }
 
-    const cleared = clearAllCachedMovies();
-    const stats = getCacheStats();
+    const cleared = await clearAllCachedMovies();
+    const stats = await getCacheStats();
 
     return NextResponse.json({
       success: true,
@@ -72,8 +72,8 @@ export async function DELETE(request: NextRequest) {
  */
 export async function POST() {
   try {
-    const pruned = pruneCache();
-    const stats = getCacheStats();
+    const pruned = await pruneCache();
+    const stats = await getCacheStats();
 
     return NextResponse.json({
       success: true,

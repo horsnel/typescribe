@@ -39,7 +39,7 @@ export async function GET(
 
     // Step 1: Check if we already have a cached movie with AI review
     const cacheKey = `tmdb:${tmdbId}`;
-    const cached = getCachedMovie(cacheKey);
+    const cached = await getCachedMovie(cacheKey);
 
     if (cached?.movie?.ai_review) {
       return NextResponse.json({
@@ -115,7 +115,7 @@ export async function GET(
       if (model !== 'placeholder' && !sources.includes('Gemini')) {
         sources.push('Gemini');
       }
-      setCachedMovie(cacheKey, cached.movie, sources, cached.completeness);
+      await setCachedMovie(cacheKey, cached.movie, sources, cached.completeness);
     }
 
     return NextResponse.json({

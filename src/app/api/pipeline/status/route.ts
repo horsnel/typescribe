@@ -3,9 +3,9 @@ import { getPipelineStatus, getCacheStats, getAllCachedMovies } from '@/lib/pipe
 
 export async function GET() {
   try {
-    const status = getPipelineStatus();
-    const cache = getCacheStats();
-    const cachedMovies = getAllCachedMovies();
+    const status = await getPipelineStatus();
+    const cache = await getCacheStats();
+    const cachedMovies = await getAllCachedMovies();
 
     return NextResponse.json({
       status,

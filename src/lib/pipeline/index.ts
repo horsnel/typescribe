@@ -70,10 +70,10 @@ interface PipelineStatus {
 /**
  * Get the current pipeline status — which sources are configured, cache stats, etc.
  */
-export function getPipelineStatus(): PipelineStatus {
+export async function getPipelineStatus(): Promise<PipelineStatus> {
   const tmdbKey = process.env.TMDB_API_KEY || '';
   const omdbKey = process.env.OMDB_API_KEY || '';
-  const cacheStats = Cache.getCacheStats();
+  const cacheStats = await Cache.getCacheStats();
   const omdbStats = OMDb.getOmdbDailyStats();
   const sbStats = getScrapingBeeStats();
   const circuitStates = getAllCircuitStates();
@@ -144,7 +144,7 @@ export function getPipelineStatus(): PipelineStatus {
 export async function getMovie(tmdbId: number, config?: PipelineConfig): Promise<MergedMovieResult> {
   // Check cache
   const cacheKey = `tmdb:${tmdbId}`;
-  const cached = Cache.getCachedMovie(cacheKey);
+  const cached = await Cache.getCachedMovie(cacheKey);
   if (cached) {
     return {
       movie: cached.movie,
@@ -160,9 +160,9 @@ export async function getMovie(tmdbId: number, config?: PipelineConfig): Promise
 
   // Cache the result (only if we got useful data)
   if (result.completeness > 0) {
-    Cache.setCachedMovie(cacheKey, result.movie, result.sources, result.completeness);
+    await Cache.setCachedMovie(cacheKey, result.movie, result.sources, result.completeness);
     // Also cache by slug for slug-based lookups
-    Cache.setCachedMovie(`slug:${result.movie.slug}`, result.movie, result.sources, result.completeness);
+    await Cache.setCachedMovie(`slug:${result.movie.slug}`, result.movie, result.sources, result.completeness);
   }
 
   return result;
@@ -174,7 +174,7 @@ export async function getMovie(tmdbId: number, config?: PipelineConfig): Promise
 export async function getMovieBySlug(slug: string, config?: PipelineConfig): Promise<MergedMovieResult | null> {
   // Check cache by slug first
   const cacheKey = `slug:${slug}`;
-  const cached = Cache.getCachedMovie(cacheKey);
+  const cached = await Cache.getCachedMovie(cacheKey);
   if (cached) {
     return {
       movie: cached.movie,

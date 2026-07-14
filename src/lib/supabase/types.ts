@@ -44,6 +44,8 @@ export interface DiaryEntry {
   rewatch: boolean;
   location: string | null;
   notes: string | null;
+  genres: string[] | null;     // backfilled/enriched from movie_embeddings
+  release_year: number | null; // backfilled/enriched from movie_embeddings
   created_at: string;
 }
 
@@ -57,6 +59,8 @@ export interface Review {
   body: string;
   spoiler: boolean;
   helpful_count: number;
+  genres: string[] | null;     // backfilled/enriched from movie_embeddings
+  release_year: number | null; // backfilled/enriched from movie_embeddings
   created_at: string;
   updated_at: string;
   // joined

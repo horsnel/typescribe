@@ -162,7 +162,8 @@ export async function logDiary(
   userId: string,
   entry: { movie_id: number; movie_title: string; poster_path?: string | null;
            watched_on?: string; rating?: number | null; rewatch?: boolean;
-           location?: string | null; notes?: string | null },
+           location?: string | null; notes?: string | null;
+           genres?: string[] | null; release_year?: number | null },
 ): Promise<DiaryEntry | null> {
   const { data } = await supabaseAdmin
     .from('watch_diary')
@@ -213,7 +214,8 @@ export async function getReviewCount(userId: string): Promise<number> {
 export async function createReview(
   userId: string,
   review: { movie_id: number; movie_title: string; rating: number;
-            title?: string; body?: string; spoiler?: boolean },
+            title?: string; body?: string; spoiler?: boolean;
+            genres?: string[] | null; release_year?: number | null },
 ): Promise<Review | null> {
   const { data } = await supabaseAdmin
     .from('reviews')

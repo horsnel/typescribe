@@ -4,20 +4,29 @@ import { pruneCache, getCacheStats } from '@/lib/pipeline';
 /**
  * GET /api/cron/prune-cache
  *
- * Vercel Cron Job — runs every 6 hours.
- * Prunes expired cache entries and returns cache stats.
+ * Vercel Cron Job — runs daily at midnight UTC (see vercel.json).
+ * Prunes expired cache entries from all 3 tiers (in-memory + Supabase + filesystem)
+ * and returns aggregate cache stats.
+ *
+ * Security: requires Authorization: Bearer ${CRON_SECRET} header.
+ * If CRON_SECRET is not set in env, refuses to run (fails-closed) to prevent
+ * unauthenticated callers from triggering prune operations.
  */
 export async function GET(request: NextRequest) {
   const authHeader = request.headers.get('authorization');
   const cronSecret = process.env.CRON_SECRET;
 
-  if (cronSecret && authHeader !== `Bearer ${cronSecret}`) {
+  if (!cronSecret) {
+    console.error('[Cron /prune-cache] CRON_SECRET not set — refusing to run unauthenticated');
+    return NextResponse.json({ error: 'Server misconfigured: CRON_SECRET not set' }, { status: 500 });
+  }
+  if (authHeader !== `Bearer ${cronSecret}`) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   try {
-    const pruned = pruneCache();
-    const stats = getCacheStats();
+    const pruned = await pruneCache();
+    const stats = await getCacheStats();
 
     return NextResponse.json({
       success: true,

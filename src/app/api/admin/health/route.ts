@@ -14,7 +14,7 @@ import { getPipelineStatus } from '@/lib/pipeline';
 export async function GET(req: NextRequest) {
   try {
     const healthReport = await getPipelineHealthReport();
-    const pipelineStatus = getPipelineStatus();
+    const pipelineStatus = await getPipelineStatus();
 
     // Scraper source metadata
     const SCRAPER_META: Record<string, { url: string; provides: string; region: string }> = {

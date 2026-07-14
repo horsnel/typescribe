@@ -51,7 +51,7 @@ export async function GET(
 
     // ── Step 1: Check cache first (instant if available) ──
     const slugCacheKey = `slug:${trimmedSlug}`;
-    const cached = getCachedMovie(slugCacheKey);
+    const cached = await getCachedMovie(slugCacheKey);
 
     if (cached) {
       console.log(`[API /movies/slug] Cache hit for "${trimmedSlug}" (completeness=${cached.completeness})`);
@@ -89,8 +89,8 @@ export async function GET(
           ]);
           if (result && result.completeness > 0 && result.movie.title) {
             // Cache the enriched result
-            setCachedMovie(slugCacheKey, result.movie, result.sources, result.completeness);
-            setCachedMovie(`tmdb:${tmdbId}`, result.movie, result.sources, result.completeness);
+            await setCachedMovie(slugCacheKey, result.movie, result.sources, result.completeness);
+            await setCachedMovie(`tmdb:${tmdbId}`, result.movie, result.sources, result.completeness);
 
             return NextResponse.json({
               movie: result.movie,
@@ -168,8 +168,8 @@ export async function GET(
 
         // Cache the fast result (so next request is instant)
         const tmdbCacheKey = `tmdb:${tmdbId}`;
-        setCachedMovie(tmdbCacheKey, movie, ['TMDb'], 30);
-        setCachedMovie(slugCacheKey, movie, ['TMDb'], 30);
+        await setCachedMovie(tmdbCacheKey, movie, ['TMDb'], 30);
+        await setCachedMovie(slugCacheKey, movie, ['TMDb'], 30);
 
         // Kick off background enrichment (fire-and-forget)
         kickOffEnrichment(trimmedSlug, tmdbId, movie.media_type as 'movie' | 'tv' | undefined);
@@ -192,7 +192,7 @@ export async function GET(
         if (searchResult && searchResult.length > 0) {
           const firstMatch = searchResult[0];
           // Cache and return
-          setCachedMovie(slugCacheKey, firstMatch, ['TMDb'], 25);
+          await setCachedMovie(slugCacheKey, firstMatch, ['TMDb'], 25);
           return NextResponse.json({
             movie: firstMatch,
             sources: ['TMDb'],
@@ -214,7 +214,7 @@ export async function GET(
         if (results && results.length > 0) {
           // Find best slug match
           const match = results.find(m => m.slug === trimmedSlug) || results[0];
-          setCachedMovie(slugCacheKey, match, ['AniList', 'Jikan', 'TVMaze'], 20);
+          await setCachedMovie(slugCacheKey, match, ['AniList', 'Jikan', 'TVMaze'], 20);
           return NextResponse.json({
             movie: match,
             sources: ['AniList', 'Jikan', 'TVMaze'],
@@ -258,8 +258,8 @@ function kickOffEnrichment(slug: string, tmdbId: number, mediaType?: 'movie' | '
       if (result.completeness > 0 && result.movie.title) {
         const slugCacheKey = `slug:${slug}`;
         const tmdbCacheKey = `tmdb:${tmdbId}`;
-        setCachedMovie(slugCacheKey, result.movie, result.sources, result.completeness);
-        setCachedMovie(tmdbCacheKey, result.movie, result.sources, result.completeness);
+        await setCachedMovie(slugCacheKey, result.movie, result.sources, result.completeness);
+        await setCachedMovie(tmdbCacheKey, result.movie, result.sources, result.completeness);
         console.log(`[API /movies/slug] Background enrichment complete for "${slug}" (completeness=${result.completeness}, sources=${result.sources.length})`);
       }
     } catch (err) {

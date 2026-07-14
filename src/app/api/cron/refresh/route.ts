@@ -4,20 +4,25 @@ import { getTrending, getTopRated, getNowPlaying, browseMovies, clearTmdbCache, 
 /**
  * GET /api/cron/refresh
  *
- * Vercel Cron Job — runs every hour.
+ * Vercel Cron Job — runs daily at midnight UTC (see vercel.json).
  * Warms the cache by fetching popular content so that user requests
  * are served from cache (fast) instead of triggering cold API calls.
  *
  * Also prunes expired cache entries.
  *
- * Security: verifies a cron secret to prevent unauthorized calls.
+ * Security: requires Authorization: Bearer ${CRON_SECRET} header.
+ * If CRON_SECRET is not set, refuses to run (fails-closed).
  */
 export async function GET(request: NextRequest) {
-  // Verify cron secret (optional but recommended)
+  // Verify cron secret (strict — fails-closed if env var missing)
   const authHeader = request.headers.get('authorization');
   const cronSecret = process.env.CRON_SECRET;
 
-  if (cronSecret && authHeader !== `Bearer ${cronSecret}`) {
+  if (!cronSecret) {
+    console.error('[Cron /refresh] CRON_SECRET not set — refusing to run unauthenticated');
+    return NextResponse.json({ error: 'Server misconfigured: CRON_SECRET not set' }, { status: 500 });
+  }
+  if (authHeader !== `Bearer ${cronSecret}`) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
@@ -35,7 +40,7 @@ export async function GET(request: NextRequest) {
 
   // 2. Prune expired pipeline cache entries
   try {
-    const pruned = pruneCache();
+    const pruned = await pruneCache();
     results.push(`Pruned ${pruned} expired cache entries`);
   } catch (err: any) {
     errors.push(`Prune failed: ${err.message}`);

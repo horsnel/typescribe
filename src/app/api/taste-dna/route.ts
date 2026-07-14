@@ -18,13 +18,18 @@ import { getCurrentProfile, getReviewsByUser, getDiary, updateProfile } from '@/
  *   }
  *
  * Result is also persisted to profiles.taste_dna (jsonb) for fast recall.
+ *
+ * As of 2026-07: reviews + watch_diary tables have `genres` (text[]) and
+ * `release_year` (int) columns backfilled from movie_embeddings, so we no
+ * longer need placeholder heuristics — we compute real affinities.
  */
 
 const POPULAR_GENRES = ['Action','Adventure','Animation','Comedy','Crime','Documentary','Drama',
   'Family','Fantasy','History','Horror','Music','Mystery','Romance','Science Fiction',
   'Thriller','War','Western'];
 
-function decadeOf(year: number): string {
+function decadeOf(year: number | null | undefined): string | null {
+  if (!year || year < 1900) return null;
   if (year < 1950) return 'Pre-50s';
   if (year < 1960) return '50s';
   if (year < 1970) return '60s';
@@ -34,6 +39,12 @@ function decadeOf(year: number): string {
   if (year < 2010) return '2000s';
   if (year < 2020) return '2010s';
   return '2020s+';
+}
+
+interface AggBucket {
+  count: number;
+  ratingSum: number;
+  ratingN: number;
 }
 
 export async function GET() {
@@ -53,42 +64,88 @@ export async function GET() {
     });
   }
 
-  // Aggregate — we don't have genres on the review rows, but we can use
-  // profile.favorite_genres as a soft prior. For a real v2 we'd join against
-  // the movies table. For v1 we report what we have.
-  const ratingSum = reviews.reduce((s, r) => s + r.rating, 0) +
-    diary.reduce((s, d) => s + (Number(d.rating) || 0), 0);
-  const ratingN = reviews.length + diary.filter(d => d.rating).length;
+  // ─── Aggregate ratings + genre/decade tallies across reviews + diary ───
+  // Each row may have genres[] and release_year populated (backfilled from
+  // movie_embeddings when the movie was inserted). Rows without genres still
+  // contribute to the rating average but not to genre affinity.
+
+  const genreAgg = new Map<string, AggBucket>();
+  const decadeAgg = new Map<string, AggBucket>();
+  let ratingSum = 0;
+  let ratingN = 0;
+
+  function bump(map: Map<string, AggBucket>, key: string, rating: number | null | undefined) {
+    const bucket = map.get(key) ?? { count: 0, ratingSum: 0, ratingN: 0 };
+    bucket.count++;
+    if (rating != null && !Number.isNaN(rating)) {
+      bucket.ratingSum += Number(rating);
+      bucket.ratingN++;
+    }
+    map.set(key, bucket);
+  }
+
+  for (const r of reviews) {
+    ratingSum += r.rating;
+    ratingN++;
+    for (const g of (r.genres ?? [])) bump(genreAgg, g, r.rating);
+    const decade = decadeOf(r.release_year);
+    if (decade) bump(decadeAgg, decade, r.rating);
+  }
+  for (const d of diary) {
+    if (d.rating != null) {
+      ratingSum += Number(d.rating);
+      ratingN++;
+    }
+    for (const g of (d.genres ?? [])) bump(genreAgg, g, d.rating);
+    const decade = decadeOf(d.release_year);
+    if (decade) bump(decadeAgg, decade, d.rating);
+  }
+
   const avgRating = ratingN > 0 ? ratingSum / ratingN : 0;
 
-  // Genre affinity from favorite_genres (soft prior — would be enriched with actual genre tallies)
+  // ─── Genre affinity ───
+  // Combine observed counts (from this user's reviews/diary) with their stated
+  // favorite_genres as a soft prior. If a user has reviewed many movies in a
+  // genre, the observed count dominates; favorite_genres only fills gaps.
   const favGenres = profile.favorite_genres ?? [];
-  const genreAffinity = POPULAR_GENRES.map(g => ({
-    genre: g,
-    count: favGenres.includes(g) ? 5 : 0,
-    avgRating: avgRating > 0 ? avgRating : 7,
-    enthusiasm: favGenres.includes(g) ? 80 : 30,
-  })).sort((a, b) => b.enthusiasm - a.enthusiasm);
+  const observedGenres = new Set<string>(genreAgg.keys());
+  const allGenres = new Set<string>([...observedGenres, ...favGenres, ...POPULAR_GENRES]);
 
-  // Decade affinity — without year data we approximate from profile.streak_count
-  // (placeholder; real version joins with movie release_date)
-  const decadeAffinity = [
-    { decade: '70s',  count: 0, avgRating: 0 },
-    { decade: '80s',  count: 0, avgRating: 0 },
-    { decade: '90s',  count: 0, avgRating: 0 },
-    { decade: '2000s',count: 0, avgRating: 0 },
-    { decade: '2010s',count: 0, avgRating: 0 },
-    { decade: '2020s+',count: 0, avgRating: 0 },
-  ];
+  const genreAffinity = Array.from(allGenres).map(g => {
+    const obs = genreAgg.get(g);
+    const isFav = favGenres.includes(g);
+    const count = obs?.count ?? (isFav ? 5 : 0);
+    const avgRatingForGenre = obs && obs.ratingN > 0 ? obs.ratingSum / obs.ratingN : (avgRating || 7);
+    // Enthusiasm = how much this user gravitates to this genre vs random
+    //   30 baseline + up to 50 from observed count + up to 20 from favorite_genres flag
+    const enthusiasm = Math.min(
+      100,
+      30 +
+        Math.min(50, (obs?.count ?? 0) * 5) +
+        (isFav ? 20 : 0)
+    );
+    return { genre: g, count, avgRating: avgRatingForGenre, enthusiasm };
+  }).sort((a, b) => b.enthusiasm - a.enthusiasm);
+
+  // ─── Decade affinity (real, from release_year backfill) ───
+  const decadeOrder = ['Pre-50s','50s','60s','70s','80s','90s','2000s','2010s','2020s+'];
+  const decadeAffinity = decadeOrder.map(decade => {
+    const bucket = decadeAgg.get(decade);
+    return {
+      decade,
+      count: bucket?.count ?? 0,
+      avgRating: bucket && bucket.ratingN > 0 ? bucket.ratingSum / bucket.ratingN : 0,
+    };
+  }).filter(d => d.count > 0);
 
   const result = {
-    genreAffinity,
+    genreAffinity: genreAffinity.slice(0, 18), // top 18 genres
     decadeAffinity,
     topDirectors: [] as { director: string; count: number }[],
     topCountries: [] as { country: string; count: number }[],
     totalRated: ratingN,
     avgRating,
-    diversity: Math.min(100, Math.round((genreAffinity.filter(g => g.enthusiasm > 50).length / POPULAR_GENRES.length) * 100)),
+    diversity: Math.min(100, Math.round((genreAffinity.filter(g => g.enthusiasm > 50).length / Math.max(1, genreAffinity.length)) * 100)),
   };
 
   // Persist

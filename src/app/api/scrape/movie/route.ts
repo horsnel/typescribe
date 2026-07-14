@@ -27,7 +27,7 @@ export async function POST(request: Request) {
 
     // If force refresh, invalidate cache
     if (forceRefresh) {
-      Cache.invalidateCachedMovie(`tmdb:${tmdbId}`);
+      await Cache.invalidateCachedMovie(`tmdb:${tmdbId}`);
     }
 
     const config: PipelineConfig = {};

@@ -59,8 +59,8 @@ export async function GET(
 
     // ── Force refresh: invalidate cache first ──
     if (forceRefresh === 'true') {
-      invalidateCachedMovie(`tmdb:${tmdbId}`);
-      invalidateCachedMovie(`slug:*`); // Slug cache handled by re-generation
+      await invalidateCachedMovie(`tmdb:${tmdbId}`);
+      await invalidateCachedMovie(`slug:*`); // Slug cache handled by re-generation
       console.log(`[API /scrape/movie] Cache invalidated for tmdb:${tmdbId}`);
     }
 
