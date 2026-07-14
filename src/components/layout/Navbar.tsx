@@ -139,10 +139,11 @@ export default function Navbar() {
   const navLinks = [
     { label: 'Stream', href: '/stream', isStream: true as const },
     { label: 'Browse', href: '/browse' },
+    { label: 'Vibe Search', href: '/vibe', isNew: true as const },
+    { label: 'Games', href: '/games/grid', isNew: true as const },
     { label: 'Top Rated', href: '/top-rated' },
     { label: 'Box Office', href: '/box-office' },
-    { label: 'New Releases', href: '/new-releases' },
-    { label: 'Upcoming', href: '/upcoming' },
+    { label: 'Atlas', href: '/atlas', isNew: true as const },
     { label: 'News', href: '/news' },
     { label: 'Communities', href: '/communities' },
   ];
@@ -185,22 +186,22 @@ export default function Navbar() {
         </div>
 
         <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <Link key={link.label} href={link.href} className={`text-sm font-medium transition-colors duration-200 flex items-center gap-1.5 ${
-              pathname === link.href ? 'text-[#D4A853]' : 'text-[#9ca3af] hover:text-[#D4A853]'} ${
-              'isStream' in link && link.isStream ? 'text-[#D4A853] hover:text-[#A78BFA]' : ''}`}>
-              {'isStream' in link && link.isStream && (
-                <>
-                  <Play className="w-3.5 h-3.5 fill-[#D4A853]" strokeWidth={2} />
-                  <span className="relative">
-                    {link.label}
-                    <span className="absolute -top-1 -right-1.5 w-1 h-1 rounded-full bg-[#D4A853]" />
-                  </span>
-                </>
-              )}
-              {!('isStream' in link && link.isStream) && link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isStream = 'isStream' in link && link.isStream;
+            const isNew = 'isNew' in link && link.isNew;
+            return (
+              <Link key={link.label} href={link.href} className={`text-sm font-medium transition-colors duration-200 flex items-center gap-1.5 ${
+                pathname === link.href ? 'text-[#D4A853]' : 'text-[#9ca3af] hover:text-[#D4A853]'} ${
+                isStream ? 'text-[#D4A853] hover:text-[#A78BFA]' : ''}`}>
+                {isStream && <Play className="w-3.5 h-3.5 fill-[#D4A853]" strokeWidth={2} />}
+                <span className="relative">
+                  {link.label}
+                  {isStream && <span className="absolute -top-1 -right-1.5 w-1 h-1 rounded-full bg-[#D4A853]" />}
+                  {isNew && <span className="absolute -top-1 -right-2 text-[8px] font-bold bg-[#D4A853] text-black px-1 rounded-full">NEW</span>}
+                </span>
+              </Link>
+            );
+          })}
         </div>
 
         <div className="flex items-center gap-2 z-10">

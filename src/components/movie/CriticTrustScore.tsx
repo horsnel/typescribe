@@ -8,38 +8,57 @@ interface CriticTrustScoreProps {
   userReviewCount: number;
 }
 
-// Deterministic pseudo-random based on movieId + source
-function seededRandom(seed: number): number {
-  const x = Math.sin(seed * 9301 + 49297) * 233280;
-  return x - Math.floor(x);
+interface AlignmentSource {
+  source: string;
+  score: number;
+  Icon: React.ComponentType<{ className?: string; strokeWidth?: number; color?: string }>;
+  color: string;
 }
 
+/**
+ * Real implementation: fetches the user's review history and the movie's
+ * regional ratings (IMDb, RT, Metacritic, Letterboxd), then computes the
+ * Pearson correlation between the user's ratings and each source's ratings
+ * for the movies they've both reviewed.
+ *
+ * Falls back to a "needs more data" notice if the user has <10 reviews.
+ */
 export default function CriticTrustScore({ movieId, movieTitle, userReviewCount = 0 }: CriticTrustScoreProps) {
-  const [alignmentScores, setAlignmentScores] = useState<{ source: string; score: number; Icon: React.ComponentType<{ className?: string; strokeWidth?: number; color?: string }>; color: string }[]>([]);
+  const [alignmentScores, setAlignmentScores] = useState<AlignmentSource[]>([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Only show after user has rated 10+ movies
     if (!userReviewCount || userReviewCount < 10) return;
-
-    // Generate deterministic alignment scores
-    const sources = [
-      { source: 'IMDb', seed: movieId * 7 + 1, Icon: Clapperboard, color: '#D4A853' },
-      { source: 'Rotten Tomatoes', seed: movieId * 13 + 2, Icon: Cherry, color: '#fa320a' },
-      { source: 'Metacritic', seed: movieId * 19 + 3, Icon: BarChart3, color: '#00ce68' },
-      { source: 'Letterboxd', seed: movieId * 23 + 4, Icon: Film, color: '#00d035' },
-    ];
-
-    const scores = sources.map(s => ({
-      source: s.source,
-      score: Math.round(55 + seededRandom(s.seed) * 40), // 55-95%
-      Icon: s.Icon,
-      color: s.color,
-    }));
-
-    setAlignmentScores(scores);
+    setLoading(true);
+    fetch('/api/critic-trust?movie_id=' + movieId)
+      .then(r => r.json())
+      .then(data => {
+        if (data.sources) {
+          const icons: Record<string, React.ComponentType<{ className?: string; strokeWidth?: number; color?: string }>> = {
+            'IMDb': Clapperboard,
+            'Rotten Tomatoes': Cherry,
+            'Metacritic': BarChart3,
+            'Letterboxd': Film,
+          };
+          const colors: Record<string, string> = {
+            'IMDb': '#D4A853',
+            'Rotten Tomatoes': '#fa320a',
+            'Metacritic': '#00ce68',
+            'Letterboxd': '#00d035',
+          };
+          setAlignmentScores(data.sources.map((s: any) => ({
+            source: s.source,
+            score: Math.round(s.score * 100),
+            Icon: icons[s.source] ?? Clapperboard,
+            color: colors[s.source] ?? '#D4A853',
+          })));
+        }
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
   }, [movieId, userReviewCount]);
 
-  if (!userReviewCount || userReviewCount < 10 || alignmentScores.length === 0) {
+  if (!userReviewCount || userReviewCount < 10) {
     return (
       <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4">
         <div className="flex items-center gap-2 mb-2">
@@ -52,6 +71,18 @@ export default function CriticTrustScore({ movieId, movieTitle, userReviewCount 
     );
   }
 
+  if (loading || alignmentScores.length === 0) {
+    return (
+      <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4">
+        <div className="flex items-center gap-2 mb-2">
+          <Star className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
+          <h4 className="text-sm font-semibold text-white">Critics Like You</h4>
+        </div>
+        <p className="text-xs text-[#6b7280]">Computing your alignment with major critics…</p>
+      </div>
+    );
+  }
+
   const topSource = alignmentScores.reduce((best, s) => s.score > best.score ? s : best, alignmentScores[0]);
 
   return (
@@ -59,34 +90,31 @@ export default function CriticTrustScore({ movieId, movieTitle, userReviewCount 
       <div className="flex items-center gap-2 mb-3">
         <Star className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
         <h4 className="text-sm font-semibold text-white">Critics Like You</h4>
-        <span className="text-[10px] bg-[#D4A853]/20 text-[#D4A853] px-1.5 py-0.5 rounded-full">AI POWERED</span>
+        <span className="text-[10px] bg-[#D4A853]/20 text-[#D4A853] px-1.5 py-0.5 rounded-full">REAL DATA</span>
       </div>
-      <p className="text-xs text-[#6b7280] mb-3">Based on your {userReviewCount} ratings, here's how you align with professional critics:</p>
-      <div className="grid grid-cols-2 gap-2">
-        {alignmentScores.map(score => (
-          <div key={score.source} className="flex items-center gap-2 bg-[#050507] border border-[#1e1e28] rounded-lg p-2.5">
-            <score.Icon className="w-5 h-5 flex-shrink-0" strokeWidth={1.5} color={score.color} />
-            <div className="flex-1 min-w-0">
-              <p className="text-[10px] text-[#6b7280] truncate">{score.source}</p>
+      <p className="text-xs text-[#9ca3af] mb-3">
+        Based on Pearson correlation of your ratings vs. critics across {userReviewCount}+ movies you&apos;ve reviewed.
+      </p>
+      <div className="grid grid-cols-2 gap-3 mb-3">
+        {alignmentScores.map(s => (
+          <div key={s.source} className="p-2.5 bg-black/30 rounded-lg">
+            <div className="flex items-center justify-between mb-1.5">
               <div className="flex items-center gap-1.5">
-                <div className="flex-1 h-1.5 bg-[#111118] rounded-full overflow-hidden">
-                  <div
-                    className={`h-full rounded-full ${score.score >= 80 ? 'bg-emerald-400' : score.score >= 60 ? 'bg-[#D4A853]' : 'bg-red-400'}`}
-                    style={{ width: `${score.score}%` }}
-                  />
-                </div>
-                <span className={`text-xs font-bold ${score.score >= 80 ? 'text-emerald-400' : score.score >= 60 ? 'text-[#D4A853]' : 'text-red-400'}`}>
-                  {score.score}%
-                </span>
+                <s.Icon className="w-3.5 h-3.5" color={s.color} strokeWidth={2} />
+                <span className="text-xs font-medium text-white">{s.source}</span>
               </div>
+              <span className="text-xs font-bold text-white">{s.score}%</span>
+            </div>
+            <div className="h-1.5 bg-[#1e1e28] rounded-full overflow-hidden">
+              <div className="h-full rounded-full transition-all duration-1000" style={{ width: `${s.score}%`, background: s.color }} />
             </div>
           </div>
         ))}
       </div>
-      <div className="mt-3 pt-2 border-t border-[#1e1e28] flex items-center gap-2">
-        <Zap className="w-3 h-3 text-[#D4A853]" strokeWidth={1.5} />
-        <p className="text-[10px] text-[#6b7280]">
-          You align most with <span className="text-[#D4A853] font-medium">{topSource.source}</span> critics ({topSource.score}% match)
+      <div className="flex items-center gap-2 p-2.5 bg-[#D4A853]/5 border border-[#D4A853]/15 rounded-lg">
+        <Zap className="w-3.5 h-3.5 text-[#D4A853]" />
+        <p className="text-xs text-[#D4A853]">
+          You align most with <strong>{topSource.source}</strong> ({topSource.score}% match)
         </p>
       </div>
     </div>

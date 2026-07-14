@@ -1,13 +1,15 @@
 'use client';
 
 /**
- * AI Auto-Moderation System
+ * Content Moderation — Rule-Based Filter (honest label)
  *
- * This module provides client-side content moderation that simulates
- * what would normally be a server-side AI moderation pipeline.
+ * Previously marketed as "AI Powered"; in reality this is a deterministic
+ * regex + heuristic filter. A real AI hook (Gemini) is available server-side
+ * via POST /api/moderate when GEMINI_API_KEY is configured.
  *
- * In production, replace the `moderateContent` function with a call
- * to your backend that uses OpenAI, Perspective API, or similar.
+ * The function `moderateContent()` below stays synchronous for client-side
+ * instant feedback. Use `/api/moderate` for the authoritative server-side
+ * call before persisting user-generated content.
  */
 
 import type { ModerationResult, ReportReason } from '@/lib/types';

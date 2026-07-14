@@ -1,0 +1,133 @@
+'use client';
+
+import { useState } from 'react';
+import Link from 'next/link';
+import { ArrowLeft, Sparkles, Search, Loader2, Film } from 'lucide-react';
+
+const EXAMPLES = [
+  'a slow-burn neo-noir with rain-soaked streets',
+  'uplifting underdog sports story based on true events',
+  'mind-bending sci-fi with a twist ending',
+  'cozy studio ghibli vibe with strong female lead',
+  'tense psychological horror in a single location',
+  'sweeping historical epic about family and war',
+];
+
+interface VibeResult {
+  movie_id: number;
+  movie_title: string;
+  poster_path: string | null;
+  overview: string;
+  genres: string[];
+  similarity?: number;
+}
+
+export default function VibePage() {
+  const [q, setQ] = useState('');
+  const [results, setResults] = useState<VibeResult[] | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [source, setSource] = useState('');
+
+  async function search() {
+    if (!q.trim()) return;
+    setLoading(true);
+    setResults(null);
+    try {
+      const res = await fetch(`/api/vibe-search?q=${encodeURIComponent(q)}`);
+      const data = await res.json();
+      setResults(data.results ?? []);
+      setSource(data.source ?? '');
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <div className="min-h-screen bg-[#050507] text-white">
+      <div className="max-w-5xl mx-auto px-6 py-8">
+        <Link href="/" className="inline-flex items-center gap-2 text-sm text-[#9ca3af] hover:text-[#D4A853] mb-6">
+          <ArrowLeft className="w-4 h-4" /> Home
+        </Link>
+
+        <div className="flex items-center gap-3 mb-2">
+          <Sparkles className="w-7 h-7 text-[#D4A853]" />
+          <h1 className="text-3xl font-extrabold">Vibe Search</h1>
+        </div>
+        <p className="text-[#9ca3af] text-sm mb-6">
+          Describe a feeling, mood, or vibe — get matched movies using semantic embeddings.
+        </p>
+
+        <div className="flex gap-2 mb-3">
+          <input
+            type="text"
+            value={q}
+            onChange={e => setQ(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' && search()}
+            placeholder="e.g. a slow-burn neo-noir with rain-soaked streets"
+            className="flex-1 px-4 py-3 bg-[#0c0c10] border border-[#1e1e28] rounded-lg text-sm text-white placeholder:text-[#5b5b6b] focus:outline-none focus:border-[#D4A853]/50"
+          />
+          <button
+            onClick={search}
+            disabled={loading}
+            className="px-5 py-3 bg-[#D4A853] text-black font-bold rounded-lg hover:bg-[#B8922F] transition flex items-center gap-2 disabled:opacity-30"
+          >
+            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />}
+            Search
+          </button>
+        </div>
+
+        <div className="flex flex-wrap gap-2 mb-8">
+          {EXAMPLES.map(ex => (
+            <button
+              key={ex}
+              onClick={() => { setQ(ex); }}
+              className="text-xs px-2.5 py-1 bg-[#D4A853]/10 border border-[#D4A853]/20 text-[#D4A853] rounded-full hover:bg-[#D4A853]/20"
+            >
+              {ex}
+            </button>
+          ))}
+        </div>
+
+        {results && (
+          <div>
+            <p className="text-xs text-[#6b7280] mb-3">
+              {results.length} results · {source === 'pgvector' ? 'via Gemini embeddings + pgvector cosine' : 'via text fallback (no API key)'}
+            </p>
+            {results.length === 0 ? (
+              <div className="text-center py-12">
+                <Film className="w-10 h-10 text-[#5b5b6b] mx-auto mb-3" />
+                <p className="text-[#9ca3af] text-sm">No matches. Try a different vibe.</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                {results.map(r => (
+                  <Link
+                    key={r.movie_id}
+                    href={`/movie/${r.movie_id}`}
+                    className="group relative aspect-[2/3] rounded-lg overflow-hidden bg-[#0c0c10] border border-[#1e1e28] hover:border-[#D4A853]/50 transition"
+                  >
+                    {r.poster_path && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={`https://image.tmdb.org/t/p/w300${r.poster_path}`}
+                        alt={r.movie_title}
+                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-2">
+                      <h3 className="text-xs font-semibold text-white line-clamp-2">{r.movie_title}</h3>
+                      {r.similarity != null && (
+                        <p className="text-[10px] text-[#D4A853] mt-0.5">{(r.similarity * 100).toFixed(0)}% match</p>
+                      )}
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
