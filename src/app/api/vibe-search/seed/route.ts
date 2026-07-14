@@ -41,12 +41,13 @@ export async function POST(req: NextRequest) {
   const movies = body.movies ?? POOL;
 
   let ok = 0, fail = 0;
+  const errors: string[] = [];
   for (const m of movies) {
     try {
       const text = `${m.title}. ${m.overview ?? ''} Genres: ${(m.genres ?? []).join(', ')}.`;
       const r = await model.embedContent(text);
       const vec = r.embedding.values;
-      await supabaseAdmin.from('movie_embeddings').upsert({
+      const { error: upsertErr } = await supabaseAdmin.from('movie_embeddings').upsert({
         movie_id: m.id,
         movie_title: m.title,
         poster_path: m.poster,
@@ -56,11 +57,19 @@ export async function POST(req: NextRequest) {
         embedding: vec,
         metadata: { source: 'seed' },
       }, { onConflict: 'movie_id' });
+      if (upsertErr) throw new Error(`Upsert failed: ${upsertErr.message}`);
       ok++;
     } catch (e) {
-      console.error(`Embed failed for ${m.id}:`, e);
+      const msg = e instanceof Error ? e.message : String(e);
+      console.error(`Embed failed for ${m.id} (${m.title}):`, msg);
+      if (errors.length < 3) errors.push(`movie_id=${m.id} (${m.title}): ${msg}`);
       fail++;
     }
   }
-  return NextResponse.json({ ok, fail, total: movies.length });
+  return NextResponse.json({
+    ok, fail, total: movies.length,
+    ...(errors.length ? { sample_errors: errors } : {}),
+    key_present: !!key,
+    key_prefix: key.slice(0, 8),
+  });
 }
