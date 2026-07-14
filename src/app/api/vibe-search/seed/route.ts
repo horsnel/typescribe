@@ -35,7 +35,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'GEMINI_API_KEY not configured' }, { status: 500 });
   }
   const genAI = new GoogleGenerativeAI(key);
-  const model = genAI.getGenerativeModel({ model: 'text-embedding-004' });
+  // Try the newest model name first; Google renamed embedding models in 2025.
+  // gemini-embedding-001 is the current canonical name; text-embedding-004 is the older alias.
+  const model = genAI.getGenerativeModel({ model: 'gemini-embedding-001' });
 
   const body = await req.json().catch(() => ({}));
   const movies = body.movies ?? POOL;
