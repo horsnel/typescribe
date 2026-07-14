@@ -92,3 +92,36 @@ Stage Summary:
 - People search working (tested "Christopher Nolan": 5 results)
 - All cast/crew avatars are now clickable links
 - 7 files changed, 914 insertions, 31 deletions
+
+---
+Task ID: rebuild-phase-0-3
+Agent: main
+Task: Rebuild TypeScribe from scratch after workspace reset, push to GitHub, and complete all Phase 3 features
+
+Work Log:
+- Re-cloned repo (workspace had been reset between sessions)
+- Verified Supabase PostgreSQL connection via EU-West-1 pooler (aws-0-eu-west-1.pooler.supabase.com)
+- Applied 27-table schema (105 SQL statements OK): profiles, watchlist, watch_diary, reviews, scene_comments, lists, follows, communities, posts, comments, likes, achievements, notifications, watch_parties, taste_twins, movie_embeddings (pgvector 768-dim), game_results, daily_grids, mood_heatmap, monthly_festivals, daily_trivia, six_degrees_chains, ai_content_cache, newsletter_subscriptions, scene_reactions
+- 22 achievements seeded, 75 indexes, RLS on all tables, 5 triggers
+- Installed @supabase/supabase-js, @supabase/ssr, @google/generative-ai
+- Created 4 Supabase client utilities (browser/server/admin/types)
+- Built unified db.ts (38KB) replacing both Prisma and localStorage community-storage
+- Migrated auth-config.ts to delegate to Supabase Auth
+- Fixed /api/admin/auth — removed hardcoded 'Ebuka456' backdoor
+- Created middleware.ts for Supabase session refresh
+- Updated next.config.ts with all streaming-source image domains
+- Fixed moderation.ts — honest "rule-based filter" label + real /api/moderate route with Gemini hook
+- Fixed CriticTrustScore to fetch real alignment from review history
+- Built 18 new API routes: /api/follow, /api/achievements, /api/streak, /api/grid, /api/personality, /api/vibe-search, /api/vibe-search/seed, /api/taste-dna, /api/taste-twin, /api/compromise, /api/wrapped, /api/watch-parties, /api/scene-comments, /api/moderate, /api/directors-cut, /api/mood-heatmap, /api/cinema-atlas, /api/film-festival, /api/six-degrees, /api/daily-trivia
+- Applied 2 Postgres functions: match_movies (pgvector cosine) and compute_taste_twins (Pearson CF)
+- Built 11 new UI pages: /stream (rebuilt), /stream/[id] (rebuilt), /vibe, /personality, /wrapped, /games/grid, /games/six-degrees, /games/trivia, /watch-parties/[id], /atlas, /festival, /directors-cut, /mood
+- Updated Navbar to surface Vibe Search, Games, Atlas with NEW badges
+- TypeScript: clean. Next.js build: passes (60+ routes compiled)
+- Committed (70cb191) and pushed to GitHub main successfully
+
+Stage Summary:
+- All 47 features (F1-F41) + 6 P0-P5 fixes are now live in the codebase
+- Schema is applied to live Supabase (27 tables, 22 achievements, pgvector 0.8.2)
+- 2 local commits pushed to origin/main
+- Code is ready to deploy to Vercel
+- Production TODO before deploy: rotate Supabase service-role key (was in chat history), set ADMIN_PASSWORD + ADMIN_EMAILS + GEMINI_API_KEY env vars in Vercel, run /api/vibe-search/seed once to populate embeddings
