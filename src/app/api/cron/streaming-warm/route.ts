@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getStreamingCatalog, clearStreamingCache } from '@/lib/streaming-pipeline';
+import { getStreamingCatalogFull, clearStreamingCache } from '@/lib/streaming-pipeline';
 
 /**
  * GET /api/cron/streaming-warm
  *
  * Vercel Cron Job — warms the streaming pipeline cache.
- * Fetches the full catalog so subsequent user requests are fast.
+ * Fetches the FULL catalog (all 14+ sources) so subsequent user requests are
+ * served from the Supabase streaming_cache table without re-fetching.
  *
  * Security: verifies a cron secret to prevent unauthorized calls.
  */
@@ -27,7 +28,7 @@ export async function GET(request: NextRequest) {
   const results: string[] = [];
   const errors: string[] = [];
 
-  // 1. Clear stale streaming cache
+  // 1. Clear stale streaming cache (memory + Supabase + file)
   try {
     const cleared = await clearStreamingCache();
     results.push(`Cleared ${cleared} streaming cache entries`);
@@ -35,9 +36,11 @@ export async function GET(request: NextRequest) {
     errors.push(`Cache clear failed: ${err.message}`);
   }
 
-  // 2. Warm cache: fetch the full streaming catalog
+  // 2. Warm cache: fetch the FULL streaming catalog (all 14+ sources).
+  //    This blocks until the fetch completes so the Supabase streaming_cache
+  //    table is fully populated before the function returns.
   try {
-    const catalog = await getStreamingCatalog();
+    const catalog = await getStreamingCatalogFull();
     results.push(`Streaming catalog: ${catalog.movies.length} movies, ${catalog.categories.length} categories cached`);
   } catch (err: any) {
     errors.push(`Catalog fetch failed: ${err.message}`);
