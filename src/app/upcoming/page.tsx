@@ -12,7 +12,7 @@ type TimeFilter = 'next-30' | 'next-90' | 'this-year' | 'all';
 type SortOption = 'release_date' | 'popularity' | 'rating';
 
 export default function UpcomingPage() {
-  useEffect(() => { document.querySelector('main')?.scrollTo({ top: 0 }) || window.scrollTo(0, 0); }, []);
+  useEffect(() => { const __m = document.querySelector('main'); if (__m) __m.scrollTo({ top: 0 }); else window.scrollTo(0, 0); }, []);
 
   const [mediaType, setMediaType] = useState<MediaType>('movie');
   const [timeFilter, setTimeFilter] = useState<TimeFilter>('next-90');

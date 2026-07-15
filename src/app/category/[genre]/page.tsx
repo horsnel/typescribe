@@ -56,7 +56,7 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
   const [sort, setSort] = useState<SortOption>('popularity');
   const [view, setView] = useState<'grid' | 'list'>('grid');
 
-  useEffect(() => { document.querySelector('main')?.scrollTo({ top: 0 }) || window.scrollTo(0, 0); }, [genre]);
+  useEffect(() => { const __m = document.querySelector('main'); if (__m) __m.scrollTo({ top: 0 }); else window.scrollTo(0, 0); }, [genre]);
 
   // Fetch movies from TMDb discover API
   useEffect(() => {

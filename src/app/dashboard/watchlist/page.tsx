@@ -21,10 +21,6 @@ export default function DashboardWatchlistPage() {
   const [watchlist, setWatchlist] = useState<WatchlistItem[]>([]);
   const [sortBy, setSortBy] = useState<string>('date');
 
-  useEffect(() => {
-    loadWatchlist();
-  }, []);
-
   const loadWatchlist = () => {
     try {
       const data = localStorage.getItem('typescribe_watchlist');
@@ -33,6 +29,10 @@ export default function DashboardWatchlistPage() {
       setWatchlist(items);
     } catch { /* ignore */ }
   };
+
+  useEffect(() => {
+    loadWatchlist();
+  }, []);
 
   const handleRemove = (movieId: number) => {
     const updated = watchlist.filter(w => w.movieId !== movieId);

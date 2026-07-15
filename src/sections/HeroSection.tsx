@@ -407,7 +407,7 @@ export default function HeroSection() {
                     <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full p-[2px] bg-gradient-to-br from-[#D4A853] via-[#C4B5FD] to-[#D4A853] group-hover:shadow-lg group-hover:shadow-[#D4A853]/20 transition-shadow duration-300">
                       <div className={`w-full h-full rounded-full ${AVATAR_COLORS[idx % AVATAR_COLORS.length]} flex items-center justify-center border-2 border-[#050507] overflow-hidden`}>
                         {reviewer.avatar_url ? (
-                          // eslint-disable-next-line @next/next/no-img-element
+                           
                           <img
                             src={reviewer.avatar_url}
                             alt={reviewer.display_name}

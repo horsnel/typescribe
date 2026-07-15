@@ -30,7 +30,9 @@ export default function MyReviewsPage() {
   const [showFilters, setShowFilters] = useState(false);
 
   useEffect(() => {
-    document.querySelector('main')?.scrollTo({ top: 0 }) || window.scrollTo(0, 0);
+    const __m = document.querySelector('main');
+    if (__m) __m.scrollTo({ top: 0 });
+    else window.scrollTo(0, 0);
     const loadReviews = () => {
       try {
         const data = localStorage.getItem('typescribe_user_reviews');
@@ -40,32 +42,22 @@ export default function MyReviewsPage() {
     loadReviews();
   }, []);
 
-  if (!isAuthenticated || !user) {
-    return (
-      <div className="min-h-screen bg-[#050507] flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-[#9ca3af] mb-4">Please sign in to view your reviews</p>
-          <Link href="/login" className="text-[#D4A853] hover:underline">Sign In</Link>
-        </div>
-      </div>
-    );
-  }
-
-  // Combine local reviews with demo reviews for this user
-  const demoReviews = userReviews.filter((r) => r.user_id === 101);
-  const allReviews = [
-    ...localReviews.map((r) => ({ ...r, isLocal: true })),
-    ...demoReviews.map((r) => ({
-      id: r.id,
-      movie_id: r.movie_id,
-      rating: r.rating,
-      text: r.text,
-      created_at: r.created_at,
-      isLocal: false,
-    })),
-  ];
-
+  // Combine local reviews with demo reviews for this user.
+  // useMemo MUST be called before any early return so hook order is stable.
   const filtered = useMemo(() => {
+    if (!user) return [];
+    const demoReviews = userReviews.filter((r) => r.user_id === 101);
+    const allReviews = [
+      ...localReviews.map((r) => ({ ...r, isLocal: true })),
+      ...demoReviews.map((r) => ({
+        id: r.id,
+        movie_id: r.movie_id,
+        rating: r.rating,
+        text: r.text,
+        created_at: r.created_at,
+        isLocal: false,
+      })),
+    ];
     let result = [...allReviews];
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
@@ -85,9 +77,21 @@ export default function MyReviewsPage() {
       }); break;
     }
     return result;
-  }, [allReviews, sort, searchQuery]);
+  }, [user, localReviews, searchQuery, sort]);
 
-  // Stats
+  if (!isAuthenticated || !user) {
+    return (
+      <div className="min-h-screen bg-[#050507] flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-[#9ca3af] mb-4">Please sign in to view your reviews</p>
+          <Link href="/login" className="text-[#D4A853] hover:underline">Sign In</Link>
+        </div>
+      </div>
+    );
+  }
+
+  // Stats — derived from the memoized filtered list
+  const allReviews = filtered;
   const avgRating = allReviews.length > 0 ? (allReviews.reduce((sum, r) => sum + r.rating, 0) / allReviews.length).toFixed(1) : '0';
   const fiveStarCount = allReviews.filter(r => r.rating >= 8).length;
 

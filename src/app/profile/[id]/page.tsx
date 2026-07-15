@@ -64,9 +64,9 @@ export default function PublicProfilePage() {
     // intentional here — we're synchronizing React state with the URL param
     // (a "reset state when prop changes" pattern explicitly allowed by the
     // React docs).
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+     
     setReviewsLoading(true);
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+     
     setReviewsError('');
     fetch(`/api/reviews?user_id=${encodeURIComponent(rawId)}&limit=50`, { cache: 'no-store' })
       .then(async (r) => {

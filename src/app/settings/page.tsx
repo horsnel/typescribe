@@ -6,6 +6,21 @@ import { Settings as SettingsIcon, Bell, Eye, Save, Shield, Palette, Globe, Key,
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/lib/auth';
 
+// Extracted to module scope so it's a stable component identity.
+// Defining it inside the parent remounted it on every render (React 19
+// compiler flags this as `static-components`).
+function Toggle({ enabled, onChange }: { enabled: boolean; onChange: () => void }) {
+  return (
+    <button
+      onClick={onChange}
+      className={`w-11 h-6 rounded-full transition-colors relative flex-shrink-0 ${enabled ? 'bg-[#D4A853]' : 'bg-[#2a2a35]'}`}
+      aria-label="Toggle setting"
+    >
+      <div className="w-5 h-5 bg-white rounded-full absolute top-0.5 transition-all" style={{ left: enabled ? '22px' : '2px' }} />
+    </button>
+  );
+}
+
 export default function SettingsPage() {
   const { user, isAuthenticated, updateProfile, logout } = useAuth();
   const [emailNotifications, setEmailNotifications] = useState(user?.email_notifications ?? true);
@@ -62,16 +77,6 @@ export default function SettingsPage() {
       setTimeout(() => setPasswordMsg(''), 3000);
     }, 1000);
   };
-
-  const Toggle = ({ enabled, onChange }: { enabled: boolean; onChange: () => void }) => (
-    <button
-      onClick={onChange}
-      className={`w-11 h-6 rounded-full transition-colors relative flex-shrink-0 ${enabled ? 'bg-[#D4A853]' : 'bg-[#2a2a35]'}`}
-      aria-label="Toggle setting"
-    >
-      <div className="w-5 h-5 bg-white rounded-full absolute top-0.5 transition-all" style={{ left: enabled ? '22px' : '2px' }} />
-    </button>
-  );
 
   return (
     <div className="min-h-screen bg-[#050507] pt-8 pb-16">

@@ -90,7 +90,7 @@ function NewsImage({ src, alt, className = '' }: { src: string; alt: string; cla
 }
 
 export default function NewsPage() {
-  useEffect(() => { document.querySelector('main')?.scrollTo({ top: 0 }) || window.scrollTo(0, 0); }, []);
+  useEffect(() => { const __m = document.querySelector('main'); if (__m) __m.scrollTo({ top: 0 }); else window.scrollTo(0, 0); }, []);
 
   const [articles, setArticles] = useState<NewsArticle[]>([]);
   const [loading, setLoading] = useState(true);
@@ -154,8 +154,9 @@ export default function NewsPage() {
 
   const handleArticleClick = useCallback(async (id: number) => {
     setSelectedArticle({ id, data: null, loading: true, error: null });
-    document.querySelector('main')?.scrollTo({ top: 0, behavior: 'smooth' as ScrollBehavior }) || window.scrollTo({ top: 0, behavior: 'smooth' as ScrollBehavior });
-
+    const __m = document.querySelector('main');
+    if (__m) __m.scrollTo({ top: 0, behavior: 'smooth' as ScrollBehavior });
+    else window.scrollTo({ top: 0, behavior: 'smooth' as ScrollBehavior });
     try {
       const res = await fetch(`/api/news/${id}`, { cache: 'no-store' });
       if (!res.ok) throw new Error('Failed to fetch article');

@@ -57,7 +57,7 @@ export default function AtlasPage() {
                 selected === c.code ? 'border-[#D4A853]/50 bg-[#D4A853]/10' : 'border-[#1e1e28] hover:border-[#D4A853]/30'
               }`}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
+              { }
               <img src={c.flag} alt={c.name} className="w-12 h-8 mx-auto mb-2 object-cover rounded" />
               <div className="text-xs font-semibold">{c.name}</div>
               <div className="text-[10px] text-[#9ca3af]">{c.filmCount} films</div>
@@ -78,7 +78,7 @@ export default function AtlasPage() {
                   href={`/movie/${f.id}`}
                   className="group relative aspect-[2/3] rounded-lg overflow-hidden bg-[#050507] border border-[#1e1e28] hover:border-[#D4A853]/50 transition"
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  { }
                   <img src={f.poster_url} alt={f.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/95 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-2">

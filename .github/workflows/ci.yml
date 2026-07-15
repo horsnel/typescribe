@@ -1,0 +1,102 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  # ─── Static checks: run on every PR and every push ───
+  lint-and-typecheck:
+    name: Lint + TypeScript
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: ESLint
+        run: npm run lint
+        # Lint is configured to fail on any error or warning.
+
+      - name: TypeScript type-check
+        run: npx tsc --noEmit
+
+  # ─── E2E: only on push to main (after Vercel deploy completes) ───
+  # Skipped on PRs because they don't have a deployed target to test against.
+  e2e:
+    name: E2E tests (production)
+    needs: lint-and-typecheck
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python deps
+        run: pip install requests
+
+      - name: Wait for Vercel production deploy to be READY
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          GIT_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          echo "Polling Vercel for deployment of SHA $GIT_SHA…"
+          for i in $(seq 1 60); do
+            STATUS=$(curl -sS "https://api.vercel.com/v6/deployments?projectId=${VERCEL_PROJECT_ID}&meta=githubCommitSha=${GIT_SHA}&limit=1" \
+              -H "Authorization: Bearer ${VERCEL_TOKEN}" \
+              | python3 -c "import sys, json; d=json.load(sys.stdin); print(d['deployments'][0]['readyState'] if d.get('deployments') else 'none')")
+            echo "  attempt $i: readyState=$STATUS"
+            if [ "$STATUS" = "READY" ]; then
+              echo "Vercel deployment is READY."
+              exit 0
+            fi
+            if [ "$STATUS" = "ERROR" ] || [ "$STATUS" = "CANCELED" ]; then
+              echo "::error::Vercel deployment $STATUS — aborting E2E."
+              exit 1
+            fi
+            sleep 15
+          done
+          echo "::error::Timed out waiting for Vercel deployment."
+          exit 1
+
+      - name: Run reviews/diary E2E (POST/GET/DELETE)
+        env:
+          PROD_URL: https://typescribe-mu.vercel.app
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
+          TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+        run: python scripts/e2e_test_reviews_diary.py
+
+      - name: Run PUT /api/diary + public reviews E2E
+        env:
+          PROD_URL: https://typescribe-mu.vercel.app
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
+          TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+        run: python scripts/e2e_test_put_diary_public_reviews.py
+
+      - name: E2E summary
+        if: always()
+        run: |
+          echo "### E2E Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Both test scripts ran against https://typescribe-mu.vercel.app" >> $GITHUB_STEP_SUMMARY
+          echo "Check the logs above for PASS/FAIL counts." >> $GITHUB_STEP_SUMMARY

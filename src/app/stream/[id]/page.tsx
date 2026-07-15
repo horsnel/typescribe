@@ -88,7 +88,7 @@ export default function StreamWatchPage({ params }: { params: Promise<{ id: stri
           <div className="md:col-span-2">
             <div className="flex items-start gap-4 mb-4">
               {movie.poster && (
-                // eslint-disable-next-line @next/next/no-img-element
+                 
                 <img src={movie.poster} alt={movie.title} className="w-24 rounded-lg shadow-xl flex-shrink-0" />
               )}
               <div className="flex-1 min-w-0">

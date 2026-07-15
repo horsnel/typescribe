@@ -108,7 +108,7 @@ export default function WatchPartyPage() {
 
         <div className="flex items-start gap-4 mb-6">
           {party.poster_path && (
-            // eslint-disable-next-line @next/next/no-img-element
+             
             <img src={`https://image.tmdb.org/t/p/w200${party.poster_path}`} alt="" className="w-20 rounded-lg" />
           )}
           <div className="flex-1">

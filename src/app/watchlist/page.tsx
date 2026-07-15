@@ -23,21 +23,9 @@ export default function WatchlistPage() {
       .filter((m): m is typeof movies[number] & { addedDate: string } => !!m.id)
   );
 
-  useEffect(() => { document.querySelector('main')?.scrollTo({ top: 0 }) || window.scrollTo(0, 0); }, []);
+  useEffect(() => { const __m = document.querySelector('main'); if (__m) __m.scrollTo({ top: 0 }); else window.scrollTo(0, 0); }, []);
 
-  if (!isAuthenticated || !user) {
-    return (
-      <div className="min-h-screen bg-[#050507] flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-[#9ca3af] mb-4">Please sign in to view your watchlist</p>
-          <Link href="/login" className="text-[#D4A853] hover:underline">Sign In</Link>
-        </div>
-      </div>
-    );
-  }
-
-  const genreNames = [...new Set(watchlistMovies.flatMap((m) => m.genres.map((g) => g.name)))];
-
+  // useMemo MUST be called before any early return so hook order is stable.
   const filtered = useMemo(() => {
     let result = [...watchlistMovies];
     if (selectedGenres.length > 0) {
@@ -51,6 +39,19 @@ export default function WatchlistPage() {
     }
     return result;
   }, [watchlistMovies, selectedGenres, sort]);
+
+  if (!isAuthenticated || !user) {
+    return (
+      <div className="min-h-screen bg-[#050507] flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-[#9ca3af] mb-4">Please sign in to view your watchlist</p>
+          <Link href="/login" className="text-[#D4A853] hover:underline">Sign In</Link>
+        </div>
+      </div>
+    );
+  }
+
+  const genreNames = [...new Set(watchlistMovies.flatMap((m) => m.genres.map((g) => g.name)))];
 
   const handleRemove = (movieId: number) => {
     toggleWatchlist(movieId);

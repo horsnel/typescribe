@@ -121,7 +121,7 @@ export default function GridPage() {
                         {results && result && (
                           <div className="absolute inset-1 flex flex-col items-center justify-center text-center overflow-hidden">
                             {results.solutions.posters[i] && (
-                              // eslint-disable-next-line @next/next/no-img-element
+                               
                               <img src={results.solutions.posters[i]} alt="" className="w-full h-full object-cover rounded opacity-80 absolute inset-0" />
                             )}
                             <span className="relative z-10 text-[10px] font-semibold bg-black/70 px-1 py-0.5 rounded text-white">

@@ -121,7 +121,7 @@ export default function VibePage() {
                     className="group relative aspect-[2/3] rounded-lg overflow-hidden bg-[#0c0c10] border border-[#1e1e28] hover:border-[#D4A853]/50 transition"
                   >
                     {r.poster_path ? (
-                      // eslint-disable-next-line @next/next/no-img-element
+                       
                       <img
                         src={`https://image.tmdb.org/t/p/w300${r.poster_path}`}
                         alt={r.movie_title}

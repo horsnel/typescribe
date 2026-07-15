@@ -144,7 +144,7 @@ export default function StreamPage() {
                   className="group relative aspect-[2/3] rounded-lg overflow-hidden bg-[#0c0c10] border border-[#1e1e28] hover:border-[#D4A853]/50 transition-all"
                 >
                   {movie.poster ? (
-                    // eslint-disable-next-line @next/next/no-img-element
+                     
                     <img
                       src={movie.poster}
                       alt={movie.title}
