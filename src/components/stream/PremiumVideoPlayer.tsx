@@ -72,15 +72,20 @@ export default function PremiumVideoPlayer({ movie }: PremiumVideoPlayerProps) {
   const isIframe = videoType === 'youtube' || videoType === 'vimeo' || videoType === 'embed';
   const isDirect = videoType === 'direct';
 
-  // Player state
-  const [isPlaying, setIsPlaying] = useState(false);
+  // Player state.
+  // For iframe (YouTube/Vimeo/embed) sources, the iframe manages its own
+  // loading + playback, so we initialize `isPlaying=true` and `isLoading=false`
+  // for that case — avoids the synchronous setState-in-effect that the React
+  // Compiler flags. Direct-file sources start with `isPlaying=false,
+  // isLoading=true` and are advanced by the play() promise below.
+  const [isPlaying, setIsPlaying] = useState(isIframe);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(1);
   const [isMuted, setIsMuted] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [buffered, setBuffered] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(!isIframe);
 
   // Controls visibility
   const [controlsVisible, setControlsVisible] = useState(true);
@@ -237,13 +242,11 @@ export default function PremiumVideoPlayer({ movie }: PremiumVideoPlayerProps) {
     return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
   }, []);
 
-  // Auto-play on mount for direct videos
+  // Auto-play on mount for direct videos.
+  // The iframe case is handled by the initial state above (isPlaying=true,
+  // isLoading=false), so this effect only needs to run for direct videos.
   useEffect(() => {
-    if (isIframe) {
-      setIsLoading(false);
-      setIsPlaying(true);
-      return;
-    }
+    if (isIframe) return;
     const video = videoRef.current;
     if (!video) return;
     video.muted = true;

@@ -219,6 +219,51 @@ export async function deleteDiaryEntry(entryId: string, userId: string): Promise
   return !error && (count ?? 0) > 0;
 }
 
+/**
+ * Update a single diary entry belonging to `userId`.
+ * Only the supplied fields are written (partial update). Mirrors the
+ * `logDiary()` field-name mapping: `notes` → DB `review_text`,
+ * `poster_path` → DB `movie_poster`. Returns the updated row, or null if the
+ * row doesn't exist / isn't owned by the caller.
+ */
+export async function updateDiary(
+  entryId: string,
+  userId: string,
+  updates: {
+    watched_on?: string;
+    rating?: number | null;
+    rewatch?: boolean;
+    location?: string | null;
+    notes?: string | null;
+    poster_path?: string | null;
+    genres?: string[] | null;
+    release_year?: number | null;
+  },
+): Promise<DiaryEntry | null> {
+  // Build the patch using DB column names (`notes` → `review_text`,
+  // `poster_path` → `movie_poster`). Bump `updated_at` if the column exists
+  // (no-op if it doesn't — Supabase will just ignore unknown columns when we
+  // use `.update()`).
+  const patch: Record<string, unknown> = {};
+  if (updates.watched_on !== undefined) patch.watched_on = updates.watched_on;
+  if (updates.rating !== undefined) patch.rating = updates.rating;
+  if (updates.rewatch !== undefined) patch.rewatch = updates.rewatch;
+  if (updates.location !== undefined) patch.location = updates.location;
+  if (updates.notes !== undefined) patch.review_text = updates.notes;
+  if (updates.poster_path !== undefined) patch.movie_poster = updates.poster_path;
+  if (updates.genres !== undefined) patch.genres = updates.genres;
+  if (updates.release_year !== undefined) patch.release_year = updates.release_year;
+
+  const { data } = await supabaseAdmin
+    .from('watch_diary')
+    .update(patch)
+    .eq('id', entryId)
+    .eq('user_id', userId)
+    .select('*')
+    .maybeSingle();
+  return mapDiaryRow(data);
+}
+
 export async function logDiary(
   userId: string,
   entry: { movie_id: number; movie_title: string; poster_path?: string | null;
@@ -277,6 +322,24 @@ export async function getReviewsByUser(userId: string, limit = 100): Promise<Rev
   const { data } = await supabaseAdmin
     .from('reviews')
     .select('*')
+    .eq('user_id', userId)
+    .order('created_at', { ascending: false })
+    .limit(limit);
+  return (data ?? []).map(mapReviewRow).filter((r): r is Review => r !== null);
+}
+
+/**
+ * Public variant of getReviewsByUser — also joins the author's profile
+ * (display_name + avatar) so public profile pages can render the review
+ * header without a second round-trip. Same RLS-equivalent: anyone can read
+ * anyone's reviews (the public profile page is intentionally public).
+ */
+export async function getPublicReviewsByUser(userId: string, limit = 100): Promise<Review[]> {
+  const { data } = await supabaseAdmin
+    .from('reviews')
+    // PostgREST column-alias: `avatar:avatar_url` exposes the DB's
+    // `avatar_url` column as `avatar` in the returned JSON.
+    .select('*, author:profiles!reviews_user_id_fkey(id, display_name, avatar:avatar_url)')
     .eq('user_id', userId)
     .order('created_at', { ascending: false })
     .limit(limit);

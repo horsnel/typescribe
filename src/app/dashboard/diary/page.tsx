@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import { useAuth } from '@/lib/auth';
-import { Calendar, Plus, Loader2, Star, MapPin, RotateCcw, Film, Trash2 } from 'lucide-react';
+import { Calendar, Plus, Loader2, Star, MapPin, RotateCcw, Film, Trash2, Pencil } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import DiaryEntryForm from '@/components/review/DiaryEntryForm';
@@ -34,6 +34,7 @@ export default function DashboardDiaryPage() {
   const [entries, setEntries] = useState<DiaryEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
+  const [editingEntry, setEditingEntry] = useState<DiaryEntry | null>(null);
   const [sort, setSort] = useState<'recent' | 'rating' | 'rewatch'>('recent');
 
   const fetchEntries = useCallback(async () => {
@@ -75,6 +76,20 @@ export default function DashboardDiaryPage() {
       console.error('[dashboard/diary] delete error:', err);
       fetchEntries();
     }
+  };
+
+  const handleEdit = (entry: DiaryEntry) => {
+    setEditingEntry(entry);
+    setShowForm(false); // hide the "create" form if open
+  };
+
+  const handleEditCancel = () => {
+    setEditingEntry(null);
+  };
+
+  const handleEditSubmitted = () => {
+    setEditingEntry(null);
+    fetchEntries();
   };
 
   const sortedEntries = [...entries].sort((a, b) => {
@@ -132,8 +147,8 @@ export default function DashboardDiaryPage() {
         </div>
       </div>
 
-      {/* Inline form */}
-      {showForm && (
+      {/* Inline form (create mode) */}
+      {showForm && !editingEntry && (
         <div className="mb-8">
           <DiaryEntryForm
             onSubmitted={() => {
@@ -141,6 +156,29 @@ export default function DashboardDiaryPage() {
               fetchEntries();
             }}
             onCancel={() => setShowForm(false)}
+          />
+        </div>
+      )}
+
+      {/* Inline form (edit mode) */}
+      {editingEntry && (
+        <div className="mb-8">
+          <DiaryEntryForm
+            initialEntry={{
+              id: editingEntry.id,
+              movie_id: editingEntry.movie_id,
+              movie_title: editingEntry.movie_title,
+              poster_path: editingEntry.poster_path ?? null,
+              watched_on: editingEntry.watched_on,
+              rating: editingEntry.rating ?? null,
+              rewatch: editingEntry.rewatch ?? false,
+              location: editingEntry.location ?? null,
+              notes: editingEntry.notes ?? null,
+              genres: editingEntry.genres ?? null,
+              release_year: editingEntry.release_year ?? null,
+            }}
+            onSubmitted={handleEditSubmitted}
+            onCancel={handleEditCancel}
           />
         </div>
       )}
@@ -251,14 +289,23 @@ export default function DashboardDiaryPage() {
                         </div>
                       )}
                     </div>
-                    {/* Delete */}
-                    <button
-                      onClick={() => handleDelete(entry.id)}
-                      className="p-2 text-[#6b7280] hover:text-red-400 transition-colors rounded-lg hover:bg-[#111118] flex-shrink-0"
-                      aria-label="Delete diary entry"
-                    >
-                      <Trash2 className="w-4 h-4" strokeWidth={1.5} />
-                    </button>
+                    {/* Actions: edit + delete */}
+                    <div className="flex items-center gap-1 flex-shrink-0">
+                      <button
+                        onClick={() => handleEdit(entry)}
+                        className="p-2 text-[#6b7280] hover:text-[#D4A853] transition-colors rounded-lg hover:bg-[#111118]"
+                        aria-label="Edit diary entry"
+                      >
+                        <Pencil className="w-4 h-4" strokeWidth={1.5} />
+                      </button>
+                      <button
+                        onClick={() => handleDelete(entry.id)}
+                        className="p-2 text-[#6b7280] hover:text-red-400 transition-colors rounded-lg hover:bg-[#111118] flex-shrink-0"
+                        aria-label="Delete diary entry"
+                      >
+                        <Trash2 className="w-4 h-4" strokeWidth={1.5} />
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>

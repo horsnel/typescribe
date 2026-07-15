@@ -78,16 +78,13 @@ function detectVideoType(url: string): CinemaMovieData['videoType'] {
 function PlayPauseOverlay({ trigger }: { trigger: number }) {
   // trigger changes on play/pause toggle
   const [show, setShow] = useState(false);
-  const prevTrigger = useRef(trigger);
-
-  if (trigger !== prevTrigger.current) {
-    prevTrigger.current = trigger;
-    // We need to show the overlay on trigger change
-    // This is a render-time side effect, not an effect callback
-  }
 
   useEffect(() => {
     if (trigger > 0) {
+      // Briefly show the play/pause overlay when `trigger` changes. The
+      // setState-in-effect is intentional — we need to flip the visibility
+      // bit on when the trigger prop changes, then auto-hide via setTimeout.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setShow(true);
       const timer = setTimeout(() => setShow(false), 600);
       return () => clearTimeout(timer);

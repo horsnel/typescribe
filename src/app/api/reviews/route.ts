@@ -1,21 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getCurrentProfile, createReview, getReviewsByMovie, getReviewsByUser } from '@/lib/db';
+import { getCurrentProfile, createReview, getReviewsByMovie, getReviewsByUser, getPublicReviewsByUser } from '@/lib/db';
 
 /**
- * GET /api/reviews                  — list the current user's reviews
- * GET /api/reviews?movie_id=<id>    — list reviews for a specific movie
+ * GET /api/reviews                  — list the current user's reviews (auth required)
+ * GET /api/reviews?movie_id=<id>    — list reviews for a specific movie (public)
+ * GET /api/reviews?user_id=<id>     — list reviews by a specific user (public;
+ *                                     used by public profile pages)
  *
- * POST /api/reviews                 — create a new review
+ * POST /api/reviews                 — create a new review (auth required)
  *   body: { movie_id, movie_title, rating, title?, body?, spoiler?, genres?, release_year? }
  *
- * The route uses getCurrentProfile() to resolve the Supabase UUID server-side,
- * so client-sent user IDs are ignored. Writes go through the supabaseAdmin
- * service role (bypasses RLS) via createReview() in src/lib/db.ts.
+ * The route uses getCurrentProfile() to resolve the Supabase UUID server-side
+ * for the auth-scoped list and for writes, so client-sent user IDs are
+ * ignored on those paths. The ?movie_id and ?user_id paths are intentionally
+ * public (no auth required) so they can be consumed by public movie/profile
+ * pages.
  */
 export async function GET(req: NextRequest) {
   try {
     const url = new URL(req.url);
     const movieIdParam = url.searchParams.get('movie_id');
+    const userIdParam = url.searchParams.get('user_id');
     const limit = Math.min(parseInt(url.searchParams.get('limit') ?? '50', 10) || 50, 100);
 
     if (movieIdParam) {
@@ -27,7 +32,18 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ reviews });
     }
 
-    // List current user's reviews
+    if (userIdParam) {
+      // Basic UUID shape validation — Supabase user IDs are UUIDs.
+      // Reject anything that's clearly not a UUID to avoid Postgres errors.
+      const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+      if (!uuidRegex.test(userIdParam)) {
+        return NextResponse.json({ error: 'user_id must be a valid UUID' }, { status: 400 });
+      }
+      const reviews = await getPublicReviewsByUser(userIdParam, limit);
+      return NextResponse.json({ reviews });
+    }
+
+    // List current user's reviews (auth required)
     const profile = await getCurrentProfile();
     if (!profile) {
       return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });

@@ -15,26 +15,62 @@ interface PickedMovie {
 interface DiaryEntryFormProps {
   /** If provided, hides the movie picker (used on movie detail pages). */
   presetMovie?: PickedMovie;
+  /**
+   * If provided, switches the form into "edit mode": pre-fills the form with
+   * the existing entry's fields and submits a PUT to /api/diary/[id] instead
+   * of a POST to /api/diary. The movie picker is hidden (the movie can't be
+   * changed post-creation).
+   */
+  initialEntry?: {
+    id: string;
+    movie_id: number;
+    movie_title: string;
+    poster_path?: string | null;
+    watched_on: string;
+    rating?: number | null;
+    rewatch?: boolean;
+    location?: string | null;
+    notes?: string | null;
+    genres?: string[] | null;
+    release_year?: number | null;
+  };
   onSubmitted?: (entry: any) => void;
   onCancel?: () => void;
 }
 
 const MAX_NOTES = 5000;
 
-export default function DiaryEntryForm({ presetMovie, onSubmitted, onCancel }: DiaryEntryFormProps) {
-  const [movie, setMovie] = useState<PickedMovie | null>(presetMovie ?? null);
+export default function DiaryEntryForm({ presetMovie, initialEntry, onSubmitted, onCancel }: DiaryEntryFormProps) {
+  const isEditMode = !!initialEntry;
+
+  // When editing, lock the movie to the entry's existing movie.
+  const [movie, setMovie] = useState<PickedMovie | null>(
+    initialEntry
+      ? {
+          id: initialEntry.movie_id,
+          title: initialEntry.movie_title,
+          poster_path: initialEntry.poster_path ?? null,
+          release_date: initialEntry.release_year ? `${initialEntry.release_year}-01-01` : null,
+          genres: initialEntry.genres ?? [],
+        }
+      : presetMovie ?? null,
+  );
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<PickedMovie[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
 
-  const [watchedOn, setWatchedOn] = useState<string>(new Date().toISOString().slice(0, 10));
-  const [rating, setRating] = useState<number>(0);
+  const [watchedOn, setWatchedOn] = useState<string>(
+    initialEntry?.watched_on
+      ? initialEntry.watched_on.slice(0, 10)
+      : new Date().toISOString().slice(0, 10),
+  );
+  const [rating, setRating] = useState<number>(initialEntry?.rating ?? 0);
   const [hoverRating, setHoverRating] = useState(0);
-  const [rewatch, setRewatch] = useState(false);
-  const [location, setLocation] = useState('');
-  const [notes, setNotes] = useState('');
+  const [rewatch, setRewatch] = useState(initialEntry?.rewatch ?? false);
+  const [location, setLocation] = useState(initialEntry?.location ?? '');
+  const [notes, setNotes] = useState(initialEntry?.notes ?? '');
   const [errors, setErrors] = useState<{ movie?: string; watchedOn?: string }>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
@@ -44,7 +80,7 @@ export default function DiaryEntryForm({ presetMovie, onSubmitted, onCancel }: D
 
   // Movie search (debounced)
   useEffect(() => {
-    if (presetMovie) return;
+    if (presetMovie || isEditMode) return;
     if (!searchQuery.trim()) {
       setSearchResults([]);
       setIsSearching(false);
@@ -101,29 +137,42 @@ export default function DiaryEntryForm({ presetMovie, onSubmitted, onCancel }: D
         : [];
       const release_year = movie?.release_date ? parseInt(movie.release_date.slice(0, 4), 10) : null;
 
-      const res = await fetch('/api/diary', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          movie_id: movie!.id,
-          movie_title: movie!.title,
-          poster_path: movie!.poster_path ?? null,
-          watched_on: watchedOn,
-          rating: rating > 0 ? rating : null,
-          rewatch,
-          location: location.trim() || null,
-          notes: notes.trim() || null,
-          genres: genres.length > 0 ? genres : null,
-          release_year: Number.isFinite(release_year) ? release_year : null,
-        }),
-      });
+      const payload = {
+        watched_on: watchedOn,
+        rating: rating > 0 ? rating : null,
+        rewatch,
+        location: location.trim() || null,
+        notes: notes.trim() || null,
+        genres: genres.length > 0 ? genres : null,
+        release_year: Number.isFinite(release_year) ? release_year : null,
+      };
+
+      const res = isEditMode
+        ? await fetch(`/api/diary/${initialEntry!.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          })
+        : await fetch('/api/diary', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              movie_id: movie!.id,
+              movie_title: movie!.title,
+              poster_path: movie!.poster_path ?? null,
+              ...payload,
+            }),
+          });
       const data = await res.json();
       if (!res.ok) throw new Error(data?.error ?? 'Failed to log entry');
-      // Reset
-      setRating(0); setNotes(''); setLocation(''); setRewatch(false);
-      setErrors({});
-      setWatchedOn(new Date().toISOString().slice(0, 10));
-      if (!presetMovie) setMovie(null);
+      // Reset (only for create mode — edit mode keeps the form so the user
+      // can see what they saved, parent will typically close the composer)
+      if (!isEditMode) {
+        setRating(0); setNotes(''); setLocation(''); setRewatch(false);
+        setErrors({});
+        setWatchedOn(new Date().toISOString().slice(0, 10));
+        if (!presetMovie) setMovie(null);
+      }
       onSubmitted?.(data.entry);
     } catch (err: any) {
       setSubmitError(err?.message ?? 'Failed to log entry');
@@ -143,11 +192,11 @@ export default function DiaryEntryForm({ presetMovie, onSubmitted, onCancel }: D
     <form onSubmit={handleSubmit} className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
       <div className="flex items-center gap-2 mb-4">
         <Calendar className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
-        <h3 className="text-lg font-semibold text-white">Log a Watch</h3>
+        <h3 className="text-lg font-semibold text-white">{isEditMode ? 'Edit Diary Entry' : 'Log a Watch'}</h3>
       </div>
 
-      {/* Movie picker */}
-      {!presetMovie && (
+      {/* Movie picker (hidden when editing — movie is locked) */}
+      {!presetMovie && !isEditMode && (
         <div className="mb-4" ref={searchRef}>
           <label className="text-sm font-medium text-white mb-2 block">Movie / Show</label>
           {movie ? (
@@ -322,7 +371,7 @@ export default function DiaryEntryForm({ presetMovie, onSubmitted, onCancel }: D
           className="bg-[#D4A853] hover:bg-[#B8922F] text-white gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {submitting ? <Loader2 className="w-4 h-4 animate-spin" strokeWidth={1.5} /> : <Send className="w-4 h-4" strokeWidth={1.5} />}
-          {submitting ? 'Logging...' : 'Log Entry'}
+          {submitting ? 'Saving...' : isEditMode ? 'Save Changes' : 'Log Entry'}
         </Button>
         {onCancel && (
           <Button
