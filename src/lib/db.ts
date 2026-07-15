@@ -326,6 +326,43 @@ export async function deleteReview(reviewId: string, userId: string): Promise<bo
   return !error && (count ?? 0) > 0;
 }
 
+/**
+ * Update a single review belonging to `userId`.
+ * Only the supplied fields are written; `updated_at` is bumped automatically
+ * by a DB trigger (or here as a fallback). Returns the updated row, or null
+ * if the row doesn't exist / isn't owned by the caller.
+ */
+export async function updateReview(
+  reviewId: string,
+  userId: string,
+  updates: {
+    rating?: number;
+    title?: string | null;
+    body?: string | null;
+    spoiler?: boolean;
+    genres?: string[] | null;
+    release_year?: number | null;
+  },
+): Promise<Review | null> {
+  // Build the patch using DB column names (`spoiler` → `is_spoiler`).
+  const patch: Record<string, unknown> = { updated_at: new Date().toISOString() };
+  if (Number.isFinite(updates.rating)) patch.rating = updates.rating;
+  if (updates.title !== undefined) patch.title = updates.title;
+  if (updates.body !== undefined) patch.body = updates.body;
+  if (updates.spoiler !== undefined) patch.is_spoiler = updates.spoiler;
+  if (updates.genres !== undefined) patch.genres = updates.genres;
+  if (updates.release_year !== undefined) patch.release_year = updates.release_year;
+
+  const { data } = await supabaseAdmin
+    .from('reviews')
+    .update(patch)
+    .eq('id', reviewId)
+    .eq('user_id', userId)
+    .select('*')
+    .maybeSingle();
+  return mapReviewRow(data);
+}
+
 export async function markReviewHelpful(reviewId: string, userId: string): Promise<boolean> {
   const { error } = await supabaseAdmin
     .from('review_helpful')
@@ -338,7 +375,10 @@ export async function markReviewHelpful(reviewId: string, userId: string): Promi
 export async function getSceneComments(movieId: number): Promise<SceneComment[]> {
   const { data } = await supabaseAdmin
     .from('scene_comments')
-    .select('*, author:profiles!scene_comments_user_id_fkey(id, display_name, avatar)')
+    // PostgREST column-alias syntax: `avatar:avatar_url` exposes the DB's
+    // `avatar_url` column as `avatar` in the returned JSON, so the existing
+    // Profile.author.avatar consumers keep working without code changes.
+    .select('*, author:profiles!scene_comments_user_id_fkey(id, display_name, avatar:avatar_url)')
     .eq('movie_id', movieId)
     .order('timestamp_sec', { ascending: true });
   return (data ?? []) as SceneComment[];
@@ -538,7 +578,7 @@ export async function isCommunityMember(communityId: string, userId: string): Pr
 export async function getPosts(communityId: string, limit = 50): Promise<Post[]> {
   const { data } = await supabaseAdmin
     .from('posts')
-    .select('*, author:profiles!posts_author_id_fkey(id, display_name, avatar)')
+    .select('*, author:profiles!posts_author_id_fkey(id, display_name, avatar:avatar_url)')
     .eq('community_id', communityId)
     .order('created_at', { ascending: false })
     .limit(limit);
@@ -560,7 +600,7 @@ export async function createPost(
 export async function getComments(postId: string): Promise<Comment[]> {
   const { data } = await supabaseAdmin
     .from('comments')
-    .select('*, author:profiles!comments_author_id_fkey(id, display_name, avatar)')
+    .select('*, author:profiles!comments_author_id_fkey(id, display_name, avatar:avatar_url)')
     .eq('post_id', postId)
     .order('created_at', { ascending: true });
   return (data ?? []) as Comment[];
@@ -750,7 +790,7 @@ export async function rsvpWatchParty(partyId: string, userId: string, rsvp: 'yes
 export async function getWatchPartyChat(partyId: string, limit = 200): Promise<WatchPartyChat[]> {
   const { data } = await supabaseAdmin
     .from('watch_party_chat')
-    .select('*, author:profiles!watch_party_chat_user_id_fkey(id, display_name, avatar)')
+    .select('*, author:profiles!watch_party_chat_user_id_fkey(id, display_name, avatar:avatar_url)')
     .eq('party_id', partyId)
     .order('created_at', { ascending: true })
     .limit(limit);
@@ -773,7 +813,7 @@ export async function sendWatchPartyChat(
 export async function getTasteTwins(userId: string, limit = 5): Promise<TasteTwin[]> {
   const { data } = await supabaseAdmin
     .from('taste_twins')
-    .select('*, twin:profiles!taste_twins_twin_user_id_fkey(id, display_name, avatar, bio)')
+    .select('*, twin:profiles!taste_twins_twin_user_id_fkey(id, display_name, avatar:avatar_url, bio)')
     .eq('user_id', userId)
     .order('similarity', { ascending: false })
     .limit(limit);
@@ -809,7 +849,9 @@ export async function getGameResults(
 export async function getGridLeaderboard(limit = 20): Promise<Array<{ user_id: string; total: number; display_name: string; avatar: string }>> {
   const { data } = await supabaseAdmin
     .from('game_results')
-    .select('user_id, score, profiles!game_results_user_id_fkey(display_name, avatar)')
+    // PostgREST alias: select the DB's `avatar_url` column AS `avatar` so the
+    // returned JSON matches the existing consumer shape.
+    .select('user_id, score, profiles!game_results_user_id_fkey(display_name, avatar:avatar_url)')
     .eq('game_type', 'grid')
     .order('score', { ascending: false })
     .limit(limit);

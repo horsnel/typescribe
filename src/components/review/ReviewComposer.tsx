@@ -17,6 +17,24 @@ interface PickedMovie {
 interface ReviewComposerProps {
   /** If provided, hides the movie picker (used on movie detail pages). */
   presetMovie?: PickedMovie;
+  /**
+   * If provided, switches the composer into "edit mode": pre-fills the form
+   * with the existing review's fields and submits a PUT to /api/reviews/[id]
+   * instead of a POST to /api/reviews. The movie picker is hidden (the movie
+   * can't be changed post-creation).
+   */
+  initialReview?: {
+    id: string;
+    movie_id: number;
+    movie_title: string;
+    rating: number;
+    title?: string | null;
+    body?: string | null;
+    spoiler?: boolean;
+    poster_path?: string | null;
+    release_date?: string | null;
+    genres?: string[] | Array<{ id: number; name: string }> | null;
+  };
   /** Called after a successful POST /api/reviews — parent can refetch lists. */
   onSubmitted?: (review: any) => void;
   onCancel?: () => void;
@@ -25,19 +43,32 @@ interface ReviewComposerProps {
 const MIN_CHARS = 20;
 const MAX_CHARS = 2000;
 
-export default function ReviewComposer({ presetMovie, onSubmitted, onCancel }: ReviewComposerProps) {
-  const [movie, setMovie] = useState<PickedMovie | null>(presetMovie ?? null);
+export default function ReviewComposer({ presetMovie, initialReview, onSubmitted, onCancel }: ReviewComposerProps) {
+  const isEditMode = !!initialReview;
+
+  // When editing, lock the movie to the review's existing movie.
+  const [movie, setMovie] = useState<PickedMovie | null>(
+    initialReview
+      ? {
+          id: initialReview.movie_id,
+          title: initialReview.movie_title,
+          poster_path: initialReview.poster_path ?? null,
+          release_date: initialReview.release_date ?? null,
+          genres: initialReview.genres ?? [],
+        }
+      : presetMovie ?? null,
+  );
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<PickedMovie[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
 
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(initialReview?.rating ?? 0);
   const [hoverRating, setHoverRating] = useState(0);
-  const [title, setTitle] = useState('');
-  const [text, setText] = useState('');
-  const [spoiler, setSpoiler] = useState(false);
+  const [title, setTitle] = useState(initialReview?.title ?? '');
+  const [text, setText] = useState(initialReview?.body ?? '');
+  const [spoiler, setSpoiler] = useState(initialReview?.spoiler ?? false);
   const [errors, setErrors] = useState<{ movie?: string; rating?: string; text?: string }>({});
   const [moderationWarnings, setModerationWarnings] = useState<string[]>([]);
   const [moderationBlocked, setModerationBlocked] = useState('');
@@ -128,27 +159,40 @@ export default function ReviewComposer({ presetMovie, onSubmitted, onCancel }: R
         : [];
       const release_year = movie?.release_date ? parseInt(movie.release_date.slice(0, 4), 10) : null;
 
-      const res = await fetch('/api/reviews', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          movie_id: movie!.id,
-          movie_title: movie!.title,
-          rating,
-          title: title.trim(),
-          body: text.trim(),
-          spoiler,
-          genres: genres.length > 0 ? genres : null,
-          release_year: Number.isFinite(release_year) ? release_year : null,
-        }),
-      });
+      const payload = {
+        rating,
+        title: title.trim(),
+        body: text.trim(),
+        spoiler,
+        genres: genres.length > 0 ? genres : null,
+        release_year: Number.isFinite(release_year) ? release_year : null,
+      };
+
+      const res = isEditMode
+        ? await fetch(`/api/reviews/${initialReview!.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          })
+        : await fetch('/api/reviews', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              movie_id: movie!.id,
+              movie_title: movie!.title,
+              ...payload,
+            }),
+          });
       const data = await res.json();
       if (!res.ok) throw new Error(data?.error ?? 'Failed to submit review');
-      // Reset
-      setRating(0); setText(''); setTitle(''); setSpoiler(false);
-      setModerationWarnings([]); setModerationBlocked('');
-      setErrors({});
-      if (!presetMovie) setMovie(null);
+      // Reset (only for create mode — edit mode keeps the form so the user
+      // can see what they saved, parent will typically close the composer)
+      if (!isEditMode) {
+        setRating(0); setText(''); setTitle(''); setSpoiler(false);
+        setModerationWarnings([]); setModerationBlocked('');
+        setErrors({});
+        if (!presetMovie) setMovie(null);
+      }
       onSubmitted?.(data.review);
     } catch (err: any) {
       setSubmitError(err?.message ?? 'Failed to submit review');
@@ -167,14 +211,14 @@ export default function ReviewComposer({ presetMovie, onSubmitted, onCancel }: R
   return (
     <form onSubmit={handleSubmit} className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
       <div className="flex items-center gap-2 mb-4">
-        <h3 className="text-lg font-semibold text-white">Write a Review</h3>
+        <h3 className="text-lg font-semibold text-white">{isEditMode ? 'Edit Review' : 'Write a Review'}</h3>
         <div className="flex items-center gap-1 text-[10px] font-semibold bg-green-500/10 text-green-400 px-2 py-0.5 rounded-full border border-green-500/20">
           <ShieldCheck className="w-3 h-3" strokeWidth={1.5} /> AI Moderated
         </div>
       </div>
 
-      {/* ─── Movie picker (only when no presetMovie) ─── */}
-      {!presetMovie && (
+      {/* ─── Movie picker (only when no presetMovie and not in edit mode) ─── */}
+      {!presetMovie && !isEditMode && (
         <div className="mb-4" ref={searchRef}>
           <label className="text-sm font-medium text-white mb-2 block">Movie / Show</label>
           {movie ? (
@@ -358,7 +402,7 @@ export default function ReviewComposer({ presetMovie, onSubmitted, onCancel }: R
           className="bg-[#D4A853] hover:bg-[#B8922F] text-white gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {submitting ? <Loader2 className="w-4 h-4 animate-spin" strokeWidth={1.5} /> : <Send className="w-4 h-4" strokeWidth={1.5} />}
-          {submitting ? 'Submitting...' : 'Submit Review'}
+          {submitting ? 'Saving...' : isEditMode ? 'Save Changes' : 'Submit Review'}
         </Button>
         {onCancel && (
           <Button

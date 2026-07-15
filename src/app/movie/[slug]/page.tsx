@@ -10,7 +10,7 @@ import {
   PenSquare, ThumbsUp, Flag, Reply, MoreHorizontal, Send, Loader2, Shield,
   DollarSign, Eye, MonitorPlay, Swords, TrendingUp, TrendingDown,
 } from 'lucide-react';
-import { userReviews, getMovieBySlug } from '@/lib/data';
+import { getMovieBySlug } from '@/lib/data';
 import type { Movie } from '@/lib/types';
 import { useAuth, isInWatchlist, toggleWatchlist } from '@/lib/auth';
 import RatingBadge from '@/components/movie/RatingBadge';
@@ -26,7 +26,7 @@ import ReviewCard from '@/components/review/ReviewCard';
 import ReviewForm from '@/components/review/ReviewForm';
 import ReportModal from '@/components/review/ReportModal';
 import { moderateContent, preSubmitCheck } from '@/lib/moderation';
-import type { ReportReason } from '@/lib/types';
+import type { ReportReason, UserReview } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import MovieDetailSkeleton from '@/components/skeletons/MovieDetailSkeleton';
 import TrailerModal from '@/components/movie/TrailerModal';
@@ -248,6 +248,13 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
   const [helpedDisputes, setHelpedDisputes] = useState<Set<number>>(new Set());
   const [spoilersRevealed, setSpoilersRevealed] = useState<Set<number>>(new Set());
 
+  // ─── Real reviews from Supabase (replaces the empty `userReviews` mock) ───
+  // The movie page used to read reviews from `userReviews` (an empty shim in
+  // src/lib/data.ts) plus a localStorage mirror. Now we fetch from
+  // /api/reviews?movie_id=<id> so reviews are durable + cross-device.
+  const [apiReviews, setApiReviews] = useState<UserReview[]>([]);
+  const [reviewsLoading, setReviewsLoading] = useState(true);
+
   // ─── Where to Watch State ───
   const [watchProviders, setWatchProviders] = useState<WatchProvidersData | null>(null);
   const [watchLoading, setWatchLoading] = useState(true);
@@ -259,7 +266,9 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
 
   // Scroll to top on mount / slug change
   useEffect(() => {
-    document.querySelector('main')?.scrollTo({ top: 0 }) || window.scrollTo(0, 0);
+    const main = document.querySelector('main');
+    if (main) main.scrollTo({ top: 0 });
+    else window.scrollTo(0, 0);
     setReviewsVisible(3);
     setOverviewExpanded(false);
     setTrailerOpen(false);
@@ -290,6 +299,51 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
       if (data) setDisputes(JSON.parse(data));
     } catch { /* ignore */ }
   }, [movie]);
+
+  // Fetch real reviews from Supabase via /api/reviews?movie_id=<id>.
+  // Replaces the previous `userReviews.filter(...)` mock-based lookup, which
+  // always returned [] after the mock data was removed. The fetch also runs
+  // again after the user submits a new review (see `handleReviewSubmit`),
+  // so the list updates immediately without a full page reload.
+  const fetchMovieReviews = useCallback(async (movieId: number) => {
+    setReviewsLoading(true);
+    try {
+      const res = await fetch(`/api/reviews?movie_id=${movieId}`, { cache: 'no-store' });
+      if (!res.ok) { setApiReviews([]); return; }
+      const data = await res.json();
+      // Convert the Supabase Review shape → UserReview shape that ReviewCard expects.
+      const reviews: UserReview[] = (data?.reviews ?? []).map((r: any): UserReview => ({
+        id: typeof r.id === 'string'
+          // Hash the UUID to a stable 32-bit int (ReviewCard keys + onHelpful
+          // expect a number). Use a simple deterministic fold so the same
+          // review maps to the same number every render.
+          ? Math.abs([...r.id].reduce((acc, c) => ((acc << 5) - acc + c.charCodeAt(0)) | 0, 0))
+          : r.id,
+        movie_id: r.movie_id,
+        user_id: r.author?.id ?? r.user_id ?? 0,
+        user_name: r.author?.display_name ?? 'Anonymous',
+        user_avatar: r.author?.avatar ?? '',
+        rating: r.rating,
+        text: r.body ?? '',
+        helpful_count: r.helpful_count ?? 0,
+        created_at: r.created_at,
+        updated_at: r.updated_at ?? r.created_at,
+        moderated: Boolean(r.spoiler),
+        moderation_note: r.spoiler ? 'Marked as spoiler' : '',
+        reports: [],
+      }));
+      setApiReviews(reviews);
+    } catch {
+      setApiReviews([]);
+    } finally {
+      setReviewsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!movie) return;
+    fetchMovieReviews(movie.id);
+  }, [movie, fetchMovieReviews]);
 
   // Fetch watch providers — TMDb via API route first, then TVMaze client-side fallback
   useEffect(() => {
@@ -513,8 +567,10 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
       moderation_note: moderation.reason || '',
       reports: [],
     };
-    // Mirror to localStorage so the movie page's localStorage-backed reviews
-    // list keeps working (used by the in-page Reviews tab).
+    // Mirror to localStorage as a legacy fallback (older builds read reviews
+    // from here). The Reviews tab below now fetches from /api/reviews, so this
+    // is purely defensive — if the POST below fails, the user still sees their
+    // review locally until they refresh.
     try {
       const existing = localStorage.getItem('typescribe_user_reviews');
       const reviews = existing ? JSON.parse(existing) : [];
@@ -549,7 +605,9 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
     }
 
     setShowReviewForm(false);
-    window.location.reload();
+    // Refresh the reviews list from the API so the new review appears
+    // immediately (no full-page reload — avoids the hero/content flash).
+    fetchMovieReviews(movie.id);
   };
 
   // GSAP entrance — only animate on initial render, not on data updates
@@ -655,7 +713,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
   const runtimeHours = Math.floor(movie.runtime / 60);
   const runtimeMins = movie.runtime % 60;
   const runtimeStr = `${runtimeHours}h ${runtimeMins}m`;
-  const movieReviews = userReviews.filter((r) => r.movie_id === movie.id);
+  const movieReviews = apiReviews;
 
   const sortedReviews = [...movieReviews].sort((a, b) => {
     switch (reviewSort) {
@@ -1228,7 +1286,12 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
               {/* Reviews Tab */}
               {commentTab === 'reviews' && (
                 <>
-                  {movieReviews.length === 0 ? (
+                  {reviewsLoading ? (
+                    <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-8 text-center">
+                      <Loader2 className="w-8 h-8 text-[#D4A853] animate-spin mx-auto mb-3" strokeWidth={1.5} />
+                      <p className="text-sm text-[#6b7280]">Loading reviews…</p>
+                    </div>
+                  ) : movieReviews.length === 0 ? (
                     <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-8 text-center">
                       <Star className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" strokeWidth={1.5} />
                       <p className="text-[#9ca3af] mb-1">No reviews yet</p>

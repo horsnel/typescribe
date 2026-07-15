@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import { useAuth } from '@/lib/auth';
-import { Star, Film, Trash2, Eye, Plus, Loader2 } from 'lucide-react';
+import { Star, Film, Trash2, Eye, Plus, Loader2, Pencil } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import ReviewComposer from '@/components/review/ReviewComposer';
@@ -18,7 +18,10 @@ interface Review {
   body?: string | null;
   text?: string | null; // backwards-compat with localStorage shape
   spoiler?: boolean;
+  genres?: string[] | null;
+  release_year?: number | null;
   created_at: string;
+  updated_at?: string;
 }
 
 export default function DashboardReviewsPage() {
@@ -29,6 +32,7 @@ export default function DashboardReviewsPage() {
   const [sort, setSort] = useState<string>('recent');
   const [spoilersRevealed, setSpoilersRevealed] = useState<Set<string>>(new Set());
   const [showComposer, setShowComposer] = useState(false);
+  const [editingReview, setEditingReview] = useState<Review | null>(null);
 
   const fetchReviews = useCallback(async () => {
     setLoading(true);
@@ -75,6 +79,20 @@ export default function DashboardReviewsPage() {
       console.error('[dashboard/reviews] delete error:', err);
       fetchReviews(); // re-sync from server
     }
+  };
+
+  const handleEdit = (review: Review) => {
+    setEditingReview(review);
+    setShowComposer(false); // hide the "create" composer if open
+  };
+
+  const handleEditCancel = () => {
+    setEditingReview(null);
+  };
+
+  const handleEditSubmitted = () => {
+    setEditingReview(null);
+    fetchReviews();
   };
 
   const filteredReviews = reviews; // filter dropdown is currently a no-op (kept for future format filtering)
@@ -132,8 +150,8 @@ export default function DashboardReviewsPage() {
         </div>
       </div>
 
-      {/* Inline composer */}
-      {showComposer && (
+      {/* Inline composer (create mode) */}
+      {showComposer && !editingReview && (
         <div className="mb-8">
           <ReviewComposer
             onSubmitted={() => {
@@ -141,6 +159,28 @@ export default function DashboardReviewsPage() {
               fetchReviews();
             }}
             onCancel={() => setShowComposer(false)}
+          />
+        </div>
+      )}
+
+      {/* Inline composer (edit mode) */}
+      {editingReview && (
+        <div className="mb-8">
+          <ReviewComposer
+            initialReview={{
+              id: editingReview.id,
+              movie_id: editingReview.movie_id,
+              movie_title: editingReview.movie_title,
+              rating: editingReview.rating,
+              title: editingReview.title ?? '',
+              body: editingReview.body ?? editingReview.text ?? '',
+              spoiler: editingReview.spoiler ?? false,
+              poster_path: editingReview.poster_path ?? null,
+              release_date: editingReview.release_year ? `${editingReview.release_year}-01-01` : null,
+              genres: editingReview.genres ?? null,
+            }}
+            onSubmitted={handleEditSubmitted}
+            onCancel={handleEditCancel}
           />
         </div>
       )}
@@ -228,9 +268,11 @@ export default function DashboardReviewsPage() {
                             </span>
                           )}
                         </div>
-                        {/* Date + title */}
                         <p className="text-xs text-[#6b7280] mb-2">
                           {new Date(review.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                          {review.updated_at && review.updated_at !== review.created_at ? (
+                            <> · <span className="italic text-[#6b7280]">edited {new Date(review.updated_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span></>
+                          ) : null}
                           {review.title ? <> · <span className="text-[#9ca3af] italic">{review.title}</span></> : null}
                         </p>
                         {/* Review text */}
@@ -251,6 +293,13 @@ export default function DashboardReviewsPage() {
                     </div>
                     {/* Actions */}
                     <div className="flex items-center gap-1 flex-shrink-0">
+                      <button
+                        onClick={() => handleEdit(review)}
+                        className="p-2 text-[#6b7280] hover:text-[#D4A853] transition-colors rounded-lg hover:bg-[#111118]"
+                        aria-label="Edit review"
+                      >
+                        <Pencil className="w-4 h-4" strokeWidth={1.5} />
+                      </button>
                       <button onClick={() => handleDelete(review.id)} className="p-2 text-[#6b7280] hover:text-red-400 transition-colors rounded-lg hover:bg-[#111118]" aria-label="Delete review">
                         <Trash2 className="w-4 h-4" strokeWidth={1.5} />
                       </button>
