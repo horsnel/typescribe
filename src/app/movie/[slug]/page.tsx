@@ -495,8 +495,8 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
     saveComments(updated);
   };
 
-  const handleReviewSubmit = ({ movieId, rating, text }: { movieId: number; rating: number; text: string }) => {
-    if (!user) return;
+  const handleReviewSubmit = async ({ movieId, rating, text }: { movieId: number; rating: number; text: string }) => {
+    if (!user || !movie) return;
     const moderation = moderateContent(text, rating);
     const review = {
       id: Date.now(),
@@ -513,12 +513,41 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
       moderation_note: moderation.reason || '',
       reports: [],
     };
+    // Mirror to localStorage so the movie page's localStorage-backed reviews
+    // list keeps working (used by the in-page Reviews tab).
     try {
       const existing = localStorage.getItem('typescribe_user_reviews');
       const reviews = existing ? JSON.parse(existing) : [];
       reviews.unshift(review);
       localStorage.setItem('typescribe_user_reviews', JSON.stringify(reviews));
     } catch { /* ignore */ }
+
+    // Also persist to Supabase via the new /api/reviews endpoint. The
+    // Supabase trigger will auto-populate `genres`, `release_year`, and
+    // `poster_path` from `movie_embeddings` so the dashboard list can show
+    // them without any client-side enrichment.
+    try {
+      await fetch('/api/reviews', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          movie_id: movieId,
+          movie_title: movie.title,
+          rating,
+          body: text,
+          spoiler: moderation.flagged,
+          // Pass genres/release_year explicitly so the trigger doesn't have
+          // to do the lookup (slightly faster + works even if the movie
+          // isn't in movie_embeddings yet).
+          genres: movie.genres?.map(g => g.name) ?? null,
+          release_year: movie.release_date ? parseInt(movie.release_date.substring(0, 4), 10) || null : null,
+        }),
+      });
+    } catch (err) {
+      // Non-blocking — the localStorage write above still succeeded.
+      console.error('[movie page] failed to POST review to /api/reviews:', err);
+    }
+
     setShowReviewForm(false);
     window.location.reload();
   };

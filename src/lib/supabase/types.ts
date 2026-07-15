@@ -38,14 +38,15 @@ export interface DiaryEntry {
   user_id: string;
   movie_id: number;
   movie_title: string;
-  poster_path: string | null;
-  watched_on: string;          // date
-  rating: number | null;       // 1–10
+  movie_slug?: string | null;
+  poster_path: string | null;   // mapped from DB `movie_poster`
+  watched_on: string;           // date
+  rating: number | null;        // 1–10
   rewatch: boolean;
   location: string | null;
-  notes: string | null;
-  genres: string[] | null;     // backfilled/enriched from movie_embeddings
-  release_year: number | null; // backfilled/enriched from movie_embeddings
+  notes: string | null;         // mapped from DB `review_text`
+  genres: string[] | null;      // backfilled/enriched from movie_embeddings
+  release_year: number | null;  // backfilled/enriched from movie_embeddings
   created_at: string;
 }
 
@@ -54,13 +55,15 @@ export interface Review {
   user_id: string;
   movie_id: number;
   movie_title: string;
+  movie_slug?: string | null;
+  poster_path?: string | null;  // denormalized from movie_embeddings via trigger
   rating: number;
   title: string;
   body: string;
-  spoiler: boolean;
+  spoiler: boolean;             // mapped from DB `is_spoiler`
   helpful_count: number;
-  genres: string[] | null;     // backfilled/enriched from movie_embeddings
-  release_year: number | null; // backfilled/enriched from movie_embeddings
+  genres: string[] | null;      // backfilled/enriched from movie_embeddings
+  release_year: number | null;  // backfilled/enriched from movie_embeddings
   created_at: string;
   updated_at: string;
   // joined

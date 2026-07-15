@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import { useAuth } from '@/lib/auth';
-import { Calendar, Plus, Loader2, Star, MapPin, RotateCcw, Film } from 'lucide-react';
+import { Calendar, Plus, Loader2, Star, MapPin, RotateCcw, Film, Trash2 } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import DiaryEntryForm from '@/components/review/DiaryEntryForm';
@@ -60,6 +60,22 @@ export default function DashboardDiaryPage() {
     }
     fetchEntries();
   }, [isAuthenticated, fetchEntries]);
+
+  const handleDelete = async (id: string) => {
+    // Optimistic delete
+    setEntries(prev => prev.filter(e => e.id !== id));
+    try {
+      const res = await fetch(`/api/diary/${id}`, { method: 'DELETE' });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        console.error('[dashboard/diary] delete failed:', data?.error ?? res.status);
+        fetchEntries(); // re-sync
+      }
+    } catch (err) {
+      console.error('[dashboard/diary] delete error:', err);
+      fetchEntries();
+    }
+  };
 
   const sortedEntries = [...entries].sort((a, b) => {
     switch (sort) {
@@ -199,7 +215,12 @@ export default function DashboardDiaryPage() {
                     {/* Content */}
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1 flex-wrap">
-                        <span className="text-base font-semibold text-white truncate">{entry.movie_title}</span>
+                        <Link
+                          href={`/movie/${encodeURIComponent(entry.movie_title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''))}-${entry.movie_id}`}
+                          className="text-base font-semibold text-white truncate hover:text-[#D4A853] transition-colors"
+                        >
+                          {entry.movie_title}
+                        </Link>
                         {entry.release_year && <span className="text-xs text-[#6b7280]">({entry.release_year})</span>}
                         {entry.rewatch && (
                           <span className="inline-flex items-center gap-1 text-[10px] font-bold bg-purple-500/10 text-purple-400 px-2 py-0.5 rounded-full border border-purple-500/20">
@@ -230,6 +251,14 @@ export default function DashboardDiaryPage() {
                         </div>
                       )}
                     </div>
+                    {/* Delete */}
+                    <button
+                      onClick={() => handleDelete(entry.id)}
+                      className="p-2 text-[#6b7280] hover:text-red-400 transition-colors rounded-lg hover:bg-[#111118] flex-shrink-0"
+                      aria-label="Delete diary entry"
+                    >
+                      <Trash2 className="w-4 h-4" strokeWidth={1.5} />
+                    </button>
                   </div>
                 ))}
               </div>

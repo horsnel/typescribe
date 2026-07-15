@@ -12,6 +12,7 @@ interface Review {
   movie_id: number;
   movie_title: string;
   movie_slug?: string | null;
+  poster_path?: string | null;
   rating: number;
   title?: string | null;
   body?: string | null;
@@ -59,10 +60,21 @@ export default function DashboardReviewsPage() {
   }, [isAuthenticated, fetchReviews]);
 
   const handleDelete = async (id: string) => {
-    // Optimistic delete from local state. Server-side delete endpoint can be
-    // added later; for now the row stays in the DB but disappears from the
-    // user's view.
+    // Optimistic delete from local state — the row disappears immediately
+    // even if the network call is slow.
     setReviews(prev => prev.filter(r => r.id !== id));
+    try {
+      const res = await fetch(`/api/reviews/${id}`, { method: 'DELETE' });
+      if (!res.ok) {
+        // Restore the review if the delete failed (e.g. 404/401)
+        const data = await res.json().catch(() => ({}));
+        console.error('[dashboard/reviews] delete failed:', data?.error ?? res.status);
+        fetchReviews(); // re-sync from server
+      }
+    } catch (err) {
+      console.error('[dashboard/reviews] delete error:', err);
+      fetchReviews(); // re-sync from server
+    }
   };
 
   const filteredReviews = reviews; // filter dropdown is currently a no-op (kept for future format filtering)
@@ -181,41 +193,61 @@ export default function DashboardReviewsPage() {
               return (
                 <div key={review.id} className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5 hover:border-[#3a3a45] transition-colors">
                   <div className="flex items-start justify-between gap-4">
-                    <div className="flex-1 min-w-0">
-                      {/* Header */}
-                      <div className="flex items-center gap-3 mb-2 flex-wrap">
-                        <span className="text-base font-semibold text-white truncate">
-                          {review.movie_title || `Movie #${review.movie_id}`}
-                        </span>
-                        <div className={`flex items-center gap-1 px-2 py-0.5 rounded-full ${ratingColor}`}>
-                          <Star className="w-3 h-3 fill-current" strokeWidth={1.5} />
-                          <span className="text-xs font-bold">{review.rating}/10</span>
+                    <div className="flex items-start gap-4 flex-1 min-w-0">
+                      {/* Poster (denormalized via Supabase trigger) */}
+                      {review.poster_path ? (
+                        <img
+                          src={review.poster_path.startsWith('http')
+                            ? review.poster_path
+                            : `https://image.tmdb.org/t/p/w185${review.poster_path}`}
+                          alt={review.movie_title}
+                          className="w-12 h-18 object-cover rounded-md flex-shrink-0 bg-[#1a1a22]"
+                          onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
+                        />
+                      ) : (
+                        <div className="w-12 h-18 bg-[#1a1a22] rounded-md flex-shrink-0 flex items-center justify-center">
+                          <Film className="w-4 h-4 text-[#3a3a45]" strokeWidth={1.5} />
                         </div>
-                        {isSpoiler && (
-                          <span className="inline-flex items-center gap-1 text-[10px] font-bold bg-yellow-500/10 text-yellow-400 px-2 py-0.5 rounded-full border border-yellow-500/20">
-                            <Eye className="w-3 h-3" strokeWidth={1.5} /> SPOILER
-                          </span>
+                      )}
+                      <div className="flex-1 min-w-0">
+                        {/* Header */}
+                        <div className="flex items-center gap-3 mb-2 flex-wrap">
+                          <Link
+                            href={`/movie/${encodeURIComponent(review.movie_title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''))}-${review.movie_id}`}
+                            className="text-base font-semibold text-white truncate hover:text-[#D4A853] transition-colors"
+                          >
+                            {review.movie_title || `Movie #${review.movie_id}`}
+                          </Link>
+                          <div className={`flex items-center gap-1 px-2 py-0.5 rounded-full ${ratingColor}`}>
+                            <Star className="w-3 h-3 fill-current" strokeWidth={1.5} />
+                            <span className="text-xs font-bold">{review.rating}/10</span>
+                          </div>
+                          {isSpoiler && (
+                            <span className="inline-flex items-center gap-1 text-[10px] font-bold bg-yellow-500/10 text-yellow-400 px-2 py-0.5 rounded-full border border-yellow-500/20">
+                              <Eye className="w-3 h-3" strokeWidth={1.5} /> SPOILER
+                            </span>
+                          )}
+                        </div>
+                        {/* Date + title */}
+                        <p className="text-xs text-[#6b7280] mb-2">
+                          {new Date(review.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                          {review.title ? <> · <span className="text-[#9ca3af] italic">{review.title}</span></> : null}
+                        </p>
+                        {/* Review text */}
+                        {isSpoiler && !isRevealed ? (
+                          <div className="relative">
+                            <p className="text-sm text-[#9ca3af] blur-sm select-none leading-relaxed line-clamp-3">{reviewText}</p>
+                            <button
+                              onClick={() => toggleSpoiler(review.id)}
+                              className="absolute inset-0 flex items-center justify-center bg-[#0c0c10]/80 rounded-lg hover:bg-[#0c0c10]/60 transition-colors"
+                            >
+                              <span className="bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 text-xs font-semibold px-3 py-1.5 rounded-full">Reveal Spoiler</span>
+                            </button>
+                          </div>
+                        ) : (
+                          <p className="text-sm text-[#9ca3af] leading-relaxed line-clamp-3">{reviewText}</p>
                         )}
                       </div>
-                      {/* Date + title */}
-                      <p className="text-xs text-[#6b7280] mb-2">
-                        {new Date(review.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                        {review.title ? <> · <span className="text-[#9ca3af] italic">{review.title}</span></> : null}
-                      </p>
-                      {/* Review text */}
-                      {isSpoiler && !isRevealed ? (
-                        <div className="relative">
-                          <p className="text-sm text-[#9ca3af] blur-sm select-none leading-relaxed line-clamp-3">{reviewText}</p>
-                          <button
-                            onClick={() => toggleSpoiler(review.id)}
-                            className="absolute inset-0 flex items-center justify-center bg-[#0c0c10]/80 rounded-lg hover:bg-[#0c0c10]/60 transition-colors"
-                          >
-                            <span className="bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 text-xs font-semibold px-3 py-1.5 rounded-full">Reveal Spoiler</span>
-                          </button>
-                        </div>
-                      ) : (
-                        <p className="text-sm text-[#9ca3af] leading-relaxed line-clamp-3">{reviewText}</p>
-                      )}
                     </div>
                     {/* Actions */}
                     <div className="flex items-center gap-1 flex-shrink-0">

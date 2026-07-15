@@ -23,6 +23,57 @@ import type {
 
 // ─── helpers ──────────────────────────────────────────────────────────────
 
+/**
+ * Map a raw `watch_diary` row (DB column names) to the DiaryEntry type
+ * (frontend-friendly field names). The DB has `movie_poster` / `review_text`,
+ * but the rest of the app expects `poster_path` / `notes`.
+ */
+function mapDiaryRow(row: any): DiaryEntry | null {
+  if (!row) return null;
+  return {
+    id: row.id,
+    user_id: row.user_id,
+    movie_id: row.movie_id,
+    movie_title: row.movie_title,
+    poster_path: row.movie_poster ?? null,
+    watched_on: row.watched_on,
+    rating: row.rating ?? null,
+    rewatch: row.rewatch ?? false,
+    location: row.location ?? null,
+    notes: row.review_text ?? null,
+    genres: row.genres ?? null,
+    release_year: row.release_year ?? null,
+    created_at: row.created_at,
+  };
+}
+
+/**
+ * Map a raw `reviews` row (DB column names) to the Review type.
+ * The DB column is `is_spoiler`; the rest of the app expects `spoiler`.
+ * Also surfaces the new `poster_path` column (denormalized via trigger).
+ */
+function mapReviewRow(row: any): Review | null {
+  if (!row) return null;
+  return {
+    id: row.id,
+    user_id: row.user_id,
+    movie_id: row.movie_id,
+    movie_title: row.movie_title,
+    movie_slug: row.movie_slug ?? null,
+    poster_path: row.poster_path ?? null,
+    rating: row.rating,
+    title: row.title ?? '',
+    body: row.body ?? '',
+    spoiler: row.is_spoiler ?? false,
+    helpful_count: row.helpful_count ?? 0,
+    genres: row.genres ?? null,
+    release_year: row.release_year ?? null,
+    created_at: row.created_at,
+    updated_at: row.updated_at,
+    author: row.author ?? undefined,
+  };
+}
+
 /** Get the user's session-aware Supabase client (server-side). */
 export async function getSessionClient() {
   return await createServerClient();
@@ -155,7 +206,17 @@ export async function getDiary(userId: string, limit = 100): Promise<DiaryEntry[
     .eq('user_id', userId)
     .order('watched_on', { ascending: false })
     .limit(limit);
-  return (data ?? []) as DiaryEntry[];
+  return (data ?? []).map(mapDiaryRow).filter((r): r is DiaryEntry => r !== null);
+}
+
+/** Delete a single diary entry belonging to `userId`. Returns true on success. */
+export async function deleteDiaryEntry(entryId: string, userId: string): Promise<boolean> {
+  const { error, count } = await supabaseAdmin
+    .from('watch_diary')
+    .delete({ count: 'exact' })
+    .eq('id', entryId)
+    .eq('user_id', userId);
+  return !error && (count ?? 0) > 0;
 }
 
 export async function logDiary(
@@ -165,12 +226,28 @@ export async function logDiary(
            location?: string | null; notes?: string | null;
            genres?: string[] | null; release_year?: number | null },
 ): Promise<DiaryEntry | null> {
+  // Map frontend-friendly field names → actual DB column names.
+  // The watch_diary table uses `movie_poster` and `review_text` (not
+  // `poster_path` / `notes`), so a bare `{ ...entry }` insert silently
+  // failed before this fix.
   const { data } = await supabaseAdmin
     .from('watch_diary')
-    .insert({ user_id: userId, ...entry })
+    .insert({
+      user_id: userId,
+      movie_id: entry.movie_id,
+      movie_title: entry.movie_title,
+      movie_poster: entry.poster_path ?? null,
+      watched_on: entry.watched_on,
+      rating: entry.rating ?? null,
+      rewatch: entry.rewatch ?? false,
+      location: entry.location ?? null,
+      review_text: entry.notes ?? null,
+      genres: entry.genres ?? null,
+      release_year: entry.release_year ?? null,
+    })
     .select('*')
     .single();
-  return (data as DiaryEntry) ?? null;
+  return mapDiaryRow(data);
 }
 
 export async function getDiaryCount(userId: string): Promise<number> {
@@ -186,11 +263,14 @@ export async function getDiaryCount(userId: string): Promise<number> {
 export async function getReviewsByMovie(movieId: number, limit = 50): Promise<Review[]> {
   const { data } = await supabaseAdmin
     .from('reviews')
-    .select('*, author:profiles!reviews_user_id_fkey(id, display_name, avatar)')
+    // PostgREST column-alias syntax: `avatar:avatar_url` exposes the DB's
+    // `avatar_url` column as `avatar` in the returned JSON, so the existing
+    // Review.author.avatar consumers keep working without code changes.
+    .select('*, author:profiles!reviews_user_id_fkey(id, display_name, avatar:avatar_url)')
     .eq('movie_id', movieId)
     .order('helpful_count', { ascending: false })
     .limit(limit);
-  return (data ?? []) as Review[];
+  return (data ?? []).map(mapReviewRow).filter((r): r is Review => r !== null);
 }
 
 export async function getReviewsByUser(userId: string, limit = 100): Promise<Review[]> {
@@ -200,7 +280,7 @@ export async function getReviewsByUser(userId: string, limit = 100): Promise<Rev
     .eq('user_id', userId)
     .order('created_at', { ascending: false })
     .limit(limit);
-  return (data ?? []) as Review[];
+  return (data ?? []).map(mapReviewRow).filter((r): r is Review => r !== null);
 }
 
 export async function getReviewCount(userId: string): Promise<number> {
@@ -217,12 +297,33 @@ export async function createReview(
             title?: string; body?: string; spoiler?: boolean;
             genres?: string[] | null; release_year?: number | null },
 ): Promise<Review | null> {
+  // Map `spoiler` → DB column `is_spoiler` (everything else matches).
   const { data } = await supabaseAdmin
     .from('reviews')
-    .insert({ user_id: userId, ...review })
+    .insert({
+      user_id: userId,
+      movie_id: review.movie_id,
+      movie_title: review.movie_title,
+      rating: review.rating,
+      title: review.title ?? '',
+      body: review.body ?? '',
+      is_spoiler: review.spoiler ?? false,
+      genres: review.genres ?? null,
+      release_year: review.release_year ?? null,
+    })
     .select('*')
     .single();
-  return (data as Review) ?? null;
+  return mapReviewRow(data);
+}
+
+/** Delete a single review belonging to `userId`. Returns true on success. */
+export async function deleteReview(reviewId: string, userId: string): Promise<boolean> {
+  const { error, count } = await supabaseAdmin
+    .from('reviews')
+    .delete({ count: 'exact' })
+    .eq('id', reviewId)
+    .eq('user_id', userId);
+  return !error && (count ?? 0) > 0;
 }
 
 export async function markReviewHelpful(reviewId: string, userId: string): Promise<boolean> {
