@@ -19,6 +19,7 @@ export default function DashboardSettingsPage() {
 
   useEffect(() => {
     if (user) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- sync state with external system on mount
       setDisplayName(user.display_name || '');
       setBio(user.bio || '');
       setEmailNotifications(user.email_notifications);

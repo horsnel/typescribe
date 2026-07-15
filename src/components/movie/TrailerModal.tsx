@@ -50,12 +50,10 @@ export default function TrailerModal({
     };
   }, [isOpen]);
 
-  // Reset states when modal opens
-  useEffect(() => {
-    if (isOpen) {
-      setVideoReady(false);
-    }
-  }, [isOpen]);
+  // `videoReady` resets to false every time the modal opens because the
+  // iframe element below uses `key={isOpen ? 'open' : 'closed'}` — switching
+  // the key unmounts + remounts the iframe, which naturally resets the
+  // loading state without a setState-in-effect (cascading render).
 
   const handleBackdropClick = useCallback(
     (e: React.MouseEvent) => {
@@ -111,9 +109,12 @@ export default function TrailerModal({
             </div>
           )}
 
-          {/* YouTube embed */}
+          {/* YouTube embed. `key` unmounts + remounts the iframe when the
+              modal toggles open/closed — this naturally resets the loading
+              spinner state without a setState-in-effect. */}
           {hasYouTube && (
             <iframe
+              key={`yt-${isOpen ? 'open' : 'closed'}`}
               src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0&modestbranding=1`}
               title={`${title} Trailer`}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -123,9 +124,10 @@ export default function TrailerModal({
             />
           )}
 
-          {/* iTunes preview fallback */}
+          {/* iTunes preview fallback (same key trick for state reset) */}
           {!hasYouTube && hasITunes && (
             <video
+              key={`itunes-${isOpen ? 'open' : 'closed'}`}
               src={itunesPreviewUrl}
               autoPlay
               controls

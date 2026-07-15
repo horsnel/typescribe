@@ -34,6 +34,7 @@ export default function SmartRecommendations({ userGenres, maxItems = 6 }: Smart
 
   useEffect(() => {
     const currentJoined = getJoinedCommunityIds();
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- sync state with external system on mount
     setJoinedIds(currentJoined);
     if (userGenres.length > 0) {
       setRecommendations(getSmartRecommendations(userGenres, currentJoined).slice(0, maxItems));

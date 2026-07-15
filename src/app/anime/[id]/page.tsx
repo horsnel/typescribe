@@ -47,6 +47,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
   // ─── Fetch anime data ───
   useEffect(() => {
     if (!id) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset loading state before async fetch (React docs: 'You Might Not Need an Effect' § fetch-on-mount)
     setLoading(true);
     setError(null);
 
@@ -70,6 +71,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
   // ─── Fetch recommendations ───
   useEffect(() => {
     if (!id) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset loading state before async fetch (React docs: 'You Might Not Need an Effect' § fetch-on-mount)
     setRecLoading(true);
 
     fetch(`/api/anime/${id}/recommendations`, { cache: 'no-store' })

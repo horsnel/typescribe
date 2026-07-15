@@ -23,7 +23,11 @@ const eslintConfig = [...nextCoreWebVitals, ...nextTypescript, {
     // like "load from localStorage on mount" and "reset state when prop
     // changes" that the React docs explicitly allow. Project uses the same
     // disable philosophy as `react-compiler/react-compiler: off` above.
-    "react-hooks/set-state-in-effect": "off",
+    //
+    // `set-state-in-effect` is the ONE rule we re-enable (warning, not error)
+    // because the legitimate cases are now fixed at the source and the
+    // remaining hits are real anti-patterns we want to clean up.
+    "react-hooks/set-state-in-effect": "warn",
     "react-hooks/immutability": "off",
     "react-hooks/preserve-manual-memoization": "off",
     // `static-components` flags defining a component inside another component.

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useAuth } from '@/lib/auth';
 import { Bell, Mail, Star, Users, Sparkles, Megaphone, Save, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -37,12 +37,13 @@ function savePrefs(prefs: Record<string, boolean>) {
 
 export default function DashboardSettingsNotificationsPage() {
   const { isAuthenticated } = useAuth();
-  const [prefs, setPrefs] = useState<Record<string, boolean>>({});
+  // Lazy initializer: load prefs synchronously on first render (client-side
+  // only — SSR returns empty object, which is fine since this is a 'use
+  // client' dashboard route that always hydrates into an authenticated shell).
+  const [prefs, setPrefs] = useState<Record<string, boolean>>(() =>
+    typeof window === 'undefined' ? {} : loadPrefs()
+  );
   const [saved, setSaved] = useState(false);
-
-  useEffect(() => {
-    setPrefs(loadPrefs());
-  }, []);
 
   const togglePref = (key: string) => {
     setPrefs(prev => {

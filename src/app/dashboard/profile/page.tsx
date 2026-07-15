@@ -32,6 +32,7 @@ export default function DashboardProfilePage() {
   useEffect(() => {
     try {
       const data = localStorage.getItem('typescribe_reviews');
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- load initial state from localStorage on mount (SSR-safe via 'use client')
       if (data) setReviewCount(JSON.parse(data).length);
     } catch { /* ignore */ }
     try {

@@ -259,12 +259,14 @@ export default function PostCard({ post, communityId, onLikeToggle, onCommentTog
   const isLongContent = post.content.length > 280;
   const displayContent = isLongContent && !expanded ? post.content.slice(0, 280) : post.content;
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- reset state when prop changes (React docs: 'reset state on prop change' is a sanctioned pattern)
   useEffect(() => { setComments(getPostComments(post.id)); }, [post.id, showComments]);
 
   // Load bookmark state
   useEffect(() => {
     try {
       const saved = localStorage.getItem(`typescribe_bookmark_${post.id}`);
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- load initial state from localStorage on mount (SSR-safe via 'use client')
       setBookmarked(saved === 'true');
     } catch {}
   }, [post.id]);

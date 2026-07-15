@@ -31,6 +31,7 @@ export default function CommunityReviews() {
       if (stored) {
         const parsed = JSON.parse(stored);
         if (Array.isArray(parsed) && parsed.length > 0) {
+          // eslint-disable-next-line react-hooks/set-state-in-effect -- load initial state from localStorage on mount (SSR-safe via 'use client')
           setReviews(parsed.slice(0, 3));
         }
       }

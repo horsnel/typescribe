@@ -50,6 +50,7 @@ export function AccessibilityProvider({ children }: { children: ReactNode }) {
   const [settings, setSettings] = useState<AccessibilitySettings>(defaults);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- sync state with external system on mount
     setSettings(loadSettings());
   }, []);
 

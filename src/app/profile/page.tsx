@@ -48,6 +48,7 @@ export default function ProfilePage() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- sync state with external system on mount
     setWatchlistCount(getLocalWatchlist().length);
     const timer = setTimeout(() => setIsLoading(false), 500);
     return () => clearTimeout(timer);
@@ -55,6 +56,7 @@ export default function ProfilePage() {
 
   useEffect(() => {
     if (user) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- sync state with external system on mount
       setFollowState(isFollowing(user.id));
     }
   }, [user]);

@@ -62,6 +62,7 @@ export default function PersonPage() {
 
   useEffect(() => {
     if (!personId) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset loading state before async fetch (React docs: 'You Might Not Need an Effect' § fetch-on-mount)
     setLoading(true);
 
     fetch(`/api/people/${personId}`)

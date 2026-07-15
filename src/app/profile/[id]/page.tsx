@@ -26,6 +26,11 @@ interface PublicReview {
   genres?: string[] | null;
   release_year?: number | null;
   created_at: string;
+  author?: {
+    id: string;
+    display_name: string;
+    avatar?: string | null;
+  } | null;
 }
 
 export default function PublicProfilePage() {
@@ -45,6 +50,7 @@ export default function PublicProfilePage() {
 
   useEffect(() => {
     const mockUser = getMockUserById(userId);
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- sync state with external system on mount
     setProfileUser(mockUser || null);
     if (mockUser) {
       setFollowState(isFollowing(mockUser.id));
@@ -65,6 +71,7 @@ export default function PublicProfilePage() {
     // (a "reset state when prop changes" pattern explicitly allowed by the
     // React docs).
      
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset loading state before async fetch (React docs: 'You Might Not Need an Effect' § fetch-on-mount)
     setReviewsLoading(true);
      
     setReviewsError('');
@@ -133,13 +140,16 @@ export default function PublicProfilePage() {
   }
 
   // When the URL is a real Supabase UUID (not a mock numeric ID), we may not
-  // have a mock profile to render. Synthesize a minimal profile so the page
-  // can still render the avatar header + the real Reviews tab fetched from
-  // /api/reviews?user_id=<UUID>.
+  // have a mock profile to render. If we've already fetched reviews, prefer
+  // the `author` join from the first review (real Supabase data) so the
+  // header shows the user's actual display_name + avatar instead of a
+  // generic "Cinephile" fallback. Falls back to a minimal stub only when
+  // no reviews are available yet.
+  const authorFromReviews = reviews[0]?.author;
   const effectiveUser: MockUser = profileUser ?? {
     id: 0,
-    display_name: 'Cinephile',
-    avatar: '',
+    display_name: authorFromReviews?.display_name ?? 'Cinephile',
+    avatar: authorFromReviews?.avatar ?? '',
     bio: '',
     favorite_genres: [],
     created_at: new Date().toISOString(),

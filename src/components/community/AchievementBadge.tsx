@@ -84,6 +84,7 @@ export default function AchievementBadge({ userId, communityId, compact = false 
   useEffect(() => {
     // Check and unlock achievements on load
     const unlocked = checkAndUnlockAchievements(userId, communityId);
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- sync state with external system on mount
     setNewlyUnlocked(unlocked);
     
     setAchievements(getUserAchievements(userId, communityId));

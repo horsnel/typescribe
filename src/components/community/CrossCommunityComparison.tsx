@@ -16,6 +16,7 @@ export default function CrossCommunityComparisonWidget({ communityIds, limit = 5
   useEffect(() => {
     if (communityIds.length >= 2) {
       const data = getCrossCommunityComparisons(communityIds, limit);
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- sync state with external system on mount
       setComparisons(data);
     }
   }, [communityIds, limit]);

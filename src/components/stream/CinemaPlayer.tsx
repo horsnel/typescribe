@@ -85,6 +85,7 @@ function PlayPauseOverlay({ trigger }: { trigger: number }) {
       // setState-in-effect is intentional — we need to flip the visibility
       // bit on when the trigger prop changes, then auto-hide via setTimeout.
        
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- sync state with external system on mount
       setShow(true);
       const timer = setTimeout(() => setShow(false), 600);
       return () => clearTimeout(timer);

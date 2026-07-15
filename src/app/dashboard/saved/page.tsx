@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAuth } from '@/lib/auth';
 import { BookmarkCheck, Star, MessageSquare, Newspaper, ExternalLink, Trash2 } from 'lucide-react';
 import Link from 'next/link';
@@ -15,16 +15,21 @@ interface SavedItem {
   link?: string;
 }
 
+/** Load saved items from localStorage. SSR-safe (returns [] on server). */
+function loadSavedItems(): SavedItem[] {
+  if (typeof window === 'undefined') return [];
+  try {
+    const data = localStorage.getItem('typescribe_saved');
+    if (data) return JSON.parse(data);
+  } catch { /* ignore */ }
+  return [];
+}
+
 export default function DashboardSavedPage() {
   const { user, isAuthenticated } = useAuth();
-  const [savedItems, setSavedItems] = useState<SavedItem[]>([]);
-
-  useEffect(() => {
-    try {
-      const data = localStorage.getItem('typescribe_saved');
-      if (data) setSavedItems(JSON.parse(data));
-    } catch { /* ignore */ }
-  }, []);
+  // Lazy initializer — load from localStorage synchronously on first client
+  // render. Avoids the useEffect+setState "reset on mount" anti-pattern.
+  const [savedItems, setSavedItems] = useState<SavedItem[]>(() => loadSavedItems());
 
   const handleRemove = (id: string) => {
     const updated = savedItems.filter(s => s.id !== id);

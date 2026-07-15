@@ -45,6 +45,7 @@ export default function HomePage() {
       if (profile) {
         const parsed = JSON.parse(profile);
         if (parsed.display_name) {
+          // eslint-disable-next-line react-hooks/set-state-in-effect -- load initial state from localStorage on mount (SSR-safe via 'use client')
           setIsReturning(true);
           setUserName(parsed.display_name);
         }

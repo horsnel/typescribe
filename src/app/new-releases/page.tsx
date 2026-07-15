@@ -26,6 +26,7 @@ export default function NewReleasesPage() {
 
   // Fetch real data from API
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset loading state before async fetch (React docs: 'You Might Not Need an Effect' § fetch-on-mount)
     setLoading(true);
     const now = new Date();
     let yearFrom = now.getFullYear();

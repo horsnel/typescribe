@@ -52,6 +52,7 @@ export default function ActivityFeed({ joinedCommunityIds, communityId, maxItems
     const feed = communityId
       ? getMyActivityFeed([communityId], maxItems)
       : getMyActivityFeed(joinedCommunityIds, maxItems);
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- sync state with external system on mount
     setActivities(feed);
     setUnread(getUnreadCount());
   }, [joinedCommunityIds, communityId, maxItems]);

@@ -24,6 +24,7 @@ export default function WeeklyThemeCard({ communityId, onDiscuss }: WeeklyThemeC
     if (!current) {
       current = generateWeeklyTheme(communityId);
     }
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset state when prop changes (React docs: 'reset state on prop change' is a sanctioned pattern)
     setTheme(current);
   }, [communityId]);
 

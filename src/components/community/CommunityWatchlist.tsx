@@ -38,6 +38,7 @@ export default function CommunityWatchlist({ communityId, isMember }: CommunityW
   }, [communityId]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset state when prop changes (React docs: 'reset state on prop change' is a sanctioned pattern)
     loadWatchlist();
   }, [loadWatchlist]);
 

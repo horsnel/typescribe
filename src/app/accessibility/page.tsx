@@ -58,6 +58,7 @@ export default function AccessibilityPage() {
 
   useEffect(() => {
     const loaded = loadSettings();
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- sync state with external system on mount
     setSettings(loaded);
     applySettings(loaded);
   }, []);

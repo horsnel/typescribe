@@ -70,6 +70,7 @@ export default function CommunitiesPage() {
 
   useEffect(() => {
     const controller = new AbortController();
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- sync state with external system on mount
     setJoinedIds(getJoinedCommunities());
     setCreatedCommunities(getCreatedCommunities());
     // Fetch real communities from Supabase via the API

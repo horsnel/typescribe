@@ -39,6 +39,7 @@ export default function CommunityRatings({ movieId, movieSlug, genres, generalRa
 
   useEffect(() => {
     // Load joined communities
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- sync state with external system on mount
     setJoinedIds(getJoinedCommunities());
     
     // Get or generate community ratings

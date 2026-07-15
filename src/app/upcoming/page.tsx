@@ -26,6 +26,7 @@ export default function UpcomingPage() {
 
   // Fetch upcoming movies from API
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset loading state before async fetch (React docs: 'You Might Not Need an Effect' § fetch-on-mount)
     setLoading(true);
     const controller = new AbortController();
 

@@ -31,6 +31,7 @@ export default function DashboardCommunitiesPage() {
 
   useEffect(() => {
     const ids = getJoinedCommunityIds();
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- sync state with external system on mount
     setJoinedIds(ids);
     setUpcomingClubs(getUpcomingMovieClubs(ids));
     // Fetch real communities from Supabase

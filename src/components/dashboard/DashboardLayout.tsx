@@ -51,6 +51,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset state when prop changes (React docs: 'reset state on prop change' is a sanctioned pattern)
     setMobileOpen(false);
   }, [pathname]);
 

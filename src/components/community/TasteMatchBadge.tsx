@@ -17,6 +17,7 @@ export default function TasteMatchBadge({ userGenres, communityId, communityName
 
   useEffect(() => {
     if (userGenres.length > 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- sync state with external system on mount
       setMatch(calculateTasteMatch(userGenres, communityId));
     }
   }, [userGenres, communityId]);

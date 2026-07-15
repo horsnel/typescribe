@@ -61,6 +61,7 @@ export default function CategoryPage({ params }: { params: Promise<{ genre: stri
   // Fetch movies from TMDb discover API
   useEffect(() => {
     if (!genreInfo) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- sync state with external system on mount
       setLoading(false);
       return;
     }
