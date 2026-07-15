@@ -25,7 +25,8 @@ export default function DashboardWatchlistPage() {
     try {
       const data = localStorage.getItem('typescribe_watchlist');
       const items: WatchlistItem[] = data ? JSON.parse(data) : [];
-      // Enrich with movie data from mock data if available
+      // Watchlist items already contain title/poster_path/movieId — no
+      // enrichment step needed.
       setWatchlist(items);
     } catch { /* ignore */ }
   };

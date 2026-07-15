@@ -41,7 +41,7 @@ This is a placeholder response. With Gemini enabled, you'd get a detailed analys
 
   try {
     const genAI = new GoogleGenerativeAI(key);
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
     const prompt = `You are a film scholar hosting "Director's Cut" — a deep-dive Q&A about cinema. Answer the user's question about the movie "${movieTitle}" with insight, craft, and brevity (under 250 words). Touch on themes, cinematography, character, or directorial choices where relevant. Be specific, not generic.
 
 Question: ${question}`;

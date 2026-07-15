@@ -30,20 +30,32 @@ export default function DashboardProfilePage() {
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
-    try {
-      const data = localStorage.getItem('typescribe_reviews');
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- load initial state from localStorage on mount (SSR-safe via 'use client')
-      if (data) setReviewCount(JSON.parse(data).length);
-    } catch { /* ignore */ }
-    try {
-      const data = localStorage.getItem('typescribe_watchlist');
-      if (data) setWatchlistCount(JSON.parse(data).length);
-    } catch { /* ignore */ }
-    try {
-      const data = localStorage.getItem('typescribe_joined_communities');
-      if (data) setCommunityCount(JSON.parse(data).length);
-    } catch { /* ignore */ }
-  }, []);
+    let cancelled = false;
+
+    async function load() {
+      // Reviews — fetch from API (authoritative source)
+      try {
+        const res = await fetch('/api/reviews?limit=100', { cache: 'no-store' });
+        if (res.ok && !cancelled) {
+          const data = await res.json();
+          setReviewCount(data?.reviews?.length ?? 0);
+        }
+      } catch { /* ignore */ }
+
+      // Watchlist + Communities — local-only features (no API yet)
+      try {
+        const data = localStorage.getItem('typescribe_watchlist');
+        if (data && !cancelled) setWatchlistCount(JSON.parse(data).length);
+      } catch { /* ignore */ }
+      try {
+        const data = localStorage.getItem('typescribe_joined_communities');
+        if (data && !cancelled) setCommunityCount(JSON.parse(data).length);
+      } catch { /* ignore */ }
+    }
+
+    if (isAuthenticated) load();
+    return () => { cancelled = true; };
+  }, [isAuthenticated]);
 
   const handleAvatarSelect = (url: string) => {
     updateProfile({ avatar: url });

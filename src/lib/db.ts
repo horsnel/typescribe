@@ -434,17 +434,30 @@ export async function markReviewHelpful(reviewId: string, userId: string): Promi
 }
 
 // ─── Scene Comments (F12) ─────────────────────────────────────────────────
+//
+// NOTE: Production DB schema uses `comment` / `is_spoiler` / `timestamp_seconds`
+// / `helpful_count` as column names (slightly different from the original
+// schema.sql draft which used `body` / `spoiler` / `timestamp_sec`). We keep
+// the public API contract stable (`body` / `spoiler` / `timestamp_sec`) by
+// translating at the DB boundary — both on read (PostgREST column aliases) and
+// on write (rename fields before insert).
 
 export async function getSceneComments(movieId: number): Promise<SceneComment[]> {
   const { data } = await supabaseAdmin
     .from('scene_comments')
-    // PostgREST column-alias syntax: `avatar:avatar_url` exposes the DB's
-    // `avatar_url` column as `avatar` in the returned JSON, so the existing
-    // Profile.author.avatar consumers keep working without code changes.
-    .select('*, author:profiles!scene_comments_user_id_fkey(id, display_name, avatar:avatar_url)')
+    // PostgREST column-alias syntax renames DB columns to the public contract:
+    //   DB `comment`            → API `body`
+    //   DB `is_spoiler`         → API `spoiler`
+    //   DB `timestamp_seconds`  → API `timestamp_sec`
+    //   DB `helpful_count`      → API `helpful_count` (passed through)
+    // `avatar:avatar_url` does the same for the joined profile row.
+    .select('id, movie_id, user_id, timestamp_sec:timestamp_seconds, body:comment, spoiler:is_spoiler, helpful_count, created_at, author:profiles!scene_comments_user_id_fkey(id, display_name, avatar:avatar_url)')
     .eq('movie_id', movieId)
-    .order('timestamp_sec', { ascending: true });
-  return (data ?? []) as SceneComment[];
+    .order('timestamp_seconds', { ascending: true });
+  // Cast through `unknown` because the joined `author` field comes back as
+  // an array shape from PostgREST types even though it's a single object
+  // (one scene_comment has exactly one author via FK).
+  return ((data ?? []) as unknown) as SceneComment[];
 }
 
 export async function addSceneComment(
@@ -453,10 +466,16 @@ export async function addSceneComment(
 ): Promise<SceneComment | null> {
   const { data } = await supabaseAdmin
     .from('scene_comments')
-    .insert({ user_id: userId, ...comment })
-    .select('*')
+    .insert({
+      user_id: userId,
+      movie_id: comment.movie_id,
+      timestamp_seconds: comment.timestamp_sec,
+      comment: comment.body,
+      is_spoiler: !!comment.spoiler,
+    })
+    .select('id, movie_id, user_id, timestamp_sec:timestamp_seconds, body:comment, spoiler:is_spoiler, helpful_count, created_at')
     .single();
-  return (data as SceneComment) ?? null;
+  return ((data ?? null) as unknown) as SceneComment | null;
 }
 
 // ─── Lists ────────────────────────────────────────────────────────────────

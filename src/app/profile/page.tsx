@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/dialog';
 import { ProfileSkeleton } from '@/components/skeletons/CommunitySkeleton';
 import { isFollowing, toggleFollow, getFollowerCount, getFollowingCount } from '@/lib/community-storage';
+import TasteDNA from '@/components/profile/TasteDNA';
 
 // Shape returned by GET /api/reviews?user_id=<UUID>&limit=50
 interface PublicReview {
@@ -322,6 +323,11 @@ export default function ProfilePage() {
             <div className="text-[10px] text-[#6b7280] uppercase tracking-wider">Avg Rating</div>
           </div>
         </div>
+
+        {/* ─── Taste DNA ─── */}
+        {/* Shown to all authenticated users on their own profile. Renders a
+            needs-more empty state until they have at least 5 rated movies. */}
+        <TasteDNA />
 
         {/* ─── Feed Tabs ─── */}
         <div className="flex items-center border-b border-[#1e1e28] mb-6">

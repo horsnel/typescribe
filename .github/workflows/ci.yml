@@ -118,18 +118,34 @@ jobs:
           TEST_USER_UUID: 8e375239-f2bd-49f9-a786-750bf0e0c3c5
         run: python scripts/e2e_test_pages.py
 
+      - name: Run protected API routes E2E (cron + POST bodies)
+        env:
+          PROD_URL: https://typescribe-mu.vercel.app
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
+          TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+          TEST_USER_UUID: 8e375239-f2bd-49f9-a786-750bf0e0c3c5
+          # CRON_SECRET is fetched from Vercel's env API at runtime using
+          # VERCEL_TOKEN + VERCEL_PROJECT_ID (see fetch_cron_secret_from_vercel
+          # in the script). This keeps CI in sync with production's secret.
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: python scripts/e2e_test_protected_routes.py
+
       - name: E2E summary
         if: always()
         run: |
           echo "### E2E Results" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "6 E2E scripts ran against https://typescribe-mu.vercel.app:" >> $GITHUB_STEP_SUMMARY
+          echo "7 E2E scripts ran against https://typescribe-mu.vercel.app:" >> $GITHUB_STEP_SUMMARY
           echo "- \`e2e_test_reviews_diary.py\` — reviews + diary CRUD (10 checks)" >> $GITHUB_STEP_SUMMARY
           echo "- \`e2e_test_put_diary_public_reviews.py\` — PUT /api/diary + public reviews (25 checks)" >> $GITHUB_STEP_SUMMARY
           echo "- \`e2e_test_public_routes.py\` — 10 public GET endpoints (22 checks)" >> $GITHUB_STEP_SUMMARY
           echo "- \`e2e_test_auth_routes.py\` — 9 auth routes + 401 guards (31 checks)" >> $GITHUB_STEP_SUMMARY
           echo "- \`e2e_test_public_routes_extra.py\` — 11 more public routes (25 checks)" >> $GITHUB_STEP_SUMMARY
           echo "- \`e2e_test_pages.py\` — 20 key pages smoke test (54 checks)" >> $GITHUB_STEP_SUMMARY
+          echo "- \`e2e_test_protected_routes.py\` — cron + compromise + directors-cut + scene-comments + moderate + pipeline (~30 checks)" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Total: ~167 E2E checks across 30 API routes + 20 pages." >> $GITHUB_STEP_SUMMARY
+          echo "Total: ~197 E2E checks across 36 API routes + 20 pages." >> $GITHUB_STEP_SUMMARY
           echo "Check the logs above for PASS/FAIL counts." >> $GITHUB_STEP_SUMMARY

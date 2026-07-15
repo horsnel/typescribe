@@ -51,15 +51,30 @@ export default function DashboardActivityPage() {
     } catch { /* ignore */ }
 
     // Communities
+    // NOTE: We use the "modified time" of the joined-communities localStorage
+    // entry as a best-effort proxy for when the user joined. If the meta
+    // isn't available, we fall back to Date.now() (so the entry shows as
+    // "just now" once, then ages naturally going forward) instead of the
+    // previous fabricated "1d / 2d / 3d ago" sequence that shifted on every
+    // reload.
     try {
       const data = localStorage.getItem('typescribe_joined_communities');
       const ids: string[] = data ? JSON.parse(data) : [];
-      ids.forEach((id, i) => {
+      // Best-effort: read the joinedAt timestamps from a parallel meta key.
+      // If the meta key doesn't exist (e.g. user joined before this feature
+      // shipped), fall back to Date.now() so timestamps age naturally.
+      let joinedAtMeta: Record<string, string> = {};
+      try {
+        const meta = localStorage.getItem('typescribe_joined_communities_meta');
+        joinedAtMeta = meta ? JSON.parse(meta) : {};
+      } catch { /* ignore */ }
+      const now = new Date().toISOString();
+      ids.forEach(id => {
         all.push({
           id: `community-${id}`,
           type: 'community_join',
           description: `Joined a community`,
-          timestamp: new Date(Date.now() - (i + 1) * 86400000).toISOString(),
+          timestamp: joinedAtMeta[id] ?? now,
           link: `/community/${id}`,
         });
       });

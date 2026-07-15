@@ -47,7 +47,7 @@ async function geminiModerate(text: string) {
   if (!key) return null;
   try {
     const genAI = new GoogleGenerativeAI(key);
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
     const prompt = `Classify this user content. Reply ONLY with JSON: {"flagged":boolean,"severity":"none|low|medium|high","reason":"short label if flagged","confidence":0.0-1.0}
 
 Categories to detect: harassment, hate_speech, spam, spoiler, low_quality, none.

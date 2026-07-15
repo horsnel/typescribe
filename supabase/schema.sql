@@ -86,15 +86,16 @@ create table if not exists public.review_helpful (
 
 -- ─── scene_comments (F12) ───────────────────────────────────────────────────
 create table if not exists public.scene_comments (
-  id            uuid primary key default gen_random_uuid(),
-  movie_id      int not null,
-  user_id       uuid not null references public.profiles(id) on delete cascade,
-  timestamp_sec int not null check (timestamp_sec >= 0),
-  body          text not null,
-  spoiler       boolean default false,
-  created_at    timestamptz default now()
+  id               uuid primary key default gen_random_uuid(),
+  movie_id         int not null,
+  user_id          uuid not null references public.profiles(id) on delete cascade,
+  timestamp_seconds int not null check (timestamp_seconds >= 0),
+  comment          text not null,
+  is_spoiler       boolean default false,
+  helpful_count    int default 0,
+  created_at       timestamptz default now()
 );
-create index if not exists scene_movie_idx on public.scene_comments(movie_id, timestamp_sec);
+create index if not exists scene_movie_idx on public.scene_comments(movie_id, timestamp_seconds);
 
 -- ─── lists ──────────────────────────────────────────────────────────────────
 create table if not exists public.lists (

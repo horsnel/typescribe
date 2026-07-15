@@ -77,6 +77,7 @@ export interface SceneComment {
   timestamp_sec: number;       // seconds into the film
   body: string;
   spoiler: boolean;
+  helpful_count: number;       // upvotes from other users
   created_at: string;
   author?: Pick<Profile, 'id' | 'display_name' | 'avatar'>;
 }

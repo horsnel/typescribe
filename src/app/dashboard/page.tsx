@@ -7,20 +7,23 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
 interface Review {
-  id: number;
+  id: string;
   movie_id: number;
+  movie_title: string;
   rating: number;
-  text: string;
+  title?: string | null;
+  body?: string | null;
   created_at: string;
 }
 
 interface WatchlistItem {
   movieId: number;
+  title?: string;
   addedDate: string;
 }
 
 interface ActivityItem {
-  id: number;
+  id: string;
   type: 'review' | 'watchlist' | 'community';
   description: string;
   timestamp: string;
@@ -34,64 +37,78 @@ export default function DashboardPage() {
   const [communityCount, setCommunityCount] = useState(0);
   const [avgRating, setAvgRating] = useState<number | null>(null);
   const [recentActivity, setRecentActivity] = useState<ActivityItem[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Reviews
-    try {
-      const reviewsData = localStorage.getItem('typescribe_reviews');
-      const reviews: Review[] = reviewsData ? JSON.parse(reviewsData) : [];
+    let cancelled = false;
+
+    async function load() {
+      // 1. Reviews — fetch from API (authoritative source)
+      let reviews: Review[] = [];
+      try {
+        const res = await fetch('/api/reviews?limit=100', { cache: 'no-store' });
+        if (res.ok) {
+          reviews = (await res.json()).reviews ?? [];
+        }
+      } catch { /* ignore */ }
+
+      // 2. Watchlist + Communities — local-only features (no API yet)
+      let watchlist: WatchlistItem[] = [];
+      try {
+        const watchlistData = localStorage.getItem('typescribe_watchlist');
+        watchlist = watchlistData ? JSON.parse(watchlistData) : [];
+      } catch { /* ignore */ }
+
+      let communities: string[] = [];
+      try {
+        const communitiesData = localStorage.getItem('typescribe_joined_communities');
+        communities = communitiesData ? JSON.parse(communitiesData) : [];
+      } catch { /* ignore */ }
+
+      if (cancelled) return;
+
       setReviewCount(reviews.length);
+      setWatchlistCount(watchlist.length);
+      setCommunityCount(communities.length);
+
       if (reviews.length > 0) {
         const avg = reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length;
         setAvgRating(Math.round(avg * 10) / 10);
       }
-    } catch { /* ignore */ }
 
-    // Watchlist
-    try {
-      const watchlistData = localStorage.getItem('typescribe_watchlist');
-      const watchlist: WatchlistItem[] = watchlistData ? JSON.parse(watchlistData) : [];
-      setWatchlistCount(watchlist.length);
-    } catch { /* ignore */ }
-
-    // Communities
-    try {
-      const communitiesData = localStorage.getItem('typescribe_joined_communities');
-      const communities: string[] = communitiesData ? JSON.parse(communitiesData) : [];
-      setCommunityCount(communities.length);
-    } catch { /* ignore */ }
-
-    // Build activity feed
-    const activity: ActivityItem[] = [];
-    try {
-      const reviewsData = localStorage.getItem('typescribe_reviews');
-      const reviews: Review[] = reviewsData ? JSON.parse(reviewsData) : [];
-      reviews.slice(0, 3).forEach(r => {
+      // Build recent activity feed from real data sources
+      const activity: ActivityItem[] = [];
+      reviews.slice(0, 5).forEach(r => {
         activity.push({
-          id: r.id,
+          id: `review-${r.id}`,
           type: 'review',
-          description: `Wrote a review with rating ${r.rating}/10`,
+          description: `Reviewed "${r.movie_title || 'Movie #' + r.movie_id}" — rated ${r.rating}/10`,
           timestamp: r.created_at,
           icon: Star,
         });
       });
-    } catch { /* ignore */ }
-    try {
-      const watchlistData = localStorage.getItem('typescribe_watchlist');
-      const watchlist: WatchlistItem[] = watchlistData ? JSON.parse(watchlistData) : [];
-      watchlist.slice(0, 3).forEach(w => {
+      watchlist.slice(0, 5).forEach(w => {
         activity.push({
-          id: w.movieId,
+          id: `watchlist-${w.movieId}`,
           type: 'watchlist',
-          description: `Added a movie to watchlist`,
+          description: `Added "${w.title || 'Movie #' + w.movieId}" to watchlist`,
           timestamp: w.addedDate,
           icon: Bookmark,
         });
       });
-    } catch { /* ignore */ }
-    activity.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
-    setRecentActivity(activity.slice(0, 6));
-  }, []);
+      activity.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+      setRecentActivity(activity.slice(0, 6));
+      setLoading(false);
+    }
+
+    if (isAuthenticated) {
+      load();
+    } else {
+      setLoading(false);
+    }
+
+    return () => { cancelled = true; };
+  }, [isAuthenticated]);
 
   if (!isAuthenticated) {
     return (

@@ -198,6 +198,17 @@ export function saveCommunityMeta(meta: CommunityMeta) {
 }
 
 // ─── Joined Communities ───
+//
+// Two parallel keys are maintained:
+//   - `typescribe_joined_communities`      → string[] of community IDs
+//   - `typescribe_joined_communities_meta` → { [communityId]: joinedAtISO }
+// The meta key is the source of truth for "when did the user join this
+// community?" — used by the activity feed to show real timestamps instead
+// of fabricated ones. If the meta key is missing for an ID (e.g. user
+// joined before this feature shipped), callers should fall back to
+// `Date.now()` so the entry ages naturally going forward.
+
+const JOINED_COMMUNITIES_META_KEY = 'typescribe_joined_communities_meta';
 
 export function getJoinedCommunities(): string[] {
   try {
@@ -208,6 +219,22 @@ export function getJoinedCommunities(): string[] {
 
 export function saveJoinedCommunities(ids: string[]): void {
   localStorage.setItem(JOINED_COMMUNITIES_KEY, JSON.stringify(ids));
+  // Sync the meta map: add timestamps for any new IDs, drop any that
+  // were removed. Existing timestamps are preserved.
+  const meta = getJoinedCommunityMeta();
+  const next: Record<string, string> = {};
+  const now = new Date().toISOString();
+  for (const id of ids) {
+    next[id] = meta[id] ?? now;
+  }
+  localStorage.setItem(JOINED_COMMUNITIES_META_KEY, JSON.stringify(next));
+}
+
+export function getJoinedCommunityMeta(): Record<string, string> {
+  try {
+    const data = localStorage.getItem(JOINED_COMMUNITIES_META_KEY);
+    return data ? JSON.parse(data) : {};
+  } catch { return {}; }
 }
 
 // ─── Mock Users Database (for public profile lookups) ───
