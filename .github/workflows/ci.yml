@@ -126,9 +126,13 @@ jobs:
           TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
           TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
           TEST_USER_UUID: 8e375239-f2bd-49f9-a786-750bf0e0c3c5
-          # CRON_SECRET is fetched from Vercel's env API at runtime using
-          # VERCEL_TOKEN + VERCEL_PROJECT_ID (see fetch_cron_secret_from_vercel
-          # in the script). This keeps CI in sync with production's secret.
+          # CRON_SECRET is passed directly from the GitHub Actions secret
+          # (uploaded via scripts/upload_github_secret.py and synced to
+          # Vercel's project env via scripts/sync_vercel_cron_secret.py).
+          # The script's Vercel API fetch is a fallback for local dev only —
+          # it can't decrypt the value in CI because VERCEL_TOKEN lacks the
+          # decrypt scope.
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
         run: python scripts/e2e_test_protected_routes.py
