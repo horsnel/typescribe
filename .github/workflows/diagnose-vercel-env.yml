@@ -1,0 +1,59 @@
+name: Diagnose Vercel Env Vars
+
+# Lists the env var NAMES configured on the Vercel project (without
+# decrypting values) so we can confirm which ones are missing.
+# Useful for debugging "NextAuth 500: problem with server configuration"
+# which is almost always a missing NEXTAUTH_SECRET.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  diagnose:
+    name: List Vercel env var names
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: List Vercel project env vars
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          set -euo pipefail
+          echo "=== Fetching env vars for Vercel project $VERCEL_PROJECT_ID ==="
+          RESPONSE=$(curl -sS \
+            -H "Authorization: Bearer $VERCEL_TOKEN" \
+            "https://api.vercel.com/v9/projects/$VERCEL_PROJECT_ID/env")
+          echo "$RESPONSE" | python3 -c "
+          import sys, json
+          d = json.load(sys.stdin)
+          if 'error' in d:
+              print(f'ERROR: {d[\"error\"][\"message\"]}')
+              sys.exit(1)
+          envs = d.get('envs', [])
+          print(f'Total env vars on Vercel project: {len(envs)}')
+          print()
+          print('Env var name / target / type / decryptable:')
+          print('-' * 70)
+          for e in sorted(envs, key=lambda x: x.get('key','')):
+              key = e.get('key','?')
+              target = ','.join(e.get('target', []))
+              typ = e.get('type','?')
+              dec = 'yes' if e.get('decrypted', False) else 'NO'
+              print(f'  {key:<40} target={target:<20} type={typ:<8} decrypted={dec}')
+          print()
+          # Check critical env vars for NextAuth + Supabase
+          required = [
+              'NEXTAUTH_SECRET',
+              'NEXTAUTH_URL',
+              'NEXT_PUBLIC_SUPABASE_URL',
+              'SUPABASE_SERVICE_ROLE_KEY',
+              'NEXT_PUBLIC_SUPABASE_ANON_KEY',
+          ]
+          present = {e.get('key') for e in envs}
+          print('=== Critical env vars check ===')
+          for r in required:
+              status = 'PRESENT' if r in present else 'MISSING'
+              marker = '✓' if r in present else '✗'
+              print(f'  {marker} {r:<40} {status}')
+          "
