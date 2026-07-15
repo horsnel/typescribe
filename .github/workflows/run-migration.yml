@@ -1,0 +1,37 @@
+name: Run DB Migration
+
+# Manual one-shot workflow to run scripts/migrate_privacy_settings.py against
+# the production Supabase project. Idempotent — safe to re-run.
+#
+# Why a workflow: this sandboxed dev environment can't reach the Supabase
+# Postgres pooler (IPv6-only direct DB + non-resolving pooler hostnames).
+# GitHub Actions runners have full IPv4/IPv6 connectivity.
+
+on:
+  workflow_dispatch:
+    inputs:
+      script:
+        description: "Migration script to run (relative to scripts/)"
+        required: true
+        default: "migrate_privacy_settings.py"
+
+jobs:
+  migrate:
+    name: Run migration
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install psycopg2-binary
+        run: pip install psycopg2-binary
+
+      - name: Run migration script
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: python scripts/${{ github.event.inputs.script }}
