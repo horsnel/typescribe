@@ -24,17 +24,27 @@ PROJECT_REF = 'iancvwkvqapkstqdltfs'
 TEST_EMAIL = os.environ.get('TEST_EMAIL', 'testuser-e2e@typescribe.local')
 TEST_PASSWORD = os.environ.get('TEST_PASSWORD', 'TestPass!2025')
 
-# Pull anon key from .env.local
-SUPABASE_ANON_KEY = ''
-env_path = '/home/z/my-project/typescribe/.env.local'
-if os.path.exists(env_path):
-    with open(env_path) as f:
-        for line in f:
-            if line.startswith('NEXT_PUBLIC_SUPABASE_ANON_KEY='):
-                SUPABASE_ANON_KEY = line.split('=', 1)[1].strip().strip('"').strip("'")
-                break
+# ─── Resolve Supabase anon key ─────────────────────────────────────────────
+# Precedence:
+#   1. SUPABASE_ANON_KEY env var (used by CI — see .github/workflows/ci.yml)
+#   2. NEXT_PUBLIC_SUPABASE_ANON_KEY env var (Vercel convention)
+#   3. /home/z/my-project/typescribe/.env.local (local dev outside CI)
+SUPABASE_ANON_KEY = (
+    os.environ.get('SUPABASE_ANON_KEY')
+    or os.environ.get('NEXT_PUBLIC_SUPABASE_ANON_KEY')
+    or ''
+)
 if not SUPABASE_ANON_KEY:
-    print('ERROR: NEXT_PUBLIC_SUPABASE_ANON_KEY not found')
+    env_path = '/home/z/my-project/typescribe/.env.local'
+    if os.path.exists(env_path):
+        with open(env_path) as f:
+            for line in f:
+                if line.startswith('NEXT_PUBLIC_SUPABASE_ANON_KEY='):
+                    SUPABASE_ANON_KEY = line.split('=', 1)[1].strip().strip('"').strip("'")
+                    break
+if not SUPABASE_ANON_KEY:
+    print('ERROR: Supabase anon key not found. Set SUPABASE_ANON_KEY env var '
+          'or create .env.local with NEXT_PUBLIC_SUPABASE_ANON_KEY.', file=sys.stderr)
     sys.exit(1)
 
 PASS = 0
