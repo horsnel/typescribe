@@ -13,9 +13,14 @@ export default function UpcomingMoviesSection() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Compute the upcoming year window dynamically from the current date so
+    // the query never goes stale (previously hardcoded to 2026/2027).
+    const now = new Date();
+    const yearFrom = now.getFullYear();
+    const yearTo = yearFrom + 1;
     Promise.all([
-      fetch('/api/browse?sort=primary_release_date.asc&yearFrom=2026&yearTo=2027&page=1&source=upcoming').then(r => r.ok ? r.json() : null).catch(() => null),
-      fetch('/api/browse?format=tv&sort=primary_release_date.asc&yearFrom=2026&yearTo=2027&page=1').then(r => r.ok ? r.json() : null).catch(() => null),
+      fetch(`/api/browse?sort=primary_release_date.asc&yearFrom=${yearFrom}&yearTo=${yearTo}&page=1&source=upcoming`).then(r => r.ok ? r.json() : null).catch(() => null),
+      fetch(`/api/browse?format=tv&sort=primary_release_date.asc&yearFrom=${yearFrom}&yearTo=${yearTo}&page=1`).then(r => r.ok ? r.json() : null).catch(() => null),
     ]).then(([movieData, seriesData]) => {
       const today = new Date();
       today.setHours(0, 0, 0, 0);

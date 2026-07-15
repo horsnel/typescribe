@@ -107,16 +107,29 @@ jobs:
           TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
         run: python scripts/e2e_test_auth_routes.py
 
+      - name: Run extra public API routes E2E (anime, streaming, vibe-search, etc.)
+        env:
+          PROD_URL: https://typescribe-mu.vercel.app
+        run: python scripts/e2e_test_public_routes_extra.py
+
+      - name: Run page smoke tests (20 key pages)
+        env:
+          PROD_URL: https://typescribe-mu.vercel.app
+          TEST_USER_UUID: 8e375239-f2bd-49f9-a786-750bf0e0c3c5
+        run: python scripts/e2e_test_pages.py
+
       - name: E2E summary
         if: always()
         run: |
           echo "### E2E Results" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "4 E2E scripts ran against https://typescribe-mu.vercel.app:" >> $GITHUB_STEP_SUMMARY
+          echo "6 E2E scripts ran against https://typescribe-mu.vercel.app:" >> $GITHUB_STEP_SUMMARY
           echo "- \`e2e_test_reviews_diary.py\` — reviews + diary CRUD (10 checks)" >> $GITHUB_STEP_SUMMARY
           echo "- \`e2e_test_put_diary_public_reviews.py\` — PUT /api/diary + public reviews (25 checks)" >> $GITHUB_STEP_SUMMARY
           echo "- \`e2e_test_public_routes.py\` — 10 public GET endpoints (22 checks)" >> $GITHUB_STEP_SUMMARY
           echo "- \`e2e_test_auth_routes.py\` — 9 auth routes + 401 guards (31 checks)" >> $GITHUB_STEP_SUMMARY
+          echo "- \`e2e_test_public_routes_extra.py\` — 11 more public routes (25 checks)" >> $GITHUB_STEP_SUMMARY
+          echo "- \`e2e_test_pages.py\` — 20 key pages smoke test (54 checks)" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Total: ~88 E2E checks across 19 API routes." >> $GITHUB_STEP_SUMMARY
+          echo "Total: ~167 E2E checks across 30 API routes + 20 pages." >> $GITHUB_STEP_SUMMARY
           echo "Check the logs above for PASS/FAIL counts." >> $GITHUB_STEP_SUMMARY

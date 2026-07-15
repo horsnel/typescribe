@@ -66,7 +66,7 @@ export default function NewsletterCTA() {
             </form>
           )}
           {error && <p className="text-white/80 text-sm mt-3">{error}</p>}
-          <p className="text-white/50 text-xs mt-6">No spam. Unsubscribe anytime. Join 12,000+ movie lovers.</p>
+          <p className="text-white/50 text-xs mt-6">No spam. Unsubscribe anytime. Join movie lovers like you.</p>
         </div>
       </div>
     </section>

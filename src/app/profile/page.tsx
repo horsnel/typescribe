@@ -5,10 +5,9 @@ import Link from 'next/link';
 import { useAuth, getLocalWatchlist } from '@/lib/auth';
 import {
   Settings, Bookmark, MessageSquare, Film, Star, Calendar,
-  TrendingUp, Clock, Eye, Heart, BarChart3, Camera,
-  Users, Edit3, Mail, Grid3x3, ListVideo, Pencil,
+  Camera,
+  Users, Edit3, Mail, Grid3x3, ListVideo, Pencil, Loader2,
 } from 'lucide-react';
-import { userReviews, movies, genres } from '@/lib/data';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -19,6 +18,21 @@ import {
 } from '@/components/ui/dialog';
 import { ProfileSkeleton } from '@/components/skeletons/CommunitySkeleton';
 import { isFollowing, toggleFollow, getFollowerCount, getFollowingCount } from '@/lib/community-storage';
+
+// Shape returned by GET /api/reviews?user_id=<UUID>&limit=50
+interface PublicReview {
+  id: string;
+  movie_id: number;
+  movie_title: string;
+  poster_path?: string | null;
+  rating: number;
+  title?: string | null;
+  body?: string | null;
+  spoiler?: boolean;
+  genres?: string[] | null;
+  release_year?: number | null;
+  created_at: string;
+}
 
 const PRESET_AVATARS = [
   { id: 'av1', url: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Felix', label: 'Felix' },
@@ -47,6 +61,11 @@ export default function ProfilePage() {
   const [followState, setFollowState] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Real reviews from API (replaces empty shim imports from @/lib/data)
+  const [reviews, setReviews] = useState<PublicReview[]>([]);
+  const [reviewsLoading, setReviewsLoading] = useState(false);
+  const [reviewsError, setReviewsError] = useState('');
+
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- sync state with external system on mount
     setWatchlistCount(getLocalWatchlist().length);
@@ -59,6 +78,36 @@ export default function ProfilePage() {
       // eslint-disable-next-line react-hooks/set-state-in-effect -- sync state with external system on mount
       setFollowState(isFollowing(user.id));
     }
+  }, [user]);
+
+  // Fetch real reviews from the API for the logged-in user.
+  // `user.id` is the Supabase UUID at runtime (auth context fetches from
+  // /api/auth/profile which returns a Profile with id: string UUID).
+  useEffect(() => {
+    if (!user) return;
+    let cancelled = false;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset loading state before async fetch (React docs: fetch-on-mount)
+    setReviewsLoading(true);
+    setReviewsError('');
+    const userId = String(user.id);
+    fetch(`/api/reviews?user_id=${encodeURIComponent(userId)}&limit=50`, { cache: 'no-store' })
+      .then(async (r) => {
+        if (!r.ok) {
+          const data = await r.json().catch(() => ({}));
+          throw new Error(data?.error ?? `HTTP ${r.status}`);
+        }
+        return r.json();
+      })
+      .then((data) => {
+        if (!cancelled) setReviews(data?.reviews ?? []);
+      })
+      .catch((err) => {
+        if (!cancelled) setReviewsError(err?.message ?? 'Failed to load reviews');
+      })
+      .finally(() => {
+        if (!cancelled) setReviewsLoading(false);
+      });
+    return () => { cancelled = true; };
   }, [user]);
 
   if (isLoading) {
@@ -88,21 +137,26 @@ export default function ProfilePage() {
     ? user.display_name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
     : '??';
 
-  const userReviewList = userReviews.filter(r => r.user_id === 101);
-  const avgRating = userReviewList.length > 0 ? (userReviewList.reduce((sum, r) => sum + r.rating, 0) / userReviewList.length).toFixed(1) : '0';
+  // Derive review stats from real API data (was previously computed from
+  // empty shim arrays imported from @/lib/data — always 0 reviews).
+  const reviewCount = reviews.length;
+  const avgRating = reviewCount > 0
+    ? (reviews.reduce((sum, r) => sum + r.rating, 0) / reviewCount).toFixed(1)
+    : '0';
 
   const ratingBuckets = Array.from({ length: 10 }, (_, i) => {
-    const bucket = userReviewList.filter(r => Math.floor(r.rating) === i + 1).length;
+    const bucket = reviews.filter(r => Math.floor(r.rating) === i + 1).length;
     return { rating: i + 1, count: bucket };
   });
   const maxBucket = Math.max(...ratingBuckets.map(b => b.count), 1);
 
+  // Genre distribution from the `genres` array on each review (populated by
+  // the reviews API from the movie_embeddings table).
   const genreDistribution: Record<string, number> = {};
-  userReviewList.forEach((r) => {
-    const movie = movies.find(m => m.id === r.movie_id);
-    if (movie) {
-      movie.genres.forEach((g) => {
-        genreDistribution[g.name] = (genreDistribution[g.name] || 0) + 1;
+  reviews.forEach((r) => {
+    if (r.genres && Array.isArray(r.genres)) {
+      r.genres.forEach((g) => {
+        genreDistribution[g] = (genreDistribution[g] || 0) + 1;
       });
     }
   });
@@ -136,13 +190,6 @@ export default function ProfilePage() {
     });
     setEditModalOpen(false);
   };
-
-  // Mock community posts for the Posts tab
-  const mockPosts = [
-    { id: '1', title: 'What horror movie genuinely scared you the most?', content: 'I watched The Silent Dwelling last night and could not sleep. What movie genuinely terrified you?', likes: 89, comments: 45, time: '3mo ago' },
-    { id: '2', title: 'Best K-dramas of 2025 so far?', content: 'We are halfway through the year. What are your top picks for K-dramas in 2025?', likes: 102, comments: 56, time: '2mo ago' },
-    { id: '3', title: 'Underrated anime that deserve more attention', content: 'Skip the mainstream hits — what anime do you think flew under the radar but absolutely slaps?', likes: 156, comments: 78, time: '1mo ago' },
-  ];
 
   return (
     <div className="min-h-screen bg-[#050507] pt-4 pb-16">
@@ -254,7 +301,7 @@ export default function ProfilePage() {
         </div>
 
         {/* ─── Profile Stats Bar ─── */}
-        <div className="grid grid-cols-3 gap-3 mb-6">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 text-center">
             <div className="text-xl font-bold text-white">{followersCount}</div>
             <div className="text-[10px] text-[#6b7280] uppercase tracking-wider">Followers</div>
@@ -264,8 +311,15 @@ export default function ProfilePage() {
             <div className="text-[10px] text-[#6b7280] uppercase tracking-wider">Following</div>
           </div>
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 text-center">
-            <div className="text-xl font-bold text-white">{userReviewList.length}</div>
+            <div className="text-xl font-bold text-white">{reviewCount}</div>
             <div className="text-[10px] text-[#6b7280] uppercase tracking-wider">Reviews</div>
+          </div>
+          <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 text-center">
+            <div className="text-xl font-bold text-white">
+              {reviewCount > 0 ? avgRating : '—'}
+              {reviewCount > 0 && <span className="text-xs text-[#6b7280] ml-0.5">/10</span>}
+            </div>
+            <div className="text-[10px] text-[#6b7280] uppercase tracking-wider">Avg Rating</div>
           </div>
         </div>
 
@@ -299,54 +353,67 @@ export default function ProfilePage() {
 
         {/* ─── Posts Tab ─── */}
         {activeTab === 'posts' && (
-          <div className="space-y-3">
-            {mockPosts.map((post) => (
-              <div
-                key={post.id}
-                className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5 hover:border-[#2a2a35] transition-all group"
-              >
-                <h3 className="text-base font-semibold text-white group-hover:text-[#D4A853] transition-colors mb-1">
-                  {post.title}
-                </h3>
-                <p className="text-sm text-[#9ca3af] leading-relaxed mb-3">{post.content}</p>
-                {/* Interaction bar with bold 2.5px icons */}
-                <div className="h-px bg-[#1e1e28] my-3" />
-                <div className="flex items-center gap-2">
-                  <button className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm text-[#6b7280] hover:text-[#D4A853] transition-all min-w-[44px] min-h-[44px] justify-center hover:bg-[#111118]">
-                    <Heart className="w-[18px] h-[18px]" strokeWidth={1.5} />
-                    <span className="text-xs font-medium">{post.likes}</span>
-                  </button>
-                  <button className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm text-[#6b7280] hover:text-[#D4A853] transition-all min-w-[44px] min-h-[44px] justify-center hover:bg-[#111118]">
-                    <MessageSquare className="w-[18px] h-[18px]" strokeWidth={1.5} />
-                    <span className="text-xs font-medium">{post.comments}</span>
-                  </button>
-                  <span className="text-[10px] text-[#6b7280] ml-auto">{post.time}</span>
-                </div>
-              </div>
-            ))}
+          <div className="text-center py-12">
+            <MessageSquare className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" strokeWidth={1.5} />
+            <p className="text-[#9ca3af]">No posts yet</p>
+            <p className="text-sm text-[#6b7280] mt-1">
+              Join a <Link href="/communities" className="text-[#D4A853] hover:underline">community</Link> to start posting.
+            </p>
           </div>
         )}
 
         {/* ─── Reviews Tab ─── */}
         {activeTab === 'reviews' && (
           <>
-            {userReviewList.length > 0 ? (
+            {reviewsLoading && (
+              <div className="flex items-center justify-center py-12 gap-3">
+                <Loader2 className="w-6 h-6 text-[#D4A853] animate-spin" strokeWidth={1.5} />
+                <span className="text-sm text-[#6b7280]">Loading your reviews…</span>
+              </div>
+            )}
+
+            {!reviewsLoading && reviewsError && (
+              <div className="text-center py-12">
+                <Star className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" strokeWidth={1.5} />
+                <p className="text-[#9ca3af]">Couldn&apos;t load your reviews</p>
+                <p className="text-sm text-[#6b7280] mt-1">{reviewsError}</p>
+              </div>
+            )}
+
+            {!reviewsLoading && !reviewsError && reviews.length === 0 && (
+              <div className="text-center py-12">
+                <Star className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" strokeWidth={1.5} />
+                <p className="text-[#9ca3af]">No reviews yet</p>
+                <p className="text-sm text-[#6b7280] mt-1">Start reviewing movies to see them here</p>
+              </div>
+            )}
+
+            {!reviewsLoading && !reviewsError && reviews.length > 0 && (
               <div className="space-y-3">
-                {userReviewList.map((review) => {
-                  const movie = movies.find(m => m.id === review.movie_id);
+                {reviews.map((review) => {
+                  const movieSlug = review.movie_title
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]+/g, '-')
+                    .replace(/^-|-$/g, '');
+                  const posterUrl = review.poster_path
+                    ? (review.poster_path.startsWith('http')
+                        ? review.poster_path
+                        : `https://image.tmdb.org/t/p/w92${review.poster_path}`)
+                    : '';
                   return (
                     <Link
                       key={review.id}
-                      href={movie?.slug ? `/movie/${movie.slug}` : '#'}
+                      href={`/movie/${encodeURIComponent(movieSlug)}-${review.movie_id}`}
                       className="flex items-start gap-4 bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 hover:border-[#2a2a35] transition-all group"
                     >
                       {/* Movie Poster Thumbnail */}
                       <div className="w-12 h-16 rounded-lg bg-[#1e1e28] overflow-hidden flex-shrink-0">
-                        {movie?.poster_path ? (
+                        {posterUrl ? (
                           <img
-                            src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`}
-                            alt={movie.title}
+                            src={posterUrl}
+                            alt={review.movie_title}
                             className="w-full h-full object-cover"
+                            onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
                           />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center">
@@ -355,37 +422,41 @@ export default function ProfilePage() {
                         )}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="text-sm font-semibold text-white group-hover:text-[#D4A853] transition-colors">
-                            {movie?.title || 'Unknown Movie'}
+                        <div className="flex items-center gap-2 mb-1 flex-wrap">
+                          <span className="text-sm font-semibold text-white group-hover:text-[#D4A853] transition-colors truncate">
+                            {review.movie_title || `Movie #${review.movie_id}`}
                           </span>
                           {/* Rating Badge */}
                           <span className="text-xs font-bold text-[#D4A853] bg-[#D4A853]/10 px-1.5 py-0.5 rounded">
                             {review.rating}/10
                           </span>
+                          {review.spoiler && (
+                            <span className="text-[10px] font-bold bg-yellow-500/10 text-yellow-400 px-1.5 py-0.5 rounded-full border border-yellow-500/20">
+                              SPOILER
+                            </span>
+                          )}
                         </div>
-                        <p className="text-sm text-[#9ca3af] line-clamp-2">{review.text}</p>
+                        {review.title && (
+                          <p className="text-xs text-[#9ca3af] italic mb-1">{review.title}</p>
+                        )}
+                        <p className="text-sm text-[#9ca3af] line-clamp-2">{review.body ?? ''}</p>
                         <div className="flex items-center gap-2 mt-1.5 text-[10px] text-[#6b7280]">
                           <span>{new Date(review.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
-                          <span className="flex items-center gap-1">
-                            <TrendingUp className="w-3 h-3" strokeWidth={1.5} /> {review.helpful_count} helpful
-                          </span>
+                          {review.release_year && (
+                            <span className="flex items-center gap-1">
+                              <Calendar className="w-3 h-3" strokeWidth={1.5} /> {review.release_year}
+                            </span>
+                          )}
                         </div>
                       </div>
                     </Link>
                   );
                 })}
               </div>
-            ) : (
-              <div className="text-center py-12">
-                <Star className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" strokeWidth={1.5} />
-                <p className="text-[#9ca3af]">No reviews yet</p>
-                <p className="text-sm text-[#6b7280]">Start reviewing movies to see them here</p>
-              </div>
             )}
 
             {/* Stats & Insights (below reviews) */}
-            {userReviewList.length > 0 && (
+            {!reviewsLoading && !reviewsError && reviews.length > 0 && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
                 <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5">
                   <h3 className="text-sm font-semibold text-white mb-4">Rating Distribution</h3>
