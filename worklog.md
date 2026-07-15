@@ -179,3 +179,49 @@ Stage Summary:
   7. New `/api/communities/leaderboard` endpoint (real review-count leaderboard)
   8. Auto-enrichment trigger ensures new reviews/diary entries get genres + release_year even if the client doesn't pass them
   9. Streaming-pipeline cache survives Vercel cold starts via new Supabase `streaming_cache` table
+
+---
+Task ID: 4
+Agent: main
+Task: Implement 4 follow-up directives — PUT /api/reviews/[id], fix profiles.avatar_url bug, migrate movie-page Reviews tab to API, run lint.
+
+Work Log:
+- Re-cloned repo (local dir was lost between sessions), restored .env.local
+- Discovered .env.local had WRONG Supabase project ref (xkbhvqjhqczqwitsgqor vs the correct iancvwkvqapkstqdltfs that Vercel uses). Fixed by pulling the correct URL + anon key + service role key from Vercel's env API.
+- Added updateReview(reviewId, userId, updates) helper in src/lib/db.ts. Maps `spoiler` -> `is_spoiler`, only writes supplied fields, bumps updated_at, uses maybeSingle() + .eq('user_id', userId) so users can only edit their own rows.
+- Added PUT handler to src/app/api/reviews/[id]/route.ts. Validates rating 0-10, returns 400 on empty body / invalid rating, 404 if row missing or not owned by caller, 200 with the updated review on success.
+- Added `initialReview` prop to src/components/review/ReviewComposer.tsx — switches the composer into edit mode: pre-fills rating/title/body/spoiler, hides the movie picker, PUTs to /api/reviews/[id] instead of POST /api/reviews, button reads "Save Changes".
+- Wired dashboard reviews page (src/app/dashboard/reviews/page.tsx) to show an Edit button (Pencil icon) that opens the composer in edit mode. Added "edited <date>" timestamp when updated_at != created_at. Removed dead `Date + title` comment.
+- Fixed 6 `profiles.avatar` -> `avatar:avatar_url` PostgREST alias bugs in src/lib/db.ts:
+    * getSceneComments
+    * getPosts
+    * getComments
+    * getWatchPartyChat
+    * getTasteTwins
+    * getGridLeaderboard
+  All used the DB column name `avatar` but the actual column is `avatar_url`. The PostgREST `alias:column` syntax exposes avatar_url as `avatar` in the returned JSON so all existing consumers keep working without code changes.
+- Migrated movie-page Reviews tab (src/app/movie/[slug]/page.tsx) from the empty `userReviews` mock array to live fetch from /api/reviews?movie_id=<id>:
+    * Added `apiReviews` + `reviewsLoading` state
+    * Added fetchMovieReviews() callback that converts the Supabase Review shape -> UserReview shape (hashes UUID to int for ReviewCard keys, surfaces author.display_name + author.avatar)
+    * Added useEffect to fetch on movie change
+    * Replaced `movieReviews = userReviews.filter(...)` with `movieReviews = apiReviews`
+    * Updated handleReviewSubmit to refresh the API list after a successful POST instead of doing a full-page reload (no more hero/content flash)
+    * Added loading spinner state to the Reviews tab ("Loading reviews...")
+    * Removed unused `userReviews` import
+    * Fixed pre-existing `no-unused-expressions` warning on line 269 (`?.scrollTo() || window.scrollTo()` -> `if (main) main.scrollTo() else window.scrollTo()`)
+- Created the test user on the correct Supabase project (the prior session's test user was on the wrong project ref). Created via /auth/v1/admin/users with email_confirm=true.
+- Wrote scripts/e2e_test_reviews_put.py — 12-step E2E test that exercises the full review lifecycle against production. Auth flow: Supabase password grant -> construct sb-<ref>-auth-token cookie with JSON.stringify(session_object) -> send cookie with all requests. Credentials pulled from env vars (no hardcoded secrets).
+- Discovered + fixed a critical auth-cookie format bug along the way: the cookie value must be JSON.stringify(session_object), NOT JSON.stringify([session, null]). The [session, null] shape caused getUser() to return "Auth session missing!" because gotrue-js's getItemAsync does JSON.parse(value) directly and the array form doesn't have .access_token at the top level.
+- E2E test verifies: POST create (201 + poster_path auto-populated), PUT edit (200 + rating/title/body updated), GET movie-page reviews (200 + edited review present + author.avatar field present), PUT empty body (400), PUT invalid rating (400), GET dashboard list (200 + edited review present), DELETE (200), PUT on deleted review (404).
+- Final production E2E run: ALL 12 STEPS PASSED.
+- Lint: my changes added zero new warnings. 48 pre-existing React Compiler warnings across ~30 unrelated files (CinemaPlayer, accessibility, communities, etc.) are out of scope for this PR.
+
+Stage Summary:
+- 4 follow-up directives all complete and verified end-to-end against production.
+- New: PUT /api/reviews/[id] endpoint + updateReview() helper + ReviewComposer edit mode + dashboard Edit button
+- Fixed: 6 avatar_url column-name bugs in db.ts (scene_comments, posts, comments, watch_party_chat, taste_twins, game_results leaderboards)
+- Migrated: movie-page Reviews tab now fetches from /api/reviews?movie_id= (durable + cross-device) instead of the empty userReviews mock
+- Fixed: critical auth-cookie format bug (JSON.stringify(session) not JSON.stringify([session, null])) — this was blocking all server-side auth for any external test/script
+- Fixed: .env.local had wrong Supabase project ref (xkbhvqjhqczqwitsgqor -> iancvwkvqapkstqdltfs)
+- Created test user on correct Supabase project + 12-step E2E test script in scripts/e2e_test_reviews_put.py
+- Commits: 69e3bb6 (PUT + avatar fix + movie-page API), 4948c18 (debug log — reverted), 5b36da8 (debug endpoint — reverted), ab2bce0 (E2E test + cleanup)
