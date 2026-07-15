@@ -57,6 +57,19 @@ Question: ${question}`;
 
     return NextResponse.json({ answer, source: 'gemini' });
   } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+    // If Gemini fails for any reason (quota exhausted, network, model
+    // deprecation, etc.), fall back to a placeholder response so the UI
+    // can still render something useful instead of erroring out. Return
+    // 200 (not 500) because this is an expected degradation path.
+    console.error('[API /directors-cut] Gemini call failed:', e?.message);
+    return NextResponse.json({
+      answer: `I couldn't reach the AI service just now to dive into *${movieTitle}*. Please try again in a moment.
+
+Your question was: "${question}"
+
+If this persists, the Gemini API quota may be exhausted for the day — the Director's Cut feature relies on Google's Gemini API which has rate limits on the free tier.`,
+      source: 'fallback',
+      error: e?.message?.slice(0, 200),
+    });
   }
 }
