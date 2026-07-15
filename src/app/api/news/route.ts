@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getEntertainmentHeadlines as getNewsApiHeadlines, getMovieNews as getNewsApiMovieNews } from '@/lib/pipeline/clients/newsapi';
 import { getEntertainmentHeadlines as getNewsDataHeadlines, getMovieNews as getNewsDataMovieNews, isNewsDataConfigured } from '@/lib/pipeline/clients/newsdata';
-import { newsItems } from '@/lib/data';
 import { cacheArticles } from './[id]/route';
 
 interface FormattedArticle {
@@ -30,13 +29,13 @@ function formatDate(dateStr: string): string {
  * 1. Run NewsAPI + NewsData in PARALLEL (not sequential)
  * 2. Merge & deduplicate results
  * 3. Prioritize articles WITH images (better UX)
- * 4. Fall back to mock data only if BOTH APIs return nothing
+ * 4. If BOTH APIs return nothing (e.g. unconfigured), return an empty list
+ *    — the homepage NewsSection component already hides itself when no
+ *    articles are returned.
  *
- * This ensures:
- * - If one API is down, the other still works (fallback)
- * - Maximum article coverage from both sources
- * - Articles with images appear first for better presentation
- * - Fast response (parallel fetching, not sequential)
+ * Previously this route fell back to a hardcoded `newsItems` array from
+ * @/lib/data. That shim is now empty and has been removed — no mock data
+ * is shipped to the homepage.
  */
 export async function GET() {
   const seen = new Set<string>();
@@ -87,7 +86,7 @@ export async function GET() {
   }
 
   // ── Determine source label ──
-  let source = 'mock';
+  let source = 'none';
   if (newsApiArticles.length > 0 && newsDataArticles.length > 0) {
     source = 'newsapi+newsdata';
   } else if (newsApiArticles.length > 0) {
@@ -96,30 +95,13 @@ export async function GET() {
     source = 'newsdata';
   }
 
-  // ── Fall back to mock data only if BOTH APIs returned nothing ──
-  const articles: FormattedArticle[] = [...mergedArticles];
-  if (articles.length === 0) {
-    for (const item of newsItems) {
-      articles.push({
-        id: item.id,
-        title: item.title,
-        excerpt: item.excerpt,
-        image: item.image,
-        source: item.source,
-        date: item.date,
-        url: item.url,
-      });
-    }
-    source = 'mock';
-  }
-
   // ── Cache articles for the /api/news/[id] detail endpoint ──
-  cacheArticles(articles);
+  cacheArticles(mergedArticles);
 
   return NextResponse.json({
-    articles,
+    articles: mergedArticles,
     source,
-    count: articles.length,
+    count: mergedArticles.length,
   });
 }
 

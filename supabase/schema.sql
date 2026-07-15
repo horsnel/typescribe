@@ -18,6 +18,7 @@ create table if not exists public.profiles (
   min_rating          numeric(3,1) default 7.0,
   email_notifications boolean default true,
   public_profile      boolean default true,
+  privacy_settings    jsonb default '{}'::jsonb,  -- {show_watchlist, show_ratings, show_community, allow_mentions}
   role                text default 'user' check (role in ('user','moderator','admin')),
   xp                  int default 0,
   streak_count        int default 0,

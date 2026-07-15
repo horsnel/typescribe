@@ -10,6 +10,14 @@ export interface Profile {
   min_rating: number;
   email_notifications: boolean;
   public_profile: boolean;
+  // Per-user privacy toggles. Optional because the column was added via
+  // migration; rows created before the migration have `{}` until first save.
+  privacy_settings?: {
+    show_watchlist?: boolean;
+    show_ratings?: boolean;
+    show_community?: boolean;
+    allow_mentions?: boolean;
+  };
   role: 'user' | 'admin' | 'moderator';
   xp: number;
   streak_count: number;

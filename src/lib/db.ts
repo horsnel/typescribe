@@ -129,7 +129,7 @@ export async function updateProfile(
   userId: string,
   updates: Partial<Pick<Profile,
     'display_name' | 'avatar' | 'bio' | 'favorite_genres' |
-    'min_rating' | 'email_notifications' | 'public_profile' | 'taste_dna' | 'personality_type'
+    'min_rating' | 'email_notifications' | 'public_profile' | 'privacy_settings' | 'taste_dna' | 'personality_type'
   >>,
 ): Promise<Profile | null> {
   const { data } = await supabaseAdmin

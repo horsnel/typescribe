@@ -2,16 +2,19 @@
  * GET /api/news/[id]
  *
  * Fetches the full article content for a news item.
- * Works with both mock data and dynamically fetched API articles.
  *
  * Strategy:
- *   1. Check the shared article cache (populated by /api/news)
- *   2. Fall back to static mock data
- *   3. For real URLs: fetch the page and extract article content
- *   4. For mock data (url === '#'): generate a richer article body
+ *   1. Look up the article in the shared cache (populated by /api/news)
+ *   2. For real URLs: fetch the page and extract article content
+ *   3. On extraction failure: fall back to the article excerpt
+ *
+ * Previously this route also consulted a hardcoded `newsItems` array from
+ * @/lib/data when the cache missed, and synthesized a fake "richer article
+ * body" via `generateMockArticle` for entries whose url was '#'. Both
+ * fallbacks were dead code (the shim is empty) and have been removed —
+ * only real, API-sourced articles are now served.
  */
 import { NextResponse } from 'next/server';
-import { newsItems } from '@/lib/data';
 
 // ─── Shared article cache (populated by /api/news) ───
 
@@ -49,24 +52,17 @@ export async function GET(
   const { id } = await params;
   const articleId = parseInt(id, 10);
 
-  // Step 1: Check the shared article cache first (API-sourced articles)
-  const cachedArticle = articleCache.get(articleId);
-
-  // Step 2: Fall back to static mock data
-  const mockArticle = newsItems.find((n) => n.id === articleId);
-
-  const article = cachedArticle || mockArticle;
+  const article = articleCache.get(articleId);
 
   if (!article) {
     return NextResponse.json({ error: 'Article not found' }, { status: 404 });
   }
 
-  // Mock data — generate a richer article body from the excerpt
-  if (article.url === '#' || !article.url) {
-    const richContent = generateMockArticle(article.title, article.excerpt, article.source, article.date);
+  // No URL — return the excerpt only (no mock body generation)
+  if (!article.url) {
     return NextResponse.json({
       title: article.title,
-      content: richContent,
+      content: article.excerpt,
       source: article.source,
       date: article.date,
       image: article.image,
@@ -169,25 +165,4 @@ function extractArticleContent(
   }
 
   return { title, content, image };
-}
-
-/**
- * Generate a richer mock article body from an excerpt.
- */
-function generateMockArticle(
-  title: string,
-  excerpt: string,
-  source: string,
-  date: string,
-): string {
-  const paragraphs = [
-    excerpt,
-    `The story has captured significant attention across the film industry, with commentators and analysts weighing in on what this means for the broader landscape of cinema. Industry veterans note that developments like these reflect the ongoing evolution of how films are made, distributed, and received by audiences worldwide.`,
-    `Speaking to ${source}, a prominent industry figure described the current moment as "a pivotal inflection point" for the entertainment business. "We're seeing shifts that will define the next decade of filmmaking," they explained. "The intersection of technology, audience expectations, and creative vision has never been more dynamic."`,
-    `The implications extend beyond the immediate story. Several major studios have already signaled that they are watching these developments closely, with some suggesting that their own strategies may need to adapt in response. The ripple effects are expected to be felt across multiple sectors of the industry, from production and distribution to marketing and exhibition.`,
-    `Audience reactions have been mixed but largely positive, with social media buzz reflecting both excitement and thoughtful consideration of the broader issues at play. Fan communities have been particularly vocal, sharing perspectives that range from enthusiastic support to measured skepticism.`,
-    `Looking ahead, analysts predict that this trend will continue to gain momentum throughout the coming year. With several high-profile projects already in development that align with these shifts, the industry appears poised for a period of significant transformation. As one veteran producer put it, "The only constant in this business is change — and right now, the pace of change is unprecedented."`,
-  ];
-
-  return paragraphs.join('\n\n');
 }

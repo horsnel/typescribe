@@ -19,6 +19,7 @@ import {
 import { ProfileSkeleton } from '@/components/skeletons/CommunitySkeleton';
 import { isFollowing, toggleFollow, getFollowerCount, getFollowingCount } from '@/lib/community-storage';
 import TasteDNA from '@/components/profile/TasteDNA';
+import TasteTwin from '@/components/profile/TasteTwin';
 
 // Shape returned by GET /api/reviews?user_id=<UUID>&limit=50
 interface PublicReview {
@@ -328,6 +329,11 @@ export default function ProfilePage() {
         {/* Shown to all authenticated users on their own profile. Renders a
             needs-more empty state until they have at least 5 rated movies. */}
         <TasteDNA />
+
+        {/* ─── Taste Twins ─── */}
+        {/* Shows the user's top 5 closest matches by Pearson correlation
+            of co-rated movies. Renders an empty state until twins exist. */}
+        <TasteTwin />
 
         {/* ─── Feed Tabs ─── */}
         <div className="flex items-center border-b border-[#1e1e28] mb-6">

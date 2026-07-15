@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/lib/auth';
-import { Star, Users, Bookmark, MessageSquare, TrendingUp, Plus, Film, PenSquare, Clock, Eye, Heart } from 'lucide-react';
+import { Star, Users, Bookmark, MessageSquare, TrendingUp, Plus, Film, PenSquare, Clock, Eye } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import RecommendedForYou from '@/components/dashboard/RecommendedForYou';
 
 interface Review {
   id: string;
@@ -232,16 +233,8 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Recommended For You */}
-      <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
-        <h2 className="text-lg font-bold text-white mb-4">Recommended For You</h2>
-        <div className="text-center py-6">
-          <Heart className="w-10 h-10 text-[#2a2a35] mx-auto mb-3" strokeWidth={1.5} />
-          <p className="text-[#9ca3af] mb-1">Personalized recommendations</p>
-          <p className="text-sm text-[#6b7280]">Rate more movies to get better suggestions.</p>
-          <Link href="/browse"><Button className="mt-4 bg-[#D4A853] hover:bg-[#B8922F] text-white">Browse Movies</Button></Link>
-        </div>
-      </div>
+      {/* Recommended For You — drives /api/vibe-search from /api/taste-dna */}
+      <RecommendedForYou />
     </>
   );
 }
