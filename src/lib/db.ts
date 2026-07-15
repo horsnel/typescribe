@@ -13,6 +13,18 @@
 
 import { supabaseAdmin } from './supabase/admin';
 import { createClient as createServerClient } from './supabase/server';
+import { getServerSession } from 'next-auth';
+import type { NextAuthOptions } from 'next-auth';
+
+/**
+ * Lazy import of authOptions to avoid a circular dependency at module load
+ * time (auth-config.ts imports from this file). The function below resolves
+ * authOptions only when getCurrentProfile() is actually called.
+ */
+async function getAuthOptions(): Promise<NextAuthOptions> {
+  const mod = await import('./auth-config');
+  return mod.authOptions;
+}
 import type {
   Profile, WatchlistItem, DiaryEntry, Review, SceneComment,
   MovieList, ListItem, Follow, Community, CommunityMember,
@@ -84,8 +96,39 @@ export function getAdmin() {
   return supabaseAdmin;
 }
 
-/** Resolve the current user's profile (or null). */
+/** Resolve the current user's profile (or null).
+ *
+ * Auth strategy (in priority order):
+ *   1. NextAuth session (JWT cookie __Secure-next-auth.session-token) — set by
+ *      the /login page via signIn('credentials', ...). The session's user.id
+ *      is the Supabase user UUID.
+ *   2. Supabase SSR session (cookie sb-<ref>-auth-token) — set by Supabase
+ *      auth flows (magic link, OAuth, direct supabase.auth.signInWithPassword).
+ *
+ * This dual-path is necessary because the login page was migrated to NextAuth
+ * (for OAuth provider support) but some flows still use Supabase auth directly.
+ */
 export async function getCurrentProfile(): Promise<Profile | null> {
+  // ── Path 1: NextAuth session ──
+  try {
+    const authOptions = await getAuthOptions();
+    const session = await getServerSession(authOptions);
+    if (session?.user?.id) {
+      // NextAuth session has the Supabase user.id — look up the profile
+      // directly via the admin client (bypasses RLS, which is fine here
+      // because we've already authenticated the user via NextAuth).
+      const { data } = await supabaseAdmin
+        .from('profiles')
+        .select('*')
+        .eq('id', session.user.id)
+        .maybeSingle();
+      if (data) return data as Profile;
+    }
+  } catch {
+    // NextAuth not configured or session invalid — fall through to Supabase SSR
+  }
+
+  // ── Path 2: Supabase SSR session ──
   const sb = await getSessionClient();
   const { data: { user } } = await sb.auth.getUser();
   if (!user) return null;
@@ -100,6 +143,18 @@ export async function getCurrentProfile(): Promise<Profile | null> {
 
 /** Resolve the current user's ID (or null). */
 export async function getCurrentUserId(): Promise<string | null> {
+  // ── Path 1: NextAuth session ──
+  try {
+    const authOptions = await getAuthOptions();
+    const session = await getServerSession(authOptions);
+    if (session?.user?.id) {
+      return session.user.id;
+    }
+  } catch {
+    // Fall through to Supabase SSR
+  }
+
+  // ── Path 2: Supabase SSR session ──
   const sb = await getSessionClient();
   const { data: { user } } = await sb.auth.getUser();
   return user?.id ?? null;
