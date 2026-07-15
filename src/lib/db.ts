@@ -87,25 +87,15 @@ export function getAdmin() {
 /** Resolve the current user's profile (or null). */
 export async function getCurrentProfile(): Promise<Profile | null> {
   const sb = await getSessionClient();
-  // DEBUG: log cookie names + getUser result to diagnose auth failures
-  try {
-    const { cookies } = await import('next/headers');
-    const cookieStore = await cookies();
-    const allCookies = cookieStore.getAll();
-    console.log('[getCurrentProfile] cookies seen:', allCookies.map(c => `${c.name}(${c.value.length}ch)`));
-    const { data: getUserData, error: getUserError } = await sb.auth.getUser();
-    console.log('[getCurrentProfile] getUser user:', getUserData?.user?.id ?? 'null', 'error:', getUserError?.message ?? 'none');
-    if (!getUserData?.user) return null;
-    const { data } = await sb
-      .from('profiles')
-      .select('*')
-      .eq('id', getUserData.user.id)
-      .maybeSingle();
-    return (data as Profile) ?? null;
-  } catch (err) {
-    console.error('[getCurrentProfile] error:', err);
-    return null;
-  }
+  const { data: { user } } = await sb.auth.getUser();
+  if (!user) return null;
+
+  const { data } = await sb
+    .from('profiles')
+    .select('*')
+    .eq('id', user.id)
+    .maybeSingle();
+  return (data as Profile) ?? null;
 }
 
 /** Resolve the current user's ID (or null). */
