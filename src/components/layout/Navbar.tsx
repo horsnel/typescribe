@@ -156,7 +156,7 @@ export default function Navbar() {
   const mobileUserLinks = [
     { label: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
     { label: 'My Reviews', href: '/dashboard/reviews', icon: Star },
-    { label: 'My Communities', href: '/dashboard/communities', icon: Users },
+    { label: 'My Community', href: '/dashboard/communities', icon: Users },
     { label: 'Watchlist', href: '/dashboard/watchlist', icon: Bookmark },
     { label: 'Notifications', href: '#notifications', icon: Bell, isPanel: true as const },
     { label: 'Saved', href: '/dashboard/saved', icon: Bookmark },
@@ -166,6 +166,7 @@ export default function Navbar() {
   const profileMenuLinks = [
     { label: 'Profile', href: '/dashboard', icon: User },
     { label: 'My Reviews', href: '/dashboard/reviews', icon: Star },
+    { label: 'My Community', href: '/dashboard/communities', icon: Users },
     { label: 'Watchlist', href: '/dashboard/watchlist', icon: Bookmark },
     { label: 'Settings', href: '/dashboard/settings', icon: Settings },
   ];

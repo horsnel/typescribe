@@ -8,45 +8,29 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Separator } from '@/components/ui/separator';
 import {
-  LayoutDashboard,
-  PenSquare,
-  Users,
-  Bookmark,
-  Bell,
   Activity,
-  BookmarkCheck,
   User,
-  Settings,
   ChevronLeft,
   ChevronRight,
   Menu,
   X,
-  LogOut,
   Home,
   Film,
   Calendar,
 } from 'lucide-react';
-import { openNotificationPanel } from '@/components/community/NotificationPanel';
 
 const sidebarLinks = [
-  { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/dashboard/reviews', label: 'My Reviews', icon: PenSquare },
   { href: '/dashboard/diary', label: 'Watch Diary', icon: Calendar },
-  { href: '/dashboard/communities', label: 'My Communities', icon: Users },
-  { href: '/dashboard/watchlist', label: 'Watchlist', icon: Bookmark },
-  { href: '#notifications', label: 'Notifications', icon: Bell, isPanel: true as const },
   { href: '/dashboard/activity', label: 'Activity Feed', icon: Activity },
-  { href: '/dashboard/saved', label: 'Saved', icon: BookmarkCheck },
 ];
 
 const bottomLinks = [
   { href: '/dashboard/profile', label: 'Profile', icon: User },
-  { href: '/dashboard/settings', label: 'Settings', icon: Settings },
 ];
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const { user, logout, isAuthenticated } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -102,20 +86,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           {sidebarLinks.map((link) => {
             const Icon = link.icon;
             const active = isActive(link.href);
-            if ('isPanel' in link && link.isPanel) {
-              return (
-                <button
-                  key={link.href}
-                  onClick={openNotificationPanel}
-                  className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-sm font-medium w-full text-left ${
-                    'text-[#9ca3af] hover:text-white hover:bg-[#111118]'
-                  }`}
-                >
-                  <Icon className="w-5 h-5 flex-shrink-0" />
-                  {!collapsed && <span>{link.label}</span>}
-                </button>
-              );
-            }
             return (
               <Link
                 key={link.href}
@@ -183,10 +153,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               {!collapsed && <span className="ml-1.5 text-xs">Home</span>}
             </Button>
           </Link>
-          <Button variant="ghost" size="sm" className="text-[#6b7280] hover:text-red-400 h-8" onClick={logout}>
-            <LogOut className="w-4 h-4" strokeWidth={1.5} />
-            {!collapsed && <span className="ml-1.5 text-xs">Logout</span>}
-          </Button>
         </div>
       </div>
     </div>

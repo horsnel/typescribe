@@ -209,7 +209,15 @@ export function useAuth(): AuthContextType {
 
 // ─── Watchlist (still localStorage for now — will migrate to Supabase) ───
 
-interface WatchlistItem { movieId: number; addedDate: string; }
+export interface WatchlistItem {
+  movieId: number;
+  addedDate: string;
+  title?: string;
+  slug?: string;
+  poster?: string;
+  rating?: number;
+  year?: string;
+}
 const WATCHLIST_KEY = 'typescribe_watchlist';
 
 export function getLocalWatchlist(): WatchlistItem[] {
@@ -227,7 +235,19 @@ export function isInWatchlist(movieId: number): boolean {
   return getLocalWatchlist().some((item) => item.movieId === movieId);
 }
 
-export function toggleWatchlist(movieId: number): boolean {
+/**
+ * Toggle a movie in/out of the local watchlist.
+ *
+ * Accepts an optional `meta` object so the watchlist UI can show poster, title,
+ * slug, rating and year without a separate API fetch. Existing entries are
+ * upgraded in-place with the new metadata when supplied (so legacy entries
+ * that only had movieId+addedDate get backfilled when the user revisits the
+ * movie page).
+ */
+export function toggleWatchlist(
+  movieId: number,
+  meta?: { title?: string; slug?: string; poster?: string; rating?: number; year?: string },
+): boolean {
   const watchlist = getLocalWatchlist();
   const existing = watchlist.findIndex((item) => item.movieId === movieId);
   if (existing >= 0) {
@@ -235,7 +255,15 @@ export function toggleWatchlist(movieId: number): boolean {
     saveLocalWatchlist(watchlist);
     return false;
   } else {
-    watchlist.push({ movieId, addedDate: new Date().toISOString() });
+    watchlist.push({
+      movieId,
+      addedDate: new Date().toISOString(),
+      ...(meta?.title ? { title: meta.title } : {}),
+      ...(meta?.slug ? { slug: meta.slug } : {}),
+      ...(meta?.poster ? { poster: meta.poster } : {}),
+      ...(typeof meta?.rating === 'number' ? { rating: meta.rating } : {}),
+      ...(meta?.year ? { year: meta.year } : {}),
+    });
     saveLocalWatchlist(watchlist);
     return true;
   }

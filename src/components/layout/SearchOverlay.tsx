@@ -96,16 +96,16 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
     <div className="fixed inset-0 z-[60] bg-[#050507]/90 backdrop-blur-md flex items-start justify-center pt-24 px-4">
       <div className="w-full max-w-2xl">
         {/* ─── Pill-shaped search input (matches /vibe, /browse, /search bars) ─── */}
-        <div className="flex items-center gap-3 px-5 py-3 bg-[#0c0c10] border border-[#1e1e28] rounded-full shadow-2xl focus-within:border-[#D4A853]/50 transition-colors">
+        <div className="flex items-center gap-2 sm:gap-3 pl-5 pr-2 sm:pr-5 py-2 sm:py-3 bg-[#0c0c10] border border-[#1e1e28] rounded-full shadow-2xl focus-within:border-[#D4A853]/50 transition-colors">
           <Search className="w-5 h-5 text-[#D4A853] flex-shrink-0" strokeWidth={1.5} />
-          <input ref={inputRef} type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search movies, anime, reviews, news..." className="flex-1 bg-transparent text-white placeholder:text-[#6b7280] focus:outline-none text-lg" />
-          {isSearching && <Loader2 className="w-4 h-4 animate-spin text-[#D4A853]" strokeWidth={1.5} />}
+          <input ref={inputRef} type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search movies, anime, reviews, news..." className="flex-1 min-w-0 bg-transparent text-white placeholder:text-[#6b7280] focus:outline-none text-base sm:text-lg" />
+          {isSearching && <Loader2 className="w-4 h-4 animate-spin text-[#D4A853] flex-shrink-0" strokeWidth={1.5} />}
           {query && !isSearching && (
-            <button onClick={() => setQuery('')} className="p-1.5 text-[#6b7280] hover:text-white hover:bg-white/10 rounded-full transition-colors" aria-label="Clear search">
+            <button onClick={() => setQuery('')} className="flex-shrink-0 flex items-center justify-center w-8 h-8 text-[#6b7280] hover:text-white hover:bg-white/10 rounded-full transition-colors" aria-label="Clear search">
               <X className="w-4 h-4" strokeWidth={2} />
             </button>
           )}
-          <button onClick={onClose} className="p-1.5 text-[#6b7280] hover:text-white hover:bg-white/10 rounded-full transition-colors" aria-label="Close search"><X className="w-5 h-5" strokeWidth={1.5} /></button>
+          <button onClick={onClose} className="flex-shrink-0 flex items-center justify-center w-8 h-8 text-[#6b7280] hover:text-white hover:bg-white/10 rounded-full transition-colors" aria-label="Close search"><X className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={1.5} /></button>
         </div>
 
         {/* ─── Results dropdown (separate panel below the pill) ─── */}

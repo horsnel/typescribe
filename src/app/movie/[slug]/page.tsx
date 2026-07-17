@@ -635,7 +635,22 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
 
   const handleToggleWatchlist = useCallback(() => {
     if (!movie) return;
-    const added = toggleWatchlist(movie.id);
+    const year = movie.release_date ? movie.release_date.split('-')[0] : '';
+    // Normalize poster URL — store the full https URL so the watchlist page
+    // can render <img src={poster}> without re-doing the TMDb prefix logic.
+    const posterRaw = movie.poster_path || '';
+    const poster = posterRaw.startsWith('http')
+      ? posterRaw
+      : posterRaw.startsWith('/')
+        ? `https://image.tmdb.org/t/p/w500${posterRaw}`
+        : '';
+    const added = toggleWatchlist(movie.id, {
+      title: movie.title,
+      slug: movie.slug,
+      poster,
+      rating: movie.vote_average,
+      year,
+    });
     setInWatchlist(added);
   }, [movie]);
 
@@ -764,7 +779,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
     <div className="min-h-screen bg-[#050507]">
       {/* Subtle enrichment indicator — small pulse dot in hero instead of full banner */}
       {/* ─── Hero Section ─── */}
-      <div ref={heroRef} className="relative h-auto min-h-[65vh] md:h-[65vh] md:min-h-[520px]">
+      <div ref={heroRef} className="relative h-auto min-h-[60vh] sm:min-h-[65vh] md:h-[65vh] md:min-h-[520px]">
         {/* Backdrop */}
         <div className="absolute inset-0">
           <img
@@ -778,10 +793,10 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
         </div>
 
         {/* Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-full flex items-center md:items-end pb-10 lg:pb-14 pt-20 md:pt-0">
-          <div className="flex flex-col md:flex-row gap-6 lg:gap-10 items-end w-full">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-full flex items-center md:items-end pb-8 sm:pb-10 lg:pb-14 pt-20 md:pt-0">
+          <div className="flex flex-col md:flex-row gap-5 sm:gap-6 lg:gap-10 items-end w-full">
             {/* Mobile poster - small inline */}
-            <div className="md:hidden hero-animate flex-shrink-0 w-[120px] rounded-xl overflow-hidden shadow-2xl border border-white/[0.06]">
+            <div className="md:hidden hero-animate flex-shrink-0 w-[110px] sm:w-[120px] rounded-xl overflow-hidden shadow-2xl border border-white/[0.06]">
               <img src={movie.poster_path?.startsWith('http') ? movie.poster_path : movie.poster_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : movie.poster_path || ''} alt={movie.title} className="w-full aspect-[2/3] object-cover" onError={(e) => { const img = e.target as HTMLImageElement; img.src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 750"><rect fill="%230c0c10" width="500" height="750"/><text x="250" y="375" text-anchor="middle" fill="%232a2a35" font-size="48" font-family="sans-serif">🎬</text></svg>'); }} />
             </div>
             {/* Poster – hidden on mobile */}
@@ -798,7 +813,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
             <div className="flex-1 min-w-0">
 
               {/* Title */}
-              <h1 className="hero-animate text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-2 leading-tight">
+              <h1 className="hero-animate text-2xl sm:text-3xl lg:text-5xl font-extrabold text-white mb-2 leading-tight">
                 {movie.title}
               </h1>
 
@@ -808,14 +823,14 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
               )}
 
               {/* Meta Row */}
-              <div className="hero-animate flex items-center gap-3 mb-5 flex-wrap">
-                <span className="text-sm text-[#9ca3af]">{year}</span>
+              <div className="hero-animate flex items-center gap-2 sm:gap-3 mb-4 sm:mb-5 flex-wrap">
+                <span className="text-xs sm:text-sm text-[#9ca3af]">{year}</span>
                 <span className="w-1 h-1 rounded-full bg-[#6b6b7b]" />
-                <span className="text-sm text-[#9ca3af] flex items-center gap-1">
+                <span className="text-xs sm:text-sm text-[#9ca3af] flex items-center gap-1">
                   <Clock className="w-3.5 h-3.5" strokeWidth={1.5} /> {runtimeStr}
                 </span>
                 <span className="w-1 h-1 rounded-full bg-[#6b6b7b]" />
-                <div className="flex gap-2">
+                <div className="flex gap-1.5 sm:gap-2 flex-wrap">
                   {movie.genres.map((g) => (
                     <span
                       key={g.id}
@@ -839,38 +854,38 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
               </div>
 
               {/* Action Buttons */}
-              <div className="hero-animate flex items-center gap-3 flex-wrap">
+              <div className="hero-animate grid grid-cols-2 sm:flex sm:flex-wrap gap-2 sm:gap-3">
                 <button
                   onClick={handleToggleWatchlist}
-                  className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium transition-all ${
+                  className={`inline-flex items-center justify-center gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded-lg font-medium text-xs sm:text-sm transition-all ${
                     inWatchlist
                       ? 'bg-[#D4A853] text-white'
                       : 'bg-[#111118] border border-[#1e1e28] text-white hover:bg-[#D4A853] hover:border-[#D4A853]'
                   }`}
                 >
                   <Heart className={`w-4 h-4 ${inWatchlist ? 'fill-white' : ''}`} strokeWidth={1.5} />
-                  {inWatchlist ? 'In Watchlist' : 'Add to Watchlist'}
+                  <span className="truncate">{inWatchlist ? 'In Watchlist' : 'Add to Watchlist'}</span>
                 </button>
 
                 <button
                   onClick={handleShare}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium bg-[#111118] border border-[#1e1e28] text-white hover:bg-[#2a2a35] transition-colors"
+                  className="inline-flex items-center justify-center gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded-lg font-medium text-xs sm:text-sm bg-[#111118] border border-[#1e1e28] text-white hover:bg-[#2a2a35] transition-colors"
                 >
                   <Share2 className="w-4 h-4" strokeWidth={1.5} /> Share
                 </button>
 
                 <button
                   onClick={() => setTrailerOpen(true)}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium bg-[#111118] border border-[#1e1e28] text-white hover:bg-[#2a2a35] transition-colors"
+                  className="inline-flex items-center justify-center gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded-lg font-medium text-xs sm:text-sm bg-[#111118] border border-[#1e1e28] text-white hover:bg-[#2a2a35] transition-colors"
                 >
-                  <Play className="w-4 h-4 fill-white" strokeWidth={1.5} /> Watch Trailer
+                  <Play className="w-4 h-4 fill-white" strokeWidth={1.5} /> Trailer
                 </button>
 
                 <Link
                   href="/stream"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium bg-gradient-to-r from-[#D4A853]/20 to-[#D4A853]/10 border border-[#D4A853]/30 text-[#D4A853] hover:from-[#D4A853]/30 hover:to-[#D4A853]/20 transition-all"
+                  className="inline-flex items-center justify-center gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded-lg font-medium text-xs sm:text-sm bg-gradient-to-r from-[#D4A853]/20 to-[#D4A853]/10 border border-[#D4A853]/30 text-[#D4A853] hover:from-[#D4A853]/30 hover:to-[#D4A853]/20 transition-all"
                 >
-                  <MonitorPlay className="w-4 h-4" strokeWidth={1.5} /> Stream Free
+                  <MonitorPlay className="w-4 h-4" strokeWidth={1.5} /> Stream
                 </Link>
               </div>
             </div>
@@ -879,10 +894,10 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
       </div>
 
       {/* ─── Main Content ─── */}
-      <div ref={contentRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-10 lg:py-14">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-10 lg:gap-14">
+      <div ref={contentRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-6 sm:py-10 lg:py-14">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-6 sm:gap-10 lg:gap-14">
           {/* ─── Left Column ─── */}
-          <div className="space-y-10 min-w-0">
+          <div className="space-y-8 sm:space-y-10 min-w-0">
             {/* AI Review — Dispute It! */}
             <section className="content-animate">
               <div className="flex items-center gap-2 mb-4">
@@ -898,7 +913,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                   </span>
                 )}
               </div>
-              <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-6">
+              <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 sm:p-6">
                 {aiReviewLoading ? (
                   <div className="space-y-3" aria-busy="true" aria-label="AI review is being generated">
                     <div className="h-4 bg-[#1e1e28] rounded animate-pulse w-full" />
@@ -948,16 +963,17 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                     {/* Star Rating */}
                     <div className="mb-3">
                       <label className="text-xs text-[#6b7280] mb-1.5 block">Your Rating (1-10)</label>
-                      <div className="flex items-center gap-1">
+                      <div className="flex items-center gap-0.5 sm:gap-1 flex-wrap">
                         {Array.from({ length: 10 }, (_, i) => i + 1).map((star) => (
                           <button
                             key={star}
                             onClick={() => setDisputeRating(star)}
-                            className="transition-transform hover:scale-110"
+                            className="transition-transform hover:scale-110 p-0.5 sm:p-0"
                             type="button"
+                            aria-label={`${star} star${star > 1 ? 's' : ''}`}
                           >
                             <Star
-                              className={`w-5 h-5 ${star <= disputeRating ? 'text-[#D4A853] fill-[#D4A853]' : 'text-[#2a2a35]'}`}
+                              className={`w-4 h-4 sm:w-5 sm:h-5 ${star <= disputeRating ? 'text-[#D4A853] fill-[#D4A853]' : 'text-[#2a2a35]'}`}
                             strokeWidth={1.5} />
                           </button>
                         ))}
@@ -1216,31 +1232,31 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
             {/* Reviews & Discussion Section */}
             <section className="content-animate">
               <div className="flex items-center justify-between mb-5 flex-wrap gap-3">
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 sm:gap-4">
                   {/* Tab Switcher */}
                   <div className="flex items-center border border-[#1e1e28] rounded-lg overflow-hidden">
                     <button
                       onClick={() => setCommentTab('reviews')}
-                      className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors ${
+                      className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium transition-colors ${
                         commentTab === 'reviews' ? 'bg-[#D4A853] text-white' : 'text-[#6b7280] hover:text-white hover:bg-[#111118]'
                       }`}
                     >
-                      <Star className="w-4 h-4" strokeWidth={1.5} /> Reviews ({movieReviews.length})
+                      <Star className="w-4 h-4" strokeWidth={1.5} /> <span className="whitespace-nowrap">Reviews ({movieReviews.length})</span>
                     </button>
                     <button
                       onClick={() => setCommentTab('discussion')}
-                      className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors ${
+                      className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium transition-colors ${
                         commentTab === 'discussion' ? 'bg-[#D4A853] text-white' : 'text-[#6b7280] hover:text-white hover:bg-[#111118]'
                       }`}
                     >
-                      <MessageSquare className="w-4 h-4" strokeWidth={1.5} /> Discussion ({comments.filter(c => c.parent_id === null).length})
+                      <MessageSquare className="w-4 h-4" strokeWidth={1.5} /> <span className="whitespace-nowrap">Discussion ({comments.filter(c => c.parent_id === null).length})</span>
                     </button>
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
                   <Link
                     href={`/movie/${slug}/debates`}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-[#D4A853]/10 border border-[#D4A853]/20 text-[#D4A853] hover:bg-[#D4A853]/20 hover:border-[#D4A853]/30 transition-colors"
+                    className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium bg-[#D4A853]/10 border border-[#D4A853]/20 text-[#D4A853] hover:bg-[#D4A853]/20 hover:border-[#D4A853]/30 transition-colors"
                   >
                     <Swords className="w-4 h-4" strokeWidth={1.5} /> Debate
                   </Link>
@@ -1249,9 +1265,9 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                       {isAuthenticated && (
                         <Button
                           onClick={() => setShowReviewForm(!showReviewForm)}
-                          className="bg-[#D4A853] hover:bg-[#B8922F] text-white gap-2 text-sm"
+                          className="bg-[#D4A853] hover:bg-[#B8922F] text-white gap-2 text-xs sm:text-sm"
                         >
-                          <PenSquare className="w-4 h-4" strokeWidth={1.5} /> Write a Review
+                          <PenSquare className="w-4 h-4" strokeWidth={1.5} /> <span className="hidden sm:inline">Write a </span>Review
                         </Button>
                       )}
                       <select
@@ -1260,7 +1276,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                           setReviewSort(e.target.value as typeof reviewSort);
                           setReviewsVisible(3);
                         }}
-                        className="bg-[#0c0c10] border border-[#1e1e28] rounded-lg py-1.5 px-3 text-sm text-[#9ca3af] focus:outline-none focus:border-[#D4A853]"
+                        className="bg-[#0c0c10] border border-[#1e1e28] rounded-lg py-1.5 px-3 text-xs sm:text-sm text-[#9ca3af] focus:outline-none focus:border-[#D4A853]"
                       >
                         <option value="recent">Most Recent</option>
                         <option value="highest">Highest Rated</option>
@@ -1542,7 +1558,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                     </div>
                   )}
                 </div>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-5">
                   {relatedMovies.map((m) => (
                     <div key={m.id}>
                       <MovieCard movie={m} />

@@ -2,19 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import { useAuth, getLocalWatchlist } from '@/lib/auth';
-import { Bookmark, Film, Trash2, ExternalLink, Star } from 'lucide-react';
+import type { WatchlistItem } from '@/lib/auth';
+import { Bookmark, Film, Trash2, Star, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-
-interface WatchlistItem {
-  movieId: number;
-  addedDate: string;
-  title?: string;
-  slug?: string;
-  poster?: string;
-  rating?: number;
-  year?: string;
-}
 
 export default function DashboardWatchlistPage() {
   const { user, isAuthenticated } = useAuth();
@@ -22,13 +13,7 @@ export default function DashboardWatchlistPage() {
   const [sortBy, setSortBy] = useState<string>('date');
 
   const loadWatchlist = () => {
-    try {
-      const data = localStorage.getItem('typescribe_watchlist');
-      const items: WatchlistItem[] = data ? JSON.parse(data) : [];
-      // Watchlist items already contain title/poster_path/movieId — no
-      // enrichment step needed.
-      setWatchlist(items);
-    } catch { /* ignore */ }
+    setWatchlist(getLocalWatchlist());
   };
 
   useEffect(() => {
@@ -101,54 +86,76 @@ export default function DashboardWatchlistPage() {
           <Link href="/browse"><Button className="bg-[#D4A853] hover:bg-[#B8922F] text-white gap-2"><Film className="w-4 h-4" strokeWidth={1.5} />Browse Movies</Button></Link>
         </div>
       ) : (
-        <div className="space-y-3">
-          {sortedWatchlist.map((item) => (
-            <div key={item.movieId} className="bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-4 hover:border-[#3a3a45] transition-colors flex items-center gap-4">
-              {/* Poster */}
-              <div className="w-12 h-16 rounded-lg overflow-hidden bg-[#111118] flex-shrink-0">
-                {item.poster ? (
-                  <img src={item.poster} alt={item.title || ''} className="w-full h-full object-cover" />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <Film className="w-5 h-5 text-[#2a2a35]" strokeWidth={1.5} />
-                  </div>
-                )}
-              </div>
-              {/* Info */}
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-1">
-                  {item.slug ? (
-                    <Link href={`/movie/${item.slug}`} className="text-sm font-semibold text-white hover:text-[#D4A853] transition-colors truncate">
-                      {item.title || `Movie #${item.movieId}`}
-                    </Link>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
+          {sortedWatchlist.map((item) => {
+            const href = item.slug ? `/movie/${item.slug}` : null;
+            // Outer card: when we have a slug, the entire card is a link.
+            // The remove button sits on top with a higher z-index and
+            // stopPropagation so clicks don't trigger navigation.
+            const inner = (
+              <>
+                {/* Poster */}
+                <div className="relative aspect-[2/3] rounded-xl overflow-hidden bg-[#111118] flex-shrink-0">
+                  {item.poster ? (
+                     
+                    <img
+                      src={item.poster}
+                      alt={item.title || ''}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      loading="lazy"
+                    />
                   ) : (
-                    <span className="text-sm font-semibold text-white truncate">{item.title || `Movie #${item.movieId}`}</span>
+                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#1a1a22] to-[#0c0c10]">
+                      <Film className="w-8 h-8 text-[#2a2a35]" strokeWidth={1.5} />
+                    </div>
                   )}
-                  {item.rating && (
-                    <div className="flex items-center gap-1 text-xs text-[#D4A853] flex-shrink-0">
-                      <Star className="w-3 h-3 fill-[#D4A853]" strokeWidth={1.5} />
-                      <span>{item.rating}</span>
+                  {/* Rating chip */}
+                  {typeof item.rating === 'number' && item.rating > 0 && (
+                    <div className="absolute top-2 right-2 flex items-center gap-1 bg-[#D4A853] text-black text-xs font-bold px-2 py-0.5 rounded-full shadow-lg">
+                      <Star className="w-3 h-3 fill-black" strokeWidth={1.5} />
+                      {item.rating.toFixed(1)}
+                    </div>
+                  )}
+                  {/* Remove button — always visible on touch, hover on desktop */}
+                  <button
+                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleRemove(item.movieId); }}
+                    className="absolute top-2 left-2 z-10 p-1.5 bg-[#050507]/80 backdrop-blur-sm rounded-full text-[#9ca3af] hover:text-red-400 hover:bg-[#050507] transition-colors sm:opacity-0 sm:group-hover:opacity-100"
+                    title="Remove from watchlist"
+                    aria-label="Remove from watchlist"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" strokeWidth={1.5} />
+                  </button>
+                </div>
+                {/* Info */}
+                <div className="mt-2.5">
+                  <h3 className="text-sm font-semibold text-white truncate group-hover:text-[#D4A853] transition-colors">
+                    {item.title || `Movie #${item.movieId}`}
+                  </h3>
+                  <div className="flex items-center gap-2 mt-1 text-xs text-[#6b7280]">
+                    {item.year && <span>{item.year}</span>}
+                    <span className="hidden sm:inline">·</span>
+                    <span className="hidden sm:inline">Added {formatTimeAgo(item.addedDate)}</span>
+                  </div>
+                  {/* Mobile-only "view" hint */}
+                  {href && (
+                    <div className="sm:hidden flex items-center gap-1 mt-1.5 text-[10px] font-medium text-[#D4A853]">
+                      View details <ArrowRight className="w-3 h-3" strokeWidth={2} />
                     </div>
                   )}
                 </div>
-                <div className="flex items-center gap-3 text-xs text-[#6b7280]">
-                  {item.year && <span>{item.year}</span>}
-                  <span>Added {formatTimeAgo(item.addedDate)}</span>
-                </div>
+              </>
+            );
+
+            return href ? (
+              <Link key={item.movieId} href={href} className="group cursor-pointer block">
+                {inner}
+              </Link>
+            ) : (
+              <div key={item.movieId} className="group">
+                {inner}
               </div>
-              {/* Actions */}
-              <div className="flex items-center gap-2 flex-shrink-0">
-                {item.slug && (
-                  <Link href={`/movie/${item.slug}`} className="p-2 text-[#6b7280] hover:text-white transition-colors">
-                    <ExternalLink className="w-4 h-4" strokeWidth={1.5} />
-                  </Link>
-                )}
-                <button onClick={() => handleRemove(item.movieId)} className="p-2 text-[#6b7280] hover:text-red-400 transition-colors rounded-lg hover:bg-[#111118]">
-                  <Trash2 className="w-4 h-4" strokeWidth={1.5} />
-                </button>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </>

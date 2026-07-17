@@ -93,19 +93,23 @@ function SearchContent() {
 
         {/* Search Input */}
         <div className="relative mb-4">
-          <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#6b7280]" />
+          <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#6b7280] z-10" />
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => { if (e.key === 'Enter' && query.trim()) saveRecentSearch(query.trim()); }}
             placeholder="Search movies, reviews, news, actors, directors..."
-            className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-full py-3.5 pl-12 pr-10 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853] text-lg"
+            className="w-full bg-[#0c0c10] border border-[#1e1e28] rounded-full py-3.5 pl-12 pr-14 text-white placeholder:text-[#6b7280] focus:outline-none focus:border-[#D4A853] text-lg"
             autoFocus
           />
           {query && (
-            <button onClick={() => setQuery('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-[#6b7280] hover:text-white">
-              <X className="w-5 h-5" strokeWidth={1.5} />
+            <button
+              onClick={() => setQuery('')}
+              className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center justify-center w-9 h-9 rounded-full text-[#6b7280] hover:text-white hover:bg-white/10 transition-colors z-10"
+              aria-label="Clear search"
+            >
+              <X className="w-5 h-5" strokeWidth={2} />
             </button>
           )}
         </div>
