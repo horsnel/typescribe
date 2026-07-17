@@ -43,7 +43,7 @@ export default function TrendingCarousel() {
               <button onClick={() => scroll('left')} className="w-9 h-9 flex items-center justify-center rounded-full bg-[#0c0c10] border border-white/[0.06] text-white hover:border-[#D4A853] hover:text-[#D4A853] transition-colors" aria-label="Scroll left"><ChevronLeft className="w-4 h-4" strokeWidth={1.5} /></button>
               <button onClick={() => scroll('right')} className="w-9 h-9 flex items-center justify-center rounded-full bg-[#0c0c10] border border-white/[0.06] text-white hover:border-[#D4A853] hover:text-[#D4A853] transition-colors" aria-label="Scroll right"><ChevronRight className="w-4 h-4" strokeWidth={1.5} /></button>
             </div>
-            <Link href="/browse" className="flex items-center gap-1.5 text-sm text-[#9ca3af] hover:text-[#D4A853] transition-colors">See All<ArrowRight className="w-4 h-4" strokeWidth={1.5} /></Link>
+            <Link href="/browse" aria-label="See all trending movies" className="flex items-center justify-center w-9 h-9 rounded-full bg-[#0c0c10] border border-white/[0.06] text-white hover:border-[#D4A853] hover:text-[#D4A853] transition-colors"><ArrowRight className="w-4 h-4" strokeWidth={1.5} /></Link>
           </div>
         </div>
         {loading ? (

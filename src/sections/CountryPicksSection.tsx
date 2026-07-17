@@ -53,9 +53,10 @@ function CountrySection({ code, name, label }: CountrySectionProps) {
           </div>
           <Link
             href={`/browse?country=${code}`}
-            className="flex items-center gap-1 text-sm text-[#D4A853] hover:underline font-medium"
+            aria-label={`View all ${name} movies`}
+            className="flex items-center justify-center w-9 h-9 rounded-full bg-[#0c0c10] border border-white/[0.06] text-white hover:border-[#D4A853] hover:text-[#D4A853] transition-colors"
           >
-            View all <ChevronRight className="w-4 h-4" strokeWidth={1.5} />
+            <ChevronRight className="w-4 h-4" strokeWidth={1.5} />
           </Link>
         </div>
 

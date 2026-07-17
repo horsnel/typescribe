@@ -3,18 +3,16 @@
 import { usePathname } from 'next/navigation';
 import Footer from './Footer';
 
-// Routes where footer should be hidden
-const FOOTLESS_ROUTES = [
-  '/stream/',  // Video player pages (starts with)
-];
-
+// Footer is only shown on the homepage. Every other route renders footer-less
+// so the navbar + page content is the entire chrome.
 export default function ConditionalFooter() {
   const pathname = usePathname();
 
-  // Hide footer on video player pages
-  const shouldHideFooter = FOOTLESS_ROUTES.some(route => pathname.startsWith(route));
+  // Normalize trailing slash so `/` and `` both match homepage.
+  const normalized = pathname.replace(/\/$/, '');
+  const isHomepage = normalized === '';
 
-  if (shouldHideFooter) return null;
+  if (!isHomepage) return null;
 
   return <Footer />;
 }

@@ -40,8 +40,8 @@ function AnimeCard({ anime }: { anime: Movie }) {
           </div>
         </div>
       </div>
-      <div className="mt-3">
-        <h3 className="text-sm font-semibold text-white truncate group-hover:text-[#D4A853] transition-colors">
+      <div className="mt-3 w-full">
+        <h3 className="text-sm font-semibold text-white line-clamp-2 leading-snug min-h-[2.5rem] group-hover:text-[#D4A853] transition-colors">
           {anime.title}
         </h3>
         <div className="flex items-center gap-2 mt-1 flex-wrap">
@@ -124,9 +124,10 @@ export default function TrendingAnimeSection() {
             </div>
             <Link
               href="/browse?format=anime"
-              className="flex items-center gap-1.5 text-sm text-[#9ca3af] hover:text-[#D4A853] transition-colors"
+              aria-label="Browse all anime"
+              className="flex items-center justify-center w-9 h-9 rounded-full bg-[#0c0c10] border border-white/[0.06] text-white hover:border-[#D4A853] hover:text-[#D4A853] transition-colors"
             >
-              Browse All <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
+              <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
             </Link>
           </div>
         </div>

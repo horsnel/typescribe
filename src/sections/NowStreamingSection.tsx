@@ -170,10 +170,10 @@ export default function NowStreamingSection() {
           </div>
           <Link
             href="/stream"
-            className="flex items-center gap-1 text-sm text-[#9ca3af] hover:text-[#D4A853] transition-colors group/viewall"
+            aria-label="View all streaming movies"
+            className="flex items-center justify-center w-9 h-9 rounded-full bg-[#0c0c10] border border-white/[0.06] text-white hover:border-[#D4A853] hover:text-[#D4A853] transition-colors"
           >
-            View All
-            <ArrowRight className="w-4 h-4 group-hover/viewall:translate-x-0.5 transition-transform" strokeWidth={1.5} />
+            <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
           </Link>
         </div>
 

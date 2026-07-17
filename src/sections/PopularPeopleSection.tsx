@@ -1,14 +1,18 @@
 'use client';
 import { useRef, useEffect, useState } from 'react';
 import Link from 'next/link';
-import { ArrowRight, ChevronLeft, ChevronRight, Loader2, Users, Star } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight, Loader2, Users } from 'lucide-react';
 import type { PersonSearchResult } from '@/lib/types';
-import { resolveImageUrl, handleImageError, personSlug, getInitials, PERSON_PLACEHOLDER } from '@/lib/utils';
+import { resolveImageUrl, personSlug, getInitials, PERSON_PLACEHOLDER } from '@/lib/utils';
 
 function PersonCard({ person }: { person: PersonSearchResult }) {
   const profileSrc = resolveImageUrl(person.profile_path, 'w185');
-  const isPlaceholder = !person.profile_path || profileSrc === PERSON_PLACEHOLDER;
+  const hasNoPath = !person.profile_path || profileSrc === PERSON_PLACEHOLDER;
   const initials = getInitials(person.name);
+  // Track runtime image-load failures so we can swap to the initials fallback
+  // instead of showing the blank silhouette SVG placeholder.
+  const [imgFailed, setImgFailed] = useState(false);
+  const showInitials = hasNoPath || imgFailed;
 
   return (
     <Link
@@ -16,9 +20,9 @@ function PersonCard({ person }: { person: PersonSearchResult }) {
       className="group relative flex-shrink-0 w-[130px] sm:w-[140px] cursor-pointer block"
     >
       <div className="relative w-full aspect-square rounded-full overflow-hidden bg-[#0c0c10] border-2 border-[#1e1e28] group-hover:border-[#D4A853]/50 transition-colors mb-3">
-        {isPlaceholder ? (
+        {showInitials ? (
           <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#1a1a22] to-[#0c0c10]">
-            <span className="text-lg font-bold text-[#6b7280]">{initials}</span>
+            <span className="text-lg font-bold text-[#D4A853]">{initials || '?'}</span>
           </div>
         ) : (
           <img
@@ -26,13 +30,13 @@ function PersonCard({ person }: { person: PersonSearchResult }) {
             alt={person.name}
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
             loading="lazy"
-            onError={(e) => handleImageError(e, 'person')}
+            onError={() => setImgFailed(true)}
           />
         )}
         {/* Hover glow ring */}
         <div className="absolute inset-0 rounded-full ring-0 ring-[#D4A853]/0 group-hover:ring-2 transition-all duration-300" />
       </div>
-      <h3 className="text-xs font-semibold text-white text-center truncate group-hover:text-[#D4A853] transition-colors">
+      <h3 className="text-xs font-semibold text-white text-center line-clamp-2 leading-snug min-h-[2rem] group-hover:text-[#D4A853] transition-colors">
         {person.name}
       </h3>
       {person.known_for_department && (
@@ -41,7 +45,7 @@ function PersonCard({ person }: { person: PersonSearchResult }) {
         </span>
       )}
       {person.known_for.length > 0 && (
-        <p className="text-[9px] text-[#6b7280] text-center mt-0.5 truncate">
+        <p className="text-[9px] text-[#6b7280] text-center mt-0.5 line-clamp-2 leading-snug min-h-[1.5rem]">
           {person.known_for.map((kf) => kf.title).filter(Boolean).slice(0, 2).join(', ')}
         </p>
       )}
@@ -100,9 +104,10 @@ export default function PopularPeopleSection() {
             </div>
             <Link
               href="/people"
-              className="flex items-center gap-1.5 text-sm text-[#9ca3af] hover:text-[#D4A853] transition-colors"
+              aria-label="View all popular people"
+              className="flex items-center justify-center w-9 h-9 rounded-full bg-[#0c0c10] border border-white/[0.06] text-white hover:border-[#D4A853] hover:text-[#D4A853] transition-colors"
             >
-              View All <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
+              <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
             </Link>
           </div>
         </div>

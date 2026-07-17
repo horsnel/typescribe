@@ -2,7 +2,6 @@
 import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import { Calendar, ChevronRight, Sparkles, Clock, Film, Tv, Star } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import type { Movie } from '@/lib/types';
 import { resolveImageUrl, handleImageError } from '@/lib/utils';
 
@@ -59,10 +58,12 @@ export default function UpcomingMoviesSection() {
             <h2 className="text-base sm:text-lg font-bold text-white tracking-tight leading-none m-0">Upcoming Movies & Series</h2>
             <span className="text-[10px] text-[#9ca3af] ml-1 hidden sm:inline">Coming soon</span>
           </div>
-          <Link href="/upcoming">
-            <Button variant="ghost" className="text-[#9ca3af] hover:text-[#D4A853] gap-1 text-sm">
-              View All <ChevronRight className="w-4 h-4" strokeWidth={1.5} />
-            </Button>
+          <Link
+            href="/upcoming"
+            aria-label="View all upcoming movies"
+            className="flex items-center justify-center w-9 h-9 rounded-full bg-[#0c0c10] border border-white/[0.06] text-white hover:border-[#D4A853] hover:text-[#D4A853] transition-colors"
+          >
+            <ChevronRight className="w-4 h-4" strokeWidth={1.5} />
           </Link>
         </div>
 

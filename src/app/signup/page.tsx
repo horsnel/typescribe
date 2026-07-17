@@ -114,13 +114,13 @@ export default function SignupPage() {
         {/* Social Login */}
         <div className="space-y-3 mb-6">
           <button
-            onClick={() => signIn('google', { callbackUrl: '/' })}
+            onClick={() => signIn('google', { callbackUrl: '/onboarding' })}
             className="w-full flex items-center justify-center gap-3 bg-white text-black font-medium py-2.5 rounded-lg hover:bg-gray-100 transition-colors"
           >
             <Chrome className="w-5 h-5" strokeWidth={1.5} /> Continue with Google
           </button>
           <button
-            onClick={() => signIn('github', { callbackUrl: '/' })}
+            onClick={() => signIn('github', { callbackUrl: '/onboarding' })}
             className="w-full flex items-center justify-center gap-3 bg-[#24292e] text-white font-medium py-2.5 rounded-lg hover:bg-[#2f363d] transition-colors"
           >
             <Github className="w-5 h-5" strokeWidth={1.5} /> Continue with GitHub

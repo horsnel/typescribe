@@ -48,7 +48,7 @@ export default function NewsSection() {
             <Newspaper className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
             <h2 className="text-base sm:text-lg font-bold text-white tracking-tight leading-none m-0">Latest Movie News</h2>
           </div>
-          <Link href="/news" className="flex items-center gap-1.5 text-sm text-[#9ca3af] hover:text-[#D4A853] transition-colors">All News<ArrowUpRight className="w-4 h-4" strokeWidth={1.5} /></Link>
+          <Link href="/news" aria-label="Read all movie news" className="flex items-center justify-center w-9 h-9 rounded-full bg-[#0c0c10] border border-white/[0.06] text-white hover:border-[#D4A853] hover:text-[#D4A853] transition-colors"><ArrowUpRight className="w-4 h-4" strokeWidth={1.5} /></Link>
         </div>
         {loading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

@@ -173,8 +173,12 @@ export default function LocalPicksSection() {
               )}
             </p>
           </div>
-          <Link href="/browse" className="text-sm text-[#D4A853] hover:underline flex items-center gap-1">
-            Browse All <ChevronRight className="w-4 h-4" strokeWidth={1.5} />
+          <Link
+            href="/browse"
+            aria-label="Browse all local picks"
+            className="flex items-center justify-center w-9 h-9 rounded-full bg-[#0c0c10] border border-white/[0.06] text-white hover:border-[#D4A853] hover:text-[#D4A853] transition-colors"
+          >
+            <ChevronRight className="w-4 h-4" strokeWidth={1.5} />
           </Link>
         </div>
 
