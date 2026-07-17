@@ -225,3 +225,32 @@ Stage Summary:
 - Fixed: .env.local had wrong Supabase project ref (xkbhvqjhqczqwitsgqor -> iancvwkvqapkstqdltfs)
 - Created test user on correct Supabase project + 12-step E2E test script in scripts/e2e_test_reviews_put.py
 - Commits: 69e3bb6 (PUT + avatar fix + movie-page API), 4948c18 (debug log — reverted), 5b36da8 (debug endpoint — reverted), ab2bce0 (E2E test + cleanup)
+
+---
+Task ID: 8
+Agent: main
+Task: 5 follow-up UI fixes (search cancel button, movie page mobile, watchlist covers+links, avatar dropdown "My Community", dashboard sidebar cleanup)
+
+Work Log:
+- Re-cloned repo (local dir was wiped between sessions).
+- Search page cancel button: gave the X a proper 9x9 hit area with hover bg + z-10 above the input. Same treatment for SearchOverlay pill (both Clear and Close buttons now flex-shrink-0 + min-w-8 so they never collapse on narrow viewports).
+- Movie detail page mobile optimization: hero min-height 60vh on phones (was 65vh), title 2xl on phones (was 3xl), meta row xs text + gap-2 + flex-wrap, action buttons now use 2-col grid on mobile (was flex-wrap which gave 1-per-row), shorter labels on phones ('Trailer'/'Stream' vs 'Watch Trailer'/'Stream Free'), AI review card p-4 on phones (was p-6), dispute star picker 4px stars on phones (was 5px — 10 stars overflowed the row), review/discussion tab buttons xs text + whitespace-nowrap on labels, related movies grid gap-3 on phones, top-level content padding py-6 on phones.
+- Watchlist covers + clickable links:
+  * Updated `toggleWatchlist()` in `src/lib/auth.tsx` to accept an optional `meta` object so watchlist entries store {title, slug, poster, rating, year} — previously only {movieId, addedDate} were stored.
+  * Updated movie page `handleToggleWatchlist` to pass full movie metadata with normalized poster URL (full https URL with TMDb prefix).
+  * Rewrote both `/dashboard/watchlist/page.tsx` and `/watchlist/page.tsx` as poster-card grids. Each card is a clickable <Link> to the movie detail page. Poster fills the card, rating chip top-right, trash button top-left (always visible on mobile, hover-only on desktop) with stopPropagation so it doesn't trigger navigation.
+  * Fixed: `/watchlist` was completely broken — it was looking up movies from the empty `movies[]` array in data.ts (mock data was removed earlier). Now reads directly from the WatchlistItem metadata.
+  * Stats simplified: removed 'Total Runtime' and 'Genres' (no runtime/genre in watchlist metadata). Kept Movies count, Avg Rating, Highly Rated (8+).
+- Navbar avatar dropdown: added 'My Community' link (Users icon, /dashboard/communities) between My Reviews and Watchlist.
+- Dashboard sidebar cleanup: removed Dashboard, My Reviews, My Communities, Watchlist, Notifications, Saved, Settings, and Logout per request. Kept Watch Diary, Activity Feed, Profile, Home button. All removed destinations remain reachable via navbar avatar dropdown (which has Profile, My Reviews, My Community, Watchlist, Settings, Log Out) or via direct URL. Cleaned up unused imports (LayoutDashboard, PenSquare, Users, Bookmark, Bell, BookmarkCheck, Settings, LogOut, openNotificationPanel) and the isPanel button branch.
+- TypeScript: clean. ESLint: clean on all modified files (2 pre-existing warnings on unrelated files unchanged).
+- Commit: 8f2cdc7. Pushed. Vercel deploy → success. CI: Lint+TypeScript → success, E2E (7 scripts, 207 checks) → success.
+- Production spot-check: HTTP 200 on /, /search, /watchlist, /dashboard, /movie/inception-2010, /api/auth/session.
+
+Stage Summary:
+- All 5 follow-up UI fixes shipped + verified on production.
+- Search cancel button visible on all viewports.
+- Movie detail page mobile-optimized across 10+ dimensions (hero, title, meta, buttons, stars, tabs, related grid, padding).
+- Watchlist pages now show real movie posters + are clickable links to movie detail pages. Both /watchlist and /dashboard/watchlist rewritten.
+- Avatar dropdown has "My Community" link.
+- Dashboard sidebar slimmed to just Watch Diary + Activity Feed + Profile + Home. All other destinations remain reachable via navbar avatar dropdown.
