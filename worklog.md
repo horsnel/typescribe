@@ -254,3 +254,48 @@ Stage Summary:
 - Watchlist pages now show real movie posters + are clickable links to movie detail pages. Both /watchlist and /dashboard/watchlist rewritten.
 - Avatar dropdown has "My Community" link.
 - Dashboard sidebar slimmed to just Watch Diary + Activity Feed + Profile + Home. All other destinations remain reachable via navbar avatar dropdown.
+
+---
+Task ID: 9
+Agent: Super Z (main)
+Task: Fix 3 issues reported by user — (1) mobile sidebar still showing Dashboard/My Reviews/My Communities/Watchlist/Notifications/Saved/Settings/Log Out (despite previous cleanup); (2) homepage section headers should be in "open pills" not plain text; (3) hero carousel next/prev buttons too large and blocking movie title/description.
+
+Work Log:
+- Re-cloned repo (previous local clone had been wiped) and verified previous fix in commit 8f2cdc7.
+- Diagnosed issue 1: the previous fix had targeted `src/components/dashboard/DashboardLayout.tsx` (correct, used by `/dashboard/layout.tsx`), but the user was actually seeing the items in the **mobile hamburger menu** in `src/components/layout/Navbar.tsx` (the `mobileUserLinks` array). Confirmed by inspecting the rendered Navbar — it has Dashboard, My Reviews, My Community, Watchlist, Notifications, Saved, Settings, and an explicit Log Out button at the bottom of the mobile menu overlay.
+- Fix 1: emptied `mobileUserLinks` array (kept the type signature so the .map() still compiles), removed the explicit Log Out button at the bottom of the mobile menu, replaced with a small helper text directing users to tap the avatar for Profile/Watchlist/Settings/Log Out. Removed unused `LayoutDashboard`, `Bell` icons and the unused `openNotificationPanel` import. Also deleted the dead `src/components/layout/DashboardLayout.tsx` file (old sidebar that was no longer imported anywhere but still had all the items as dead code).
+- Diagnosed issue 2: every homepage section header was a plain `<h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">Title</h2>`.
+- Fix 2: wrapped each section header in an "open pill" container — `inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#0c0c10] border border-[#D4A853]/25 shadow-sm` with the section icon (or a new icon if it didn't have one) INSIDE the pill and the h2 text sized down to `text-base sm:text-lg font-bold leading-none`. Applied to: TrendingCarousel, LatestReviews, PopularPeopleSection, CommunityReviews, NewsSection, TrendingAnimeSection, TopRatedSection, CategoriesGrid, UpcomingMoviesSection, VaultSection, LocalPicksSection, CountryPicksSection, MoodBrowsingSection, TopChoiceSection, NowStreamingSection (3 states: loading, error, success).
+- Diagnosed issue 3: HeroSection nav arrows were `w-10 h-10 sm:w-11 sm:h-11` positioned at `top-1/2 -translate-y-1/2` (vertically centered) — they sat right on top of the movie title/meta/buttons at the bottom of the slide on mobile.
+- Fix 3: shrank arrows to `w-7 h-7 sm:w-8 sm:h-8` (28px mobile / 32px desktop), shrunk icons to `w-3.5 h-3.5 sm:w-4 sm:h-4`, and moved them to `top-20 sm:top-24` (top corners, just below the navbar) so they're in the empty top area of the hero backdrop and never overlap the title/meta/action buttons at the bottom. Added `hover:border-[#D4A853]/40 hover:text-[#D4A853]` accent on hover. Also shrank the TrendingCarousel, PopularPeopleSection and TrendingAnimeSection header scroll buttons from `w-10 h-10` to `w-9 h-9` for visual consistency.
+- Ran `npx tsc --noEmit` → clean. Ran `npx eslint .` → 0 errors, 42 pre-existing warnings (in `use-mobile.ts` and `auth.tsx`, unrelated to changes).
+- Committed as `f3a0a4a` and pushed to origin/main. Vercel deploy: success. Lint + TypeScript check: success. E2E tests: still running. Verified pill headers are live in production HTML (5 occurrences of the pill class on the homepage).
+
+Stage Summary:
+- Mobile hamburger menu is now empty for authenticated users (just a hint message directing them to the avatar dropdown). The avatar dropdown still has Profile / My Reviews / My Community / Watchlist / Settings / Log Out.
+- Dead `src/components/layout/DashboardLayout.tsx` deleted.
+- Every homepage section header is now wrapped in an "open pill" — rounded-full background with subtle gold border and the section icon inside.
+- Hero carousel nav arrows are 30% smaller and repositioned to the top corners so they never block the movie title/description/action buttons at the bottom.
+- All CI green (deploy + lint + tsc). E2E in progress.
+
+---
+Task ID: 9
+Agent: main
+Task: Five UI/UX fixes reported after commit f3a0a4a — (1) card text truncation below Browse by Genre, (2) View All / Browse All / See All / Explore All text links need to be icon-only buttons not pills/text, (3) footer should only appear on the homepage, (4) verify onboarding page exists and is wired to signup, (5) blank avatar placeholders in Popular People section.
+
+Work Log:
+- Investigated TrendingAnimeSection.tsx + PopularPeopleSection.tsx (the two sections directly below CategoriesGrid "Browse by Genre"). Found `truncate` on titles/names was cutting text mid-word. Replaced with `line-clamp-2` plus `min-h` so all cards have consistent height and long titles wrap to a second line.
+- Located 10 "View All / Browse All / See All / Explore All / All News" text links across: TrendingAnimeSection, CountryPicksSection, LocalPicksSection, TrendingCarousel, UpcomingMoviesSection, NewsSection, CommunityReviews, NowStreamingSection, PopularPeopleSection, TopChoiceSection. Replaced every one with a circular icon-only button (`w-9 h-9 rounded-full bg-[#0c0c10] border border-white/[0.06]`) using ArrowRight / ChevronRight / ArrowUpRight icons to match the existing scroll-button styling. Each button has a descriptive aria-label for accessibility.
+- ConditionalFooter.tsx: switched from blacklist (hide on /stream/) to whitelist (show only on `/`). Footer now renders exclusively on the homepage.
+- Onboarding page already existed at src/app/onboarding/page.tsx with a 4-step flow (genres → ratings → notifications → done). Credential signup already redirected to /onboarding (signup/page.tsx line 71). Changed Google + GitHub OAuth callbackUrl from `/` to `/onboarding` so OAuth-first signups also land on onboarding.
+- PopularPeopleSection PersonCard: previously when TMDB returned a 404 for a profile image, `onError` swapped to PERSON_PLACEHOLDER (a blank silhouette SVG). Added `imgFailed` state and now swap to a gold-initials fallback (`bg-gradient-to-br from-[#1a1a22] to-[#0c0c10]` + gold initials) that matches the existing no-path placeholder style. Removed unused `Star` and `handleImageError` imports.
+- TypeScript: clean. ESLint: 0 errors, only pre-existing warnings in use-mobile.ts and auth.tsx (untouched files).
+- Committed as 7a73d23, pushed to origin/main. Vercel rebuild successful.
+
+Stage Summary:
+- Production homepage now shows 9 icon-only circular arrow buttons instead of text "View All" / "Browse All" etc.
+- Footer renders only on `/` — confirmed absent on /browse and /top-rated.
+- Onboarding flow wired to both credential and OAuth signup paths.
+- TrendingAnimeSection + PopularPeopleSection cards now wrap long titles to 2 lines.
+- Popular People avatars fall back to gold initials when TMDB image 404s instead of showing blank silhouettes.
+- Verified live on https://typescribe-mu.vercel.app/ via curl: 9 aria-labels with "all" present, <footer> element on homepage, no footer on /browse or /top-rated.
