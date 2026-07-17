@@ -53,15 +53,11 @@ export default function UpcomingMoviesSection() {
     <section className="py-12 bg-gradient-to-b from-[#050507] via-[#08080c] to-[#050507]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-[#D4A853]/10 border border-[#D4A853]/20 flex items-center justify-center">
-              <Calendar className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
-            </div>
-            <div>
-              <h2 className="text-xl lg:text-2xl font-bold text-white">Upcoming Movies & Series</h2>
-              <p className="text-xs text-[#6b7280] mt-0.5">Coming soon to screens near you</p>
-            </div>
+        <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
+          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#0c0c10] border border-[#D4A853]/25 shadow-sm">
+            <Calendar className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
+            <h2 className="text-base sm:text-lg font-bold text-white tracking-tight leading-none m-0">Upcoming Movies & Series</h2>
+            <span className="text-[10px] text-[#9ca3af] ml-1 hidden sm:inline">Coming soon</span>
           </div>
           <Link href="/upcoming">
             <Button variant="ghost" className="text-[#9ca3af] hover:text-[#D4A853] gap-1 text-sm">

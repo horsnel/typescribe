@@ -170,20 +170,18 @@ export default function TopChoiceSection() {
     <section className="py-10 md:py-14 bg-[#050507] border-y border-[#1e1e28]/30">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="flex items-center justify-between mb-6 px-6 lg:px-12">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-gradient-to-br from-[#D4A853] to-[#B8922F] rounded-xl flex items-center justify-center shadow-lg shadow-[#D4A853]/20">
-              <Trophy className="w-5 h-5 text-black" strokeWidth={2} />
-            </div>
-            <div>
-              <h2 className="text-lg md:text-xl font-bold text-white flex items-center gap-2">
+        <div className="flex items-center justify-between mb-6 px-6 lg:px-12 flex-wrap gap-3">
+          <div>
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#0c0c10] border border-[#D4A853]/25 shadow-sm">
+              <Trophy className="w-4 h-4 text-[#D4A853]" strokeWidth={2} />
+              <h2 className="text-base sm:text-lg font-bold text-white tracking-tight leading-none m-0 flex items-center gap-2">
                 Top Choice
-                <Sparkles className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
+                <Sparkles className="w-3.5 h-3.5 text-[#D4A853]" strokeWidth={1.5} />
               </h2>
-              <p className="text-[11px] text-[#6b7280] mt-0.5">
-                The #1 trending title from every genre & region
-              </p>
             </div>
+            <p className="text-[11px] text-[#6b7280] mt-2 ml-1">
+              The #1 trending title from every genre & region
+            </p>
           </div>
           <div className="flex items-center gap-3">
             <div className="hidden md:flex items-center gap-2">

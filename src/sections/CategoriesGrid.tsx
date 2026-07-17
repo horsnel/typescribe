@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { genres } from '@/lib/data';
-import { Sword, Laugh, Drama, Ghost, Eye, Rocket, Heart, Film, Sparkles, ChevronRight } from 'lucide-react';
+import { Sword, Laugh, Drama, Ghost, Eye, Rocket, Heart, Film, Sparkles, ChevronRight, LayoutGrid } from 'lucide-react';
 
 const iconConfig: Record<string, { icon: React.ComponentType<{ className?: string; strokeWidth?: number }>; color: string; bg: string }> = {
   Sword:  { icon: Sword,  color: 'text-[#D4A853]', bg: 'bg-[#D4A853]/10' },
@@ -144,7 +144,12 @@ export default function CategoriesGrid() {
   return (
     <section id="categories" className="py-20 bg-[#050507]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <h2 className="reveal-section text-2xl sm:text-3xl font-bold text-[#f1f1f4] tracking-tight mb-10">Browse by Genre</h2>
+        <div className="reveal-section mb-10">
+          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#0c0c10] border border-[#D4A853]/25 shadow-sm">
+            <LayoutGrid className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
+            <h2 className="text-base sm:text-lg font-bold text-white tracking-tight leading-none m-0">Browse by Genre</h2>
+          </div>
+        </div>
         <div className="card-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {genres.map((genre) => (<div key={genre.id} className="card-reveal"><GenreCard genre={genre} /></div>))}
           <div className="card-reveal"><AnimeCard /></div>

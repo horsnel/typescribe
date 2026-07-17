@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Sparkles, ArrowRight } from 'lucide-react';
+import { Sparkles, ArrowRight, Flame } from 'lucide-react';
 import type { Movie } from '@/lib/types';
 
 export default function LatestReviews() {
@@ -25,10 +25,11 @@ export default function LatestReviews() {
   return (
     <section className="py-20 bg-[#050507]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="reveal-section flex items-center justify-between mb-10">
-          <div className="flex items-center gap-3">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">Trending Now</h2>
-            <span className="flex items-center gap-1 text-xs bg-[#D4A853]/10 text-[#D4A853] px-2.5 py-1 rounded-full font-medium"><Sparkles className="w-3 h-3" strokeWidth={1.5} />Updated Hourly</span>
+        <div className="reveal-section flex items-center justify-between mb-10 flex-wrap gap-3">
+          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#0c0c10] border border-[#D4A853]/25 shadow-sm">
+            <Flame className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
+            <h2 className="text-base sm:text-lg font-bold text-white tracking-tight leading-none m-0">Trending Now</h2>
+            <span className="flex items-center gap-1 text-[10px] bg-[#D4A853]/10 text-[#D4A853] px-2 py-0.5 rounded-full font-medium ml-1"><Sparkles className="w-2.5 h-2.5" strokeWidth={1.5} />Updated Hourly</span>
           </div>
         </div>
         {loading ? (

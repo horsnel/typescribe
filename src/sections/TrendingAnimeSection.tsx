@@ -1,7 +1,7 @@
 'use client';
 import { useRef, useEffect, useState } from 'react';
 import Link from 'next/link';
-import { ArrowRight, ChevronLeft, ChevronRight, Loader2, Wand2, Star, Play } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight, Loader2, Wand2, Star, Play, Sparkles } from 'lucide-react';
 import type { Movie } from '@/lib/types';
 import { resolveImageUrl, handleImageError } from '@/lib/utils';
 
@@ -96,8 +96,9 @@ export default function TrendingAnimeSection() {
     <section id="anime-trending" className="py-12 bg-[#050507]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="reveal-section flex items-center justify-between mb-6">
-          <div className="flex items-center gap-3">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">Trending Anime</h2>
+          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#0c0c10] border border-[#D4A853]/25 shadow-sm">
+            <Sparkles className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
+            <h2 className="text-base sm:text-lg font-bold text-white tracking-tight leading-none m-0">Trending Anime</h2>
             {sources.length > 0 && (
               <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#D4A853]/10 text-[#D4A853] border border-[#D4A853]/20">
                 Updated
@@ -108,17 +109,17 @@ export default function TrendingAnimeSection() {
             <div className="hidden md:flex items-center gap-2">
               <button
                 onClick={() => scroll('left')}
-                className="w-10 h-10 flex items-center justify-center rounded-full bg-[#0c0c10] border border-white/[0.06] text-white hover:border-[#D4A853] hover:text-[#D4A853] transition-colors"
+                className="w-9 h-9 flex items-center justify-center rounded-full bg-[#0c0c10] border border-white/[0.06] text-white hover:border-[#D4A853] hover:text-[#D4A853] transition-colors"
                 aria-label="Scroll left"
               >
-                <ChevronLeft className="w-5 h-5" strokeWidth={1.5} />
+                <ChevronLeft className="w-4 h-4" strokeWidth={1.5} />
               </button>
               <button
                 onClick={() => scroll('right')}
-                className="w-10 h-10 flex items-center justify-center rounded-full bg-[#0c0c10] border border-white/[0.06] text-white hover:border-[#D4A853] hover:text-[#D4A853] transition-colors"
+                className="w-9 h-9 flex items-center justify-center rounded-full bg-[#0c0c10] border border-white/[0.06] text-white hover:border-[#D4A853] hover:text-[#D4A853] transition-colors"
                 aria-label="Scroll right"
               >
-                <ChevronRight className="w-5 h-5" strokeWidth={1.5} />
+                <ChevronRight className="w-4 h-4" strokeWidth={1.5} />
               </button>
             </div>
             <Link

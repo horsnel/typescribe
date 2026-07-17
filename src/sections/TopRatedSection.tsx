@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Star, Loader2 } from 'lucide-react';
+import { Star, Loader2, Award } from 'lucide-react';
 import type { Movie } from '@/lib/types';
 
 const rankColors: Record<number, string> = { 1: 'text-[#D4A853]', 2: 'text-[#c0c0c0]', 3: 'text-[#cd7f32]' };
@@ -32,8 +32,11 @@ export default function TopRatedSection() {
   return (
     <section id="top-rated" className="py-12 bg-[#050507]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="flex items-center gap-3 mb-6">
-          <h2 className="reveal-section text-2xl sm:text-3xl font-bold text-white tracking-tight">Top Rated This Week</h2>
+        <div className="reveal-section flex items-center gap-3 mb-6">
+          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#0c0c10] border border-[#D4A853]/25 shadow-sm">
+            <Award className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
+            <h2 className="text-base sm:text-lg font-bold text-white tracking-tight leading-none m-0">Top Rated This Week</h2>
+          </div>
         </div>
         {loading ? (
           <div className="flex items-center justify-center py-12">

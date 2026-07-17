@@ -3,8 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Search, Menu, X, Film, LogOut, LayoutDashboard, Star, Users, Bookmark, Bell, Settings, User, Lock, Loader2, Play } from 'lucide-react';
-import { openNotificationPanel } from '@/components/community/NotificationPanel';
+import { Search, Menu, X, Film, LogOut, Star, Users, Bookmark, Settings, User, Lock, Loader2, Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/lib/auth';
 import SearchOverlay from '@/components/layout/SearchOverlay';
@@ -153,15 +152,14 @@ export default function Navbar() {
     ? user.display_name.split(' ').map((n) => n[0]).join('').toUpperCase().slice(0, 2)
     : '??';
 
-  const mobileUserLinks = [
-    { label: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-    { label: 'My Reviews', href: '/dashboard/reviews', icon: Star },
-    { label: 'My Community', href: '/dashboard/communities', icon: Users },
-    { label: 'Watchlist', href: '/dashboard/watchlist', icon: Bookmark },
-    { label: 'Notifications', href: '#notifications', icon: Bell, isPanel: true as const },
-    { label: 'Saved', href: '/dashboard/saved', icon: Bookmark },
-    { label: 'Settings', href: '/dashboard/settings', icon: Settings },
-  ];
+  // NOTE: Dashboard, My Reviews, My Communities, Watchlist, Notifications,
+  // Saved, Settings, and Log Out have been intentionally REMOVED from the
+  // mobile menu sidebar per user request. Authenticated users can still
+  // reach them via the profile avatar dropdown (profileMenuLinks below),
+  // which is the dedicated "small sidebar that drops down when the avatar
+  // is clicked". The mobile hamburger menu now only shows the main nav
+  // links (Stream, Browse, etc.) plus the Log Out action at the bottom.
+  const mobileUserLinks: Array<{ label: string; href: string; icon: typeof User; isPanel?: boolean }> = [];
 
   const profileMenuLinks = [
     { label: 'Profile', href: '/dashboard', icon: User },
@@ -302,26 +300,18 @@ export default function Navbar() {
             <div className="border-t border-[#1e1e28] pt-4 mt-2">
               {isAuthenticated ? (
                 <>
-                  {mobileUserLinks.map((item) => {
-                    if ('isPanel' in item && item.isPanel) {
-                      return (
-                        <button key={item.label} onClick={() => { openNotificationPanel(); setMobileMenuOpen(false); }} className="flex items-center gap-3 py-2.5 text-[#9ca3af] hover:text-[#D4A853] transition-colors w-full text-left">
-                          <item.icon className="w-4 h-4" strokeWidth={1.5} />
-                          {item.label}
-                        </button>
-                      );
-                    }
-                    return (
-                      <Link key={item.label} href={item.href} onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 py-2.5 text-[#9ca3af] hover:text-[#D4A853] transition-colors">
-                        <item.icon className="w-4 h-4" strokeWidth={1.5} />
-                        {item.label}
-                      </Link>
-                    );
-                  })}
-                  <button onClick={() => { logout(); setMobileMenuOpen(false); }} className="flex items-center gap-3 py-2.5 text-red-400 hover:text-red-300 transition-colors">
-                    <LogOut className="w-4 h-4" strokeWidth={1.5} />
-                    Log Out
-                  </button>
+                  {mobileUserLinks.map((item) => (
+                    <Link key={item.label} href={item.href} onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 py-2.5 text-[#9ca3af] hover:text-[#D4A853] transition-colors">
+                      <item.icon className="w-4 h-4" strokeWidth={1.5} />
+                      {item.label}
+                    </Link>
+                  ))}
+                  {/* Mobile menu intentionally has no user-specific links or Log Out button
+                      anymore — tap your avatar (top right) to open the dropdown that has
+                      Profile / My Reviews / My Community / Watchlist / Settings / Log Out. */}
+                  <p className="text-xs text-[#6b7280] px-1 py-2 leading-relaxed">
+                    Tap your avatar (top-right) for Profile, Watchlist, Settings &amp; Log Out.
+                  </p>
                 </>
               ) : (
                 <div className="flex flex-col gap-3">

@@ -339,22 +339,25 @@ export default function HeroSection() {
 
         {/* ═══════════════════════════════════════════════════════════
             NAVIGATION ARROWS
+            Sized small (28px on mobile, 32px on desktop) and anchored
+            to the TOP corners so they never overlap the movie title,
+            meta or action buttons at the bottom of the slide.
         ═══════════════════════════════════════════════════════════ */}
         {movies.length > 1 && (
           <>
             <button
               onClick={goPrev}
-              className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center rounded-full bg-black/40 backdrop-blur-sm border border-white/10 text-white hover:bg-black/60 hover:border-white/20 transition-all duration-200"
+              className="absolute left-3 sm:left-5 top-20 sm:top-24 z-20 w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full bg-black/40 backdrop-blur-sm border border-white/10 text-white hover:bg-black/60 hover:border-[#D4A853]/40 hover:text-[#D4A853] transition-all duration-200"
               aria-label="Previous slide"
             >
-              <ChevronLeft className="w-5 h-5" strokeWidth={2} />
+              <ChevronLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4" strokeWidth={2} />
             </button>
             <button
               onClick={goNext}
-              className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center rounded-full bg-black/40 backdrop-blur-sm border border-white/10 text-white hover:bg-black/60 hover:border-white/20 transition-all duration-200"
+              className="absolute right-3 sm:right-5 top-20 sm:top-24 z-20 w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full bg-black/40 backdrop-blur-sm border border-white/10 text-white hover:bg-black/60 hover:border-[#D4A853]/40 hover:text-[#D4A853] transition-all duration-200"
               aria-label="Next slide"
             >
-              <ChevronRight className="w-5 h-5" strokeWidth={2} />
+              <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" strokeWidth={2} />
             </button>
           </>
         )}

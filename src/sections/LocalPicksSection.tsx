@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
-import { Globe, ChevronRight, Loader2 } from 'lucide-react';
+import { Globe, ChevronRight, Loader2, MapPin } from 'lucide-react';
 import Link from 'next/link';
 import { detectLocation, getCurrentLocation, setCountryOverride, COUNTRY_NAMES, AVAILABLE_COUNTRIES, getSuggestionReason } from '@/lib/geolocation';
 import MovieCard from '@/components/movie/MovieCard';
@@ -137,19 +137,20 @@ export default function LocalPicksSection() {
         {/* Header */}
         <div className="flex items-start justify-between mb-6 flex-wrap gap-4">
           <div>
-            <div className="flex items-center gap-3 mb-2">
-              <h2 className="text-2xl font-bold text-white">
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#0c0c10] border border-[#D4A853]/25 shadow-sm mb-2">
+              <MapPin className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
+              <h2 className="text-base sm:text-lg font-bold text-white tracking-tight leading-none m-0">
                 {detecting ? 'Detecting your location...' : location ? (
                   <span className="flex items-center gap-2">
                     Local Picks from
-                    <span className="inline-flex items-center justify-center bg-[#D4A853]/10 text-[#D4A853] text-sm font-semibold px-3 py-1 rounded-full border border-[#D4A853]/20">
+                    <span className="inline-flex items-center justify-center bg-[#D4A853]/10 text-[#D4A853] text-xs font-semibold px-2.5 py-0.5 rounded-full border border-[#D4A853]/20">
                       {location.countryName}
                     </span>
                   </span>
                 ) : 'Popular Near You'}
               </h2>
             </div>
-            <p className="text-[#9ca3af] text-sm">
+            <p className="text-[#9ca3af] text-sm ml-1">
               {detecting ? (
                 <span className="flex items-center gap-2"><Loader2 className="w-3.5 h-3.5 animate-spin" strokeWidth={1.5} /> Finding content tailored to your region...</span>
               ) : location ? (

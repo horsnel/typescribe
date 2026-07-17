@@ -99,9 +99,12 @@ export default function MoodBrowsingSection() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold text-white mb-3">
-            What&apos;s Your <span className="text-[#D4A853]">Mood</span>?
-          </h2>
+          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#0c0c10] border border-[#D4A853]/25 shadow-sm mb-4">
+            <Smile className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
+            <h2 className="text-base sm:text-lg font-bold text-white tracking-tight leading-none m-0">
+              What&apos;s Your <span className="text-[#D4A853]">Mood</span>?
+            </h2>
+          </div>
           <p className="text-[#9ca3af] max-w-xl mx-auto">
             Skip the genres — browse by how you want to feel. Each mood curates the perfect selection for your vibe.
           </p>

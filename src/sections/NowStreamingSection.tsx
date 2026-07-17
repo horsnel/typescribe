@@ -110,12 +110,14 @@ export default function NowStreamingSection() {
     return (
       <section className="py-10 md:py-14 bg-[#050507] border-y border-[#1e1e28]/30">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="flex items-center gap-2 mb-6">
-            <MonitorPlay className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
-            <h2 className="text-lg md:text-xl font-bold text-white">Now Streaming</h2>
-            <span className="text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 bg-[#D4A853]/10 text-[#D4A853] border border-[#D4A853]/20 rounded-full ml-2">
-              StreamFlix
-            </span>
+          <div className="mb-6">
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#0c0c10] border border-[#D4A853]/25 shadow-sm">
+              <MonitorPlay className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
+              <h2 className="text-base sm:text-lg font-bold text-white tracking-tight leading-none m-0">Now Streaming</h2>
+              <span className="text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 bg-[#D4A853]/10 text-[#D4A853] border border-[#D4A853]/20 rounded-full">
+                StreamFlix
+              </span>
+            </div>
           </div>
           <div className="flex items-center justify-center py-16">
             <Loader2 className="w-8 h-8 text-[#D4A853] animate-spin" strokeWidth={1.5} />
@@ -130,12 +132,14 @@ export default function NowStreamingSection() {
     return (
       <section className="py-10 md:py-14 bg-[#050507] border-y border-[#1e1e28]/30">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="flex items-center gap-2 mb-6">
-            <MonitorPlay className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
-            <h2 className="text-lg md:text-xl font-bold text-white">Now Streaming</h2>
-            <span className="text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 bg-[#D4A853]/10 text-[#D4A853] border border-[#D4A853]/20 rounded-full ml-2">
-              StreamFlix
-            </span>
+          <div className="mb-6">
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#0c0c10] border border-[#D4A853]/25 shadow-sm">
+              <MonitorPlay className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
+              <h2 className="text-base sm:text-lg font-bold text-white tracking-tight leading-none m-0">Now Streaming</h2>
+              <span className="text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 bg-[#D4A853]/10 text-[#D4A853] border border-[#D4A853]/20 rounded-full">
+                StreamFlix
+              </span>
+            </div>
           </div>
           <div className="text-center py-12">
             <p className="text-white/40 text-sm mb-4">Unable to load streaming catalog right now.</p>
@@ -156,11 +160,11 @@ export default function NowStreamingSection() {
     <section className="py-10 md:py-14 bg-[#050507] border-y border-[#1e1e28]/30">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="flex items-center justify-between mb-6 px-6 lg:px-12">
-          <div className="flex items-center gap-2">
-            <MonitorPlay className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
-            <h2 className="text-lg md:text-xl font-bold text-white">Now Streaming</h2>
-            <span className="text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 bg-[#D4A853]/10 text-[#D4A853] border border-[#D4A853]/20 rounded-full ml-2">
+        <div className="flex items-center justify-between mb-6 px-6 lg:px-12 flex-wrap gap-3">
+          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#0c0c10] border border-[#D4A853]/25 shadow-sm">
+            <MonitorPlay className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
+            <h2 className="text-base sm:text-lg font-bold text-white tracking-tight leading-none m-0">Now Streaming</h2>
+            <span className="text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 bg-[#D4A853]/10 text-[#D4A853] border border-[#D4A853]/20 rounded-full">
               StreamFlix
             </span>
           </div>

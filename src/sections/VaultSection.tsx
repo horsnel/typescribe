@@ -386,22 +386,16 @@ export default function VaultSection() {
     <section className="py-16 bg-[#050507]">
       {/* Section Header */}
       <div className="px-4 md:px-12 mb-8">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-[#D4A853]/10 flex items-center justify-center">
-            <Landmark className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
-          </div>
-          <div>
-            <h2 className="text-xl md:text-2xl font-bold text-white">
-              From the Vault: Classic Masterpieces
-            </h2>
-            <p className="text-[#9ca3af] text-xs md:text-sm">
-              Free, legal streaming &mdash; public domain &amp; creative commons films
-            </p>
-          </div>
+        <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#0c0c10] border border-[#D4A853]/25 shadow-sm">
+          <Landmark className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
+          <h2 className="text-base sm:text-lg font-bold text-white tracking-tight leading-none m-0">From the Vault: Classic Masterpieces</h2>
         </div>
+        <p className="text-[#9ca3af] text-xs md:text-sm mt-3 ml-1">
+          Free, legal streaming &mdash; public domain &amp; creative commons films
+        </p>
 
         {/* Quick stats */}
-        <div className="flex items-center gap-4 mt-4 ml-[52px]">
+        <div className="flex items-center gap-4 mt-4 ml-1">
           <div className="flex items-center gap-1.5">
             <Film className="w-3.5 h-3.5 text-white/30" strokeWidth={1.5} />
             <span className="text-[11px] text-white/40">
