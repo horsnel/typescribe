@@ -325,3 +325,36 @@ Stage Summary:
 - "Local & International Films — based on Singapore" subtitle removed from Local Picks section.
 - Popular People section now shows 20 people with actual photos — no more blank silhouettes.
 - Verified live on https://typescribe-mu.vercel.app/.
+
+---
+Task ID: 11
+Agent: main
+Task: Vibe search page (/vibe) not perfectly optimized for mobile viewing.
+
+Work Log:
+- Audited src/app/vibe/page.tsx for mobile issues. Found 6 concrete problems:
+  1. Container padding `px-6 py-8` too generous on mobile (48px wasted on 360px screens).
+  2. Title `text-3xl` slightly large for mobile; Sparkles icon `w-7 h-7` mismatched.
+  3. Subtitle `text-sm` slightly large for mobile.
+  4. Search input + button row could overflow on ≤360px because button had fixed `px-5` + "Search" text label that doesn't shrink, and input lacked `min-w-0`.
+  5. Example chips at `text-xs` were wider than necessary on mobile, causing more vertical stacking than needed.
+  6. Results grid `gap-4` slightly loose on mobile.
+- Applied all 6 fixes in a single MultiEdit:
+  - Container: `px-4 sm:px-6 py-6 sm:py-8`
+  - Title row: `gap-2.5 sm:gap-3`, Sparkles `w-6 h-6 sm:w-7 sm:h-7 flex-shrink-0`, h1 `text-2xl sm:text-3xl`
+  - Subtitle: `text-xs sm:text-sm mb-5 sm:mb-6`
+  - Back link: `mb-5 sm:mb-6`, ArrowLeft `flex-shrink-0`
+  - Search input: `flex-1 min-w-0 px-4 py-2.5 sm:px-5 sm:py-3`
+  - Search button: `flex-shrink-0 px-3 py-2.5 sm:px-5 sm:py-3`, "Search" text wrapped in `<span className="hidden sm:inline">` (icon-only on mobile with `aria-label="Search by vibe"`)
+  - Example chips: `text-[11px] sm:text-xs text-left`
+  - Results grid: `gap-3 sm:gap-4`
+- Initially tried adding `max-w-full` + `<span className="block truncate">` to chips, but realized truncating the example text defeats its purpose (user needs to read full example). Reverted to just smaller font size on mobile + `text-left` for proper alignment.
+- TypeScript: clean. ESLint on vibe page: clean.
+- Committed as 638d3f1, pushed to origin/main. Vercel deploy: success. Verified all 6 new responsive class strings are present in production HTML via curl.
+
+Stage Summary:
+- /vibe page now uses tighter padding, smaller title, smaller subtitle, and an icon-only search button on mobile (text "Search" appears on sm+ screens).
+- Search input gets `min-w-0` so it shrinks properly within flex, and button gets `flex-shrink-0` so it's never squeezed.
+- Example chips use `text-[11px]` on mobile for narrower widths.
+- Results grid uses `gap-3` on mobile, `gap-4` on sm+.
+- Verified live on https://typescribe-mu.vercel.app/vibe — all 6 responsive class strings present in HTML.
