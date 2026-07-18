@@ -55,16 +55,16 @@ export default function VibePage() {
 
   return (
     <div className="min-h-screen bg-[#050507] text-white">
-      <div className="max-w-5xl mx-auto px-6 py-8">
-        <Link href="/" className="inline-flex items-center gap-2 text-sm text-[#9ca3af] hover:text-[#D4A853] mb-6">
-          <ArrowLeft className="w-4 h-4" /> Home
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+        <Link href="/" className="inline-flex items-center gap-2 text-sm text-[#9ca3af] hover:text-[#D4A853] mb-5 sm:mb-6">
+          <ArrowLeft className="w-4 h-4 flex-shrink-0" /> Home
         </Link>
 
-        <div className="flex items-center gap-3 mb-2">
-          <Sparkles className="w-7 h-7 text-[#D4A853]" />
-          <h1 className="text-3xl font-extrabold">Vibe Search</h1>
+        <div className="flex items-center gap-2.5 sm:gap-3 mb-2">
+          <Sparkles className="w-6 h-6 sm:w-7 sm:h-7 text-[#D4A853] flex-shrink-0" />
+          <h1 className="text-2xl sm:text-3xl font-extrabold">Vibe Search</h1>
         </div>
-        <p className="text-[#9ca3af] text-sm mb-6">
+        <p className="text-[#9ca3af] text-xs sm:text-sm mb-5 sm:mb-6">
           Describe a feeling, mood, or vibe — get matched movies using semantic embeddings.
         </p>
 
@@ -75,24 +75,25 @@ export default function VibePage() {
             onChange={e => setQ(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && search()}
             placeholder="e.g. a slow-burn neo-noir with rain-soaked streets"
-            className="flex-1 px-5 py-3 bg-[#0c0c10] border border-[#1e1e28] rounded-full text-sm text-white placeholder:text-[#5b5b6b] focus:outline-none focus:border-[#D4A853]/50"
+            className="flex-1 min-w-0 px-4 py-2.5 sm:px-5 sm:py-3 bg-[#0c0c10] border border-[#1e1e28] rounded-full text-sm text-white placeholder:text-[#5b5b6b] focus:outline-none focus:border-[#D4A853]/50"
           />
           <button
             onClick={search}
             disabled={loading}
-            className="px-5 py-3 bg-[#D4A853] text-black font-bold rounded-full hover:bg-[#B8922F] transition flex items-center gap-2 disabled:opacity-30"
+            className="flex-shrink-0 px-3 py-2.5 sm:px-5 sm:py-3 bg-[#D4A853] text-black font-bold rounded-full hover:bg-[#B8922F] transition flex items-center gap-2 disabled:opacity-30"
+            aria-label="Search by vibe"
           >
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />}
-            Search
+            <span className="hidden sm:inline">Search</span>
           </button>
         </div>
 
-        <div className="flex flex-wrap gap-2 mb-8">
+        <div className="flex flex-wrap gap-2 mb-6 sm:mb-8">
           {EXAMPLES.map(ex => (
             <button
               key={ex}
               onClick={() => { setQ(ex); }}
-              className="text-xs px-2.5 py-1 bg-[#D4A853]/10 border border-[#D4A853]/20 text-[#D4A853] rounded-full hover:bg-[#D4A853]/20"
+              className="text-[11px] sm:text-xs px-2.5 py-1 bg-[#D4A853]/10 border border-[#D4A853]/20 text-[#D4A853] rounded-full hover:bg-[#D4A853]/20 text-left"
             >
               {ex}
             </button>
@@ -110,7 +111,7 @@ export default function VibePage() {
                 <p className="text-[#9ca3af] text-sm">No matches. Try a different vibe.</p>
               </div>
             ) : (
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
                 {results.map(r => {
                   const slug = toSlug(r.movie_title, r.movie_id);
                   const year = r.release_date ? r.release_date.split('-')[0] : '';
