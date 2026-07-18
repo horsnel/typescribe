@@ -235,9 +235,9 @@ export default function BrowsePage() {
         <div className="bg-[#050507]/95 backdrop-blur-md border-b border-[#1e1e28] -mx-4 sm:-mx-6 lg:-mx-12 px-4 sm:px-6 lg:px-12 py-4 mb-8 space-y-4">
 
           {/* ─── Format Toggle ─── */}
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider w-16">Format</span>
-            <div className="flex items-center border border-[#1e1e28] rounded-lg overflow-hidden">
+          <div className="flex items-center gap-3 overflow-x-auto scrollbar-hide -mx-1 px-1 pb-1">
+            <span className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider w-16 flex-shrink-0">Format</span>
+            <div className="flex items-center border border-[#1e1e28] rounded-lg overflow-hidden flex-shrink-0">
               <button
                 onClick={() => updateFilter('format', 'all')}
                 className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors ${

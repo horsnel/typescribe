@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
 import {
   Heart, MessageSquare, Share2, Check, Send,
@@ -226,6 +227,7 @@ function CommentThread({ comments, postId, onAddComment, depth = 0 }: {
 
 export default function PostCard({ post, communityId, onLikeToggle, onCommentToggle, index = 0 }: PostCardProps) {
   const { user } = useAuth();
+  const router = useRouter();
   const [showComments, setShowComments] = useState(false);
   const [commentInput, setCommentInput] = useState('');
   const [comments, setComments] = useState<CommentData[]>([]);
@@ -236,9 +238,22 @@ export default function PostCard({ post, communityId, onLikeToggle, onCommentTog
   const [showMoreMenu, setShowMoreMenu] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
+  // Local UI state for likes — keeps the UI in sync instantly even if the
+  // parent's re-render doesn't propagate (e.g. user.id instability, memoized
+  // children, or async auth state). Initialized from localStorage.
   const userLike = user ? getUserPostLike(post.id, user.id) : undefined;
   const likeCounts = getPostLikeCounts(post.id);
-  const totalLikes = likeCounts.likes + (post.upvoteCount || 0);
+  const serverTotalLikes = likeCounts.likes + (post.upvoteCount || 0);
+  const [isLiked, setIsLiked] = useState<boolean>(userLike?.type === 'like');
+  const [likeCount, setLikeCount] = useState<number>(serverTotalLikes);
+
+  // Re-sync local state when user/post changes (sign-in, post swap, etc.)
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional re-sync of optimistic UI state when user or post identity changes
+  useEffect(() => { setIsLiked(userLike?.type === 'like'); }, [user?.id, post.id]);
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional re-sync of like count when server count updates
+  useEffect(() => { setLikeCount(serverTotalLikes); }, [serverTotalLikes, post.id]);
+
+  const totalLikes = likeCount;
   const totalEngagement = totalLikes + likeCounts.dislikes + comments.length + post.replyCount;
 
   const postType = detectPostType(post.title, post.content);
@@ -272,14 +287,21 @@ export default function PostCard({ post, communityId, onLikeToggle, onCommentTog
   }, [post.id]);
 
   const handleComment = () => {
-    if (!commentInput.trim() || !user) return;
+    if (!commentInput.trim()) return;
+    if (!user) {
+      router.push('/login?redirect=' + encodeURIComponent(window.location.pathname));
+      return;
+    }
     const newComment = addComment(post.id, null, user.id, user.display_name || 'Anonymous', user.avatar || '', commentInput.trim());
     setComments(prev => [newComment, ...prev]);
     setCommentInput('');
   };
 
   const handleAddComment = (postId: string, parentId: string | null, content: string) => {
-    if (!user) return;
+    if (!user) {
+      router.push('/login?redirect=' + encodeURIComponent(window.location.pathname));
+      return;
+    }
     const newComment = addComment(postId, parentId, user.id, user.display_name || 'Anonymous', user.avatar || '', content);
     setComments(prev => [newComment, ...prev]);
   };
@@ -294,12 +316,21 @@ export default function PostCard({ post, communityId, onLikeToggle, onCommentTog
   };
 
   const handleLike = () => {
-    if (!user) return;
-    onLikeToggle(post.id, 'like');
-    if (userLike?.type !== 'like') {
+    if (!user) {
+      router.push('/login?redirect=' + encodeURIComponent(window.location.pathname));
+      return;
+    }
+    // Optimistic UI update — flip local state immediately so the user sees
+    // the heart fill + count change without waiting for parent re-render.
+    const wasLiked = isLiked;
+    setIsLiked(!wasLiked);
+    setLikeCount(prev => wasLiked ? prev - 1 : prev + 1);
+    if (!wasLiked) {
       setHeartBurst(true);
       setTimeout(() => setHeartBurst(false), 600);
     }
+    // Persist via parent (writes to localStorage).
+    onLikeToggle(post.id, 'like');
   };
 
   const toggleBookmark = () => {
@@ -437,13 +468,15 @@ export default function PostCard({ post, communityId, onLikeToggle, onCommentTog
               onClick={handleLike}
               whileTap={{ scale: 0.85 }}
               className="flex items-center gap-1.5 px-2.5 sm:px-3 py-2 rounded-lg text-sm transition-all min-w-[44px] min-h-[40px] justify-center hover:bg-[#111118] relative z-10"
-              style={{ color: userLike?.type === 'like' ? '#D4A853' : '#6b7280' }}
+              style={{ color: isLiked ? '#D4A853' : '#6b7280' }}
+              aria-label={isLiked ? 'Unlike post' : 'Like post'}
+              aria-pressed={isLiked}
             >
               <motion.div
-                animate={userLike?.type === 'like' ? { scale: [1, 1.3, 1] } : {}}
+                animate={isLiked ? { scale: [1, 1.3, 1] } : {}}
                 transition={{ duration: 0.3 }}
               >
-                <Heart className="w-[17px] h-[17px]" strokeWidth={1.5} fill={userLike?.type === 'like' ? '#D4A853' : 'none'} />
+                <Heart className="w-[17px] h-[17px]" strokeWidth={1.5} fill={isLiked ? '#D4A853' : 'none'} />
               </motion.div>
               <span className="text-xs font-medium">{totalLikes}</span>
             </motion.button>
@@ -488,7 +521,7 @@ export default function PostCard({ post, communityId, onLikeToggle, onCommentTog
             >
               <div className="border-t border-[#1e1e28]/60 px-4 sm:px-5 py-4">
                 {/* Comment Input */}
-                {user && (
+                {user ? (
                   <div className="flex items-start gap-3 mb-4">
                     <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#D4A853] to-[#B8922F] flex items-center justify-center text-white text-[10px] font-bold overflow-hidden flex-shrink-0 ring-2 ring-[#0c0c10]">
                       {user.avatar ? <img src={user.avatar} alt={user.display_name} className="w-full h-full object-cover" /> : user.display_name?.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || 'U'}
@@ -508,6 +541,16 @@ export default function PostCard({ post, communityId, onLikeToggle, onCommentTog
                         </Button>
                       </motion.div>
                     </div>
+                  </div>
+                ) : (
+                  <div className="mb-4 p-3 bg-[#050507] border border-[#1e1e28] rounded-lg text-center">
+                    <p className="text-xs text-[#6b7280] mb-2">Sign in to join the conversation</p>
+                    <button
+                      onClick={() => router.push('/login?redirect=' + encodeURIComponent(window.location.pathname))}
+                      className="text-xs font-medium text-[#D4A853] hover:text-[#e8be6a] transition-colors"
+                    >
+                      Sign in →
+                    </button>
                   </div>
                 )}
 

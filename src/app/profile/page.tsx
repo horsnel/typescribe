@@ -336,10 +336,10 @@ export default function ProfilePage() {
         <TasteTwin />
 
         {/* ─── Feed Tabs ─── */}
-        <div className="flex items-center border-b border-[#1e1e28] mb-6">
+        <div className="flex items-center border-b border-[#1e1e28] mb-6 overflow-x-auto scrollbar-hide -mx-1 px-1">
           <button
             onClick={() => setActiveTab('posts')}
-            className={`pb-3 px-4 text-sm font-medium transition-colors flex items-center gap-2 min-h-[44px] ${
+            className={`pb-3 px-4 text-sm font-medium transition-colors flex items-center gap-2 min-h-[44px] whitespace-nowrap flex-shrink-0 ${
               activeTab === 'posts' ? 'text-white border-b-2 border-[#D4A853]' : 'text-[#6b7280] hover:text-[#9ca3af]'
             }`}
           >
@@ -347,7 +347,7 @@ export default function ProfilePage() {
           </button>
           <button
             onClick={() => setActiveTab('reviews')}
-            className={`pb-3 px-4 text-sm font-medium transition-colors flex items-center gap-2 min-h-[44px] ${
+            className={`pb-3 px-4 text-sm font-medium transition-colors flex items-center gap-2 min-h-[44px] whitespace-nowrap flex-shrink-0 ${
               activeTab === 'reviews' ? 'text-white border-b-2 border-[#D4A853]' : 'text-[#6b7280] hover:text-[#9ca3af]'
             }`}
           >
@@ -355,7 +355,7 @@ export default function ProfilePage() {
           </button>
           <button
             onClick={() => setActiveTab('watchlist')}
-            className={`pb-3 px-4 text-sm font-medium transition-colors flex items-center gap-2 min-h-[44px] ${
+            className={`pb-3 px-4 text-sm font-medium transition-colors flex items-center gap-2 min-h-[44px] whitespace-nowrap flex-shrink-0 ${
               activeTab === 'watchlist' ? 'text-white border-b-2 border-[#D4A853]' : 'text-[#6b7280] hover:text-[#9ca3af]'
             }`}
           >

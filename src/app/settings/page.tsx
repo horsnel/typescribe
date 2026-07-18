@@ -229,23 +229,23 @@ export default function SettingsPage() {
               <h2 className="text-lg font-semibold text-white">Account</h2>
             </div>
             <div className="space-y-3 text-sm">
-              <div className="flex justify-between items-center py-2">
-                <span className="text-[#9ca3af]">Email</span>
-                <span className="text-white">{user.email}</span>
+              <div className="flex justify-between items-center py-2 gap-3">
+                <span className="text-[#9ca3af] flex-shrink-0">Email</span>
+                <span className="text-white truncate min-w-0 text-right">{user.email}</span>
               </div>
-              <div className="flex justify-between items-center py-2">
-                <span className="text-[#9ca3af]">Display Name</span>
-                <span className="text-white">{user.display_name}</span>
+              <div className="flex justify-between items-center py-2 gap-3">
+                <span className="text-[#9ca3af] flex-shrink-0">Display Name</span>
+                <span className="text-white truncate min-w-0 text-right">{user.display_name}</span>
               </div>
-              <div className="flex justify-between items-center py-2">
-                <span className="text-[#9ca3af]">Member since</span>
-                <span className="text-white">
+              <div className="flex justify-between items-center py-2 gap-3">
+                <span className="text-[#9ca3af] flex-shrink-0">Member since</span>
+                <span className="text-white text-right">
                   {new Date(user.created_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
                 </span>
               </div>
-              <div className="flex justify-between items-center py-2">
-                <span className="text-[#9ca3af]">Account ID</span>
-                <span className="text-white font-mono text-xs">{user.id}</span>
+              <div className="flex justify-between items-center py-2 gap-3">
+                <span className="text-[#9ca3af] flex-shrink-0">Account ID</span>
+                <span className="text-white font-mono text-xs truncate min-w-0 text-right">{user.id}</span>
               </div>
               <div className="pt-3 border-t border-[#1e1e28] flex items-center gap-4">
                 <Link href="/profile/edit" className="text-[#D4A853] hover:underline text-sm">Edit Profile</Link>

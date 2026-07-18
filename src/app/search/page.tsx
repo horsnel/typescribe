@@ -174,12 +174,12 @@ function SearchContent() {
               </div>
             )}
 
-            <div className="flex gap-4 mb-6 border-b border-[#1e1e28]">
+            <div className="flex gap-4 mb-6 border-b border-[#1e1e28] overflow-x-auto scrollbar-hide -mx-1 px-1">
               {(['movies', 'people', 'reviews', 'news'] as Tab[]).map((t) => (
                 <button
                   key={t}
                   onClick={() => setTab(t)}
-                  className={`pb-3 text-sm font-medium transition-colors capitalize flex items-center gap-2 ${
+                  className={`pb-3 text-sm font-medium transition-colors capitalize flex items-center gap-2 whitespace-nowrap flex-shrink-0 ${
                     tab === t ? 'text-white border-b-2 border-[#D4A853]' : 'text-[#6b7280] hover:text-[#9ca3af]'
                   }`}
                 >

@@ -154,22 +154,16 @@ export default function LocalPicksSection() {
               {detecting ? (
                 <span className="flex items-center gap-2"><Loader2 className="w-3.5 h-3.5 animate-spin" strokeWidth={1.5} /> Finding content tailored to your region...</span>
               ) : location ? (
-                <>
-                  {location.reason} — based on {location.countryName}
-                  <button
-                    onClick={() => setShowCountryPicker(!showCountryPicker)}
-                    className="ml-2 text-[#D4A853] hover:underline inline-flex items-center gap-1"
-                  >
-                    <Globe className="w-3.5 h-3.5" strokeWidth={1.5} /> Change
-                  </button>
-                </>
+                <button
+                  onClick={() => setShowCountryPicker(!showCountryPicker)}
+                  className="text-[#D4A853] hover:underline inline-flex items-center gap-1"
+                >
+                  <Globe className="w-3.5 h-3.5" strokeWidth={1.5} /> Change region
+                </button>
               ) : (
-                <>
-                  Movies trending in your area
-                  <button onClick={() => setShowCountryPicker(!showCountryPicker)} className="ml-2 text-[#D4A853] hover:underline inline-flex items-center gap-1">
-                    <Globe className="w-3.5 h-3.5" strokeWidth={1.5} /> Pick region
-                  </button>
-                </>
+                <button onClick={() => setShowCountryPicker(!showCountryPicker)} className="text-[#D4A853] hover:underline inline-flex items-center gap-1">
+                  <Globe className="w-3.5 h-3.5" strokeWidth={1.5} /> Pick region
+                </button>
               )}
             </p>
           </div>

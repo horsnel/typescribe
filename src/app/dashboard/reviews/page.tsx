@@ -129,7 +129,7 @@ export default function DashboardReviewsPage() {
     <>
       <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
         <h1 className="text-2xl font-bold text-white">My Reviews</h1>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 flex-wrap">
           <select value={filter} onChange={e => setFilter(e.target.value)} className="bg-[#0c0c10] border border-[#1e1e28] rounded-lg py-1.5 px-3 text-sm text-[#9ca3af] focus:outline-none focus:border-[#D4A853]">
             <option value="all">All Types</option>
             <option value="movie">Movies</option>

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { Film, Eye, EyeOff, AlertCircle, Github, Chrome, Loader2, KeyRound } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -10,6 +10,8 @@ import { useAuth } from '@/lib/auth';
 
 export default function LoginPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTarget = searchParams.get('redirect') || '/';
   const { login, isAuthenticated } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -22,7 +24,7 @@ export default function LoginPage() {
 
   // If already authenticated, redirect
   if (isAuthenticated) {
-    router.replace('/');
+    router.replace(redirectTarget);
     return null;
   }
 
@@ -41,7 +43,7 @@ export default function LoginPage() {
       if (result?.error) {
         setError('Invalid email or password');
       } else if (result?.ok) {
-        router.push('/');
+        router.push(redirectTarget);
       }
     } catch {
       setError('Something went wrong. Please try again.');
@@ -111,13 +113,13 @@ export default function LoginPage() {
             {/* Social Login */}
             <div className="space-y-3 mb-6">
               <button
-                onClick={() => signIn('google', { callbackUrl: '/' })}
+                onClick={() => signIn('google', { callbackUrl: redirectTarget })}
                 className="w-full flex items-center justify-center gap-3 bg-white text-black font-medium py-2.5 rounded-lg hover:bg-gray-100 transition-colors"
               >
                 <Chrome className="w-5 h-5" strokeWidth={1.5} /> Continue with Google
               </button>
               <button
-                onClick={() => signIn('github', { callbackUrl: '/' })}
+                onClick={() => signIn('github', { callbackUrl: redirectTarget })}
                 className="w-full flex items-center justify-center gap-3 bg-[#24292e] text-white font-medium py-2.5 rounded-lg hover:bg-[#2f363d] transition-colors"
               >
                 <Github className="w-5 h-5" strokeWidth={1.5} /> Continue with GitHub

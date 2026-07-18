@@ -68,7 +68,13 @@ export default function PopularPeopleSection() {
       .then(res => res.ok ? res.json() : null)
       .then(data => {
         if (data?.results?.length > 0) {
-          setPeople(data.results);
+          // Defensive: even though the API now filters out no-photo people,
+          // double-check here so a stale cache or future regression can't
+          // surface blank avatars in the UI.
+          const withPhotos = data.results.filter(
+            (p: PersonSearchResult) => Boolean(p.profile_path) && p.profile_path.trim() !== '',
+          );
+          setPeople(withPhotos);
         }
       })
       .catch(() => {})
