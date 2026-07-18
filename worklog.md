@@ -299,3 +299,29 @@ Stage Summary:
 - TrendingAnimeSection + PopularPeopleSection cards now wrap long titles to 2 lines.
 - Popular People avatars fall back to gold initials when TMDB image 404s instead of showing blank silhouettes.
 - Verified live on https://typescribe-mu.vercel.app/ via curl: 9 aria-labels with "all" present, <footer> element on homepage, no footer on /browse or /top-rated.
+
+---
+Task ID: 10
+Agent: main
+Task: Four UI/UX fixes reported after commit 7398808 — (1) engagement buttons on community page not working, (2) some pages not optimized for mobile, (3) remove "Local & International Films — based on Singapore" text from local movies section, (4) some popular people avatars still blank.
+
+Work Log:
+- PostCard.tsx: Root cause of "engagement buttons not working" was twofold. (a) Like/comment handlers silently returned when user was null (logged-out users got no feedback). (b) Like UI depended on parent re-rendering with a new posts array — `setPosts(prev => [...prev])` creates a new array but same post refs, which sometimes failed to propagate the visual update. Fix: added local `isLiked` and `likeCount` state to PostCard (initialized from localStorage, re-synced via useEffect on user.id/post.id changes). Like button now does optimistic UI update (flip isLiked + adjust count) AND calls parent to persist. Like/comment handlers now redirect to `/login?redirect=<current_path>` when user is not authenticated. Comment section shows "Sign in to join the conversation" prompt for logged-out users instead of just hiding the input.
+- login/page.tsx: Added `useSearchParams` to read `?redirect=<path>` query param. Credential sign-in and OAuth (Google/GitHub) now redirect back to the page the user came from.
+- Mobile responsiveness audit (via subagent): 5 concrete issues found across 5 files. Applied all fixes:
+  - search/page.tsx: tab bar (Movies/People/Reviews/News) now `overflow-x-auto scrollbar-hide` with `whitespace-nowrap flex-shrink-0` on each tab.
+  - dashboard/reviews/page.tsx: filter+sort+Write Review button row now `flex-wrap`.
+  - browse/page.tsx: Format toggle row (All/Movies/Series/Anime) now `overflow-x-auto scrollbar-hide` with `flex-shrink-0` on label and button group.
+  - settings/page.tsx: account info rows now use `truncate min-w-0 text-right` on value spans + `flex-shrink-0` on labels + `gap-3` so long emails/UUIDs don't overflow.
+  - profile/page.tsx: feed tabs (Posts/Reviews/Watchlist) now `overflow-x-auto scrollbar-hide` with `whitespace-nowrap flex-shrink-0` on each tab.
+- LocalPicksSection.tsx: removed the subtitle paragraph that rendered `{location.reason} — based on {location.countryName}` (e.g. "Local & International Films — based on Singapore"). Replaced with just the "Change region" / "Pick region" button. The pill header "Local Picks from Singapore" remains as the sole location context.
+- Popular People blank avatars: API (/api/people/popular) now fetches up to 5 TMDb pages and filters out people with empty profile_path, returning up to 20 people-with-photos. Frontend (PopularPeopleSection.tsx) also defensively filters results. Verified on production: API now returns 20 people, 0 with empty profile_path.
+- TypeScript: clean. ESLint: 0 errors, only pre-existing warnings (dashboard/reviews, use-mobile, auth.tsx).
+- Committed as e057225, pushed to origin/main. Vercel rebuild successful.
+
+Stage Summary:
+- Community page engagement buttons (like/comment/share) now work for both logged-in and logged-out users. Logged-out users get redirected to login with return-redirect.
+- 5 mobile overflow bugs fixed across search, dashboard/reviews, browse, settings, and profile pages.
+- "Local & International Films — based on Singapore" subtitle removed from Local Picks section.
+- Popular People section now shows 20 people with actual photos — no more blank silhouettes.
+- Verified live on https://typescribe-mu.vercel.app/.
