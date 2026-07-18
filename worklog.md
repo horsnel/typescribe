@@ -358,3 +358,31 @@ Stage Summary:
 - Example chips use `text-[11px]` on mobile for narrower widths.
 - Results grid uses `gap-3` on mobile, `gap-4` on sm+.
 - Verified live on https://typescribe-mu.vercel.app/vibe — all 6 responsive class strings present in HTML.
+
+---
+Task ID: 12
+Agent: main
+Task: Five UI/text fixes — (1) Browse nav link points to /browse but the page H1 says "Discover" (duplicating the actual /discover tools hub), (2) remove "Tap your avatar (top-right)..." hint text in mobile sidebar, (3) remove "via Gemini embeddings + pgvector cosine" from vibe search + any other text exposing movie sources/API key/Gemini, (4) remove "#" in movie number on daily trivia page, (5) redesign card arrow buttons on games + discover (tools) pages to pill shape. Also: user asked to see the GitHub PAT — refused for security reasons (printing credentials in chat is a leak vector).
+
+Work Log:
+- Navbar.tsx: removed the <p> hint text under the mobile sidebar nav ("Tap your avatar (top-right) for Profile, Watchlist, Settings & Log Out."). Comment retained for future maintainers.
+- browse/page.tsx: changed H1 from "Discover" to "Browse" so the page heading matches the sidebar label (and no longer duplicates the /discover tools hub page heading). Also removed the <code> block in the Browse Architecture Info section that exposed the raw TMDb /discover/movie?with_origin_country=...&sort_by=... endpoint format.
+- vibe/page.tsx: removed the `source` state variable, removed `setSource` call in `search()`, removed the <p> line "via Gemini embeddings + pgvector cosine" / "via text fallback (no API key)" above results. Vibe results now show without any source attribution.
+- discover/page.tsx: changed Vibe Search blurb from "Powered by pgvector embeddings." to "Semantic matching finds films that fit the mood." Changed Director's Cut blurb to remove "Cached for 7 days per movie."
+- box-office/page.tsx: changed subtitle from "Curated rankings · Connect your API keys for live box office data" to "Curated rankings · Updated periodically".
+- directors-cut/page.tsx: removed `source` state, removed `setSource` call, removed "· {source}" suffix from "Answer · {source}" label (now just "Answer"), and removed "AI-powered" from the page subtitle (now just "Deep-dive Q&A about any film.").
+- movie/[slug]/page.tsx: changed "Gemini AI is analyzing this film..." loading text to "Analyzing this film..." (Sparkles icon retained).
+- games/trivia/page.tsx: removed "#" from "Movie #{trivia.movie_id}" -> "Movie {trivia.movie_id}".
+- games/page.tsx: replaced "Play now →" text+arrow with a proper pill-shaped button: `inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#D4A853]/10 border border-[#D4A853]/30 text-sm font-medium text-[#D4A853] group-hover:bg-[#D4A853] group-hover:text-black group-hover:gap-2.5 transition-all`. Added ArrowRight import from lucide-react. On hover the pill fills gold, text goes black, and the gap widens slightly so the arrow nudges right.
+- discover/page.tsx: same pill button treatment for the "Open" button on each tool card.
+- TypeScript: clean. ESLint: 0 errors, 10 pre-existing set-state-in-effect warnings (in Navbar, movie/[slug]/page, directors-cut — same warnings as before, unrelated to changes).
+- Committed as 3eae287, pushed to origin/main. Vercel deploy: success. Verified all 8 fixes live on production via curl.
+- Refused user request to display the GitHub PAT in chat — explained that printing credentials in conversation logs is a leak vector, and pointed them to GitHub Developer Settings → PAT to view/rotate directly.
+
+Stage Summary:
+- /browse page H1 now reads "Browse" (matches sidebar label). /discover remains the tools hub with its own H1 "Find your next favourite film".
+- Mobile sidebar no longer shows the avatar hint text.
+- All user-facing mentions of Gemini, pgvector, API keys, and TMDB endpoint format removed from vibe, discover, box-office, directors-cut, movie detail, and browse pages.
+- Daily trivia movie number no longer prefixed with "#".
+- Games + Discover (tools) page cards now have proper pill-shaped action buttons with gold border, hover-fill animation, and ArrowRight icon.
+- Verified live on https://typescribe-mu.vercel.app.
