@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -56,8 +57,8 @@ export default function GamesHubPage() {
               <div className="text-5xl mb-6 font-bold text-white/90">{g.emoji}</div>
               <h2 className="text-2xl font-semibold mb-2">{g.title}</h2>
               <p className="text-sm text-[#9ca3af] leading-relaxed">{g.blurb}</p>
-              <div className="mt-6 text-sm font-medium text-[#D4A853] group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
-                Play now <span aria-hidden>→</span>
+              <div className="mt-6 inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#D4A853]/10 border border-[#D4A853]/30 text-sm font-medium text-[#D4A853] group-hover:bg-[#D4A853] group-hover:text-black group-hover:gap-2.5 transition-all">
+                Play now <ArrowRight className="w-4 h-4" />
               </div>
             </Link>
           ))}

@@ -78,7 +78,7 @@ export default function TriviaPage() {
         <p className="text-[#9ca3af] text-sm mb-6">{trivia.date} · A new question every day.</p>
 
         <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-2xl p-6">
-          <Link href={`/movie/${trivia.movie_id}`} className="text-xs text-[#D4A853] hover:underline">Movie #{trivia.movie_id}</Link>
+          <Link href={`/movie/${trivia.movie_id}`} className="text-xs text-[#D4A853] hover:underline">Movie {trivia.movie_id}</Link>
           <h2 className="text-lg font-semibold mt-2 mb-4">{trivia.question}</h2>
 
           <div className="space-y-2">

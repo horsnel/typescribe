@@ -168,7 +168,7 @@ export default function BoxOfficePage() {
             <>
               <BarChart3 className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
               <p className="text-xs text-[#6b7280]">
-                Curated rankings · Connect your API keys for live box office data
+                Curated rankings · Updated periodically
               </p>
             </>
           )}

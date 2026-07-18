@@ -309,9 +309,6 @@ export default function Navbar() {
                   {/* Mobile menu intentionally has no user-specific links or Log Out button
                       anymore — tap your avatar (top right) to open the dropdown that has
                       Profile / My Reviews / My Community / Watchlist / Settings / Log Out. */}
-                  <p className="text-xs text-[#6b7280] px-1 py-2 leading-relaxed">
-                    Tap your avatar (top-right) for Profile, Watchlist, Settings &amp; Log Out.
-                  </p>
                 </>
               ) : (
                 <div className="flex flex-col gap-3">

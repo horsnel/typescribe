@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -11,7 +12,7 @@ const FEATURES = [
     title: 'Vibe Search',
     href: '/vibe',
     tag: 'Semantic',
-    blurb: 'Search movies by feeling — "rainy Sunday melancholy", "adrenaline-fueled chase", "cozy autumn romance". Powered by pgvector embeddings.',
+    blurb: 'Search movies by feeling — "rainy Sunday melancholy", "adrenaline-fueled chase", "cozy autumn romance". Semantic matching finds films that fit the mood.',
     accent: 'border-amber-500/40 from-amber-500/15 to-transparent',
   },
   {
@@ -25,7 +26,7 @@ const FEATURES = [
     title: "Director's Cut",
     href: '/directors-cut',
     tag: 'AI Q&A',
-    blurb: 'Ask anything about a film and get an in-universe answer from the director\'s perspective. Cached for 7 days per movie.',
+    blurb: 'Ask anything about a film and get an in-universe answer from the director\'s perspective.',
     accent: 'border-violet-500/40 from-violet-500/15 to-transparent',
   },
   {
@@ -101,8 +102,8 @@ export default function DiscoverPage() {
                 </span>
               </div>
               <p className="text-sm text-[#9ca3af] leading-relaxed">{f.blurb}</p>
-              <div className="mt-5 text-sm font-medium text-[#D4A853] group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
-                Open <span aria-hidden>→</span>
+              <div className="mt-5 inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#D4A853]/10 border border-[#D4A853]/30 text-sm font-medium text-[#D4A853] group-hover:bg-[#D4A853] group-hover:text-black group-hover:gap-2.5 transition-all">
+                Open <ArrowRight className="w-4 h-4" />
               </div>
             </Link>
           ))}

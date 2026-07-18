@@ -37,7 +37,6 @@ export default function VibePage() {
   const [q, setQ] = useState('');
   const [results, setResults] = useState<VibeResult[] | null>(null);
   const [loading, setLoading] = useState(false);
-  const [source, setSource] = useState('');
 
   async function search() {
     if (!q.trim()) return;
@@ -47,7 +46,6 @@ export default function VibePage() {
       const res = await fetch(`/api/vibe-search?q=${encodeURIComponent(q)}`);
       const data = await res.json();
       setResults(data.results ?? []);
-      setSource(data.source ?? '');
     } finally {
       setLoading(false);
     }
@@ -102,9 +100,6 @@ export default function VibePage() {
 
         {results && (
           <div>
-            <p className="text-xs text-[#6b7280] mb-3">
-              {source === 'pgvector' ? 'via Gemini embeddings + pgvector cosine' : 'via text fallback (no API key)'}
-            </p>
             {results.length === 0 ? (
               <div className="text-center py-12">
                 <Film className="w-10 h-10 text-[#5b5b6b] mx-auto mb-3" />

@@ -16,7 +16,6 @@ export default function DirectorsCutPage() {
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
   const [loading, setLoading] = useState(false);
-  const [source, setSource] = useState('');
 
   async function ask() {
     if (!question.trim()) return;
@@ -31,7 +30,6 @@ export default function DirectorsCutPage() {
       });
       const data = await res.json();
       setAnswer(data.answer ?? data.error ?? 'No answer');
-      setSource(data.source ?? '');
     } finally {
       setLoading(false);
     }
@@ -49,7 +47,7 @@ export default function DirectorsCutPage() {
           <h1 className="text-3xl font-extrabold">Director&apos;s Cut</h1>
         </div>
         <p className="text-[#9ca3af] text-sm mb-6">
-          AI-powered deep-dive Q&amp;A about any film. Ask about themes, cinematography, character motivations, and more.
+          Deep-dive Q&amp;A about any film. Ask about themes, cinematography, character motivations, and more.
         </p>
 
         <div className="flex gap-2 mb-3">
@@ -87,7 +85,7 @@ export default function DirectorsCutPage() {
           <div className="bg-[#0c0c10] border border-[#1e1e28] rounded-2xl p-6">
             <div className="flex items-center gap-2 mb-3">
               <Sparkles className="w-4 h-4 text-[#D4A853]" />
-              <span className="text-xs text-[#9ca3af] uppercase tracking-wide">Answer · {source}</span>
+              <span className="text-xs text-[#9ca3af] uppercase tracking-wide">Answer</span>
             </div>
             <p className="text-sm text-[#d4d4d4] leading-relaxed whitespace-pre-wrap">{answer}</p>
           </div>

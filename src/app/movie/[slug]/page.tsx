@@ -923,7 +923,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                     <div className="h-4 bg-[#1e1e28] rounded animate-pulse w-9/12" />
                     <p className="text-xs text-[#6b7280] mt-3 italic flex items-center gap-1.5">
                       <Sparkles className="w-3 h-3 text-[#D4A853]" strokeWidth={1.5} />
-                      Gemini AI is analyzing this film...
+                      Analyzing this film...
                     </p>
                   </div>
                 ) : (

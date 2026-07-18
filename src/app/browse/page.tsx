@@ -189,7 +189,7 @@ export default function BrowsePage() {
         {/* ─── Header ─── */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
           <div>
-            <h1 className="text-3xl lg:text-4xl font-extrabold text-white mb-1">Discover</h1>
+            <h1 className="text-3xl lg:text-4xl font-extrabold text-white mb-1">Browse</h1>
             <p className="text-[#6b7280]">
               {filters.country !== 'all' ? `Curated ${getCountryLabel(filters.country, filters.format === 'tv' ? 'tv' : 'movie')} cinema` : 'Browse trending titles across free sources'}
             </p>
@@ -610,13 +610,6 @@ export default function BrowsePage() {
                 <p className="text-sm text-[#6b7280]">
                   {COUNTRIES.find((c) => c.code === filters.country)?.whyInclude}
                 </p>
-                <div className="mt-3 flex items-center gap-2">
-                  <code className="text-[10px] bg-[#050507] border border-[#1e1e28] rounded px-2 py-1 text-[#9ca3af]">
-                    /discover/{filters.format === 'tv' ? 'tv' : 'movie'}?with_origin_country={filters.country}
-                    {filters.genres.length > 0 && `&with_genres=${filters.genres.join(',')}`}
-                    &sort_by={filters.sort}
-                  </code>
-                </div>
               </div>
             </div>
           </div>
