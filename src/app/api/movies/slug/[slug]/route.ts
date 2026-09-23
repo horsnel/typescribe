@@ -29,6 +29,9 @@ const PIPELINE_TIMEOUT_MS = 45_000;
 // Browser-cache window for fast (TMDb) responses — repeat navigations render
 // instantly from the HTTP cache while background enrichment keeps running.
 const FAST_CACHE_CONTROL = 'public, max-age=120, stale-while-revalidate=600';
+// Cache window for enriched (full pipeline) responses — they're expensive to
+// produce, so both the browser and the CDN keep them around much longer.
+const ENRICHED_CACHE_CONTROL = 'public, max-age=300, stale-while-revalidate=21600';
 
 // Track in-flight enrichment jobs to avoid duplicate work
 type EnrichmentResult = { movie: Movie; sources: string[]; completeness: number } | null;
@@ -100,7 +103,7 @@ export async function GET(
               sources: result.sources,
               completeness: result.completeness,
               enriched: true,
-            });
+            }, { headers: { 'Cache-Control': ENRICHED_CACHE_CONTROL } });
           }
           // Pipeline returned empty result — fall through to return cached data if any
         } catch (err) {
@@ -116,7 +119,7 @@ export async function GET(
           completeness: cached.completeness,
           enriched: cached.completeness >= 50,
           fromCache: true,
-        });
+        }, { headers: { 'Cache-Control': FAST_CACHE_CONTROL } });
       }
 
       return NextResponse.json(
@@ -202,7 +205,7 @@ export async function GET(
             sources: ['TMDb'],
             completeness: 25,
             enriched: false,
-          });
+          }, { headers: { 'Cache-Control': FAST_CACHE_CONTROL } });
         }
       } catch (err) {
         console.warn(`[API /movies/slug] Search failed for "${titlePart}"`, err);
@@ -224,7 +227,7 @@ export async function GET(
             sources: ['AniList', 'Jikan', 'TVMaze'],
             completeness: 20,
             enriched: false,
-          });
+          }, { headers: { 'Cache-Control': FAST_CACHE_CONTROL } });
         }
       } catch (err) {
         console.warn(`[API /movies/slug] Free-tier search failed for "${titlePart}"`, err);

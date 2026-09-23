@@ -16,6 +16,9 @@ import { getMovieDetails } from '@/lib/pipeline/clients/tmdb';
 import { getWhereToWatch, type WhereToWatchResult } from '@/lib/api/tvmaze';
 import type { StreamingProvider } from '@/lib/pipeline/clients/streaming';
 
+// Provider data changes rarely — cacheable at CDN + browser
+const CACHE_CONTROL = 'public, max-age=600, stale-while-revalidate=86400';
+
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
@@ -103,7 +106,7 @@ export async function GET(
         ),
         countries: {},
         tvmaze: tvmazeResult,
-      });
+      }, { headers: { 'Cache-Control': CACHE_CONTROL } });
     }
 
     // Case C: TMDb has data — return it with optional TVMaze supplement
@@ -134,7 +137,7 @@ export async function GET(
       return NextResponse.json({
         ...tmdbResult,
         tvmaze: tvmazeResult ?? undefined,
-      });
+      }, { headers: { 'Cache-Control': CACHE_CONTROL } });
     }
 
     // Should not reach here, but fallback

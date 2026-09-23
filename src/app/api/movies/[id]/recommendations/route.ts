@@ -8,9 +8,11 @@
  *   2. ENRICHED mode (?enriched=true): Full pipeline with Letterboxd, RT,
  *      AniList, Jikan (~5-15s)
  *
- * Region-aware: the source title's original language is used to filter the
- * result set — an Indian (hi/ta/te…) title never gets American movies
- * recommended under it, a Japanese anime only gets Japanese recs, etc.
+ * Region-aware: the source title's original language / origin countries are
+ * used to filter the result set — an Indian (hi/ta/te…) title only gets
+ * same-language recommendations (never American, never cross-language), a
+ * British title gets British recs, an American title American recs, and a
+ * Japanese anime only gets Japanese recs.
  *
  * Sources merged and deduplicated by TMDb ID, ranked by composite score.
  * Results are cached in-memory per serverless instance (fast tier 6h /
@@ -66,11 +68,11 @@ export async function GET(
       }, { headers: { 'Cache-Control': 'public, max-age=300, stale-while-revalidate=3600' } });
     }
 
-    // Get source context (title for scraper-based sources, language/country
+    // Get source context (title for scraper-based sources, language/countries
     // for region-aware filtering, year/genre for ranking + backfill)
     let movieTitle: string | undefined;
     let sourceLanguage: string | undefined;
-    let sourceCountry: string | undefined;
+    let sourceCountries: string[] = [];
     let sourceYear: number | undefined;
     let primaryGenreId: number | undefined;
     try {
@@ -79,7 +81,10 @@ export async function GET(
         : await TMDb.getMovieDetails(tmdbId);
       movieTitle = details?.title || details?.original_title;
       sourceLanguage = details?.original_language || undefined;
-      sourceCountry = details?.origin_country || undefined;
+      sourceCountries = (
+        details?.origin_countries ??
+        (details?.origin_country ? [details.origin_country] : [])
+      ).filter(Boolean);
       primaryGenreId = details?.genres?.[0]?.id;
       if (details?.release_date) {
         const y = parseInt(details.release_date.split('-')[0], 10);
@@ -92,7 +97,7 @@ export async function GET(
       movieTitle,
       mediaType,
       wantEnriched,
-      { language: sourceLanguage, country: sourceCountry, year: sourceYear, primaryGenreId },
+      { language: sourceLanguage, countries: sourceCountries, year: sourceYear, primaryGenreId },
     );
 
     // Cache the result (only if we actually got recommendations)

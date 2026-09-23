@@ -32,6 +32,9 @@ const articleCache = new Map<number, CachedArticle>();
 let cacheSetAt = 0;
 const CACHE_TTL = 60 * 60 * 1000; // 1 hour
 
+// Article bodies are static once extracted — safe to cache at CDN + browser
+const NEWS_CACHE_CONTROL = 'public, max-age=600, stale-while-revalidate=86400';
+
 /** Called by /api/news to store fetched articles for detail lookups */
 export function cacheArticles(articles: CachedArticle[]): void {
   const now = Date.now();
@@ -67,7 +70,7 @@ export async function GET(
       date: article.date,
       image: article.image,
       url: article.url,
-    });
+    }, { headers: { 'Cache-Control': NEWS_CACHE_CONTROL } });
   }
 
   // Real URL — try to fetch the full article content
@@ -96,7 +99,7 @@ export async function GET(
       date: article.date,
       image: extracted.image || article.image,
       url: article.url,
-    });
+    }, { headers: { 'Cache-Control': NEWS_CACHE_CONTROL } });
   } catch {
     // Fallback to excerpt if full content can't be fetched
     return NextResponse.json({
@@ -106,7 +109,7 @@ export async function GET(
       date: article.date,
       image: article.image,
       url: article.url,
-    });
+    }, { headers: { 'Cache-Control': NEWS_CACHE_CONTROL } });
   }
 }
 

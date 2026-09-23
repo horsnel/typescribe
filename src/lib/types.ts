@@ -28,6 +28,8 @@ export interface Movie {
   revenue: number;
   original_language: string;
   origin_country: string;
+  /** Full origin-country list (ISO 3166-1): TV → origin_country[], movies → production_countries[] */
+  origin_countries?: string[];
   media_type: 'movie' | 'tv' | 'anime';
   production_companies: string[];
   status: string;

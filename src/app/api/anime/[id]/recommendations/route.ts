@@ -24,7 +24,7 @@ export async function GET(
 
     const recommendations = await getAnimeRecommendations(malId);
 
-    return NextResponse.json({ recommendations });
+    return NextResponse.json({ recommendations }, { headers: { 'Cache-Control': 'public, max-age=600, stale-while-revalidate=86400' } });
   } catch (error: any) {
     console.error('[API /anime/[id]/recommendations] Error:', error);
     return NextResponse.json(

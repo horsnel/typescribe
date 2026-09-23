@@ -51,7 +51,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
     setLoading(true);
     setError(null);
 
-    fetch(`/api/anime/${id}`, { cache: 'no-store' })
+    fetch(`/api/anime/${id}`)
       .then((res) => {
         if (!res.ok) {
           if (res.status === 404) throw new Error('Anime not found');
@@ -74,7 +74,7 @@ export default function AnimeDetailPage({ params }: { params: Promise<{ id: stri
     // eslint-disable-next-line react-hooks/set-state-in-effect -- reset loading state before async fetch (React docs: 'You Might Not Need an Effect' § fetch-on-mount)
     setRecLoading(true);
 
-    fetch(`/api/anime/${id}/recommendations`, { cache: 'no-store' })
+    fetch(`/api/anime/${id}/recommendations`)
       .then((res) => (res.ok ? res.json() : null))
       .then((result) => {
         if (result?.recommendations) {

@@ -3,6 +3,9 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   images: {
+    // TMDb posters/backdrops are effectively immutable — cache optimized
+    // images for 31 days so repeat views skip the optimizer entirely.
+    minimumCacheTTL: 2678400,
     remotePatterns: [
       { protocol: 'https', hostname: 'image.tmdb.org' },
       { protocol: 'https', hostname: 's4.anilist.co' },
@@ -39,6 +42,12 @@ const nextConfig: NextConfig = {
   experimental: {
     serverActions: {
       bodySizeLimit: '2mb',
+    },
+    // Client router cache: keep dynamic-page payloads reusable for 30s so
+    // revisiting / navigating back renders instantly instead of re-fetching.
+    staleTimes: {
+      dynamic: 30,
+      static: 180,
     },
   },
 };

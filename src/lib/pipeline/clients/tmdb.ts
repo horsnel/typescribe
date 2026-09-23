@@ -223,6 +223,7 @@ interface TmdbMovieResponse {
   revenue: number;
   original_language: string;
   origin_country: string[];
+  production_countries?: Array<{ iso_3166_1: string; name: string }>;
   production_companies: Array<{ id: number; name: string; logo_path: string | null; origin_country: string }>;
   status: string;
   credits?: {
@@ -310,6 +311,7 @@ function transformMovieDetail(raw: TmdbMovieResponse): Movie {
     revenue: raw.revenue ?? 0,
     original_language: raw.original_language ?? '',
     origin_country: raw.origin_country?.[0] ?? '',
+    origin_countries: (raw.production_countries ?? []).map((c) => c.iso_3166_1).filter(Boolean),
     media_type: 'movie',
     production_companies: raw.production_companies?.map((pc) => pc.name) ?? [],
     status: raw.status ?? '',
@@ -438,6 +440,7 @@ function transformTvDetail(raw: TmdbTvResponse): Movie {
     revenue: raw.revenue ?? 0,
     original_language: raw.original_language ?? '',
     origin_country: raw.origin_country?.[0] ?? '',
+    origin_countries: (raw.origin_country ?? []).filter(Boolean),
     media_type: 'tv',
     production_companies: raw.production_companies?.map((pc) => pc.name) ?? [],
     status: raw.status ?? '',
@@ -542,6 +545,7 @@ function transformTvCard(raw: TmdbTvCard): Movie {
     revenue: 0,
     original_language: raw.original_language ?? '',
     origin_country: raw.origin_country?.[0] ?? '',
+    origin_countries: (raw.origin_country ?? []).filter(Boolean),
     media_type: 'tv',
     production_companies: [],
     status: '',
@@ -575,6 +579,26 @@ export async function getMovieDetails(
     console.error(`[TMDb] Failed to transform movie ${tmdbId}`, err);
     return null;
   }
+}
+
+/**
+ * GET `/movie/{id}` — returns only the production-country ISO codes.
+ *
+ * Lightweight helper used by the recommendations pipeline for country-aware
+ * filtering of movie candidates (TMDb list endpoints don't include country
+ * data for movies, so this resolves it per-candidate).
+ */
+export async function getMovieOriginCountries(
+  tmdbId: number,
+  apiKeyOverride?: string,
+): Promise<string[]> {
+  const data = await tmdbFetch<{ production_countries?: Array<{ iso_3166_1: string }> }>(
+    `/movie/${tmdbId}`,
+    {},
+    CACHE_TTL_DETAILS,
+    apiKeyOverride,
+  );
+  return (data?.production_countries ?? []).map((c) => c.iso_3166_1).filter(Boolean);
 }
 
 /**

@@ -21,6 +21,9 @@ import { browseMovies, searchAnime, getTrending, getTopRated, getNowPlaying, get
 import type { Movie, MediaFormat } from '@/lib/types';
 import { apiLimiter } from '@/lib/rate-limit';
 
+// Public catalog data — cacheable at the CDN + browser for snappy repeat visits
+const CACHE_CONTROL = 'public, max-age=120, stale-while-revalidate=1800';
+
 export async function GET(request: NextRequest) {
   try {
     // Rate limiting
@@ -129,7 +132,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       ...result,
       fromAPI: result.sources.length > 0,
-    });
+    }, { headers: { 'Cache-Control': CACHE_CONTROL } });
   } catch (error: any) {
     console.error('[API /browse] Error:', error);
     return NextResponse.json(

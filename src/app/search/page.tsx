@@ -47,8 +47,8 @@ function SearchContent() {
       setIsSearching(true);
       try {
         const [movieRes, peopleRes] = await Promise.all([
-          fetch(`/api/search?q=${encodeURIComponent(query)}`, { cache: 'no-store' }),
-          fetch(`/api/people/search?q=${encodeURIComponent(query)}`, { cache: 'no-store' }),
+          fetch(`/api/search?q=${encodeURIComponent(query)}`),
+          fetch(`/api/people/search?q=${encodeURIComponent(query)}`),
         ]);
         if (movieRes.ok) {
           const data = await movieRes.json();

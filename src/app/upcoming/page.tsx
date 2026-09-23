@@ -56,7 +56,7 @@ export default function UpcomingPage() {
       url = `/api/browse?sort=${sortMap[sort]}&yearFrom=${yearFrom}&yearTo=${yearTo}&page=1&source=upcoming`;
     }
 
-    fetch(url, { cache: 'no-store', signal: controller.signal })
+    fetch(url, { signal: controller.signal })
       .then(res => res.ok ? res.json() : null)
       .then(data => {
         if (data?.movies?.length > 0) {

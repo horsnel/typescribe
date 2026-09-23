@@ -158,7 +158,7 @@ export default function NewsPage() {
     if (__m) __m.scrollTo({ top: 0, behavior: 'smooth' as ScrollBehavior });
     else window.scrollTo({ top: 0, behavior: 'smooth' as ScrollBehavior });
     try {
-      const res = await fetch(`/api/news/${id}`, { cache: 'no-store' });
+      const res = await fetch(`/api/news/${id}`);
       if (!res.ok) throw new Error('Failed to fetch article');
       const data: FullArticle = await res.json();
       setSelectedArticle({ id, data, loading: false, error: null });

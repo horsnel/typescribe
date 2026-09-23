@@ -329,7 +329,7 @@ export async function GET(request: NextRequest) {
       fromAPI,
       source: fromAPI ? 'TMDb + Box Office Mojo' : 'Demo Data',
       updatedAt: new Date().toISOString(),
-    });
+    }, { headers: { 'Cache-Control': 'public, max-age=600, stale-while-revalidate=86400' } });
   } catch (error: any) {
     console.error('[API /box-office] Error:', error);
     return NextResponse.json(

@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import gsap from 'gsap';
 import {
   Heart, Share2, Play, Sparkles, Clock,
@@ -29,7 +30,9 @@ import { moderateContent, preSubmitCheck } from '@/lib/moderation';
 import type { ReportReason, UserReview } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import MovieDetailSkeleton from '@/components/skeletons/MovieDetailSkeleton';
-import TrailerModal from '@/components/movie/TrailerModal';
+// Lazy-loaded — the YouTube player bundle only downloads when the modal is
+// first opened, keeping the initial page bundle small and hydration fast.
+const TrailerModal = dynamic(() => import('@/components/movie/TrailerModal'));
 import { resolveImageUrl, handleImageError, getInitials, PERSON_PLACEHOLDER, personSlug } from '@/lib/utils';
 
 type CommentTab = 'reviews' | 'discussion';
@@ -177,7 +180,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
           // Phase 2c: Full enrichment pipeline (ratings, reviews, box office, etc.)
           if (!data.enriched && data.completeness < 50) {
             setEnriching(true);
-            fetch(`/api/movies/slug/${slug}?enriched=true`, { signal: controller.signal, cache: 'no-store' as RequestCache })
+            fetch(`/api/movies/slug/${slug}?enriched=true`, { signal: controller.signal })
               .then(res => res.ok ? res.json() : null)
               .then(enrichedData => {
                 if (enrichedData?.movie) {
@@ -354,7 +357,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
     const tmdbId = movie.tmdb_id || movie.id;
 
     // Step 1: Try TMDb via API route (server-side)
-    fetch(`/api/movies/${tmdbId}/watch-providers`, { cache: 'no-store' })
+    fetch(`/api/movies/${tmdbId}/watch-providers`)
       .then(res => res.ok ? res.json() : null)
       .then(data => {
         if (data?.providers && data.providers.length > 0) {
@@ -415,7 +418,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
         }
 
         // Phase 2: Enrich with Letterboxd, RT, AniList, Jikan in background
-        fetch(`/api/movies/${tmdbId}/recommendations?type=${mediaType}&enriched=true`, { cache: 'no-store', signal: recsController.signal })
+        fetch(`/api/movies/${tmdbId}/recommendations?type=${mediaType}&enriched=true`, { signal: recsController.signal })
           .then(res => res.ok ? res.json() : null)
           .then(enrichedData => {
             if (enrichedData?.recommendations && enrichedData.recommendations.length > 0) {
@@ -791,6 +794,8 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
             src={movie.backdrop_path?.startsWith('http') ? movie.backdrop_path : movie.backdrop_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w1280${movie.backdrop_path}` : movie.backdrop_path || ''}
             alt={movie.title}
             className="w-full h-full object-cover opacity-30"
+            fetchPriority="high"
+            decoding="async"
             onError={(e) => { (e.target as HTMLImageElement).src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720"><rect fill="%230c0c10" width="1280" height="720"/></svg>'); }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/80 to-[#0a0a0f]/40" />

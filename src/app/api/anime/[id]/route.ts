@@ -36,7 +36,7 @@ export async function GET(
       );
     }
 
-    return NextResponse.json({ anime, characters });
+    return NextResponse.json({ anime, characters }, { headers: { 'Cache-Control': 'public, max-age=600, stale-while-revalidate=86400' } });
   } catch (error: any) {
     console.error('[API /anime/[id]] Error:', error);
     return NextResponse.json(

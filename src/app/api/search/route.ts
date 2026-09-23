@@ -37,7 +37,11 @@ export async function GET(request: NextRequest) {
 
     const result = await searchMovies(trimmedQuery);
 
-    return NextResponse.json({ ...result, fromAPI: result.sources.length > 0 });
+    return NextResponse.json(
+      { ...result, fromAPI: result.sources.length > 0 },
+      // Public results — short CDN cache smooths repeat/popular queries
+      { headers: { 'Cache-Control': 'public, max-age=60, stale-while-revalidate=600' } },
+    );
   } catch (error: any) {
     console.error('[API /search] Error:', error);
     return NextResponse.json(

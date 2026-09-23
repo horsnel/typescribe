@@ -44,7 +44,7 @@ export default function NewReleasesPage() {
       'popularity': 'popularity.desc',
     };
 
-    fetch(`/api/browse?sort=${sortMap[sort]}&yearFrom=${yearFrom}&page=1`, { cache: 'no-store' })
+    fetch(`/api/browse?sort=${sortMap[sort]}&yearFrom=${yearFrom}&page=1`)
       .then(res => res.ok ? res.json() : null)
       .then(data => {
         if (data?.movies?.length > 0 && data.fromAPI) {

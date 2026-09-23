@@ -29,7 +29,7 @@ export default function TopRatedPage() {
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- reset loading state before async fetch (React docs: 'You Might Not Need an Effect' § fetch-on-mount)
     setLoading(true);
-    fetch('/api/browse?source=top_rated&page=1', { cache: 'no-store' })
+    fetch('/api/browse?source=top_rated&page=1')
       .then(res => res.ok ? res.json() : null)
       .then(data => {
         if (data?.movies?.length > 0) {

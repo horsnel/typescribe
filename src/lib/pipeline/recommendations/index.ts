@@ -54,8 +54,9 @@ const SOURCE_WEIGHTS: Record<string, number> = {
 export interface SourceInfo {
   /** TMDb original_language of the movie being viewed (e.g. 'hi', 'ta', 'ja', 'en') */
   language?: string;
-  /** Primary origin country of the source (TV only — e.g. 'IN') */
-  country?: string;
+  /** Full origin-country list of the source (ISO 3166-1, e.g. ['IN'] or ['GB','US']).
+   *  TV → origin_country[], movies → production_countries[] */
+  countries?: string[];
   /** Release year of the source — used for a recency-proximity ranking boost */
   year?: number;
   /** Primary genre TMDb id — used for region backfill discover queries */
@@ -121,6 +122,46 @@ async function resolveTitleToTmdb(
   }
 }
 
+// ─── Candidate Country Resolver (for English country filtering) ───────────────
+
+/**
+ * TMDb list endpoints (recommendations / similar / search) do not include
+ * country data for MOVIES (only for TV, via origin_country). When a country
+ * filter is active we therefore resolve production countries per candidate
+ * via a lightweight detail fetch, cached for the instance lifetime.
+ */
+const movieCountryCache = new Map<number, string[]>();
+
+async function resolveCandidateCountries(candidates: RecommendationEntry[]): Promise<void> {
+  // Only movie candidates need resolution — TV cards carry origin_country.
+  const targets: number[] = [];
+  for (const e of candidates) {
+    if (!e.movie.poster_path) continue;
+    if (e.movie.media_type === 'tv') continue;
+    if (e.movie.origin_countries && e.movie.origin_countries.length > 0) continue;
+    const id = e.movie.tmdb_id || e.movie.id;
+    if (movieCountryCache.has(id)) {
+      e.movie.origin_countries = movieCountryCache.get(id)!;
+    } else {
+      targets.push(id);
+    }
+  }
+
+  const unique = [...new Set(targets)].slice(0, 30); // cap: top-scored entries resolve first
+  if (unique.length === 0) return;
+
+  await Promise.allSettled(
+    unique.map(async (id) => {
+      try {
+        const countries = await TMDb.getMovieOriginCountries(id);
+        movieCountryCache.set(id, countries);
+        const entry = candidates.find((e) => (e.movie.tmdb_id || e.movie.id) === id);
+        if (entry) entry.movie.origin_countries = countries;
+      } catch { /* leave unresolved — language fallback applies */ }
+    })
+  );
+}
+
 // ─── Merge & Rank ────────────────────────────────────────────────────────---
 
 function mergeAndRank(
@@ -160,13 +201,15 @@ function mergeAndRank(
  * Strategy:
  *   Phase 1 (fast ~2-3s): TMDb recommendations + similar
  *   Phase 2 (enrichment ~5-15s): Letterboxd + RT + anime sources
- *   Phase 3 (region backfill): same-language discover query when the
- *     region filter leaves fewer than 8 candidates
+ *   Phase 3 (region backfill): same-language / same-country discover query
+ *     when the region filter leaves fewer than 8 candidates
  *
- * Region awareness: when the source title's original language is known and
- * is NOT English, every recommendation must match that language (or origin
- * country for TV). This guarantees, e.g., an Indian film never gets American
- * movies recommended under it.
+ * Region awareness (two locks):
+ *   - Non-English source: strict LANGUAGE lock — a Hindi film only ever gets
+ *     Hindi recommendations (no cross-language Indian cinema, no American).
+ *   - English source with known origin country: COUNTRY lock — a British
+ *     film gets British/co-produced recs, an American film gets American.
+ *   - Recency boost: releases within ±2 years of the source rank higher.
  *
  * @param tmdbId - TMDb movie/TV ID
  * @param movieTitle - Movie title for scraper lookups
@@ -185,13 +228,37 @@ export async function getRecommendations(
   const usedSources: string[] = [];
 
   // ── Region-aware filter setup ──
+  //
+  // Two independent locks:
+  //  1. LANGUAGE lock (non-English sources) — strict: every recommendation
+  //     must share the source's original language. A Hindi title gets ONLY
+  //     Hindi recommendations — never Tamil/Telugu (same country, different
+  //     language) and never American movies.
+  //  2. COUNTRY lock (English sources with a known origin country) — every
+  //     recommendation must share at least one origin country with the
+  //     source. A British title gets British (or co-produced) recs, an
+  //     American title stays American.
   const sourceLanguage = sourceInfo?.language;
-  const needsRegionFilter = !!sourceLanguage && sourceLanguage !== 'en';
+  const sourceCountries = [
+    ...(sourceInfo?.countries ?? []),
+  ].map((c) => c.trim().toUpperCase()).filter(Boolean);
+
+  const needsLanguageFilter = !!sourceLanguage && sourceLanguage !== 'en';
+  const needsCountryFilter = !needsLanguageFilter && sourceLanguage === 'en' && sourceCountries.length > 0;
+
   const passesRegion = (m: Movie): boolean => {
-    if (!needsRegionFilter) return true;
-    if (m.original_language && m.original_language === sourceLanguage) return true;
-    if (sourceInfo?.country && m.origin_country && m.origin_country === sourceInfo.country) return true;
-    return false;
+    if (needsLanguageFilter) {
+      return m.original_language === sourceLanguage;
+    }
+    if (needsCountryFilter) {
+      const candidateCountries = (m.origin_countries ?? []).map((c) => c.trim().toUpperCase());
+      if (candidateCountries.length > 0) {
+        return candidateCountries.some((c) => sourceCountries.includes(c));
+      }
+      // Country unresolved (rare fetch failure) — fall back to language match
+      return m.original_language === 'en';
+    }
+    return true;
   };
 
   // Helper to add a movie to the merge map
@@ -241,8 +308,9 @@ export async function getRecommendations(
     }
   } catch { /* TMDb failed, continue */ }
 
-  // Return early if not enriched — but still backfill region if needed
+  // Return early if not enriched — but still resolve countries + backfill region
   if (!enriched) {
+    if (needsCountryFilter) await resolveCandidateCountries([...entries.values()]);
     await backfillRegionIfNeeded();
     return {
       recommendations: mergeAndRank(entries, passesRegion, sourceInfo?.year),
@@ -356,6 +424,7 @@ export async function getRecommendations(
   );
 
   // ── Phase 3: Region backfill ──
+  if (needsCountryFilter) await resolveCandidateCountries([...entries.values()]);
   await backfillRegionIfNeeded();
 
   return {
@@ -366,12 +435,12 @@ export async function getRecommendations(
   /**
    * When a region filter is active and fewer than 8 candidates survive it,
    * backfill via a TMDb discover query restricted to the source language
-   * (and primary genre). This keeps the section full with region-matching
-   * titles instead of falling back to foreign-language (e.g. American)
-   * entries.
+   * (non-English) or source origin country (English). This keeps the
+   * section full with region-matching titles instead of falling back to
+   * foreign entries.
    */
   async function backfillRegionIfNeeded(): Promise<void> {
-    if (!needsRegionFilter || !sourceLanguage) return;
+    if (!needsLanguageFilter && !needsCountryFilter) return;
 
     const passingCount = [...entries.values()]
       .filter((e) => e.movie.poster_path && passesRegion(e.movie))
@@ -379,18 +448,26 @@ export async function getRecommendations(
     if (passingCount >= 8) return;
 
     try {
-      const discoverFilters = {
-        with_original_language: sourceLanguage,
+      const discoverFilters: Record<string, unknown> = {
         sort_by: 'popularity.desc' as const,
         'vote_count.gte': 5,
       };
+
+      if (needsLanguageFilter) {
+        // Strict same-language backfill (e.g. Hindi → Hindi cinema only)
+        discoverFilters.with_original_language = sourceLanguage;
+      } else {
+        // Country backfill for English sources (e.g. GB → British titles)
+        discoverFilters.with_origin_country = sourceCountries[0];
+        discoverFilters.with_original_language = 'en';
+      }
       if (sourceInfo?.primaryGenreId) {
-        (discoverFilters as Record<string, unknown>).with_genres = String(sourceInfo.primaryGenreId);
+        discoverFilters.with_genres = String(sourceInfo.primaryGenreId);
       }
 
       const res = isTv
-        ? await TMDb.discoverTv(discoverFilters)
-        : await TMDb.discoverMovies(discoverFilters);
+        ? await TMDb.discoverTv(discoverFilters as Parameters<typeof TMDb.discoverTv>[0])
+        : await TMDb.discoverMovies(discoverFilters as Parameters<typeof TMDb.discoverMovies>[0]);
 
       let added = 0;
       for (const m of res?.results ?? []) {
