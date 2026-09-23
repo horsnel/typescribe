@@ -134,7 +134,7 @@ const movieCountryCache = new Map<number, string[]>();
 
 async function resolveCandidateCountries(candidates: RecommendationEntry[]): Promise<void> {
   // Only movie candidates need resolution — TV cards carry origin_country.
-  const targets: number[] = [];
+  const targets: Array<{ id: number; score: number }> = [];
   for (const e of candidates) {
     if (!e.movie.poster_path) continue;
     if (e.movie.media_type === 'tv') continue;
@@ -143,11 +143,16 @@ async function resolveCandidateCountries(candidates: RecommendationEntry[]): Pro
     if (movieCountryCache.has(id)) {
       e.movie.origin_countries = movieCountryCache.get(id)!;
     } else {
-      targets.push(id);
+      targets.push({ id, score: e.score });
     }
   }
 
-  const unique = [...new Set(targets)].slice(0, 30); // cap: top-scored entries resolve first
+  // Resolve highest-scored candidates first so the cap never drops entries
+  // that would actually make the top 8.
+  const unique = [...new Map(targets.map((t) => [t.id, t])).values()]
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 30)
+    .map((t) => t.id);
   if (unique.length === 0) return;
 
   await Promise.allSettled(
@@ -157,7 +162,7 @@ async function resolveCandidateCountries(candidates: RecommendationEntry[]): Pro
         movieCountryCache.set(id, countries);
         const entry = candidates.find((e) => (e.movie.tmdb_id || e.movie.id) === id);
         if (entry) entry.movie.origin_countries = countries;
-      } catch { /* leave unresolved — language fallback applies */ }
+      } catch { /* leave unresolved — strict filter will reject */ }
     })
   );
 }
@@ -251,12 +256,11 @@ export async function getRecommendations(
       return m.original_language === sourceLanguage;
     }
     if (needsCountryFilter) {
+      // Strict: candidate must have known origin countries overlapping the
+      // source's. Unknown-country candidates are rejected so unresolvable
+      // titles (e.g. missing TMDb data) can't leak foreign content in.
       const candidateCountries = (m.origin_countries ?? []).map((c) => c.trim().toUpperCase());
-      if (candidateCountries.length > 0) {
-        return candidateCountries.some((c) => sourceCountries.includes(c));
-      }
-      // Country unresolved (rare fetch failure) — fall back to language match
-      return m.original_language === 'en';
+      return candidateCountries.some((c) => sourceCountries.includes(c));
     }
     return true;
   };
@@ -473,6 +477,12 @@ export async function getRecommendations(
       for (const m of res?.results ?? []) {
         const id = m.tmdb_id || m.id;
         if (entries.has(id)) continue;
+        // Movie discover cards carry no country data — but the query itself
+        // was restricted to the source's origin country, so stamp it on to
+        // keep them passing the strict country filter at ranking time.
+        if (needsCountryFilter && !isTv && !(m.origin_countries?.length)) {
+          m.origin_countries = [sourceCountries[0]];
+        }
         addEntry(m, 'tmdb_discover');
         added++;
         if (passingCount + added >= 12) break; // leave ranking headroom
