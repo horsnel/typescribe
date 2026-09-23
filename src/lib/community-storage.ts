@@ -120,9 +120,26 @@ export function addComment(postId: string, parentId: string | null, authorId: nu
   return newComment;
 }
 
+/**
+ * Delete a comment by id. Replies to a deleted parent are removed as well
+ * (cascade) so no orphaned replies linger under the thread. Walks the full
+ * descendant tree since replies can themselves be replied to.
+ */
 export function deleteComment(commentId: string): void {
-  const comments = getComments().filter(c => c.id !== commentId);
-  saveComments(comments);
+  const all = getComments();
+  const doomed = new Set<string>([commentId]);
+  // Iteratively collect descendants of the deleted comment.
+  let grew = true;
+  while (grew) {
+    grew = false;
+    for (const c of all) {
+      if (c.parentId !== null && doomed.has(c.parentId) && !doomed.has(c.id)) {
+        doomed.add(c.id);
+        grew = true;
+      }
+    }
+  }
+  saveComments(all.filter((c) => !doomed.has(c.id)));
 }
 
 // ─── Following ───

@@ -8,7 +8,7 @@ import {
   Heart, Share2, Play, Sparkles, Clock,
   Calendar, Globe, Building2, Film, AlertTriangle,
   ExternalLink, ChevronDown, MessageSquare, Star, Tv,
-  PenSquare, ThumbsUp, Flag, Reply, MoreHorizontal, Send, Loader2, Shield,
+  PenSquare, ThumbsUp, Flag, Reply, MoreHorizontal, Send, Loader2, Shield, Trash2,
   DollarSign, Eye, MonitorPlay, Swords, TrendingUp, TrendingDown,
 } from 'lucide-react';
 import { getMovieBySlug } from '@/lib/data';
@@ -555,6 +555,23 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
     if (newSet.has(commentId)) newSet.delete(commentId); else newSet.add(commentId);
     setHelpedComments(newSet);
     saveComments(updated);
+  };
+
+  // Delete a comment the user authored. Replies to a deleted parent are
+  // removed as well (cascade) so no orphaned replies linger in the thread.
+  const handleDeleteComment = (commentId: number) => {
+    const target = comments.find((c) => c.id === commentId);
+    if (!target) return;
+    const isReply = target.parent_id !== null;
+    const replyCount = isReply ? 0 : comments.filter((c) => c.parent_id === commentId).length;
+    const message = replyCount > 0
+      ? `Delete this comment and its ${replyCount} repl${replyCount === 1 ? 'y' : 'ies'}? This cannot be undone.`
+      : 'Delete this comment? This cannot be undone.';
+    if (!window.confirm(message)) return;
+    // Close any open reply/report UI pointing at the removed comment.
+    if (replyingTo === commentId) { setReplyingTo(null); setReplyText(''); }
+    if (reportingCommentId === commentId) setReportingCommentId(null);
+    saveComments(comments.filter((c) => c.id !== commentId && c.parent_id !== commentId));
   };
 
   const handleReviewSubmit = async ({ movieId, rating, text }: { movieId: number; rating: number; text: string }) => {
@@ -1469,6 +1486,14 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                                         <Flag className="w-3.5 h-3.5" strokeWidth={1.5} /> Report
                                       </button>
                                     )}
+                                    {isAuthenticated && user?.id === comment.user_id && (
+                                      <button
+                                        onClick={() => handleDeleteComment(comment.id)}
+                                        className="flex items-center gap-1.5 text-xs text-[#6b7280] hover:text-red-400 transition-colors"
+                                      >
+                                        <Trash2 className="w-3.5 h-3.5" strokeWidth={1.5} /> Delete
+                                      </button>
+                                    )}
                                   </div>
 
                                   {/* Reply Input */}
@@ -1513,6 +1538,14 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                                               <div className="flex items-center gap-2">
                                                 <span className="text-xs font-semibold text-white">{reply.user_name}</span>
                                                 <span className="text-[10px] text-[#6b7280]">{new Date(reply.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+                                                {isAuthenticated && user?.id === reply.user_id && (
+                                                  <button
+                                                    onClick={() => handleDeleteComment(reply.id)}
+                                                    className="ml-auto flex items-center gap-1 text-[10px] text-[#6b7280] hover:text-red-400 transition-colors"
+                                                  >
+                                                    <Trash2 className="w-3 h-3" strokeWidth={1.5} /> Delete
+                                                  </button>
+                                                )}
                                               </div>
                                               <p className="text-xs text-[#9ca3af] leading-relaxed mt-0.5">{reply.text}</p>
                                             </div>

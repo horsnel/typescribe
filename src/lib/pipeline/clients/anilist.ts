@@ -278,6 +278,23 @@ const POPULAR_QUERY = `
   }
 `;
 
+const AIRING_QUERY = `
+  query ($page: Int, $perPage: Int) {
+    Page(page: $page, perPage: $perPage) {
+      pageInfo {
+        total
+        currentPage
+        lastPage
+        hasNextPage
+        perPage
+      }
+      media(type: ANIME, isAdult: false, status: RELEASING, sort: POPULARITY_DESC) {
+        ${MEDIA_FRAGMENT}
+      }
+    }
+  }
+`;
+
 // ─── Raw Fetch ───────────────────────────────────────────────────────────────
 
 async function anilistFetch<T>(
@@ -675,6 +692,40 @@ export async function getPopularAnime(limit: number = 10): Promise<AniListResult
     .filter((a) => a.coverImage?.large);
 
   log(`Popular → ${results.length} result(s) (${Date.now() - startTime}ms)`);
+  return results.slice(0, limit);
+}
+
+/**
+ * Get anime that is airing RIGHT NOW (status: RELEASING, sorted by popularity).
+ * Used by the homepage trending section so the list always reflects the
+ * current broadcast season instead of evergreen all-time hits.
+ * Returns up to `limit` results, filtering out entries with no cover image.
+ */
+export async function getAiringAnime(limit: number = 10): Promise<AniListResult[]> {
+  const cacheKey = `airing:${limit}`;
+  const startTime = Date.now();
+
+  const data = await anilistFetch<{
+    Page: {
+      pageInfo: { total: number; hasNextPage: boolean };
+      media: AniListMediaNode[];
+    };
+  }>(
+    AIRING_QUERY,
+    { page: 1, perPage: limit * 2 },
+    cacheKey,
+  );
+
+  if (!data?.Page?.media) {
+    warn('No airing anime results');
+    return [];
+  }
+
+  const results = data.Page.media
+    .map(transformMediaNode)
+    .filter((a) => a.coverImage?.large);
+
+  log(`Airing → ${results.length} result(s) (${Date.now() - startTime}ms)`);
   return results.slice(0, limit);
 }
 

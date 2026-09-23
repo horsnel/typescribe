@@ -9,17 +9,11 @@ const SOURCES = [
   { id: 'all', label: 'All Sources' },
   { id: 'youtube', label: 'YouTube' },
   { id: 'internet-archive', label: 'Archive.org' },
-  { id: 'blender-foundation', label: 'Blender' },
   { id: 'tubi', label: 'Tubi' },
   { id: 'pluto-tv', label: 'Pluto TV' },
   { id: 'bilibili', label: 'Bilibili' },
   { id: 'openflix', label: 'OpenFlix' },
-  { id: 'crunchyroll', label: 'Crunchyroll' },
-  { id: 'crackle', label: 'Crackle' },
   { id: 'plex-free', label: 'Plex' },
-  { id: 'vimeo-cc', label: 'Vimeo' },
-  { id: 'retrocrush', label: 'RetroCrush' },
-  { id: 'contv', label: 'CONtv' },
 ];
 
 const SORTS = [
@@ -86,8 +80,8 @@ export default function StreamPage() {
           <h1 className="text-4xl md:text-5xl font-extrabold mb-3">Watch Now</h1>
           <p className="text-[#9ca3af] text-base md:text-lg max-w-2xl">
             {movies.length > 0
-              ? 'Stream movies and shows from 14+ free streaming sources. No subscription required.'
-              : 'Loading the catalog from 14+ streaming sources…'}
+              ? 'Stream movies and shows from free, legal streaming sources — fetched live. No subscription required.'
+              : 'Loading the catalog from free streaming sources…'}
           </p>
         </div>
       </div>
@@ -127,7 +121,7 @@ export default function StreamPage() {
         {loading ? (
           <div className="flex flex-col items-center justify-center py-20">
             <Loader2 className="w-10 h-10 text-[#D4A853] animate-spin mb-4" />
-            <p className="text-[#9ca3af] text-sm">Loading catalog from 14+ sources…</p>
+            <p className="text-[#9ca3af] text-sm">Loading catalog from free streaming sources…</p>
           </div>
         ) : filtered.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 text-center">

@@ -7,7 +7,7 @@ import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-mo
 import {
   Heart, MessageSquare, Share2, Check, Send,
   Bookmark, BookmarkCheck, Flame, Zap, Crown,
-  ChevronDown, ChevronUp, MoreHorizontal,
+  ChevronDown, ChevronUp, MoreHorizontal, Trash2,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/lib/auth';
@@ -17,6 +17,7 @@ import {
   togglePostLike,
   getPostComments,
   addComment,
+  deleteComment,
   timeAgo,
 } from '@/lib/community-storage';
 
@@ -151,10 +152,11 @@ function HeartBurst({ active }: { active: boolean }) {
 
 // ─── Comment Thread (imported inline to avoid circular deps) ───
 
-function CommentThread({ comments, postId, onAddComment, depth = 0 }: {
+function CommentThread({ comments, postId, onAddComment, onDeleteComment, depth = 0 }: {
   comments: CommentData[];
   postId: string;
   onAddComment: (postId: string, parentId: string | null, content: string) => void;
+  onDeleteComment?: (commentId: string) => void;
   depth?: number;
 }) {
   const { user } = useAuth();
@@ -199,7 +201,17 @@ function CommentThread({ comments, postId, onAddComment, depth = 0 }: {
                   <span className="text-[10px] text-[#6b7280]">{timeAgo(comment.createdAt)}</span>
                 </div>
                 <p className="text-sm text-[#9ca3af] leading-relaxed">{comment.content}</p>
-                <button onClick={() => setReplyTo(replyTo === comment.id ? null : comment.id)} className="text-[10px] text-[#6b7280] hover:text-[#D4A853] mt-1 transition-colors">Reply</button>
+                <div className="flex items-center gap-3 mt-1">
+                  <button onClick={() => setReplyTo(replyTo === comment.id ? null : comment.id)} className="text-[10px] text-[#6b7280] hover:text-[#D4A853] transition-colors">Reply</button>
+                  {onDeleteComment && user && user.id === comment.authorId && (
+                    <button
+                      onClick={() => onDeleteComment(comment.id)}
+                      className="flex items-center gap-1 text-[10px] text-[#6b7280] hover:text-red-400 transition-colors"
+                    >
+                      <Trash2 className="w-3 h-3" strokeWidth={1.5} /> Delete
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
             <AnimatePresence>
@@ -215,7 +227,7 @@ function CommentThread({ comments, postId, onAddComment, depth = 0 }: {
                 </motion.div>
               )}
             </AnimatePresence>
-            {getReplies(comment.id).length > 0 && <CommentThread comments={getReplies(comment.id)} postId={postId} onAddComment={onAddComment} depth={depth + 1} />}
+            {getReplies(comment.id).length > 0 && <CommentThread comments={getReplies(comment.id)} postId={postId} onAddComment={onAddComment} onDeleteComment={onDeleteComment} depth={depth + 1} />}
           </motion.div>
         );
       })}
@@ -304,6 +316,14 @@ export default function PostCard({ post, communityId, onLikeToggle, onCommentTog
     }
     const newComment = addComment(postId, parentId, user.id, user.display_name || 'Anonymous', user.avatar || '', content);
     setComments(prev => [newComment, ...prev]);
+  };
+
+  // Delete one of the user's own comments (cascades to its replies).
+  const handleDeleteComment = (commentId: string) => {
+    if (!window.confirm('Delete this comment? Its replies will also be removed.')) return;
+    deleteComment(commentId);
+    // Re-read from storage — the cascade may have removed nested replies too.
+    setComments(getPostComments(post.id));
   };
 
   const onShare = async () => {
@@ -555,7 +575,7 @@ export default function PostCard({ post, communityId, onLikeToggle, onCommentTog
                 )}
 
                 {comments.length > 0 ? (
-                  <CommentThread comments={comments} postId={post.id} onAddComment={handleAddComment} />
+                  <CommentThread comments={comments} postId={post.id} onAddComment={handleAddComment} onDeleteComment={handleDeleteComment} />
                 ) : (
                   <p className="text-xs text-[#6b7280] text-center py-4">No comments yet. Be the first to share your thoughts!</p>
                 )}

@@ -76,7 +76,9 @@ export default function TrendingAnimeSection() {
   };
 
   useEffect(() => {
-    fetch('/api/anime/trending', { cache: 'no-store' })
+    // Uses the route's Cache-Control (10 min browser cache) — repeat visits
+    // render instantly without refetching.
+    fetch('/api/anime/trending')
       .then(res => res.ok ? res.json() : null)
       .then(data => {
         if (data?.movies?.length > 0) {

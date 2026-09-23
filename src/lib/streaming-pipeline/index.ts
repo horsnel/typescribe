@@ -7,33 +7,28 @@
  * - Different API routes (/api/streaming/* vs /api/pipeline/*)
  * - No shared database writes
  *
- * Architecture:
- *   Tier 1 (instant): Blender Foundation + Seed Data → return immediately
- *   Tier 2 (fast, <3s): Internet Archive, YouTube, Vimeo CC, YouTube Regional
- *   Tier 3 (slow, <5s): Tubi, Pluto TV, Bilibili, Plex Free, OpenFlix, Crunchyroll
+ * Architecture (all live data — no hardcoded/mock catalogs):
+ *   Tier 2 (fast, <3s): Internet Archive, YouTube, YouTube Regional
+ *   Tier 3 (slow, <5s): Tubi, Pluto TV, Bilibili, Plex Free, OpenFlix
  *   → Merge & Deduplicate → Build Categories → Cache → Response
  *
  * Progressive Loading:
- *   - getStreamingCatalogFast() returns Tier 1 + Tier 2 data quickly
+ *   - getStreamingCatalogFast() returns Tier 2 data quickly
  *   - getStreamingCatalogFull() returns everything (existing behavior)
- *   - getStreamingCatalog() returns cached data or seed data immediately,
+ *   - getStreamingCatalog() returns cached data or live Tier 2 data,
  *     then fetches the rest in the background
  */
 
 import type { StreamableMovie, StreamingCatalog, StreamingCategory } from './types';
 import { getCached, setCached, clearAllCached, getCacheStats } from './cache';
-import { getSeedMovies } from './seed';
-import { getBlenderMovies } from './sources/blender';
 import { fetchYouTubeFreeMovies, searchYouTubeFreeMovie, fetchYouTubeAnime } from './sources/youtube';
 import { fetchArchiveMovies, searchArchiveMovies, fetchArchiveAnime, searchArchiveAnime } from './sources/internet-archive';
 import { fetchYouTubeRegionalMovies, getRegionalConfigs } from './sources/youtube-regional';
-import { fetchVimeoCCMovies, searchVimeoCCMovies } from './sources/vimeo';
 import { fetchTubiMovies, searchTubiMovies } from './sources/tubi';
 import { fetchPlutoTVMovies, searchPlutoTVMovies } from './sources/pluto-tv';
 import { fetchBilibiliMovies, searchBilibiliMovies } from './sources/bilibili';
 import { fetchPlexFreeMovies, searchPlexFreeMovies } from './sources/plex-free';
 import { fetchOpenflixMovies, searchOpenflixMovies } from './sources/openflix';
-import { fetchCrunchyrollMovies, searchCrunchyrollMovies } from './sources/crunchyroll';
 
 // ─── Configuration ───────────────────────────────────────────────────────────
 
@@ -216,14 +211,6 @@ function buildCategories(movies: StreamableMovie[]): StreamingCategory[] {
     },
     // ─── Source-Specific Categories ───
     {
-      id: 'blender-cc',
-      label: 'Blender Open Movies',
-      icon: 'Film',
-      movieIds: movies
-        .filter(m => m.source === 'blender-foundation')
-        .map(m => m.id),
-    },
-    {
       id: 'archive-classics',
       label: 'Internet Archive Classics',
       icon: 'Film',
@@ -237,14 +224,6 @@ function buildCategories(movies: StreamableMovie[]): StreamingCategory[] {
       icon: 'Tv',
       movieIds: movies
         .filter(m => m.source === 'youtube')
-        .map(m => m.id),
-    },
-    {
-      id: 'vimeo-shorts',
-      label: 'Vimeo Animated Shorts',
-      icon: 'Clapperboard',
-      movieIds: movies
-        .filter(m => m.source === 'vimeo-cc')
         .map(m => m.id),
     },
     {
@@ -296,14 +275,6 @@ function buildCategories(movies: StreamableMovie[]): StreamingCategory[] {
       icon: 'Film',
       movieIds: movies
         .filter(m => m.source === 'openflix')
-        .map(m => m.id),
-    },
-    {
-      id: 'crunchyroll-anime',
-      label: 'Crunchyroll Anime',
-      icon: 'Tv',
-      movieIds: movies
-        .filter(m => m.source === 'crunchyroll')
         .map(m => m.id),
     },
     {
@@ -375,23 +346,10 @@ function deduplicateMovies(movies: StreamableMovie[]): StreamableMovie[] {
   return result;
 }
 
-// ─── Tier 1: Instant (no network) ────────────────────────────────────────────
-
-/**
- * Tier 1 sources: Blender (hardcoded) + seed data.
- * Returns immediately with no network calls.
- */
-function fetchTier1Movies(): StreamableMovie[] {
-  const blenderMovies = getBlenderMovies();
-  const seedMovies = getSeedMovies();
-  // Deduplicate — blender movies exist in both
-  return deduplicateMovies([...blenderMovies, ...seedMovies]);
-}
-
 // ─── Tier 2: Fast (<3s) ─────────────────────────────────────────────────────
 
 /**
- * Tier 2 sources: Internet Archive, YouTube, Vimeo CC, YouTube Regional.
+ * Tier 2 sources: Internet Archive, YouTube, YouTube Regional.
  * These are generally fast APIs that respond within 3 seconds.
  */
 async function fetchTier2Movies(): Promise<StreamableMovie[]> {
@@ -411,11 +369,9 @@ async function fetchTier2Movies(): Promise<StreamableMovie[]> {
     // YouTube Regional (requires YOUTUBE_API_KEY)
     withTimeout(fetchYouTubeRegionalMovies(), TIER2_TIMEOUT),
 
-    // Vimeo CC (verified CC-licensed videos)
-    withTimeout(fetchVimeoCCMovies(), TIER2_TIMEOUT),
   ]);
 
-  const sourceNames = ['Archive-Movies', 'Archive-Anime', 'YouTube', 'YouTube-Anime', 'YouTube-Regional', 'Vimeo-CC'];
+  const sourceNames = ['Archive-Movies', 'Archive-Anime', 'YouTube', 'YouTube-Anime', 'YouTube-Regional'];
   const allMovies: StreamableMovie[] = [];
   for (let i = 0; i < results.length; i++) {
     const result = results[i];
@@ -452,11 +408,9 @@ async function fetchTier3Movies(): Promise<StreamableMovie[]> {
     // OpenFlix (Archive.org based, direct play)
     withTimeout(fetchOpenflixMovies(), SOURCE_TIMEOUT),
 
-    // Crunchyroll (curated anime, linkout)
-    withTimeout(fetchCrunchyrollMovies(), SOURCE_TIMEOUT),
   ]);
 
-  const sourceNames = ['Tubi', 'PlutoTV', 'Bilibili', 'Plex-Free', 'OpenFlix', 'Crunchyroll'];
+  const sourceNames = ['Tubi', 'PlutoTV', 'Bilibili', 'Plex-Free', 'OpenFlix'];
   const allMovies: StreamableMovie[] = [];
   for (let i = 0; i < results.length; i++) {
     const result = results[i];
@@ -478,13 +432,12 @@ async function fetchTier3Movies(): Promise<StreamableMovie[]> {
  * NO mock data fallback — all data comes from real APIs.
  */
 async function fetchAllMovies(): Promise<StreamableMovie[]> {
-  const tier1 = fetchTier1Movies();
   const [tier2, tier3] = await Promise.all([
     fetchTier2Movies(),
     fetchTier3Movies(),
   ]);
 
-  return deduplicateMovies([...tier1, ...tier2, ...tier3]);
+  return deduplicateMovies([...tier2, ...tier3]);
 }
 
 // ─── Public API ──────────────────────────────────────────────────────────────
@@ -499,9 +452,8 @@ export async function getStreamingCatalogFast(): Promise<StreamingCatalog> {
   const cached = await getCached<StreamingCatalog>(cacheKey);
   if (cached) return cached;
 
-  const tier1 = fetchTier1Movies();
   const tier2 = await fetchTier2Movies();
-  const movies = deduplicateMovies([...tier1, ...tier2]);
+  const movies = deduplicateMovies([...tier2]);
   const categories = buildCategories(movies);
 
   const catalog: StreamingCatalog = {
@@ -557,7 +509,7 @@ export async function getStreamingCatalogFull(): Promise<StreamingCatalog> {
  *
  * Strategy:
  * 1. If cached catalog exists → return immediately
- * 2. If no cache → return seed data (Tier 1) immediately, then
+ * 2. If no cache → fetch live Tier 2 data now, then
  *    trigger a background refresh to populate the full catalog
  * 3. Next request will get the cached full catalog
  */
@@ -572,20 +524,10 @@ export async function getStreamingCatalog(): Promise<StreamingCatalog> {
   const fastCached = await getCached<StreamingCatalog>(fastCacheKey);
   if (fastCached) return fastCached;
 
-  // No cache — return seed data immediately and trigger background refresh
-  const seedMovies = getSeedMovies();
-  const seedCategories = buildCategories(seedMovies);
-
-  const seedCatalog: StreamingCatalog = {
-    movies: seedMovies,
-    categories: seedCategories,
-    lastUpdated: new Date().toISOString(),
-  };
-
-  // Trigger background refresh (non-blocking)
+  // No cache — fetch live Tier 2 data now (fast) and refresh the full
+  // catalog (Tier 3) in the background. No hardcoded seed fillers.
   triggerBackgroundRefresh();
-
-  return seedCatalog;
+  return getStreamingCatalogFast();
 }
 
 /**
@@ -620,11 +562,6 @@ export async function getStreamingMovie(id: string): Promise<StreamableMovie | n
   const cached = await getCached<StreamableMovie>(cacheKey);
   if (cached) return cached;
 
-  // Check seed data
-  const seedMovies = getSeedMovies();
-  const seedMovie = seedMovies.find(m => m.id === id);
-  if (seedMovie) return seedMovie;
-
   // Fast-path: try to resolve from individual sources based on ID prefix
   try {
     const fastMovie = await resolveMovieFromId(id);
@@ -645,18 +582,6 @@ export async function getStreamingMovie(id: string): Promise<StreamableMovie | n
  * Fast-path: resolve a movie from its ID by looking up just the relevant source.
  */
 async function resolveMovieFromId(id: string): Promise<StreamableMovie | null> {
-  // Blender movies (hardcoded, instant)
-  if (id.startsWith('blender-')) {
-    const blenderMovies = getBlenderMovies();
-    return blenderMovies.find(m => m.id === id) || null;
-  }
-
-  // Vimeo CC
-  if (id.startsWith('vimeo-')) {
-    const vimeoMovies = await fetchVimeoCCMovies();
-    return vimeoMovies.find(m => m.id === id) || null;
-  }
-
   // Tubi
   if (id.startsWith('tubi-')) {
     const tubiMovies = await fetchTubiMovies();
@@ -703,12 +628,6 @@ async function resolveMovieFromId(id: string): Promise<StreamableMovie | null> {
     return regionalMovies.find(m => m.id === id) || null;
   }
 
-  // Crunchyroll (curated anime)
-  if (id.startsWith('crunchyroll-')) {
-    const crunchyrollMovies = await fetchCrunchyrollMovies();
-    return crunchyrollMovies.find(m => m.id === id) || null;
-  }
-
   return null;
 }
 
@@ -750,13 +669,11 @@ export async function searchStreamingMovies(query: string): Promise<StreamableMo
     searchYouTubeFreeMovie(query),
     searchArchiveMovies(query),
     searchArchiveAnime(query),
-    searchVimeoCCMovies(query),
     searchTubiMovies(query),
     searchPlutoTVMovies(query),
     searchBilibiliMovies(query),
     searchPlexFreeMovies(query),
     searchOpenflixMovies(query),
-    searchCrunchyrollMovies(query),
   ]);
 
   for (const result of apiSearches) {
@@ -822,19 +739,16 @@ export async function getSimilarStreamingMovies(movieId: string, limit: number =
  */
 export function getStreamingPipelineStatus(): {
   sources: {
-    blender: boolean;
     internetArchive: boolean;
     internetArchiveAnime: boolean;
     youtube: boolean;
     youtubeAnime: boolean;
     youtubeRegional: boolean;
-    vimeoCC: boolean;
     tubi: boolean;
     plutoTV: boolean;
     bilibili: boolean;
     plexFree: boolean;
     openflix: boolean;
-    crunchyroll: boolean;
   };
   cache: {
     size: number;
@@ -845,19 +759,16 @@ export function getStreamingPipelineStatus(): {
   const stats = getCacheStats();
   return {
     sources: {
-      blender: true, // Always available (real CC videos)
       internetArchive: true, // Always available (no API key needed)
       internetArchiveAnime: true, // Always available (no API key needed)
       youtube: !!(process.env.YOUTUBE_API_KEY || process.env.NEXT_PUBLIC_YOUTUBE_API_KEY),
       youtubeAnime: !!(process.env.YOUTUBE_API_KEY || process.env.NEXT_PUBLIC_YOUTUBE_API_KEY),
       youtubeRegional: !!(process.env.YOUTUBE_API_KEY || process.env.NEXT_PUBLIC_YOUTUBE_API_KEY),
-      vimeoCC: true, // Always available (verified CC videos)
       tubi: true, // Always available (public API)
       plutoTV: true, // Always available (public API)
       bilibili: true, // Always available (public API)
       plexFree: true, // Always available (public API)
       openflix: true, // Always available (Archive.org based)
-      crunchyroll: true, // Always available (curated anime linkouts)
     },
     cache: {
       size: stats.size,

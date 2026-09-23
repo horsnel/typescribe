@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState, useMemo, useCallback } from 'react';
 import Link from 'next/link';
-import { ArrowUpRight, ArrowLeft, Clock, Newspaper, Loader2, MessageCircle, Send, User } from 'lucide-react';
+import { ArrowUpRight, ArrowLeft, Clock, Newspaper, Loader2, MessageCircle, Send, User, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { handleImageError } from '@/lib/utils';
 
@@ -52,6 +52,16 @@ function saveComment(articleId: number, comment: Comment): void {
     const key = String(articleId);
     if (!all[key]) all[key] = [];
     all[key].unshift(comment);
+    localStorage.setItem(COMMENTS_KEY, JSON.stringify(all));
+  } catch { /* ignore */ }
+}
+
+function deleteComment(articleId: number, commentId: string): void {
+  try {
+    const data = localStorage.getItem(COMMENTS_KEY);
+    const all: Record<string, Comment[]> = data ? JSON.parse(data) : {};
+    const key = String(articleId);
+    all[key] = (all[key] || []).filter((c) => c.id !== commentId);
     localStorage.setItem(COMMENTS_KEY, JSON.stringify(all));
   } catch { /* ignore */ }
 }
@@ -190,6 +200,13 @@ export default function NewsPage() {
     setCommentSubmitting(false);
   }, [commentText, selectedArticle]);
 
+  const handleDeleteComment = useCallback((commentId: string) => {
+    if (!selectedArticle) return;
+    if (!window.confirm('Delete this comment? This cannot be undone.')) return;
+    deleteComment(selectedArticle.id, commentId);
+    setComments((prev) => prev.filter((c) => c.id !== commentId));
+  }, [selectedArticle]);
+
   // ─── Full Article View ───
   if (selectedArticle) {
     const originalItem = articles.find((n) => n.id === selectedArticle.id);
@@ -315,6 +332,13 @@ export default function NewsPage() {
                           </div>
                           <span className="text-sm font-medium text-white">{comment.author}</span>
                           <span className="text-xs text-[#6b7280]">{formatTimeAgo(comment.createdAt)}</span>
+                          <button
+                            onClick={() => handleDeleteComment(comment.id)}
+                            className="ml-auto flex items-center gap-1 text-xs text-[#6b7280] hover:text-red-400 transition-colors"
+                            aria-label="Delete comment"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" strokeWidth={1.5} /> Delete
+                          </button>
                         </div>
                         <p className="text-sm text-[#9ca3af] leading-relaxed pl-10">{comment.text}</p>
                       </div>

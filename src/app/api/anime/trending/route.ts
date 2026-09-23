@@ -12,6 +12,9 @@ import type { Movie } from '@/lib/types';
 // Maximum time (ms) to wait for any single API source before moving on
 const SOURCE_TIMEOUT = 8_000;
 
+// Browser/CDN cache — 10 min fresh, then serve stale up to 1 hour while revalidating
+const ANIME_CACHE_CONTROL = 'public, max-age=600, stale-while-revalidate=3600';
+
 function jikanToMovie(a: any): Movie {
   const title = a.titleEnglish || a.title || 'Unknown';
   return {
@@ -109,36 +112,56 @@ export async function GET() {
   try {
     const movies: Movie[] = [];
     const sources: string[] = [];
+    const seen = new Set<string>();
+    const TARGET_COUNT = 12;
 
-    // ── Strategy: Try AniList trending first (most reliable, always has images),
-    //    then Jikan seasonal, then Jikan top, then AniList popular, then mock.
-    //    AniList is prioritized because it has no rate-limit issues and always
-    //    returns cover images. Jikan is kept as secondary because it often has
-    //    downtime (500 errors).
-
-    // 1. Try AniList trending (proper TRENDING_DESC sort)
-    try {
-      const trending = await Promise.race([
-        AniList.getTrendingAnime(10),
-        new Promise<null>((_, rej) => setTimeout(() => rej(new Error('timeout')), SOURCE_TIMEOUT)),
-      ]) as Awaited<ReturnType<typeof AniList.getTrendingAnime>> | null;
-      if (trending && trending.length > 0) {
-        sources.push('AniList');
-        for (const a of trending.slice(0, 8)) {
-          const movie = anilistToMovie(a);
-          if (movie.poster_path) movies.push(movie); // Only include if we have an image
-        }
+    const pushUnique = (movie: Movie) => {
+      const key = movie.title.toLowerCase();
+      if (movie.poster_path && !seen.has(key)) {
+        movies.push(movie);
+        seen.add(key);
       }
-    } catch (err: any) {
-      console.warn('[API /anime/trending] AniList trending failed:', err?.message || err);
+    };
+
+    // ── Strategy: fetch what's AIRING NOW (current broadcast season) and
+    //    what's TRENDING globally in parallel, then interleave them so the
+    //    section always reflects fresh, currently-updating anime followed by
+    //    wider trending hits. Jikan seasonal/top and AniList popular remain
+    //    as fallbacks if AniList fails.
+
+    const [trendingRes, airingRes] = await Promise.allSettled([
+      Promise.race([
+        AniList.getTrendingAnime(16),
+        new Promise<null>((_, rej) => setTimeout(() => rej(new Error('timeout')), SOURCE_TIMEOUT)),
+      ]),
+      Promise.race([
+        AniList.getAiringAnime(12),
+        new Promise<null>((_, rej) => setTimeout(() => rej(new Error('timeout')), SOURCE_TIMEOUT)),
+      ]),
+    ]);
+
+    const trending = trendingRes.status === 'fulfilled' ? trendingRes.value ?? [] : [];
+    const airing = airingRes.status === 'fulfilled' ? airingRes.value ?? [] : [];
+
+    if (airing.length > 0) sources.push('AniList-Airing');
+    if (trending.length > 0) sources.push('AniList');
+
+    // Interleave: alternate airing / trending entries (dedupe by title).
+    const maxLen = Math.max(airing.length, trending.length);
+    for (let i = 0; i < maxLen; i++) {
+      if (airing[i]) pushUnique(anilistToMovie(airing[i]));
+      if (trending[i]) pushUnique(anilistToMovie(trending[i]));
+      if (movies.length >= TARGET_COUNT) break;
     }
 
-    // If we got enough from AniList trending, return early
-    if (movies.length >= 6) {
-      return NextResponse.json({ movies: movies.slice(0, 8), sources, totalResults: movies.length });
+    // If we got enough from AniList, return early
+    if (movies.length >= TARGET_COUNT) {
+      const res = NextResponse.json({ movies: movies.slice(0, TARGET_COUNT), sources, totalResults: movies.length });
+      res.headers.set('Cache-Control', ANIME_CACHE_CONTROL);
+      return res;
     }
 
-    // 2. Try Jikan current season
+    // 2. Fallback: Jikan current season
     try {
       const seasonal = await Promise.race([
         getCurrentSeason('tv'),
@@ -146,21 +169,19 @@ export async function GET() {
       ]) as Awaited<ReturnType<typeof getCurrentSeason>> | null;
       if (seasonal && seasonal.length > 0) {
         if (!sources.includes('Jikan')) sources.push('Jikan');
-        const existingTitles = new Set(movies.map(m => m.title.toLowerCase()));
         for (const a of seasonal.slice(0, 10)) {
-          const movie = jikanToMovie(a);
-          if (movie.poster_path && !existingTitles.has(movie.title.toLowerCase())) {
-            movies.push(movie);
-            existingTitles.add(movie.title.toLowerCase());
-          }
+          if (movies.length >= TARGET_COUNT) break;
+          pushUnique(jikanToMovie(a));
         }
       }
     } catch (err: any) {
       console.warn('[API /anime/trending] Jikan seasonal failed:', err?.message || err);
     }
 
-    if (movies.length >= 6) {
-      return NextResponse.json({ movies: movies.slice(0, 8), sources, totalResults: movies.length });
+    if (movies.length >= TARGET_COUNT) {
+      const res = NextResponse.json({ movies: movies.slice(0, TARGET_COUNT), sources, totalResults: movies.length });
+      res.headers.set('Cache-Control', ANIME_CACHE_CONTROL);
+      return res;
     }
 
     // 3. Fallback: Jikan top anime
@@ -171,36 +192,30 @@ export async function GET() {
       ]) as Awaited<ReturnType<typeof getTopAnime>> | null;
       if (top && top.length > 0) {
         if (!sources.includes('Jikan')) sources.push('Jikan');
-        const existingTitles = new Set(movies.map(m => m.title.toLowerCase()));
         for (const a of top.slice(0, 10)) {
-          const movie = jikanToMovie(a);
-          if (movie.poster_path && !existingTitles.has(movie.title.toLowerCase())) {
-            movies.push(movie);
-            existingTitles.add(movie.title.toLowerCase());
-          }
+          if (movies.length >= TARGET_COUNT) break;
+          pushUnique(jikanToMovie(a));
         }
       }
     } catch (err: any) {
       console.warn('[API /anime/trending] Jikan top failed:', err?.message || err);
     }
 
-    if (movies.length >= 6) {
-      return NextResponse.json({ movies: movies.slice(0, 8), sources, totalResults: movies.length });
+    if (movies.length >= TARGET_COUNT) {
+      const res = NextResponse.json({ movies: movies.slice(0, TARGET_COUNT), sources, totalResults: movies.length });
+      res.headers.set('Cache-Control', ANIME_CACHE_CONTROL);
+      return res;
     }
 
     // 4. Fallback: AniList popular (POPULARITY_DESC sort)
     if (movies.length < 4) {
       try {
-        const popular = await AniList.getPopularAnime(10);
+        const popular = await AniList.getPopularAnime(12);
         if (popular && popular.length > 0) {
           if (!sources.includes('AniList')) sources.push('AniList');
-          const existingTitles = new Set(movies.map(m => m.title.toLowerCase()));
-          for (const a of popular.slice(0, 8)) {
-            const movie = anilistToMovie(a);
-            if (movie.poster_path && !existingTitles.has(movie.title.toLowerCase())) {
-              movies.push(movie);
-              existingTitles.add(movie.title.toLowerCase());
-            }
+          for (const a of popular) {
+            if (movies.length >= TARGET_COUNT) break;
+            pushUnique(anilistToMovie(a));
           }
         }
       } catch (err: any) {
@@ -212,21 +227,25 @@ export async function GET() {
     // return an empty list rather than fake mock entries. The UI shows
     // a "No trending anime available right now" empty state.
     if (movies.length === 0) {
-      return NextResponse.json({
+      const res = NextResponse.json({
         movies: [],
         sources,
         totalResults: 0,
       });
+      res.headers.set('Cache-Control', ANIME_CACHE_CONTROL);
+      return res;
     }
 
     // Final safety net: filter out any entries with no poster image
     const validMovies = movies.filter(m => m.poster_path && m.poster_path.trim() !== '');
 
-    return NextResponse.json({
-      movies: validMovies.slice(0, 8),
+    const res = NextResponse.json({
+      movies: validMovies.slice(0, TARGET_COUNT),
       sources,
       totalResults: validMovies.length,
     });
+    res.headers.set('Cache-Control', ANIME_CACHE_CONTROL);
+    return res;
   } catch (error: any) {
     console.error('[API /anime/trending] Error:', error);
     return NextResponse.json(

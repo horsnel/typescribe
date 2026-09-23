@@ -14,13 +14,9 @@ export const maxDuration = 60;
  * movie IDs containing dots (e.g., "archive-movie.avi").
  *
  * Supported IDs:
- *   - blender-big-buck-bunny
- *   - blender-sintel
- *   - blender-tears-of-steel
- *   - blender-elephants-dream
- *   - blender-spring
  *   - archive-{identifier}
  *   - youtube-{videoId}
+ *   - tubi-*, plutotv-*, bilibili-*, plex-*, openflix-*
  */
 export const revalidate = 86400; // Cache for 24 hours at the Next.js level
 
