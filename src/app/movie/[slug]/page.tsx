@@ -107,8 +107,10 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
       setEnriching(false);
     }, 30_000);
 
-    // Phase 1: Fast fetch — returns TMDb data immediately (~2-3s)
-    fetch(`/api/movies/slug/${slug}`, { signal: controller.signal, cache: 'no-store' as RequestCache })
+    // Phase 1: Fast fetch — returns TMDb data immediately (~2-3s).
+    // Uses default browser caching — the API sets Cache-Control so repeat
+    // navigations render instantly from the HTTP cache.
+    fetch(`/api/movies/slug/${slug}`, { signal: controller.signal })
       .then(res => res.ok ? res.json() : null)
       .then(data => {
         if (data?.movie) {
@@ -401,9 +403,10 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
     if (!movie) return;
     const tmdbId = movie.tmdb_id || movie.id;
     const mediaType = movie.media_type === 'tv' || movie.media_type === 'anime' ? 'tv' : 'movie';
+    const recsController = new AbortController();
 
-    // Phase 1: Fast TMDb recommendations
-    fetch(`/api/movies/${tmdbId}/recommendations?type=${mediaType}`, { cache: 'no-store' })
+    // Phase 1: Fast TMDb recommendations (browser-cached — instant on revisit)
+    fetch(`/api/movies/${tmdbId}/recommendations?type=${mediaType}`, { signal: recsController.signal })
       .then(res => res.ok ? res.json() : null)
       .then(data => {
         if (data?.recommendations && data.recommendations.length > 0) {
@@ -412,7 +415,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
         }
 
         // Phase 2: Enrich with Letterboxd, RT, AniList, Jikan in background
-        fetch(`/api/movies/${tmdbId}/recommendations?type=${mediaType}&enriched=true`, { cache: 'no-store' })
+        fetch(`/api/movies/${tmdbId}/recommendations?type=${mediaType}&enriched=true`, { cache: 'no-store', signal: recsController.signal })
           .then(res => res.ok ? res.json() : null)
           .then(enrichedData => {
             if (enrichedData?.recommendations && enrichedData.recommendations.length > 0) {
@@ -423,6 +426,8 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
           .catch(() => { /* enrichment failed, keep fast data */ });
       })
       .catch(() => { /* ignore — section simply won't show */ });
+
+    return () => recsController.abort();
   }, [movie]);
 
   const saveComments = (updated: LocalComment[]) => {
@@ -1571,11 +1576,101 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
 
           {/* ─── Right Sidebar ─── */}
           <div className="space-y-6">
+            {/* Trailer — FIRST in sidebar, thumbnail ready to be clicked. Priority: TMDb YouTube > iTunes Preview */}
+            <div className="content-animate bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5">
+              <h3 className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider mb-4">Trailer</h3>
+              {(() => {
+                const hasYouTubeId = !!movie.trailer_youtube_id;
+                const hasITunesPreview = !!movie.itunes_preview_url;
+
+                if (!hasYouTubeId && !hasITunesPreview) {
+                  if (trailerSearching) {
+                    return (
+                      <div className="w-full aspect-video bg-[#050507] rounded-lg flex items-center justify-center border border-[#1e1e28]">
+                        <div className="text-center">
+                          <Loader2 className="w-8 h-8 text-[#D4A853] mx-auto mb-2 animate-spin" strokeWidth={1.5} />
+                          <span className="text-xs text-[#6b7280]">Searching for trailer...</span>
+                        </div>
+                      </div>
+                    );
+                  }
+                  return (
+                    <div className="w-full aspect-video bg-[#050507] rounded-lg flex items-center justify-center border border-[#1e1e28]">
+                      <div className="text-center">
+                        <Play className="w-8 h-8 text-[#2a2a35] mx-auto mb-2" strokeWidth={1.5} />
+                        <span className="text-xs text-[#6b7280]">No trailer available</span>
+                      </div>
+                    </div>
+                  );
+                }
+
+                // Determine thumbnail image
+                const thumbnailUrl = hasYouTubeId
+                  ? `https://img.youtube.com/vi/${movie.trailer_youtube_id}/maxresdefault.jpg`
+                  : movie.itunes_artwork_url || '';
+
+                const sourceLabel = hasYouTubeId
+                  ? 'Watch Trailer'
+                  : 'Watch Preview';
+
+                return (
+                  <button
+                    onClick={() => setTrailerOpen(true)}
+                    className="w-full aspect-video bg-[#050507] rounded-lg flex items-center justify-center border border-[#1e1e28] hover:border-[#D4A853]/60 transition-all group relative overflow-hidden cursor-pointer"
+                    aria-label={`Play ${movie.title} trailer`}
+                  >
+                    {thumbnailUrl && (
+                      <img
+                        src={thumbnailUrl}
+                        alt={`${movie.title} trailer thumbnail`}
+                        loading="eager"
+                        fetchPriority="high"
+                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-300"
+                        onError={(e) => {
+                          const img = e.target as HTMLImageElement;
+                          // maxresdefault may 404 for some videos — fall back to hqdefault
+                          if (img.src.includes('maxresdefault')) {
+                            img.src = `https://img.youtube.com/vi/${movie.trailer_youtube_id}/hqdefault.jpg`;
+                          } else {
+                            img.style.display = 'none';
+                          }
+                        }}
+                      />
+                    )}
+                    {/* Subtle bottom gradient for label readability */}
+                    <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent" />
+                    {/* Centered play button — video-thumbnail style */}
+                    <div className="absolute inset-0 flex items-center justify-center z-10">
+                      <div className="w-16 h-11 rounded-lg bg-[#D4A853] flex items-center justify-center shadow-lg shadow-black/50 group-hover:scale-110 transition-transform duration-200">
+                        <Play className="w-6 h-6 text-black fill-black ml-0.5" strokeWidth={1.5} />
+                      </div>
+                    </div>
+                    <span className="absolute bottom-2 left-3 z-10 text-xs text-white/90 font-medium">
+                      {sourceLabel}
+                      {!hasYouTubeId && hasITunesPreview && (
+                        <span className="ml-1.5 text-[10px] text-white/50">30-sec</span>
+                      )}
+                    </span>
+                  </button>
+                );
+              })()}
+            </div>
+
+            {/* Trailer Modal — full-screen with blurry backdrop */}
+            <TrailerModal
+              isOpen={trailerOpen}
+              onClose={() => setTrailerOpen(false)}
+              youtubeId={movie.trailer_youtube_id || undefined}
+              itunesPreviewUrl={movie.itunes_preview_url || undefined}
+              itunesArtworkUrl={movie.itunes_artwork_url || undefined}
+              title={movie.title}
+            />
+
             {/* Movie Info Card */}
             <div className="content-animate bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5">
               <h3 className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider mb-4">Movie Info</h3>
 
-              <div className="w-full aspect-video rounded-lg overflow-hidden mb-5 border border-[#1e1e28]/50">
+              <div className="w-full aspect-[2/3] max-w-[240px] mx-auto rounded-lg overflow-hidden mb-5 border border-[#1e1e28]/50">
                 <img src={movie.poster_path?.startsWith('http') ? movie.poster_path : movie.poster_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : movie.poster_path || ''} alt={movie.title} className="w-full h-full object-cover" onError={(e) => { const img = e.target as HTMLImageElement; img.src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 750"><rect fill="%230c0c10" width="500" height="750"/></svg>'); }} />
               </div>
 
@@ -1740,85 +1835,6 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                 </div>
               );
             })()}
-
-            {/* Trailer — Priority: TMDb YouTube > iTunes Preview > YouTube Embed */}
-            <div className="content-animate bg-[#0c0c10] border border-[#1e1e28] rounded-xl p-5">
-              <h3 className="text-xs font-semibold text-[#6b7280] uppercase tracking-wider mb-4">Trailer</h3>
-              {(() => {
-                const hasYouTubeId = !!movie.trailer_youtube_id;
-                const hasITunesPreview = !!movie.itunes_preview_url;
-
-                if (!hasYouTubeId && !hasITunesPreview) {
-                  if (trailerSearching) {
-                    return (
-                      <div className="w-full aspect-video bg-[#050507] rounded-lg flex items-center justify-center border border-[#1e1e28]">
-                        <div className="text-center">
-                          <Loader2 className="w-8 h-8 text-[#D4A853] mx-auto mb-2 animate-spin" strokeWidth={1.5} />
-                          <span className="text-xs text-[#6b7280]">Searching for trailer...</span>
-                        </div>
-                      </div>
-                    );
-                  }
-                  return (
-                    <div className="w-full aspect-video bg-[#050507] rounded-lg flex items-center justify-center border border-[#1e1e28]">
-                      <div className="text-center">
-                        <Play className="w-8 h-8 text-[#2a2a35] mx-auto mb-2" strokeWidth={1.5} />
-                        <span className="text-xs text-[#6b7280]">No trailer available</span>
-                      </div>
-                    </div>
-                  );
-                }
-
-                // Determine thumbnail image
-                const thumbnailUrl = hasYouTubeId
-                  ? `https://img.youtube.com/vi/${movie.trailer_youtube_id}/hqdefault.jpg`
-                  : movie.itunes_artwork_url || '';
-
-                const sourceLabel = hasYouTubeId
-                  ? 'YouTube Trailer'
-                  : 'iTunes Preview';
-
-                return (
-                  <button
-                    onClick={() => setTrailerOpen(true)}
-                    className="w-full aspect-video bg-[#050507] rounded-lg flex items-center justify-center border border-[#1e1e28] hover:border-[#D4A853]/40 transition-all group relative overflow-hidden cursor-pointer"
-                  >
-                    {thumbnailUrl && (
-                      <img
-                        src={thumbnailUrl}
-                        alt={`${movie.title} trailer thumbnail`}
-                        className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-[1.02] transition-all duration-300"
-                        onError={(e) => {
-                          // Hide broken thumbnail, fall back to play button only
-                          (e.target as HTMLImageElement).style.display = 'none';
-                        }}
-                      />
-                    )}
-                    {/* Gradient overlay for readability */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                    <div className="text-center relative z-10">
-                      <div className="w-14 h-14 rounded-full bg-[#D4A853]/20 backdrop-blur-sm flex items-center justify-center mx-auto mb-2 group-hover:bg-[#D4A853]/30 group-hover:scale-110 transition-all duration-300">
-                        <Play className="w-6 h-6 text-[#D4A853] fill-[#D4A853]" strokeWidth={1.5} />
-                      </div>
-                      <span className="text-sm text-white/80 font-medium">{sourceLabel}</span>
-                      {!hasYouTubeId && hasITunesPreview && (
-                        <span className="block text-[10px] text-white/50 mt-1">30-sec preview</span>
-                      )}
-                    </div>
-                  </button>
-                );
-              })()}
-            </div>
-
-            {/* Trailer Modal — full-screen with blurry backdrop */}
-            <TrailerModal
-              isOpen={trailerOpen}
-              onClose={() => setTrailerOpen(false)}
-              youtubeId={movie.trailer_youtube_id || undefined}
-              itunesPreviewUrl={movie.itunes_preview_url || undefined}
-              itunesArtworkUrl={movie.itunes_artwork_url || undefined}
-              title={movie.title}
-            />
 
             {/* News Headlines */}
             {movie.news_headlines.length > 0 && (

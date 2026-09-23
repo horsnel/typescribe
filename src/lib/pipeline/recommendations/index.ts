@@ -42,11 +42,25 @@ interface RecommendationEntry {
 const SOURCE_WEIGHTS: Record<string, number> = {
   tmdb_recommendations: 1.5,   // TMDb's curated recs are solid
   tmdb_similar: 1.2,          // Similar based on metadata
+  tmdb_discover: 1.0,         // Region backfill (same-language discover)
   letterboxd: 2.0,            // Cinephile taste — highest quality signal
   rottentomatoes: 1.3,        // Critic consensus driven
   anilist: 1.5,               // Anime community curated
   jikan: 1.3,                 // MAL community curated
 };
+
+// ─── Source Context (for region-aware filtering) ───────────────────────────
+
+export interface SourceInfo {
+  /** TMDb original_language of the movie being viewed (e.g. 'hi', 'ta', 'ja', 'en') */
+  language?: string;
+  /** Primary origin country of the source (TV only — e.g. 'IN') */
+  country?: string;
+  /** Release year of the source — used for a recency-proximity ranking boost */
+  year?: number;
+  /** Primary genre TMDb id — used for region backfill discover queries */
+  primaryGenreId?: number;
+}
 
 // ─── Title-to-TMDb Resolver ─────────────────────────────────────────────────
 
@@ -107,17 +121,35 @@ async function resolveTitleToTmdb(
   }
 }
 
-// ─── Merge & Rank ────────────────────────────────────────────────────────────
+// ─── Merge & Rank ────────────────────────────────────────────────────────---
 
-function mergeAndRank(entries: Map<number, RecommendationEntry>): Movie[] {
-  // Sort by composite score (source weight × number of sources)
-  const sorted = [...entries.values()].sort((a, b) => b.score - a.score);
+function mergeAndRank(
+  entries: Map<number, RecommendationEntry>,
+  regionFilter?: (m: Movie) => boolean,
+  sourceYear?: number,
+): Movie[] {
+  const yearOf = (m: Movie) => {
+    const y = parseInt(m.release_date?.split('-')[0] ?? '', 10);
+    return Number.isFinite(y) ? y : NaN;
+  };
+
+  // Sort by composite score (source weight × number of sources + recency boost)
+  const ranked = [...entries.values()]
+    .filter((e) => e.movie.poster_path)
+    .filter((e) => !regionFilter || regionFilter(e.movie))
+    .map((e) => {
+      let score = e.score;
+      // Small boost for releases within ±2 years of the source title
+      const y = yearOf(e.movie);
+      if (sourceYear && Number.isFinite(y) && Math.abs(y - sourceYear) <= 2) {
+        score += 0.4;
+      }
+      return { ...e, score };
+    })
+    .sort((a, b) => b.score - a.score);
 
   // Return top 8 with poster images
-  return sorted
-    .filter((e) => e.movie.poster_path)
-    .slice(0, 8)
-    .map((e) => e.movie);
+  return ranked.slice(0, 8).map((e) => e.movie);
 }
 
 // ─── Main Pipeline ───────────────────────────────────────────────────────────
@@ -128,20 +160,39 @@ function mergeAndRank(entries: Map<number, RecommendationEntry>): Movie[] {
  * Strategy:
  *   Phase 1 (fast ~2-3s): TMDb recommendations + similar
  *   Phase 2 (enrichment ~5-15s): Letterboxd + RT + anime sources
+ *   Phase 3 (region backfill): same-language discover query when the
+ *     region filter leaves fewer than 8 candidates
+ *
+ * Region awareness: when the source title's original language is known and
+ * is NOT English, every recommendation must match that language (or origin
+ * country for TV). This guarantees, e.g., an Indian film never gets American
+ * movies recommended under it.
  *
  * @param tmdbId - TMDb movie/TV ID
  * @param movieTitle - Movie title for scraper lookups
  * @param mediaType - 'movie' or 'tv' or 'anime'
  * @param enriched - If true, run all sources. If false, TMDb only.
+ * @param sourceInfo - Language/country/year/genre context of the source title
  */
 export async function getRecommendations(
   tmdbId: number,
   movieTitle?: string,
   mediaType: 'movie' | 'tv' | 'anime' = 'movie',
   enriched: boolean = true,
+  sourceInfo?: SourceInfo,
 ): Promise<{ recommendations: Movie[]; sources: string[] }> {
   const entries = new Map<number, RecommendationEntry>();
   const usedSources: string[] = [];
+
+  // ── Region-aware filter setup ──
+  const sourceLanguage = sourceInfo?.language;
+  const needsRegionFilter = !!sourceLanguage && sourceLanguage !== 'en';
+  const passesRegion = (m: Movie): boolean => {
+    if (!needsRegionFilter) return true;
+    if (m.original_language && m.original_language === sourceLanguage) return true;
+    if (sourceInfo?.country && m.origin_country && m.origin_country === sourceInfo.country) return true;
+    return false;
+  };
 
   // Helper to add a movie to the merge map
   function addEntry(movie: Movie, source: string) {
@@ -190,10 +241,11 @@ export async function getRecommendations(
     }
   } catch { /* TMDb failed, continue */ }
 
-  // Return early if not enriched or if we already have enough
-  if (!enriched || entries.size >= 8) {
+  // Return early if not enriched — but still backfill region if needed
+  if (!enriched) {
+    await backfillRegionIfNeeded();
     return {
-      recommendations: mergeAndRank(entries),
+      recommendations: mergeAndRank(entries, passesRegion, sourceInfo?.year),
       sources: usedSources,
     };
   }
@@ -303,8 +355,51 @@ export async function getRecommendations(
     )
   );
 
+  // ── Phase 3: Region backfill ──
+  await backfillRegionIfNeeded();
+
   return {
-    recommendations: mergeAndRank(entries),
+    recommendations: mergeAndRank(entries, passesRegion, sourceInfo?.year),
     sources: usedSources,
   };
+
+  /**
+   * When a region filter is active and fewer than 8 candidates survive it,
+   * backfill via a TMDb discover query restricted to the source language
+   * (and primary genre). This keeps the section full with region-matching
+   * titles instead of falling back to foreign-language (e.g. American)
+   * entries.
+   */
+  async function backfillRegionIfNeeded(): Promise<void> {
+    if (!needsRegionFilter || !sourceLanguage) return;
+
+    const passingCount = [...entries.values()]
+      .filter((e) => e.movie.poster_path && passesRegion(e.movie))
+      .length;
+    if (passingCount >= 8) return;
+
+    try {
+      const discoverFilters = {
+        with_original_language: sourceLanguage,
+        sort_by: 'popularity.desc' as const,
+        'vote_count.gte': 5,
+      };
+      if (sourceInfo?.primaryGenreId) {
+        (discoverFilters as Record<string, unknown>).with_genres = String(sourceInfo.primaryGenreId);
+      }
+
+      const res = isTv
+        ? await TMDb.discoverTv(discoverFilters)
+        : await TMDb.discoverMovies(discoverFilters);
+
+      let added = 0;
+      for (const m of res?.results ?? []) {
+        const id = m.tmdb_id || m.id;
+        if (entries.has(id)) continue;
+        addEntry(m, 'tmdb_discover');
+        added++;
+        if (passingCount + added >= 12) break; // leave ranking headroom
+      }
+    } catch { /* backfill failed — section may show fewer items */ }
+  }
 }

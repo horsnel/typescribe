@@ -26,8 +26,13 @@ export const maxDuration = 60; // Vercel function timeout (seconds)
 
 const PIPELINE_TIMEOUT_MS = 45_000;
 
+// Browser-cache window for fast (TMDb) responses — repeat navigations render
+// instantly from the HTTP cache while background enrichment keeps running.
+const FAST_CACHE_CONTROL = 'public, max-age=120, stale-while-revalidate=600';
+
 // Track in-flight enrichment jobs to avoid duplicate work
-const inFlightEnrichment = new Map<string, Promise<void>>();
+type EnrichmentResult = { movie: Movie; sources: string[]; completeness: number } | null;
+const inFlightEnrichment = new Map<string, Promise<EnrichmentResult>>();
 
 export async function GET(
   request: NextRequest,
@@ -64,7 +69,7 @@ export async function GET(
           completeness: cached.completeness,
           enriched: cached.completeness >= 50,
           fromCache: true,
-        });
+        }, { headers: { 'Cache-Control': FAST_CACHE_CONTROL } });
       }
     }
 
@@ -80,18 +85,16 @@ export async function GET(
           const cachedMediaType = cached?.movie?.media_type as string | undefined;
           const mediaType = cachedMediaType === 'tv' ? 'tv' as const : 'movie' as const;
 
-          // Use mergeMovieData directly to bypass cache and get full pipeline data
+          // Reuse the shared in-flight enrichment job — the fast path already
+          // kicked one off, so this avoids running TWO full pipelines
+          // concurrently for the same movie.
           const result = await Promise.race([
-            mergeMovieData(tmdbId, { mediaType }),
+            getEnrichmentJob(trimmedSlug, tmdbId, mediaType),
             new Promise<null>((_, rej) =>
               setTimeout(() => rej(new Error('Pipeline timeout')), PIPELINE_TIMEOUT_MS)
             ),
           ]);
           if (result && result.completeness > 0 && result.movie.title) {
-            // Cache the enriched result
-            await setCachedMovie(slugCacheKey, result.movie, result.sources, result.completeness);
-            await setCachedMovie(`tmdb:${tmdbId}`, result.movie, result.sources, result.completeness);
-
             return NextResponse.json({
               movie: result.movie,
               sources: result.sources,
@@ -171,15 +174,16 @@ export async function GET(
         await setCachedMovie(tmdbCacheKey, movie, ['TMDb'], 30);
         await setCachedMovie(slugCacheKey, movie, ['TMDb'], 30);
 
-        // Kick off background enrichment (fire-and-forget)
-        kickOffEnrichment(trimmedSlug, tmdbId, movie.media_type as 'movie' | 'tv' | undefined);
+        // Kick off shared enrichment job (fire-and-forget — the ?enriched=true
+        // request from the client will await this same promise)
+        getEnrichmentJob(trimmedSlug, tmdbId, movie.media_type as 'movie' | 'tv' | undefined).catch(() => {});
 
         return NextResponse.json({
           movie,
           sources: ['TMDb'],
           completeness: 30,
           enriched: false,
-        });
+        }, { headers: { 'Cache-Control': FAST_CACHE_CONTROL } });
       }
     }
 
@@ -241,14 +245,20 @@ export async function GET(
 }
 
 /**
- * Fire-and-forget background enrichment.
- * Runs the full pipeline (scrapers + APIs) and caches the result.
- * Avoids duplicate enrichment jobs for the same slug.
+ * Shared in-flight enrichment job.
+ * Runs the full pipeline (scrapers + APIs) once per slug and caches the
+ * result. Concurrent requests (fast-path background kick-off + explicit
+ * ?enriched=true fetch) await the SAME promise instead of duplicating work.
  */
-function kickOffEnrichment(slug: string, tmdbId: number, mediaType?: 'movie' | 'tv'): void {
+function getEnrichmentJob(
+  slug: string,
+  tmdbId: number,
+  mediaType?: 'movie' | 'tv',
+): Promise<{ movie: Movie; sources: string[]; completeness: number } | null> {
   const key = `enrich:${slug}`;
 
-  if (inFlightEnrichment.has(key)) return;
+  const existing = inFlightEnrichment.get(key);
+  if (existing) return existing;
 
   const job = (async () => {
     try {
@@ -261,13 +271,17 @@ function kickOffEnrichment(slug: string, tmdbId: number, mediaType?: 'movie' | '
         await setCachedMovie(slugCacheKey, result.movie, result.sources, result.completeness);
         await setCachedMovie(tmdbCacheKey, result.movie, result.sources, result.completeness);
         console.log(`[API /movies/slug] Background enrichment complete for "${slug}" (completeness=${result.completeness}, sources=${result.sources.length})`);
+        return result;
       }
+      return null;
     } catch (err) {
       console.warn(`[API /movies/slug] Background enrichment failed for "${slug}"`, err);
+      return null;
     } finally {
       inFlightEnrichment.delete(key);
     }
   })();
 
   inFlightEnrichment.set(key, job);
+  return job;
 }
