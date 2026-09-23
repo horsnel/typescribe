@@ -456,3 +456,32 @@ Stage Summary:
 - Recommendations now have two strict locks: non-English → language-only; English → origin-country overlap with strict unknown-country rejection, same-region discover backfill.
 - Page loads are faster via CDN-level caching on all public APIs, 31-day image optimizer TTL, 30s client router cache, lazy trailer modal and LCP prioritization.
 - NOTE: environment resets wipe /home/z/my-project (only the repo + this in-repo worklog survive via re-clone; the standalone /home/z/my-project/worklog.md was recreated by this entry).
+
+---
+Task ID: 15
+Agent: main
+Task: Add comment deletion for users' own comments; remove all mock data from the stream page; update the anime being fetched
+
+Work Log:
+- COMMENT DELETION (all three localStorage comment systems):
+  * Movie discussion page: `handleDeleteComment` — confirm dialog (warns how many replies will be removed), cascades replies, closes any open reply/report UI pointing at the deleted comment. Delete buttons on own top-level comments AND own replies (`user.id === comment.user_id`), styled grey→red hover with Trash2 icon.
+  * News article comments: new `deleteComment(articleId, commentId)` localStorage helper + handler + Delete button on each comment row (all news comments are authored locally as 'You').
+  * Community PostCard: wired the previously-unused `deleteComment()` from community-storage; upgraded it to a RECURSIVE cascade (walks the full descendant tree since replies can be nested); Delete button in CommentThread only for the author (`user.id === comment.authorId`), passed down through recursive CommentThread levels; state re-syncs from storage after delete to drop nested replies.
+- STREAM PAGE — ALL MOCK DATA REMOVED (net −2,812 lines):
+  * Deleted `seed.ts` (20 placeholder entries: Blender shorts, Archive.org filler, YouTube seeds) and hardcoded catalogs `sources/blender.ts`, `sources/vimeo.ts` (verified-list), `sources/crunchyroll.ts` (curated linkouts), plus dead mock sources crackle/retrocrush/contv/indie-animation/public-domain-anime.
+  * Orchestrator: removed Tier 1 entirely; Tier 2 = live Archive Movies/Anime + YouTube/Anime/Regional; Tier 3 = live Tubi/Pluto/Bilibili/Plex/OpenFlix. `getStreamingCatalog()` cold path now returns live Tier 2 data + background Tier 3 refresh instead of seed; `getStreamingMovie()` seed lookup removed; resolver blender/vimeo/crunchyroll branches removed; pipeline status shape cleaned.
+  * Catalog route: no seed responses (tier=1 now serves the fast live catalog), error path returns 500 (UI shows empty state) instead of seed fallback; `isSeed` flag dropped.
+  * Stream page: source filter trimmed to the 8 real sources, copy updated.
+  * PROD VERIFICATION: /api/streaming/catalog returns 39 live movies, 0 mock matches (regex scan for every removed title), sources=[youtube].
+  * Follow-up fix (917559d): YouTube detail IDs 404'd because search-list snapshots drift; `resolveYouTubeMovie(videoId)` resolves deterministically via /videos (API key) with public oEmbed fallback + 15-min negative caching. Verified live: previously-404 id now returns full movie + playable embed.
+- ANIME UPDATER:
+  * New AniList AIRING_QUERY (`status: RELEASING, sort: POPULARITY_DESC`) + `getAiringAnime()` — always reflects the current broadcast season.
+  * Trending route rewritten: fetches airing + trending in parallel, interleaves (airing first), dedupes by title, returns 12 (was 8); Jikan seasonal → Jikan top → AniList popular fallbacks retained.
+  * RESILIENCE: discovered AniList fails fast from Vercel datacenter IPs and Jikan /seasons/now was down upstream → added TMDb anime discover (genre 16 + JP origin) as an always-reachable floor via `browseMovies({format:'anime'})`; empty responses now `no-store` so transient outages don't stick in CDN for 10 min. Success responses: `public, max-age=600, swr=3600`; section fetch dropped `no-store`.
+  * PROD VERIFICATION: /api/anime/trending → 12 items (Mushoku Tensei S3, JUJUTSU KAISEN, Bleach, Re:ZERO S4, Naruto, Hunter x Hunter...), sources=[TMDb] (fallback correctly engaged), cache header live.
+- TypeScript clean; ESLint 0 errors (warnings pre-existing only). Commits: be92368 (main), f9adb53 (anime resilience), 917559d (YouTube resolver). All deployments verified green via Vercel API with user token; production curl checks passed on /, /stream, /news, /community/1, movie page (delete code present in deployed chunk), catalog + trending + detail APIs.
+
+Stage Summary:
+- Users can delete their own comments everywhere they can post them (movie discussion incl. replies, news, community posts) with cascading reply removal and confirmation.
+- Stream page is 100% live-data (zero hardcoded/mock content) and detail links are deterministic.
+- Homepage Trending Anime now shows 12 fresh/current titles with a guaranteed-populated fallback chain that survives AniList cloud-IP blocks and Jikan outages.
