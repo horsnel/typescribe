@@ -485,3 +485,27 @@ Stage Summary:
 - Users can delete their own comments everywhere they can post them (movie discussion incl. replies, news, community posts) with cascading reply removal and confirmation.
 - Stream page is 100% live-data (zero hardcoded/mock content) and detail links are deterministic.
 - Homepage Trending Anime now shows 12 fresh/current titles with a guaranteed-populated fallback chain that survives AniList cloud-IP blocks and Jikan outages.
+
+---
+Task ID: 16
+Agent: main
+Task: Fix the "Submit Review" button not working and make the flow production ready
+
+Work Log:
+- ENV RECOVERY: workspace was reset — re-cloned typescribe from GitHub (horsnel/typescribe), reinstalled deps (bun), pulled Supabase/NEXTAUTH config facts from Vercel API (no OAuth provider env vars → all logins are credentials; NEXTAUTH_URL = typescribe-mu.vercel.app).
+- DIAGNOSIS (all verified against PRODUCTION, not assumptions):
+  * Server pipeline is healthy: created a QA account via /api/auth/register, signed in through the real NextAuth credentials flow (CSRF → callback → session), POST /api/reviews → 201, review visible on movie page and dashboard.
+  * Found the real defect class: the movie page used ReviewForm with a FIRE-AND-FORGET handleReviewSubmit — it never checked res.ok, closed the form and refetched regardless. Any 401/500 (expired session, missing profiles row) was silently swallowed: review vanishes, no feedback → "the submit button doesn't work".
+  * Secondary failure modes confirmed in code: (a) auth.users row without a matching profiles row makes every getCurrentProfile() 401 forever while the UI still shows signed-in (signup trigger failure); (b) disabled submit button gives zero explanation (unmet rating/length requirement reads as "broken button"); (c) legacy localStorage auth path could show the form while the server has no session.
+  * NOTE: an `[m`-sequence ANSI stripping artifact in the Bash output channel again faked "corrupted" source (`const ovie, setMovie]`); disproved via char-code dump (91,109 = `[m`) — files were healthy, tsc exit 0 was truthful. Rule: verify suspicious bytes with charCode dumps, never raw cat/rg output.
+- FIXES (commit 92e53be):
+  * Movie page (`movie/[slug]/page.tsx`): replaced ReviewForm with ReviewComposer (presetMovie mode) — it awaits the server response, keeps the user's text on failure, shows loading state, and only closes the form on success. handleReviewSubmitted now only syncs UI (localStorage mirror for legacy /my-reviews + refetch). Deleted the dead ReviewForm component (−184 lines).
+  * ReviewComposer: 401 → "Your session has expired… your text is preserved" + Sign In → /login link; 403 profile_missing → sign-out/sign-in guidance; non-JSON error bodies parsed defensively; disabled submit now renders "To submit: select a rating · write N more characters" hint.
+  * `db.ts` getCurrentProfile(): AUTO-HEAL for accounts with a valid NextAuth session but missing profiles row — FK-guarded upsert (onConflict id, ignoreDuplicates) + race-safe re-fetch; self-repairs trigger-failure accounts on their next request instead of 401-ing forever.
+  * `api/reviews` POST: distinguishes 401 (no session) vs 403 profile_missing (session but no profile) with a `code` field for the client.
+- DEPLOY + PROD VERIFICATION (Vercel token): 92e53be built READY; anon POST → 401 unchanged; live browser journey on production: new composer UI (headline + spoiler toggle + hint) → expired-session simulation (cleared cookies, submitted) → friendly error + Sign In link + TEXT PRESERVED → re-login → full happy path POST 201 → review rendered on page, form closed. QA test reviews + data cleaned up afterwards (DELETE /api/reviews/[id], both movies' review lists verified empty).
+
+Stage Summary:
+- Review submission can no longer fail silently: every failure mode (expired session, missing profile, server error, unmet requirements) now produces an explicit, actionable message; user text is never lost on failure.
+- Accounts broken by a failed signup trigger self-heal on the next authenticated request.
+- One submit component (ReviewComposer) now serves movie page and dashboard — single code path, error handling, and UX.
