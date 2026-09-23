@@ -419,3 +419,40 @@ Stage Summary:
 - Movie detail + 9 other heavy routes now show instant skeletons during navigation; repeat views hit browser/server caches instead of re-running pipelines; cold views run ONE shared enrichment job instead of two.
 - Trailer is the first sidebar card as a full-brightness YouTube-style clickable thumbnail opening the existing modal.
 - Recommendations are region-locked for non-English sources (Indian titles get Indian recs only) with same-language backfill and recency-boosted ranking.
+
+---
+Task ID: 14
+Agent: main
+Task: Tighten recommendation region locks (strict Hindi-only + country-aware English titles) and further increase page loading speed
+
+Work Log:
+- Environment was reset (workspace wiped) — re-cloned the repo with the user's new PAT, reinstalled deps, synced to 0271ddf (task 13).
+- STRICT LANGUAGE LOCK (non-English sources):
+  * Removed the origin_country pass in the region filter — a Hindi title now matches ONLY Hindi-language candidates (previously a Tamil/Telugu series with origin_country 'IN' could slip through the country clause).
+  * passesRegion: `m.original_language === sourceLanguage` is now the sole criterion when source language ≠ 'en'.
+- COUNTRY LOCK (English sources with known origin countries):
+  * Movie type: added optional `origin_countries?: string[]` (ISO 3166-1 list) — populated for movies from TMDb `production_countries` (details transform) and for TV from `origin_country` (details + card transforms). Legacy single-string `origin_country` untouched to avoid regressions elsewhere.
+  * New lightweight TMDb client fn `getMovieOriginCountries(id)` (bare /movie/{id}, no append_to_response).
+  * Pipeline `resolveCandidateCountries()`: TMDb list endpoints lack movie country data, so under an active country filter it resolves production countries per candidate (instance-cached Map, highest-scored first, cap 30, parallel).
+  * passesRegion (country mode): candidate origin countries must overlap the source's (co-productions pass when ANY country matches); unknown/empty countries are REJECTED (strict — an earlier language-fallback let 'High Art' (US, missing country data) leak into a GB source's recs; fixed).
+  * Backfill: discover queries now use `with_origin_country=<primary> & with_original_language=en` for English sources; discover MOVIE results are stamped with the queried origin country (cards carry none) so the strict filter keeps them.
+  * Route: passes `countries: details.origin_countries ?? [origin_country]` as SourceInfo (replaces scalar `country`).
+- PERFORMANCE (second wave):
+  * next.config: `images.minimumCacheTTL: 2678400` (31d — optimized TMDb images stop re-optimizing hourly) and `experimental.staleTimes { dynamic: 30, static: 180 }` (client router cache — back nav + revisits render instantly).
+  * Cache-Control (browser + Vercel CDN) added to 8 public API routes: /api/browse (120s+swr), /api/search (60s), /api/box-office (600s), /api/news/[id] (600s, all 3 success paths), /api/movies/[id]/watch-providers (600s), /api/anime/[id] + its recommendations (600s).
+  * Removed `cache: 'no-store'` from 12 public page/route fetches (browse, search×2, top-rated, new-releases, upcoming, box-office, news detail, anime×2, movie-page enriched + recommendations + watch-providers) so HTTP caching applies. Personalized endpoints (reviews, dashboard, profile, diary, settings) intentionally keep no-store.
+  * Slug route: ENRICHED_CACHE_CONTROL (max-age=300, swr=21600) on the expensive full-pipeline responses + FAST headers on fallback paths.
+  * Movie page: hero backdrop gets fetchPriority="high" + decoding="async" (LCP); TrailerModal lazy-loaded via next/dynamic (YouTube player JS out of the initial bundle → faster hydration).
+- TypeScript clean; ESLint 0 errors (13 pre-existing warnings).
+- Committed e163b1b + aeeefc2, pushed. Verified live on production:
+  * DDLJ (19404, hi): 8/8 Hindi — strict, zero cross-language.
+  * Trainspotting (627, GB): 8/8 GB or GB co-prod (High Art leak eliminated after aeeefc2).
+  * The Bodyguard (619, US): 8/8 US-inclusive.
+  * This Is England '86 (33933, GB TV): 8/8 British shows.
+  * Sherlock (1988, GB|US TV): US/GB candidates pass via co-production rule (correct).
+  * Cache headers live on /api/browse + /api/box-office (Vercel edge consumes the swr directive as designed).
+
+Stage Summary:
+- Recommendations now have two strict locks: non-English → language-only; English → origin-country overlap with strict unknown-country rejection, same-region discover backfill.
+- Page loads are faster via CDN-level caching on all public APIs, 31-day image optimizer TTL, 30s client router cache, lazy trailer modal and LCP prioritization.
+- NOTE: environment resets wipe /home/z/my-project (only the repo + this in-repo worklog survive via re-clone; the standalone /home/z/my-project/worklog.md was recreated by this entry).
