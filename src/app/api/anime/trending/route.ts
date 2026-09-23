@@ -1,12 +1,17 @@
 /**
  * GET /api/anime/trending
  *
- * Fetch trending/seasonal anime using Jikan (current season) + AniList as fallback.
+ * Fetches fresh anime for the homepage section:
+ *   1. AniList — currently-airing (RELEASING) + globally trending, interleaved
+ *   2. Jikan — current season → top airing
+ *   3. AniList popular
+ *   4. TMDb anime discover (genre 16 + JP origin) — always-available floor
  * Returns { movies: Movie[] } — normalized to the Movie type for card display.
  */
 import { NextResponse } from 'next/server';
 import { getCurrentSeason, getTopAnime } from '@/lib/pipeline/clients/jikan';
 import * as AniList from '@/lib/pipeline/clients/anilist';
+import { browseMovies } from '@/lib/pipeline';
 import type { Movie } from '@/lib/types';
 
 // Maximum time (ms) to wait for any single API source before moving on
@@ -208,7 +213,7 @@ export async function GET() {
     }
 
     // 4. Fallback: AniList popular (POPULARITY_DESC sort)
-    if (movies.length < 4) {
+    if (movies.length < TARGET_COUNT) {
       try {
         const popular = await AniList.getPopularAnime(12);
         if (popular && popular.length > 0) {
@@ -223,16 +228,36 @@ export async function GET() {
       }
     }
 
-    // If all upstream anime APIs (AniList, Jikan, MAL) are unavailable,
+    // 5. Final fallback: TMDb anime discover (genre 16 + JP origin).
+    //    Guaranteed reachable — TMDb backs the whole app. Keeps the homepage
+    //    section populated even when AniList (cloud-IP blocks) and Jikan
+    //    (frequent outages) are both unavailable.
+    if (movies.length < TARGET_COUNT) {
+      try {
+        const tmdbAnime = await browseMovies({ format: 'anime', sort: 'popularity.desc', page: 1 });
+        if (tmdbAnime.movies.length > 0) {
+          if (!sources.includes('TMDb')) sources.push('TMDb');
+          for (const m of tmdbAnime.movies) {
+            if (movies.length >= TARGET_COUNT) break;
+            pushUnique(m);
+          }
+        }
+      } catch (err: any) {
+        console.warn('[API /anime/trending] TMDb anime fallback failed:', err?.message || err);
+      }
+    }
+
+    // If all upstream anime APIs (AniList, Jikan, TMDb) are unavailable,
     // return an empty list rather than fake mock entries. The UI shows
-    // a "No trending anime available right now" empty state.
+    // a "No trending anime available right now" empty state. Cache as
+    // no-store so a transient upstream outage isn't stuck for 10 minutes.
     if (movies.length === 0) {
       const res = NextResponse.json({
         movies: [],
         sources,
         totalResults: 0,
       });
-      res.headers.set('Cache-Control', ANIME_CACHE_CONTROL);
+      res.headers.set('Cache-Control', 'no-store');
       return res;
     }
 
