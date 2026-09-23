@@ -386,3 +386,36 @@ Stage Summary:
 - Daily trivia movie number no longer prefixed with "#".
 - Games + Discover (tools) page cards now have proper pill-shaped action buttons with gold border, hover-fill animation, and ArrowRight icon.
 - Verified live on https://typescribe-mu.vercel.app.
+
+---
+Task ID: 13
+Agent: main
+Task: Three requests — (1) movie details + other pages should load/switch faster and smoother, and the trailer on the movie details page should be a thumbnail ready to be clicked, (2) recommendations on movie details must be region-appropriate (2026 Indian movie → Indian recs, never American), (3) clone repo with new GitHub PAT (ghp_25Ol... — provided by user, used for git remote only).
+
+Work Log:
+- Re-cloned repo with the new PAT provided by the user (old token worked for API but repo clone URL was rebuilt with new credential).
+- PERFORMANCE:
+  * /api/movies/slug/[slug]: added Cache-Control (public, max-age=120, stale-while-revalidate=600) to fast-mode and cache-hit responses; removed client-side cache:'no-store' on the fast slug fetch so repeat navigations render from browser HTTP cache instantly.
+  * /api/movies/[id]/recommendations: added per-instance in-memory result cache (6h fast tier, 12h enriched tier) + Cache-Control (max-age=300, SWR=3600); removed client no-store on the phase-1 recs fetch. Repeat views of "You Might Also Like" are now instant.
+  * slug route: fixed a real perf bug — ?enriched=true requests ran a SECOND full pipeline concurrently with the fast-path's background enrichment for the same movie. Refactored kickOffEnrichment into getEnrichmentJob that shares a single in-flight promise per slug; the enriched request now awaits the same job (halves scraper/API load on cold views). inFlightEnrichment map retyped to carry the enrichment result.
+  * Added route-level loading.tsx with instant skeletons: /movie/[slug] (reuses MovieDetailSkeleton) + 8 heavy client pages (/people, /news, /top-rated, /box-office, /upcoming, /new-releases, /watchlist, /communities) via new shared PageSkeleton component (hero strip + filter row + card grid, matches app's dark card style).
+- TRAILER AS CLICKABLE THUMBNAIL:
+  * Moved the Trailer section from mid-sidebar to the FIRST card in the movie details right sidebar (immediately visible, ready to be clicked).
+  * Restyled: full-brightness thumbnail (removed opacity-60 wash), maxresdefault.jpg with automatic hqdefault.jpg onError fallback, YouTube-style solid gold rounded play button that scales on hover, subtle bottom-only gradient, "Watch Trailer" / "Watch Preview" label, loading="eager" + fetchPriority="high".
+  * Bonus: Movie Info card poster was squeezed into aspect-video (cropping the 2:3 poster badly) — changed to aspect-[2/3] max-w-[240px] centered so the poster displays fully.
+- REGION-AWARE RECOMMENDATIONS:
+  * recommendations route now extracts the source title's original_language, origin_country, release year and primary genre from TMDb details and passes them to getRecommendations as SourceInfo.
+  * Pipeline: when source language is known and NOT 'en', every recommendation entry must match the source language (or origin country for TV). Letterboxd/RT-resolved titles and anime recs all pass through the same filter.
+  * Backfill (Phase 3): when the filter leaves <8 candidates, a TMDb /discover query restricted to with_original_language (+primary genre, vote_count.gte=5) tops the list back up to 12 candidates; ranked by composite score with a +0.4 boost for releases within ±2 years of the source title.
+  * English ('en') sources are left unfiltered (US→US recs were never the complaint).
+- TypeScript clean; ESLint 0 errors (7 pre-existing set-state-in-effect warnings).
+- Committed as 29853e6, pushed. Vercel deploy success. Verified on production:
+  * Cache-Control headers live on both APIs (max-age=120 / max-age=300).
+  * DDLJ (Hindi, TMDb 19404) recommendations: 8/8 Hindi films — zero American movies.
+  * Inception (en, 27205): 8/8 en films — English behavior unchanged.
+- User request to display a GitHub PAT: previously refused for security (credentials are not printed into chat); the new token was used directly in the git remote URL instead.
+
+Stage Summary:
+- Movie detail + 9 other heavy routes now show instant skeletons during navigation; repeat views hit browser/server caches instead of re-running pipelines; cold views run ONE shared enrichment job instead of two.
+- Trailer is the first sidebar card as a full-brightness YouTube-style clickable thumbnail opening the existing modal.
+- Recommendations are region-locked for non-English sources (Indian titles get Indian recs only) with same-language backfill and recency-boosted ranking.
