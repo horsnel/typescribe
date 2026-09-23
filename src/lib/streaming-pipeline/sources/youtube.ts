@@ -299,6 +299,95 @@ export async function fetchYouTubeFreeMovies(category?: string): Promise<Streama
 }
 
 /**
+ * Deterministically resolve a single YouTube video by its ID.
+ *
+ * Catalog lists come from search queries that drift between calls, so a
+ * `youtube-{videoId}` from a previous catalog snapshot may not be found by
+ * re-fetching the list. Hitting /videos directly with the ID always resolves
+ * (or confirms the video is gone) — no dependency on list freshness.
+ * Falls back to public oEmbed when no API key is configured.
+ */
+export async function resolveYouTubeMovie(videoId: string): Promise<StreamableMovie | null> {
+  if (!videoId || !/^[\w-]{6,20}$/.test(videoId)) return null;
+
+  const cacheKey = `streaming-youtube-video:${videoId}`;
+  const cached = await getCached<StreamableMovie | null>(cacheKey);
+  if (cached) return cached;
+  // Negative caching: remember lookups that failed so repeat detail
+  // requests don't re-hit the API (tombstone with a shorter TTL).
+  const tombstoned = await getCached<{ __notFound: true }>(`streaming-youtube-video-miss:${videoId}`);
+  if (tombstoned) return null;
+
+  const apiKey = getApiKey();
+  if (apiKey) {
+    try {
+      const qs = new URLSearchParams({
+        key: apiKey,
+        part: 'snippet,contentDetails',
+        id: videoId,
+      }).toString();
+
+      const res = await fetchWithTimeout(`${BASE_URL}/videos?${qs}`, undefined, 10_000);
+      if (res?.ok) {
+        const data = await safeJsonParse<YouTubeVideoResponse>(res);
+        const video: (YouTubeVideoItem & {
+          snippet: { thumbnails?: YouTubeSearchResult['snippet']['thumbnails'] };
+        }) | undefined = data?.items?.[0] as any;
+
+        if (video?.id) {
+          const durationSeconds = parseIsoDuration(video.contentDetails?.duration || '');
+          const movie = toStreamableMovie(
+            video.id,
+            video.snippet.title,
+            video.snippet.description,
+            video.snippet.channelTitle,
+            video.snippet.publishedAt,
+            video.snippet.thumbnails ?? {},
+            durationSeconds,
+          );
+          await setCached(cacheKey, movie, CACHE_TTL);
+          return movie;
+        }
+      }
+    } catch (err) {
+      console.warn('[StreamingPipeline:YouTube] resolve-by-id failed:', err);
+    }
+  }
+
+  // oEmbed fallback (no API key needed) — title, author, thumbnail only.
+  try {
+    const oembedUrl = `https://www.youtube.com/oembed?url=${encodeURIComponent(`https://www.youtube.com/watch?v=${videoId}`)}&format=json`;
+    const res = await fetchWithTimeout(oembedUrl, undefined, 8_000);
+    if (res?.ok) {
+      const data = await safeJsonParse<{
+        title: string;
+        author_name: string;
+        thumbnail_url: string;
+      }>(res);
+      if (data?.title) {
+        const movie = toStreamableMovie(
+          videoId,
+          data.title,
+          '',
+          data.author_name || 'YouTube',
+          new Date().toISOString(),
+          { high: { url: data.thumbnail_url } },
+          0,
+        );
+        await setCached(cacheKey, movie, CACHE_TTL);
+        return movie;
+      }
+    }
+  } catch (err) {
+    console.warn('[StreamingPipeline:YouTube] oEmbed resolve failed:', err);
+  }
+
+  // Video gone / both paths failed — tombstone for 15 minutes.
+  await setCached(`streaming-youtube-video-miss:${videoId}`, { __notFound: true }, 15 * 60 * 1000);
+  return null;
+}
+
+/**
  * Search YouTube for a specific free movie.
  */
 export async function searchYouTubeFreeMovie(query: string): Promise<StreamableMovie[]> {

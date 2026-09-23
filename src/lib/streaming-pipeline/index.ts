@@ -21,7 +21,7 @@
 
 import type { StreamableMovie, StreamingCatalog, StreamingCategory } from './types';
 import { getCached, setCached, clearAllCached, getCacheStats } from './cache';
-import { fetchYouTubeFreeMovies, searchYouTubeFreeMovie, fetchYouTubeAnime } from './sources/youtube';
+import { fetchYouTubeFreeMovies, searchYouTubeFreeMovie, fetchYouTubeAnime, resolveYouTubeMovie } from './sources/youtube';
 import { fetchArchiveMovies, searchArchiveMovies, fetchArchiveAnime, searchArchiveAnime } from './sources/internet-archive';
 import { fetchYouTubeRegionalMovies, getRegionalConfigs } from './sources/youtube-regional';
 import { fetchTubiMovies, searchTubiMovies } from './sources/tubi';
@@ -618,8 +618,14 @@ async function resolveMovieFromId(id: string): Promise<StreamableMovie | null> {
     return plexMovies.find(m => m.id === id) || null;
   }
 
-  // YouTube (needs API call)
+  // YouTube — resolve deterministically by video ID first (catalog lists
+  // drift between search calls, so list lookup alone is unreliable),
+  // then fall back to scanning the current list.
   if (id.startsWith('youtube-') || id.startsWith('yt-')) {
+    const videoId = id.replace(/^(youtube|yt)-/, '');
+    const resolved = await resolveYouTubeMovie(videoId);
+    if (resolved) return resolved;
+
     const ytMovies = await fetchYouTubeFreeMovies();
     const found = ytMovies.find(m => m.id === id);
     if (found) return found;
