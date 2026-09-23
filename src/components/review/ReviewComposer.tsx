@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
 import { Star, Send, X, AlertTriangle, ShieldCheck, Search, Film, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { preSubmitCheck } from '@/lib/moderation';
@@ -74,6 +75,7 @@ export default function ReviewComposer({ presetMovie, initialReview, onSubmitted
   const [moderationBlocked, setModerationBlocked] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
+  const [authExpired, setAuthExpired] = useState(false);
 
   const displayRating = hoverRating || rating;
   const isValid = !!movie && rating > 0 && text.trim().length >= MIN_CHARS && text.trim().length <= MAX_CHARS;
@@ -153,6 +155,7 @@ export default function ReviewComposer({ presetMovie, initialReview, onSubmitted
 
     setSubmitting(true);
     setSubmitError('');
+    setAuthExpired(false);
     try {
       const genres = Array.isArray(movie?.genres)
         ? movie!.genres.map((g: any) => (typeof g === 'string' ? g : g.name)).filter(Boolean)
@@ -183,8 +186,21 @@ export default function ReviewComposer({ presetMovie, initialReview, onSubmitted
               ...payload,
             }),
           });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data?.error ?? 'Failed to submit review');
+      // The error body may not be JSON (e.g. an HTML error page from a
+      // proxy) — parse defensively so we always surface a readable message.
+      let data: any = null;
+      try { data = await res.json(); } catch { /* non-JSON body */ }
+      if (!res.ok) {
+        if (res.status === 401) {
+          setAuthExpired(true);
+          throw new Error('Your session has expired. Please sign in again to post your review — your text is preserved.');
+        }
+        if (res.status === 403 && data?.code === 'profile_missing') {
+          setAuthExpired(true);
+          throw new Error(data.error ?? 'Your account could not be loaded. Please sign out and back in.');
+        }
+        throw new Error(data?.error ?? `Failed to submit review (HTTP ${res.status}). Please try again.`);
+      }
       // Reset (only for create mode — edit mode keeps the form so the user
       // can see what they saved, parent will typically close the composer)
       if (!isEditMode) {
@@ -200,6 +216,14 @@ export default function ReviewComposer({ presetMovie, initialReview, onSubmitted
       setSubmitting(false);
     }
   };
+
+  // Human-readable list of what's still missing — shown under the disabled
+  // submit button so users understand WHY they can't submit (the most common
+  // "the submit button doesn't work" report is just an unmet requirement).
+  const missing: string[] = [];
+  if (!movie && !isEditMode) missing.push('pick a movie');
+  if (rating === 0) missing.push('select a rating');
+  if (text.trim().length < MIN_CHARS) missing.push(`write ${MIN_CHARS - text.trim().length} more characters`);
 
   const resolvePoster = (path?: string | null) => {
     if (!path) return '';
@@ -392,6 +416,11 @@ export default function ReviewComposer({ presetMovie, initialReview, onSubmitted
       {submitError && (
         <div className="mb-4 bg-red-500/5 border border-red-500/20 rounded-lg p-3">
           <p className="text-xs text-red-300">{submitError}</p>
+          {authExpired && (
+            <Link href="/login" className="inline-block mt-2 text-xs font-semibold text-[#D4A853] hover:underline">
+              Sign In →
+            </Link>
+          )}
         </div>
       )}
 
@@ -415,6 +444,11 @@ export default function ReviewComposer({ presetMovie, initialReview, onSubmitted
           </Button>
         )}
       </div>
+      {!isValid && !submitting && missing.length > 0 && (
+        <p className="mt-2 text-xs text-[#6b7280]">
+          To submit: {missing.join(' · ')}
+        </p>
+      )}
     </form>
   );
 }

@@ -24,7 +24,7 @@ import LiveSentimentTracker from '@/components/movie/LiveSentimentTracker';
 import CommunityRatings from '@/components/movie/CommunityRatings';
 import MovieCard from '@/components/movie/MovieCard';
 import ReviewCard from '@/components/review/ReviewCard';
-import ReviewForm from '@/components/review/ReviewForm';
+import ReviewComposer from '@/components/review/ReviewComposer';
 import ReportModal from '@/components/review/ReportModal';
 import { moderateContent, preSubmitCheck } from '@/lib/moderation';
 import type { ReportReason, UserReview } from '@/lib/types';
@@ -574,61 +574,25 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
     saveComments(comments.filter((c) => c.id !== commentId && c.parent_id !== commentId));
   };
 
-  const handleReviewSubmit = async ({ movieId, rating, text }: { movieId: number; rating: number; text: string }) => {
-    if (!user || !movie) return;
-    const moderation = moderateContent(text, rating);
-    const review = {
-      id: Date.now(),
-      movie_id: movieId,
-      user_id: user.id,
-      user_name: user.display_name,
-      user_avatar: user.avatar || '',
-      rating,
-      text,
-      helpful_count: 0,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-      moderated: moderation.flagged,
-      moderation_note: moderation.reason || '',
-      reports: [],
-    };
-    // Mirror to localStorage as a legacy fallback (older builds read reviews
-    // from here). The Reviews tab below now fetches from /api/reviews, so this
-    // is purely defensive — if the POST below fails, the user still sees their
-    // review locally until they refresh.
+  // Called by ReviewComposer after a successful POST /api/reviews. The
+  // composer owns the API call, loading state and error handling (it keeps
+  // the user's text visible on failure), so this callback only syncs UI:
+  // close the form, mirror to localStorage for the legacy /my-reviews page,
+  // and refresh the server-backed reviews list.
+  const handleReviewSubmitted = (review: { movie_id?: number; rating?: number; body?: string; created_at?: string }) => {
+    if (!movie) return;
     try {
       const existing = localStorage.getItem('typescribe_user_reviews');
       const reviews = existing ? JSON.parse(existing) : [];
-      reviews.unshift(review);
+      reviews.unshift({
+        id: Date.now(),
+        movie_id: review?.movie_id ?? movie.id,
+        rating: review?.rating,
+        text: review?.body ?? '',
+        created_at: review?.created_at ?? new Date().toISOString(),
+      });
       localStorage.setItem('typescribe_user_reviews', JSON.stringify(reviews));
     } catch { /* ignore */ }
-
-    // Also persist to Supabase via the new /api/reviews endpoint. The
-    // Supabase trigger will auto-populate `genres`, `release_year`, and
-    // `poster_path` from `movie_embeddings` so the dashboard list can show
-    // them without any client-side enrichment.
-    try {
-      await fetch('/api/reviews', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          movie_id: movieId,
-          movie_title: movie.title,
-          rating,
-          body: text,
-          spoiler: moderation.flagged,
-          // Pass genres/release_year explicitly so the trigger doesn't have
-          // to do the lookup (slightly faster + works even if the movie
-          // isn't in movie_embeddings yet).
-          genres: movie.genres?.map(g => g.name) ?? null,
-          release_year: movie.release_date ? parseInt(movie.release_date.substring(0, 4), 10) || null : null,
-        }),
-      });
-    } catch (err) {
-      // Non-blocking — the localStorage write above still succeeded.
-      console.error('[movie page] failed to POST review to /api/reviews:', err);
-    }
-
     setShowReviewForm(false);
     // Refresh the reviews list from the API so the new review appears
     // immediately (no full-page reload — avoids the hero/content flash).
@@ -1316,11 +1280,17 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
               </div>
 
               {/* Review Form */}
-              {showReviewForm && (
+              {showReviewForm && movie && (
                 <div className="mb-6">
-                  <ReviewForm
-                    movieId={movie.id}
-                    onSubmit={handleReviewSubmit}
+                  <ReviewComposer
+                    presetMovie={{
+                      id: movie.id,
+                      title: movie.title,
+                      poster_path: movie.poster_path,
+                      release_date: movie.release_date,
+                      genres: movie.genres,
+                    }}
+                    onSubmitted={handleReviewSubmitted}
                     onCancel={() => setShowReviewForm(false)}
                   />
                 </div>

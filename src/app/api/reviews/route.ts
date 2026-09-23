@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getCurrentProfile, createReview, getReviewsByMovie, getReviewsByUser, getPublicReviewsByUser } from '@/lib/db';
+import { getCurrentProfile, getCurrentUserId, createReview, getReviewsByMovie, getReviewsByUser, getPublicReviewsByUser } from '@/lib/db';
 
 /**
  * GET /api/reviews                  — list the current user's reviews (auth required)
@@ -60,6 +60,17 @@ export async function POST(req: NextRequest) {
   try {
     const profile = await getCurrentProfile();
     if (!profile) {
+      // Distinguish the two auth failure modes so the client can show an
+      // actionable message instead of a generic failure:
+      //  - valid session but no profile row  → 403 profile_missing
+      //  - no session at all                 → 401 not authenticated
+      const uid = await getCurrentUserId();
+      if (uid) {
+        return NextResponse.json(
+          { error: 'We verified your sign-in but could not load your account profile. Please sign out and back in — your review text is preserved.', code: 'profile_missing' },
+          { status: 403 },
+        );
+      }
       return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
     }
 

@@ -123,6 +123,35 @@ export async function getCurrentProfile(): Promise<Profile | null> {
         .eq('id', session.user.id)
         .maybeSingle();
       if (data) return data as Profile;
+
+      // ── Auto-heal: the session is valid but the profiles row is missing
+      // (e.g. the signup trigger failed for this account). Without a row,
+      // every write action (reviews, comments, diary, watchlist) would 401
+      // forever while the UI still shows the user as signed in — which users
+      // experience as "the submit button is broken". Create the minimal
+      // profile here; the FK to auth.users guarantees the insert only
+      // succeeds for real accounts, and every other column has a DB default.
+      const { data: inserted } = await supabaseAdmin
+        .from('profiles')
+        .upsert(
+          {
+            id: session.user.id,
+            email: session.user.email ?? '',
+            display_name: session.user.name ?? session.user.email?.split('@')[0] ?? 'User',
+            avatar: session.user.image ?? '',
+          },
+          { onConflict: 'id', ignoreDuplicates: true },
+        )
+        .select('*')
+        .maybeSingle();
+      if (inserted) return inserted as Profile;
+      // Lost an insert race (row created concurrently) — fetch the winner.
+      const { data: raced } = await supabaseAdmin
+        .from('profiles')
+        .select('*')
+        .eq('id', session.user.id)
+        .maybeSingle();
+      if (raced) return raced as Profile;
     }
   } catch {
     // NextAuth not configured or session invalid — fall through to Supabase SSR
