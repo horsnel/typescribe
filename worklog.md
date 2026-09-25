@@ -509,3 +509,46 @@ Stage Summary:
 - Review submission can no longer fail silently: every failure mode (expired session, missing profile, server error, unmet requirements) now produces an explicit, actionable message; user text is never lost on failure.
 - Accounts broken by a failed signup trigger self-heal on the next authenticated request.
 - One submit component (ReviewComposer) now serves movie page and dashboard — single code path, error handling, and UX.
+
+---
+Task ID: 17
+Agent: main
+Task: Homepage not loading + retire /my-reviews + favicon + installable PWA
+
+Work Log:
+- ENV RECOVERY: workspace reset again — re-cloned horsnel/typescribe (repo is under horsnel org, not neswebstack), reinstalled deps (bun).
+- HOMEPAGE DIAGNOSIS (production-first): SSR returns 200 and renders fine in a fresh browser BOTH anonymous and logged-in (registered QA account via real UI, scrolled all 17 sections, zero console errors). All homepage APIs probed healthy (/api/browse trending/local+NG country variants, /api/news, /api/people/popular, /api/top-choice, /api/communities/leaderboard, /api/streaming/catalog) with correct item shapes. Conclusion: user-visible error was a TRANSIENT client crash class (one malformed upstream response / stale chunk after a deploy) falling through to Next's raw default "Application error" screen because src/app had NO global-error.tsx.
+- LATENT CRASH AUDIT + FIXES (commit e79dba4): unguarded render accesses removed everywhere they could throw on a single bad item:
+  * LatestReviews: movie.genres.slice + vote_average.toFixed -> guarded (— fallback)
+  * TrendingAnimeSection AnimeCard: anime.genres.slice + vote_average -> guarded
+  * MovieCard (shared): genres.slice + vote_average -> guarded
+  * PopularPeopleSection: person.known_for.length/.map -> Array.isArray guarded
+  * TopChoiceSection: movie.genres.filter -> guarded
+  * TasteMatch: movie.genres.map x2 -> guarded
+  * VaultSection: buildVaultCollections iterated m.genres as strings -> new genreText() normalizer used across all 8 collection filters (catalog genres are producer-controlled)
+  * free-tier.ts tvMazeToMovie: show.genres.map -> guarded (route-crash fix)
+  * VaultSection setMovies: Array.isArray guard
+- ERROR SURFACES:
+  * error.tsx upgraded: logs error, ONE silent auto-retry (transient failures self-heal), Try again + Reload page buttons, digest reference, hard-refresh hint.
+  * NEW global-error.tsx: branded (gold Z) last-resort boundary with own <html>/<body> for root-layout/provider/chunk-load crashes — no more raw Next default screen.
+- PWA (installable, verified live):
+  * scripts/gen_icons.py (cairosvg+PIL) -> favicon.ico (16/32/48), icon-192/512, maskable-192/512, apple-touch-icon (180); design = brand dark tile #0B0B10 + gold-gradient Z (#E8C97A->#D4A853->#B8922F) + subtle gold ring.
+  * public/manifest.json: standalone, theme/bg #050507, 4 icons (2 maskable), 3 shortcuts (Browse/Stream/My Reviews).
+  * public/sw.js: GET same-origin only; /api/ never cached; /_next/static/ + /icons/ cache-first (immutable); navigations network-first with cache + branded offline fallback; VERSION-bumped cache purge.
+  * public/offline.html branded fallback; ServiceWorkerRegistration.tsx (production-only) mounted in layout.
+  * layout.tsx: manifest link, full icon set, appleWebApp, viewport themeColor #050507.
+- /MY-REVIEWS RETIREMENT:
+  * First attempt: page.tsx with redirect('/dashboard/reviews') — BROKEN on Next 16 statically-prerendered pages (200 empty shell on Vercel, 500 locally). Root-caused by local next start + route-table inspection.
+  * Final: deleted src/app/my-reviews + permanent 308 /my-reviews -> /dashboard/reviews in next.config.ts redirects() (server-level, zero JS).
+  * movie page localStorage-mirror comment updated (mirror still feeds homepage CommunityReviews).
+- DEPLOY + PROD VERIFICATION (Vercel token): e79dba4 + f429adb both READY; tsc clean, eslint 0 errors, full next build clean (the 'location is not defined' build-log line pre-exists on clean HEAD, non-fatal).
+  * /my-reviews -> 308 -> /dashboard/reviews (200) live.
+  * PWA assets all 200 with correct content-types; browser-verified on production: swRegistered=true, swActive=activated, manifest linked, 4 favicon links, themeColor, installable=true.
+  * Offline resilience: navigation while offline served branded content instead of browser error.
+  * Homepage + trending/catalog/anime APIs 200. Local-run 500s were missing Supabase env vars in fresh clone (expected; prod env configured).
+
+Stage Summary:
+- The "homepage not loading" failure class is eliminated at three levels: sections no longer crash on malformed data, transient errors auto-recover, and even root-level crashes render a branded recovery screen instead of the raw default.
+- Typescribe is now a fully installable PWA: real favicon set, offline fallback, app shortcuts, standalone display; service worker verified activated on production.
+- Legacy localStorage /my-reviews is gone; a real 308 serves the API-backed dashboard reviews page for all old links.
+- Commits: e79dba4, f429adb (main).
