@@ -552,3 +552,34 @@ Stage Summary:
 - Typescribe is now a fully installable PWA: real favicon set, offline fallback, app shortcuts, standalone display; service worker verified activated on production.
 - Legacy localStorage /my-reviews is gone; a real 308 serves the API-backed dashboard reviews page for all old links.
 - Commits: e79dba4, f429adb (main).
+
+---
+Task ID: 18
+Agent: main
+Task: Homepage "reading 'split'" error + mobile Chrome install button missing
+
+Work Log:
+- ROOT CAUSE (homepage crash): the movie page's localStorage mirror write (handleReviewSubmitted) omitted user_name/avatar/helpful_count etc. — every review submitted from a movie page created a mirror entry that ReviewCard crashed on (review.user_name.split at ReviewCard.tsx:62) when the homepage CommunityReviews section read the mirror. User-local data = reproducible only in the reporter's browser (they had submitted a review; my QA browsers never did). Error now surfaced by the new error boundary as "Cannot read properties of undefined (reading 'split')".
+- FIXES (commit ea7d506):
+  * movie page mirror write now emits the FULL LocalReview shape (user_name from auth context, avatar, helpful_count, moderated, reports, movieSlug, movieTitle).
+  * ReviewCard: defensive text/user_name/helpful_count handling (4 access points incl. ReportModal contentPreview).
+  * CommunityReviews: normalizes every mirror entry on read (safe defaults) — existing bad storage in users' browsers self-heals on next load, no action needed.
+  * getInitials hardening: src/lib/utils.ts, HeroSection local copy, DashboardLayout, profile/[id]; movie page disputes/comments/replies avatarFallback; PostCard author/comment initials; ActivityFeed actorName; PopularPeopleSection via hardened helper.
+  * TopRatedSection vote_average ?? 0.
+  * Swept all 16 homepage sections: LocalPicks/News/Upcoming/CountryPicks/TrendingCarousel/CategoriesGrid/NowStreaming/NewsletterCTA confirmed guarded.
+- INSTALL BUTTON (mobile Chrome): Android Chrome has NO address-bar install icon (desktop-only); entry points are a one-time mini-infobar (suppressible) and the ⋮ menu, and beforeinstallprompt only fires once the SW is active (2nd visit on). Fix:
+  * NEW src/components/pwa/InstallPrompt.tsx mounted in layout: floating dismissible pill (bottom-right, z-55, 14-day dismiss memory), one-click prompt() when event captured, iOS Share→Add to Home Screen instructions, Android ⋮ fallback hint after 4s if no event.
+  * layout.tsx inline head script captures beforeinstallprompt pre-hydration (event can fire before React mounts) into window.__tsInstall + dispatches ts-install-ready.
+- DEPLOY + PROD VERIFICATION: ea7d506 READY; tsc clean; eslint clean; next build clean.
+  * Homepage 200, 17-19 sections, no error boundary, no console errors.
+  * CRASH REPRODUCTION TEST: injected the user's exact bad mirror entry (no user_name) → reload → homepage renders, section shows "Anonymous" fallback instead of crashing. PASS.
+  * INSTALL FLOW TEST (browser): synthetic beforeinstallprompt dispatched → capture script stored it → pill appeared → Install app clicked → native prompt() invoked. PASS. Dismiss → flag stored, pill hidden. PASS.
+  * Real BIP fired by Chrome on emulated Pixel 7 (criteria genuinely met).
+  * All PWA endpoints 200; capture script present in SSR HTML.
+  * QA localStorage data cleaned (crash-test entry + dismiss flag).
+- NOTE: homepage "Top Reviewers" leaderboard shows the previous session's "E2E Test User" avatar — leftover community data, not touched in this task.
+
+Stage Summary:
+- The homepage crash class is closed at both ends: the writer emits complete data, the reader normalizes anything legacy/garbage, and every initials/genre/rating access in homepage + shared components is guarded. Users with already-corrupted mirrors recover with zero action.
+- Installability is now user-visible on mobile: explicit in-app Install pill with native prompt, plus iOS/Android menu guidance fallbacks — no dependence on Chrome's easily-missed mini-infobar.
+- Commits: ea7d506 (main).
