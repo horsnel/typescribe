@@ -8,7 +8,7 @@ interface MovieCardProps { movie: Movie; className?: string; }
 
 export default function MovieCard({ movie, className }: MovieCardProps) {
   const year = movie.release_date ? movie.release_date.split('-')[0] : '';
-  const genreNames = movie.genres.slice(0, 2).map((g) => g.name);
+  const genreNames = (movie.genres ?? []).slice(0, 2).map((g) => g?.name ?? '').filter(Boolean);
   return (
     <Link href={movie.slug ? `/movie/${movie.slug}` : '#'} className={cn('group relative flex-shrink-0 w-full cursor-pointer block', className)}>
       <div className="relative aspect-[2/3] rounded-2xl overflow-hidden bg-[#0c0c10]" style={{ boxShadow: '0 4px 24px -4px rgba(0,0,0,0.6)' }}>
@@ -22,7 +22,7 @@ export default function MovieCard({ movie, className }: MovieCardProps) {
         {/* Sheen overlay */}
         <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 40%)' }} />
         <div className="absolute top-2 right-2 flex items-center gap-1 bg-[#D4A853] text-black text-xs font-bold px-2 py-0.5 rounded-full shadow-lg z-10">
-          <Star className="w-3 h-3 fill-black" strokeWidth={1.5} />{movie.vote_average.toFixed(1)}
+          <Star className="w-3 h-3 fill-black" strokeWidth={1.5} />{typeof movie.vote_average === 'number' ? movie.vote_average.toFixed(1) : '—'}
         </div>
         <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">

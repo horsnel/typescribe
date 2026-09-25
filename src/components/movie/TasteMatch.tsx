@@ -51,7 +51,7 @@ export default function TasteMatch({ movie }: TasteMatchProps) {
     setUserGenreSet(userGenres);
 
     // Calculate match: overlap between user's genres and movie's genres
-    const movieGenres = movie.genres.map(g => g.name.toLowerCase());
+    const movieGenres = (movie.genres ?? []).map(g => g.name.toLowerCase());
     if (movieGenres.length === 0) {
       setMatchPercent(50);
       return;
@@ -132,7 +132,7 @@ export default function TasteMatch({ movie }: TasteMatchProps) {
           </p>
           <p className="text-xs text-[#6b7280] mt-1">Based on your watch history and genre preferences</p>
           <div className="flex flex-wrap gap-1.5 mt-2">
-            {movie.genres.map(g => {
+            {(movie.genres ?? []).map(g => {
               const isMatch = userGenreSet.has(g.name.toLowerCase());
               return (
                 <span

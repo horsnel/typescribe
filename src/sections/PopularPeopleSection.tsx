@@ -44,9 +44,9 @@ function PersonCard({ person }: { person: PersonSearchResult }) {
           {person.known_for_department}
         </span>
       )}
-      {person.known_for.length > 0 && (
+      {Array.isArray(person.known_for) && person.known_for.length > 0 && (
         <p className="text-[9px] text-[#6b7280] text-center mt-0.5 line-clamp-2 leading-snug min-h-[1.5rem]">
-          {person.known_for.map((kf) => kf.title).filter(Boolean).slice(0, 2).join(', ')}
+          {person.known_for.map((kf) => kf?.title).filter(Boolean).slice(0, 2).join(', ')}
         </p>
       )}
     </Link>

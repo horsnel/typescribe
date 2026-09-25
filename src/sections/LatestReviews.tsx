@@ -49,13 +49,13 @@ export default function LatestReviews() {
           <div className="card-grid grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
             {reviewMovies.map((movie) => {
               const year = movie.release_date ? movie.release_date.split('-')[0] : '';
-              const genreNames = movie.genres.slice(0, 2).map((g) => g.name).join(', ');
+              const genreNames = (movie.genres ?? []).slice(0, 2).map((g) => g?.name ?? '').filter(Boolean).join(', ');
               const posterUrl = movie.poster_path?.startsWith('http') ? movie.poster_path : movie.poster_path?.startsWith('/') ? `https://image.tmdb.org/t/p/w185${movie.poster_path}` : movie.poster_path;
               return (
                 <Link key={movie.id} href={`/movie/${movie.slug}`} className="card-reveal bg-[#0c0c10] border border-white/[0.06] rounded-xl p-5 flex gap-4 hover:border-[#D4A853]/30 hover:shadow-lg transition-all group">
                   <div className="flex-shrink-0 w-16 h-24 rounded-lg overflow-hidden bg-[#0c0c10]"><img src={posterUrl} alt={movie.title} className="w-full h-full object-cover" loading="lazy" /></div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1"><h3 className="text-base font-semibold text-white truncate group-hover:text-[#D4A853] transition-colors">{movie.title}</h3><span className="text-xs font-bold text-[#D4A853] flex-shrink-0">{movie.vote_average.toFixed(1)}</span></div>
+                    <div className="flex items-center gap-2 mb-1"><h3 className="text-base font-semibold text-white truncate group-hover:text-[#D4A853] transition-colors">{movie.title}</h3><span className="text-xs font-bold text-[#D4A853] flex-shrink-0">{typeof movie.vote_average === 'number' ? movie.vote_average.toFixed(1) : '—'}</span></div>
                     <div className="flex items-center gap-2 mb-2">{year && <span className="text-xs text-[#6b7280]">{year}</span>}{year && genreNames && <span className="text-[#1e1e28]">·</span>}{genreNames && <span className="text-xs text-[#6b7280]">{genreNames}</span>}</div>
                     <p className="text-sm text-[#9ca3af] line-clamp-2 leading-relaxed mb-2">{movie.overview}</p>
                     <span className="inline-flex items-center gap-1 text-sm text-[#D4A853] hover:text-[#ff1a25] transition-colors font-medium">View Details<ArrowRight className="w-3.5 h-3.5" strokeWidth={1.5} /></span>

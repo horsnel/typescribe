@@ -17,13 +17,24 @@ interface VaultCollection {
 
 /* ─── Categorization Logic ─── */
 
+/**
+ * Catalog genre values are strings, but the shape is producer-controlled —
+ * a stale cache or future source change must not crash the section during
+ * render. Normalize defensively to a plain string array.
+ */
+function genreText(m: StreamableMovie): string[] {
+  return Array.isArray(m.genres)
+    ? m.genres.filter((g): g is string => typeof g === 'string')
+    : [];
+}
+
 function buildVaultCollections(movies: StreamableMovie[]): VaultCollection[] {
   const collections: VaultCollection[] = [];
 
   // Film Noir — noir, mystery, crime keywords or title hints
   const noir = movies.filter(
     (m) =>
-      m.genres.some(
+      genreText(m).some(
         (g) =>
           g.toLowerCase().includes('noir') ||
           g.toLowerCase().includes('mystery') ||
@@ -35,7 +46,7 @@ function buildVaultCollections(movies: StreamableMovie[]): VaultCollection[] {
 
   // Sci-Fi & Horror Cult Classics
   const scifi = movies.filter((m) =>
-    m.genres.some(
+    genreText(m).some(
       (g) =>
         g.toLowerCase().includes('sci-fi') ||
         g.toLowerCase().includes('science fiction') ||
@@ -48,7 +59,7 @@ function buildVaultCollections(movies: StreamableMovie[]): VaultCollection[] {
   // Animation Gems (Blender Foundation)
   const animation = movies.filter(
     (m) =>
-      m.genres.some((g) => g.toLowerCase().includes('animation')) ||
+      genreText(m).some((g) => g.toLowerCase().includes('animation')) ||
       m.source === 'blender-foundation'
   );
   if (animation.length > 0)
@@ -56,7 +67,7 @@ function buildVaultCollections(movies: StreamableMovie[]): VaultCollection[] {
 
   // Action & Adventure
   const action = movies.filter((m) =>
-    m.genres.some(
+    genreText(m).some(
       (g) =>
         g.toLowerCase().includes('action') ||
         g.toLowerCase().includes('adventure')
@@ -67,35 +78,35 @@ function buildVaultCollections(movies: StreamableMovie[]): VaultCollection[] {
 
   // Drama Classics
   const drama = movies.filter((m) =>
-    m.genres.some((g) => g.toLowerCase().includes('drama'))
+    genreText(m).some((g) => g.toLowerCase().includes('drama'))
   );
   if (drama.length > 0)
     collections.push({ id: 'drama', title: 'Drama Classics', icon: Film, movies: drama });
 
   // Comedy
   const comedy = movies.filter((m) =>
-    m.genres.some((g) => g.toLowerCase().includes('comedy'))
+    genreText(m).some((g) => g.toLowerCase().includes('comedy'))
   );
   if (comedy.length > 0)
     collections.push({ id: 'comedy', title: 'Classic Comedy', icon: Film, movies: comedy });
 
   // Romance
   const romance = movies.filter((m) =>
-    m.genres.some((g) => g.toLowerCase().includes('romance'))
+    genreText(m).some((g) => g.toLowerCase().includes('romance'))
   );
   if (romance.length > 0)
     collections.push({ id: 'romance', title: 'Romance Classics', icon: Film, movies: romance });
 
   // Western
   const western = movies.filter((m) =>
-    m.genres.some((g) => g.toLowerCase().includes('western'))
+    genreText(m).some((g) => g.toLowerCase().includes('western'))
   );
   if (western.length > 0)
     collections.push({ id: 'western', title: 'Western Legends', icon: Landmark, movies: western });
 
   // Thriller / Suspense
   const thriller = movies.filter((m) =>
-    m.genres.some(
+    genreText(m).some(
       (g) =>
         g.toLowerCase().includes('thriller') ||
         g.toLowerCase().includes('suspense')
@@ -353,7 +364,7 @@ export default function VaultSection() {
         const res = await fetch('/api/streaming/catalog');
         if (!res.ok) throw new Error('Failed to fetch catalog');
         const data = await res.json();
-        if (!cancelled && data?.movies) {
+        if (!cancelled && Array.isArray(data?.movies)) {
           setMovies(data.movies);
         }
       } catch (err) {

@@ -577,8 +577,9 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
   // Called by ReviewComposer after a successful POST /api/reviews. The
   // composer owns the API call, loading state and error handling (it keeps
   // the user's text visible on failure), so this callback only syncs UI:
-  // close the form, mirror to localStorage for the legacy /my-reviews page,
-  // and refresh the server-backed reviews list.
+  // close the form, mirror to localStorage (still read by the homepage
+  // CommunityReviews section for instant "your reviews" highlights), and
+  // refresh the server-backed reviews list.
   const handleReviewSubmitted = (review: { movie_id?: number; rating?: number; body?: string; created_at?: string }) => {
     if (!movie) return;
     try {

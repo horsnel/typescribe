@@ -210,7 +210,7 @@ function tvMazeToMovie(show: TVMazeShow): Movie {
     release_date: show.premiered || '',
     poster_path: show.image?.original || show.image?.medium || '',
     backdrop_path: show.image?.original || '',
-    genres: show.genres.map((g, i) => ({ id: -(i + 1), name: g })),
+    genres: (show.genres ?? []).map((g, i) => ({ id: -(i + 1), name: g })),
     runtime: show.averageRuntime || show.runtime || 0,
     vote_average: show.rating?.average ? show.rating.average / 1 : 0,
     vote_count: 0,

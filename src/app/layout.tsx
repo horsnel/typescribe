@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/lib/auth";
@@ -8,6 +8,7 @@ import ConditionalFooter from "@/components/layout/ConditionalFooter";
 import CookieBanner from "@/components/layout/CookieBanner";
 import NativeScrollReveal from "@/components/layout/NativeScrollReveal";
 import NotificationPanel from "@/components/community/NotificationPanel";
+import ServiceWorkerRegistration from "@/components/layout/ServiceWorkerRegistration";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,7 +23,25 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Typescribe — AI-Powered Movie Reviews",
   description: "Discover your next favorite movie with AI-powered reviews, real ratings, and community insights.",
-  icons: { icon: "/logo.svg" },
+  applicationName: "Typescribe",
+  manifest: "/manifest.json",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48", type: "image/x-icon" },
+      { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icons/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: "/icons/apple-touch-icon.png",
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Typescribe",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#050507",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -50,6 +69,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </NativeScrollReveal>
           </AuthProvider>
         </AuthWrapper>
+        <ServiceWorkerRegistration />
       </body>
     </html>
   );

@@ -7,7 +7,7 @@ import { resolveImageUrl, handleImageError } from '@/lib/utils';
 
 function AnimeCard({ anime }: { anime: Movie }) {
   const year = anime.release_date ? anime.release_date.split('-')[0] : '';
-  const genreNames = anime.genres.slice(0, 2).map((g) => g.name);
+  const genreNames = (anime.genres ?? []).slice(0, 2).map((g) => g?.name ?? '').filter(Boolean);
   const seasonTag = anime.anime_season;
   const imgSrc = resolveImageUrl(anime.poster_path, 'w500');
 
@@ -30,7 +30,7 @@ function AnimeCard({ anime }: { anime: Movie }) {
         </div>
         {/* Rating badge */}
         <div className="absolute top-2 right-2 flex items-center gap-1 bg-[#D4A853] text-black text-xs font-bold px-2 py-0.5 rounded-full shadow-lg z-10">
-          <Star className="w-3 h-3 fill-black" strokeWidth={1.5} />{anime.vote_average.toFixed(1)}
+          <Star className="w-3 h-3 fill-black" strokeWidth={1.5} />{typeof anime.vote_average === 'number' ? anime.vote_average.toFixed(1) : '—'}
         </div>
         {/* Hover overlay */}
         <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">

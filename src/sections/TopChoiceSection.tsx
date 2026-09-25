@@ -50,8 +50,8 @@ function TopChoiceCard({ category }: { category: TopChoiceCategory }) {
   if (!movie) return null;
 
   const year = movie.release_date ? movie.release_date.split('-')[0] : '';
-  const genreNames = movie.genres
-    .filter(g => g.name)
+  const genreNames = (movie.genres ?? [])
+    .filter(g => g?.name)
     .slice(0, 2)
     .map(g => g.name);
 

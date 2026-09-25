@@ -2,6 +2,19 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // Permanent route retirement: /my-reviews (legacy localStorage reviews) now
+  // lives at /dashboard/reviews (API-backed). A config-level redirect emits a
+  // real 308 for bookmarks/links with zero client JS — redirect() inside a
+  // statically prerendered page is unreliable in Next 16.
+  async redirects() {
+    return [
+      {
+        source: '/my-reviews',
+        destination: '/dashboard/reviews',
+        permanent: true,
+      },
+    ];
+  },
   images: {
     // TMDb posters/backdrops are effectively immutable — cache optimized
     // images for 31 days so repeat views skip the optimizer entirely.
