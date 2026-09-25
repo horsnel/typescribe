@@ -580,17 +580,30 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
   // close the form, mirror to localStorage (still read by the homepage
   // CommunityReviews section for instant "your reviews" highlights), and
   // refresh the server-backed reviews list.
-  const handleReviewSubmitted = (review: { movie_id?: number; rating?: number; body?: string; created_at?: string }) => {
+  const handleReviewSubmitted = (review: { movie_id?: number; rating?: number; body?: string; created_at?: string; title?: string }) => {
     if (!movie) return;
     try {
       const existing = localStorage.getItem('typescribe_user_reviews');
       const reviews = existing ? JSON.parse(existing) : [];
+      // Mirror MUST match the full shape the homepage CommunityReviews
+      // section (and ReviewCard) expects — a missing user_name here is
+      // what crashed the homepage with "reading 'split'".
       reviews.unshift({
         id: Date.now(),
         movie_id: review?.movie_id ?? movie.id,
-        rating: review?.rating,
+        user_id: user?.id ?? 0,
+        user_name: user?.display_name || 'You',
+        user_avatar: user?.avatar || '',
+        rating: typeof review?.rating === 'number' ? review.rating : 0,
         text: review?.body ?? '',
+        helpful_count: 0,
         created_at: review?.created_at ?? new Date().toISOString(),
+        updated_at: review?.created_at ?? new Date().toISOString(),
+        moderated: false,
+        moderation_note: '',
+        reports: [],
+        movieSlug: movie.slug,
+        movieTitle: movie.title,
       });
       localStorage.setItem('typescribe_user_reviews', JSON.stringify(reviews));
     } catch { /* ignore */ }
@@ -1037,7 +1050,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                   {/* Individual Disputes */}
                   <div className="space-y-3 max-h-96 overflow-y-auto scrollbar-thin">
                     {disputes.map((dispute) => {
-                      const avatarFallback = dispute.user_name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+                      const avatarFallback = (dispute.user_name || 'U').split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
                       return (
                         <div key={dispute.id} className="bg-[#050507]/60 border border-[#1e1e28]/50 rounded-lg p-4">
                           <div className="flex items-start gap-3">
@@ -1404,7 +1417,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                         .map((comment) => {
                           const replies = comments.filter(c => c.parent_id === comment.id)
                             .sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
-                          const avatarFallback = comment.user_name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+                          const avatarFallback = (comment.user_name || 'U').split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
                           return (
                             <div key={comment.id} className={`bg-[#0c0c10] border rounded-xl p-5 ${comment.moderated ? 'border-yellow-500/30' : 'border-[#1e1e28]'}`}>
                               {/* Moderation badge */}
@@ -1499,7 +1512,7 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
                                   {replies.length > 0 && (
                                     <div className="mt-3 ml-2 pl-4 border-l-2 border-[#1e1e28] space-y-3">
                                       {replies.map((reply) => {
-                                        const replyAvatar = reply.user_name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+                                        const replyAvatar = (reply.user_name || 'U').split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
                                         return (
                                           <div key={reply.id} className="flex items-start gap-2">
                                             <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#D4A853]/80 to-[#B8922F]/80 flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">

@@ -25,7 +25,7 @@ export const PERSON_PLACEHOLDER = 'data:image/svg+xml,' + encodeURIComponent(
  * E.g. "Tom Hanks" → "TH", "Oprah" → "OP"
  */
 export function getInitials(name: string): string {
-  return name
+  return (name || '')
     .split(' ')
     .filter(Boolean)
     .map(w => w[0])

@@ -30,14 +30,16 @@ export default function ReviewCard({
   movieSlug,
 }: ReviewCardProps) {
   const [helped, setHelped] = useState(false);
-  const [helpfulCount, setHelpfulCount] = useState(review.helpful_count);
+  const [helpfulCount, setHelpfulCount] = useState(typeof review.helpful_count === 'number' ? review.helpful_count : 0);
   const [reported, setReported] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [reportModalOpen, setReportModalOpen] = useState(false);
   const { user, isAuthenticated } = useAuth();
   const isOwnReview = isAuthenticated && user?.id === review.user_id;
-  const isLong = review.text.length > 300;
-  const displayText = isLong && !expanded ? review.text.slice(0, 300) + '...' : review.text;
+  // Defensive: reviews can come from a legacy localStorage mirror with missing fields
+  const reviewText = typeof review.text === 'string' ? review.text : '';
+  const isLong = reviewText.length > 300;
+  const displayText = isLong && !expanded ? reviewText.slice(0, 300) + '...' : reviewText;
 
   const handleHelpful = () => {
     if (helped) setHelpfulCount(helpfulCount - 1);
@@ -59,7 +61,12 @@ export default function ReviewCard({
     }
   };
 
-  const avatarFallback = review.user_name.split(' ').map((n) => n[0]).join('').toUpperCase().slice(0, 2);
+  const avatarFallback = (review.user_name || 'U')
+    .split(' ')
+    .map((n) => n[0])
+    .join('')
+    .toUpperCase()
+    .slice(0, 2);
 
   // Get moderation badge info
   const badge = getModerationBadge(
@@ -86,7 +93,7 @@ export default function ReviewCard({
             </div>
           </div>
           {showMovieTitle && movieSlug && <Link href={`/movie/${movieSlug}`} className="text-xs text-[#6b7280] hover:text-[#9ca3af] mb-1 block">Review of {movieSlug}</Link>}
-          <p className="text-sm text-[#9ca3af] line-clamp-2">{review.text}</p>
+          <p className="text-sm text-[#9ca3af] line-clamp-2">{reviewText}</p>
           <div className="flex items-center gap-4 mt-2">
             <button onClick={handleHelpful} className={cn('flex items-center gap-1 text-xs transition-colors', helped ? 'text-[#D4A853]' : 'text-[#6b7280] hover:text-[#9ca3af]')}><ThumbsUp className="w-3 h-3" strokeWidth={1.5} /><span>{helpfulCount}</span></button>
             <span className="text-xs text-[#6b7280]">{formatDate(review.created_at)}</span>
@@ -201,7 +208,7 @@ export default function ReviewCard({
         onClose={() => setReportModalOpen(false)}
         onSubmit={handleReportSubmit}
         contentType="review"
-        contentPreview={review.text.slice(0, 150)}
+        contentPreview={reviewText.slice(0, 150)}
       />
     </>
   );

@@ -158,7 +158,7 @@ export default function PublicProfilePage() {
     createdCommunities: [],
   };
 
-  const userInitials = effectiveUser.display_name
+  const userInitials = (effectiveUser.display_name || 'U')
     .split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
 
   const followersCount = profileUser ? getFollowerCount(profileUser.id) : 0;

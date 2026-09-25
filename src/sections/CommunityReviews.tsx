@@ -31,8 +31,30 @@ export default function CommunityReviews() {
       if (stored) {
         const parsed = JSON.parse(stored);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          // eslint-disable-next-line react-hooks/set-state-in-effect -- load initial state from localStorage on mount (SSR-safe via 'use client')
-          setReviews(parsed.slice(0, 3));
+          // Normalize legacy mirror entries: older write shapes may be missing
+          // fields that ReviewCard assumes (user_name, text, rating...). Fill
+          // safe defaults so one bad entry can never crash the homepage.
+          const normalized = parsed
+            .filter((r): r is Record<string, unknown> => r && typeof r === 'object')
+            .map((r) => ({
+              ...r,
+              id: typeof r.id === 'number' || typeof r.id === 'string' ? r.id : 0,
+              user_name: typeof r.user_name === 'string' && r.user_name ? r.user_name : 'Anonymous',
+              user_avatar: typeof r.user_avatar === 'string' ? r.user_avatar : '',
+              user_id: typeof r.user_id === 'number' || typeof r.user_id === 'string' ? r.user_id : 0,
+              rating: typeof r.rating === 'number' ? r.rating : 0,
+              text: typeof r.text === 'string' ? r.text : '',
+              helpful_count: typeof r.helpful_count === 'number' ? r.helpful_count : 0,
+              created_at: typeof r.created_at === 'string' ? r.created_at : new Date().toISOString(),
+              updated_at: typeof r.updated_at === 'string' ? r.updated_at : new Date().toISOString(),
+              moderated: Boolean(r.moderated),
+              moderation_note: typeof r.moderation_note === 'string' ? r.moderation_note : '',
+              reports: Array.isArray(r.reports) ? r.reports : [],
+            })) as LocalReview[];
+          if (normalized.length > 0) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect -- load initial state from localStorage on mount (SSR-safe via 'use client')
+            setReviews(normalized.slice(0, 3));
+          }
         }
       }
     } catch { /* ignore */ }

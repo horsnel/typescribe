@@ -59,7 +59,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   };
 
   const getInitials = (name: string) =>
-    name
+    (name || '')
       .split(' ')
       .map((n) => n[0])
       .join('')

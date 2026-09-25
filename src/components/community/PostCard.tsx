@@ -191,7 +191,7 @@ function CommentThread({ comments, postId, onAddComment, onDeleteComment, depth 
                   {comment.authorAvatar ? (
                     <img src={comment.authorAvatar} alt={comment.authorName} className="w-full h-full object-cover" />
                   ) : (
-                    comment.authorName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
+                    (comment.authorName || 'U').split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
                   )}
                 </div>
               </Link>
@@ -362,7 +362,7 @@ export default function PostCard({ post, communityId, onLikeToggle, onCommentTog
   };
 
   // Author role detection (simple heuristic for now)
-  const authorInitials = post.author.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+  const authorInitials = (post.author || 'U').split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
   const isAuthorOP = post.authorId && post.authorId < 10; // early users
 
   return (

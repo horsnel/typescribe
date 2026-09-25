@@ -42,7 +42,7 @@ function resolveImageUrl(path: string | undefined | null, size: 'w300' | 'w780' 
 
 // ─── Helper: get initials for avatar fallback ───
 function getInitials(name: string): string {
-  return name
+  return (name || '')
     .split(' ')
     .map((n) => n[0])
     .join('')

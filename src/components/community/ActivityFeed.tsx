@@ -117,7 +117,7 @@ export default function ActivityFeed({ joinedCommunityIds, communityId, maxItems
                 {activity.actorAvatar ? (
                   <img src={activity.actorAvatar} alt={activity.actorName} className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
                 ) : (
-                  activity.actorName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
+                  (activity.actorName || 'U').split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
                 )}
               </div>
 

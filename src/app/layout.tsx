@@ -9,6 +9,7 @@ import CookieBanner from "@/components/layout/CookieBanner";
 import NativeScrollReveal from "@/components/layout/NativeScrollReveal";
 import NotificationPanel from "@/components/community/NotificationPanel";
 import ServiceWorkerRegistration from "@/components/layout/ServiceWorkerRegistration";
+import InstallPrompt from "@/components/pwa/InstallPrompt";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -47,6 +48,16 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="dark h-full" suppressHydrationWarning>
+      <head>
+        {/* Capture beforeinstallprompt as early as possible — it can fire before
+            React hydrates, and the only reference to the event must be kept to
+            be able to trigger the native install dialog later. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "try{window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();window.__tsInstall=e;window.dispatchEvent(new Event('ts-install-ready'));});}catch(e){}",
+          }}
+        />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#050507] text-white h-full overflow-hidden`}>
         {/* Subtle ambient glow */}
         <div className="fixed inset-0 pointer-events-none z-0">
@@ -65,6 +76,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </main>
               <CookieBanner />
               <NotificationPanel />
+              <InstallPrompt />
             </div>
           </NativeScrollReveal>
           </AuthProvider>
