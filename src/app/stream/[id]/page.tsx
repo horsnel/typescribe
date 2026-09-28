@@ -2,7 +2,7 @@
 
 import { useEffect, useState, use } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, ExternalLink, Loader2, Play, AlertCircle, Star } from 'lucide-react';
+import { ArrowLeft, Loader2, AlertCircle, Star } from 'lucide-react';
 import CinemaPlayer, { type CinemaMovieData } from '@/components/stream/CinemaPlayer';
 import type { StreamableMovie } from '@/lib/streaming-pipeline/types';
 
@@ -72,82 +72,96 @@ export default function StreamWatchPage({ params }: { params: Promise<{ id: stri
     );
   }
 
+  const genres = Array.isArray(movie.genres) ? movie.genres : [];
+
   return (
     <div className="min-h-screen bg-[#050507] text-white">
-      <div className="max-w-7xl mx-auto px-4 py-4">
-        <Link href="/stream" className="inline-flex items-center gap-2 text-sm text-[#9ca3af] hover:text-[#D4A853] mb-4">
-          <ArrowLeft className="w-4 h-4" /> Back to catalog
-        </Link>
+      {/* ─── Full-bleed cinematic player (no card, no borders — edge to edge) ─── */}
+      <div className="w-full bg-black">
+        <CinemaPlayer movie={cinemaMovie} />
+      </div>
 
-        <div className="rounded-2xl overflow-hidden border border-[#1e1e28] bg-black">
-          <CinemaPlayer movie={cinemaMovie} />
-        </div>
+      {/* ─── Spacious details below the player ─── */}
+      <div className="max-w-6xl mx-auto px-6 md:px-10 py-10 md:py-14">
+        <div className="grid md:grid-cols-[1fr_300px] gap-10 md:gap-14">
+          {/* Main column */}
+          <div>
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">{movie.title}</h1>
 
-        {/* Movie info */}
-        <div className="mt-6 grid md:grid-cols-3 gap-6">
-          <div className="md:col-span-2">
-            <div className="flex items-start gap-4 mb-4">
-              {movie.poster && (
-                 
-                <img src={movie.poster} alt={movie.title} className="w-24 rounded-lg shadow-xl flex-shrink-0" />
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-[#9ca3af] mb-6">
+              {movie.year > 0 && <span>{movie.year}</span>}
+              {movie.duration && <span>{movie.duration}</span>}
+              {movie.rating > 0 && (
+                <span className="flex items-center gap-1.5">
+                  <Star className="w-4 h-4 fill-[#D4A853] text-[#D4A853]" />
+                  <span className="text-[#D4A853] font-semibold">{movie.rating.toFixed(1)}</span>
+                </span>
               )}
-              <div className="flex-1 min-w-0">
-                <h1 className="text-2xl font-bold mb-1">{movie.title}</h1>
-                <div className="flex items-center gap-3 text-sm text-[#9ca3af] mb-2">
-                  {movie.year > 0 && <span>{movie.year}</span>}
-                  {movie.duration && <span>· {movie.duration}</span>}
-                  {movie.rating > 0 && (
-                    <span className="flex items-center gap-1">
-                      · <Star className="w-3.5 h-3.5 fill-[#D4A853] text-[#D4A853]" />
-                      {movie.rating.toFixed(1)}
-                    </span>
-                  )}
-                </div>
-                <div className="flex flex-wrap gap-1.5">
-                  {movie.genres.slice(0, 5).map(g => (
-                    <span key={g} className="text-xs px-2 py-0.5 bg-[#D4A853]/10 text-[#D4A853] border border-[#D4A853]/20 rounded">
-                      {g}
-                    </span>
-                  ))}
-                </div>
-              </div>
+              <span className="text-[11px] font-bold px-2 py-0.5 rounded border border-white/20 text-white/70">
+                {movie.quality}
+              </span>
             </div>
-            <p className="text-[#9ca3af] text-sm leading-relaxed">{movie.description}</p>
+
+            {genres.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-8">
+                {genres.slice(0, 6).map(g => (
+                  <span key={g} className="text-xs px-3 py-1 bg-white/[0.04] text-[#c9c9d1] border border-white/10 rounded-full">
+                    {g}
+                  </span>
+                ))}
+              </div>
+            )}
+
+            <p className="text-[#b3b3b3] text-base md:text-lg leading-relaxed max-w-2xl">
+              {movie.description}
+            </p>
           </div>
 
-          <div className="space-y-4">
-            <div className="p-4 bg-[#0c0c10] border border-[#1e1e28] rounded-lg">
-              <div className="text-xs text-[#9ca3af] uppercase tracking-wide mb-3">Streaming Info</div>
-              <dl className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <dt className="text-[#9ca3af]">Source</dt>
-                  <dd className="font-medium capitalize">{movie.source.replace(/-/g, ' ')}</dd>
+          {/* Details column — internal metadata only, no outbound links */}
+          <aside className="space-y-8">
+            <div>
+              <h2 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">Details</h2>
+              <dl className="space-y-3.5 text-sm">
+                <div className="flex items-baseline justify-between gap-4">
+                  <dt className="text-[#737373]">Quality</dt>
+                  <dd className="font-medium text-right">{movie.quality}</dd>
                 </div>
-                <div className="flex justify-between">
-                  <dt className="text-[#9ca3af]">Quality</dt>
-                  <dd className="font-medium">{movie.quality}</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-[#9ca3af]">License</dt>
-                  <dd className="font-medium text-xs">{movie.sourceLicense}</dd>
-                </div>
+                {movie.duration && (
+                  <div className="flex items-baseline justify-between gap-4">
+                    <dt className="text-[#737373]">Runtime</dt>
+                    <dd className="font-medium text-right">{movie.duration}</dd>
+                  </div>
+                )}
                 {movie.languages?.length > 0 && (
-                  <div className="flex justify-between">
-                    <dt className="text-[#9ca3af]">Audio</dt>
-                    <dd className="font-medium text-xs text-right">{movie.languages.length} language(s)</dd>
+                  <div className="flex items-baseline justify-between gap-4">
+                    <dt className="text-[#737373]">Audio</dt>
+                    <dd className="font-medium text-right">{movie.languages.length} {movie.languages.length === 1 ? 'language' : 'languages'}</dd>
+                  </div>
+                )}
+                {movie.subtitles?.length > 0 && (
+                  <div className="flex items-baseline justify-between gap-4">
+                    <dt className="text-[#737373]">Subtitles</dt>
+                    <dd className="font-medium text-right">{movie.subtitles.length}</dd>
+                  </div>
+                )}
+                {genres.length > 0 && (
+                  <div className="flex items-baseline justify-between gap-4">
+                    <dt className="text-[#737373]">Genres</dt>
+                    <dd className="font-medium text-right">{genres.slice(0, 3).join(', ')}</dd>
                   </div>
                 )}
               </dl>
-              <a
-                href={movie.sourceUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 w-full inline-flex items-center justify-center gap-2 px-3 py-2 bg-[#D4A853]/10 border border-[#D4A853]/30 text-[#D4A853] rounded-lg text-xs font-medium hover:bg-[#D4A853]/20 transition"
-              >
-                <ExternalLink className="w-3.5 h-3.5" /> Open on {movie.source.replace(/-/g, ' ')}
-              </a>
             </div>
-          </div>
+
+            <div className="pt-6 border-t border-white/[0.06]">
+              <Link
+                href="/stream"
+                className="inline-flex items-center gap-2 text-sm text-[#9ca3af] hover:text-[#D4A853] transition-colors"
+              >
+                <ArrowLeft className="w-4 h-4" /> Back to catalog
+              </Link>
+            </div>
+          </aside>
         </div>
       </div>
     </div>

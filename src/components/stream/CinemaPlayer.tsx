@@ -6,8 +6,8 @@ import {
   Play, Pause, Volume2, VolumeX, Volume1,
   Maximize, Minimize, SkipBack, SkipForward,
   Settings, ChevronLeft, Subtitles, Globe,
-  X, Check, ExternalLink, PictureInPicture2,
-  ChevronUp, Film, Loader2, Sparkles
+  X, Check, PictureInPicture2,
+  ChevronUp, Film, Loader2, Sparkles, Info
 } from 'lucide-react';
 
 /* ─── Types ─── */
@@ -128,13 +128,9 @@ function SkipFeedback({ direction, show }: { direction: 'forward' | 'back'; show
   );
 }
 
-/* ─── Link-Out Card (for non-embeddable sources) ─── */
+/* ─── Unavailable Card (for non-embeddable sources — internal only, never links out) ─── */
 
 function LinkOutCard({ movie }: { movie: CinemaMovieData }) {
-  const sourceName = movie.source
-    .replace(/-/g, ' ')
-    .replace(/\b\w/g, c => c.toUpperCase());
-
   return (
     <div className="w-full min-h-[56.25vw] max-h-screen bg-[#050507] flex items-center justify-center relative overflow-hidden">
       {/* Background with blur */}
@@ -148,19 +144,16 @@ function LinkOutCard({ movie }: { movie: CinemaMovieData }) {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-2xl mx-auto px-6 text-center">
-        {/* Quality & Source badge */}
-        <div className="flex items-center justify-center gap-3 mb-6">
-          <span className={`text-xs font-bold px-2.5 py-1 rounded ${movie.quality === '4K' ? 'bg-[#D4A853] text-white' : 'bg-white/10 text-white/70'}`}>
+      <div className="relative z-10 max-w-2xl mx-auto px-8 text-center">
+        {/* Quality badge */}
+        <div className="flex items-center justify-center gap-3 mb-8">
+          <span className={`text-xs font-bold px-3 py-1.5 rounded ${movie.quality === '4K' ? 'bg-[#D4A853] text-white' : 'bg-white/10 text-white/70'}`}>
             {movie.quality}
-          </span>
-          <span className="text-xs font-medium px-2.5 py-1 bg-[#D4A853]/10 text-[#D4A853] rounded border border-[#D4A853]/20">
-            {sourceName}
           </span>
         </div>
 
         {/* Poster */}
-        <div className="w-36 md:w-44 mx-auto mb-6">
+        <div className="w-36 md:w-44 mx-auto mb-8">
           <div className="aspect-[2/3] rounded-xl overflow-hidden shadow-2xl border border-white/10">
             <img
               src={movie.poster}
@@ -174,8 +167,8 @@ function LinkOutCard({ movie }: { movie: CinemaMovieData }) {
         </div>
 
         {/* Title */}
-        <h1 className="text-2xl md:text-4xl font-bold text-white mb-2">{movie.title}</h1>
-        <p className="text-white/50 text-sm mb-6">
+        <h1 className="text-2xl md:text-4xl font-bold text-white mb-3">{movie.title}</h1>
+        <p className="text-white/50 text-sm mb-8">
           {movie.year > 0 && `${movie.year} · `}{movie.duration}
           {movie.rating > 0 && ` · ⭐ ${movie.rating}`}
         </p>
@@ -185,29 +178,22 @@ function LinkOutCard({ movie }: { movie: CinemaMovieData }) {
           {movie.description}
         </p>
 
-        {/* CTA Button */}
-        <a
-          href={movie.videoUrl || movie.sourceUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-3 px-8 py-4 bg-[#D4A853] hover:bg-[#B8922F] text-white font-bold rounded-xl transition-all duration-200 shadow-lg shadow-[#D4A853]/30 hover:shadow-[#D4A853]/50 hover:scale-105 text-base"
-        >
-          <ExternalLink className="w-5 h-5" strokeWidth={2} />
-          Watch on {sourceName}
-        </a>
+        {/* Availability note — internal only, no external links */}
+        <div className="inline-flex items-center gap-2.5 px-5 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white/70 text-sm">
+          <Info className="w-4 h-4 text-[#D4A853] shrink-0" strokeWidth={1.5} />
+          This title isn&apos;t playable in the player right now
+        </div>
 
-        <p className="text-white/20 text-xs mt-4">
-          Free · Ad-supported streaming
-        </p>
-
-        {/* Back link */}
-        <Link
-          href="/stream"
-          className="inline-flex items-center gap-2 text-white/40 hover:text-[#D4A853] transition-colors mt-8 text-sm"
-        >
-          <ChevronLeft className="w-4 h-4" strokeWidth={1.5} />
-          Back to Streaming
-        </Link>
+        {/* Back link (internal) */}
+        <div className="mt-10">
+          <Link
+            href="/stream"
+            className="inline-flex items-center gap-2 text-white/50 hover:text-[#D4A853] transition-colors text-sm font-medium"
+          >
+            <ChevronLeft className="w-4 h-4" strokeWidth={1.5} />
+            Browse more titles
+          </Link>
+        </div>
       </div>
     </div>
   );
@@ -591,15 +577,6 @@ export default function CinemaPlayer({ movie }: CinemaPlayerProps) {
   // Volume icon
   const VolumeIcon = isMuted || volume === 0 ? VolumeX : volume < 0.5 ? Volume1 : Volume2;
 
-  // Source label
-  const sourceBadge = videoType === 'youtube' ? 'YouTube' :
-    videoType === 'vimeo' ? 'Vimeo' :
-    videoType === 'bilibili' ? 'Bilibili' :
-    videoType === 'embed' ? 'External' :
-    videoType === 'hls' ? 'HLS' :
-    videoType === 'linkout' ? 'Link-out' :
-    videoType === 'direct' ? 'Direct' : 'Video';
-
   // Get the embed URL for iframe types
   const getEmbedUrl = () => {
     if (videoType === 'youtube') {
@@ -713,23 +690,18 @@ export default function CinemaPlayer({ movie }: CinemaPlayerProps) {
           <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-black/80 to-transparent pointer-events-none" />
 
           {/* Top bar */}
-          <div className="absolute top-0 left-0 right-0 flex items-center justify-between px-4 md:px-8 py-4">
-            <div className="flex items-center gap-4">
+          <div className="absolute top-0 left-0 right-0 flex items-center justify-between px-5 md:px-10 py-5">
+            <div className="flex items-center gap-5">
               <Link
                 href="/stream"
                 className="flex items-center gap-2 text-white/80 hover:text-white transition-colors min-h-[44px] min-w-[44px] items-center justify-center"
                 onClick={(e) => e.stopPropagation()}
               >
-                <ChevronLeft className="w-6 h-6" strokeWidth={1.5} />
+                <ChevronLeft className="w-7 h-7 md:w-8 md:h-8" strokeWidth={1.5} />
               </Link>
               <div>
-                <h2 className="text-white text-sm md:text-base font-semibold line-clamp-1">{movie.title}</h2>
-                <div className="flex items-center gap-2">
-                  <p className="text-white/50 text-xs">{movie.year} · {movie.duration}</p>
-                  <span className="text-[9px] font-medium px-1.5 py-0.5 bg-[#D4A853]/20 text-[#D4A853] rounded border border-[#D4A853]/20">
-                    {sourceBadge}
-                  </span>
-                </div>
+                <h2 className="text-white text-base md:text-lg font-semibold line-clamp-1">{movie.title}</h2>
+                <p className="text-white/50 text-xs md:text-sm mt-0.5">{movie.year} · {movie.duration}</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
@@ -767,11 +739,11 @@ export default function CinemaPlayer({ movie }: CinemaPlayerProps) {
           <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-black/80 to-transparent pointer-events-none" />
 
           {/* Bottom controls */}
-          <div className="absolute bottom-0 left-0 right-0 px-4 md:px-8 pb-4">
+          <div className="absolute bottom-0 left-0 right-0 px-5 md:px-10 pb-5 md:pb-6">
             {/* Progress bar */}
             <div
               ref={progressRef}
-              className="group/progress relative h-1 hover:h-2.5 transition-all duration-150 cursor-pointer mb-3 rounded-full"
+              className="group/progress relative h-1.5 hover:h-3 transition-all duration-150 cursor-pointer mb-4 rounded-full"
               onClick={handleProgressClick}
               onMouseMove={handleProgressHover}
               onMouseLeave={() => setSeekPreview(null)}
@@ -789,8 +761,8 @@ export default function CinemaPlayer({ movie }: CinemaPlayerProps) {
               />
               {/* Progress dot */}
               <div
-                className="absolute top-1/2 -translate-y-1/2 w-3.5 h-3.5 bg-[#D4A853] rounded-full shadow-lg shadow-[#D4A853]/40 opacity-0 group-hover/progress:opacity-100 transition-opacity"
-                style={{ left: duration ? `calc(${(currentTime / duration) * 100}% - 7px)` : '-7px' }}
+                className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-[#D4A853] rounded-full shadow-lg shadow-[#D4A853]/40 opacity-0 group-hover/progress:opacity-100 transition-opacity"
+                style={{ left: duration ? `calc(${(currentTime / duration) * 100}% - 8px)` : '-8px' }}
               />
               {/* Seek preview tooltip */}
               {seekPreview && duration > 0 && (
@@ -804,21 +776,21 @@ export default function CinemaPlayer({ movie }: CinemaPlayerProps) {
             </div>
 
             {/* Control buttons row */}
-            <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center justify-between gap-3">
               {/* Left controls */}
-              <div className="flex items-center gap-1 md:gap-2">
+              <div className="flex items-center gap-1.5 md:gap-3">
                 {/* Play/Pause */}
                 <button onClick={togglePlay} className="text-white hover:text-[#D4A853] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label={isPlaying ? 'Pause' : 'Play'}>
-                  {isPlaying ? <Pause className="w-5 h-5" fill="currentColor" /> : <Play className="w-5 h-5" fill="currentColor" />}
+                  {isPlaying ? <Pause className="w-6 h-6" fill="currentColor" /> : <Play className="w-6 h-6" fill="currentColor" />}
                 </button>
 
                 {/* Skip Back */}
                 <button onClick={() => skip(-10)} className="text-white/80 hover:text-[#D4A853] transition-colors hidden sm:flex min-h-[44px] min-w-[44px] items-center justify-center" aria-label="Skip back 10s">
-                  <SkipBack className="w-4 h-4" strokeWidth={1.5} />
+                  <SkipBack className="w-5 h-5" strokeWidth={1.5} />
                 </button>
                 {/* Skip Forward */}
                 <button onClick={() => skip(10)} className="text-white/80 hover:text-[#D4A853] transition-colors hidden sm:flex min-h-[44px] min-w-[44px] items-center justify-center" aria-label="Skip forward 10s">
-                  <SkipForward className="w-4 h-4" strokeWidth={1.5} />
+                  <SkipForward className="w-5 h-5" strokeWidth={1.5} />
                 </button>
 
                 {/* Volume */}
@@ -841,13 +813,13 @@ export default function CinemaPlayer({ movie }: CinemaPlayerProps) {
                 </div>
 
                 {/* Time */}
-                <div className="text-white/70 text-xs font-mono hidden sm:block ml-1">
+                <div className="text-white/70 text-sm font-mono hidden sm:block ml-2 tabular-nums">
                   {formatTime(currentTime)} / {formatTime(duration)}
                 </div>
               </div>
 
               {/* Right controls */}
-              <div className="flex items-center gap-0.5 md:gap-1">
+              <div className="flex items-center gap-1 md:gap-2">
                 {/* Quality badge */}
                 {isHLS && (
                   <div className="relative">
@@ -931,39 +903,32 @@ export default function CinemaPlayer({ movie }: CinemaPlayerProps) {
           <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-black/70 to-transparent pointer-events-none" />
 
           {/* Top bar */}
-          <div className="absolute top-0 left-0 right-0 flex items-center justify-between px-4 md:px-8 py-4 pointer-events-auto">
-            <div className="flex items-center gap-4">
+          <div className="absolute top-0 left-0 right-0 flex items-center justify-between px-5 md:px-10 py-5 pointer-events-auto">
+            <div className="flex items-center gap-5">
               <Link
                 href="/stream"
                 className="flex items-center gap-2 text-white/80 hover:text-white transition-colors min-h-[44px]"
                 onClick={(e) => e.stopPropagation()}
               >
-                <ChevronLeft className="w-6 h-6" strokeWidth={1.5} />
+                <ChevronLeft className="w-7 h-7 md:w-8 md:h-8" strokeWidth={1.5} />
               </Link>
               <div>
-                <h2 className="text-white text-sm md:text-base font-semibold line-clamp-1">{movie.title}</h2>
-                <div className="flex items-center gap-2">
-                  <p className="text-white/50 text-xs">{movie.year} · {movie.duration}</p>
-                  <span className="text-[9px] font-medium px-1.5 py-0.5 bg-[#D4A853]/20 text-[#D4A853] rounded border border-[#D4A853]/20">
-                    {sourceBadge}
-                  </span>
-                </div>
+                <h2 className="text-white text-base md:text-lg font-semibold line-clamp-1">{movie.title}</h2>
+                <p className="text-white/50 text-xs md:text-sm mt-0.5">{movie.year} · {movie.duration}</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-medium px-2 py-0.5 bg-white/10 backdrop-blur-sm text-white/70 rounded">
-                {sourceBadge}
-              </span>
-              {movie.sourceUrl && (
-                <a
-                  href={movie.sourceUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white/60 hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
-                  aria-label="Open original source"
-                >
-                  <ExternalLink className="w-4 h-4" strokeWidth={1.5} />
-                </a>
+              {movie.languages.length > 1 && (
+                <span className="text-[10px] text-white/40 flex items-center gap-1">
+                  <Globe className="w-3 h-3" strokeWidth={1.5} />
+                  {movie.languages.length} lang
+                </span>
+              )}
+              {movie.subtitles.length > 0 && (
+                <span className="text-[10px] text-white/40 flex items-center gap-1">
+                  <Subtitles className="w-3 h-3" strokeWidth={1.5} />
+                  CC
+                </span>
               )}
             </div>
           </div>
