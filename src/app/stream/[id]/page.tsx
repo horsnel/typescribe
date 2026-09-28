@@ -141,7 +141,7 @@ export default function StreamWatchPage({ params }: { params: Promise<{ id: stri
                 {movie.subtitles?.length > 0 && (
                   <div className="flex items-baseline justify-between gap-4">
                     <dt className="text-[#737373]">Subtitles</dt>
-                    <dd className="font-medium text-right">{movie.subtitles.length}</dd>
+                    <dd className="font-medium text-right">{movie.subtitles.length} {movie.subtitles.length === 1 ? 'track' : 'tracks'}</dd>
                   </div>
                 )}
                 {genres.length > 0 && (
