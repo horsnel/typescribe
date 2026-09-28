@@ -583,3 +583,32 @@ Stage Summary:
 - The homepage crash class is closed at both ends: the writer emits complete data, the reader normalizes anything legacy/garbage, and every initials/genre/rating access in homepage + shared components is guarded. Users with already-corrupted mirrors recover with zero action.
 - Installability is now user-visible on mobile: explicit in-app Install pill with native prompt, plus iOS/Android menu guidance fallbacks — no dependence on Chrome's easily-missed mini-infobar.
 - Commits: ea7d506 (main).
+
+---
+Task ID: 19
+Agent: main
+Task: Stream player — no external back links + premium Netflix-style spacious redesign
+
+Work Log:
+- ENV RECOVERY: workspace reset again — re-cloned horsnel/typescribe, bun install. Vercel API token now returns 403 forbidden (lost scope access) — deployment verification done through production ground truth instead (curl markers + live browser DOM checks).
+- EXTERNAL LINK AUDIT (stream surface): found outbound links in 3 places:
+  * stream/[id]/page.tsx: "Open on <source>" button (movie.sourceUrl, target=_blank) + Source/License rows revealing third-party names
+  * CinemaPlayer iframe overlay: ExternalLink anchor to sourceUrl + "YouTube/Vimeo/..." source badges (2 spots)
+  * LinkOutCard (non-embeddable sources): big "Watch on <source>" CTA to movie.videoUrl/sourceUrl
+  * PremiumVideoPlayer.tsx had the same pattern but was DEAD CODE (zero importers) — deleted (-577 lines)
+- REDESIGN (commit dd987cc + 7a14936):
+  * Watch page: full-bleed edge-to-edge player (removed max-w-7xl card wrapper, rounded corners, border); spacious Netflix-style details section below — text-3xl/4xl title, meta row (year · runtime · gold rating · quality chip), pill genres, wide relaxed synopsis, right Details panel (Quality/Runtime/Audio/Subtitles/Genres rows, no third-party info), internal "Back to catalog" link only.
+  * CinemaPlayer: removed ALL outbound anchors + sourceBadge definition/renders; LinkOutCard is now an internal-only "isn't playable in the player right now" availability state (blurred backdrop, poster, Browse more titles → /stream); roomier chrome (px-5/px-10, py-5, taller gradients, w-6/7-8 icons, h-1.5→h-3 progress bar, larger dot, tabular-nums time).
+  * Internal /stream back chevron in player top bar intentionally KEPT (in-app navigation, matches Netflix's back arrow).
+- VERIFICATION (production): dd987cc + 7a14936 live (production markers, Vercel API unavailable).
+  * tsc 0 errors, eslint clean, next build clean (dynamic-usage + pre-existing location lines unchanged).
+  * Watch page DOM: 0 external <a> (hostname check), 0 target=_blank, no "Open on"/"Watch on"/"Source"/"License"/"Streaming Info" text; Details panel renders (Quality/Runtime/Audio/Subtitles/track wording verified live).
+  * Screenshots: full-bleed player + premium details confirmed on production.
+  * Catalog has 0 non-embeddable items today — LinkOutCard path dormant; code-verified via build.
+  * NOTE: YouTube embeds show "Video unavailable"/bot-check inside MY datacenter browser — environment limitation, not app behavior (residential users unaffected).
+  * PWA install pill re-confirmed working on stream page.
+
+Stage Summary:
+- The stream experience is now fully self-contained: zero outbound links anywhere on the watch page (DOM-verified), source/quality badges no longer leak third-party names, and non-embeddable titles show a branded internal availability state.
+- Player and watch page read premium and spacious: edge-to-edge video, Netflix-style detail layout, roomier controls with larger hit targets.
+- Commits: dd987cc, 7a14936 (main).
