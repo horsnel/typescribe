@@ -170,6 +170,11 @@ export default function Navbar() {
     { label: 'Settings', href: '/dashboard/settings', icon: Settings },
   ];
 
+  // Netflix-style chrome-less watch page: the player's own glass top bar
+  // (back button + title) replaces the site navbar while watching a title.
+  // All hooks above still run; this only suppresses the render output.
+  if (/^\/stream\/[^/]+/.test(pathname)) return null;
+
   return (
     <>
       <nav className={`fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-4 sm:px-6 lg:px-12 transition-all duration-300 ${
