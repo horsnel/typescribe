@@ -612,3 +612,23 @@ Stage Summary:
 - The stream experience is now fully self-contained: zero outbound links anywhere on the watch page (DOM-verified), source/quality badges no longer leak third-party names, and non-embeddable titles show a branded internal availability state.
 - Player and watch page read premium and spacious: edge-to-edge video, Netflix-style detail layout, roomier controls with larger hit targets.
 - Commits: dd987cc, 7a14936 (main).
+
+---
+Task ID: 20
+Agent: main
+Task: HUSH-premium player skin + new platform logo & favicon set
+
+Work Log:
+- ENV: workspace reset again; BOTH old tokens dead (GitHub 401, Vercel out-of-scope). User supplied fresh GitHub PAT → canonical repo identified as horsnel/typescribe (Vercel scope "ohmzcraxes-3044s" is the deployment account, not GitHub owner). Cloned, bun install, HEAD at 6c0ae96 (task 19) confirmed.
+- DESIGN SOURCE: user's uploaded HUSH player HTML extracted into tokens → gold accent #D4A853/glow rgba(212,168,83,.55), glass buttons (rgba(0,0,0,.35)+blur(12px), 40-44px circles, active scale .9), cinematic fades (top 120px/bottom 220-230px), pause ritual (blur(24px) brightness(.55) scale(1.06), 500ms cubic-bezier(.4,0,.2,1)), center glow play (76-84px accent disc + 0 0 40-48px glow), progress glow (fill + 0 0 12px), micro-labels (10px uppercase .16em), tabular-nums time, idle auto-hide chrome. Demo built + screenshot-validated in download/premium-player-demo/ BEFORE integration.
+- LOGO "The Scribe's Play": play triangle + fountain-pen nib slit + breather hole (evenodd path). 4 shape variants rendered + compared visually, final = flat-left + slit. Generated via scripts/make_logo.py (cairosvg→PIL): logo-mark.svg, icon-{192,256,384,512}, maskable-{192,512}, apple-touch-icon, favicon.ico(16+32+48), QA'd on light/dark contexts + 16px legibility + maskable safe zone. All copied into public/ (paths unchanged → manifest/layout metadata untouched). sw.js VERSION v1→v2 (icons are cache-first).
+- BRAND COMPONENT: src/components/brand/BrandMark.tsx (currentColor inline SVG). Replaced Film-icon logo in 6 true brand contexts: Navbar, Footer, login, signup, onboarding, DashboardLayout ×3 (dashboard tiles invert: deep-ink glyph on gold). Decorative Film usages (MovieClub, SearchOverlay, profile, 404, homepage buttons) intentionally untouched.
+- PLAYER SKIN (CinemaPlayer.tsx, 18 surgical edits): both videos get pause-ritual classes; taller/deeper gradients; glass circular back/play/skip/mute/PiP/fullscreen buttons; gold-glow progress (gradient fill + halo dot); solid-gold center play with dark glyph; PlayPauseOverlay now shows real Play/Pause glyph in gold glass (playing prop added); gold "NOW PLAYING" micro-label + tabular meta in top bars (iframe + direct); lang/CC chips now glass pills; mini-progress glow; menu panels glass borders.
+- NAVBAR FIX (7e182d5): production check revealed fixed site navbar overlapped the player's own top bar on the full-bleed watch page → Navbar now suppresses render on /stream/[id] (hooks-safe early return after all hooks) — Netflix chrome-less watching; player back button is the nav path; navbar verified intact on /, /stream, /login.
+- VERIFY: tsc 0, eslint 0, next build clean. Deployed a1767a4 (skin+brand) + 7e182d5 (navbar fix); both confirmed live via production ground truth (favicon 2729→5154 bytes, icon-192 7044→16331, BrandMark path in SSR HTML, navbar marker absent on watch route) in <2min each. Browser checks: watch page = glass top bar + NOW PLAYING label + CC chip at true top, zero external links, zero target=_blank (no regression), details panel spacious, install pill working.
+- KNOWN LIMIT: YouTube iframe shows bot-check inside datacenter env (user-side unaffected, documented since task 18); direct/HLS-only chrome (center play, progress deck) exercised via standalone demo + code review — catalog currently has no direct/HLS titles live.
+
+Stage Summary:
+- The watch experience now matches the HUSH reference's premium feel in TypeScribe's own gold: glass chrome, glowing gold progress, cinematic fades, blur-and-breathe pause state, idle-hidden controls, and a frame owned entirely by the player (no site nav).
+- Brand refreshed end-to-end: new nib-play mark ships in favicon, PWA icons (any+maskable), apple-touch, navbar, footer, auth screens, dashboard tiles, and 404-adjacent brand surfaces — SW cache bumped so installed clients pick it up.
+- Commits: a1767a4, 7e182d5 (main).
