@@ -3,15 +3,18 @@
  *
  * Strategy (deliberately conservative — never break the Next.js app router):
  *  - GET requests only; same-origin only; /api/ always passes through untouched.
- *  - Immutable build assets (/_next/static/, /icons/) → cache-first.
- *    These are content-hashed, so stale entries can never diverge from HTML.
+ *  - Build assets (/_next/static/, /icons/) → cache-first.
+ *    /_next/static/ is content-hashed. /icons/ is NOT — its URLs carry a ?v=
+ *    cache-buster (see src/app/layout.tsx metadata.icons + manifest.json).
+ *    When swapping icon FILES: bump the ?v= in BOTH places AND this VERSION,
+ *    or returning visitors stay stuck on the old bytes.
  *  - Document navigations → network-first with cache + offline fallback,
  *    so flaky connections still get a branded screen instead of a browser error.
  *  - Everything else (RSC flights, prefetches, fonts, images) passes through.
  *
  * Bump VERSION to invalidate all caches after a deployment.
  */
-const VERSION = 'v2';
+const VERSION = 'v3';
 const STATIC_CACHE = `ts-static-${VERSION}`;
 const PAGE_CACHE = `ts-pages-${VERSION}`;
 const OFFLINE_URL = '/offline.html';

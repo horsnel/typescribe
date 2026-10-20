@@ -16,9 +16,22 @@ export default function ServiceWorkerRegistration() {
     if (!('serviceWorker' in navigator)) return;
 
     const register = () => {
-      navigator.serviceWorker.register('/sw.js').catch(() => {
-        /* SW is an enhancement — ignore failures silently */
-      });
+      navigator.serviceWorker
+        .register('/sw.js')
+        .then((reg) => {
+          // Force an update check on every load. registration.update()
+          // bypasses the browser's 24h soft-update throttle, so a new SW
+          // VERSION (and its cache purge) reaches users on their NEXT visit
+          // instead of up to a day later.
+          try {
+            reg.update().catch(() => {});
+          } catch {
+            /* older browsers — registration still works */
+          }
+        })
+        .catch(() => {
+          /* SW is an enhancement — ignore failures silently */
+        });
     };
 
     if (document.readyState === 'complete') {

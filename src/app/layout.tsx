@@ -26,13 +26,16 @@ export const metadata: Metadata = {
   description: "Discover your next favorite movie with AI-powered reviews, real ratings, and community insights.",
   applicationName: "Typescribe",
   manifest: "/manifest.json",
+  // Icon URLs carry ?v= — when swapping icon FILES, bump the ?v= AND the SW
+  // VERSION (public/sw.js) together. The favicon URL especially must change:
+  // browsers key their internal favicon cache by URL and ignore HTTP caching.
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "48x48", type: "image/x-icon" },
-      { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
-      { url: "/icons/icon-512.png", sizes: "512x512", type: "image/png" },
+      { url: "/favicon.ico?v=3", sizes: "48x48", type: "image/x-icon" },
+      { url: "/icons/icon-192.png?v=3", sizes: "192x192", type: "image/png" },
+      { url: "/icons/icon-512.png?v=3", sizes: "512x512", type: "image/png" },
     ],
-    apple: "/icons/apple-touch-icon.png",
+    apple: "/icons/apple-touch-icon.png?v=3",
   },
   appleWebApp: {
     capable: true,
