@@ -18,6 +18,7 @@ import {
   Film,
   Calendar,
 } from 'lucide-react';
+import BrandMark from '@/components/brand/BrandMark';
 
 const sidebarLinks = [
   { href: '/dashboard/diary', label: 'Watch Diary', icon: Calendar },
@@ -70,8 +71,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     <div className="flex flex-col h-full">
       {/* Logo */}
       <div className="p-4 flex items-center gap-3">
-        <div className="w-8 h-8 bg-[#D4A853] rounded-lg flex items-center justify-center flex-shrink-0">
-          <Film className="w-4 h-4 text-white" strokeWidth={1.5} />
+        <div className="w-8 h-8 bg-[#D4A853] rounded-lg flex items-center justify-center flex-shrink-0 shadow-[0_0_14px_rgba(212,168,83,0.35)]">
+          <BrandMark className="w-4 h-4 text-[#0A0A0C]" />
         </div>
         {!collapsed && (
           <span className="text-white font-bold text-lg tracking-tight">Typescribe</span>
@@ -183,7 +184,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <div className="flex items-center justify-between p-4 border-b border-[#1e1e28]">
               <div className="flex items-center gap-2">
                 <div className="w-7 h-7 bg-[#D4A853] rounded-lg flex items-center justify-center">
-                  <Film className="w-3.5 h-3.5 text-white" strokeWidth={1.5} />
+                  <BrandMark className="w-3.5 h-3.5 text-[#0A0A0C]" />
                 </div>
                 <span className="text-white font-bold">Typescribe</span>
               </div>
@@ -205,7 +206,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           </Button>
           <div className="flex items-center gap-2 flex-1 min-w-0">
             <div className="w-7 h-7 bg-[#D4A853] rounded-lg flex items-center justify-center flex-shrink-0">
-              <Film className="w-3.5 h-3.5 text-white" strokeWidth={1.5} />
+              <BrandMark className="w-3.5 h-3.5 text-[#0A0A0C]" />
             </div>
             <span className="text-white font-bold truncate">Dashboard</span>
           </div>

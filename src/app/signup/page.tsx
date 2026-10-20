@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { Film, Eye, EyeOff, AlertCircle, Github, Chrome, Loader2, Check } from 'lucide-react';
+import BrandMark from '@/components/brand/BrandMark';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/lib/auth';
 
@@ -104,7 +105,7 @@ export default function SignupPage() {
         {/* Logo */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2 mb-6">
-            <Film className="w-8 h-8 text-[#D4A853]" strokeWidth={1.5} />
+            <BrandMark className="w-8 h-8 text-[#D4A853] drop-shadow-[0_0_14px_rgba(212,168,83,0.35)]" />
             <span className="text-2xl font-extrabold text-white">Typescribe</span>
           </Link>
           <h1 className="text-2xl font-bold text-white mb-2">Create your account</h1>

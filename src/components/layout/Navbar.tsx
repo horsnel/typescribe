@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { Search, Menu, X, Film, LogOut, Star, Users, Bookmark, Settings, User, Lock, Loader2, Play } from 'lucide-react';
+import BrandMark from '@/components/brand/BrandMark';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/lib/auth';
 import SearchOverlay from '@/components/layout/SearchOverlay';
@@ -180,7 +181,7 @@ export default function Navbar() {
             className="flex items-center gap-2 cursor-pointer"
             aria-label="Typescribe Logo — Triple-click for Admin"
           >
-            <Film className="w-6 h-6 text-[#D4A853] group-hover:scale-110 transition-transform" strokeWidth={1.5} />
+            <BrandMark className="w-6 h-6 text-[#D4A853] group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(212,168,83,0.35)]" />
             {pathname === '/' && <span className="text-xl font-extrabold text-white tracking-tight">Typescribe</span>}
           </button>
         </div>

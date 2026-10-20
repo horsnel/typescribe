@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { Film, Twitter, Instagram, Github, Mail, Loader2, Check, Lock } from 'lucide-react';
+import BrandMark from '@/components/brand/BrandMark';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Separator } from '@/components/ui/separator';
@@ -182,7 +183,7 @@ export default function Footer() {
           <Separator className="my-10 bg-[#1e1e28]" />
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
-              <Film className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
+              <BrandMark className="w-5 h-5 text-[#D4A853]" />
               <span
                 onClick={handleBrandClick}
                 className="text-sm text-[#D4A853]/60 font-bold tracking-[0.2em] cursor-pointer select-none hover:text-[#D4A853] transition-colors"

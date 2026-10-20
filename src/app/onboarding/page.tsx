@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Film, ChevronRight, Check } from 'lucide-react';
+import BrandMark from '@/components/brand/BrandMark';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/lib/auth';
 import { genres } from '@/lib/data';
@@ -63,7 +64,7 @@ export default function OnboardingPage() {
         {/* Logo */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2 mb-4">
-            <Film className="w-7 h-7 text-[#D4A853]" strokeWidth={1.5} />
+            <BrandMark className="w-7 h-7 text-[#D4A853] drop-shadow-[0_0_14px_rgba(212,168,83,0.35)]" />
             <span className="text-xl font-extrabold text-white">Typescribe</span>
           </Link>
         </div>

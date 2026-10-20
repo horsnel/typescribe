@@ -11,7 +11,7 @@
  *
  * Bump VERSION to invalidate all caches after a deployment.
  */
-const VERSION = 'v1';
+const VERSION = 'v2';
 const STATIC_CACHE = `ts-static-${VERSION}`;
 const PAGE_CACHE = `ts-pages-${VERSION}`;
 const OFFLINE_URL = '/offline.html';
