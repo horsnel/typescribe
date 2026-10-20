@@ -632,3 +632,20 @@ Stage Summary:
 - The watch experience now matches the HUSH reference's premium feel in TypeScribe's own gold: glass chrome, glowing gold progress, cinematic fades, blur-and-breathe pause state, idle-hidden controls, and a frame owned entirely by the player (no site nav).
 - Brand refreshed end-to-end: new nib-play mark ships in favicon, PWA icons (any+maskable), apple-touch, navbar, footer, auth screens, dashboard tiles, and 404-adjacent brand surfaces — SW cache bumped so installed clients pick it up.
 - Commits: a1767a4, 7e182d5 (main).
+
+---
+Task ID: 21
+Agent: main
+Task: User reported still seeing old favicon/logo — diagnose and bust all client-side brand caches
+
+Work Log:
+- GROUND TRUTH FIRST: production bytes verified NEW (favicon/icons sha256 identical to repo; BrandMark nib-slit path in SSR HTML; apple-touch OK at the LINKED path /icons/apple-touch-icon.png; root /apple-touch-icon.png is a 404 page and unused). Server was never the problem — this was a client-cache bug.
+- ROOT CAUSE (three stacked layers): (1) sw.js serves /icons/* cache-first with zero revalidation, and its header wrongly claimed those paths are content-hashed (they are fixed names swapped in place); (2) Chrome throttles SW soft-update checks to once per 24h, so a1767a4's v1→v2 bump could take up to a day to reach returning visitors — until then their old SW kept serving old icon bytes; (3) /favicon.ico URL never changed → browser internal favicon cache (keyed by URL, ignores HTTP cache-control) kept stale bytes indefinitely.
+- FIX (d02da12): ?v=3 appended to every icon URL in layout.tsx metadata.icons (favicon, 192, 512, apple) and to all 7 icon srcs in manifest.json; sw.js VERSION v2→v3 so activate() purges ts-static/ts-pages v≤2; ServiceWorkerRegistration now calls registration.update() on every load (bypasses the 24h throttle → new SW reaches users on their NEXT visit); replaced the misleading comment with the swap contract (icon FILE change ⇒ bump ?v= in layout.tsx + manifest.json AND sw.js VERSION together).
+- SIDE CHECK: stray lucide-film in homepage HTML = decorative gold "Discover New" badge (page.tsx:76), not a brand context — left as-is; confirmed no un-swapped brand logos anywhere.
+- VERIFY: tsc 0, eslint 0, next build clean (local postbuild cp error is a red herring — vercel.json overrides buildCommand to plain `next build`). All markers live in ~2min: sw.js serves v3, home HTML emits ?v=3 links (favicon/192/512/apple), manifest emits ?v=3 srcs. Fresh-profile browser on production: SW state=activated with caches exactly {ts-pages-v3, ts-static-v3}, /icons/icon-192.png?v=3 → 200, /favicon.ico?v=3 → 200, zero console errors; navbar nib-play mark + install pill visually confirmed.
+- USER DEVICE NOTE: one normal reload picks everything up (forced update check + fresh URLs); the tab favicon refetches via the new ?v=3 URL; installed-PWA launcher icons are OS-cached and may lag — close/reopen the app, worst case clear app storage or reinstall.
+
+Stage Summary:
+- Brand assets were live server-side all along; the real defect was cache invalidation strategy, now fixed structurally (URL versioning + forced SW update check) instead of another one-off bump.
+- Commit: d02da12 (main).
