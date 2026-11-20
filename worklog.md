@@ -667,3 +667,21 @@ Work Log:
 Stage Summary:
 - All seven uploaded mockups are live on production with their exact visual language (mockup gold #E5B15B and red #ff453a coexisting with platform gold), wired to real catalog data, session-gated so they never nag, and strictly additive — no pre-existing design was replaced or restyled.
 - Future promo popups: drop a mockup component into src/components/promo/, give it a promoGate key, mount on a page — the gating + data plumbing is reusable.
+
+---
+Task ID: 23
+Agent: main
+Task: User feedback round — pack the empty-looking sections, fix genre-card truncation (user's fix mockup), use every design across popup TYPES, platform-aligned CTAs
+
+Work Log:
+- ENV: sandbox recycled again mid-task (typescribe/ wiped); re-cloned at 8625d1e + npm install. Same PAT from scripts/set_gh_secrets.py for pushes.
+- GENRE FIX (user supplied "Fixed Genre Card" mockup): CategoriesGrid — all 5 card variants (Genre/Anime/Bollywood/K-Drama/Nollywood) switched to items-start + white-space normal + break-word so text wraps instead of truncating; 40px icon orbs; 14/700 title + 11px desc per mockup; platform gold/colors kept (this was a fix, not a new design).
+- PACKED HOMEPAGE: TiltCarousel + TrendingSpotlight + TrendingCompactGrid refactored with `bare` mode (no section chrome) + coverflow now renders TWO tilted neighbours per side (110px/85px, opacity .5/.3); homepage composes ONE "Trending Spotlight" section: coverflow carousel beside the Vertical Hero Card (flex row, stacks below xl) with the split-grid row (offset=3 so titles differ from /discover) beneath — section is dense end-to-end.
+- CTA ALIGNMENT (user: trailer or review, not generic "Watch Now"): hero card + tall popup show "Watch Trailer" when movie.trailer_youtube_id exists else "Read the Review"; split-grid flat buttons show "Trailer"/"Review"; all still route to the movie page where trailer player + AI review live.
+- POPUP FAMILY (user: nothing discarded, different popup types): AnnouncementPopup (diagonal shell re-used, platform-gold triangle + megaphone, See What's New → /news); QuickSettingsPopup (TallRich card chrome; REAL toggles: promo master switch writing ts_promo_disabled — promoGate blocks auto promos only — and Local Picks country override via lib/geolocation set/clearCountryOverride, plus /settings link); SystemStatusPopup (compact floating shell; REAL pings of /api/browse, /api/news, /api/geo with latency + traffic-light dots); PromoDock in Footer ("Popups & Tools": New Movie Promo / Announcement / Quick Settings / System Status). TallRich listens to window event 'ts:promo:open' — manual opens bypass session gating by design.
+- BUGS CAUGHT IN BROWSER VERIFY: (1) bare TiltCarousel returned without its <style> block → main card rendered unstyled in the packed section; fixed by extracting a shared styles const. (2) Announcement sub text ran under the gold diagonal triangle; shortened to "Platform news & updates". (3) Chunk-scan polls capped at 16 URLs missed the footer chunk (18 exist) → false "not live"; scan all chunks or check SSR HTML.
+- VERIFY: tsc 0, eslint clean (2 disable-directive alignments), builds OK. Production browser checks with screenshots: packed section (4 tilted posters + styled main card + hero card side-by-side), split row shows offset titles with Review CTAs, genre grid wraps fully ("K-Drama & K-Movie" complete, 2-3 line descs), Announcement/QuickSettings/SystemStatus open from dock, status shows real latencies (Catalog 308ms, News 627ms, Geo 379ms — 3/3 up), dock reopens TallRich with "Read the Review" CTA.
+- Commits: 5f07dda, f3a87a6, 3ca2b70, fe87a15 (main).
+
+Stage Summary:
+- The homepage trending zone is now dense (carousel + hero + card row in one section), genre cards show their full text per the user's fix mockup, every mockup shell has at least one live usage across four popup types, and all promo CTAs speak platform language (trailer/review). The footer dock makes every popup reachable on demand, so "missing" popups can never look discarded again.
