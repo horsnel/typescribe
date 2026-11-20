@@ -141,7 +141,37 @@ export default function TiltCarousel({ bare = false }: { bare?: boolean }) {
     </div>
   );
 
-  if (bare) return carousel;
+  const styles = (
+    <style>{`
+      .tsv2-bg-card { border-radius: 16px; background-color: #1A1A1A; border: none; padding: 0; cursor: pointer; transition: opacity 0.2s; }
+      .tsv2-bg-card:hover { opacity: 0.75 !important; }
+      .tsv2-bg-card-left, .tsv2-bg-card-right { width: 110px; height: 300px; opacity: 0.5; }
+      .tsv2-bg-card-outer-left { transform: rotateY(35deg) scale(0.85) translateX(30px); width: 85px; height: 280px; opacity: 0.3; }
+      .tsv2-bg-card-outer-right { transform: rotateY(-35deg) scale(0.85) translateX(-30px); width: 85px; height: 280px; opacity: 0.3; }
+      .tsv2-bg-card-left { transform: rotateY(25deg) scale(0.9) translateX(20px); }
+      .tsv2-bg-card-right { transform: rotateY(-25deg) scale(0.9) translateX(-20px); }
+      .tsv2-main-card {
+        width: 260px; height: 340px; background: #111; border-radius: 20px; overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.05);
+        animation: tsv2-float 4s ease-in-out infinite;
+      }
+      @keyframes tsv2-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+      .tsv2-side-timer-track { position: absolute; top: 0; right: 0; bottom: 0; width: 4px; background: rgba(255,255,255,0.1); z-index: 10; }
+      .tsv2-side-timer-fill { width: 100%; background: #E5B15B; height: 100%; animation: tsv2-drainV ${ADVANCE_MS}ms linear forwards; }
+      @keyframes tsv2-drainV { to { height: 0%; } }
+      .tsv2-tilt-cancel {
+        position: absolute; top: 12px; right: 12px; width: 28px; height: 28px;
+        background: rgba(0,0,0,0.6); border: none; border-radius: 50%; color: white; font-size: 12px;
+        cursor: pointer; display: flex; justify-content: center; align-items: center; z-index: 20;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .tsv2-main-card { animation: none; }
+        .tsv2-side-timer-fill { animation: none; height: 0%; }
+      }
+    `}</style>
+  );
+
+  if (bare) return <>{carousel}{styles}</>;
 
   return (
     <section className="py-16 bg-[#050507]">
@@ -158,33 +188,7 @@ export default function TiltCarousel({ bare = false }: { bare?: boolean }) {
         {carousel}
       </div>
 
-      <style>{`
-        .tsv2-bg-card { border-radius: 16px; background-color: #1A1A1A; border: none; padding: 0; cursor: pointer; transition: opacity 0.2s; }
-        .tsv2-bg-card:hover { opacity: 0.75 !important; }
-        .tsv2-bg-card-left, .tsv2-bg-card-right { width: 110px; height: 300px; opacity: 0.5; }
-        .tsv2-bg-card-outer-left { transform: rotateY(35deg) scale(0.85) translateX(30px); width: 85px; height: 280px; opacity: 0.3; }
-        .tsv2-bg-card-outer-right { transform: rotateY(-35deg) scale(0.85) translateX(-30px); width: 85px; height: 280px; opacity: 0.3; }
-        .tsv2-bg-card-left { transform: rotateY(25deg) scale(0.9) translateX(20px); }
-        .tsv2-bg-card-right { transform: rotateY(-25deg) scale(0.9) translateX(-20px); }
-        .tsv2-main-card {
-          width: 260px; height: 340px; background: #111; border-radius: 20px; overflow: hidden;
-          box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.05);
-          animation: tsv2-float 4s ease-in-out infinite;
-        }
-        @keyframes tsv2-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        .tsv2-side-timer-track { position: absolute; top: 0; right: 0; bottom: 0; width: 4px; background: rgba(255,255,255,0.1); z-index: 10; }
-        .tsv2-side-timer-fill { width: 100%; background: #E5B15B; height: 100%; animation: tsv2-drainV ${ADVANCE_MS}ms linear forwards; }
-        @keyframes tsv2-drainV { to { height: 0%; } }
-        .tsv2-tilt-cancel {
-          position: absolute; top: 12px; right: 12px; width: 28px; height: 28px;
-          background: rgba(0,0,0,0.6); border: none; border-radius: 50%; color: white; font-size: 12px;
-          cursor: pointer; display: flex; justify-content: center; align-items: center; z-index: 20;
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .tsv2-main-card { animation: none; }
-          .tsv2-side-timer-fill { animation: none; height: 0%; }
-        }
-      `}</style>
+      {styles}
     </section>
   );
 }
