@@ -91,7 +91,7 @@ export default function TrendingSpotlight() {
               <span className="tsv2-hero-badge">Trending #{rank}</span>
               <div className="text-[26px] font-extrabold leading-[1.1] mb-2">{current.title}</div>
               <div className="text-[13px] text-[#aaa] mb-5 flex gap-3">
-                <span>★ {(current.vote_average ?? 0).toFixed(1)}</span>
+                {(current.vote_average ?? 0) > 0 && <span>★ {(current.vote_average ?? 0).toFixed(1)}</span>}
                 {year && <span>{year}</span>}
                 {genreName && <span>{genreName}</span>}
               </div>

@@ -64,7 +64,8 @@ export default function TrendingCompactGrid() {
                   </div>
                 </div>
                 <div className="tsv2-data-bottom">
-                  <div className="tsv2-data-rating">★ {(movie.vote_average ?? 0).toFixed(1)}</div>
+                  {/* Unreleased titles have vote_average 0 — show nothing rather than ★ 0.0 */}
+                  {(movie.vote_average ?? 0) > 0 ? <div className="tsv2-data-rating">★ {(movie.vote_average ?? 0).toFixed(1)}</div> : <div />}
                   <Link href={`/movie/${movie.slug}`} className="tsv2-btn-play-flat">Watch</Link>
                 </div>
               </div>
