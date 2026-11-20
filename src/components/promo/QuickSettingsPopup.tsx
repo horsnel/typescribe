@@ -27,6 +27,7 @@ export default function QuickSettingsPopup({ open, onClose }: { open: boolean; o
   useEffect(() => {
     if (!open) return;
     try {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- load current settings from storage when the popup opens
       setPromosEnabled(localStorage.getItem('ts_promo_disabled') !== '1');
       const loc = getCurrentLocation();
       const stored = localStorage.getItem('typescribe_country_override');

@@ -53,7 +53,6 @@ export default function SystemStatusPopup({ open, onClose }: { open: boolean; on
         }
         const latency = Math.round((typeof performance !== 'undefined' ? performance.now() : Date.now()) - t0);
         if (!cancelled) {
-          // eslint-disable-next-line react-hooks/set-state-in-effect -- async ping result lands after mount
           setRows((prev) => prev.map((r) => (r.key === svc.key ? { ...r, state: ok ? 'up' : 'down', latency } : r)));
         }
       }
