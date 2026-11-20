@@ -36,7 +36,7 @@ export default function NewsletterCTA() {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-br from-[#D4A853] to-[#B8922F]">
+    <section className="py-10 bg-gradient-to-br from-[#D4A853] to-[#B8922F]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center">
         <div className="reveal-section max-w-xl mx-auto">
           <div className="mb-6"><Mail className="w-12 h-12 text-white/80 mx-auto" strokeWidth={1.5} /></div>

@@ -41,7 +41,7 @@ export default function NewsSection() {
   if (!loading && news.length === 0) return null;
 
   return (
-    <section id="news" className="py-20 bg-[#050507]">
+    <section id="news" className="py-10 bg-[#050507]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="reveal-section flex items-center justify-between mb-10 flex-wrap gap-3">
           <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#0c0c10] border border-[#D4A853]/25 shadow-sm">

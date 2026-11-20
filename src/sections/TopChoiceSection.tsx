@@ -167,7 +167,7 @@ export default function TopChoiceSection() {
   if (!loading && categories.length === 0) return null;
 
   return (
-    <section className="py-10 md:py-14 bg-[#050507] border-y border-[#1e1e28]/30">
+    <section className="py-5 md:py-7 bg-[#050507] border-y border-[#1e1e28]/30">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="flex items-center justify-between mb-6 px-6 lg:px-12 flex-wrap gap-3">

@@ -142,7 +142,7 @@ function NollywoodCard() {
 
 export default function CategoriesGrid() {
   return (
-    <section id="categories" className="py-20 bg-[#050507]">
+    <section id="categories" className="py-10 bg-[#050507]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="reveal-section mb-10">
           <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#0c0c10] border border-[#D4A853]/25 shadow-sm">

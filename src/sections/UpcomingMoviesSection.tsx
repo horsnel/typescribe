@@ -49,7 +49,7 @@ export default function UpcomingMoviesSection() {
   if (!loading && allItems.length === 0) return null;
 
   return (
-    <section className="py-12 bg-gradient-to-b from-[#050507] via-[#08080c] to-[#050507]">
+    <section className="py-6 bg-gradient-to-b from-[#050507] via-[#08080c] to-[#050507]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         {/* Header */}
         <div className="flex items-center justify-between mb-6 flex-wrap gap-3">

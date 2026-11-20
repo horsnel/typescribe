@@ -132,7 +132,7 @@ export default function LocalPicksSection() {
   };
 
   return (
-    <section className="py-12 bg-[#050507]">
+    <section className="py-6 bg-[#050507]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         {/* Header */}
         <div className="flex items-start justify-between mb-6 flex-wrap gap-4">

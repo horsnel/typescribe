@@ -95,7 +95,7 @@ export default function MoodBrowsingSection() {
   const [hoveredMood, setHoveredMood] = useState<string | null>(null);
 
   return (
-    <section className="py-16 bg-[#050507] px-4 sm:px-6 lg:px-12">
+    <section className="py-8 bg-[#050507] px-4 sm:px-6 lg:px-12">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-10">

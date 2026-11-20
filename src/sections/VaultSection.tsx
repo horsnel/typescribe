@@ -315,7 +315,7 @@ function VaultCollectionRow({
 
 function VaultSkeleton() {
   return (
-    <section className="py-16 bg-[#050507]">
+    <section className="py-8 bg-[#050507]">
       {/* Header skeleton */}
       <div className="px-4 md:px-12 mb-8">
         <div className="flex items-center gap-3">
@@ -394,7 +394,7 @@ export default function VaultSection() {
   }
 
   return (
-    <section className="py-16 bg-[#050507]">
+    <section className="py-8 bg-[#050507]">
       {/* Section Header */}
       <div className="px-4 md:px-12 mb-8">
         <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#0c0c10] border border-[#D4A853]/25 shadow-sm">

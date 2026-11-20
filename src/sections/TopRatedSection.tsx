@@ -30,7 +30,7 @@ export default function TopRatedSection() {
   const displayMovies = topMovies;
 
   return (
-    <section id="top-rated" className="py-12 bg-[#050507]">
+    <section id="top-rated" className="py-6 bg-[#050507]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="reveal-section flex items-center gap-3 mb-6">
           <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#0c0c10] border border-[#D4A853]/25 shadow-sm">
