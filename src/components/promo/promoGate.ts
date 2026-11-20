@@ -10,6 +10,9 @@ const DISMISS_TTL = 7 * 24 * 60 * 60 * 1000;
 export function shouldShowPromo(key: string): boolean {
   if (typeof window === 'undefined') return false;
   try {
+    // Master switch from Quick Settings — blocks AUTO promos only; manual
+    // opens from the footer dock bypass this (user explicitly asked).
+    if (localStorage.getItem('ts_promo_disabled') === '1') return false;
     if (sessionStorage.getItem(SEEN_PREFIX + key)) return false;
     const dismissed = localStorage.getItem(DISMISS_PREFIX + key);
     if (dismissed) {

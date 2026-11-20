@@ -21,22 +21,22 @@ import type { Movie } from '@/lib/types';
 
 const RING_MS = 15000;
 
-export default function TrendingCompactGrid() {
+export default function TrendingCompactGrid({ offset = 0 }: { offset?: number }) {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
   const [hiddenIds, setHiddenIds] = useState<Set<number>>(new Set());
 
   useEffect(() => {
     const controller = new AbortController();
-    fetch('/api/browse?source=trending&count=6', { signal: controller.signal })
+    fetch(`/api/browse?source=trending&count=${6 + offset}`, { signal: controller.signal })
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
-        if (data?.movies?.length > 0) setMovies(data.movies.slice(0, 3));
+        if (data?.movies?.length > offset) setMovies(data.movies.slice(offset, offset + 3));
       })
       .catch(() => {})
       .finally(() => setLoading(false));
     return () => controller.abort();
-  }, []);
+  }, [offset]);
 
   const visible = useMemo(() => movies.filter((m) => !hiddenIds.has(m.id)), [movies, hiddenIds]);
 
@@ -66,7 +66,7 @@ export default function TrendingCompactGrid() {
                 <div className="tsv2-data-bottom">
                   {/* Unreleased titles have vote_average 0 — show nothing rather than ★ 0.0 */}
                   {(movie.vote_average ?? 0) > 0 ? <div className="tsv2-data-rating">★ {(movie.vote_average ?? 0).toFixed(1)}</div> : <div />}
-                  <Link href={`/movie/${movie.slug}`} className="tsv2-btn-play-flat">Watch</Link>
+                  <Link href={`/movie/${movie.slug}`} className="tsv2-btn-play-flat">{movie.trailer_youtube_id ? 'Trailer' : 'Review'}</Link>
                 </div>
               </div>
 

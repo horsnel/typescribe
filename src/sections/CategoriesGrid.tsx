@@ -20,22 +20,22 @@ function GenreCard({ genre }: { genre: { id: string; name: string; icon: string;
   return (
     <Link
       href={`/category/${genre.id}`}
-      className="group relative flex items-center gap-4 p-4 rounded-2xl bg-[#0c0c10] border border-white/[0.06] hover:border-[#D4A853]/30 hover:bg-[#111118] transition-all duration-300 cursor-pointer overflow-hidden"
+      className="group relative flex items-start gap-3 p-4 rounded-2xl bg-[#0c0c10] border border-white/[0.06] hover:border-[#D4A853]/30 hover:bg-[#111118] transition-all duration-300 cursor-pointer overflow-hidden"
     >
       {/* Sheen overlay */}
       <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%)' }} />
 
-      {/* Icon container — glassy orb */}
-      <div className={`flex-shrink-0 w-11 h-11 rounded-xl ${config.bg} flex items-center justify-center border border-white/[0.06] group-hover:scale-110 transition-transform duration-300`}
+      {/* Icon container — gold orb, top-aligned so text can wrap beside it */}
+      <div className={`flex-shrink-0 w-10 h-10 rounded-[10px] ${config.bg} flex items-center justify-center border border-white/[0.06] group-hover:scale-110 transition-transform duration-300`}
         style={{ boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.08)' }}
       >
         <IconComp className={`w-5 h-5 ${config.color}`} strokeWidth={1.5} />
       </div>
 
-      {/* Text */}
-      <div className="flex flex-col min-w-0 relative z-10">
-        <span className="text-[#f1f1f4] font-semibold text-sm truncate">{genre.name}</span>
-        <span className="text-[#6b7280] text-xs mt-0.5">Explore {genre.name.toLowerCase()} titles</span>
+      {/* Text — wraps naturally to multiple lines instead of truncating */}
+      <div className="flex flex-col items-start relative z-10 min-w-0" style={{ whiteSpace: 'normal', overflowWrap: 'break-word' }}>
+        <span className="text-[#f1f1f4] font-bold text-sm leading-[1.2]">{genre.name}</span>
+        <span className="text-[#6b7280] text-[11px] leading-[1.3] mt-1">Explore {genre.name.toLowerCase()} titles</span>
       </div>
 
       {/* Hover arrow */}
@@ -48,19 +48,19 @@ function AnimeCard() {
   return (
     <Link
       href="/browse?format=anime"
-      className="group relative flex items-center gap-4 p-4 rounded-2xl bg-[#0c0c10] border border-white/[0.06] hover:border-[#D4A853]/30 hover:bg-[#111118] transition-all duration-300 cursor-pointer overflow-hidden"
+      className="group relative flex items-start gap-3 p-4 rounded-2xl bg-[#0c0c10] border border-white/[0.06] hover:border-[#D4A853]/30 hover:bg-[#111118] transition-all duration-300 cursor-pointer overflow-hidden"
     >
       <div className="absolute inset-0 bg-gradient-to-br from-[#D4A853]/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
 
-      <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-[#D4A853]/10 flex items-center justify-center border border-white/[0.06] group-hover:scale-110 transition-transform duration-300"
+      <div className="flex-shrink-0 w-10 h-10 rounded-[10px] bg-[#D4A853]/10 flex items-center justify-center border border-white/[0.06] group-hover:scale-110 transition-transform duration-300"
         style={{ boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.08)' }}
       >
         <Sparkles className="w-5 h-5 text-[#D4A853]" strokeWidth={1.5} />
       </div>
 
-      <div className="flex flex-col min-w-0 relative z-10">
-        <span className="text-[#f1f1f4] font-semibold text-sm truncate">Anime</span>
-        <span className="text-[#6b7280] text-xs mt-0.5">Explore top anime series and films</span>
+      <div className="flex flex-col items-start relative z-10 min-w-0" style={{ whiteSpace: 'normal', overflowWrap: 'break-word' }}>
+        <span className="text-[#f1f1f4] font-bold text-sm leading-[1.2]">Anime</span>
+        <span className="text-[#6b7280] text-[11px] leading-[1.3] mt-1">Explore top anime series and films</span>
       </div>
 
       <ChevronRight size={16} className="ml-auto text-[#6b7280] opacity-0 group-hover:opacity-100 transition-opacity relative z-10" strokeWidth={1.5} />
@@ -72,19 +72,19 @@ function BollywoodCard() {
   return (
     <Link
       href="/browse?country=IN"
-      className="group relative flex items-center gap-4 p-4 rounded-2xl bg-[#0c0c10] border border-white/[0.06] hover:border-orange-500/30 hover:bg-[#111118] transition-all duration-300 cursor-pointer overflow-hidden"
+      className="group relative flex items-start gap-3 p-4 rounded-2xl bg-[#0c0c10] border border-white/[0.06] hover:border-orange-500/30 hover:bg-[#111118] transition-all duration-300 cursor-pointer overflow-hidden"
     >
       <div className="absolute inset-0 bg-gradient-to-br from-orange-500/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
 
-      <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-orange-500/10 flex items-center justify-center border border-white/[0.06] group-hover:scale-110 transition-transform duration-300"
+      <div className="flex-shrink-0 w-10 h-10 rounded-[10px] bg-orange-500/10 flex items-center justify-center border border-white/[0.06] group-hover:scale-110 transition-transform duration-300"
         style={{ boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.08)' }}
       >
         <Film className="w-5 h-5 text-orange-400" strokeWidth={1.5} />
       </div>
 
-      <div className="flex flex-col min-w-0 relative z-10">
-        <span className="text-[#f1f1f4] font-semibold text-sm truncate">Bollywood</span>
-        <span className="text-[#6b7280] text-xs mt-0.5">Discover Indian cinema & series</span>
+      <div className="flex flex-col items-start relative z-10 min-w-0" style={{ whiteSpace: 'normal', overflowWrap: 'break-word' }}>
+        <span className="text-[#f1f1f4] font-bold text-sm leading-[1.2]">Bollywood</span>
+        <span className="text-[#6b7280] text-[11px] leading-[1.3] mt-1">Discover Indian cinema & series</span>
       </div>
 
       <ChevronRight size={16} className="ml-auto text-[#6b7280] opacity-0 group-hover:opacity-100 transition-opacity relative z-10" strokeWidth={1.5} />
@@ -96,19 +96,19 @@ function KDramaCard() {
   return (
     <Link
       href="/browse?country=KR"
-      className="group relative flex items-center gap-4 p-4 rounded-2xl bg-[#0c0c10] border border-white/[0.06] hover:border-pink-500/30 hover:bg-[#111118] transition-all duration-300 cursor-pointer overflow-hidden"
+      className="group relative flex items-start gap-3 p-4 rounded-2xl bg-[#0c0c10] border border-white/[0.06] hover:border-pink-500/30 hover:bg-[#111118] transition-all duration-300 cursor-pointer overflow-hidden"
     >
       <div className="absolute inset-0 bg-gradient-to-br from-pink-500/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
 
-      <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-pink-500/10 flex items-center justify-center border border-white/[0.06] group-hover:scale-110 transition-transform duration-300"
+      <div className="flex-shrink-0 w-10 h-10 rounded-[10px] bg-pink-500/10 flex items-center justify-center border border-white/[0.06] group-hover:scale-110 transition-transform duration-300"
         style={{ boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.08)' }}
       >
         <Film className="w-5 h-5 text-pink-400" strokeWidth={1.5} />
       </div>
 
-      <div className="flex flex-col min-w-0 relative z-10">
-        <span className="text-[#f1f1f4] font-semibold text-sm truncate">K-Drama & K-Movie</span>
-        <span className="text-[#6b7280] text-xs mt-0.5">Explore Korean dramas and films</span>
+      <div className="flex flex-col items-start relative z-10 min-w-0" style={{ whiteSpace: 'normal', overflowWrap: 'break-word' }}>
+        <span className="text-[#f1f1f4] font-bold text-sm leading-[1.2]">K-Drama & K-Movie</span>
+        <span className="text-[#6b7280] text-[11px] leading-[1.3] mt-1">Explore Korean dramas and films</span>
       </div>
 
       <ChevronRight size={16} className="ml-auto text-[#6b7280] opacity-0 group-hover:opacity-100 transition-opacity relative z-10" strokeWidth={1.5} />
@@ -120,19 +120,19 @@ function NollywoodCard() {
   return (
     <Link
       href="/browse?country=NG"
-      className="group relative flex items-center gap-4 p-4 rounded-2xl bg-[#0c0c10] border border-white/[0.06] hover:border-green-500/30 hover:bg-[#111118] transition-all duration-300 cursor-pointer overflow-hidden"
+      className="group relative flex items-start gap-3 p-4 rounded-2xl bg-[#0c0c10] border border-white/[0.06] hover:border-green-500/30 hover:bg-[#111118] transition-all duration-300 cursor-pointer overflow-hidden"
     >
       <div className="absolute inset-0 bg-gradient-to-br from-green-500/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
 
-      <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-green-500/10 flex items-center justify-center border border-white/[0.06] group-hover:scale-110 transition-transform duration-300"
+      <div className="flex-shrink-0 w-10 h-10 rounded-[10px] bg-green-500/10 flex items-center justify-center border border-white/[0.06] group-hover:scale-110 transition-transform duration-300"
         style={{ boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.08)' }}
       >
         <Film className="w-5 h-5 text-green-400" strokeWidth={1.5} />
       </div>
 
-      <div className="flex flex-col min-w-0 relative z-10">
-        <span className="text-[#f1f1f4] font-semibold text-sm truncate">Nollywood</span>
-        <span className="text-[#6b7280] text-xs mt-0.5">Explore Nigerian cinema & series</span>
+      <div className="flex flex-col items-start relative z-10 min-w-0" style={{ whiteSpace: 'normal', overflowWrap: 'break-word' }}>
+        <span className="text-[#f1f1f4] font-bold text-sm leading-[1.2]">Nollywood</span>
+        <span className="text-[#6b7280] text-[11px] leading-[1.3] mt-1">Explore Nigerian cinema & series</span>
       </div>
 
       <ChevronRight size={16} className="ml-auto text-[#6b7280] opacity-0 group-hover:opacity-100 transition-opacity relative z-10" strokeWidth={1.5} />

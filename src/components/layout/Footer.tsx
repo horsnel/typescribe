@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react';
 import { Film, Twitter, Instagram, Github, Mail, Loader2, Check, Lock } from 'lucide-react';
 import BrandMark from '@/components/brand/BrandMark';
+import PromoDock from '@/components/promo/PromoDock';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Separator } from '@/components/ui/separator';
@@ -122,6 +123,7 @@ export default function Footer() {
     <>
       <footer className="bg-[#050507] border-t border-[#1e1e28]">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-16">
+          <PromoDock />
           <div className="grid grid-cols-2 md:grid-cols-5 gap-10">
             <div className="col-span-2 md:col-span-1">
               <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">About</h4>

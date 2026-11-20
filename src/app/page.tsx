@@ -20,8 +20,9 @@ import TopChoiceSection from '@/sections/TopChoiceSection';
 import VaultSection from '@/sections/VaultSection';
 import TrendingSpotlight from '@/components/promo/TrendingSpotlight';
 import TiltCarousel from '@/components/promo/TiltCarousel';
+import TrendingCompactGrid from '@/components/promo/TrendingCompactGrid';
 import TallRichPopup from '@/components/promo/TallRichPopup';
-import { Sparkles, Clock, Users, Film, MonitorPlay } from 'lucide-react';
+import { Sparkles, Clock, Users, Film, MonitorPlay, Flame, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 export default function HomePage() {
@@ -89,11 +90,30 @@ export default function HomePage() {
       <LocalPicksSection />
       <CountryPicksSection />
       <TrendingCarousel />
-      <TrendingSpotlight />
+      {/* Packed trending showcase (user request: full, not sparse): 3D coverflow carousel + hero spotlight card side by side, split-card row below */}
+      <section className="py-16 bg-[#050507]">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          <div className="reveal-section flex items-center justify-between mb-8">
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#0c0c10] border border-[#D4A853]/25 shadow-sm">
+              <Flame className="w-4 h-4 text-[#D4A853]" strokeWidth={1.5} />
+              <h2 className="text-base sm:text-lg font-bold text-white tracking-tight leading-none m-0">Trending Spotlight</h2>
+            </div>
+            <Link href="/browse" aria-label="Browse all trending titles" className="flex items-center justify-center w-9 h-9 rounded-full bg-[#0c0c10] border border-white/[0.06] text-white hover:border-[#D4A853] hover:text-[#D4A853] transition-colors">
+              <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
+            </Link>
+          </div>
+          <div className="flex flex-col xl:flex-row items-center justify-center gap-10">
+            <TiltCarousel bare />
+            <TrendingSpotlight bare />
+          </div>
+          <div className="mt-14">
+            <TrendingCompactGrid offset={3} />
+          </div>
+        </div>
+      </section>
       <TopChoiceSection />
       <NowStreamingSection />
       <VaultSection />
-      <TiltCarousel />
       <UpcomingMoviesSection />
       <MoodBrowsingSection />
       <CategoriesGrid />

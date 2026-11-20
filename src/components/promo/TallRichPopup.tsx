@@ -51,6 +51,19 @@ export default function TallRichPopup() {
     return () => window.clearTimeout(timer);
   }, []);
 
+  // Manual open from the footer dock ("ts:promo:open" detail = 'tallrich') —
+  // user-initiated, so it bypasses the session gate and master switch.
+  useEffect(() => {
+    const onOpen = (e: Event) => {
+      if ((e as CustomEvent).detail !== 'tallrich') return;
+      shownRef.current = true;
+      markPromoSeen('tallrich');
+      setShow(true);
+    };
+    window.addEventListener('ts:promo:open', onOpen);
+    return () => window.removeEventListener('ts:promo:open', onOpen);
+  }, []);
+
   const close = () => {
     // Auto-close when the 15s countdown ends — seen for this session only.
     setShow(false);
@@ -114,7 +127,7 @@ export default function TallRichPopup() {
           <div className="tsv2-action-row">
             <Link href={`/movie/${movie.slug}`} className="tsv2-btn-primary">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="w-[18px] h-[18px]"><path d="M8 5v14l11-7z" /></svg>
-              Watch Now
+              {movie.trailer_youtube_id ? 'Watch Trailer' : 'Read the Review'}
             </Link>
             <Link href="/dashboard/watchlist" className="tsv2-btn-secondary" aria-label="Open watchlist">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
