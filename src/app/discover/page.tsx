@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import type { Metadata } from 'next';
+import TrendingCompactGrid from '@/components/promo/TrendingCompactGrid';
 
 export const metadata: Metadata = {
   title: 'Discover — Typescribe',
@@ -87,6 +88,8 @@ export default function DiscoverPage() {
             director Q&A. Built to surface films you would never find on your own.
           </p>
         </header>
+
+        <TrendingCompactGrid />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {FEATURES.map((f) => (

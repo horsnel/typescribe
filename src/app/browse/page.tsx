@@ -11,6 +11,7 @@ import type { MediaFormat, BrowseFilters, Movie } from '@/lib/types';
 import MovieCard from '@/components/movie/MovieCard';
 import { Button } from '@/components/ui/button';
 import { resolveImageUrl, handleImageError } from '@/lib/utils';
+import FloatingPopup from '@/components/promo/FloatingPopup';
 
 type ViewMode = 'grid' | 'list';
 
@@ -615,6 +616,7 @@ export default function BrowsePage() {
           </div>
         )}
       </div>
+      <FloatingPopup variant="compact" />
     </div>
   );
 }

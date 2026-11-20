@@ -6,6 +6,7 @@ import MovieCard from '@/components/movie/MovieCard';
 import { Button } from '@/components/ui/button';
 import type { Movie } from '@/lib/types';
 import { resolveImageUrl, handleImageError } from '@/lib/utils';
+import FloatingPopup from '@/components/promo/FloatingPopup';
 
 type GenreFilter = 'all' | string;
 
@@ -197,6 +198,7 @@ export default function TopRatedPage() {
           </>
         )}
       </div>
+      <FloatingPopup variant="final" />
     </div>
   );
 }

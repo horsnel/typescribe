@@ -6,6 +6,7 @@ import MovieCard from '@/components/movie/MovieCard';
 import { Button } from '@/components/ui/button';
 import type { Movie } from '@/lib/types';
 import { resolveImageUrl, handleImageError } from '@/lib/utils';
+import DiagonalPopup from '@/components/promo/DiagonalPopup';
 
 type MediaType = 'movie' | 'tv' | 'all';
 type TimeFilter = 'next-30' | 'next-90' | 'this-year' | 'all';
@@ -365,6 +366,7 @@ export default function UpcomingPage() {
           </div>
         )}
       </div>
+      <DiagonalPopup />
     </div>
   );
 }

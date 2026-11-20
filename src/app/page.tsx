@@ -18,6 +18,9 @@ import NewsletterCTA from '@/sections/NewsletterCTA';
 import NowStreamingSection from '@/sections/NowStreamingSection';
 import TopChoiceSection from '@/sections/TopChoiceSection';
 import VaultSection from '@/sections/VaultSection';
+import TrendingSpotlight from '@/components/promo/TrendingSpotlight';
+import TiltCarousel from '@/components/promo/TiltCarousel';
+import TallRichPopup from '@/components/promo/TallRichPopup';
 import { Sparkles, Clock, Users, Film, MonitorPlay } from 'lucide-react';
 import Link from 'next/link';
 
@@ -86,9 +89,11 @@ export default function HomePage() {
       <LocalPicksSection />
       <CountryPicksSection />
       <TrendingCarousel />
+      <TrendingSpotlight />
       <TopChoiceSection />
       <NowStreamingSection />
       <VaultSection />
+      <TiltCarousel />
       <UpcomingMoviesSection />
       <MoodBrowsingSection />
       <CategoriesGrid />
@@ -99,6 +104,7 @@ export default function HomePage() {
       <CommunityReviews />
       <NewsSection />
       <NewsletterCTA />
+      <TallRichPopup />
     </div>
   );
 }
