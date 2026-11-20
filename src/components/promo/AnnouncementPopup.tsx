@@ -37,7 +37,7 @@ export default function AnnouncementPopup({ open, onClose }: { open: boolean; on
         {/* Content triangle — mockup .diagonal-content */}
         <div className="tsa-diag-content">
           <div className="tsa-diag-title">What&apos;s New</div>
-          <div className="tsa-diag-sub">Announcements, features & platform updates</div>
+          <div className="tsa-diag-sub">Platform news & updates</div>
           <div className="tsa-diag-actions">
             <Link href="/news" className="tsa-diag-play">See What&apos;s New</Link>
             <Link href="/communities" className="tsa-diag-save" aria-label="Open communities">
